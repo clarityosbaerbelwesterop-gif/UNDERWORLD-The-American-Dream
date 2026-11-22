@@ -2,6 +2,9 @@
 
 Append-only, newest on top. `YYYY-MM-DD HH:MM (Europe/Berlin) · Bot N · Task ID · what was done · how it was verified`.
 
+## 2026-11-22 · Bot 2
+- **T-PIPE-01** (10:05 Europe/Berlin) `Tools/underworld_pipeline/` + `Tools/uwp` wrapper: validate / export / validate-all / export-all (budgets from `Config/asset_budgets.json`, naming TD-005, transforms/units/origin/front axis TD-004, geometry, UV/material/texture, skin ≤ 4 influences, humanoid bones per REQ-GP01-JASON, sockets, animations), Decimate LODs (`_LOD1/_LOD2` + `uw_visibility_range` extras + Godot post-import script), collision (`-convcolonly`/`-colonly`), GLB export, Cycles CPU preview, manifest + JSON report, Blender round-trip, exit codes 0–5. Docs in `Tools/README.md`. Verified: `Tools/underworld_pipeline/tests/run_tests.sh` → `UWP TESTS: PASS` (106 checks: Blender export + re-import, Godot 4.7.2 headless import of LODs/collision/skeleton/animations, character +Z front); `Tests/run_pipeline_smoke.sh` → `PIPELINE SMOKE TEST: PASS`; `Tools/uwp validate-all` → PASS (1 asset).
+
 ## 2026-11-22 · Bot 3
 - **2026-11-22 09:50 · T-GP-01c** Step-up for the player (step height 0.35 m, grounded stair descent via floor snap 0.4 m, no wall/ledge climbing); collision capsule → cylinder for stable stair contact; stairs, 0.5 m ledge and 0.3 m step added to `PT_PlayerTestRange`. Verified: `./Tests/run_all.sh` → RUN_ALL: PASS (gameplay 112 checks); negative check `step_height = 0` → exit 1.
 - **2026-11-22 09:50 · T-GP-01** Applied Bot 1 decisions: gamepad A = jump only, Y = interact + enter_vehicle (input map regenerated, asserted in tests); TD-010 recorded as ACCEPTED; REQ-GP01-JASON marked confirmed; facing +Z conflict marked resolved; T-GP-01b/01c added to TASK_BOARD.

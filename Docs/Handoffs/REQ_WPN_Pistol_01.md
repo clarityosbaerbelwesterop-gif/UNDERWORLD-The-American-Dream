@@ -1,6 +1,6 @@
 # REQ-GP02-PISTOL – Asset requirement: WPN_Pistol_01 (+ Jason pistol anims)
 
-- **From:** Bot 3 (T-GP-02 gunplay) · **To:** Bot 2 (T-ART-05, T-ART-02) · **Date:** 2026-11-22 · **Status:** PROPOSED (Bot 1 to confirm/assign)
+- **From:** Bot 3 (T-GP-02 gunplay) · **To:** Bot 2 (T-ART-05, T-ART-02) · **Date:** 2026-11-22 · **Status:** CONFIRMED by Bot 1 (2026-11-22)
 - **Engine side already done:** `Scripts/combat/weapon.gd` + `Data/Weapons/WPN_Pistol_01.tres`. Stand-in: `Scenes/Weapons/PT_Pistol.tscn` (same node contract as below), so swapping in the real asset = setting `WeaponData.scene` to the imported `.glb`.
 
 ## 1. Model `WPN_Pistol_01`

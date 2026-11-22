@@ -115,6 +115,7 @@ func _run_all() -> void:
 	await test_damage_body_head_falloff()
 	await test_kill_and_world_hit()
 	await test_spread_by_stance()
+	await test_bloom_rapid_fire()
 	await test_recoil_kick_and_recovery()
 	await test_socket_attach()
 	if failures.is_empty():
@@ -400,6 +401,76 @@ func test_spread_by_stance() -> void:
 	await seconds(1.5)
 	var recovered := w.get_spread_deg(ctrl.get_stance())
 	check(bloomed >= base + w.data.bloom_per_shot * 0.9 and approx(recovered, base, 0.01), "bloom %.2f -> %.2f -> recovers %.2f" % [base, bloomed, recovered])
+	await teardown()
+
+## T-GP-02a: rapid fire stacks bloom up to the cap, recovery only after bloom_recovery_delay, aimed < hip.
+func _rapid_fire(n: int) -> Array:
+	var out := []
+	for k in n:
+		var shot := await shoot()
+		out.append({"fired": not shot.is_empty(), "bloom": w.bloom, "spread": w.get_spread_deg(ctrl.get_stance())})
+		await frames(11)  # 2 (tap) + 11 = 13 frames > 12-frame fire interval at 300 rpm
+	return out
+
+func test_bloom_rapid_fire() -> void:
+	print("[GPTEST] == rapid-fire bloom: stacking, cap, recovery delay, aimed < hip (T-GP-02a)")
+	await setup(PISTOL)
+	var d := w.data
+	check(d.bloom_recovery_delay > d.get_fire_interval(), "data: recovery delay %.2f s > fire interval %.2f s (bloom can stack)" % [d.bloom_recovery_delay, d.get_fire_interval()])
+	check(d.bloom_aim_multiplier < 1.0, "data: aimed bloom multiplier %.2f < 1" % d.bloom_aim_multiplier)
+	await seconds(0.3)
+	var hip_base := w.get_spread_deg(ctrl.get_stance())
+	# Time-based clock: seconds (sum of physics deltas) since the last shot.
+	var clk := {"since": 0.0}
+	var on_shot := func(_s): clk["since"] = 0.0
+	var on_tick := func(): clk["since"] += root.get_physics_process_delta_time()
+	w.fired.connect(on_shot)
+	physics_frame.connect(on_tick)
+	var r := await _rapid_fire(8)
+	var fired := r.filter(func(x): return x["fired"]).size()
+	check(fired == 8, "8 rapid shots fired (%d)" % fired)
+	var to_cap := int(ceil(d.bloom_max / d.bloom_per_shot))  # 5
+	var grows := true
+	for k in range(1, to_cap):
+		grows = grows and approx(r[k]["bloom"] - r[k - 1]["bloom"], d.bloom_per_shot, 0.001)
+	print("[GPTEST] hip spread per shot: %s" % [r.map(func(x): return snappedf(x["spread"], 0.01))])
+	check(grows and r[to_cap - 1]["spread"] > hip_base + d.bloom_max - 0.01, "rapid fire stacks +%.1f°/shot: %.2f -> %.2f after %d shots" % [d.bloom_per_shot, hip_base, r[to_cap - 1]["spread"], to_cap])
+	var capped := true
+	for k in range(to_cap, 8):
+		capped = capped and approx(r[k]["bloom"], d.bloom_max, 0.0001) and approx(r[k]["spread"], hip_base + d.bloom_max, 0.0001)
+	check(capped, "bloom capped at %.1f°: shots %d-8 stay at %.2f°" % [d.bloom_max, to_cap + 1, hip_base + d.bloom_max])
+	var dt := root.get_physics_process_delta_time()  # tolerances below: clock vs weapon tick order differs by <= 3 frames
+	var delay := d.bloom_recovery_delay
+	var held := true
+	var held_until := 0.0
+	while clk["since"] < delay - 2.0 * dt:
+		held = held and approx(w.bloom, d.bloom_max, 0.0001)
+		held_until = clk["since"]
+		await physics_frame
+	check(held and held_until >= delay - 4.0 * dt, "no recovery during the delay: bloom stays %.1f° until %.3f s after the last shot (delay %.2f s)" % [d.bloom_max, held_until, delay])
+	while clk["since"] < delay + 0.2:
+		await physics_frame
+	var after: float = clk["since"] - delay
+	var want_b := d.bloom_max - d.bloom_recovery * after
+	check(w.bloom < d.bloom_max and approx(w.bloom, want_b, d.bloom_recovery * 3.0 * dt), "recovery starts at the delay: %.2f s later bloom %.2f° (expected %.2f° at %.0f°/s)" % [after, w.bloom, want_b, d.bloom_recovery])
+	while clk["since"] < delay + d.bloom_max / d.bloom_recovery + 2.0 * dt:
+		await physics_frame
+	check(w.bloom == 0.0 and approx(w.get_spread_deg(ctrl.get_stance()), hip_base, 0.0001), "fully recovered to %.2f° at %.2f s (delay + max / rate)" % [hip_base, clk["since"]])
+	w.fired.disconnect(on_shot)
+	physics_frame.disconnect(on_tick)
+	# Aimed: same 8 shots -> smaller spread at every shot, aimed bloom = bloom * multiplier.
+	w.ammo = d.magazine_size  # refill (8 of 12 rounds used above)
+	Input.action_press("aim")
+	await seconds(0.6)
+	var aim_base := w.get_spread_deg(ctrl.get_stance())
+	var ra := await _rapid_fire(8)
+	check(ra.filter(func(x): return x["fired"]).size() == 8, "8 aimed rapid shots fired")
+	var smaller := true
+	for k in 8:
+		smaller = smaller and ra[k]["spread"] < r[k]["spread"]
+	print("[GPTEST] aimed spread per shot: %s" % [ra.map(func(x): return snappedf(x["spread"], 0.01))])
+	check(smaller, "aimed spread < hip spread at every shot (aim cap %.2f vs hip cap %.2f)" % [ra[7]["spread"], r[7]["spread"]])
+	check(approx(ra[7]["spread"] - aim_base, d.bloom_max * d.bloom_aim_multiplier, 0.001), "aimed bloom cap = %.1f x %.1f = %.2f°" % [d.bloom_max, d.bloom_aim_multiplier, ra[7]["spread"] - aim_base])
 	await teardown()
 
 func test_recoil_kick_and_recovery() -> void:

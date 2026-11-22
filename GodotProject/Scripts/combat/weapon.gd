@@ -32,6 +32,8 @@ var is_reloading := false
 var reload_left := 0.0
 var cooldown := 0.0
 var bloom := 0.0
+## Seconds until bloom starts recovering (reset by every shot).
+var bloom_delay_left := 0.0
 var shots_fired := 0
 var model: Node3D
 var muzzle: Node3D
@@ -71,6 +73,7 @@ func _apply_data() -> void:
 	is_reloading = false
 	cooldown = 0.0
 	bloom = 0.0
+	bloom_delay_left = 0.0
 	_pattern_index = 0
 	ammo_changed.emit(ammo, reserve)
 
@@ -87,7 +90,10 @@ func _physics_process(delta: float) -> void:
 	if data == null:
 		return
 	cooldown = maxf(cooldown - delta, 0.0)
-	bloom = maxf(bloom - data.bloom_recovery * delta, 0.0)
+	if bloom_delay_left > 0.0:
+		bloom_delay_left = maxf(bloom_delay_left - delta, 0.0)
+	else:
+		bloom = maxf(bloom - data.bloom_recovery * delta, 0.0)
 	if bloom <= 0.0:
 		_pattern_index = 0
 	if _flash_left > 0.0:
@@ -141,7 +147,7 @@ func get_spread_deg(stance: Dictionary) -> float:
 	s += data.spread_moving * clampf(float(stance.get("move_frac", 0.0)), 0.0, 1.5) * (0.5 if aiming else 1.0)
 	if stance.get("airborne", false):
 		s += data.spread_airborne
-	return s + bloom
+	return s + bloom * (data.bloom_aim_multiplier if aiming else 1.0)
 
 func _spread_dir(dir: Vector3, spread_deg: float) -> Vector3:
 	if spread_deg <= 0.0:
@@ -204,6 +210,7 @@ func _fire(origin: Vector3, aim_dir: Vector3, stance: Dictionary, shooter: Node,
 				end = hit2.position
 	var kick := _next_kick(stance.get("aiming", false))
 	bloom = minf(bloom + data.bloom_per_shot, data.bloom_max)
+	bloom_delay_left = data.bloom_recovery_delay
 	var shot := {"origin": origin, "direction": dir, "end": end, "spread_deg": spread, "kick_deg": kick,
 		"hit": not hit.is_empty(), "collider": hit.get("collider"), "damage": null}
 	if not hit.is_empty():

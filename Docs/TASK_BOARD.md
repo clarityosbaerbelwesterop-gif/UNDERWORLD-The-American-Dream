@@ -25,7 +25,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-GP-01 | P0 | Bot 3 | Third-person controller + camera | T-PIPE-00 | READY FOR REVIEW |
 | T-GP-01b | P2 | Bot 3 | Vault-lite (low obstacles) | T-GP-01, T-ART-02 | BACKLOG |
 | T-GP-01c | P1 | Bot 3 | Stairs / step-up for the player | T-GP-01 | READY FOR REVIEW |
-| T-GP-02 | P1 | Bot 3 | Gunplay (pistol) | T-GP-01 | BACKLOG |
+| T-GP-02 | P1 | Bot 3 | Gunplay (pistol) | T-GP-01 | IN PROGRESS |
 | T-GP-03 | P1 | Bot 3 | Vehicle physics + enter/exit | T-GP-01 | BACKLOG |
 | T-AI-01 | P1 | Bot 3 | Enemy AI (cartel gunmen) | T-GP-02 | BACKLOG |
 | T-AI-02 | P2 | Bot 3 | Civilian NPC behaviour | T-GP-01 | BACKLOG |
@@ -152,7 +152,7 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Known limits:** step-up only while grounded (not mid-air ledge grab = T-GP-01b); stairs steeper than 0.35 m rise need a collision ramp; camera smooths the vertical pivot so steps don't jolt (visual feel unverified without GPU, B-003).
 
 ### T-GP-02 – Gunplay (pistol)
-- **Agent:** Bot 3 · **Deps:** T-GP-01 · **Status:** BACKLOG
+- **Agent:** Bot 3 · **Deps:** T-GP-01 · **Status:** IN PROGRESS (2026-11-22, Bot 3, branch `bot3/t-gp-02`)
 - **Description:** weapon resource (`WeaponData.tres`: damage, RPM, mag 12, reload 1.6 s, spread, recoil pattern), hitscan from camera with muzzle correction, recoil + camera kick, hit markers, damage/health component, ragdoll-lite hit reaction, muzzle flash + impact decals (placeholder FX OK).
 - **Acceptance:** headless test: 12 shots then reload; damage applied to a dummy target; no fire during reload.
 

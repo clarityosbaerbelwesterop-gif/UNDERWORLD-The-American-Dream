@@ -1,0 +1,146 @@
+{
+  "_doc": "Tool defaults for the UNDERWORLD pipeline (owner Bot 2). Budgets come from Config/asset_budgets.json (owner Bot 1); keys here are only used where the budgets file defines nothing. If Config/asset_budgets.json later gets the same keys (lods, collision, max_materials, hero_categories) they override these.",
+  "hero_categories": [
+    "Characters",
+    "Vehicles",
+    "Weapons"
+  ],
+  "max_materials": {
+    "default": 8,
+    "Characters": 10,
+    "Vehicles": 12
+  },
+  "lods": {
+    "default": {
+      "ratios": [
+        0.5,
+        0.25
+      ],
+      "distances_m": [
+        20,
+        50,
+        150
+      ]
+    },
+    "Props": {
+      "ratios": [
+        0.5,
+        0.25
+      ],
+      "distances_m": [
+        15,
+        40,
+        100
+      ]
+    },
+    "Weapons": {
+      "ratios": [
+        0.5,
+        0.25
+      ],
+      "distances_m": [
+        10,
+        30,
+        80
+      ]
+    },
+    "Vehicles": {
+      "ratios": [
+        0.5,
+        0.2
+      ],
+      "distances_m": [
+        25,
+        60,
+        200
+      ]
+    },
+    "Environment": {
+      "ratios": [
+        0.5,
+        0.25
+      ],
+      "distances_m": [
+        40,
+        100,
+        300
+      ]
+    },
+    "Characters": {
+      "ratios": [],
+      "distances_m": []
+    },
+    "Test": {
+      "ratios": [
+        0.5,
+        0.25
+      ],
+      "distances_m": [
+        20,
+        50,
+        150
+      ]
+    }
+  },
+  "lod_min_triangles": 64,
+  "collision": {
+    "default": "convex",
+    "Characters": "none",
+    "Environment": "trimesh",
+    "Test": "convex"
+  },
+  "convex_max_vertices": 64,
+  "tolerances": {
+    "ground_m": 0.01,
+    "centre_m": 0.05,
+    "centre_rel": 0.05,
+    "height_m": 0.02
+  },
+  "humanoid_required_bones": [
+    "Hips",
+    "Spine",
+    "Chest",
+    "UpperChest",
+    "Neck",
+    "Head",
+    "LeftShoulder",
+    "LeftUpperArm",
+    "LeftLowerArm",
+    "LeftHand",
+    "RightShoulder",
+    "RightUpperArm",
+    "RightLowerArm",
+    "RightHand",
+    "LeftUpperLeg",
+    "LeftLowerLeg",
+    "LeftFoot",
+    "LeftToes",
+    "RightUpperLeg",
+    "RightLowerLeg",
+    "RightFoot",
+    "RightToes"
+  ],
+  "humanoid_optional_bones": [
+    "Root",
+    "LeftEye",
+    "RightEye",
+    "Jaw",
+    "LeftThumbMetacarpal",
+    "LeftIndexProximal",
+    "RightThumbMetacarpal",
+    "RightIndexProximal"
+  ],
+  "export_all_skip_in_repo": {
+    "Blender/Source/Test/PT_PipelineTest_Crate.blend": "output Assets/Test/PT_PipelineTest_Crate.glb is owned by Tools/blender_export.py + Tests/run_pipeline_smoke.sh (expects exactly 2 meshes, no LOD nodes); validate-all still checks it"
+  },
+  "preview": {
+    "resolution": 320,
+    "samples": 16
+  },
+  "_humanoid_doc": "Required list = Docs/Handoffs/REQ_SK_Jason_Controller.md \u00a73 (Bot 3, REQ-GP01-JASON) = T-ART-01 list.",
+  "required_sockets": {
+    "Characters/SK_Jason": {
+      "SOCKET_RightHand_Weapon": "RightHand"
+    }
+  }
+}

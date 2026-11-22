@@ -31,6 +31,8 @@ EXPECTED_DIMS = (1.0, 1.0, 1.0)  # metres, Blender X/Y/Z of the crate body
 def parse_args():
     argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
     p = argparse.ArgumentParser()
+    p.add_argument("--save-blend", action="store_true",
+                   help="also (re)write the .blend source (not deterministic; off for smoke tests)")
     p.add_argument("--repo", default=os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
     return p.parse_args(argv)
 
@@ -130,7 +132,8 @@ def main():
             print("[PIPELINE][ERROR]", e)
         return 1
 
-    bpy.ops.wm.save_as_mainfile(filepath=blend)
+    if args.save_blend or not os.path.isfile(blend):
+        bpy.ops.wm.save_as_mainfile(filepath=blend)
     bpy.ops.export_scene.gltf(
         filepath=glb,
         export_format="GLB",

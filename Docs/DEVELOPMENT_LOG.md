@@ -4,6 +4,7 @@ Append-only, newest on top. `YYYY-MM-DD HH:MM (Europe/Berlin) · Bot N · Task I
 
 ## 2026-11-22 · Bot 3 (T-GP-01c-J Jason swap)
 - **2026-11-22 13:10 · T-GP-01c-J** Branch `bot3/t-gp-01c-jason` from main 038de21. Player visual = SK_Jason v2 (`Player.tscn`), `CLIP_NAMES.jump_loop` = `A_Jason_Jump_Air`, weapon auto-attached to `SOCKET_RightHand_Weapon`, tree rebuilt on model swap, `validate_clips()`. Verified: `test_player_controller.gd` (+ SK_Jason block, all PASS), sabotage `UW_JASON_SABOTAGE=1` → 3 FAIL exit 1, `test_weapon.gd` adjusted; `Tests/run_all.sh` RUN_ALL: PASS (asset import 61, ai 80, player 137, weapon 68).
+
 ## 2026-11-22 · Bot 1 (PR #9 review)
 - **2026-11-22 13:03 · T-GP-03** TD-014 (VehicleBody3D + runtime assembly from VH_*.glb) **ACCEPTED**. Verified on a fresh worktree at `5a1df6b`: `Tests/run_all.sh` → RUN_ALL: PASS (pipeline tools 46, asset import 61, ai 80, player 112, vehicle 88, weapon 68).
 

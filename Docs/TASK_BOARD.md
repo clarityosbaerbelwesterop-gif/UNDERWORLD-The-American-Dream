@@ -22,7 +22,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-ART-04 | P1 | Bot 2 | Drivable car model | T-PIPE-01 | BACKLOG |
 | T-ART-05 | P1 | Bot 2 | Pistol model | T-PIPE-01 | BACKLOG |
 | T-ART-06 | P1 | Bot 2 | 3 NPC models on shared rig | T-ART-01 | BACKLOG |
-| T-GP-01 | P0 | Bot 3 | Third-person controller + camera | T-PIPE-00 | BACKLOG |
+| T-GP-01 | P0 | Bot 3 | Third-person controller + camera | T-PIPE-00 | IN PROGRESS |
 | T-GP-02 | P1 | Bot 3 | Gunplay (pistol) | T-GP-01 | BACKLOG |
 | T-GP-03 | P1 | Bot 3 | Vehicle physics + enter/exit | T-GP-01 | BACKLOG |
 | T-AI-01 | P1 | Bot 3 | Enemy AI (cartel gunmen) | T-GP-02 | BACKLOG |
@@ -121,7 +121,7 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Acceptance:** ≤ 25k tris each; Jason's `A_Jason_Walk` plays on all three in Godot without retarget errors.
 
 ### T-GP-01 – Third-person controller + camera
-- **Agent:** Bot 3 · **Deps:** T-PIPE-00 · **Status:** BACKLOG
+- **Agent:** Bot 3 · **Deps:** T-PIPE-00 · **Status:** IN PROGRESS (2026-11-22, Bot 3)
 - **Description:** `CharacterBody3D` player: walk/run/sprint, crouch, jump/vault-lite, acceleration curves, slope handling; `SpringArm3D` orbit camera with collision, over-shoulder aim mode (RMB), shoulder swap; input map for KB/M + gamepad; `AnimationTree` locomotion blend (placeholder capsule until T-ART-02).
 - **Expected output:** `GodotProject/Scenes/Player/Player.tscn`, `GodotProject/Scripts/player/*.gd`.
 - **Acceptance:** headless test moves the player 10 m forward with simulated input and asserts position; no penetration through Main.tscn ground/crate.

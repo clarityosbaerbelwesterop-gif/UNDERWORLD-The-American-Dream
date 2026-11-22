@@ -1,6 +1,6 @@
 # Asset Registry
 
-Every exported asset gets one row (Bot 2 adds rows; Bot 3 fills "Godot import"). Status: PLACEHOLDER / WIP / READY FOR REVIEW / FINAL.
+Every exported asset gets one row (Bot 2 adds rows; Bot 3 fills "Godot import"). Status: PLACEHOLDER / WIP / READY FOR REVIEW / PRODUCTION-READY. `PRODUCTION-READY` is allowed only after a passed Quality Gate (`Docs/QUALITY_GATE.md`): independent Bot 1 art review + Bot 3 engine review, all applicable scores ≥ 4, Phases 1–8 done. Do not use FINAL. First reviews (2026-11-22): all current hero assets were **REJECT**ed — see `Docs/Reviews/`.
 
 | Asset | Category | Source .blend | Export | Owner | Tris | Dims (m, Godot X×Y×Z) | Pivot | Special nodes / sockets | Godot import | Status |
 |---|---|---|---|---|---|---|---|---|---|---|

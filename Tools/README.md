@@ -3,14 +3,16 @@
 | Script | Purpose | Run |
 |---|---|---|
 | `uwp` → `underworld_pipeline/` | **Production asset pipeline (T-PIPE-01).** Validate → LODs → collision → `.glb` → Cycles-CPU preview → manifest → round-trip verify, JSON report + exit codes. | `Tools/uwp export Blender/Source/<Cat>/<Name>/<Name>.blend` |
+| `uwp review-sheet` | Quality-gate reference-vs-render contact sheet (system Python / Pillow; does **not** boot Blender). | `Tools/uwp review-sheet SK_Jason [--ref …] [--renders …] [--out …]` |
+| `godot_phase8_capture.sh` | Phase 8 in-engine screenshot on this no-GPU box (xvfb + Mesa llvmpipe, OpenGL compatibility). Lighting will not match shipping Forward Plus. | `Tools/godot_phase8_capture.sh --path GodotProject --scene res://Scenes/Main.tscn` |
 | `blender_export.py` | **Pipeline smoke test exporter** (T-PIPE-00, kept unchanged). Builds `PT_PipelineTest_Crate`, exports `Assets/Test/*.glb`. Used by `Tests/run_pipeline_smoke.sh`. | `/workspace/tools/blender/blender -b --factory-startup --python-exit-code 1 --python Tools/blender_export.py -- --repo .` |
 
 `Tools/build/` is reserved for Bot 3 build scripts (T-BUILD-01).
 
 ## underworld_pipeline – usage
 
-Runs headless inside Blender 5.2.4 (`/workspace/tools/blender/blender`, override with `BLENDER=`). `Tools/uwp` is a thin wrapper for
-`blender -b --factory-startup --python Tools/underworld_pipeline/cli.py -- <args>`.
+Most commands run headless inside Blender 5.2.4 (`/workspace/tools/blender/blender`, override with `BLENDER=`). `Tools/uwp` is a thin wrapper for
+`blender -b --factory-startup --python Tools/underworld_pipeline/cli.py -- <args>`, except `review-sheet`, which runs system `python3` and Pillow.
 
 ```bash
 Tools/uwp validate <file.blend> [--category C] [--budget-key K] [--strict] [--report r.json]
@@ -19,6 +21,7 @@ Tools/uwp export   <file.blend> [--out x.glb] [--category C] [--budget-key K] [-
                    [--force-collision] [--no-preview] [--no-verify] [--report r.json]
 Tools/uwp validate-all [--source-root DIR] [--report summary.json]
 Tools/uwp export-all   [--source-root DIR] [--out-root DIR] [...export options] [--report summary.json]
+Tools/uwp review-sheet <asset> [--ref IMG …] [--renders IMG …] [--out PNG] [--title TEXT]
 Tools/underworld_pipeline/tests/run_tests.sh [--no-godot]     # end-to-end test (writes only to /tmp/uwp_test)
 ```
 

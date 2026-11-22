@@ -66,3 +66,12 @@ Textures live next to the .blend in `textures/` and are embedded in the .glb (or
 
 ## TD-009 – Performance budgets (initial, revise after first GPU test)
 Jason ≤ 40k tris, NPC ≤ 25k, car ≤ 60k (LOD0), pistol ≤ 8k, street-kit modules ≤ 10k each; textures 2048² max (hero), 1024² default; 60 fps target on mid-range GPU.
+
+## TD-010 – PROPOSED (Bot 3, 2026-11-22): gameplay conventions from T-GP-01
+**Status: PROPOSED – Bot 1 to decide.**
+1. **Physics layers** (named in `project.godot`): 1 `World`, 2 `Player`, 3 `Characters` (NPC/enemy bodies), 4 `Vehicles`, 5 `Hitboxes`. Player collides with 1|3|4; camera spring arm with 1|4; aim ray with 1|3|4|5. Bot 2 collision proxies (`-col`/`-colonly`) land on layer 1 by default – no change needed.
+2. **Input map source of truth:** `GodotProject/Scripts/tools/setup_input_map.gd` (rewrites only `[input]` + `[layer_names]` in `project.godot`). Actions: `move_*`, `look_*`, `sprint`, `walk`, `crouch`, `jump`, `aim`, `fire`, `reload`, `interact`, `enter_vehicle`, `shoulder_swap`, `pause`.
+3. **Gamepad conflict in GDD §5:** "E/A interact" and "Space/A jump" both use gamepad A. Options: (a) A = jump, interact on D-pad Right; (b) context-sensitive A (interact when a prompt is shown, else jump); (c) interact = Y shared with enter vehicle (both are "use"). **Recommendation: (c)** – one "use" button for pickups and cars, A stays jump. Currently `interact` is bound to E only.
+4. **Gameplay tests:** `GodotProject/Tests/test_*.gd` (SceneTree scripts, `[GPTEST]` output) run by `Tests/run_gameplay_tests.sh` with `--fixed-fps 60`; `Tests/run_all.sh` = pipeline smoke + gameplay, to be the merge gate (T-QA-01).
+5. **Vault-lite** (T-GP-01 description) split into a follow-up task (proposed T-GP-01b, P2) – needs ledge/height probing + a vault animation from Bot 2.
+

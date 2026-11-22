@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Scripts/combat/weapon_data.gd" id="1_wd"]
+[ext_resource type="PackedScene" path="res://Scenes/Weapons/PT_Pistol.tscn" id="2_model"]
+
+; WPN_Pistol_01 - M01 sidearm (T-GP-02).
+; [DOC]     magazine_size 12 (GAME_DESIGN §5), reload_time 1.6 s (TASK_BOARD T-GP-02), hitscan.
+; [DEFAULT] everything else = Bot 3 placeholder tuning, see TASK_BOARD T-GP-02 "Tuning defaults".
+; scene = PT_ stand-in until Bot 2 delivers Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01.glb (REQ_WPN_Pistol_01).
+[resource]
+script = ExtResource("1_wd")
+id = "WPN_Pistol_01"
+display_name = "Pistol"
+scene = ExtResource("2_model")
+fire_mode = 0
+rpm = 300.0
+max_range = 150.0
+damage = 25.0
+headshot_multiplier = 2.0
+limb_multiplier = 0.75
+falloff_start = 15.0
+falloff_end = 40.0
+falloff_min_multiplier = 0.5
+magazine_size = 12
+reserve_ammo = 60
+reload_time = 1.6
+reload_interruptible = true
+auto_reload_on_empty = true
+spread_hip = 2.0
+spread_aim = 0.6
+crouch_multiplier = 0.7
+spread_moving = 2.5
+spread_airborne = 5.0
+bloom_per_shot = 0.8
+bloom_max = 4.0
+bloom_recovery = 6.0
+recoil_pitch = 2.2
+recoil_yaw = 0.6
+recoil_aim_multiplier = 0.7
+recoil_recovery = 8.0

@@ -2,6 +2,11 @@
 
 Every Blender→Godot integration (or engine-side change to an asset) gets an entry. Newest on top. Times Europe/Berlin.
 
+## 2026-11-22 10:10 – PT pistol stand-in on the player hand socket (Bot 3, T-GP-02)
+- No Bot 2 asset integrated: `Scenes/Weapons/PT_Pistol.tscn` (Godot primitives, PT_ prefix) mirrors the REQ-GP02-PISTOL node contract (origin at grip, barrel +Z, `Magazine`, `SOCKET_Muzzle`, `SOCKET_Eject`).
+- Integration point: `WPN_Pistol_01.tres` → `scene = res://Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01.glb`; the weapon follows `Visual/PT_SOCKET_RightHand_Weapon` now and `SOCKET_RightHand_Weapon` of SK_Jason once `PlayerWeaponController.attach_to_model_socket()` runs (verified headless with a dummy model).
+- Result: **PASS** (headless; no GPU visual check).
+
 ## 2026-11-22 09:59 – Bot 2 pipeline exports → Godot import preset (Bot 3, T-PIPE-02)
 - Assets: Bot 2's procedural test assets `PT_UWP_Barrel` (Props, 2 meshes × LOD0–2, convex collision), `PT_UWP_RigTest` (3-bone rig, 2 actions), `PT_UWP_Humanoid` (22 profile bones), exported with `Tools/uwp export --no-preview` into `GodotProject/Tests/_generated/` (gitignored, test-only).
 - Import: Godot 4.7.2 headless, fresh `.import` sidecars pick up `import_script/path=res://Scripts/import/uw_post_import.gd` from `[importer_defaults]`; 0 import errors; `[UW-IMPORT]` log: barrel lod_nodes=6, rig loops_set=2.

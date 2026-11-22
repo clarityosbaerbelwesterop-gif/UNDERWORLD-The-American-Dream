@@ -25,7 +25,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-GP-01 | P0 | Bot 3 | Third-person controller + camera | T-PIPE-00 | READY FOR REVIEW |
 | T-GP-01b | P2 | Bot 3 | Vault-lite (low obstacles) | T-GP-01, T-ART-02 | BACKLOG |
 | T-GP-01c | P1 | Bot 3 | Stairs / step-up for the player | T-GP-01 | READY FOR REVIEW |
-| T-GP-02 | P1 | Bot 3 | Gunplay (pistol) | T-GP-01 | IN PROGRESS |
+| T-GP-02 | P1 | Bot 3 | Gunplay (pistol) | T-GP-01 | READY FOR REVIEW |
 | T-GP-03 | P1 | Bot 3 | Vehicle physics + enter/exit | T-GP-01 | BACKLOG |
 | T-AI-01 | P1 | Bot 3 | Enemy AI (cartel gunmen) | T-GP-02 | BACKLOG |
 | T-AI-02 | P2 | Bot 3 | Civilian NPC behaviour | T-GP-01 | BACKLOG |
@@ -152,9 +152,14 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Known limits:** step-up only while grounded (not mid-air ledge grab = T-GP-01b); stairs steeper than 0.35 m rise need a collision ramp; camera smooths the vertical pivot so steps don't jolt (visual feel unverified without GPU, B-003).
 
 ### T-GP-02 – Gunplay (pistol)
-- **Agent:** Bot 3 · **Deps:** T-GP-01 · **Status:** IN PROGRESS (2026-11-22, Bot 3, branch `bot3/t-gp-02`)
+- **Agent:** Bot 3 · **Deps:** T-GP-01 · **Status:** READY FOR REVIEW (2026-11-22, Bot 3, branch `bot3/t-gp-02`)
 - **Description:** weapon resource (`WeaponData.tres`: damage, RPM, mag 12, reload 1.6 s, spread, recoil pattern), hitscan from camera with muzzle correction, recoil + camera kick, hit markers, damage/health component, ragdoll-lite hit reaction, muzzle flash + impact decals (placeholder FX OK).
 - **Acceptance:** headless test: 12 shots then reload; damage applied to a dummy target; no fire during reload.
+- **Delivered (Bot 3, 2026-11-22):** `Scripts/combat/` (`WeaponData` resource, `Weapon`, `PlayerWeaponController`, `DamageReceiver`, `Hitbox` (layer 5, zones BODY/HEAD/LIMB), `DamageInfo`, `TargetDummy`); `Data/Weapons/WPN_Pistol_01.tres`; stand-in `Scenes/Weapons/PT_Pistol.tscn` on `Visual/PT_SOCKET_RightHand_Weapon` (moves to the model's `SOCKET_RightHand_Weapon` via `attach_to_model_socket()`); camera recoil kick + exponential recovery in `CameraRig`; hitscan along the crosshair ray (mask World|Vehicles|Hitboxes) + muzzle-line correction; spread cone (aim/hip, crouch, moving, airborne, bloom); hitmarker signal + data, pooled PT impact decals (32), muzzle flash; target dummies + backstop in `PT_PlayerTestRange` (lane at x≈25).
+- **Verified:** `GodotProject/Tests/test_weapon.gd` (57 checks): ammo, semi/auto fire rate, empty mag → auto-reload (1.6 s), no fire during empty reload, interruptible reload (fire with rounds left / sprint), dry fire, body 25 / head 50 / leg 18.75 dmg, falloff at 35 m, kill + world hit, spread ordering + bloom, recoil kick + recovery, other `.tres` changes behaviour, socket re-attach. Negative check (falloff disabled + cooldown removed) → 7 failures, exit 1.
+- **Tuning defaults (not in GDD/M01 – Bot 1 to confirm):** RPM 300 (semi), damage 25, head ×2.0, limb ×0.75, falloff 15→40 m down to ×0.5, reserve 60, spread hip 2.0° / aim 0.6°, crouch ×0.7, moving +2.5° (half when aiming), airborne +5°, bloom +0.8°/shot (max 4°, recovers 6°/s – note: at 300 RPM bloom never stacks, raise per-shot or lower recovery if stacking is wanted), recoil 2.2° up / ±0.6° yaw, aim ×0.7, recovery 8/s; reload interruptible by firing (rounds left) and by sprint, no fire while sprinting; dummy 100 HP. Values marked `[DEFAULT]` in the `.tres`.
+- **Not in this task:** ragdoll-lite hit reaction (only death tilt on the PT dummy); hitboxes on SK_Jason/NPCs (with T-AI-01); HUD crosshair/ammo/hitmarker visuals (T-UI-01).
+- **Asset requirement for Bot 2 – REQ-GP02-PISTOL:** `Docs/Handoffs/REQ_WPN_Pistol_01.md` (extends T-ART-05 + T-ART-02): `WPN_Pistol_01.glb` + manifest, ~0.19 m, origin at grip, barrel +Z, separate `Slide` + `Magazine` nodes, `SOCKET_Muzzle/Eject/Grip`, ≤ 8k tris, LOD1/2 via uwp, weapon clips Fire/Reload (1.6 s)/Empty, Jason clips Shoot_Pistol (0.25 s), Reload_Pistol (1.6 s, mag-out/in frames in manifest), Hip_Pistol_Idle. **PROPOSED – Bot 1 to confirm and assign.**
 
 ### T-GP-03 – Vehicle physics + enter/exit
 - **Agent:** Bot 3 · **Deps:** T-GP-01 · **Status:** BACKLOG

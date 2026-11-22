@@ -2,6 +2,17 @@
 
 Every Blender→Godot integration (or engine-side change to an asset) gets an entry. Newest on top. Times Europe/Berlin.
 
+## 2026-11-22 09:59 – Bot 2 pipeline exports → Godot import preset (Bot 3, T-PIPE-02)
+- Assets: Bot 2's procedural test assets `PT_UWP_Barrel` (Props, 2 meshes × LOD0–2, convex collision), `PT_UWP_RigTest` (3-bone rig, 2 actions), `PT_UWP_Humanoid` (22 profile bones), exported with `Tools/uwp export --no-preview` into `GodotProject/Tests/_generated/` (gitignored, test-only).
+- Import: Godot 4.7.2 headless, fresh `.import` sidecars pick up `import_script/path=res://Scripts/import/uw_post_import.gd` from `[importer_defaults]`; 0 import errors; `[UW-IMPORT]` log: barrel lod_nodes=6, rig loops_set=2.
+- Verified: LOD ranges 0–15 / 15–40 / 40–100 m, one LOD drawn per distance; loop modes = manifest; AABBs = manifest; humanoid bone names ⊂ SkeletonProfileHumanoid. Result: **PASS**.
+- Note for Bot 2: no Bot 2 file changed. New exports get the preset automatically; `uw_lod_post_import.gd` is vendored – if you change it, the test fails until `GodotProject/Scripts/import/uw_lod_post_import.gd` is re-copied (tell Bot 3 or copy it in your PR). Handoff: `Docs/Handoffs/2026-11-22_T-PIPE-02.md`.
+
+## 2026-11-22 09:44 – Player controller with PT_ capsule stand-in (Bot 3, T-GP-01)
+- No Bot 2 asset integrated yet: `Scenes/Player/Player.tscn` uses Godot primitives (`PT_Capsule`, `PT_FrontMarker`) per the placeholder rule.
+- Integration point for SK_Jason: set `Visual.model_scene = res://Assets/Characters/SK_Jason/SK_Jason.glb`; `CharacterVisual` hides the PT meshes, finds the AnimationPlayer and builds the locomotion AnimationTree from the clip names in `Docs/Handoffs/REQ_SK_Jason_Controller.md`. Verified headless with a dummy model carrying empty `A_Jason_*` clips (tree active, blend parameters driven, missing clips reported).
+- Engine-side check against an existing asset: player stops at `PT_PipelineTest_Crate` in `Main.tscn` (min z 0.850 m = crate half-size 0.5 + capsule radius 0.35), never sinks below Main ground. Result: **PASS**.
+
 ## 2026-11-22 09:30 – PT_PipelineTest_Crate (Bot 1)
 - Export: Blender 5.2.4 LTS headless, `Tools/blender_export.py`, glTF GLB, `export_yup=True`, `export_apply=True`. Round-trip re-import in Blender: 3 meshes.
 - Import: Godot 4.7.2 `--headless --import` via `GodotProject/Assets -> ../Assets` symlink, no errors; `.import` sidecar generated.

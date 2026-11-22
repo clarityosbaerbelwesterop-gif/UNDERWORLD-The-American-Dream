@@ -14,15 +14,17 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-PIPE-00 | P0 | Bot 1 | Pipeline smoke test baseline | T-BOOT-01/02 | COMPLETED |
 | T-DES-01 | P1 | Bot 1 | Mission M01 design doc | T-BOOT-03 | READY FOR REVIEW |
 | T-DES-02 | P1 | Bot 1 | Art direction + LA street layout brief | T-BOOT-03 | IN PROGRESS |
-| T-PIPE-01 | P0 | Bot 2 | Production Blender export/validation tool | T-PIPE-00 | READY FOR REVIEW |
-| T-PIPE-02 | P0 | Bot 3 | Godot import presets + per-asset import tests | T-PIPE-01 | BACKLOG |
+| T-PIPE-01 | P0 | Bot 2 | Production Blender export/validation tool | T-PIPE-00 | COMPLETED |
+| T-PIPE-02 | P0 | Bot 3 | Godot import presets + per-asset import tests | T-PIPE-01 | READY FOR REVIEW |
 | T-ART-01 | P1 | Bot 2 | Jason model + rig + skin | T-PIPE-01 | BACKLOG |
 | T-ART-02 | P1 | Bot 2 | Jason animation set | T-ART-01 | BACKLOG |
 | T-ART-03 | P1 | Bot 2 | LA street environment kit | T-PIPE-01, T-DES-02 | BACKLOG |
 | T-ART-04 | P1 | Bot 2 | Drivable car model | T-PIPE-01 | BACKLOG |
 | T-ART-05 | P1 | Bot 2 | Pistol model | T-PIPE-01 | BACKLOG |
 | T-ART-06 | P1 | Bot 2 | 3 NPC models on shared rig | T-ART-01 | BACKLOG |
-| T-GP-01 | P0 | Bot 3 | Third-person controller + camera | T-PIPE-00 | BACKLOG |
+| T-GP-01 | P0 | Bot 3 | Third-person controller + camera | T-PIPE-00 | READY FOR REVIEW |
+| T-GP-01b | P2 | Bot 3 | Vault-lite (low obstacles) | T-GP-01, T-ART-02 | BACKLOG |
+| T-GP-01c | P1 | Bot 3 | Stairs / step-up for the player | T-GP-01 | READY FOR REVIEW |
 | T-GP-02 | P1 | Bot 3 | Gunplay (pistol) | T-GP-01 | BACKLOG |
 | T-GP-03 | P1 | Bot 3 | Vehicle physics + enter/exit | T-GP-01 | BACKLOG |
 | T-AI-01 | P1 | Bot 3 | Enemy AI (cartel gunmen) | T-GP-02 | BACKLOG |
@@ -74,18 +76,21 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Acceptance:** Bot 2 can model the kit with exact dimensions; Bot 3 can block out the level.
 
 ### T-PIPE-01 – Production Blender export & validation tool
-- **Agent:** Bot 2 · **Deps:** T-PIPE-00 · **Status:** READY FOR REVIEW (2026-11-22, handoff `Docs/Handoffs/2026-11-22_T-PIPE-01.md`)
+- **Agent:** Bot 2 · **Deps:** T-PIPE-00 · **Status:** COMPLETED (2026-11-22, merged to `main` in 5cad0aa, reviewed by Bot 1; handoff `Docs/Handoffs/2026-11-22_T-PIPE-01.md`)
 - **Description:** Turn `Tools/blender_export.py` into a reusable package `Tools/underworld_pipeline/` (CLI: `export <blend>`/`export-all`). Steps: validate (naming TD-005, applied transforms, UVs, materials, tri budget TD-009, non-manifold check), generate LODs (Decimate → `_LOD1/_LOD2`), collision (`UCX_`/Godot hints), export .glb (+ optional FBX), write `.manifest.json`, Cycles-CPU preview render PNG (`Assets/<...>/<Name>_preview.png`).
 - **Expected output:** `Tools/underworld_pipeline/*.py`, docs in `Tools/README.md`, smoke test still passing.
 - **File ownership:** Bot 2 (`Tools/`, `Blender/Scripts/`).
 - **Acceptance:** runs headless on all assets in `Blender/Source/`, fails non-zero on any validation error; preview PNG produced; `Tests/run_pipeline_smoke.sh` PASS.
 
 ### T-PIPE-02 – Godot import presets + per-asset import tests
-- **Agent:** Bot 3 · **Deps:** T-PIPE-01 · **Status:** BACKLOG
+- **Agent:** Bot 3 · **Deps:** T-PIPE-01 · **Status:** READY FOR REVIEW (2026-11-22, Bot 3, branch `bot3/t-pipe-02`, PR #2)
 - **Description:** import settings per category (characters: `SkeletonProfileHumanoid` retarget, animation loop flags; vehicles: keep wheel nodes; env: generate LODs/shadow meshes), test that loads every .glb listed in `ASSET_REGISTRY.md` and checks manifest dims vs. Godot AABB.
 - **Expected output:** `GodotProject/Tests/test_assets.gd`, wired into `Tests/run_all.sh`.
 - **File ownership:** Bot 3 (`.import` changes need a handoff note to Bot 2).
 - **Acceptance:** test PASS for all registered assets, zero import errors.
+- **Delivered:** project-wide scene import preset `[importer_defaults] scene/import_script/path = res://Scripts/import/uw_post_import.gd` in `project.godot` (applies to every **new** .glb import). `uw_post_import.gd` = (1) Bot 2's `uw_lod_post_import.gd` LOD visibility ranges (vendored byte-identical as `Scripts/import/uw_lod_post_import.gd`, drift-checked), (2) animation loop modes from `<Name>.manifest.json` `animations[].loop`, (3) summary meta `uw_post_import` on the scene root. Tests: `GodotProject/Tests/Import/test_assets.gd` + `Tests/run_asset_import_tests.sh` (exports Bot 2's procedural test assets with `Tools/uwp` into gitignored `GodotProject/Tests/_generated/`, imports, asserts). `Tests/run_all.sh` now = smoke + Bot 2's `Tools/underworld_pipeline/tests/run_tests.sh` (private scratch dir) + asset import + gameplay.
+- **Verified:** `./Tests/run_all.sh` (clean `.godot/`) → smoke PASS, UWP TESTS PASS (106), ASSET IMPORT TESTS PASS (38), GAMEPLAY PASS (112), `RUN_ALL: PASS`. Barrel: preset applied to fresh `.import`, 6 LOD nodes ranged (LOD0 0–15 m, LOD1 15–40 m, LOD2 40–100 m), exactly one LOD drawn at every sampled distance 0–400 m, only LOD0 at 0 m; **control** copy imported without the script draws all 3 LODs at 0 m (proves the test catches the bug). RigTest: `A_..._Bend` LOOP_LINEAR / `A_..._Twist` LOOP_NONE = manifest, lengths = `duration_s`. Humanoid: 22 bones, all `SkeletonProfileHumanoid` names. All .glb load; manifest `aabb_godot` = Godot AABB. Negative check: loop step disabled → 2 failures, exit 1.
+- **Not done / open:** characters `BoneMap`/retarget sub-resource settings (needs a real SK_Jason .import; bone names already match the profile, verified); vehicle preset (no vehicle test asset yet – Godot keeps named nodes by default); existing `PT_PipelineTest_Crate.glb.import` (Bot 2 file) keeps `import_script/path=""` – harmless (no LODs/anims), re-import or delete the sidecar to adopt the preset; exclude `Scripts/import/` + `Tests/` from game exports (T-BUILD-01).
 
 ### T-ART-01 – Jason: model, rig, skin
 - **Agent:** Bot 2 · **Deps:** T-PIPE-01 · **Status:** BACKLOG
@@ -121,10 +126,30 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Acceptance:** ≤ 25k tris each; Jason's `A_Jason_Walk` plays on all three in Godot without retarget errors.
 
 ### T-GP-01 – Third-person controller + camera
-- **Agent:** Bot 3 · **Deps:** T-PIPE-00 · **Status:** BACKLOG
+- **Agent:** Bot 3 · **Deps:** T-PIPE-00 · **Status:** READY FOR REVIEW (2026-11-22, Bot 3; branch `bot3/dev`, PR #1)
 - **Description:** `CharacterBody3D` player: walk/run/sprint, crouch, jump/vault-lite, acceleration curves, slope handling; `SpringArm3D` orbit camera with collision, over-shoulder aim mode (RMB), shoulder swap; input map for KB/M + gamepad; `AnimationTree` locomotion blend (placeholder capsule until T-ART-02).
 - **Expected output:** `GodotProject/Scenes/Player/Player.tscn`, `GodotProject/Scripts/player/*.gd`.
 - **Acceptance:** headless test moves the player 10 m forward with simulated input and asserts position; no penetration through Main.tscn ground/crate.
+- **Delivered (Bot 3, 2026-11-22):** `Scenes/Player/Player.tscn` (CharacterBody3D + `PT_Capsule`, `Visual`, `CameraRig`→`Pitch`→`SpringArm3D`→`Camera3D`), `Scripts/player/player_controller.gd`, `camera_rig.gd`, `character_visual.gd`, test map `Scenes/Test/PT_PlayerTestRange.tscn` (generator `Scripts/tools/build_test_range.gd`), 19 input actions KB/M + gamepad in `project.godot` (generator `Scripts/tools/setup_input_map.gd`), tests `GodotProject/Tests/test_player_controller.gd`, runners `Tests/run_gameplay_tests.sh`, `Tests/run_all.sh`.
+- **Verified:** `./Tests/run_all.sh` → `PIPELINE SMOKE TEST: PASS`, `GAMEPLAY TESTS: PASS` (94 checks, fixed 60 fps headless): scene loads, gravity + landing, 10 m forward (dz −10.31 m in 2.97 s), stops at Main.tscn PT crate (min z 0.850 = 0.5 + capsule r) without sinking, camera-relative move/strafe, walk/run/sprint 1.4/3.5/6.0 m/s, analog walk, jump apex 1.04 m, aim mode (arm 3.2→1.3 m, FOV 70→55, shoulder 0.6 m, faces aim dir, crosshair ray hits wall), shoulder swap, mouse + stick look, spring-arm wall collision, crouch under 1.4 m ceiling, 20° ramp, AnimationTree built from dummy `A_Jason_*` clips. Negative check: halving jump velocity → test exits 1.
+- **Bot 1 decisions (2026-11-22):** facing TD-004 (+Z) stands; gamepad A = jump, Y = interact + enter vehicle, keyboard E/F (TD-010 ACCEPTED, input map regenerated + asserted in tests); REQ-GP01-JASON confirmed.
+- **Note (T-GP-01c):** player collision is now a cylinder (r 0.35, h 1.8), not a capsule – see T-GP-01c, accepted as TD-011.
+- **Not done / open:** vault-lite → **T-GP-01b**; stairs/step-up → **T-GP-01c** (READY FOR REVIEW); real animation blending only verified with empty dummy clips (needs T-ART-02); camera feel/visuals unverified without GPU (B-003).
+- **Asset requirement for Bot 2 (T-ART-01/02) – REQ-GP01-JASON:** full spec in `Docs/Handoffs/REQ_SK_Jason_Controller.md`. Summary: `Assets/Characters/SK_Jason/SK_Jason.glb` with all actions; 1.82 m, origin at feet, 1 u = 1 m, Y-up, faces Godot +Z (TD-004); `SkeletonProfileHumanoid` bone names (+ `Root`, fingers recommended), T-pose, `SOCKET_RightHand_Weapon` parented to `RightHand`; **in place, no root motion**; 30 fps; P1 clips `A_Jason_Idle/Walk(1.4)/Run(3.5)/Sprint(6.0)/Crouch_Idle/Crouch_Walk(1.2)/Jump_Start/Jump_Loop/Land/Aim_Pistol_Idle/Aim_Pistol_Walk_F|B|L|R(2.0)/Shoot_Pistol(0.25 s)/Reload_Pistol(1.6 s)`; P2 `Carry_Idle/Carry_Walk, Death, Car_Enter_L/Car_Exit_L`. Extends T-ART-02 (new: crouch, jump, land, aim strafes; renames `A_Jason_Aim_Pistol` → `A_Jason_Aim_Pistol_Idle`). **CONFIRMED by Bot 1 (2026-11-22): takes priority over the older names in T-ART-02; Bot 1 assigns it to Bot 2.**
+
+### T-GP-01b – Vault-lite
+- **Agent:** Bot 3 · **Pri:** P2 · **Deps:** T-GP-01, T-ART-02 (vault animation) · **Status:** BACKLOG
+- **Description:** vault over low obstacles (~0.5–1.1 m, e.g. fences, car bonnets) with ledge/height probing; context-sensitive on jump; needs `A_Jason_Vault` from Bot 2 (to be added to REQ-GP01-JASON when scheduled).
+- **Acceptance:** headless test: 1.0 m fence is crossed with jump input, 2 m wall is not.
+
+### T-GP-01c – Stairs / step-up
+- **Agent:** Bot 3 · **Pri:** P1 · **Deps:** T-GP-01 · **Status:** READY FOR REVIEW (2026-11-22, Bot 3; branch `bot3/dev`)
+- **Description:** `CharacterBody3D` step-up for steps up to ~0.35 m, stay grounded walking down steps (no hopping), never climb walls/ledges higher than the step height; stairs + ledges in the PT test range.
+- **Expected output:** changes in `Scripts/player/player_controller.gd`, `Scenes/Test/PT_PlayerTestRange.tscn` (+ generator), tests in `GodotProject/Tests/test_player_controller.gd`.
+- **Acceptance:** headless tests: climbs a stair flight; 0.5 m ledge blocks; walking down stays grounded; `Tests/run_all.sh` PASS.
+- **Delivered:** `PlayerController._try_step_up()` (probe this frame's motion → wall-like hit → downward ray finds a walkable top ≤ `step_height` 0.35 m → head-room + clearance checks → lift; `stepped_up(height)` signal), `floor_snap_length = step_height + 0.05` for going down, player collision changed from capsule to **cylinder** (r 0.35, h 1.8; flat base rests on stair nosings – the capsule's round bottom lost floor contact on every riser; the PT visual is still a capsule). Test range: `Stairs_*` (8 × 0.2 m rise / 0.3 m tread → 1.6 m landing), `Ledge_050`, `Step_030`.
+- **Verified:** `./Tests/run_all.sh` → `RUN_ALL: PASS` (smoke 12/12, gameplay 112/112). Stairs up: 8 step-ups of ~0.2 m, y 1.60 on landing, 0 airborne frames, 0 landings, max frame-to-frame drop 0.000 m, 1.92 s; stairs down at sprint: 0 airborne frames, 0 landings; walking off the 1.6 m landing side still falls + lands; 0.3 m step climbed (1 step-up); 0.5 m ledge blocks (max y 0.000, stops at the face) but can be jumped onto; pillar wall not climbed; no step-up on flat floor; 20° ramp + crouch tunnel + Main.tscn crate tests still pass. Negative check: `step_height = 0` → 5 failures, exit 1.
+- **Known limits:** step-up only while grounded (not mid-air ledge grab = T-GP-01b); stairs steeper than 0.35 m rise need a collision ramp; camera smooths the vertical pivot so steps don't jolt (visual feel unverified without GPU, B-003).
 
 ### T-GP-02 – Gunplay (pistol)
 - **Agent:** Bot 3 · **Deps:** T-GP-01 · **Status:** BACKLOG

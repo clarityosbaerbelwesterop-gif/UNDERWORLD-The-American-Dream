@@ -17,6 +17,8 @@ enum FireMode { SEMI, AUTO }
 ## Rounds per minute (minimum time between shots = 60 / rpm).
 @export var rpm := 300.0
 @export var max_range := 150.0
+## Gunshot loudness: AI within this radius hears the shot (T-AI-01; listeners cap it with AIProfile.hearing_range).
+@export var noise_radius := 40.0
 
 @export_group("Damage")
 @export var damage := 25.0

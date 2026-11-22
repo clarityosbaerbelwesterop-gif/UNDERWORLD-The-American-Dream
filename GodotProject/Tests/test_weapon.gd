@@ -420,6 +420,12 @@ func test_bloom_rapid_fire() -> void:
 	check(d.bloom_aim_multiplier < 1.0, "data: aimed bloom multiplier %.2f < 1" % d.bloom_aim_multiplier)
 	await seconds(0.3)
 	var hip_base := w.get_spread_deg(ctrl.get_stance())
+	# Time-based clock: seconds (sum of physics deltas) since the last shot.
+	var clk := {"since": 0.0}
+	var on_shot := func(_s): clk["since"] = 0.0
+	var on_tick := func(): clk["since"] += root.get_physics_process_delta_time()
+	w.fired.connect(on_shot)
+	physics_frame.connect(on_tick)
 	var r := await _rapid_fire(8)
 	var fired := r.filter(func(x): return x["fired"]).size()
 	check(fired == 8, "8 rapid shots fired (%d)" % fired)
@@ -433,14 +439,25 @@ func test_bloom_rapid_fire() -> void:
 	for k in range(to_cap, 8):
 		capped = capped and approx(r[k]["bloom"], d.bloom_max, 0.0001) and approx(r[k]["spread"], hip_base + d.bloom_max, 0.0001)
 	check(capped, "bloom capped at %.1f°: shots %d-8 stay at %.2f°" % [d.bloom_max, to_cap + 1, hip_base + d.bloom_max])
-	# r[7] was read 2 frames after the shot; then 11 frames passed -> ~0.22 s of the 0.35 s delay used.
-	await frames(int(d.bloom_recovery_delay * HZ) - 13 - 2)
-	check(approx(w.bloom, d.bloom_max, 0.0001), "no recovery during the delay (bloom %.3f after %.2f s)" % [w.bloom, d.bloom_recovery_delay - 2.0 / HZ])
-	await seconds(0.2)
-	var b1 := w.bloom
-	check(b1 < d.bloom_max - 0.5 and b1 > 0.0, "recovery starts after the delay (bloom %.2f)" % b1)
-	await seconds(d.bloom_max / d.bloom_recovery)
-	check(w.bloom == 0.0 and approx(w.get_spread_deg(ctrl.get_stance()), hip_base, 0.0001), "fully recovered to %.2f°" % hip_base)
+	var dt := root.get_physics_process_delta_time()  # tolerances below: clock vs weapon tick order differs by <= 3 frames
+	var delay := d.bloom_recovery_delay
+	var held := true
+	var held_until := 0.0
+	while clk["since"] < delay - 2.0 * dt:
+		held = held and approx(w.bloom, d.bloom_max, 0.0001)
+		held_until = clk["since"]
+		await physics_frame
+	check(held and held_until >= delay - 4.0 * dt, "no recovery during the delay: bloom stays %.1f° until %.3f s after the last shot (delay %.2f s)" % [d.bloom_max, held_until, delay])
+	while clk["since"] < delay + 0.2:
+		await physics_frame
+	var after: float = clk["since"] - delay
+	var want_b := d.bloom_max - d.bloom_recovery * after
+	check(w.bloom < d.bloom_max and approx(w.bloom, want_b, d.bloom_recovery * 3.0 * dt), "recovery starts at the delay: %.2f s later bloom %.2f° (expected %.2f° at %.0f°/s)" % [after, w.bloom, want_b, d.bloom_recovery])
+	while clk["since"] < delay + d.bloom_max / d.bloom_recovery + 2.0 * dt:
+		await physics_frame
+	check(w.bloom == 0.0 and approx(w.get_spread_deg(ctrl.get_stance()), hip_base, 0.0001), "fully recovered to %.2f° at %.2f s (delay + max / rate)" % [hip_base, clk["since"]])
+	w.fired.disconnect(on_shot)
+	physics_frame.disconnect(on_tick)
 	# Aimed: same 8 shots -> smaller spread at every shot, aimed bloom = bloom * multiplier.
 	w.ammo = d.magazine_size  # refill (8 of 12 rounds used above)
 	Input.action_press("aim")

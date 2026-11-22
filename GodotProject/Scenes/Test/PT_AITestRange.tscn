@@ -1,0 +1,68 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Scenes/Test/PT_PlayerTestRange.tscn" id="1_ieklh"]
+[ext_resource type="Script" path="res://Scripts/ai/npc_route.gd" id="2_o7tfl"]
+[ext_resource type="PackedScene" path="res://Scenes/NPC/PT_NPC_Gunman.tscn" id="3_4g40x"]
+[ext_resource type="PackedScene" path="res://Scenes/NPC/PT_NPC_Civilian.tscn" id="4_hbwbk"]
+
+[node name="PT_AITestRange" type="Node3D" unique_id=304697006]
+
+[node name="Range" parent="." unique_id=542798776 instance=ExtResource("1_ieklh")]
+
+[node name="AI" type="Node3D" parent="." unique_id=568350646]
+
+[node name="Routes" type="Node3D" parent="AI" unique_id=1243830692]
+
+[node name="Route_A" type="Node3D" parent="AI/Routes" unique_id=465429085]
+script = ExtResource("2_o7tfl")
+
+[node name="P0" type="Marker3D" parent="AI/Routes/Route_A" unique_id=227284884]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 16)
+
+[node name="P1" type="Marker3D" parent="AI/Routes/Route_A" unique_id=427622864]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 30)
+
+[node name="P2" type="Marker3D" parent="AI/Routes/Route_A" unique_id=25211789]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 30)
+
+[node name="P3" type="Marker3D" parent="AI/Routes/Route_A" unique_id=1688932440]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 16)
+
+[node name="Route_B" type="Node3D" parent="AI/Routes" unique_id=2021258079]
+script = ExtResource("2_o7tfl")
+
+[node name="P0" type="Marker3D" parent="AI/Routes/Route_B" unique_id=894060206]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 16)
+
+[node name="P1" type="Marker3D" parent="AI/Routes/Route_B" unique_id=1568557808]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 16)
+
+[node name="P2" type="Marker3D" parent="AI/Routes/Route_B" unique_id=1756964123]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 30)
+
+[node name="P3" type="Marker3D" parent="AI/Routes/Route_B" unique_id=2002028582]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 30)
+
+[node name="Gunman_1" parent="AI" unique_id=591759463 instance=ExtResource("3_4g40x")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -3, 0, 36)
+
+[node name="Gunman_2" parent="AI" unique_id=1570364627 instance=ExtResource("3_4g40x")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3, 0, 36)
+
+[node name="Gunman_3" parent="AI" unique_id=100525846 instance=ExtResource("3_4g40x")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 37.5)
+
+[node name="Civilian_1" parent="AI" unique_id=256349360 instance=ExtResource("4_hbwbk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 16)
+route_path = NodePath("../Routes/Route_A")
+route_start_index = 1
+
+[node name="Civilian_2" parent="AI" unique_id=1820947176 instance=ExtResource("4_hbwbk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 30)
+route_path = NodePath("../Routes/Route_A")
+route_start_index = 3
+
+[node name="Civilian_3" parent="AI" unique_id=817805810 instance=ExtResource("4_hbwbk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 16)
+route_path = NodePath("../Routes/Route_B")
+route_start_index = 1

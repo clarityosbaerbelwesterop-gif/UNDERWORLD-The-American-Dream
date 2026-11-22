@@ -10,14 +10,29 @@
 #   Ledge_050  x = -28, 0.5 m block (must NOT be stepped onto)
 #   Step_030   x = -32, single 0.3 m step (must be stepped onto)
 #   Shooting lane (T-GP-02): Target_10m (27, 0, -10), Target_35m (24, 0, -35), Backstop wall z=-38.5
+#   AI arena (T-AI-01), z = +20..+40: CoverWall_A (-5, z 24), CoverWall_B (5, z 24), CoverWall_C (0, z 30),
+#              1.25 m high; CoverPoints on their +Z side (+ decoy CP_A_Front on the wrong side);
+#   PT_NavRegion  NavigationRegion3D baked here from every _box (group "navigation_geometry").
+# Second output: Scenes/Test/PT_AITestRange.tscn = this range + 3 PT gunmen + 3 PT civilians on routes.
 extends SceneTree
 
 const OUT := "res://Scenes/Test/PT_PlayerTestRange.tscn"
+const OUT_AI := "res://Scenes/Test/PT_AITestRange.tscn"
+const NAV_GROUP := "navigation_geometry"
 
 var _root: Node3D
 var _mat_cache := {}
 
-func _initialize() -> void:
+var _done := false
+
+## Built on the first frame (not in _initialize): navmesh parsing needs the SceneTree running.
+func _process(_d: float) -> bool:
+	if not _done:
+		_done = true
+		_build()
+	return false
+
+func _build() -> void:
 	_root = Node3D.new()
 	_root.name = "PT_PlayerTestRange"
 
@@ -71,17 +86,123 @@ func _initialize() -> void:
 		_add(d)
 	_box("Backstop", Vector3(8, 4, 1), Vector3(25, 2, -38.5), Vector3.ZERO, Color(0.4, 0.42, 0.45))
 
+	# AI arena (T-AI-01): low cover walls + cover points.
+	var cover_col := Color(0.45, 0.5, 0.42)
+	_box("CoverWall_A", Vector3(3, 1.25, 0.4), Vector3(-5, 0.625, 24), Vector3.ZERO, cover_col)
+	_box("CoverWall_B", Vector3(3, 1.25, 0.4), Vector3(5, 0.625, 24), Vector3.ZERO, cover_col)
+	_box("CoverWall_C", Vector3(3, 1.25, 0.4), Vector3(0, 0.625, 30), Vector3.ZERO, cover_col)
+	var covers := Node3D.new()
+	covers.name = "CoverPoints"
+	_add(covers)
+	for c in [["CP_A1", Vector3(-5.8, 0, 24.75)], ["CP_A2", Vector3(-4.2, 0, 24.75)], ["CP_B1", Vector3(4.2, 0, 24.75)],
+			["CP_B2", Vector3(5.8, 0, 24.75)], ["CP_C1", Vector3(-0.8, 0, 30.75)], ["CP_C2", Vector3(0.8, 0, 30.75)],
+			["CP_A_Front", Vector3(-5, 0, 23.25)]]:
+		var cp := Marker3D.new()
+		cp.set_script(load("res://Scripts/ai/cover_point.gd"))
+		cp.name = c[0]
+		cp.position = c[1]
+		covers.add_child(cp)
+		cp.owner = _root
+
+	var err := _bake_navmesh()
+
 	var player: Node3D = (load("res://Scenes/Player/Player.tscn") as PackedScene).instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
 	player.name = "Player"
 	_add(player)
 
-	var packed := PackedScene.new()
-	var err := packed.pack(_root)
 	if err == OK:
-		err = ResourceSaver.save(packed, OUT)
+		var packed := PackedScene.new()
+		err = packed.pack(_root)
+		if err == OK:
+			err = ResourceSaver.save(packed, OUT)
 	print("[TESTRANGE] saved %s err=%d" % [OUT, err])
 	_root.free()
+	if err == OK:
+		err = _build_ai_range()
 	quit(0 if err == OK else 1)
+
+## Bakes the navmesh from the static boxes (static colliders, works headless) into PT_NavRegion.
+func _bake_navmesh() -> int:
+	var region := NavigationRegion3D.new()
+	region.name = "PT_NavRegion"
+	var nm := NavigationMesh.new()
+	nm.geometry_parsed_geometry_type = NavigationMesh.PARSED_GEOMETRY_STATIC_COLLIDERS
+	nm.geometry_source_geometry_mode = NavigationMesh.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
+	nm.geometry_source_group_name = NAV_GROUP
+	nm.cell_size = 0.25
+	nm.cell_height = 0.25
+	nm.agent_radius = 0.5  # multiples of cell_size / cell_height (no precision warnings)
+	nm.agent_height = 2.0
+	nm.agent_max_climb = 0.25
+	nm.agent_max_slope = 30.0
+	region.navigation_mesh = nm
+	_add(region)
+	get_root().add_child(_root)  # global transforms for parsing
+	var src := NavigationMeshSourceGeometryData3D.new()
+	NavigationServer3D.parse_source_geometry_data(nm, src, _root)
+	NavigationServer3D.bake_from_source_geometry_data(nm, src)
+	get_root().remove_child(_root)
+	print("[TESTRANGE] navmesh polygons=%d vertices=%d" % [nm.get_polygon_count(), nm.get_vertices().size()])
+	return OK if nm.get_polygon_count() > 0 else FAILED
+
+## PT_AITestRange: instance of the range + AI actors (kept out of PT_PlayerTestRange so player /
+## weapon tests are not disturbed by NPCs hearing their shots).
+func _build_ai_range() -> int:
+	var root := Node3D.new()
+	root.name = "PT_AITestRange"
+	var range_scene := ResourceLoader.load(OUT, "", ResourceLoader.CACHE_MODE_REPLACE) as PackedScene
+	var rng_inst := range_scene.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+	rng_inst.name = "Range"
+	root.add_child(rng_inst)
+	rng_inst.owner = root
+	var ai := Node3D.new()
+	ai.name = "AI"
+	root.add_child(ai)
+	ai.owner = root
+	var routes := Node3D.new()
+	routes.name = "Routes"
+	ai.add_child(routes)
+	routes.owner = root
+	for r in [["Route_A", [Vector3(-30, 0, 16), Vector3(-30, 0, 30), Vector3(-18, 0, 30), Vector3(-18, 0, 16)]],
+			["Route_B", [Vector3(16, 0, 16), Vector3(28, 0, 16), Vector3(28, 0, 30), Vector3(16, 0, 30)]]]:
+		var route := Node3D.new()
+		route.set_script(load("res://Scripts/ai/npc_route.gd"))
+		route.name = r[0]
+		routes.add_child(route)
+		route.owner = root
+		var i := 0
+		for p in r[1]:
+			var m := Marker3D.new()
+			m.name = "P%d" % i
+			m.position = p
+			route.add_child(m)
+			m.owner = root
+			i += 1
+	var gunman := load("res://Scenes/NPC/PT_NPC_Gunman.tscn") as PackedScene
+	for g in [["Gunman_1", Vector3(-3, 0, 36)], ["Gunman_2", Vector3(3, 0, 36)], ["Gunman_3", Vector3(0, 0, 37.5)]]:
+		var n := gunman.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE) as Node3D
+		n.name = g[0]
+		n.position = g[1]
+		n.rotation.y = PI  # face -Z (towards the range)
+		ai.add_child(n)
+		n.owner = root
+	var civ := load("res://Scenes/NPC/PT_NPC_Civilian.tscn") as PackedScene
+	for c in [["Civilian_1", Vector3(-30, 0, 16), "../Routes/Route_A", 1], ["Civilian_2", Vector3(-18, 0, 30), "../Routes/Route_A", 3],
+			["Civilian_3", Vector3(16, 0, 16), "../Routes/Route_B", 1]]:
+		var n := civ.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE) as Node3D
+		n.name = c[0]
+		n.position = c[1]
+		n.set("route_path", NodePath(c[2]))
+		n.set("route_start_index", c[3])
+		ai.add_child(n)
+		n.owner = root
+	var packed := PackedScene.new()
+	var err := packed.pack(root)
+	if err == OK:
+		err = ResourceSaver.save(packed, OUT_AI)
+	print("[TESTRANGE] saved %s err=%d" % [OUT_AI, err])
+	root.free()
+	return err
 
 func _add(n: Node) -> void:
 	_root.add_child(n)
@@ -98,6 +219,7 @@ func _mat(c: Color) -> StandardMaterial3D:
 func _box(n: String, size: Vector3, pos: Vector3, rot_deg: Vector3, color: Color) -> void:
 	var body := StaticBody3D.new()
 	body.name = n
+	body.add_to_group(NAV_GROUP, true)
 	body.position = pos
 	body.rotation_degrees = rot_deg
 	_add(body)

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="AIProfile" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Scripts/ai/ai_profile.gd" id="1_prof"]
+[ext_resource type="Resource" path="res://Data/Weapons/WPN_Pistol_01.tres" id="2_wpn"]
+
+; Test-only profile: an armed NPC whose table says "flee on gunshot" - proves the state
+; machine is driven by the .tres, not by code (test_ai.gd).
+[resource]
+script = ExtResource("1_prof")
+id = "PT_AI_Coward"
+initial_state = "idle"
+transitions = {
+"flee": {
+"timeout": "idle"
+},
+"idle": {
+"damaged": "flee",
+"heard_gunshot": "flee"
+}
+}
+state_timeouts = {
+"flee": 3.0
+}
+weapon = ExtResource("2_wpn")

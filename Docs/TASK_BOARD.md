@@ -27,10 +27,10 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-GP-01b | P2 | Bot 3 | Vault-lite (low obstacles) | T-GP-01, T-ART-02 | BACKLOG |
 | T-GP-01c | P1 | Bot 3 | Stairs / step-up for the player | T-GP-01 | READY FOR REVIEW |
 | T-GP-02 | P1 | Bot 3 | Gunplay (pistol) | T-GP-01 | READY FOR REVIEW |
-| T-GP-02a | P1 | Bot 3 | Rapid-fire bloom (stacking, cap, recovery delay) | T-GP-02 | READY FOR REVIEW |
+| T-GP-02a | P1 | Bot 3 | Rapid-fire bloom (stacking, cap, recovery delay) | T-GP-02 | COMPLETED |
 | T-GP-02b | P2 | Bot 3 | Ragdoll-lite hit reaction | T-GP-02, T-ART-01 | BACKLOG |
 | T-GP-03 | P1 | Bot 3 | Vehicle physics + enter/exit | T-GP-01 | BACKLOG |
-| T-AI-01 | P1 | Bot 3 | Enemy AI (cartel gunmen) | T-GP-02 | BACKLOG |
+| T-AI-01 | P1 | Bot 3 | Enemy AI (cartel gunmen) | T-GP-02 | READY FOR REVIEW |
 | T-AI-02 | P2 | Bot 3 | Civilian NPC behaviour | T-GP-01 | BACKLOG |
 | T-LVL-01 | P1 | Bot 3 | Assemble LA street level | T-ART-03 | BACKLOG |
 | T-MIS-01 | P1 | Bot 3 | Mission system + M01 implementation | T-DES-01, T-GP-02, T-GP-03, T-AI-01 | BACKLOG |
@@ -171,7 +171,7 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Asset requirement for Bot 2 – REQ-GP02-PISTOL:** `Docs/Handoffs/REQ_WPN_Pistol_01.md` (extends T-ART-05 + T-ART-02): `WPN_Pistol_01.glb` + manifest, ~0.19 m, origin at grip, barrel +Z, separate `Slide` + `Magazine` nodes, `SOCKET_Muzzle/Eject/Grip`, ≤ 8k tris, LOD1/2 via uwp, weapon clips Fire/Reload (1.6 s)/Empty, Jason clips Shoot_Pistol (0.25 s), Reload_Pistol (1.6 s, mag-out/in frames in manifest), Hip_Pistol_Idle. **CONFIRMED by Bot 1 (2026-11-22).**
 
 ### T-GP-02a – Rapid-fire bloom
-- **Agent:** Bot 3 · **Deps:** T-GP-02 · **Status:** READY FOR REVIEW (2026-11-22, Bot 3, branch `bot3/t-gp-02a`)
+- **Agent:** Bot 3 · **Deps:** T-GP-02 · **Status:** COMPLETED (PR #4 merged, 2026-11-22; recovery-delay test made time-based in the T-AI-01 branch)
 - **Description:** spread grows with rapid fire: +`bloom_per_shot` per shot up to `bloom_max`, recovery (`bloom_recovery` °/s) only after `bloom_recovery_delay`; aimed bloom scaled by `bloom_aim_multiplier` so aimed spread stays below hip fire. All in `WeaponData`.
 - **Tuning defaults ([DEFAULT] in `WPN_Pistol_01.tres`):** `bloom_recovery_delay` 0.35 s (> 0.2 s fire interval at 300 RPM, so max-rate fire stacks), `bloom_aim_multiplier` 0.5. Resulting pistol: hip 2.0° → 6.0° after 5 rapid shots (cap), aimed 0.6° → 2.6°; full recovery 0.35 s + 0.67 s after the last shot.
 - **Verified:** `test_weapon.gd` (68 checks): +0.8°/shot stacking to the cap after 5 shots, shots 6–8 stay at the cap, no recovery during the delay, recovery after it, full recovery, aimed < hip at every shot, aimed cap = 4.0 × 0.5. Negative check (delay removed) → 6 FAIL, exit 1.
@@ -187,12 +187,17 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Acceptance:** headless test: throttle 3 s → speed > 8 m/s; brake to < 0.5 m/s; enter/exit toggles player control.
 
 ### T-AI-01 – Enemy AI (cartel gunmen)
-- **Agent:** Bot 3 · **Deps:** T-GP-02 · **Status:** BACKLOG
+- **Agent:** Bot 3 · **Deps:** T-GP-02 · **Status:** READY FOR REVIEW (2026-11-22, Bot 3, branch `bot3/t-ai-01`)
 - **Description:** state machine Idle → Alert → Engage → Take cover (pre-placed `CoverPoint` nodes) → Flank-lite → Dead; `NavigationAgent3D`; line-of-sight perception + hearing gunshots; accuracy falloff by distance/movement.
 - **Acceptance:** headless test: 3 gunmen detect player within 2 s of LOS, deal damage, die after enough hits.
+- **Delivered (Bot 3, 2026-11-22):** `Scripts/ai/`: `NPCController` (CharacterBody3D, layer 3, cylinder; NavigationAgent3D movement; states idle/patrol, alert, investigate, engage, take_cover, in_cover (hide ↔ peek + shoot), search, flee, dead), `AIStateMachine` (transition table + timeouts **from the AIProfile .tres**, validator), `AIProfile` (Resource: table, speeds, perception, accuracy, cover, flee), `AIPerception` (pure math: view cone, awareness rate, hearing, aim error, cover score; `emit_noise` → group `ai_hearing`), `CoverPoint` (Marker3D, runtime protection + peek raycasts, claiming), `NPCRoute`. Perception = view cone (120°, 35 m) + LOS raycast (World|Vehicles) to head/chest + 2.5 m near awareness; awareness meter (0.4 s near → 1.6 s at 35 m, ×2 once alerted); hearing gunshots (`WeaponData.noise_radius` 40 m – ACCEPTED [DEFAULT] by Bot 1, capped by `hearing_range`). Shooting via the T-GP-02 `Weapon` + `WPN_Pistol_01.tres` with AI aim error (4° + 3° moving target + 0.5°/10 m, ×0.5 with 2 s focus) on top of hip spread; bursts 2–3, reaction 0.35 s. `HumanoidHitboxes` (head/body/legs/2 arms → DamageReceiver) on NPCs **and the player** (player now has `Health`, dies → input off; own shots/crosshair exclude own hitboxes). Data: `Data/AI/AI_Gunman_Cartel.tres`, `AI_Civilian.tres`; PT scenes `Scenes/NPC/PT_NPC_Gunman.tscn`, `PT_NPC_Civilian.tscn` (`Scripts/tools/build_npc_scenes.gd`); `PT_PlayerTestRange` gets 3 low cover walls, 7 CoverPoints (1 decoy on the wrong side) and `PT_NavRegion` (navmesh baked headless in `build_test_range.gd`); new `Scenes/Test/PT_AITestRange.tscn` = range + 3 gunmen + 3 civilians on 2 routes.
+- **Verified:** `GodotProject/Tests/test_ai.gd` (80 checks): L1 view cone/awareness/hearing/aim-error math; L2 state machine + all profile tables validated; L3 in PT_AITestRange: 3 gunmen detect the player in 0.57 s (≤ 2 s), crouched behind cover not seen / seen on standing up, view cone + near radius, hearing → alert → investigate (56 m shot not heard), cover choice rejects the decoy, hide blocks a head shot, peek + shoot, flanked → leaves cover, gunmen damage the player (AI mean error 2.8° vs player 0.6° aimed, misses), moving target → larger AI error (designer-blind strafe run), gunman reacts to damage and dies after 4 body hits (collision/hitboxes off, stops listening), shared .tres / independent runtime state, civilians walk routes + idle at points + flee from a shot ≤ 25 m (not at > 25 m) + calm down and resume, a different profile table (`Tests/Data/PT_AI_Coward.tres`) changes behaviour. Deterministic (fixed seeds, 3 identical runs). Negative check (LOS mask 0 + awareness ×0.2) → 14 FAIL, exit 1.
+- **Not in this task / open:** flank-lite (only "leave compromised cover / relocate after 2 empty peeks"); no NPC-vs-NPC targeting (enemies only target the player; Marco ally = T-MIS-01); NPCs don't avoid each other (no RVO avoidance) and use straight cylinder bodies; crouch = PT pose drop (real anims REQ-AI01-NPC); visual check needs a GPU.
+- **Asset requirement for Bot 2 – REQ-AI01-NPC:** `Docs/Handoffs/REQ_NPC_Characters.md` (extends T-ART-06): `SK_NPC_Cartel_Gunman` (2+ variants), `SK_NPC_Civilian_A/B` + new `SK_NPC_Civilian_C` (variant OK), ≤ 25k tris, Jason's skeleton, +Z front, origin at feet, `SOCKET_RightHand_Weapon`, hitbox bones, clip list for cover crouch (head ≤ 1.1 m) / peek-aim / shoot / reload 1.6 s / flee / cower / look-around / hit-react / death. **ACCEPTED by Bot 1 (2026-11-22) – delivery: art cloud agent, after Jason v2.**
 
 ### T-AI-02 – Civilian NPC behaviour
 - **Agent:** Bot 3 · **Status:** BACKLOG
+- **Note (Bot 3, 2026-11-22):** baseline behaviour (route walk + idle at points, flee from gunshots ≤ 25 m, calm down after 8 s, cower if cornered) delivered with T-AI-01 (`AI_Civilian.tres`, 3 PT civilians in `PT_AITestRange`, tested). Remaining: placement on Calloway Ave (T-LVL-01), real models (REQ-AI01-NPC).
 - **Description:** sidewalk wander along path nodes, idle at points, flee/cower on gunfire.
 - **Acceptance:** ≥ 3 civilians on Calloway Ave; flee when a shot is fired within 25 m.
 

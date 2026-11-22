@@ -180,7 +180,8 @@ func _update_aim_ray() -> void:
 	var origin: Vector3 = r[0]
 	var dir: Vector3 = r[1]
 	var to := origin + dir * aim_ray_length
-	var q := PhysicsRayQueryParameters3D.create(origin, to, aim_ray_mask, [player.get_rid()])
+	var excl: Array[RID] = player.get_self_rids() if player.has_method("get_self_rids") else [player.get_rid()]
+	var q := PhysicsRayQueryParameters3D.create(origin, to, aim_ray_mask, excl)
 	q.collide_with_areas = true
 	var hit := get_world_3d().direct_space_state.intersect_ray(q)
 	if hit.is_empty():

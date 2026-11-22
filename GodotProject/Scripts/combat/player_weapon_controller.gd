@@ -68,7 +68,7 @@ func _physics_process(_delta: float) -> void:
 	if block_fire_while_sprinting and player.is_sprinting:
 		return
 	var ray := player.camera_rig.get_aim_ray()
-	var exclude: Array[RID] = [player.get_rid()]
+	var exclude: Array[RID] = player.get_self_rids()
 	var shot := weapon.trigger(just, held, ray[0], ray[1], get_stance(), player, exclude)
 	if not shot.is_empty():
 		player.camera_rig.add_recoil(shot["kick_deg"])

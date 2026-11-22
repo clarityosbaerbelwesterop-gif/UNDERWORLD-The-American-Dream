@@ -14,7 +14,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-PIPE-00 | P0 | Bot 1 | Pipeline smoke test baseline | T-BOOT-01/02 | COMPLETED |
 | T-DES-01 | P1 | Bot 1 | Mission M01 design doc | T-BOOT-03 | READY FOR REVIEW |
 | T-DES-02 | P1 | Bot 1 | Art direction + LA street layout brief | T-BOOT-03 | IN PROGRESS |
-| T-PIPE-01 | P0 | Bot 2 | Production Blender export/validation tool | T-PIPE-00 | IN PROGRESS |
+| T-PIPE-01 | P0 | Bot 2 | Production Blender export/validation tool | T-PIPE-00 | READY FOR REVIEW |
 | T-PIPE-02 | P0 | Bot 3 | Godot import presets + per-asset import tests | T-PIPE-01 | BACKLOG |
 | T-ART-01 | P1 | Bot 2 | Jason model + rig + skin | T-PIPE-01 | BACKLOG |
 | T-ART-02 | P1 | Bot 2 | Jason animation set | T-ART-01 | BACKLOG |
@@ -74,7 +74,7 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Acceptance:** Bot 2 can model the kit with exact dimensions; Bot 3 can block out the level.
 
 ### T-PIPE-01 – Production Blender export & validation tool
-- **Agent:** Bot 2 · **Deps:** T-PIPE-00 · **Status:** IN PROGRESS (2026-11-22)
+- **Agent:** Bot 2 · **Deps:** T-PIPE-00 · **Status:** READY FOR REVIEW (2026-11-22, handoff `Docs/Handoffs/2026-11-22_T-PIPE-01.md`)
 - **Description:** Turn `Tools/blender_export.py` into a reusable package `Tools/underworld_pipeline/` (CLI: `export <blend>`/`export-all`). Steps: validate (naming TD-005, applied transforms, UVs, materials, tri budget TD-009, non-manifold check), generate LODs (Decimate → `_LOD1/_LOD2`), collision (`UCX_`/Godot hints), export .glb (+ optional FBX), write `.manifest.json`, Cycles-CPU preview render PNG (`Assets/<...>/<Name>_preview.png`).
 - **Expected output:** `Tools/underworld_pipeline/*.py`, docs in `Tools/README.md`, smoke test still passing.
 - **File ownership:** Bot 2 (`Tools/`, `Blender/Scripts/`).

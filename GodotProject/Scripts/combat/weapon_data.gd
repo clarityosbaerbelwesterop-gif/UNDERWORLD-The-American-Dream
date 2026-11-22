@@ -43,10 +43,16 @@ enum FireMode { SEMI, AUTO }
 ## Added at full run speed (scaled by speed / run speed).
 @export var spread_moving := 2.5
 @export var spread_airborne := 5.0
+## Bloom added per shot (degrees, raw value before bloom_aim_multiplier).
 @export var bloom_per_shot := 0.8
+## Cap for the accumulated raw bloom (degrees).
 @export var bloom_max := 4.0
-## Bloom recovery in degrees per second.
+## Bloom recovery in degrees per second, starts bloom_recovery_delay seconds after the last shot.
 @export var bloom_recovery := 6.0
+## Seconds after a shot before bloom starts to recover (keep > fire interval so rapid fire stacks).
+@export var bloom_recovery_delay := 0.35
+## Bloom is scaled by this while aiming (aimed spread grows less than hip fire).
+@export var bloom_aim_multiplier := 0.5
 
 @export_group("Recoil (camera kick, degrees)")
 @export var recoil_pitch := 2.2

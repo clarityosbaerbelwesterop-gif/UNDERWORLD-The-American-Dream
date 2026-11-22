@@ -5,6 +5,7 @@
 
 ; WPN_Pistol_01 - M01 sidearm (T-GP-02).
 ; [DOC]     magazine_size 12 (GAME_DESIGN §5), reload_time 1.6 s (TASK_BOARD T-GP-02), hitscan.
+; [DEFAULT] bloom_recovery_delay 0.35 s + bloom_aim_multiplier 0.5 added in T-GP-02a (rapid-fire bloom), Bot 3 starting values.
 ; [DEFAULT] everything else = Bot 3 placeholder tuning, see TASK_BOARD T-GP-02 "Tuning defaults".
 ; scene = PT_ stand-in until Bot 2 delivers Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01.glb (REQ_WPN_Pistol_01).
 [resource]
@@ -34,6 +35,8 @@ spread_airborne = 5.0
 bloom_per_shot = 0.8
 bloom_max = 4.0
 bloom_recovery = 6.0
+bloom_recovery_delay = 0.35
+bloom_aim_multiplier = 0.5
 recoil_pitch = 2.2
 recoil_yaw = 0.6
 recoil_aim_multiplier = 0.7

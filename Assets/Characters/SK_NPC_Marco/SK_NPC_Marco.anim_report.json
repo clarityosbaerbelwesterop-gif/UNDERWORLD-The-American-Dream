@@ -1,21 +1,21 @@
 {
   "asset": "SK_NPC_Marco",
   "status": "v2 production pipeline (T-PIPE-03, spec SK_NPC_Marco.json)",
-  "height_m": 1.8117,
+  "height_m": 1.8116,
   "triangles": {
     "SK_NPC_Marco_Body": 9286,
     "SK_NPC_Marco_Eyes": 688,
     "SK_NPC_Marco_Eyebrows": 1024,
     "SK_NPC_Marco_Eyelashes_L": 192,
     "SK_NPC_Marco_Eyelashes_R": 192,
-    "SK_NPC_Marco_Hair": 3596,
+    "SK_NPC_Marco_Hair": 2076,
     "SK_NPC_Marco_Beard": 1100,
     "SK_NPC_Marco_TShirt": 2238,
     "SK_NPC_Marco_Jacket": 2949,
     "SK_NPC_Marco_Jeans": 1847,
     "SK_NPC_Marco_Boots": 1512
   },
-  "triangles_total": 24624,
+  "triangles_total": 23104,
   "materials": [
     "M_NPC_Marco_Boots",
     "M_NPC_Marco_BrowsLashes",
@@ -231,5 +231,5 @@
     ]
   },
   "max_foot_sliding_m": 0.0484,
-  "build_seconds": 13.0
+  "build_seconds": 12.2
 }

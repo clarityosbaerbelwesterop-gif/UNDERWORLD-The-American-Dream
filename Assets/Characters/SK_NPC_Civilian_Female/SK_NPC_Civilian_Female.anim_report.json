@@ -8,12 +8,12 @@
     "SK_NPC_Civilian_Female_Eyebrows": 1024,
     "SK_NPC_Civilian_Female_Eyelashes_L": 192,
     "SK_NPC_Civilian_Female_Eyelashes_R": 192,
-    "SK_NPC_Civilian_Female_Hair": 3628,
+    "SK_NPC_Civilian_Female_Hair": 2076,
     "SK_NPC_Civilian_Female_TShirt": 2630,
     "SK_NPC_Civilian_Female_Jeans": 2016,
     "SK_NPC_Civilian_Female_Boots": 1680
   },
-  "triangles_total": 23806,
+  "triangles_total": 22254,
   "materials": [
     "M_NPC_Civilian_Female_Boots",
     "M_NPC_Civilian_Female_BrowsLashes",
@@ -228,5 +228,5 @@
     ]
   },
   "max_foot_sliding_m": 0.0481,
-  "build_seconds": 9.2
+  "build_seconds": 8.6
 }

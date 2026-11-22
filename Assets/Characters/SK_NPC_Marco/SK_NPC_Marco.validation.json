@@ -2,8 +2,8 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.0.1",
-  "timestamp": "2026-11-22T20:49:06+00:00",
-  "command": "export-all",
+  "timestamp": "2026-11-22T21:01:53+00:00",
+  "command": "export",
   "input": "Blender/Source/Characters/SK_NPC_Marco/SK_NPC_Marco.blend",
   "steps": {
     "validate": {
@@ -18,7 +18,7 @@
     },
     "export": {
       "glb": "Assets/Characters/SK_NPC_Marco/SK_NPC_Marco.glb",
-      "bytes": 7443152
+      "bytes": 7386112
     },
     "preview": {
       "front": "Assets/Characters/SK_NPC_Marco/SK_NPC_Marco_preview_front.png",
@@ -214,7 +214,7 @@
           "A_Humanoid_Walk"
         ],
         "asset_generator": "Khronos glTF Blender I/O v5.0.21",
-        "bytes": 7443152
+        "bytes": 7386112
       },
       "reimport_objects": [
         "Armature",
@@ -310,7 +310,7 @@
       "severity": "info",
       "code": "OPEN_BOUNDARY",
       "object": "SK_NPC_Marco_Hair",
-      "message": "862 open boundary edges (mesh not closed)"
+      "message": "826 open boundary edges (mesh not closed)"
     },
     {
       "severity": "info",
@@ -322,11 +322,11 @@
       "severity": "info",
       "code": "MESH_CLIPPING",
       "object": "SK_NPC_Marco_Body",
-      "message": "SK_NPC_Marco_Body vs SK_NPC_Marco_TShirt: 1/563 verts (0.18%)",
+      "message": "SK_NPC_Marco_Body vs SK_NPC_Marco_TShirt: 1/564 verts (0.18%)",
       "data": {
         "inner": "SK_NPC_Marco_Body",
         "outer": "SK_NPC_Marco_TShirt",
-        "tested_vertices": 563,
+        "tested_vertices": 564,
         "clipped_vertices": 1,
         "clipped_fraction": 0.0018
       }
@@ -335,13 +335,13 @@
       "severity": "info",
       "code": "MESH_CLIPPING",
       "object": "SK_NPC_Marco_TShirt",
-      "message": "SK_NPC_Marco_TShirt vs SK_NPC_Marco_Jacket: 3/113 verts (2.65%)",
+      "message": "SK_NPC_Marco_TShirt vs SK_NPC_Marco_Jacket: 3/116 verts (2.59%)",
       "data": {
         "inner": "SK_NPC_Marco_TShirt",
         "outer": "SK_NPC_Marco_Jacket",
-        "tested_vertices": 113,
+        "tested_vertices": 116,
         "clipped_vertices": 3,
-        "clipped_fraction": 0.0265
+        "clipped_fraction": 0.0259
       }
     },
     {
@@ -362,7 +362,7 @@
     "warnings": 0,
     "infos": 14
   },
-  "seconds": 92.75,
+  "seconds": 95.1,
   "exit_code": 0,
   "result": "PASS"
 }

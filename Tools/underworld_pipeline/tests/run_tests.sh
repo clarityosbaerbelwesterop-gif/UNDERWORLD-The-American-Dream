@@ -75,6 +75,8 @@ check(t["LOD0"] > t["LOD1"] > t["LOD2"] > 0, f"barrel LOD tri totals decrease {t
 check(abs(m["aabb_godot"]["min"][1]) < 0.01 and abs(m["aabb_godot"]["size"][1] - 0.94) < 0.01, f"barrel Godot AABB {m['aabb_godot']}")
 check([c["name"] for c in m["collision"]["generated"]] == ["UCX_PT_UWP_Barrel-convcolonly"], "barrel convex collision generated")
 check(m["textures"] and m["textures"][0]["size"] == [256, 256] and m["textures"][0]["packed"], "barrel texture recorded (256², packed)")
+check("SM_PT_UWP_Barrel_Body" in m.get("texel_density", {}), "barrel texel density recorded in manifest")
+check("SM_PT_UWP_Barrel_Body" in m.get("uv_overlap", {}) and m["uv_overlap"]["SM_PT_UWP_Barrel_Body"]["overlap_fraction"] < 0.05, "barrel UV overlap < 5%")
 check("SOCKET_Top" in m["sockets"], "barrel socket recorded")
 check(os.path.getsize(os.path.join(T, "out/PT_UWP_Barrel/PT_UWP_Barrel_preview.png")) > 5000, "barrel preview PNG rendered")
 r = J("out/PT_UWP_RigTest/PT_UWP_RigTest.manifest.json")
@@ -88,7 +90,8 @@ check(rv["steps"]["verify"]["glb"]["skins"][0]["joints"] == 3, "rig glb has a 3-
 br = J("out/PT_UWP_Broken/PT_UWP_Broken.validation.json")
 codes = {i["code"] for i in br["issues"] if i["severity"] == "error"}
 want = {"ROOT_MISSING", "NAME_OBJECT", "TRANSFORM_SCALE", "NO_UVS", "NO_MATERIAL", "LOOSE_GEOMETRY", "TRI_BUDGET",
-        "ORIGIN_GROUND", "NAME_MATERIAL", "TEXTURE_SIZE", "BONE_INFLUENCES", "NAME_ACTION", "NAME_ACTION_LOOP"}
+        "ORIGIN_GROUND", "NAME_MATERIAL", "TEXTURE_SIZE", "BONE_INFLUENCES", "WEIGHT_UNNORMALIZED", "UV_OVERLAP",
+        "NAME_ACTION", "NAME_ACTION_LOOP"}
 check(want <= codes, f"broken report error codes ⊇ expected (missing: {sorted(want - codes)})")
 check(br["result"] == "VALIDATION_FAILED" and br["exit_code"] == 1, "broken report result VALIDATION_FAILED / 1")
 h = J("out/humanoid.json")
@@ -132,8 +135,8 @@ expect_rc "verify_glb.py" 0 $rc "$T/logs/verify_blender.log"
 echo "== [7] validate-all / export-all on Blender/Source"
 rc=$(run_uwp "$T/logs/validate_all.log" validate-all --report "$T/out/validate_all.json")
 expect_rc "validate-all (repo Blender/Source)" 0 "$rc" "$T/logs/validate_all.log"
-rc=$(run_uwp "$T/logs/export_all.log" export-all --out-root "$T/out/all" --report "$T/out/export_all.json")
-expect_rc "export-all --out-root (repo Blender/Source)" 0 "$rc" "$T/logs/export_all.log"
+rc=$(run_uwp "$T/logs/export_all.log" export-all --no-preview --out-root "$T/out/all" --report "$T/out/export_all.json")
+expect_rc "export-all --no-preview --out-root (repo Blender/Source)" 0 "$rc" "$T/logs/export_all.log"
 grep -E '^\[UWP\] (Blender|skip|RESULT)' "$T/logs/validate_all.log" "$T/logs/export_all.log"
 
 if [ $NO_GODOT -eq 0 ] && [ -x "$GODOT" ]; then

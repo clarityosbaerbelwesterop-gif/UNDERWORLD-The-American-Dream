@@ -27,7 +27,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-GP-01c | P1 | Bot 3 | Stairs / step-up for the player | T-GP-01 | READY FOR REVIEW |
 | T-GP-02 | P1 | Bot 3 | Gunplay (pistol) | T-GP-01 | READY FOR REVIEW |
 | T-GP-03 | P1 | Bot 3 | Vehicle physics + enter/exit | T-GP-01 | BACKLOG |
-| T-AI-01 | P1 | Bot 3 | Enemy AI (cartel gunmen) | T-GP-02 | BACKLOG |
+| T-AI-01 | P1 | Bot 3 | Enemy AI (cartel gunmen) | T-GP-02 | IN PROGRESS |
 | T-AI-02 | P2 | Bot 3 | Civilian NPC behaviour | T-GP-01 | BACKLOG |
 | T-LVL-01 | P1 | Bot 3 | Assemble LA street level | T-ART-03 | BACKLOG |
 | T-MIS-01 | P1 | Bot 3 | Mission system + M01 implementation | T-DES-01, T-GP-02, T-GP-03, T-AI-01 | BACKLOG |
@@ -167,7 +167,7 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Acceptance:** headless test: throttle 3 s → speed > 8 m/s; brake to < 0.5 m/s; enter/exit toggles player control.
 
 ### T-AI-01 – Enemy AI (cartel gunmen)
-- **Agent:** Bot 3 · **Deps:** T-GP-02 · **Status:** BACKLOG
+- **Agent:** Bot 3 · **Deps:** T-GP-02 · **Status:** IN PROGRESS (2026-11-22, Bot 3, branch `bot3/t-ai-01`)
 - **Description:** state machine Idle → Alert → Engage → Take cover (pre-placed `CoverPoint` nodes) → Flank-lite → Dead; `NavigationAgent3D`; line-of-sight perception + hearing gunshots; accuracy falloff by distance/movement.
 - **Acceptance:** headless test: 3 gunmen detect player within 2 s of LOS, deal damage, die after enough hits.
 

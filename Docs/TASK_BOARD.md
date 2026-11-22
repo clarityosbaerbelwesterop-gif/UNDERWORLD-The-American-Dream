@@ -1,7 +1,9 @@
 # Task Board – Milestone 1 "LA Vertical Slice"
 
 Owner: Bot 1. Each agent updates **Status** of its own tasks (and adds a line to `DEVELOPMENT_LOG.md`). New tasks / re-assignments only via Bot 1.
-Statuses: `BACKLOG` · `IN PROGRESS` · `READY FOR REVIEW` · `BLOCKED` · `COMPLETED`.
+Statuses (tasks): `BACKLOG` · `IN PROGRESS` · `READY FOR REVIEW` · `BLOCKED` · `COMPLETED`.
+Asset registry status `PRODUCTION-READY` is separate and is allowed only after a passed Quality Gate (`Docs/QUALITY_GATE.md`, template `Docs/Reviews/TEMPLATE_ASSET_REVIEW.md`). A task may be `COMPLETED` when the work item is delivered; that does **not** make the asset production-ready. First Bot 1 reviews (2026-11-22) **REJECT**ed SK_Jason v2, SK_NPC_Sam, WPN_Pistol_01, VH_Sedan_01 and the LA kit — all stay `WIP`.
+
 Highest priority first inside each section. Priority: P0 = blocks others, P1 = slice-critical, P2 = polish.
 
 ## Summary
@@ -38,6 +40,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-UI-01 | P2 | Bot 3 | HUD (health, ammo, objective text) | T-GP-02 | BACKLOG |
 | T-BUILD-01 | P1 | Bot 3 | Playable Linux build + export script | T-PIPE-02 | BACKLOG |
 | T-QA-01 | P1 | Bot 3 | Headless gameplay regression tests | T-GP-01 | BACKLOG |
+| T-QA-02 | P0 | Bot 1 | Binding AAA Quality Gate + first honest asset reviews | T-PIPE-04 | COMPLETED |
 
 Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box car) so code is not blocked by art, but those are marked `PT_` and replaced before the milestone closes. Final slice must use Bot 2's original Blender assets.
 
@@ -230,3 +233,8 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 
 ### T-QA-01 – Headless regression suite
 - **Agent:** Bot 3 · **Status:** BACKLOG · `Tests/run_all.sh` runs pipeline smoke + all gameplay tests; required to pass before merging to `main`.
+
+### T-QA-02 – Binding AAA Quality Gate
+- **Agent:** Bot 1 · **Pri:** P0 · **Deps:** T-PIPE-04, owner prompt 2026-11-22 · **Status:** COMPLETED (2026-11-22)
+- **Expected output:** `Docs/QUALITY_GATE.md`, `Docs/Reviews/TEMPLATE_ASSET_REVIEW.md`, first reviews for SK_Jason v2, SK_NPC_Sam, WPN_Pistol_01, VH_Sedan_01, LA kit, `Tools/uwp review-sheet`, Phase 8 capture notes (`Tools/godot_phase8_capture.sh`).
+- **Acceptance:** gate adapted to Godot 4.7 (not Unreal); Phase 8 = in-engine capture under xvfb + llvmpipe / opengl3; independent review roles documented; scores 0–5 with pass ≥ 4 all applicable; first reviews are honest (all REJECT / not PRODUCTION-READY); `Tests/run_all.sh` PASS.

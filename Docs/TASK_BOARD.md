@@ -16,8 +16,8 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-DES-02 | P1 | Bot 1 | Art direction + LA street layout brief | T-BOOT-03 | IN PROGRESS |
 | T-PIPE-01 | P0 | Bot 2 | Production Blender export/validation tool | T-PIPE-00 | COMPLETED |
 | T-PIPE-02 | P0 | Bot 3 | Godot import presets + per-asset import tests | T-PIPE-01 | READY FOR REVIEW |
-| T-ART-01 | P1 | Bot 2 | Jason model + rig + skin | T-PIPE-01 | BACKLOG |
-| T-ART-02 | P1 | Bot 2 | Jason animation set | T-ART-01 | BACKLOG |
+| T-ART-01 | P1 | Bot 2 | Jason model + rig + skin | T-PIPE-01 | READY FOR REVIEW |
+| T-ART-02 | P1 | Bot 2 | Jason animation set | T-ART-01 | READY FOR REVIEW |
 | T-ART-03 | P1 | Bot 2 | LA street environment kit | T-PIPE-01, T-DES-02 | BACKLOG |
 | T-ART-04 | P1 | Bot 2 | Drivable car model | T-PIPE-01 | BACKLOG |
 | T-ART-05 | P1 | Bot 2 | Pistol model | T-PIPE-01 | BACKLOG |
@@ -93,13 +93,13 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Not done / open:** characters `BoneMap`/retarget sub-resource settings (needs a real SK_Jason .import; bone names already match the profile, verified); vehicle preset (no vehicle test asset yet – Godot keeps named nodes by default); existing `PT_PipelineTest_Crate.glb.import` (Bot 2 file) keeps `import_script/path=""` – harmless (no LODs/anims), re-import or delete the sidecar to adopt the preset; exclude `Scripts/import/` + `Tests/` from game exports (T-BUILD-01).
 
 ### T-ART-01 – Jason: model, rig, skin
-- **Agent:** Bot 2 · **Deps:** T-PIPE-01 · **Status:** BACKLOG
+- **Agent:** Bot 2 · **Deps:** T-PIPE-01 · **Status:** READY FOR REVIEW (2026-11-22, `bot2/dev`, handoff `Docs/Handoffs/2026-11-22_T-ART-01-02_SK_Jason.md`)
 - **Description:** original male protagonist, 1.82 m, late 30s, see GAME_DESIGN §Characters. Modelled procedurally/with bpy (no purchased or ripped meshes). Armature with **Godot `SkeletonProfileHumanoid` bone names** (Hips, Spine, Chest, UpperChest, Neck, Head, Left/RightShoulder, Left/RightUpperArm, Left/RightLowerArm, Left/RightHand, fingers optional, Left/RightUpperLeg, Left/RightLowerLeg, Left/RightFoot, Left/RightToes) + `SOCKET_RightHand_Weapon`.
 - **Expected output:** `Blender/Source/Characters/SK_Jason/SK_Jason.blend`, `Assets/Characters/SK_Jason/SK_Jason.glb`, manifest, preview PNG, ASSET_REGISTRY row.
 - **Acceptance:** ≤ 40k tris; T-pose or A-pose rest; clean weights (no >4 influences); PBR materials; Godot import gives `Skeleton3D` + skinned `MeshInstance3D`, height 1.82 ± 0.02 m, faces +Z.
 
 ### T-ART-02 – Jason animation set
-- **Agent:** Bot 2 · **Deps:** T-ART-01 · **Status:** BACKLOG
+- **Agent:** Bot 2 · **Deps:** T-ART-01 · **Status:** READY FOR REVIEW (2026-11-22, all 21 REQ-GP01-JASON actions P1 + P2; open: `A_Jason_Jump_Loop` is renamed to `A_Jason_Jump` by Godot's importer – see handoff)
 - **Description:** keyframed in Blender via bpy: `A_Jason_Idle`, `A_Jason_Walk` (1.4 m/s), `A_Jason_Run` (3.5 m/s), `A_Jason_Sprint` (6 m/s), `A_Jason_Aim_Pistol` (upper-body pose), `A_Jason_Shoot_Pistol` (recoil, 0.25 s), `A_Jason_Reload_Pistol`. 30 fps, in place (no root motion), loop cycles seamless; speeds documented for Bot 3 blend-spaces.
 - **Expected output:** actions inside `SK_Jason.glb` (or `Assets/Characters/SK_Jason/A_Jason_Locomotion.glb` on same skeleton).
 - **Acceptance:** Godot `AnimationPlayer` lists all names; loops flagged; foot sliding < 5 cm per cycle at stated speed.

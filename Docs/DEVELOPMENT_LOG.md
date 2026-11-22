@@ -2,6 +2,9 @@
 
 Append-only, newest on top. `YYYY-MM-DD HH:MM (Europe/Berlin) · Bot N · Task ID · what was done · how it was verified`.
 
+## 2026-11-22 · Bot 2 (T-ART-01 / T-ART-02)
+- **2026-11-22 10:11 · T-ART-01/02** `SK_Jason` built procedurally with bpy (`Blender/Scripts/sk_jason/`, one command, ~2 s): stylized 1.82 m T-pose (skin-modifier body, sculpted head with LEFT-brow scar, stubble, short dark hair, worn leather jacket, grey henley, dark jeans, work boots), 26 188 tris, 10 `M_Jason_*` materials, UVs on all meshes, no textures; rig `Root` + 22 humanoid + 30 finger bones, bone-heat weights (≤ 4, normalized, none unweighted), `SOCKET_RightHand_Weapon`; 21 in-place 30 fps actions from frame 0 (REQ-GP01-JASON P1 + P2, analytic 2-bone IK, max foot sliding 3.6 cm). uwp: manifest `animations[]` gain `frames` + `speed_mps`; `ANIM_LOOP_SUFFIX` now case-insensitive. Verified: `Tools/uwp export` → PASS (0 errors, 1 warning ANIM_LOOP_SUFFIX); `Blender/Scripts/sk_jason/verify_sk_jason.sh` → PASS (Blender re-import + Godot 4.7.2 headless: 53 bones/profile mapped, height 1.820, min y 0, faces +Z, socket +Y up/+Z barrel in aim pose, all lengths + loop modes via `uw_post_import.gd`, Root untranslated); `Tests/run_all.sh` → RUN_ALL: PASS. Found: Godot renames `A_Jason_Jump_Loop` → `A_Jason_Jump` (loop name hint).
+
 ## 2026-11-22 · Bot 3 (T-PIPE-02)
 - **2026-11-22 09:59 · T-PIPE-02** Godot scene import preset (`[importer_defaults]` → `Scripts/import/uw_post_import.gd`: Bot 2's LOD ranges + loop modes from manifest), asset import tests (`Tests/run_asset_import_tests.sh`, `GodotProject/Tests/Import/test_assets.gd`), `Tests/run_all.sh` now also runs Bot 2's uwp tool tests. Verified: `./Tests/run_all.sh` with clean `.godot/` → RUN_ALL: PASS (smoke, uwp 106, asset import 38, gameplay 112); control import without script draws all LODs (detected); negative check (loop step disabled) → exit 1.
 

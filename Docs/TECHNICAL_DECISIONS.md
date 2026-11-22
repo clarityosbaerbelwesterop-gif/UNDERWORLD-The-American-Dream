@@ -66,3 +66,19 @@ Textures live next to the .blend in `textures/` and are embedded in the .glb (or
 
 ## TD-009 – Performance budgets (initial, revise after first GPU test)
 Jason ≤ 40k tris, NPC ≤ 25k, car ≤ 60k (LOD0), pistol ≤ 8k, street-kit modules ≤ 10k each; textures 2048² max (hero), 1024² default; 60 fps target on mid-range GPU.
+
+## TD-010 – Gameplay conventions from T-GP-01 (proposed Bot 3, ACCEPTED by Bot 1, 2026-11-22)
+**Status: ACCEPTED (Bot 1).** Points 1, 2 and 4 accepted as proposed; point 3 decided as option (c); point 5 → task T-GP-01b. Recorded by Bot 3 on Bot 1's instruction.
+1. **Physics layers** (named in `project.godot`): 1 `World`, 2 `Player`, 3 `Characters` (NPC/enemy bodies), 4 `Vehicles`, 5 `Hitboxes`. Player collides with 1|3|4; camera spring arm with 1|4; aim ray with 1|3|4|5. Bot 2 collision proxies (`-col`/`-colonly`) land on layer 1 by default – no change needed.
+2. **Input map source of truth:** `GodotProject/Scripts/tools/setup_input_map.gd` (rewrites only `[input]` + `[layer_names]` in `project.godot`). Actions: `move_*`, `look_*`, `sprint`, `walk`, `crouch`, `jump`, `aim`, `fire`, `reload`, `interact`, `enter_vehicle`, `shoulder_swap`, `pause`.
+3. **Gamepad conflict in GDD §5:** "E/A interact" and "Space/A jump" both use gamepad A. Options: (a) A = jump, interact on D-pad Right; (b) context-sensitive A (interact when a prompt is shown, else jump); (c) interact = Y shared with enter vehicle (both are "use"). **Decision: (c)** – gamepad A = jump only; Y = `interact` **and** `enter_vehicle`; keyboard keeps E (interact) / F (vehicle). Implemented in `setup_input_map.gd`, asserted by `test_player_controller.gd`.
+4. **Gameplay tests:** `GodotProject/Tests/test_*.gd` (SceneTree scripts, `[GPTEST]` output) run by `Tests/run_gameplay_tests.sh` with `--fixed-fps 60`; `Tests/run_all.sh` = pipeline smoke + gameplay = **the merge gate for `main`** (must print `RUN_ALL: PASS`).
+5. **Vault-lite** (T-GP-01 description) split into T-GP-01b (P2, BACKLOG); stairs/step-up into T-GP-01c (P1).
+
+## TD-011 – Player collision shape: cylinder instead of capsule (proposed Bot 3, ACCEPTED by Bot 1, 2026-11-22)
+**Status: ACCEPTED (Bot 1, PR #1 review).** Recorded by Bot 3 on Bot 1's instruction.
+- **Decision:** the player `CharacterBody3D` uses a `CylinderShape3D` (r 0.35 m, h 1.8 m standing / 1.2 m crouched, origin at the feet). The visual stand-in stays a capsule (`PT_Capsule`), later SK_Jason.
+- **Why:** with a capsule the round bottom rests on stair nosings with a ~64° contact normal, which is not a floor contact: re-checked with the final step-up code, a capsule goes airborne 44 frames and "lands" 8 times on the 8-step test flight, 27 airborne frames + 1 landing walking down at sprint, and settles at 0.26 m on a 0.3 m step. The flat cylinder base stays grounded on every tread (0 airborne frames, verified in `test_player_controller.gd`, T-GP-01c).
+- **Consequences:** step-up (`step_height` 0.35 m) + floor snap 0.4 m handle stairs and step-downs. Steps > 0.35 m need collision ramps. NPCs (T-AI-01/02) should use the same shape for consistency. If a different physics backend makes cylinders jittery, re-evaluate (tests will catch it).
+- **Note:** Bot 2's T-PIPE-01 handoff proposes a "TD-011" for LOD/collision budgets; that proposal needs a new number (suggest TD-012) – Bot 1 to assign.
+

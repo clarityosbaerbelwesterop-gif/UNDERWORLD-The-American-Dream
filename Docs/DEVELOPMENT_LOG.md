@@ -2,6 +2,10 @@
 
 Append-only, newest on top. `YYYY-MM-DD HH:MM (Europe/Berlin) · Bot N · Task ID · what was done · how it was verified`.
 
+## 2026-11-22 · Bot 1 (T-PIPE-04 recovery)
+- **2026-11-22 12:55 · T-PIPE-04** Recovered the cloud agent's unpushed post-PR-#7 work from its transcript (42 edits: 6 NPC specs, shared anim library builder, weapon/vehicle/LA-kit generators, `uwp build-*` CLI, 3 LA environment presets, M01 block + look-dev scenes, 4 pipeline docs, budgets, .gitignore). Re-ran all generators here (Blender 5.2.4 headless, CC0 caches re-downloaded), fixed the sedan cabin and Sam's hair, added registry rows + Poly Haven license rows. Verified: all `uwp export` PASS; Godot import 0 errors; verify script 33/33; SK_Jason rebuilt with the modified character builder still `uwp validate` PASS (rebuild discarded, committed v2 unchanged); `Tests/run_all.sh` → RUN_ALL: PASS; `verify_sk_jason.sh` PASS.
+- **2026-11-22 12:40 · T-AI-01 merge** PR #6 merged after main (with #7) was merged into it (doc-log conflicts only, both kept). Verified: `Tests/run_all.sh` → RUN_ALL: PASS (asset import 40, ai 80, player 112, weapon 68).
+
 ## 2026-11-22 · Bot 1 (merge gate PR #7)
 - **2026-11-22 12:15 · T-PIPE-03 merge** main merged into PR #7 (DEVELOPMENT_LOG conflict only, both kept); v1 `build_sk_jason.py` retired (exit 2 + pointer to v2 builder); `skins01` license verified CC0 and recorded. Verified: `Tests/run_all.sh` → RUN_ALL: PASS (asset import 40, player 112, weapon 68); `verify_sk_jason.sh` → PASS. PR #5 closed as superseded by #7.
 

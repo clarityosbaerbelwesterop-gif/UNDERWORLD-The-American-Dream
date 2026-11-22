@@ -1,0 +1,140 @@
+{
+  "asset": "SM_LA_PalmTree",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -2.2593,
+      0.0,
+      -2.23
+    ],
+    "max": [
+      2.6407,
+      10.5842,
+      2.67
+    ],
+    "size": [
+      4.9,
+      10.5842,
+      4.9
+    ]
+  },
+  "triangles": {
+    "lod0": 616,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 616,
+      "LOD1": 308,
+      "LOD2": 154
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_LA_PalmTree_Mesh",
+      "levels": [
+        {
+          "name": "SM_LA_PalmTree_Mesh",
+          "level": 0,
+          "triangles": 616
+        },
+        {
+          "name": "SM_LA_PalmTree_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 308
+        },
+        {
+          "name": "SM_LA_PalmTree_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 154
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "trimesh",
+    "generated": [
+      {
+        "name": "UCX_SM_LA_PalmTree_Mesh_LOD2-colonly",
+        "vertices": 159,
+        "triangles": 154
+      }
+    ],
+    "existing": []
+  },
+  "materials": [
+    "M_LA_PalmBark",
+    "M_LA_PalmFrond"
+  ],
+  "textures": [
+    {
+      "image": "T_LA_PalmBark_D",
+      "material": "M_LA_PalmBark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_3t0_or1q/T_LA_PalmBark_D.jpg"
+    },
+    {
+      "image": "T_LA_PalmBark_ORM",
+      "material": "M_LA_PalmBark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_f9akp40t/T_LA_PalmBark_ORM.jpg"
+    },
+    {
+      "image": "T_LA_PalmBark_N",
+      "material": "M_LA_PalmBark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_jwbufkr3/T_LA_PalmBark_N.png"
+    }
+  ],
+  "uv_overlap": {
+    "SM_LA_PalmTree_Mesh": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.383
+    }
+  },
+  "texel_density": {
+    "SM_LA_PalmTree_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 52.1,
+      "p10_px_per_m": 49.2,
+      "p90_px_per_m": 54.8
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_PalmTree_Mesh_LOD1",
+    "SM_LA_PalmTree_Mesh_LOD2",
+    "SM_LA_PalmTree_Mesh",
+    "UCX_SM_LA_PalmTree_Mesh_LOD2-colonly",
+    "SM_LA_PalmTree"
+  ],
+  "glb_bytes": 956336
+}

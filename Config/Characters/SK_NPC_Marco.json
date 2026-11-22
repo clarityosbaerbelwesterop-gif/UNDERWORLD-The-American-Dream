@@ -1,0 +1,43 @@
+{
+  "_doc": "NPC spec: SK_NPC_Marco (30s loyal driver, athletic casual jacket + jeans). Budget: Characters/SK_NPC (<= 25k tris).",
+  "asset_name": "SK_NPC_Marco",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "height_m": 1.79,
+  "boot_sole_extra_m": 0.022,
+  "npc_decimate_body": 0.62,
+  "macro": {
+    "gender": 1.0,
+    "age": 0.54,
+    "muscle": 0.60,
+    "weight": 0.48,
+    "proportions": 0.65,
+    "height_morph": 0.55,
+    "ethnicity": { "caucasian": 0.58, "asian": 0.27, "african": 0.15 }
+  },
+  "morphs": { "chin-width-decr-incr": 0.18, "cheek-bones-decr-incr": 0.25 },
+  "skin": {
+    "texture_size": 1024,
+    "base_diffuse": "skins02/skins/toigo_light_skin_male_bronze/young_lightskinned_male_diffuse_Bronze.png",
+    "base_normal": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_NRM.png",
+    "tint_rgb": [0.92, 0.84, 0.75],
+    "hair_color_rgb": [0.04, 0.032, 0.028],
+    "skin_fade": { "enabled": true },
+    "beard_stubble": { "density": 0.42 },
+    "seed": 301
+  },
+  "eyes": { "mhclo": "mh_eyes/low-poly.mhclo", "iris_texture": "makehuman_system_assets/eyes/materials/brown_eye.png" },
+  "eyebrows": { "mhclo": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.mhclo", "texture": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.png", "scar_notch": false },
+  "eyelashes": { "mhclo": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.mhclo", "texture": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.png" },
+  "teeth": { "enabled": false },
+  "hair": { "style": "medium_crop", "color_rgb": [0.04, 0.032, 0.028], "seed": 302 },
+  "beard": { "style": "stubble", "seed": 303 },
+  "outfit": {
+    "tshirt": { "enabled": true, "style": "under_jacket_tshirt", "polyhaven_id": "cotton_jersey", "texture_size": 512, "bake_high_to_low": false, "tile": 4.0, "desaturate": 0.85, "tint_rgb": [0.80, 0.78, 0.75] },
+    "jacket": { "enabled": true, "style": "bomber_jacket", "polyhaven_id": "denim_fabric_06", "texture_size": 1024, "bake_size": 512, "normal_size": 512, "tile": 4.0, "desaturate": 0.35, "tint_rgb": [0.28, 0.34, 0.25], "zone_mode": "bomber_trim" },
+    "jeans": { "enabled": true, "style": "straight_jeans", "polyhaven_id": "denim_fabric_04", "texture_size": 512, "bake_high_to_low": false, "tile": 5.0, "tint_rgb": [0.22, 0.30, 0.44], "zone_mode": "denim_wash" },
+    "boots": { "enabled": true, "polyhaven_id": "fabric_leather_02", "texture_size": 512, "bake_high_to_low": false, "tile": 3.0, "tint_rgb": [0.32, 0.26, 0.22], "zone_mode": "boot_sole" },
+    "watch": { "enabled": false }
+  },
+  "animations": { "clip_prefix": "A_Humanoid_", "mocap_walk_bvh": "mocap/makehuman_walk1.bvh", "include_p2": false, "minimal_npc_set": true }
+}

@@ -1,0 +1,353 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-22T12:37:41+01:00",
+  "command": "export",
+  "input": "Blender/Source/Characters/SK_NPC_Sam/SK_NPC_Sam.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "lods": [],
+    "collision": {
+      "mode": "none",
+      "generated": [],
+      "existing": []
+    },
+    "export": {
+      "glb": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam.glb",
+      "bytes": 6757040
+    },
+    "preview": {
+      "front": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam_preview_front.png",
+      "3q": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam_preview_3q.png",
+      "side": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam_preview_side.png",
+      "back": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam_preview_back.png",
+      "face": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam_preview_face.png",
+      "face_side": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam_preview_face_side.png",
+      "default": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam_preview.png",
+      "aim": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam_preview_aim.png"
+    },
+    "manifest": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "LeftToes",
+          "LeftFoot",
+          "LeftLowerLeg",
+          "LeftUpperLeg",
+          "RightToes",
+          "RightFoot",
+          "RightLowerLeg",
+          "RightUpperLeg",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftThumbDistal",
+          "LeftThumbProximal",
+          "LeftThumbMetacarpal",
+          "LeftHand",
+          "LeftLowerArm",
+          "LeftUpperArm",
+          "LeftShoulder",
+          "Head",
+          "Neck",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightThumbDistal",
+          "RightThumbProximal",
+          "RightThumbMetacarpal",
+          "SOCKET_RightHand_Weapon",
+          "RightHand",
+          "RightLowerArm",
+          "RightUpperArm",
+          "RightShoulder",
+          "UpperChest",
+          "Chest",
+          "Spine",
+          "Hips",
+          "Root",
+          "SK_NPC_Sam_Body",
+          "SK_NPC_Sam_Boots",
+          "SK_NPC_Sam_Eyebrows",
+          "SK_NPC_Sam_Eyelashes",
+          "SK_NPC_Sam_Eyes",
+          "SK_NPC_Sam_Hair",
+          "SK_NPC_Sam_Jacket",
+          "SK_NPC_Sam_Jeans",
+          "SK_NPC_Sam_TShirt",
+          "Armature",
+          "SK_NPC_Sam"
+        ],
+        "node_extras": {
+          "SK_NPC_Sam_Hair": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Sam": {
+            "uw_character_spec": "Config/Characters/SK_NPC_Sam.json"
+          }
+        },
+        "meshes": 9,
+        "materials": [
+          "M_NPC_Sam_Skin",
+          "M_NPC_Sam_Boots",
+          "M_NPC_Sam_BrowsLashes",
+          "M_NPC_Sam_Eyes",
+          "M_NPC_Sam_Hair",
+          "M_NPC_Sam_Jacket",
+          "M_NPC_Sam_Jeans",
+          "M_NPC_Sam_TShirt"
+        ],
+        "images": 19,
+        "skins": [
+          {
+            "name": "Armature",
+            "joints": 53
+          }
+        ],
+        "joint_names": [
+          "Chest",
+          "Head",
+          "Hips",
+          "LeftFoot",
+          "LeftHand",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftLowerArm",
+          "LeftLowerLeg",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftShoulder",
+          "LeftThumbDistal",
+          "LeftThumbMetacarpal",
+          "LeftThumbProximal",
+          "LeftToes",
+          "LeftUpperArm",
+          "LeftUpperLeg",
+          "Neck",
+          "RightFoot",
+          "RightHand",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "RightLowerArm",
+          "RightLowerLeg",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightShoulder",
+          "RightThumbDistal",
+          "RightThumbMetacarpal",
+          "RightThumbProximal",
+          "RightToes",
+          "RightUpperArm",
+          "RightUpperLeg",
+          "Root",
+          "Spine",
+          "UpperChest"
+        ],
+        "animations": [
+          "A_Humanoid_Aim_Pistol_Idle",
+          "A_Humanoid_Aim_Pistol_Walk_B",
+          "A_Humanoid_Aim_Pistol_Walk_F",
+          "A_Humanoid_Aim_Pistol_Walk_L",
+          "A_Humanoid_Aim_Pistol_Walk_R",
+          "A_Humanoid_Crouch_Idle",
+          "A_Humanoid_Crouch_Walk",
+          "A_Humanoid_Idle",
+          "A_Humanoid_Jump_Air",
+          "A_Humanoid_Jump_Start",
+          "A_Humanoid_Land",
+          "A_Humanoid_Reload_Pistol",
+          "A_Humanoid_Run",
+          "A_Humanoid_Shoot_Pistol",
+          "A_Humanoid_Sprint",
+          "A_Humanoid_Walk"
+        ],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 6757040
+      },
+      "reimport_objects": [
+        "Armature",
+        "Icosphere",
+        "SK_NPC_Sam",
+        "SK_NPC_Sam_Body",
+        "SK_NPC_Sam_Boots",
+        "SK_NPC_Sam_Eyebrows",
+        "SK_NPC_Sam_Eyelashes",
+        "SK_NPC_Sam_Eyes",
+        "SK_NPC_Sam_Hair",
+        "SK_NPC_Sam_Jacket",
+        "SK_NPC_Sam_Jeans",
+        "SK_NPC_Sam_TShirt",
+        "SOCKET_RightHand_Weapon"
+      ],
+      "reimport_actions": [
+        "A_Humanoid_Aim_Pistol_Idle",
+        "A_Humanoid_Aim_Pistol_Walk_B",
+        "A_Humanoid_Aim_Pistol_Walk_F",
+        "A_Humanoid_Aim_Pistol_Walk_L",
+        "A_Humanoid_Aim_Pistol_Walk_R",
+        "A_Humanoid_Crouch_Idle",
+        "A_Humanoid_Crouch_Walk",
+        "A_Humanoid_Idle",
+        "A_Humanoid_Jump_Air",
+        "A_Humanoid_Jump_Start",
+        "A_Humanoid_Land",
+        "A_Humanoid_Reload_Pistol",
+        "A_Humanoid_Run",
+        "A_Humanoid_Shoot_Pistol",
+        "A_Humanoid_Sprint",
+        "A_Humanoid_Walk"
+      ],
+      "problems": []
+    }
+  },
+  "asset": "SK_NPC_Sam",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Sam_Body",
+      "message": "158 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Sam_Eyes",
+      "message": "32 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Sam_Eyebrows",
+      "message": "52 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Sam_Eyelashes",
+      "message": "124 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Sam_TShirt",
+      "message": "173 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Sam_Jeans",
+      "message": "96 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Sam_Jacket",
+      "message": "192 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Sam_Hair",
+      "message": "802 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_NPC_Sam_Body",
+      "message": "SK_NPC_Sam_Body vs SK_NPC_Sam_TShirt: 1/659 verts (0.15%)",
+      "data": {
+        "inner": "SK_NPC_Sam_Body",
+        "outer": "SK_NPC_Sam_TShirt",
+        "tested_vertices": 659,
+        "clipped_vertices": 1,
+        "clipped_fraction": 0.0015
+      }
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_NPC_Sam_Body",
+      "message": "SK_NPC_Sam_Body vs SK_NPC_Sam_Jacket: 2/19 verts (10.53%)",
+      "data": {
+        "inner": "SK_NPC_Sam_Body",
+        "outer": "SK_NPC_Sam_Jacket",
+        "tested_vertices": 19,
+        "clipped_vertices": 2,
+        "clipped_fraction": 0.1053
+      }
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_NPC_Sam_TShirt",
+      "message": "SK_NPC_Sam_TShirt vs SK_NPC_Sam_Jacket: 4/165 verts (2.42%)",
+      "data": {
+        "inner": "SK_NPC_Sam_TShirt",
+        "outer": "SK_NPC_Sam_Jacket",
+        "tested_vertices": 165,
+        "clipped_vertices": 4,
+        "clipped_fraction": 0.0242
+      }
+    },
+    {
+      "severity": "info",
+      "code": "HUMANOID_OPTIONAL",
+      "object": "Armature",
+      "message": "optional humanoid bones absent: ['LeftEye', 'RightEye', 'Jaw']"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_NONE",
+      "object": null,
+      "message": "no LOD ratios configured for Characters"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "infos": 13
+  },
+  "seconds": 20.75,
+  "exit_code": 0,
+  "result": "PASS"
+}

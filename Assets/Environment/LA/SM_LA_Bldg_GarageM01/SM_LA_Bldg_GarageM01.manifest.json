@@ -1,0 +1,213 @@
+{
+  "asset": "SM_LA_Bldg_GarageM01",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -6.1,
+      0.0,
+      -5.1
+    ],
+    "max": [
+      6.1,
+      4.9,
+      5.1
+    ],
+    "size": [
+      12.2,
+      4.9,
+      10.2
+    ]
+  },
+  "triangles": {
+    "lod0": 168,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 168,
+      "LOD1": 84,
+      "LOD2": 42
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_LA_Bldg_GarageM01_Mesh",
+      "levels": [
+        {
+          "name": "SM_LA_Bldg_GarageM01_Mesh",
+          "level": 0,
+          "triangles": 168
+        },
+        {
+          "name": "SM_LA_Bldg_GarageM01_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 84
+        },
+        {
+          "name": "SM_LA_Bldg_GarageM01_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 42
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "trimesh",
+    "generated": [
+      {
+        "name": "UCX_SM_LA_Bldg_GarageM01_Mesh_LOD2-colonly",
+        "vertices": 49,
+        "triangles": 42
+      }
+    ],
+    "existing": []
+  },
+  "materials": [
+    "M_LA_GarageFloor",
+    "M_LA_GarageWall",
+    "M_LA_RollupDoor",
+    "M_LA_Workbench"
+  ],
+  "textures": [
+    {
+      "image": "T_LA_GarageFloor_D",
+      "material": "M_LA_GarageFloor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_c9ecxe22/T_LA_GarageFloor_D.jpg"
+    },
+    {
+      "image": "T_LA_GarageFloor_ORM",
+      "material": "M_LA_GarageFloor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_ivx9iayg/T_LA_GarageFloor_ORM.jpg"
+    },
+    {
+      "image": "T_LA_GarageFloor_N",
+      "material": "M_LA_GarageFloor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_884vak6c/T_LA_GarageFloor_N.png"
+    },
+    {
+      "image": "T_LA_GarageWall_D",
+      "material": "M_LA_GarageWall",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_fjcsib2b/T_LA_GarageWall_D.jpg"
+    },
+    {
+      "image": "T_LA_GarageWall_ORM",
+      "material": "M_LA_GarageWall",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_0z38yyzc/T_LA_GarageWall_ORM.jpg"
+    },
+    {
+      "image": "T_LA_GarageWall_N",
+      "material": "M_LA_GarageWall",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_xw13rvt5/T_LA_GarageWall_N.png"
+    },
+    {
+      "image": "T_LA_RollupDoor_D",
+      "material": "M_LA_RollupDoor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_65bk93b0/T_LA_RollupDoor_D.jpg"
+    },
+    {
+      "image": "T_LA_RollupDoor_ORM",
+      "material": "M_LA_RollupDoor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_y5jihl3b/T_LA_RollupDoor_ORM.jpg"
+    },
+    {
+      "image": "T_LA_RollupDoor_N",
+      "material": "M_LA_RollupDoor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_lh4cjjla/T_LA_RollupDoor_N.png"
+    }
+  ],
+  "uv_overlap": {
+    "SM_LA_Bldg_GarageM01_Mesh": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.7063
+    }
+  },
+  "texel_density": {
+    "SM_LA_Bldg_GarageM01_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 14.5,
+      "p10_px_per_m": 14.5,
+      "p90_px_per_m": 14.5
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {
+    "SOCKET_PackageBench": {
+      "parent": "SM_LA_Bldg_GarageM01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.94,
+        -3.95
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_Bldg_GarageM01_Mesh_LOD1",
+    "SM_LA_Bldg_GarageM01_Mesh_LOD2",
+    "SM_LA_Bldg_GarageM01_Mesh",
+    "SOCKET_PackageBench",
+    "UCX_SM_LA_Bldg_GarageM01_Mesh_LOD2-colonly",
+    "SM_LA_Bldg_GarageM01"
+  ],
+  "glb_bytes": 1865428
+}

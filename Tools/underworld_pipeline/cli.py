@@ -76,6 +76,33 @@ def build_parser():
         if name == "export-all":
             sp.add_argument("--out-root", help="write exports here instead of <repo>/Assets (mirrors paths)")
             export_opts(sp)
+
+    # Unified whole-game asset generator subcommands (T-PIPE-03+)
+    sp_bc = sub.add_parser("build-character", help="Build a character .blend from a JSON/YAML spec")
+    sp_bc.add_argument("spec")
+    sp_bc.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
+    sp_bc.add_argument("--no-bake", action="store_true")
+
+    sp_sa = sub.add_parser("build-shared-anims", help="Export shared 53-bone A_Humanoid_Locomotion.glb library")
+    sp_sa.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
+
+    sp_bw = sub.add_parser("build-weapon", help="Build a weapon .blend from a JSON spec")
+    sp_bw.add_argument("spec")
+    sp_bw.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
+
+    sp_bv = sub.add_parser("build-vehicle", help="Build a vehicle .blend from a JSON spec")
+    sp_bv.add_argument("spec")
+    sp_bv.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
+
+    sp_be = sub.add_parser("build-env", help="Build modular LA street environment kit .blend sources")
+    sp_be.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
+    sp_be.add_argument("--only", default=None)
+
+    sp_rt = sub.add_parser("retarget", help="Retarget a CC0 BVH clip onto a character .blend")
+    sp_rt.add_argument("blend")
+    sp_rt.add_argument("bvh")
+    sp_rt.add_argument("--action-name", required=True)
+    sp_rt.add_argument("--cyclic", action="store_true")
     return p
 
 
@@ -286,6 +313,38 @@ def finish(report, code, path):
 
 def main(argv):
     args = build_parser().parse_args(argv)
+    if args.command == "build-character":
+        from underworld_pipeline.characters import build_character as BC
+        BC.build_from_spec(args.spec, repo_root=args.repo, do_bake=not args.no_bake)
+        return C.EXIT_OK
+    if args.command == "build-shared-anims":
+        from underworld_pipeline.characters import build_shared_anims as BSA
+        BSA.build_shared_library(repo_root=args.repo)
+        return C.EXIT_OK
+    if args.command == "build-weapon":
+        from underworld_pipeline.weapons import build_weapon as BW
+        BW.build_pistol_from_spec(args.spec, repo_root=args.repo)
+        return C.EXIT_OK
+    if args.command == "build-vehicle":
+        from underworld_pipeline.vehicles import build_vehicle as BV
+        BV.build_sedan_from_spec(args.spec, repo_root=args.repo)
+        return C.EXIT_OK
+    if args.command == "build-env":
+        from underworld_pipeline.environment import build_la_kit as BLA
+        BLA.build_all(repo_root=args.repo, only=args.only)
+        return C.EXIT_OK
+    if args.command == "retarget":
+        from underworld_pipeline.characters import retarget as RT
+        bpy.ops.wm.open_mainfile(filepath=os.path.abspath(args.blend), load_ui=False)
+        arm = next((o for o in bpy.context.scene.objects if o.type == "ARMATURE"), None)
+        if arm is None:
+            print("[UWP][ERROR] RETARGET: no Armature found in", args.blend)
+            return C.EXIT_USAGE
+        act, n_frames = RT.retarget_bvh_to_armature(arm, args.bvh, args.action_name, cyclic=args.cyclic)
+        bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(args.blend), compress=True)
+        print(f"[UWP] retargeted {args.bvh} -> {act.name} ({n_frames} frames) in {args.blend}")
+        return C.EXIT_OK
+
     cfg = Config(args.repo, args.budgets)
     do_export = args.command.startswith("export")
     if args.command in ("validate", "export"):

@@ -1,0 +1,44 @@
+{
+  "_doc": "NPC spec: SK_NPC_Cop_LA (LA patrol officer: navy uniform, dark slacks, patrol boots, short combed hair). Budget: <= 25k tris.",
+  "asset_name": "SK_NPC_Cop_LA",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "height_m": 1.83,
+  "boot_sole_extra_m": 0.024,
+  "npc_decimate_body": 0.62,
+  "macro": {
+    "gender": 1.0,
+    "age": 0.60,
+    "muscle": 0.66,
+    "weight": 0.54,
+    "proportions": 0.66,
+    "height_morph": 0.68,
+    "ethnicity": { "caucasian": 0.80, "asian": 0.10, "african": 0.10 }
+  },
+  "morphs": { "chin-bones-decr-incr": 0.30, "chin-prominent-decr-incr": 0.25 },
+  "skin": {
+    "texture_size": 1024,
+    "base_diffuse": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_diffuse.png",
+    "base_normal": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_NRM.png",
+    "base_spec": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_SPEC.png",
+    "tint_rgb": [0.98, 0.92, 0.88],
+    "hair_color_rgb": [0.14, 0.10, 0.07],
+    "skin_fade": { "enabled": true },
+    "beard_stubble": { "density": 0.0 },
+    "seed": 601
+  },
+  "eyes": { "mhclo": "mh_eyes/low-poly.mhclo", "iris_texture": "makehuman_system_assets/eyes/materials/blue_eye.png" },
+  "eyebrows": { "mhclo": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.mhclo", "texture": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.png", "scar_notch": false },
+  "eyelashes": { "mhclo": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.mhclo", "texture": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.png" },
+  "teeth": { "enabled": false },
+  "hair": { "style": "short_combed", "color_rgb": [0.14, 0.10, 0.07], "seed": 602 },
+  "beard": { "style": "none" },
+  "outfit": {
+    "tshirt": { "enabled": true, "style": "crew_tshirt", "polyhaven_id": "cotton_jersey", "texture_size": 1024, "bake_size": 512, "normal_size": 512, "tile": 5.0, "desaturate": 0.40, "tint_rgb": [0.12, 0.16, 0.26] },
+    "jacket": { "enabled": false },
+    "jeans": { "enabled": true, "style": "straight_jeans", "polyhaven_id": "knitted_fleece", "texture_size": 512, "bake_high_to_low": false, "tile": 5.0, "desaturate": 0.55, "tint_rgb": [0.10, 0.13, 0.21] },
+    "boots": { "enabled": true, "polyhaven_id": "brown_leather", "texture_size": 512, "bake_high_to_low": false, "tile": 3.0, "desaturate": 0.90, "tint_rgb": [0.09, 0.09, 0.10], "roughness_scale": 0.65, "zone_mode": "boot_sole" },
+    "watch": { "enabled": false }
+  },
+  "animations": { "clip_prefix": "A_Humanoid_", "mocap_walk_bvh": "mocap/makehuman_walk1.bvh", "include_p2": false, "minimal_npc_set": true }
+}

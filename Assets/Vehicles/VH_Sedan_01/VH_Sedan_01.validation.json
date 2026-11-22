@@ -1,0 +1,720 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-22T12:15:29+01:00",
+  "command": "export",
+  "input": "Blender/Source/Vehicles/VH_Sedan_01/VH_Sedan_01.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 15
+    },
+    "lods": [
+      {
+        "object": "Body",
+        "levels": [
+          {
+            "name": "Body",
+            "level": 0,
+            "triangles": 544
+          },
+          {
+            "name": "Body_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 272
+          },
+          {
+            "name": "Body_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 108
+          }
+        ]
+      },
+      {
+        "object": "Cabin",
+        "levels": [
+          {
+            "name": "Cabin",
+            "level": 0,
+            "triangles": 150
+          },
+          {
+            "name": "Cabin_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 74
+          },
+          {
+            "name": "Cabin_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 30
+          }
+        ]
+      },
+      {
+        "object": "Door_FL",
+        "levels": [
+          {
+            "name": "Door_FL",
+            "level": 0,
+            "triangles": 104
+          },
+          {
+            "name": "Door_FL_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 52
+          },
+          {
+            "name": "Door_FL_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 20
+          }
+        ]
+      },
+      {
+        "object": "Door_FR",
+        "levels": [
+          {
+            "name": "Door_FR",
+            "level": 0,
+            "triangles": 104
+          },
+          {
+            "name": "Door_FR_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 52
+          },
+          {
+            "name": "Door_FR_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 20
+          }
+        ]
+      },
+      {
+        "object": "Door_RL",
+        "levels": [
+          {
+            "name": "Door_RL",
+            "level": 0,
+            "triangles": 104
+          },
+          {
+            "name": "Door_RL_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 52
+          },
+          {
+            "name": "Door_RL_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 20
+          }
+        ]
+      },
+      {
+        "object": "Door_RR",
+        "levels": [
+          {
+            "name": "Door_RR",
+            "level": 0,
+            "triangles": 104
+          },
+          {
+            "name": "Door_RR_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 52
+          },
+          {
+            "name": "Door_RR_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 20
+          }
+        ]
+      },
+      {
+        "object": "Wheel_FL",
+        "levels": [
+          {
+            "name": "Wheel_FL",
+            "level": 0,
+            "triangles": 508
+          },
+          {
+            "name": "Wheel_FL_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 254
+          },
+          {
+            "name": "Wheel_FL_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 100
+          }
+        ]
+      },
+      {
+        "object": "Wheel_FR",
+        "levels": [
+          {
+            "name": "Wheel_FR",
+            "level": 0,
+            "triangles": 508
+          },
+          {
+            "name": "Wheel_FR_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 254
+          },
+          {
+            "name": "Wheel_FR_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 100
+          }
+        ]
+      },
+      {
+        "object": "Wheel_RL",
+        "levels": [
+          {
+            "name": "Wheel_RL",
+            "level": 0,
+            "triangles": 508
+          },
+          {
+            "name": "Wheel_RL_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 254
+          },
+          {
+            "name": "Wheel_RL_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 100
+          }
+        ]
+      },
+      {
+        "object": "Wheel_RR",
+        "levels": [
+          {
+            "name": "Wheel_RR",
+            "level": 0,
+            "triangles": 508
+          },
+          {
+            "name": "Wheel_RR_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 254
+          },
+          {
+            "name": "Wheel_RR_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 100
+          }
+        ]
+      }
+    ],
+    "collision": {
+      "mode": "authored",
+      "generated": [],
+      "existing": [
+        "UCX_VH_Sedan_01-convcolonly"
+      ]
+    },
+    "export": {
+      "glb": "Assets/Vehicles/VH_Sedan_01/VH_Sedan_01.glb",
+      "bytes": 423596
+    },
+    "preview": "Assets/Vehicles/VH_Sedan_01/VH_Sedan_01_preview.png",
+    "manifest": "Assets/Vehicles/VH_Sedan_01/VH_Sedan_01.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "Body_LOD1",
+          "Body_LOD2",
+          "Body",
+          "Bumper_F",
+          "Bumper_R",
+          "Cabin_LOD1",
+          "Cabin_LOD2",
+          "Cabin",
+          "Door_FL_LOD1",
+          "Door_FL_LOD2",
+          "Door_FL",
+          "Door_FR_LOD1",
+          "Door_FR_LOD2",
+          "Door_FR",
+          "Door_RL_LOD1",
+          "Door_RL_LOD2",
+          "Door_RL",
+          "Door_RR_LOD1",
+          "Door_RR_LOD2",
+          "Door_RR",
+          "Hood",
+          "SOCKET_Exit_Left",
+          "SOCKET_Exit_Right",
+          "SOCKET_Headlight_L",
+          "SOCKET_Headlight_R",
+          "SOCKET_Seat_Driver",
+          "SOCKET_Seat_Passenger",
+          "SOCKET_Taillight_L",
+          "SOCKET_Taillight_R",
+          "Trunk",
+          "UCX_VH_Sedan_01-convcolonly",
+          "Wheel_FL_LOD1",
+          "Wheel_FL_LOD2",
+          "Wheel_FL",
+          "Wheel_FR_LOD1",
+          "Wheel_FR_LOD2",
+          "Wheel_FR",
+          "Wheel_RL_LOD1",
+          "Wheel_RL_LOD2",
+          "Wheel_RL",
+          "Wheel_RR_LOD1",
+          "Wheel_RR_LOD2",
+          "Wheel_RR",
+          "VH_Sedan_01"
+        ],
+        "node_extras": {
+          "Body_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Body_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Body": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Cabin_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Cabin_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Cabin": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Door_FL_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Door_FL_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Door_FL": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Door_FR_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Door_FR_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Door_FR": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Door_RL_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Door_RL_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Door_RL": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Door_RR_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Door_RR_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Door_RR": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Wheel_FL_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Wheel_FL_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Wheel_FL": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Wheel_FR_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Wheel_FR_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Wheel_FR": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Wheel_RL_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Wheel_RL_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Wheel_RL": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Wheel_RR_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Wheel_RR_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Wheel_RR": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "VH_Sedan_01": {
+            "uw_wheel_radius_m": 0.34,
+            "uw_wheelbase_m": 2.86,
+            "uw_track_width_m": 1.58
+          }
+        },
+        "meshes": 35,
+        "materials": [
+          "M_VH_Sedan_01_Paint",
+          "M_VH_Sedan_01_Chrome",
+          "M_VH_Sedan_01_Headlight",
+          "M_VH_Sedan_01_Taillight",
+          "M_VH_Sedan_01_Trim",
+          "M_VH_Sedan_01_Glass",
+          "M_VH_Sedan_01_Tire",
+          "M_VH_Sedan_01_Rim"
+        ],
+        "images": 0,
+        "skins": [],
+        "joint_names": [],
+        "animations": [],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 423596
+      },
+      "reimport_objects": [
+        "Body",
+        "Body_LOD1",
+        "Body_LOD2",
+        "Bumper_F",
+        "Bumper_R",
+        "Cabin",
+        "Cabin_LOD1",
+        "Cabin_LOD2",
+        "Door_FL",
+        "Door_FL_LOD1",
+        "Door_FL_LOD2",
+        "Door_FR",
+        "Door_FR_LOD1",
+        "Door_FR_LOD2",
+        "Door_RL",
+        "Door_RL_LOD1",
+        "Door_RL_LOD2",
+        "Door_RR",
+        "Door_RR_LOD1",
+        "Door_RR_LOD2",
+        "Hood",
+        "SOCKET_Exit_Left",
+        "SOCKET_Exit_Right",
+        "SOCKET_Headlight_L",
+        "SOCKET_Headlight_R",
+        "SOCKET_Seat_Driver",
+        "SOCKET_Seat_Passenger",
+        "SOCKET_Taillight_L",
+        "SOCKET_Taillight_R",
+        "Trunk",
+        "UCX_VH_Sedan_01-convcolonly",
+        "VH_Sedan_01",
+        "Wheel_FL",
+        "Wheel_FL_LOD1",
+        "Wheel_FL_LOD2",
+        "Wheel_FR",
+        "Wheel_FR_LOD1",
+        "Wheel_FR_LOD2",
+        "Wheel_RL",
+        "Wheel_RL_LOD1",
+        "Wheel_RL_LOD2",
+        "Wheel_RR",
+        "Wheel_RR_LOD1",
+        "Wheel_RR_LOD2"
+      ],
+      "reimport_actions": [],
+      "problems": []
+    }
+  },
+  "asset": "VH_Sedan_01",
+  "category": "Vehicles",
+  "budget_key": "Vehicles",
+  "issues": [
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Body",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Cabin",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Hood",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Trunk",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Bumper_F",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Bumper_R",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Door_FL",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Door_FR",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Door_RL",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Door_RR",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Wheel_FL",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Wheel_FR",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Wheel_RL",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Wheel_RR",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "Cabin",
+      "message": "24 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "warning",
+      "code": "NON_MANIFOLD",
+      "object": "UCX_VH_Sedan_01-convcolonly",
+      "message": "56 edges with >2 faces, 32 non-manifold vertices"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SMALL",
+      "object": "Hood",
+      "message": "60 tris < lod_min_triangles 64"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SMALL",
+      "object": "Trunk",
+      "message": "60 tris < lod_min_triangles 64"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SMALL",
+      "object": "Bumper_F",
+      "message": "60 tris < lod_min_triangles 64"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SMALL",
+      "object": "Bumper_R",
+      "message": "60 tris < lod_min_triangles 64"
+    },
+    {
+      "severity": "info",
+      "code": "COLLISION_AUTHORED",
+      "object": null,
+      "message": "authored collision kept, nothing generated: ['UCX_VH_Sedan_01-convcolonly']"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 15,
+    "infos": 6
+  },
+  "seconds": 0.84,
+  "exit_code": 0,
+  "result": "PASS"
+}

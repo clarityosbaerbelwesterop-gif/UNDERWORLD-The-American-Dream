@@ -19,10 +19,11 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-PIPE-03 | P0 | Lead TD | Production realistic character pipeline + SK_Jason v2 (CC0 human base, fitted clothing, Cycles hi-to-lo PBR, blendshapes, uwp quality gates + silhouette check) | T-PIPE-01, T-PIPE-02 | COMPLETED |
 | T-ART-01 | P1 | Bot 2 / Lead TD | Jason model + rig + skin (upgraded to v2 in T-PIPE-03) | T-PIPE-01 | COMPLETED |
 | T-ART-02 | P1 | Bot 2 | Jason animation set | T-ART-01 | COMPLETED |
-| T-ART-03 | P1 | Bot 2 | LA street environment kit | T-PIPE-01, T-DES-02 | BACKLOG |
-| T-ART-04 | P1 | Bot 2 | Drivable car model | T-PIPE-01 | BACKLOG |
-| T-ART-05 | P1 | Bot 2 | Pistol model | T-PIPE-01 | BACKLOG |
-| T-ART-06 | P1 | Bot 2 | 3 NPC models on shared rig | T-ART-01 | BACKLOG |
+| T-PIPE-04 | P0 | Lead TD → Bot 1 (recovered) | Whole-game asset pipeline v0: NPC/weapon/vehicle/env generators, shared anim library, LA look-dev presets, M01 block greybox | T-PIPE-03 | COMPLETED |
+| T-ART-03 | P1 | Bot 2 / Lead TD | LA street environment kit | T-PIPE-01, T-DES-02 | IN PROGRESS |
+| T-ART-04 | P1 | Bot 2 / Lead TD | Drivable car model | T-PIPE-01 | IN PROGRESS |
+| T-ART-05 | P1 | Bot 2 / Lead TD | Pistol model | T-PIPE-01 | IN PROGRESS |
+| T-ART-06 | P1 | Bot 2 / Lead TD | 3 NPC models on shared rig | T-ART-01 | IN PROGRESS |
 | T-GP-01 | P0 | Bot 3 | Third-person controller + camera | T-PIPE-00 | READY FOR REVIEW |
 | T-GP-01b | P2 | Bot 3 | Vault-lite (low obstacles) | T-GP-01, T-ART-02 | BACKLOG |
 | T-GP-01c | P1 | Bot 3 | Stairs / step-up for the player | T-GP-01 | READY FOR REVIEW |
@@ -30,7 +31,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-GP-02a | P1 | Bot 3 | Rapid-fire bloom (stacking, cap, recovery delay) | T-GP-02 | COMPLETED |
 | T-GP-02b | P2 | Bot 3 | Ragdoll-lite hit reaction | T-GP-02, T-ART-01 | BACKLOG |
 | T-GP-03 | P1 | Bot 3 | Vehicle physics + enter/exit | T-GP-01 | BACKLOG |
-| T-AI-01 | P1 | Bot 3 | Enemy AI (cartel gunmen) | T-GP-02 | READY FOR REVIEW |
+| T-AI-01 | P1 | Bot 3 | Enemy AI (cartel gunmen) | T-GP-02 | COMPLETED |
 | T-AI-02 | P2 | Bot 3 | Civilian NPC behaviour | T-GP-01 | BACKLOG |
 | T-LVL-01 | P1 | Bot 3 | Assemble LA street level | T-ART-03 | BACKLOG |
 | T-MIS-01 | P1 | Bot 3 | Mission system + M01 implementation | T-DES-01, T-GP-02, T-GP-03, T-AI-01 | BACKLOG |
@@ -113,24 +114,29 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Expected output:** actions inside `SK_Jason.glb` (or `Assets/Characters/SK_Jason/A_Jason_Locomotion.glb` on same skeleton).
 - **Acceptance:** Godot `AnimationPlayer` lists all names; loops flagged; foot sliding < 5 cm per cycle at stated speed.
 
+### T-PIPE-04 – Whole-game asset pipeline v0 (recovered cloud-agent work)
+- **Agent:** Lead TD (Gemini cloud agent, unpushed) → recovered, re-run and verified by Bot 1 · **Deps:** T-PIPE-03 · **Status:** COMPLETED (2026-11-22, PR `pipe/t-pipe-04-recovered`)
+- **Output:** `Tools/uwp build-character|build-shared-anims|build-weapon|build-vehicle|build-env|retarget`; generators `Tools/underworld_pipeline/{weapons,vehicles,environment}/`, `characters/build_shared_anims.py`; specs `Config/Characters/SK_NPC_*.json` (6), `Config/Weapons/WPN_Pistol_01.json`, `Config/Vehicles/VH_Sedan_01.json`; assets SK_NPC_Sam, A_Humanoid_Locomotion, WPN_Pistol_01, VH_Sedan_01, 6 LA kit pieces + SM_Prop_PackageCrate; `Assets/Environments/ENV_LA_{GoldenHour,Midday,Night}.tres`; scenes `Scenes/Levels/LA_CallowayAve_Block.tscn` (greybox, no gameplay), `Scenes/LookDev/LA_LookDev_Showcase.tscn`; docs `Docs/PIPELINE_{WEAPONS,VEHICLES,ENVIRONMENT,LOOKDEV}.md`.
+- **Quality:** v0 / blockout grade for weapon, vehicle and kit; Sam on Jason v2 level. Not built yet: SK_NPC_Marco, Cartel_A/B, Cop_LA, Civilian_Female (specs only).
+
 ### T-ART-03 – LA street environment kit "Calloway Avenue"
-- **Agent:** Bot 2 · **Deps:** T-PIPE-01, T-DES-02 · **Status:** BACKLOG
+- **Agent:** Bot 2 / Lead TD · **Deps:** T-PIPE-01, T-DES-02 · **Status:** IN PROGRESS (v0 kit merged via T-PIPE-04: road, sidewalk+curb, stucco shop, M01 garage, streetlight, palm, package crate; missing: crosswalk, apartment, traffic light, hydrant, trash can, bus stop, fence, LOD1 on road/sidewalk, trim sheets/decals)
 - **Description:** modular original kit on a 2 m grid: road segment 10×14 m (2 lanes + parking), sidewalk 10×4 m with curb, crosswalk, 3 building facades (2-storey stucco shop, 4-storey brick apartment, mid-century motel/garage with roll-up door for M01), streetlight, traffic light, palm tree, hydrant, trash can, bus stop, fence, garage interior shell. Each with `-col`/`-colonly` collision and LOD1.
 - **Expected output:** `Blender/Source/Environment/LA/<Piece>/...`, `Assets/Environment/LA/<Piece>/<Piece>.glb`.
 - **Acceptance:** pieces snap on grid; budgets TD-009; collision present; registry rows.
 
 ### T-ART-04 – Drivable car "VH_Sedan_01"
-- **Agent:** Bot 2 · **Deps:** T-PIPE-01 · **Status:** BACKLOG
+- **Agent:** Bot 2 / Lead TD · **Deps:** T-PIPE-01 · **Status:** IN PROGRESS (v0 blockout merged via T-PIPE-04: 3,382 tris, separate wheels/doors/hood/trunk/bumpers + Cabin, sockets, convex collision; needs a real hi-poly body, interior, glass separation, damage states)
 - **Description:** original late-90s American full-size sedan (no real brand), ~5.2×1.9×1.45 m. Separate nodes: `Body`, `Wheel_FL`, `Wheel_FR`, `Wheel_RL`, `Wheel_RR` (origins at wheel centres, radius documented), `Door_FL` (pivot at hinge), `SOCKET_Seat_Driver`, `SOCKET_Exit_Left`, convex collision `UCX_Body-convcolonly`.
 - **Acceptance:** Godot import keeps wheel nodes; manifest lists wheel radius, wheelbase, track width; ≤ 60k tris.
 
 ### T-ART-05 – Pistol "WPN_Pistol_01"
-- **Agent:** Bot 2 · **Deps:** T-PIPE-01 · **Status:** BACKLOG
+- **Agent:** Bot 2 / Lead TD · **Deps:** T-PIPE-01 · **Status:** IN PROGRESS (v0 merged via T-PIPE-04: 1,920 tris, Slide/Magazine/Trigger, SOCKET_Muzzle +Z 0.165 m, Eject, Grip, clips Fire/Reload 1.6 s/Empty; weapon tests green with the real glb; needs proper gun-metal material instead of Poly Haven `metal_plate` tread pattern, closed trigger guard, barrel flush with slide)
 - **Description:** original semi-auto pistol, origin at grip. Separate `Slide` and `Magazine` nodes; sockets `SOCKET_Muzzle`, `SOCKET_Eject`, `SOCKET_Grip`.
 - **Acceptance:** ≤ 8k tris; sockets present after Godot import; scale fits Jason's hand (registry note).
 
 ### T-ART-06 – 3 NPC models (shared rig)
-- **Agent:** Bot 2 · **Deps:** T-ART-01 · **Status:** BACKLOG
+- **Agent:** Bot 2 / Lead TD · **Deps:** T-ART-01 · **Status:** IN PROGRESS (SK_NPC_Sam built + shared `A_Humanoid_Locomotion.glb` (21 clips) via T-PIPE-04; specs ready for Marco, Cartel_A/B, Cop_LA, Civilian_Female – build each with `Tools/uwp build-character`, ~10 MB LFS each)
 - **Description:** `SK_NPC_Civilian_A` (female jogger), `SK_NPC_Civilian_B` (older male shop owner), `SK_NPC_Cartel_Gunman` (enemy, 2 colour variants). Same bone names as Jason so his animations play on them.
 - **Acceptance:** ≤ 25k tris each; Jason's `A_Jason_Walk` plays on all three in Godot without retarget errors.
 
@@ -187,7 +193,7 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Acceptance:** headless test: throttle 3 s → speed > 8 m/s; brake to < 0.5 m/s; enter/exit toggles player control.
 
 ### T-AI-01 – Enemy AI (cartel gunmen)
-- **Agent:** Bot 3 · **Deps:** T-GP-02 · **Status:** READY FOR REVIEW (2026-11-22, Bot 3, branch `bot3/t-ai-01`)
+- **Agent:** Bot 3 · **Deps:** T-GP-02 · **Status:** COMPLETED (PR #6 merged by Bot 1, 2026-11-22)
 - **Description:** state machine Idle → Alert → Engage → Take cover (pre-placed `CoverPoint` nodes) → Flank-lite → Dead; `NavigationAgent3D`; line-of-sight perception + hearing gunshots; accuracy falloff by distance/movement.
 - **Acceptance:** headless test: 3 gunmen detect player within 2 s of LOS, deal damage, die after enough hits.
 - **Delivered (Bot 3, 2026-11-22):** `Scripts/ai/`: `NPCController` (CharacterBody3D, layer 3, cylinder; NavigationAgent3D movement; states idle/patrol, alert, investigate, engage, take_cover, in_cover (hide ↔ peek + shoot), search, flee, dead), `AIStateMachine` (transition table + timeouts **from the AIProfile .tres**, validator), `AIProfile` (Resource: table, speeds, perception, accuracy, cover, flee), `AIPerception` (pure math: view cone, awareness rate, hearing, aim error, cover score; `emit_noise` → group `ai_hearing`), `CoverPoint` (Marker3D, runtime protection + peek raycasts, claiming), `NPCRoute`. Perception = view cone (120°, 35 m) + LOS raycast (World|Vehicles) to head/chest + 2.5 m near awareness; awareness meter (0.4 s near → 1.6 s at 35 m, ×2 once alerted); hearing gunshots (`WeaponData.noise_radius` 40 m – ACCEPTED [DEFAULT] by Bot 1, capped by `hearing_range`). Shooting via the T-GP-02 `Weapon` + `WPN_Pistol_01.tres` with AI aim error (4° + 3° moving target + 0.5°/10 m, ×0.5 with 2 s focus) on top of hip spread; bursts 2–3, reaction 0.35 s. `HumanoidHitboxes` (head/body/legs/2 arms → DamageReceiver) on NPCs **and the player** (player now has `Health`, dies → input off; own shots/crosshair exclude own hitboxes). Data: `Data/AI/AI_Gunman_Cartel.tres`, `AI_Civilian.tres`; PT scenes `Scenes/NPC/PT_NPC_Gunman.tscn`, `PT_NPC_Civilian.tscn` (`Scripts/tools/build_npc_scenes.gd`); `PT_PlayerTestRange` gets 3 low cover walls, 7 CoverPoints (1 decoy on the wrong side) and `PT_NavRegion` (navmesh baked headless in `build_test_range.gd`); new `Scenes/Test/PT_AITestRange.tscn` = range + 3 gunmen + 3 civilians on 2 routes.

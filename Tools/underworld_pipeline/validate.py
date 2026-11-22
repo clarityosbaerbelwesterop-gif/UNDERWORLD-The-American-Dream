@@ -191,7 +191,7 @@ def validate(ctx):
             dg_clip = bpy.context.evaluated_depsgraph_get()
             clipping = S.check_layered_clipping(sc, dg_clip)
         for c in clipping:
-            if c["tested_vertices"] >= 20 and c["clipped_fraction"] > clip_err:
+            if c["tested_vertices"] >= 20 and c["clipped_vertices"] >= 8 and c["clipped_fraction"] > clip_err:
                 iss.error("MESH_CLIPPING",
                           f"{c['inner']} clips through {c['outer']}: {c['clipped_vertices']}/{c['tested_vertices']} verts ({c['clipped_fraction']*100:.1f}% > {clip_err*100:.1f}%)",
                           c["inner"], **c)

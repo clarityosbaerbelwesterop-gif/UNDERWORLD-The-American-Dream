@@ -1,0 +1,110 @@
+{
+  "asset": "SM_LA_Sidewalk_Curb",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -2.0,
+      0.0,
+      -5.0
+    ],
+    "max": [
+      2.0,
+      0.16,
+      5.0
+    ],
+    "size": [
+      4.0,
+      0.16,
+      10.0
+    ]
+  },
+  "triangles": {
+    "lod0": 44,
+    "budget": 10000,
+    "per_lod_total": {}
+  },
+  "lods": [],
+  "collision": {
+    "mode": "trimesh",
+    "generated": [
+      {
+        "name": "UCX_SM_LA_Sidewalk_Curb_Mesh-colonly",
+        "vertices": 24,
+        "triangles": 44
+      }
+    ],
+    "existing": []
+  },
+  "materials": [
+    "M_LA_Concrete"
+  ],
+  "textures": [
+    {
+      "image": "T_LA_Concrete_D",
+      "material": "M_LA_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_g33av6r3/T_LA_Concrete_D.jpg"
+    },
+    {
+      "image": "T_LA_Concrete_ORM",
+      "material": "M_LA_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_20z9pqyi/T_LA_Concrete_ORM.jpg"
+    },
+    {
+      "image": "T_LA_Concrete_N",
+      "material": "M_LA_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_pvm0_qnb/T_LA_Concrete_N.png"
+    }
+  ],
+  "uv_overlap": {
+    "SM_LA_Sidewalk_Curb_Mesh": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.8969
+    }
+  },
+  "texel_density": {
+    "SM_LA_Sidewalk_Curb_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 46.6,
+      "p10_px_per_m": 46.6,
+      "p90_px_per_m": 55.4
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_Sidewalk_Curb_Mesh",
+    "UCX_SM_LA_Sidewalk_Curb_Mesh-colonly",
+    "SM_LA_Sidewalk_Curb"
+  ],
+  "glb_bytes": 770508
+}

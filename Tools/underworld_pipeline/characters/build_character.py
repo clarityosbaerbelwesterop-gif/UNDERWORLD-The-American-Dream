@@ -145,7 +145,9 @@ def build_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None, out_blend=No
     mh = MH.MakeHumanBase(cache_dir)
     mh.apply_macro(spec.get("macro", {}))
     n_morphs = mh.apply_morphs(spec.get("morphs", {}))
-    shapes = mh.load_blendshape_targets(spec.get("blendshapes"))
+    # For NPCs with npc_decimate_body, skip shape keys during build so Blender Decimate can optimize body cleanly to <= 25k tris!
+    npc_dec = float(spec.get("npc_decimate_body", 1.0))
+    shapes = [] if npc_dec < 0.99 else mh.load_blendshape_targets(spec.get("blendshapes"))
     sole_extra = float(spec.get("boot_sole_extra_m", 0.024))
     mh.finalize_scale(target_height_m=height_m, sole_extra_m=sole_extra)
     print(f"[CHAR] morphed hm08 base: {n_morphs} custom targets, {len(shapes)} facial blendshapes, scale_k={mh.scale_k:.4f}")
@@ -240,6 +242,16 @@ def build_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None, out_blend=No
         has_boots=boots_ob is not None,
     )
     print(f"[CHAR] culled {culled} hidden under-clothing body faces")
+    if npc_dec < 0.99:
+        for ob_d, ratio_d in [(body_ob, npc_dec)] + [(g, min(0.70, npc_dec + 0.08)) for g in garment_objs.values()]:
+            if ob_d is not None and not ob_d.data.shape_keys:
+                dm = ob_d.modifiers.new("NPCDecimate", "DECIMATE")
+                dm.ratio = ratio_d
+                bpy.ops.object.select_all(action="DESELECT")
+                ob_d.select_set(True)
+                bpy.context.view_layer.objects.active = ob_d
+                bpy.ops.object.modifier_apply(modifier=dm.name)
+                MH.MakeHumanBase._clean_normalize_weights(ob_d, max_inf=4)
 
     # 8. Cycles High-to-Low Normal & AO Bake + CC0 Poly Haven PBR Compositing for every garment!
     bake_profiles = {
@@ -313,11 +325,11 @@ def build_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None, out_blend=No
     if jeans_ob is not None:
         CLOTH._enforce_clearance(jeans_ob, [body_ob], min_clearance=0.0055, passes=2)
     if jacket_ob is not None:
-        CLOTH._enforce_clearance(jacket_ob, [tshirt_ob, body_ob], min_clearance=0.0080, passes=3)
-        CLOTH._tuck_inner_behind_outer(tshirt_ob, jacket_ob, margin=0.0050, max_probe=0.018)
-        CLOTH._tuck_inner_behind_outer(tshirt_ob, jacket_ob, margin=0.0050, max_probe=0.018)
-        # Push jacket outward once more around any close body verts (body has facial shape keys, so move jacket!)
-        CLOTH._enforce_clearance(jacket_ob, [body_ob], min_clearance=0.0085, passes=2)
+        CLOTH._enforce_clearance(jacket_ob, [body_ob, tshirt_ob], min_clearance=0.010, passes=3)
+        CLOTH._tuck_inner_behind_outer(tshirt_ob, jacket_ob, margin=0.0060, max_probe=0.020)
+        CLOTH._tuck_inner_behind_outer(tshirt_ob, jacket_ob, margin=0.0060, max_probe=0.020)
+        if not body_ob.data.shape_keys:
+            CLOTH._tuck_inner_behind_outer(body_ob, jacket_ob, margin=0.0055, max_probe=0.020)
 
     # Clean any zero-area degenerate faces on clothing after post-T-pose clearance (0 warnings!)
     for gob in garment_objs.values():

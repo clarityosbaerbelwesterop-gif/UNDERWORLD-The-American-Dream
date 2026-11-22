@@ -2,6 +2,12 @@
 
 Every Blender→Godot integration (or engine-side change to an asset) gets an entry. Newest on top. Times Europe/Berlin.
 
+## 2026-11-22 13:10 – SK_Jason v2 → player visual (Bot 3, T-GP-01c-J)
+- Asset: `Assets/Characters/SK_Jason/SK_Jason.glb` (v2, 53 bones, 21 clips) unchanged; used as `Player.tscn` Visual model.
+- Checked on the imported scene: all 14 controller clip slots present (Jump_Air), loop modes from manifest, manifest speed_mps match controller speeds, height 1.833 m, feet at 0, `SOCKET_RightHand_Weapon` under BoneAttachment3D RightHand (pistol attached, 0.055 m from the hand bone), clips in place.
+- Not verified: visual look / foot sliding / pistol grip orientation (B-003).
+- Result: **PASS** (headless).
+
 ## 2026-11-22 12:55 – T-PIPE-04 recovered pipeline assets → Godot 4.7.2 (Bot 1)
 - Source: the Gemini cloud agent (bc-7a497c1f) wrote these generators/specs after pushing PR #7 but never committed them. Bot 1 re-applied its 42 recorded file edits onto main (`ea52f0c`) and **re-ran every generator on this box** (nothing copied from the agent's VM): `uwp build-shared-anims`, `build-character SK_NPC_Sam`, `build-weapon`, `build-vehicle`, `build-env` + `uwp export` for each.
 - Assets: `SK_NPC_Sam.glb` (23,735 tris, 1.79 m, 16 clips), `A_Humanoid_Locomotion.glb` (21 clips), `WPN_Pistol_01.glb` (1,920 tris), `VH_Sedan_01.glb` (3,382 tris), 6 × `SM_LA_*` + `SM_Prop_PackageCrate` – all `uwp export` RESULT: PASS (0 errors; warnings only NAME_MESH_PREFIX on named parts + NON_MANIFOLD on the sedan UCX hull).

@@ -27,6 +27,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-GP-01 | P0 | Bot 3 | Third-person controller + camera | T-PIPE-00 | READY FOR REVIEW |
 | T-GP-01b | P2 | Bot 3 | Vault-lite (low obstacles) | T-GP-01, T-ART-02 | BACKLOG |
 | T-GP-01c | P1 | Bot 3 | Stairs / step-up for the player | T-GP-01 | READY FOR REVIEW |
+| T-GP-01c-J | P1 | Bot 3 | Player visual: capsule → SK_Jason v2 | T-GP-01, T-ART-02 | READY FOR REVIEW |
 | T-GP-02 | P1 | Bot 3 | Gunplay (pistol) | T-GP-01 | READY FOR REVIEW |
 | T-GP-02a | P1 | Bot 3 | Rapid-fire bloom (stacking, cap, recovery delay) | T-GP-02 | COMPLETED |
 | T-GP-02b | P2 | Bot 3 | Ragdoll-lite hit reaction | T-GP-02, T-ART-01 | BACKLOG |
@@ -186,6 +187,12 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Agent:** Bot 3 · **Deps:** T-GP-02, T-ART-01 · **Status:** BACKLOG (P2, added 2026-11-22 per Bot 1)
 - **Description:** short procedural hit reaction (upper-body flinch / partial physical bones on the hit bone) and death collapse for SK_Jason/NPC skeletons, driven by `DamageReceiver.damaged/died` (`DamageInfo.zone`, direction). Currently only the PT dummy tilts on death.
 - **Acceptance:** headless test: hit applies an impulse/flinch to the hit zone's bones and settles; death collapses without falling through the floor.
+
+### T-GP-01c-J – Player visual: capsule → SK_Jason v2
+- **Agent:** Bot 3 · **Deps:** T-GP-01, T-ART-02 · **Status:** READY FOR REVIEW (Bot 3, 2026-11-22, branch `bot3/t-gp-01c-jason`)
+- **Delivered:** `Player.tscn` → `Visual.model_scene = Assets/Characters/SK_Jason/SK_Jason.glb` (PT capsule + front marker hidden, collision unchanged = TD-011 cylinder, controller untouched). `CharacterVisual.CLIP_NAMES`: `jump_loop` → `A_Jason_Jump_Air` (all 14 slots verified against the imported glb); per-instance `clip_names`, `validate_clips()`, `model_changing/model_changed` signals, auto-built AnimationTree rebuilt on model swap. `PlayerWeaponController` moves the pistol onto `SOCKET_RightHand_Weapon` (BoneAttachment3D RightHand) automatically and back to the PT socket before a model swap.
+- **Verified:** `test_player_controller.gd` new block (SK_Jason): model + 53-bone skeleton, all mapped clips exist, loop modes from manifest, manifest speeds = CLIP_SPEEDS = controller speeds, height 1.833 m vs 1.8 m collision, feet at y 0 (idle toes 0.03 m, ankles 0.10 m), head bone 1.66 m, weapon on the hand socket (0.055 m from RightHand), AnimationTree idle/walk 1.4/run 3.5/sprint 6.0/jump (OneShot + Jump_Air)/land/aim states, skeleton pose actually changes (LeftUpperLeg 9.3° idle→run), in-place clips. Negative control: `A_Jason_Jump_Loop` reported (missing + _Loop suffix); `UW_JASON_SABOTAGE=1` → 3 FAIL, exit 1. `test_weapon.gd` updated (weapon on SK_Jason socket, muzzle height).
+- **Not verified / open:** look of the animations and blends, foot sliding, weapon orientation in the hand (no GPU, B-003); hitboxes are still the PT capsule-shaped boxes under `Visual/Hitboxes` (move to BoneAttachment3D, REQ-AI01-NPC); no aim-offset/upper-body layering (aim blend is full-body); Shoot/Reload/Carry/Death/Car_Enter/Exit clips exist but are not wired yet.
 
 ### T-GP-03 – Vehicle physics + enter/exit
 - **Agent:** Bot 3 · **Deps:** T-GP-01 · **Status:** BACKLOG

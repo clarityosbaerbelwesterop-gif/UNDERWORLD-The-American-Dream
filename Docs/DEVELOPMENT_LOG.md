@@ -2,6 +2,9 @@
 
 Append-only, newest on top. `YYYY-MM-DD HH:MM (Europe/Berlin) · Bot N · Task ID · what was done · how it was verified`.
 
+## 2026-11-22 · Bot 3 (T-GP-01c-J Jason swap)
+- **2026-11-22 13:10 · T-GP-01c-J** Branch `bot3/t-gp-01c-jason` from main 038de21. Player visual = SK_Jason v2 (`Player.tscn`), `CLIP_NAMES.jump_loop` = `A_Jason_Jump_Air`, weapon auto-attached to `SOCKET_RightHand_Weapon`, tree rebuilt on model swap, `validate_clips()`. Verified: `test_player_controller.gd` (+ SK_Jason block, all PASS), sabotage `UW_JASON_SABOTAGE=1` → 3 FAIL exit 1, `test_weapon.gd` adjusted; `Tests/run_all.sh` RUN_ALL: PASS (asset import 61, ai 80, player 137, weapon 68).
+
 ## 2026-11-22 · Bot 1 (T-PIPE-04 recovery)
 - **2026-11-22 12:55 · T-PIPE-04** Recovered the cloud agent's unpushed post-PR-#7 work from its transcript (42 edits: 6 NPC specs, shared anim library builder, weapon/vehicle/LA-kit generators, `uwp build-*` CLI, 3 LA environment presets, M01 block + look-dev scenes, 4 pipeline docs, budgets, .gitignore). Re-ran all generators here (Blender 5.2.4 headless, CC0 caches re-downloaded), fixed the sedan cabin and Sam's hair, added registry rows + Poly Haven license rows. Verified: all `uwp export` PASS; Godot import 0 errors; verify script 33/33; SK_Jason rebuilt with the modified character builder still `uwp validate` PASS (rebuild discarded, committed v2 unchanged); `Tests/run_all.sh` → RUN_ALL: PASS; `verify_sk_jason.sh` PASS.
 - **2026-11-22 12:40 · T-AI-01 merge** PR #6 merged after main (with #7) was merged into it (doc-log conflicts only, both kept). Verified: `Tests/run_all.sh` → RUN_ALL: PASS (asset import 40, ai 80, player 112, weapon 68).

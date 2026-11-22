@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 # Wrapper: run the UNDERWORLD asset pipeline headless in Blender.
 #   Tools/uwp export Blender/Source/Props/SM_Foo/SM_Foo.blend [--no-lod] [--no-collision] ...
+#   Tools/uwp review-sheet <asset> [--ref ...] [--renders ...] [--out ...]   # system Python, no Blender
 #   Tools/uwp --help | Tools/uwp export --help
 # Exit code is the pipeline's (0 PASS, 1 validation, 2 export, 3 verify, 4 usage, 5 internal).
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# review-sheet is plain Python/Pillow and must not boot Blender.
+if [[ "${1:-}" == "review-sheet" ]]; then
+  shift
+  exec python3 "$HERE/underworld_pipeline/review_sheet.py" "$@"
+fi
 BLENDER="${BLENDER:-/workspace/tools/blender/blender}"
 exec "$BLENDER" -b --factory-startup --python-exit-code 5 \
   --python "$HERE/underworld_pipeline/cli.py" -- "$@"

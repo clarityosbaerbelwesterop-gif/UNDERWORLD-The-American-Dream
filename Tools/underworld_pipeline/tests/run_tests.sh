@@ -186,5 +186,27 @@ else
   echo "== [6] Godot check skipped"
 fi
 
+echo "== [7] review-sheet (system Python / Pillow, no Blender)"
+T="$T" python3 -c "
+from PIL import Image, ImageDraw
+import os
+t = os.environ['T']
+def mk(path, color, text):
+    im = Image.new('RGB', (200, 160), color)
+    ImageDraw.Draw(im).text((10, 70), text, fill=(255, 255, 255))
+    im.save(path)
+mk(t + '/ref_sheet.png', (20, 80, 160), 'REF')
+mk(t + '/ren_a.png', (160, 40, 40), 'REN-A')
+mk(t + '/ren_b.png', (40, 140, 60), 'REN-B')
+"
+"$REPO/Tools/uwp" review-sheet PT_UWP_Sheet \
+  --ref "$T/ref_sheet.png" \
+  --renders "$T/ren_a.png" "$T/ren_b.png" \
+  --out "$T/out/review_sheet.png" \
+  --title PT_UWP_Sheet > "$T/logs/review_sheet.log" 2>&1
+rc=$?
+expect_rc "uwp review-sheet PT_UWP_Sheet" 0 "$rc" "$T/logs/review_sheet.log"
+if [ -f "$T/out/review_sheet.png" ]; then ok "review-sheet PNG written"; else bad "review-sheet PNG missing"; fi
+
 echo "logs: $T/logs"
 if [ $FAILS -eq 0 ]; then echo "UWP TESTS: PASS"; exit 0; else echo "UWP TESTS: FAIL ($FAILS)"; exit 1; fi

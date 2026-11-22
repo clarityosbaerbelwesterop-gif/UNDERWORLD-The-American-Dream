@@ -1,0 +1,466 @@
+{
+  "asset": "SK_Jason",
+  "status": "WIP",
+  "category": "Characters",
+  "budget_key": "Characters/SK_Jason",
+  "source_blend": "Blender/Source/Characters/SK_Jason/SK_Jason.blend",
+  "export_glb": "Assets/Characters/SK_Jason/SK_Jason.glb",
+  "preview_png": "Assets/Characters/SK_Jason/SK_Jason_preview.png",
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.8981,
+      -0.0,
+      -0.1135
+    ],
+    "max": [
+      0.8981,
+      1.82,
+      0.1887
+    ],
+    "size": [
+      1.7962,
+      1.82,
+      0.3022
+    ]
+  },
+  "triangles": {
+    "lod0": 26188,
+    "budget": 40000,
+    "per_lod_total": {}
+  },
+  "lods": [],
+  "collision": {
+    "mode": "none",
+    "generated": [],
+    "existing": []
+  },
+  "materials": [
+    "M_Jason_Boots",
+    "M_Jason_Eye",
+    "M_Jason_Hair",
+    "M_Jason_Henley",
+    "M_Jason_Jacket",
+    "M_Jason_Jeans",
+    "M_Jason_Scar",
+    "M_Jason_Skin",
+    "M_Jason_Sole",
+    "M_Jason_Stubble"
+  ],
+  "textures": [],
+  "armatures": {
+    "Armature": {
+      "bones": [
+        "Root",
+        "Hips",
+        "Spine",
+        "Chest",
+        "UpperChest",
+        "Neck",
+        "Head",
+        "LeftShoulder",
+        "LeftUpperArm",
+        "LeftLowerArm",
+        "LeftHand",
+        "LeftIndexProximal",
+        "LeftIndexIntermediate",
+        "LeftIndexDistal",
+        "LeftMiddleProximal",
+        "LeftMiddleIntermediate",
+        "LeftMiddleDistal",
+        "LeftRingProximal",
+        "LeftRingIntermediate",
+        "LeftRingDistal",
+        "LeftLittleProximal",
+        "LeftLittleIntermediate",
+        "LeftLittleDistal",
+        "LeftThumbMetacarpal",
+        "LeftThumbProximal",
+        "LeftThumbDistal",
+        "RightShoulder",
+        "RightUpperArm",
+        "RightLowerArm",
+        "RightHand",
+        "RightIndexProximal",
+        "RightIndexIntermediate",
+        "RightIndexDistal",
+        "RightMiddleProximal",
+        "RightMiddleIntermediate",
+        "RightMiddleDistal",
+        "RightRingProximal",
+        "RightRingIntermediate",
+        "RightRingDistal",
+        "RightLittleProximal",
+        "RightLittleIntermediate",
+        "RightLittleDistal",
+        "RightThumbMetacarpal",
+        "RightThumbProximal",
+        "RightThumbDistal",
+        "LeftUpperLeg",
+        "LeftLowerLeg",
+        "LeftFoot",
+        "LeftToes",
+        "RightUpperLeg",
+        "RightLowerLeg",
+        "RightFoot",
+        "RightToes"
+      ],
+      "deform_bones": 53
+    }
+  },
+  "animations": [
+    {
+      "name": "A_Jason_Aim_Pistol_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Aim_Pistol_Walk_B",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Aim_Pistol_Walk_F",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Aim_Pistol_Walk_L",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Aim_Pistol_Walk_R",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Car_Enter_L",
+      "frame_start": 0.0,
+      "frame_end": 45.0,
+      "fps": 30.0,
+      "duration_s": 1.5,
+      "frames": 45,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Car_Exit_L",
+      "frame_start": 0.0,
+      "frame_end": 45.0,
+      "fps": 30.0,
+      "duration_s": 1.5,
+      "frames": 45,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Carry_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Carry_Walk",
+      "frame_start": 0.0,
+      "frame_end": 32.0,
+      "fps": 30.0,
+      "duration_s": 1.0667,
+      "frames": 32,
+      "loop": true,
+      "speed_mps": 1.4,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Crouch_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Crouch_Walk",
+      "frame_start": 0.0,
+      "frame_end": 36.0,
+      "fps": 30.0,
+      "duration_s": 1.2,
+      "frames": 36,
+      "loop": true,
+      "speed_mps": 1.2,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Death",
+      "frame_start": 0.0,
+      "frame_end": 45.0,
+      "fps": 30.0,
+      "duration_s": 1.5,
+      "frames": 45,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Jump_Loop",
+      "frame_start": 0.0,
+      "frame_end": 20.0,
+      "fps": 30.0,
+      "duration_s": 0.6667,
+      "frames": 20,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Jump_Start",
+      "frame_start": 0.0,
+      "frame_end": 8.0,
+      "fps": 30.0,
+      "duration_s": 0.2667,
+      "frames": 8,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Land",
+      "frame_start": 0.0,
+      "frame_end": 9.0,
+      "fps": 30.0,
+      "duration_s": 0.3,
+      "frames": 9,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Reload_Pistol",
+      "frame_start": 0.0,
+      "frame_end": 48.0,
+      "fps": 30.0,
+      "duration_s": 1.6,
+      "frames": 48,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Run",
+      "frame_start": 0.0,
+      "frame_end": 20.0,
+      "fps": 30.0,
+      "duration_s": 0.6667,
+      "frames": 20,
+      "loop": true,
+      "speed_mps": 3.5,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Shoot_Pistol",
+      "frame_start": 0.0,
+      "frame_end": 8.0,
+      "fps": 30.0,
+      "duration_s": 0.2667,
+      "frames": 8,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Sprint",
+      "frame_start": 0.0,
+      "frame_end": 16.0,
+      "fps": 30.0,
+      "duration_s": 0.5333,
+      "frames": 16,
+      "loop": true,
+      "speed_mps": 6.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Jason_Walk",
+      "frame_start": 0.0,
+      "frame_end": 32.0,
+      "fps": 30.0,
+      "duration_s": 1.0667,
+      "frames": 32,
+      "loop": true,
+      "speed_mps": 1.4,
+      "slots": [
+        "OBArmature"
+      ]
+    }
+  ],
+  "sockets": {
+    "SOCKET_RightHand_Weapon": {
+      "parent": "Armature",
+      "parent_bone": "RightHand",
+      "position_godot": [
+        -0.3404,
+        0.8962,
+        0.0488
+      ]
+    }
+  },
+  "nodes": [
+    "LeftToes",
+    "LeftFoot",
+    "LeftLowerLeg",
+    "LeftUpperLeg",
+    "RightToes",
+    "RightFoot",
+    "RightLowerLeg",
+    "RightUpperLeg",
+    "LeftIndexDistal",
+    "LeftIndexIntermediate",
+    "LeftIndexProximal",
+    "LeftLittleDistal",
+    "LeftLittleIntermediate",
+    "LeftLittleProximal",
+    "LeftMiddleDistal",
+    "LeftMiddleIntermediate",
+    "LeftMiddleProximal",
+    "LeftRingDistal",
+    "LeftRingIntermediate",
+    "LeftRingProximal",
+    "LeftThumbDistal",
+    "LeftThumbProximal",
+    "LeftThumbMetacarpal",
+    "LeftHand",
+    "LeftLowerArm",
+    "LeftUpperArm",
+    "LeftShoulder",
+    "Head",
+    "Neck",
+    "RightIndexDistal",
+    "RightIndexIntermediate",
+    "RightIndexProximal",
+    "RightLittleDistal",
+    "RightLittleIntermediate",
+    "RightLittleProximal",
+    "RightMiddleDistal",
+    "RightMiddleIntermediate",
+    "RightMiddleProximal",
+    "RightRingDistal",
+    "RightRingIntermediate",
+    "RightRingProximal",
+    "RightThumbDistal",
+    "RightThumbProximal",
+    "RightThumbMetacarpal",
+    "SOCKET_RightHand_Weapon",
+    "RightHand",
+    "RightLowerArm",
+    "RightUpperArm",
+    "RightShoulder",
+    "UpperChest",
+    "Chest",
+    "Spine",
+    "Hips",
+    "Root",
+    "SK_Jason_Body",
+    "SK_Jason_Buttons",
+    "SK_Jason_Collar",
+    "SK_Jason_Eyes",
+    "SK_Jason_Hair",
+    "SK_Jason_Head",
+    "Armature",
+    "SK_Jason"
+  ],
+  "glb_bytes": 2225404
+}

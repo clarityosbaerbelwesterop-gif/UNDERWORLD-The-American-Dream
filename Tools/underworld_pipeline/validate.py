@@ -259,7 +259,9 @@ def validate(ctx):
         fs, fe = a.frame_range
         anims.append({"name": a.name, "frame_start": round(fs, 3), "frame_end": round(fe, 3), "fps": fps,
                       "duration_s": round((fe - fs) / fps, 4),
+                      "frames": int(round(fe - fs)),
                       "loop": bool(a.get("loop", a.use_frame_range and a.use_cyclic)),
+                      "speed_mps": float(a["speed_mps"]) if "speed_mps" in a else None,
                       "slots": [s.identifier for s in a.slots]})
         if not a.name.startswith("A_") or not S.NAME_RE.match(a.name):
             iss.error("NAME_ACTION", "animation actions must be named A_<Asset>_<Name> (TD-005)", a.name)
@@ -271,8 +273,11 @@ def validate(ctx):
         nm = an["name"]
         if top == "Characters" and abs(an["frame_start"]) > 1e-3:
             iss.warn("ANIM_START_FRAME", f"action starts at frame {an['frame_start']} (REQ-GP01-JASON: start at frame 0; exporter slides to t=0 anyway)", nm)
-        if nm.endswith(("-loop", "-cycle", "_loop", "_cycle")) and top == "Characters":  # case-sensitive: A_Jason_Jump_Loop is a valid REQ name
-            iss.warn("ANIM_LOOP_SUFFIX", "no loop suffixes on character actions; loop flags come from the manifest / Godot import settings (REQ-GP01-JASON §5)", nm)
+        low = nm.lower()
+        if low.endswith(("-loop", "-cycle", "_loop", "_cycle")) or "$loop" in low or "$cycle" in low:
+            # verified in Godot 4.7 (SK_Jason): the glTF scene importer matches these hints case-insensitively,
+            # strips them from the name ("A_Jason_Jump_Loop" -> "A_Jason_Jump") and forces loop mode
+            iss.warn("ANIM_LOOP_SUFFIX", f"Godot import renames this to '{nm[:-5] if low.endswith(('_loop', '-loop')) else nm[:-6] if low.endswith(('_cycle', '-cycle')) else nm}' (loop/cycle name hint, case-insensitive) and forces looping; loop flags belong in the manifest (REQ-GP01-JASON §5)", nm)
     stats["animations"] = anims
 
     # --- sockets

@@ -1,0 +1,245 @@
+{
+  "asset": "SK_Jason",
+  "status": "WIP (procedural v1, T-ART-01/02)",
+  "height_m": 1.82,
+  "scale_k": 0.9966,
+  "triangles": {
+    "SK_Jason_Body": 16176,
+    "SK_Jason_Head": 4648,
+    "SK_Jason_Hair": 3460,
+    "SK_Jason_Eyes": 336,
+    "SK_Jason_Collar": 1376,
+    "SK_Jason_Buttons": 192
+  },
+  "triangles_total": 26188,
+  "bones": [
+    "Root",
+    "Hips",
+    "Spine",
+    "Chest",
+    "UpperChest",
+    "Neck",
+    "Head",
+    "LeftShoulder",
+    "LeftUpperArm",
+    "LeftLowerArm",
+    "LeftHand",
+    "LeftIndexProximal",
+    "LeftIndexIntermediate",
+    "LeftIndexDistal",
+    "LeftMiddleProximal",
+    "LeftMiddleIntermediate",
+    "LeftMiddleDistal",
+    "LeftRingProximal",
+    "LeftRingIntermediate",
+    "LeftRingDistal",
+    "LeftLittleProximal",
+    "LeftLittleIntermediate",
+    "LeftLittleDistal",
+    "LeftThumbMetacarpal",
+    "LeftThumbProximal",
+    "LeftThumbDistal",
+    "RightShoulder",
+    "RightUpperArm",
+    "RightLowerArm",
+    "RightHand",
+    "RightIndexProximal",
+    "RightIndexIntermediate",
+    "RightIndexDistal",
+    "RightMiddleProximal",
+    "RightMiddleIntermediate",
+    "RightMiddleDistal",
+    "RightRingProximal",
+    "RightRingIntermediate",
+    "RightRingDistal",
+    "RightLittleProximal",
+    "RightLittleIntermediate",
+    "RightLittleDistal",
+    "RightThumbMetacarpal",
+    "RightThumbProximal",
+    "RightThumbDistal",
+    "LeftUpperLeg",
+    "LeftLowerLeg",
+    "LeftFoot",
+    "LeftToes",
+    "RightUpperLeg",
+    "RightLowerLeg",
+    "RightFoot",
+    "RightToes"
+  ],
+  "bone_count": 53,
+  "rest_pose": "T-pose",
+  "front": "Blender -Y = Godot +Z",
+  "root_motion": "none (in place); Root bone has no keys",
+  "fps": 30,
+  "clips": {
+    "A_Jason_Walk": {
+      "frames": 32,
+      "loop": true,
+      "speed": 1.4,
+      "reach_clamp_m": 0.113,
+      "foot_sliding_m": 0.0041,
+      "length_s": 1.0667
+    },
+    "A_Jason_Run": {
+      "frames": 20,
+      "loop": true,
+      "speed": 3.5,
+      "reach_clamp_m": 0.0874,
+      "foot_sliding_m": 0.0,
+      "length_s": 0.6667
+    },
+    "A_Jason_Sprint": {
+      "frames": 16,
+      "loop": true,
+      "speed": 6.0,
+      "reach_clamp_m": 0.134,
+      "foot_sliding_m": 0.0199,
+      "length_s": 0.5333
+    },
+    "A_Jason_Crouch_Walk": {
+      "frames": 36,
+      "loop": true,
+      "speed": 1.2,
+      "reach_clamp_m": 0.0,
+      "foot_sliding_m": 0.0362,
+      "length_s": 1.2
+    },
+    "A_Jason_Aim_Pistol_Walk_F": {
+      "frames": 24,
+      "loop": true,
+      "speed": 2.0,
+      "reach_clamp_m": 0.0934,
+      "foot_sliding_m": 0.002,
+      "length_s": 0.8
+    },
+    "A_Jason_Aim_Pistol_Walk_B": {
+      "frames": 24,
+      "loop": true,
+      "speed": 2.0,
+      "reach_clamp_m": 0.0758,
+      "foot_sliding_m": 0.0034,
+      "length_s": 0.8
+    },
+    "A_Jason_Aim_Pistol_Walk_L": {
+      "frames": 24,
+      "loop": true,
+      "speed": 2.0,
+      "reach_clamp_m": 0.0823,
+      "foot_sliding_m": 0.0059,
+      "length_s": 0.8
+    },
+    "A_Jason_Aim_Pistol_Walk_R": {
+      "frames": 24,
+      "loop": true,
+      "speed": 2.0,
+      "reach_clamp_m": 0.0823,
+      "foot_sliding_m": 0.0059,
+      "length_s": 0.8
+    },
+    "A_Jason_Idle": {
+      "frames": 60,
+      "loop": true,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0,
+      "length_s": 2.0
+    },
+    "A_Jason_Crouch_Idle": {
+      "frames": 60,
+      "loop": true,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0,
+      "length_s": 2.0
+    },
+    "A_Jason_Jump_Start": {
+      "frames": 8,
+      "loop": false,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0009,
+      "length_s": 0.2667
+    },
+    "A_Jason_Jump_Loop": {
+      "frames": 20,
+      "loop": true,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0,
+      "length_s": 0.6667
+    },
+    "A_Jason_Land": {
+      "frames": 9,
+      "loop": false,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0,
+      "length_s": 0.3
+    },
+    "A_Jason_Aim_Pistol_Idle": {
+      "frames": 60,
+      "loop": true,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0596,
+      "length_s": 2.0
+    },
+    "A_Jason_Shoot_Pistol": {
+      "frames": 8,
+      "loop": false,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0308,
+      "length_s": 0.2667
+    },
+    "A_Jason_Reload_Pistol": {
+      "frames": 48,
+      "loop": false,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0,
+      "length_s": 1.6
+    },
+    "A_Jason_Carry_Walk": {
+      "frames": 32,
+      "loop": true,
+      "speed": 1.4,
+      "reach_clamp_m": 0.1046,
+      "foot_sliding_m": 0.0041,
+      "length_s": 1.0667
+    },
+    "A_Jason_Carry_Idle": {
+      "frames": 60,
+      "loop": true,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0209,
+      "length_s": 2.0
+    },
+    "A_Jason_Death": {
+      "frames": 45,
+      "loop": false,
+      "speed": 0.0,
+      "reach_clamp_m": 0.2551,
+      "length_s": 1.5
+    },
+    "A_Jason_Car_Enter_L": {
+      "frames": 45,
+      "loop": false,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0579,
+      "length_s": 1.5
+    },
+    "A_Jason_Car_Exit_L": {
+      "frames": 45,
+      "loop": false,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0579,
+      "length_s": 1.5
+    }
+  },
+  "socket": {
+    "name": "SOCKET_RightHand_Weapon",
+    "parent_bone": "RightHand",
+    "convention": "local +Y up, +Z barrel in Godot (= Blender local +Z up, -Y barrel); identity orientation in A_Jason_Aim_Pistol_Idle",
+    "aim_pose_position_godot": [
+      -0.053,
+      1.3651,
+      0.5502
+    ]
+  },
+  "max_foot_sliding_m": 0.0362,
+  "build_seconds": 1.6
+}

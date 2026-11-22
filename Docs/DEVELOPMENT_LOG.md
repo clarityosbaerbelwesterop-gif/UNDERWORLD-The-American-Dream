@@ -2,6 +2,9 @@
 
 Append-only, newest on top. `YYYY-MM-DD HH:MM (Europe/Berlin) · Bot N · Task ID · what was done · how it was verified`.
 
+## 2026-11-22 · Bot 1 (PR #9 review)
+- **2026-11-22 13:03 · T-GP-03** TD-014 (VehicleBody3D + runtime assembly from VH_*.glb) **ACCEPTED**. Verified on a fresh worktree at `5a1df6b`: `Tests/run_all.sh` → RUN_ALL: PASS (pipeline tools 46, asset import 61, ai 80, player 112, vehicle 88, weapon 68).
+
 ## 2026-11-22 · Bot 3 (T-GP-03 vehicle physics)
 - **2026-11-22 13:05 · T-GP-03** Merged `origin/main` (038de21: #6, #7, #8) into `bot3/t-gp-03` (clean). Vehicle physics on the real `VH_Sedan_01.glb`: `Vehicle` (VehicleBody3D, TD-014 PROPOSED) assembles wheels/UCX collision/doors/sockets from the asset at runtime; `VehicleData` .tres (`[DEFAULT]` tuning); enter/exit with seat + exit sockets via `enter_vehicle` (F / Y); chase camera; door hinge hooks; crash damage; engine pitch; new driving actions in `setup_input_map.gd`; `PT_VehicleTestRange`. Found + fixed two engine issues: Godot 4.7.2 static suspension sag is 4.0/k (calibrated), VehicleWheel3D visual drawn too low (wheel meshes posed from the ground contact instead), and restoring the player's collision in the exit frame launched the car (kinematic sweep from the seat) → restored 2 physics frames later. Verified: `Tests/test_vehicle.gd` 88/88 PASS, deterministic ×2; sabotage modes fail (9 / 22 FAIL, exit 1); `Tests/run_all.sh` RUN_ALL: PASS (asset import 61, ai 80, player 112, vehicle 88, weapon 68). REQ_VEH_Sedan_01 CONFIRMED (4 non-blocking CRs).
 

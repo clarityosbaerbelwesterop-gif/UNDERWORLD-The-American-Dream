@@ -91,8 +91,8 @@ Jason ≤ 40k tris, NPC ≤ 25k, car ≤ 60k (LOD0), pistol ≤ 8k, street-kit m
 - **Number:** TD-012 is left for Bot 2's LOD/collision proposal (see TD-011 note); Bot 1 to renumber if needed.
 
 
-## TD-014 – Vehicle physics: Godot VehicleBody3D, assembled at runtime from the VH_*.glb (proposed Bot 3, 2026-11-22, T-GP-03)
-**Status: PROPOSED** (Bot 1 to accept). Next free number after TD-013 (TD-012 stays reserved for Bot 2's LOD/collision proposal).
+## TD-014 – Vehicle physics: Godot VehicleBody3D, assembled at runtime from the VH_*.glb (proposed Bot 3, ACCEPTED by Bot 1, 2026-11-22, T-GP-03)
+**Status: ACCEPTED (Bot 1, 2026-11-22, PR #9 review).** Next free number after TD-013 (TD-012 stays reserved for Bot 2's LOD/collision proposal).
 - **Decision:** cars are Godot's built-in raycast vehicle `VehicleBody3D` + `VehicleWheel3D` (not a custom raycast controller). One script `Scripts/vehicle/vehicle.gd` (`class_name Vehicle`), one `VehicleData` .tres per car (`Data/Vehicles/`, all tuning `[DEFAULT]`), scene = body + script + data (`Scenes/Vehicles/VH_Sedan_01.tscn`).
 - **Why:** Bot 2's vehicle pipeline (T-ART-04) already exports a VehicleBody3D-shaped hierarchy (wheel-centre origins, UCX hull clearing the wheel rays, wheel radius/wheelbase/track as glTF extras); the built-in vehicle is deterministic headless at a fixed 60 Hz step (2 identical runs) and gives suspension, slip and rolling friction for free. A custom raycast car stays an option if feel testing on a GPU machine (B-003) shows the built-in one can't be tuned.
 - **Runtime assembly (no baked scene):** at `_ready` the .glb is instanced and wired by node name, so a re-export by Bot 2 needs no scene edit: `UCX_*` convex shape → the body's `CollisionShape3D` (imported StaticBody3D removed); one `VehicleWheel3D` per `Wheel_FL/FR/RL/RR` at the asset wheel centre (front = steering, `drive` RWD/FWD/AWD = traction); `Door_*` swing around their node origin (vertical hinge, outward sign from the door's side); `SOCKET_*` looked up by name. Mismatches (missing node, data wheel radius ≠ asset radius) go to `Vehicle.assembly_errors` + a warning, and the tests fail on them.

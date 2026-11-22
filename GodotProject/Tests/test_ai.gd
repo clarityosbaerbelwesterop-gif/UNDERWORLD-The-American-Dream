@@ -241,7 +241,14 @@ func test_detection_within_2s() -> void:
 	var t0 := _frames
 	var spotted := {}
 	for g in gunmen():
-		g.state_changed.connect(func(f, to, e): if e == "target_spotted" and not spotted.has(g.name): spotted[g.name] = (_frames - t0) / HZ)
+		# Multi-line instead of a one-line "if x: y" lambda body: identical in GDScript, but
+		# gdtoolkit's parser rejects the one-line form (false positive), and a test file that
+		# trips the formatter hides real parse errors in the output.
+		g.state_changed.connect(
+			func(f, to, e):
+				if e == "target_spotted" and not spotted.has(g.name):
+					spotted[g.name] = (_frames - t0) / HZ
+		)
 	await teleport(OPEN_SPOT)
 	await wait_until(func(): return spotted.size() == 3, 3.0)
 	var times := spotted.values()

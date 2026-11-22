@@ -5,7 +5,7 @@
 
 ; WPN_Pistol_01 - M01 sidearm (T-GP-02).
 ; [DOC]     magazine_size 12 (GAME_DESIGN §5), reload_time 1.6 s (TASK_BOARD T-GP-02), hitscan.
-; [DEFAULT] noise_radius 40 m added in T-AI-01 (AI hearing gunshots).
+; [DEFAULT] noise_radius 40 m added in T-AI-01 (AI hearing gunshots) - ACCEPTED as starting value by Bot 1.
 ; [DEFAULT] everything else = Bot 3 placeholder tuning, see TASK_BOARD T-GP-02 "Tuning defaults".
 ; scene = PT_ stand-in until Bot 2 delivers Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01.glb (REQ_WPN_Pistol_01).
 [resource]

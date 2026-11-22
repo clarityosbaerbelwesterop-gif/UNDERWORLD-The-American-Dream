@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # UNDERWORLD - headless gameplay regression tests (Bot 3).
 # Imports the Godot project (so class_name scripts resolve on a fresh clone),
-# then runs every GodotProject/Tests/test_*.gd with a fixed 60 fps timestep.
+# then runs every GodotProject/Tests/test_*.gd (top level only; Tests/Import/ = run_asset_import_tests.sh) with a fixed 60 fps timestep.
 # Fails (non-zero) on a failed assertion, a non-PASS result or any engine/script error.
 # Logs: Tests/logs/gameplay_*.log (gitignored).
 set -uo pipefail

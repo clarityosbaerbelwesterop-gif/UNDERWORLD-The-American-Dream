@@ -15,7 +15,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-DES-01 | P1 | Bot 1 | Mission M01 design doc | T-BOOT-03 | READY FOR REVIEW |
 | T-DES-02 | P1 | Bot 1 | Art direction + LA street layout brief | T-BOOT-03 | IN PROGRESS |
 | T-PIPE-01 | P0 | Bot 2 | Production Blender export/validation tool | T-PIPE-00 | COMPLETED |
-| T-PIPE-02 | P0 | Bot 3 | Godot import presets + per-asset import tests | T-PIPE-01 | BACKLOG |
+| T-PIPE-02 | P0 | Bot 3 | Godot import presets + per-asset import tests | T-PIPE-01 | READY FOR REVIEW |
 | T-ART-01 | P1 | Bot 2 | Jason model + rig + skin | T-PIPE-01 | BACKLOG |
 | T-ART-02 | P1 | Bot 2 | Jason animation set | T-ART-01 | BACKLOG |
 | T-ART-03 | P1 | Bot 2 | LA street environment kit | T-PIPE-01, T-DES-02 | BACKLOG |
@@ -83,11 +83,14 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Acceptance:** runs headless on all assets in `Blender/Source/`, fails non-zero on any validation error; preview PNG produced; `Tests/run_pipeline_smoke.sh` PASS.
 
 ### T-PIPE-02 – Godot import presets + per-asset import tests
-- **Agent:** Bot 3 · **Deps:** T-PIPE-01 · **Status:** BACKLOG
+- **Agent:** Bot 3 · **Deps:** T-PIPE-01 · **Status:** READY FOR REVIEW (2026-11-22, Bot 3, branch `bot3/t-pipe-02`, PR #2)
 - **Description:** import settings per category (characters: `SkeletonProfileHumanoid` retarget, animation loop flags; vehicles: keep wheel nodes; env: generate LODs/shadow meshes), test that loads every .glb listed in `ASSET_REGISTRY.md` and checks manifest dims vs. Godot AABB.
 - **Expected output:** `GodotProject/Tests/test_assets.gd`, wired into `Tests/run_all.sh`.
 - **File ownership:** Bot 3 (`.import` changes need a handoff note to Bot 2).
 - **Acceptance:** test PASS for all registered assets, zero import errors.
+- **Delivered:** project-wide scene import preset `[importer_defaults] scene/import_script/path = res://Scripts/import/uw_post_import.gd` in `project.godot` (applies to every **new** .glb import). `uw_post_import.gd` = (1) Bot 2's `uw_lod_post_import.gd` LOD visibility ranges (vendored byte-identical as `Scripts/import/uw_lod_post_import.gd`, drift-checked), (2) animation loop modes from `<Name>.manifest.json` `animations[].loop`, (3) summary meta `uw_post_import` on the scene root. Tests: `GodotProject/Tests/Import/test_assets.gd` + `Tests/run_asset_import_tests.sh` (exports Bot 2's procedural test assets with `Tools/uwp` into gitignored `GodotProject/Tests/_generated/`, imports, asserts). `Tests/run_all.sh` now = smoke + Bot 2's `Tools/underworld_pipeline/tests/run_tests.sh` (private scratch dir) + asset import + gameplay.
+- **Verified:** `./Tests/run_all.sh` (clean `.godot/`) → smoke PASS, UWP TESTS PASS (106), ASSET IMPORT TESTS PASS (38), GAMEPLAY PASS (112), `RUN_ALL: PASS`. Barrel: preset applied to fresh `.import`, 6 LOD nodes ranged (LOD0 0–15 m, LOD1 15–40 m, LOD2 40–100 m), exactly one LOD drawn at every sampled distance 0–400 m, only LOD0 at 0 m; **control** copy imported without the script draws all 3 LODs at 0 m (proves the test catches the bug). RigTest: `A_..._Bend` LOOP_LINEAR / `A_..._Twist` LOOP_NONE = manifest, lengths = `duration_s`. Humanoid: 22 bones, all `SkeletonProfileHumanoid` names. All .glb load; manifest `aabb_godot` = Godot AABB. Negative check: loop step disabled → 2 failures, exit 1.
+- **Not done / open:** characters `BoneMap`/retarget sub-resource settings (needs a real SK_Jason .import; bone names already match the profile, verified); vehicle preset (no vehicle test asset yet – Godot keeps named nodes by default); existing `PT_PipelineTest_Crate.glb.import` (Bot 2 file) keeps `import_script/path=""` – harmless (no LODs/anims), re-import or delete the sidecar to adopt the preset; exclude `Scripts/import/` + `Tests/` from game exports (T-BUILD-01).
 
 ### T-ART-01 – Jason: model, rig, skin
 - **Agent:** Bot 2 · **Deps:** T-PIPE-01 · **Status:** BACKLOG

@@ -1,0 +1,56 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/ai/npc_controller.gd" id="1_n5krc"]
+[ext_resource type="Resource" path="res://Data/AI/AI_Civilian.tres" id="2_lnsis"]
+[ext_resource type="Script" path="res://Scripts/combat/humanoid_hitboxes.gd" id="3_lyvv3"]
+[ext_resource type="Script" path="res://Scripts/combat/damage_receiver.gd" id="4_4l7bw"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pd2ng"]
+height = 1.8
+radius = 0.35
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xire2"]
+albedo_color = Color(0.25, 0.45, 0.8, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_j2i03"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_2hcbr"]
+size = Vector3(0.18, 0.1, 0.2)
+
+[node name="PT_NPC_Civilian" type="CharacterBody3D" unique_id=186352765]
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("1_n5krc")
+profile = ExtResource("2_lnsis")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1705001743]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CylinderShape3D_pd2ng")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=171288810]
+path_desired_distance = 0.75
+target_desired_distance = 0.75
+height = 1.8
+radius = 0.35
+
+[node name="Pose" type="Node3D" parent="." unique_id=645482816]
+
+[node name="Visual" type="Node3D" parent="Pose" unique_id=107922946]
+
+[node name="PT_Capsule" type="MeshInstance3D" parent="Pose/Visual" unique_id=1758453828]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+material_override = SubResource("StandardMaterial3D_xire2")
+mesh = SubResource("CapsuleMesh_j2i03")
+
+[node name="PT_FrontMarker" type="MeshInstance3D" parent="Pose/Visual" unique_id=1142599867]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0.3)
+mesh = SubResource("BoxMesh_2hcbr")
+
+[node name="Hitboxes" type="Node3D" parent="Pose" unique_id=2132694013]
+script = ExtResource("3_lyvv3")
+receiver_path = NodePath("../../Health")
+
+[node name="Health" type="Node" parent="." unique_id=1553222898]
+script = ExtResource("4_4l7bw")

@@ -1,0 +1,65 @@
+[gd_resource type="Resource" script_class="AIProfile" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Scripts/ai/ai_profile.gd" id="1_prof"]
+[ext_resource type="Resource" path="res://Data/Weapons/WPN_Pistol_01.tres" id="2_wpn"]
+
+; AI_Gunman_Cartel - Los Cuervos gunman (M01 step 4, T-AI-01).
+; [DOC]     state flow Idle -> Alert -> Engage -> Take cover -> ... -> Dead, LOS + hearing (TASK_BOARD T-AI-01);
+;           detect the player within 2 s of LOS (T-AI-01 acceptance).
+; [DEFAULT] all numbers = Bot 3 starting values (Bot 1 accepted [DEFAULT] tuning as data-driven starting values).
+[resource]
+script = ExtResource("1_prof")
+id = "AI_Gunman_Cartel"
+max_health = 100.0
+initial_state = "idle"
+transitions = {
+"alert": {
+"damaged": "engage",
+"heard_gunshot": "alert",
+"target_spotted": "engage",
+"timeout": "investigate"
+},
+"engage": {
+"cover_found": "take_cover",
+"target_dead": "idle",
+"target_lost": "search"
+},
+"idle": {
+"damaged": "engage",
+"heard_gunshot": "alert",
+"suspicious": "alert",
+"target_spotted": "engage"
+},
+"in_cover": {
+"cover_compromised": "engage",
+"target_dead": "idle",
+"target_lost": "search"
+},
+"investigate": {
+"damaged": "engage",
+"heard_gunshot": "alert",
+"suspicious": "alert",
+"target_spotted": "engage",
+"timeout": "idle"
+},
+"search": {
+"damaged": "engage",
+"heard_gunshot": "alert",
+"target_spotted": "engage",
+"timeout": "idle"
+},
+"take_cover": {
+"arrived": "in_cover",
+"cover_lost": "engage",
+"target_dead": "idle",
+"target_lost": "search"
+}
+}
+state_timeouts = {
+"alert": 1.5,
+"investigate": 8.0,
+"search": 8.0
+}
+walk_speed = 1.4
+run_speed = 4.0
+weapon = ExtResource("2_wpn")

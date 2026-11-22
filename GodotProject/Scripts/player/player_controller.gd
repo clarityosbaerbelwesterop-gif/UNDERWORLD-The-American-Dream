@@ -22,6 +22,8 @@ signal crouch_changed(crouching: bool)
 signal move_state_changed(state: MoveState)
 ## Emitted when the body was lifted onto a step (T-GP-01c).
 signal stepped_up(height: float)
+## Health reached 0 (T-AI-01): input is disabled; mission fail handling = T-MIS-01.
+signal died
 
 enum MoveState { IDLE, WALK, RUN, SPRINT, CROUCH, AIR }
 
@@ -95,6 +97,10 @@ var aim_collider: Object = null
 var air_time := 0.0
 ## > 0: keep facing the camera/aim direction (set by the weapon controller after hip-fire).
 var combat_face_time := 0.0
+## Health component + hitboxes (T-AI-01: enemies shoot the player).
+var health: DamageReceiver
+var hitboxes: HumanoidHitboxes
+var _self_rids: Array[RID] = []
 
 var _coyote := 0.0
 var _jump_buffer := 0.0
@@ -119,6 +125,10 @@ func _ready() -> void:
 	floor_max_angle = deg_to_rad(46.0)
 	floor_constant_speed = true
 	floor_stop_on_slope = true
+	health = get_node_or_null("Health") as DamageReceiver
+	hitboxes = get_node_or_null("Visual/Hitboxes") as HumanoidHitboxes
+	if health != null:
+		health.died.connect(_on_died)
 	if camera_rig != null:
 		camera_rig.attach(self)
 	_was_on_floor = is_on_floor()
@@ -321,6 +331,8 @@ func _set_crouching(value: bool) -> void:
 		return
 	is_crouching = value
 	_apply_capsule_height(crouch_height if value else stand_height)
+	if hitboxes != null:
+		hitboxes.position.y = -(stand_height - crouch_height) if value else 0.0
 	crouch_changed.emit(value)
 
 ## True if a standing capsule fits at the current position (crouch -> stand).
@@ -341,3 +353,25 @@ func _apply_capsule_height(h: float) -> void:
 	_shape.radius = capsule_radius
 	_shape.height = h
 	_collision.position = Vector3(0.0, h * 0.5, 0.0)
+
+# --- combat hooks (T-AI-01) -------------------------------------------------
+
+## Body + own hitboxes: excluded from the player's own shots and crosshair ray.
+func get_self_rids() -> Array[RID]:
+	if _self_rids.is_empty():
+		_self_rids.append(get_rid())
+		if hitboxes != null:
+			_self_rids.append_array(hitboxes.get_rids())
+	return _self_rids
+
+## Points AI perception tests for line of sight: [head, chest] (lower when crouched).
+func get_visibility_points() -> Array:
+	var drop := (stand_height - crouch_height) if is_crouching else 0.0
+	return [global_position + Vector3(0, 1.65 - drop, 0), global_position + Vector3(0, 1.15 - drop, 0)]
+
+func is_dead() -> bool:
+	return health != null and health.is_dead
+
+func _on_died(_info: DamageInfo) -> void:
+	input_enabled = false
+	died.emit()

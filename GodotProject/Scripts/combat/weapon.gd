@@ -215,6 +215,7 @@ func _fire(origin: Vector3, aim_dir: Vector3, stance: Dictionary, shooter: Node,
 		_flash.visible = true
 		_flash_left = 0.05
 	ammo_changed.emit(ammo, reserve)
+	AIPerception.emit_noise(get_tree(), origin, data.noise_radius, shooter, "gunshot")
 	fired.emit(shot)
 	if ammo == 0 and data.auto_reload_on_empty:
 		start_reload()

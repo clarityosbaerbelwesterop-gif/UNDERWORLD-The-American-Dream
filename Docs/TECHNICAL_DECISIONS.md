@@ -82,3 +82,10 @@ Jason ≤ 40k tris, NPC ≤ 25k, car ≤ 60k (LOD0), pistol ≤ 8k, street-kit m
 - **Consequences:** step-up (`step_height` 0.35 m) + floor snap 0.4 m handle stairs and step-downs. Steps > 0.35 m need collision ramps. NPCs (T-AI-01/02) should use the same shape for consistency. If a different physics backend makes cylinders jittery, re-evaluate (tests will catch it).
 - **Note:** Bot 2's T-PIPE-01 handoff proposes a "TD-011" for LOD/collision budgets; that proposal needs a new number (suggest TD-012) – Bot 1 to assign.
 
+## TD-013 – NPC AI architecture (proposed Bot 3, 2026-11-22, T-AI-01) – PROPOSED
+- **Decision:** one `NPCController` script for every NPC; the archetype is an `AIProfile` .tres (`Data/AI/`) holding the state-machine transition table (`{state: {event: next}}`, `"*"` = any) + timeouts, speeds, perception, accuracy, cover and flee values. Code implements the fixed state set `NPCController.STATES`; `AIStateMachine.validate()` checks every table in the tests.
+- **Perception/noise:** LOS raycasts against World|Vehicles only (character bodies don't block sight); noises are broadcast with `AIPerception.emit_noise` to the group `ai_hearing` (no autoload). Weapons emit a gunshot per shot with `WeaponData.noise_radius`.
+- **Navigation:** navmeshes are baked headless from StaticBody colliders in group `navigation_geometry` with cell 0.25 m and agent radius 0.5 / height 2.0 / max climb 0.25 (multiples of the cell size, no precision loss); NPCs need `path_desired_distance` ≥ 0.75 because the baked surface sits ~0.5 m above the floor top.
+- **Hitboxes:** `HumanoidHitboxes` (Head/Body/Legs/Arm_L/Arm_R on layer 5) for every humanoid incl. the player; on real skeletons they move to BoneAttachment3D (REQ-AI01-NPC).
+- **Number:** TD-012 is left for Bot 2's LOD/collision proposal (see TD-011 note); Bot 1 to renumber if needed.
+

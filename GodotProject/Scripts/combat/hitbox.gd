@@ -9,6 +9,8 @@ enum Zone { BODY, HEAD, LIMB }
 
 @export var zone: Zone = Zone.BODY
 @export var receiver_path: NodePath
+## Direct reference (set by HumanoidHitboxes); wins over receiver_path.
+var receiver: DamageReceiver
 
 func _ready() -> void:
 	collision_layer = 1 << 4  # layer 5 "Hitboxes"
@@ -17,4 +19,6 @@ func _ready() -> void:
 	monitorable = true
 
 func get_receiver() -> DamageReceiver:
+	if receiver != null:
+		return receiver
 	return get_node_or_null(receiver_path) as DamageReceiver

@@ -1,0 +1,63 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/ai/npc_controller.gd" id="1_vc4ro"]
+[ext_resource type="Resource" path="res://Data/AI/AI_Gunman_Cartel.tres" id="2_8nkh0"]
+[ext_resource type="Script" path="res://Scripts/combat/weapon.gd" id="3_hujfw"]
+[ext_resource type="Script" path="res://Scripts/combat/humanoid_hitboxes.gd" id="4_6hn7j"]
+[ext_resource type="Script" path="res://Scripts/combat/damage_receiver.gd" id="5_oxj1d"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_y4kk3"]
+height = 1.8
+radius = 0.35
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s54k4"]
+albedo_color = Color(0.7, 0.15, 0.15, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3d6yq"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_o4ijx"]
+size = Vector3(0.18, 0.1, 0.2)
+
+[node name="PT_NPC_Gunman" type="CharacterBody3D" unique_id=1630895009]
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("1_vc4ro")
+profile = ExtResource("2_8nkh0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=264706264]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CylinderShape3D_y4kk3")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1063359802]
+path_desired_distance = 0.75
+target_desired_distance = 0.75
+height = 1.8
+radius = 0.35
+
+[node name="Pose" type="Node3D" parent="." unique_id=1986727876]
+
+[node name="Visual" type="Node3D" parent="Pose" unique_id=1775346938]
+
+[node name="PT_Capsule" type="MeshInstance3D" parent="Pose/Visual" unique_id=1459563398]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+material_override = SubResource("StandardMaterial3D_s54k4")
+mesh = SubResource("CapsuleMesh_3d6yq")
+
+[node name="PT_FrontMarker" type="MeshInstance3D" parent="Pose/Visual" unique_id=1724018106]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0.3)
+mesh = SubResource("BoxMesh_o4ijx")
+
+[node name="PT_SOCKET_RightHand_Weapon" type="Node3D" parent="Pose/Visual" unique_id=905732965]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.45, 0.4)
+
+[node name="Weapon" type="Node3D" parent="Pose/Visual/PT_SOCKET_RightHand_Weapon" unique_id=1658894595]
+script = ExtResource("3_hujfw")
+
+[node name="Hitboxes" type="Node3D" parent="Pose" unique_id=137868981]
+script = ExtResource("4_6hn7j")
+receiver_path = NodePath("../../Health")
+
+[node name="Health" type="Node" parent="." unique_id=12044878]
+script = ExtResource("5_oxj1d")

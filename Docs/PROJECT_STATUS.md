@@ -1,25 +1,26 @@
 # Project Status
 
-_Last update: 2026-11-22 09:40 (Europe/Berlin) by Bot 1_
+_Last update: 2026-11-22 12:56 (Europe/Berlin) by Bot 1_
 
-## Milestone 1 – LA Vertical Slice: **IN PROGRESS (bootstrap complete)**
+## Milestone 1 – LA Vertical Slice: **IN PROGRESS**
 
 | Area | State |
 |---|---|
-| Tools | ✅ Blender 5.2.4 LTS + Godot 4.7.2 + git-lfs 3.8.1 installed headless in `/workspace/tools/` |
-| Repo | ✅ private GitHub repo, LFS, folder structure, ownership rules |
-| Pipeline | ✅ Blender → .glb → Godot smoke test passes (`Tests/run_pipeline_smoke.sh`) with a **placeholder** test asset |
-| Design | ✅ GDD v0.1, M01 mission design (review), 🔄 street layout brief |
-| Art (Bot 2) | ⏳ not started – next: T-PIPE-01, then T-ART-01 Jason |
-| Gameplay (Bot 3) | ⏳ not started – next: T-GP-01 controller, T-PIPE-02 |
+| Tools | ✅ Blender 5.2.4 LTS + Godot 4.7.2 + git-lfs in `/workspace/tools/` |
+| Repo | ✅ private GitHub repo, LFS, ownership rules, merge gate `Tests/run_all.sh` (TD-010) |
+| Pipeline | ✅ `Tools/uwp` Blender → glb → Godot; character / weapon / vehicle / LA kit generators |
+| Quality gate | ✅ Binding rule in `Docs/QUALITY_GATE.md`. **No asset is PRODUCTION-READY.** First reviews (2026-11-22) all **REJECT**. |
+| Design | ✅ GDD v0.1, M01 design (review), concept art for Jason, 🔄 street layout brief |
+| Art | 🔄 WIP blockouts / first passes: SK_Jason v2, SK_NPC_Sam, WPN_Pistol_01, VH_Sedan_01, LA kit. Quality passes are next (T-ART-01b and related). |
+| Gameplay | 🔄 Controller, pistol gunplay + bloom, T-AI-01 in `main`. Vehicle physics and Jason mesh swap still to land. |
 | Build | ⏳ no export templates yet (T-BUILD-01) |
 
-**What actually exists and is tested:** tool installs; Godot project `GodotProject/` with `Scenes/Main.tscn` (ground, light, sky, camera, imported placeholder crate); headless smoke test (13 assertions PASS; negative test verified to fail).
-**What does not exist yet:** any final art, player controller, gunplay, vehicle, AI, mission logic, build.
+**What actually exists and is tested:** pipeline + Godot project; Jason v2 and recovered kit glbs; gameplay tests for player, weapons and AI (`Tests/run_all.sh`).
+**What does not exist yet:** any production-ready art, dressed LA street, vehicle physics on the real sedan, mission implementation, playable build.
 
 ## Next actions
-- **Bot 2:** T-PIPE-01 (production exporter) → T-ART-01 Jason → T-ART-05 pistol / T-ART-04 sedan.
-- **Bot 3:** T-GP-01 controller (placeholder capsule) → T-PIPE-02 → T-GP-02 gunplay.
-- **Bot 1:** T-DES-02 layout brief, review handoffs, merge to `main`.
+- **Bot 2:** quality passes in gate order (pistol materials/model, Jason hair/jacket/boots, sedan, street, remaining NPCs). Reference boards first. Creator is never the sole reviewer.
+- **Bot 3:** vehicle physics on the stand-in then the sedan, Jason capsule → mesh swap, Dead Drop layout, Phase 8 in-engine captures (`Tools/godot_phase8_capture.sh`).
+- **Bot 1:** review every PR against `Docs/QUALITY_GATE.md`, merge when tests pass, keep scores honest.
 
-See `TASK_BOARD.md` and `BLOCKERS.md`.
+See `TASK_BOARD.md`, `Docs/Reviews/` and `BLOCKERS.md`.

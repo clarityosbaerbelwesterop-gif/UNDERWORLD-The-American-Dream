@@ -1,7 +1,9 @@
 # Task Board – Milestone 1 "LA Vertical Slice"
 
 Owner: Bot 1. Each agent updates **Status** of its own tasks (and adds a line to `DEVELOPMENT_LOG.md`). New tasks / re-assignments only via Bot 1.
-Statuses: `BACKLOG` · `IN PROGRESS` · `READY FOR REVIEW` · `BLOCKED` · `COMPLETED`.
+Statuses (tasks): `BACKLOG` · `IN PROGRESS` · `READY FOR REVIEW` · `BLOCKED` · `COMPLETED`.
+Asset registry status `PRODUCTION-READY` is separate and is allowed only after a passed Quality Gate (`Docs/QUALITY_GATE.md`, template `Docs/Reviews/TEMPLATE_ASSET_REVIEW.md`). A task may be `COMPLETED` when the work item is delivered; that does **not** make the asset production-ready. First Bot 1 reviews (2026-11-22) **REJECT**ed SK_Jason v2, SK_NPC_Sam, WPN_Pistol_01, VH_Sedan_01 and the LA kit — all stay `WIP`.
+
 Highest priority first inside each section. Priority: P0 = blocks others, P1 = slice-critical, P2 = polish.
 
 ## Summary
@@ -31,7 +33,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-GP-02 | P1 | Bot 3 | Gunplay (pistol) | T-GP-01 | READY FOR REVIEW |
 | T-GP-02a | P1 | Bot 3 | Rapid-fire bloom (stacking, cap, recovery delay) | T-GP-02 | COMPLETED |
 | T-GP-02b | P2 | Bot 3 | Ragdoll-lite hit reaction | T-GP-02, T-ART-01 | BACKLOG |
-| T-GP-03 | P1 | Bot 3 | Vehicle physics + enter/exit | T-GP-01 | BACKLOG |
+| T-GP-03 | P1 | Bot 3 | Vehicle physics + enter/exit | T-GP-01 | READY FOR REVIEW |
 | T-AI-01 | P1 | Bot 3 | Enemy AI (cartel gunmen) | T-GP-02 | COMPLETED |
 | T-AI-02 | P2 | Bot 3 | Civilian NPC behaviour | T-GP-01 | BACKLOG |
 | T-LVL-01 | P1 | Bot 3 | Assemble LA street level | T-ART-03 | BACKLOG |
@@ -39,6 +41,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-UI-01 | P2 | Bot 3 | HUD (health, ammo, objective text) | T-GP-02 | BACKLOG |
 | T-BUILD-01 | P1 | Bot 3 | Playable Linux build + export script | T-PIPE-02 | BACKLOG |
 | T-QA-01 | P1 | Bot 3 | Headless gameplay regression tests | T-GP-01 | BACKLOG |
+| T-QA-02 | P0 | Bot 1 | Binding AAA Quality Gate + first honest asset reviews | T-PIPE-04 | COMPLETED |
 
 Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box car) so code is not blocked by art, but those are marked `PT_` and replaced before the milestone closes. Final slice must use Bot 2's original Blender assets.
 
@@ -195,9 +198,12 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Not verified / open:** look of the animations and blends, foot sliding, weapon orientation in the hand (no GPU, B-003); hitboxes are still the PT capsule-shaped boxes under `Visual/Hitboxes` (move to BoneAttachment3D, REQ-AI01-NPC); no aim-offset/upper-body layering (aim blend is full-body); Shoot/Reload/Carry/Death/Car_Enter/Exit clips exist but are not wired yet.
 
 ### T-GP-03 – Vehicle physics + enter/exit
-- **Agent:** Bot 3 · **Deps:** T-GP-01 · **Status:** BACKLOG
+- **Agent:** Bot 3 · **Deps:** T-GP-01 · **Status:** READY FOR REVIEW (Bot 3, 2026-11-22, branch `bot3/t-gp-03`)
 - **Description:** `VehicleBody3D` with tuned suspension/grip for a heavy sedan, handbrake, chase camera, enter/exit at `SOCKET_Exit_Left`, engine audio pitch by RPM (placeholder sound OK).
 - **Acceptance:** headless test: throttle 3 s → speed > 8 m/s; brake to < 0.5 m/s; enter/exit toggles player control.
+- **Delivered (Bot 3, 2026-11-22):** `Scripts/vehicle/vehicle.gd` (`Vehicle`, VehicleBody3D, **TD-014 ACCEPTED**) + `vehicle_data.gd` (`VehicleData`), `Data/Vehicles/VH_Sedan_01.tres` (all tuning `[DEFAULT]`: 1450 kg, RWD, 6500 N, 38 m/s top, speed-dependent rate-limited steering 35°→8°, handbrake drift slip, drag + rolling resistance, reverse), `Scenes/Vehicles/VH_Sedan_01.tscn` on the **real VH_Sedan_01.glb** (no PT_ car): wheels/UCX collision/doors/sockets wired by node name at runtime; asset wheel meshes spin + steer from the physics wheels; doors swing on their hinge pivots (`open_door/close_door`, `door_changed`); chase camera (smoothed, look-ahead, FOV widens with speed); crash damage (`crashed`, `wrecked` → engine off); engine pitch from a gear sawtooth (`engine_pitch`, optional `EngineAudio` node, no sound file yet). Enter/exit: F / gamepad Y within 2.5 m of an exit socket → driver door opens, player hidden + out of physics on `SOCKET_Seat_Driver`; exit ≤ 2 m/s at `SOCKET_Exit_Left`, `SOCKET_Exit_Right` if blocked, `exit_blocked` if both are. New input actions `vehicle_accelerate` (W/RT), `vehicle_brake` (S/LT), `vehicle_handbrake` (Space/RB) in `setup_input_map.gd`. `PlayerController`: `try_enter_vehicle()`, `set_in_vehicle()`, `leave_vehicle()`. Test range `Scenes/Test/PT_VehicleTestRange.tscn` (400 m floor, sedan, player, crash wall).
+- **Verified:** `GodotProject/Tests/test_vehicle.gd` (88 checks, in `run_gameplay_tests.sh`): asset contract on the imported scene (4 wheels r 0.34, wheelbase 2.86, track 1.58, UCX hull = body collision, StaticBody removed, underside 0.34 m, exit sockets outside hull, 4 doors, 8 sockets, LHD seat); parked on the floor ±1 cm, wheels drawn at asset positions ±1 cm, no creep; doors swing outward around fixed hinges and close back; enter too far = nothing; enter via the real input map (door opens/closes, hidden, collision off, chase cam, seat); **throttle 3 s → 11.1 m/s** (> 8), wheels spin, camera behind; **brake 11.1 → < 0.5 m/s in 2.0 s (10.9 m)**; steer left/right (yaw ±, front wheels steer, rears straight); no exit at speed; **exit places the player at SOCKET_Exit_Left (< 5 cm)**, control/collision/camera back, walks on; left blocked → right exit; both blocked → stays in; wall crash → damage, no tunnelling; never below the floor. Negative controls in the suite: wheel_radius 0.30 is reported, 15 % engine fails the 3 s criterion. Sabotage runs (`UW_VEHICLE_SABOTAGE=1` → 9 FAIL, `=2` → 22 FAIL, exit 1). Deterministic (2 identical runs). `Tests/run_all.sh` → RUN_ALL: PASS.
+- **Not in this task / open:** driving feel, camera framing and visuals unverified (no GPU, B-003); enter/exit is timed (0.6 / 0.5 s), clips `A_Humanoid_Car_Enter_L/Exit_L` come with the Jason swap; no passenger / carjacking / NPC drivers; NPCs don't treat a seated player differently; no ram damage to characters yet; no engine sound asset; headlights not lit (sockets found). REQ to the art pipeline: `Docs/Handoffs/REQ_VEH_Sedan_01.md` (**CONFIRMED**, 4 non-blocking CRs).
 
 ### T-AI-01 – Enemy AI (cartel gunmen)
 - **Agent:** Bot 3 · **Deps:** T-GP-02 · **Status:** COMPLETED (PR #6 merged by Bot 1, 2026-11-22)
@@ -234,3 +240,8 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 
 ### T-QA-01 – Headless regression suite
 - **Agent:** Bot 3 · **Status:** BACKLOG · `Tests/run_all.sh` runs pipeline smoke + all gameplay tests; required to pass before merging to `main`.
+
+### T-QA-02 – Binding AAA Quality Gate
+- **Agent:** Bot 1 · **Pri:** P0 · **Deps:** T-PIPE-04, owner prompt 2026-11-22 · **Status:** COMPLETED (2026-11-22)
+- **Expected output:** `Docs/QUALITY_GATE.md`, `Docs/Reviews/TEMPLATE_ASSET_REVIEW.md`, first reviews for SK_Jason v2, SK_NPC_Sam, WPN_Pistol_01, VH_Sedan_01, LA kit, `Tools/uwp review-sheet`, Phase 8 capture notes (`Tools/godot_phase8_capture.sh`).
+- **Acceptance:** gate adapted to Godot 4.7 (not Unreal); Phase 8 = in-engine capture under xvfb + llvmpipe / opengl3; independent review roles documented; scores 0–5 with pass ≥ 4 all applicable; first reviews are honest (all REJECT / not PRODUCTION-READY); `Tests/run_all.sh` PASS.

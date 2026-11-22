@@ -9,3 +9,6 @@ Target look: grounded, photoreal-leaning AAA open-world crime drama (GTA IV/V/VI
 
 Outfit: worn dark-brown leather bomber jacket (ribbed cuffs/hem), grey crew t-shirt, dark indigo jeans, brown leather work boots, wristwatch (left wrist).
 Height 1.82 m, athletic-lean. Latino-American, early 30s.
+
+
+See `Docs/QUALITY_GATE.md` for the binding review gate, and `Docs/ArtDirection/References/` for per-asset reference boards.

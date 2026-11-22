@@ -53,6 +53,10 @@ static func bindings() -> Dictionary:
 		# interact and enter_vehicle. Keyboard keeps E (interact) / F (vehicle).
 		"interact": [key(KEY_E), joy_button(JOY_BUTTON_Y)],
 		"enter_vehicle": [key(KEY_F), joy_button(JOY_BUTTON_Y)],
+		# T-GP-03 driving (only read while a player drives; RT/LT are fire/aim on foot).
+		"vehicle_accelerate": [key(KEY_W), joy_axis(JOY_AXIS_TRIGGER_RIGHT, 1.0)],
+		"vehicle_brake": [key(KEY_S), joy_axis(JOY_AXIS_TRIGGER_LEFT, 1.0)],
+		"vehicle_handbrake": [key(KEY_SPACE), joy_button(JOY_BUTTON_RIGHT_SHOULDER)],
 		"shoulder_swap": [key(KEY_Q), joy_button(JOY_BUTTON_RIGHT_STICK)],
 		"pause": [key(KEY_ESCAPE), joy_button(JOY_BUTTON_START)],
 	}

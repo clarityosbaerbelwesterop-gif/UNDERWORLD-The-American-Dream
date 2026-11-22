@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Scripts/vehicle/vehicle.gd" id="1_veh"]
+[ext_resource type="Resource" path="res://Data/Vehicles/VH_Sedan_01.tres" id="2_data"]
+
+[node name="VH_Sedan_01" type="VehicleBody3D"]
+collision_layer = 8
+collision_mask = 15
+script = ExtResource("1_veh")
+data = ExtResource("2_data")
+
+[node name="ChaseCamera" type="Camera3D" parent="."]
+top_level = true
+fov = 70.0
+
+[node name="EngineAudio" type="AudioStreamPlayer3D" parent="."]

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="VehicleData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Scripts/vehicle/vehicle_data.gd" id="1_vd"]
+[ext_resource type="PackedScene" path="res://Assets/Vehicles/VH_Sedan_01/VH_Sedan_01.glb" id="2_model"]
+
+; VH_Sedan_01 - M01 getaway sedan (T-GP-03).
+; [DOC]     model = Bot 2's VH_Sedan_01.glb (T-ART-04): wheel_radius 0.34 m (asset extras uw_wheel_radius_m),
+;           wheelbase 2.86 m / track 1.58 m come from the asset's Wheel_* nodes, exit at SOCKET_Exit_Left.
+; [DOC]     acceptance (TASK_BOARD T-GP-03): throttle 3 s -> > 8 m/s, brake to < 0.5 m/s.
+; [DEFAULT] everything else = Bot 3 starting tuning for a heavy RWD late-90s full-size sedan
+;           (1450 kg, ~0-100 km/h in 8 s, 38 m/s top speed). Feel not tuned (no GPU, B-003).
+[resource]
+script = ExtResource("1_vd")
+id = "VH_Sedan_01"
+display_name = "Sedan"
+model_scene = ExtResource("2_model")

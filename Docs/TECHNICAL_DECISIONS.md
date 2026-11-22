@@ -41,6 +41,7 @@ Blender 5.2.4 LTS (`/workspace/tools/blender/blender`) run with `-b --factory-st
 - Godot import hints in node names: `-colonly` (collision only), `-convcolonly` (convex collision only), `-col` (mesh + collision), `-noimp` (skip).
 - Sockets/attachment points are Blender empties named `SOCKET_<Name>` (e.g. `SOCKET_Muzzle`, `SOCKET_Grip`, `SOCKET_RightHand`).
 - Godot scripts/scenes: `snake_case.gd`, scenes `PascalCase.tscn`.
+- **Addendum 2026-11-22 (director decision): no action/animation name may end in `_Loop` (case-insensitive; also `-Loop`, `_Cycle`, `-Cycle`).** Godot's scene importer treats these as loop hints, strips them from the name and forces looping (verified 4.7.2: `A_Jason_Jump_Loop` → `A_Jason_Jump`). Loop mode comes **only** from the uwp manifest (`animations[].loop`, applied by `uw_post_import.gd`). Enforced by `Tools/uwp` as error `NAME_ACTION_LOOP`. First rename: `A_Jason_Jump_Loop` → `A_Jason_Jump_Air`.
 
 ## TD-006 – Asset folder conventions
 `Blender/Source/<Category>/<AssetName>/<AssetName>.blend` -> `Assets/<Category>/<AssetName>/<AssetName>.glb` (+ `.manifest.json`).

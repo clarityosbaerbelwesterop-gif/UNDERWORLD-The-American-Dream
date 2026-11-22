@@ -259,7 +259,9 @@ def validate(ctx):
         fs, fe = a.frame_range
         anims.append({"name": a.name, "frame_start": round(fs, 3), "frame_end": round(fe, 3), "fps": fps,
                       "duration_s": round((fe - fs) / fps, 4),
+                      "frames": int(round(fe - fs)),
                       "loop": bool(a.get("loop", a.use_frame_range and a.use_cyclic)),
+                      "speed_mps": float(a["speed_mps"]) if "speed_mps" in a else None,
                       "slots": [s.identifier for s in a.slots]})
         if not a.name.startswith("A_") or not S.NAME_RE.match(a.name):
             iss.error("NAME_ACTION", "animation actions must be named A_<Asset>_<Name> (TD-005)", a.name)
@@ -271,8 +273,13 @@ def validate(ctx):
         nm = an["name"]
         if top == "Characters" and abs(an["frame_start"]) > 1e-3:
             iss.warn("ANIM_START_FRAME", f"action starts at frame {an['frame_start']} (REQ-GP01-JASON: start at frame 0; exporter slides to t=0 anyway)", nm)
-        if nm.endswith(("-loop", "-cycle", "_loop", "_cycle")) and top == "Characters":  # case-sensitive: A_Jason_Jump_Loop is a valid REQ name
-            iss.warn("ANIM_LOOP_SUFFIX", "no loop suffixes on character actions; loop flags come from the manifest / Godot import settings (REQ-GP01-JASON §5)", nm)
+        low = nm.lower()
+        if low.endswith(("_loop", "-loop", "_cycle", "-cycle")) or "$loop" in low or "$cycle" in low:
+            # TD-005 addendum (director, 2026-11-22): Godot's scene importer matches these hints case-insensitively,
+            # strips them from the name (verified 4.7.2: "A_Jason_Jump_Loop" -> "A_Jason_Jump") and forces looping,
+            # so the engine would not find the clip by its Blender name. Loop mode comes only from the manifest.
+            iss.error("NAME_ACTION_LOOP", "action names must not end in _Loop/-Loop/_Cycle/-Cycle (any case, TD-005 addendum): "
+                      "Godot strips the suffix on import; set looping via the action's loop flag (manifest) instead", nm)
     stats["animations"] = anims
 
     # --- sockets

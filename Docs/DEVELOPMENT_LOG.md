@@ -2,6 +2,9 @@
 
 Append-only, newest on top. `YYYY-MM-DD HH:MM (Europe/Berlin) · Bot N · Task ID · what was done · how it was verified`.
 
+## 2026-11-22 · Bot 1 (handoff to Claude Code)
+- **2026-11-22 13:30 · T-DOC-00 (Bot 1)** Handoff to Claude Code: `Docs/CLAUDE_CODE_HANDOFF.md`, root `CLAUDE.md`, `Docs/SKILLS_AND_TOOLS.md` (vendor verdicts copied from the box), TASK_BOARD reconciled (T-PIPE-02, T-GP-01, T-GP-01c, T-GP-01c-J, T-GP-02, T-GP-03 → COMPLETED; pistol pass = T-ART-05, PR #11 mislabelled T-ART-03). PR #12 (Jason swap) reviewed + merged `b2acced` after fresh-worktree RUN_ALL PASS (player 137). Verified: `Tests/run_all.sh` RUN_ALL: PASS on this branch.
+
 ## 2026-11-22 · Bot 3 (T-GP-01c-J Jason swap)
 - **2026-11-22 13:10 · T-GP-01c-J** Branch `bot3/t-gp-01c-jason` from main 038de21. Player visual = SK_Jason v2 (`Player.tscn`), `CLIP_NAMES.jump_loop` = `A_Jason_Jump_Air`, weapon auto-attached to `SOCKET_RightHand_Weapon`, tree rebuilt on model swap, `validate_clips()`. Verified: `test_player_controller.gd` (+ SK_Jason block, all PASS), sabotage `UW_JASON_SABOTAGE=1` → 3 FAIL exit 1, `test_weapon.gd` adjusted; `Tests/run_all.sh` RUN_ALL: PASS (asset import 61, ai 80, player 137, weapon 68).
 

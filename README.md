@@ -38,4 +38,6 @@ git lfs install
 /workspace/tools/godot --path GodotProject   # (needs a display) open the editor
 ```
 
+**Claude Code / new contributors:** start at `CLAUDE.md` and `Docs/CLAUDE_CODE_HANDOFF.md`.
+
 Start reading at `Docs/PROJECT_STATUS.md`, then `Docs/TASK_BOARD.md` and `Docs/HANDOFF_PROTOCOL.md`.

@@ -2,6 +2,13 @@
 
 Every Blender→Godot integration (or engine-side change to an asset) gets an entry. Newest on top. Times Europe/Berlin.
 
+## 2026-11-22 13:05 – VH_Sedan_01 → drivable vehicle (Bot 3, T-GP-03)
+- Asset: `Assets/Vehicles/VH_Sedan_01/VH_Sedan_01.glb` (T-ART-04 v0, 3,382 tris) used unchanged; `Data/Vehicles/VH_Sedan_01.tres` → `Scenes/Vehicles/VH_Sedan_01.tscn` (VehicleBody3D + `vehicle.gd`, TD-014).
+- Engine-side changes at runtime (asset file untouched): `UCX_VH_Sedan_01` StaticBody3D removed, its convex shape becomes the car's collision; `Wheel_*` meshes posed from generated VehicleWheel3D nodes (spin/steer); `Door_*` rotated about their hinge origin; sockets read by name.
+- Checked on the imported scene: wheel radius 0.34 (extras + mesh), wheelbase 2.86, track 1.58, UCX underside 0.34 m, doors hinge at the front edge, 8 sockets, exit sockets clear of the hull. Import 0 errors.
+- Not verified: visuals (B-003) – rim orientation on the right wheels (CR-4), door swing clearance, materials.
+- Result: **PASS** → `Docs/Handoffs/REQ_VEH_Sedan_01.md` CONFIRMED with 4 non-blocking change requests.
+
 ## 2026-11-22 12:55 – T-PIPE-04 recovered pipeline assets → Godot 4.7.2 (Bot 1)
 - Source: the Gemini cloud agent (bc-7a497c1f) wrote these generators/specs after pushing PR #7 but never committed them. Bot 1 re-applied its 42 recorded file edits onto main (`ea52f0c`) and **re-ran every generator on this box** (nothing copied from the agent's VM): `uwp build-shared-anims`, `build-character SK_NPC_Sam`, `build-weapon`, `build-vehicle`, `build-env` + `uwp export` for each.
 - Assets: `SK_NPC_Sam.glb` (23,735 tris, 1.79 m, 16 clips), `A_Humanoid_Locomotion.glb` (21 clips), `WPN_Pistol_01.glb` (1,920 tris), `VH_Sedan_01.glb` (3,382 tris), 6 × `SM_LA_*` + `SM_Prop_PackageCrate` – all `uwp export` RESULT: PASS (0 errors; warnings only NAME_MESH_PREFIX on named parts + NON_MANIFOLD on the sedan UCX hull).

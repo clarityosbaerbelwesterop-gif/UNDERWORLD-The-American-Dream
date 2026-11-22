@@ -102,6 +102,10 @@ var health: DamageReceiver
 var hitboxes: HumanoidHitboxes
 var _self_rids: Array[RID] = []
 
+## Vehicle the player sits in (T-GP-03), null on foot.
+var vehicle: Node3D = null
+var _saved_collision := Vector2i(2, 13)
+
 var _coyote := 0.0
 var _jump_buffer := 0.0
 var _was_on_floor := true
@@ -149,6 +153,8 @@ func get_facing_direction() -> Vector3:
 
 func _physics_process(delta: float) -> void:
 	_jumped_this_frame = false
+	if input_enabled and Input.is_action_just_pressed("enter_vehicle") and try_enter_vehicle():
+		return
 	var wants_aim := input_enabled and Input.is_action_pressed("aim")
 	_set_aiming(wants_aim)
 	if input_enabled and Input.is_action_just_pressed("crouch"):
@@ -375,3 +381,67 @@ func is_dead() -> bool:
 func _on_died(_info: DamageInfo) -> void:
 	input_enabled = false
 	died.emit()
+
+# --- vehicles (T-GP-03) -------------------------------------------------------
+
+## Enters the nearest vehicle (group "vehicles") whose exit socket is within its
+## enter distance. Returns true if a vehicle took the player.
+func try_enter_vehicle() -> bool:
+	if vehicle != null or is_dead():
+		return false
+	var best: Node3D = null
+	var bd := INF
+	for v in get_tree().get_nodes_in_group("vehicles"):
+		if v.has_method("get_enter_distance"):
+			var d: float = v.get_enter_distance(self)
+			if d < bd:
+				bd = d
+				best = v
+	return best != null and best.enter(self)
+
+## Called by Vehicle.enter(): player is hidden, collision/hitboxes/input off and the
+## vehicle keeps it on the seat socket.
+func set_in_vehicle(v: Node3D) -> void:
+	vehicle = v
+	input_enabled = false
+	velocity = Vector3.ZERO
+	_set_aiming(false)
+	if is_crouching:
+		_set_crouching(false)
+	set_physics_process(false)
+	# Body leaves the physics world while seated (layer/mask 0, restored on exit).
+	_saved_collision = Vector2i(collision_layer, collision_mask)
+	collision_layer = 0
+	collision_mask = 0
+	if visual != null:
+		visual.visible = false
+	if hitboxes != null:
+		hitboxes.set_enabled(false)
+
+## Called by Vehicle when the exit sequence ends: stand at `at` (exit socket), facing the
+## car's heading, camera behind the player looking the same way.
+func leave_vehicle(_v: Node3D, at: Transform3D) -> void:
+	vehicle = null
+	global_transform = Transform3D(Basis.IDENTITY, at.origin)
+	facing_yaw = at.basis.get_euler().y
+	velocity = Vector3.ZERO
+	if visual != null:
+		visual.visible = true
+		visual.rotation.y = facing_yaw
+	if camera_rig != null:
+		camera_rig.set_yaw(facing_yaw + PI)
+		camera_rig.camera.current = true
+	# GodotPhysics applies a kinematic body's new transform at the NEXT physics step and
+	# sweeps it there from the old one (the seat, inside the car) - restoring collision in
+	# this frame would hit the car with that sweep velocity and launch it. So collision,
+	# movement and input come back two physics frames later, at the exit socket.
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	if vehicle != null:
+		return  # got back in meanwhile
+	collision_layer = _saved_collision.x
+	collision_mask = _saved_collision.y
+	if hitboxes != null:
+		hitboxes.set_enabled(true)
+	set_physics_process(true)
+	input_enabled = not is_dead()

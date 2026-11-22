@@ -20,6 +20,8 @@ signal landed(impact_speed: float)
 signal aim_changed(aiming: bool)
 signal crouch_changed(crouching: bool)
 signal move_state_changed(state: MoveState)
+## Emitted when the body was lifted onto a step (T-GP-01c).
+signal stepped_up(height: float)
 
 enum MoveState { IDLE, WALK, RUN, SPRINT, CROUCH, AIR }
 
@@ -47,12 +49,19 @@ enum MoveState { IDLE, WALK, RUN, SPRINT, CROUCH, AIR }
 @export var coyote_time := 0.12
 @export var jump_buffer_time := 0.12
 
+@export_group("Steps (T-GP-01c)")
+## Highest step/ledge (m) the player walks onto without jumping. 0 disables step-up.
+@export var step_height := 0.35
+const STEP_OVERLAP := 0.02
+## Ignore "steps" lower than this; the capsule slides over them anyway.
+@export var step_min_height := 0.02
+
 @export_group("Turning")
 ## Exponential turn rate of the Visual towards the move/aim direction.
 @export var turn_rate := 12.0
 @export var aim_turn_rate := 25.0
 
-@export_group("Capsule")
+@export_group("Body shape (cylinder, see T-GP-01c)")
 @export var capsule_radius := 0.35
 @export var stand_height := 1.8
 @export var crouch_height := 1.2
@@ -69,7 +78,7 @@ var can_sprint := true
 
 var camera_rig: CameraRig
 var visual: CharacterVisual
-var _shape: CapsuleShape3D
+var _shape: CylinderShape3D
 var _collision: CollisionShape3D
 
 var is_aiming := false
@@ -95,12 +104,16 @@ func _ready() -> void:
 	camera_rig = get_node_or_null(camera_rig_path) as CameraRig
 	visual = get_node_or_null(visual_path) as CharacterVisual
 	_collision = get_node_or_null(collision_shape_path) as CollisionShape3D
-	assert(_collision != null and _collision.shape is CapsuleShape3D, "Player needs a capsule CollisionShape3D")
+	# Flat-bottomed cylinder: rests stably on step edges (a capsule's round bottom
+	# slips off stair nosings and loses floor contact); visual stays a capsule.
+	assert(_collision != null and _collision.shape is CylinderShape3D, "Player needs a cylinder CollisionShape3D")
 	# Each instance resizes its own capsule when crouching.
-	_shape = (_collision.shape as CapsuleShape3D).duplicate()
+	_shape = (_collision.shape as CylinderShape3D).duplicate()
 	_collision.shape = _shape
 	_apply_capsule_height(stand_height)
-	floor_snap_length = 0.3
+	# Snap a bit further than the step height so walking DOWN stairs stays grounded
+	# (no hop/AIR state), while real drops (> step_height + 0.05) still fall.
+	floor_snap_length = step_height + 0.05
 	floor_max_angle = deg_to_rad(46.0)
 	floor_constant_speed = true
 	floor_stop_on_slope = true
@@ -196,6 +209,9 @@ func _physics_process(delta: float) -> void:
 	if velocity.y < 0.0:
 		_last_fall_speed = -velocity.y
 
+	if on_floor and not _jumped_this_frame and step_height > 0.0:
+		_try_step_up(Vector3(velocity.x, 0.0, velocity.z), delta)
+
 	move_and_slide()
 
 	var now_on_floor := is_on_floor()
@@ -212,6 +228,49 @@ func _physics_process(delta: float) -> void:
 		aim_collider = camera_rig.aim_collider
 	if visual != null:
 		visual.update_from_player(self, delta)
+
+## Step-up: if the horizontal move this frame hits a wall-like surface whose top is a
+## walkable floor at most `step_height` above the feet, lift the body onto it and let
+## move_and_slide() continue forward. Returns true if the body was lifted.
+## Rejects: slopes (handled by move_and_slide), ledges/walls taller than step_height
+## (the probe ray starts inside them or finds the top too high), non-walkable tops,
+## and steps under a ceiling with no head room.
+func _try_step_up(hv: Vector3, delta: float) -> bool:
+	var speed := hv.length()
+	if speed < 0.05:
+		return false
+	var dir := hv / speed
+	var xf := global_transform
+	# Probe this frame's motion (+ a small look-ahead). If the riser is reached we lift
+	# AND make sure the base ends up >= STEP_OVERLAP over the tread; otherwise floor
+	# snap would pull the body straight back down (one-frame pop).
+	var motion_len := speed * delta
+	var probe := dir * (motion_len + 0.03)
+	var col := KinematicCollision3D.new()
+	if not test_move(xf, probe, col):
+		return false
+	if col.get_normal().angle_to(Vector3.UP) <= floor_max_angle:
+		return false  # walkable slope, not a step
+	var contact := col.get_position() + dir * 0.06
+	var from := Vector3(contact.x, xf.origin.y + step_height + 0.05, contact.z)
+	var to := Vector3(contact.x, xf.origin.y - 0.05, contact.z)
+	var q := PhysicsRayQueryParameters3D.create(from, to, collision_mask, [get_rid()])
+	var hit := get_world_3d().direct_space_state.intersect_ray(q)
+	if hit.is_empty() or (hit.normal as Vector3).angle_to(Vector3.UP) > floor_max_angle:
+		return false
+	var h: float = hit.position.y - xf.origin.y
+	if h <= step_min_height or h > step_height:
+		return false
+	var lift := Vector3(0.0, h + 0.02, 0.0)
+	if test_move(xf, lift):
+		return false  # no head room
+	if test_move(xf.translated(lift), probe):
+		return false  # still blocked above the step -> wall, not a step
+	var to_riser := col.get_travel().length()
+	var extra := maxf(0.0, to_riser + STEP_OVERLAP - motion_len)
+	global_position += lift + dir * extra
+	stepped_up.emit(h)
+	return true
 
 func _update_facing(delta: float, hv: Vector3) -> void:
 	var target_yaw := facing_yaw
@@ -265,7 +324,7 @@ func _set_crouching(value: bool) -> void:
 func can_stand_up() -> bool:
 	if not is_inside_tree():
 		return true
-	var probe := CapsuleShape3D.new()
+	var probe := CylinderShape3D.new()
 	probe.radius = capsule_radius * 0.95
 	probe.height = stand_height - 0.1
 	var q := PhysicsShapeQueryParameters3D.new()

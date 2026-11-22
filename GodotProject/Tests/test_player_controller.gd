@@ -87,6 +87,8 @@ func _run_all() -> void:
 	await test_spring_arm_collision()
 	await test_crouch_and_low_ceiling()
 	await test_slope()
+	await test_stairs_up_and_down()
+	await test_step_and_ledge()
 	await test_no_penetration_main_scene()
 	await test_animation_tree_contract()
 	_done = true
@@ -136,8 +138,8 @@ func test_scene_loads() -> void:
 	check(p.visual is CharacterVisual, "CharacterVisual attached")
 	check(p.camera_rig.spring_arm is SpringArm3D, "SpringArm3D present")
 	check(p.camera_rig.camera == root.get_viewport().get_camera_3d(), "player camera is the current camera")
-	var shape := p.get_node("CollisionShape3D").shape as CapsuleShape3D
-	check(shape != null and approx(shape.height, 1.8, 0.001) and approx(shape.radius, 0.35, 0.001), "capsule 1.8 m x r0.35")
+	var shape := p.get_node("CollisionShape3D").shape as CylinderShape3D
+	check(shape != null and approx(shape.height, 1.8, 0.001) and approx(shape.radius, 0.35, 0.001), "collision cylinder 1.8 m x r0.35")
 	check(p.get_node_or_null("Visual/PT_Capsule") is MeshInstance3D, "PT_ capsule stand-in mesh present")
 	await despawn(scene)
 
@@ -365,7 +367,7 @@ func test_crouch_and_low_ceiling() -> void:
 	print("[GPTEST] == crouch + low ceiling")
 	var scene := spawn(TEST_RANGE)
 	var p := scene.get_node("Player") as PlayerController
-	var shape := p.get_node("CollisionShape3D").shape as CapsuleShape3D
+	var shape := p.get_node("CollisionShape3D").shape as CylinderShape3D
 	await frames(5)
 	# Standing: tunnel (ceiling underside 1.4 m) blocks.
 	await teleport(p, Vector3(-12, 0, -4))
@@ -412,6 +414,110 @@ func test_slope() -> void:
 	var y2 := p.global_position.y
 	await frames(60)
 	check(absf(p.global_position.y - y2) < 0.02, "does not slide down when idle on slope (dy=%.3f)" % (p.global_position.y - y2))
+	await despawn(scene)
+
+func test_stairs_up_and_down() -> void:
+	print("[GPTEST] == stairs up/down (T-GP-01c)")
+	var scene := spawn(TEST_RANGE)
+	var p := scene.get_node("Player") as PlayerController
+	await frames(5)
+	var steps := []
+	var landed := []
+	p.stepped_up.connect(func(h): steps.append(h))
+	p.landed.connect(func(v): landed.append(v))
+	# Flat ground never triggers a step.
+	await teleport(p, Vector3(-22, 0, 6))
+	Input.action_press("move_forward")
+	await seconds(1.0)
+	check(steps.is_empty(), "no step-up on flat floor")
+	# Walk up the 8 x 0.2 m flight onto the 1.6 m landing (landing spans z -2.4..-5.4).
+	var air_frames := 0
+	var t := 0
+	var max_dip := 0.0  # largest frame-to-frame drop in y while climbing (pop = bad)
+	var prev_y := p.global_position.y
+	while p.global_position.z > -3.9 and t < 300:
+		await frames(1)
+		t += 1
+		if not p.is_on_floor():
+			air_frames += 1
+		max_dip = maxf(max_dip, prev_y - p.global_position.y)
+		prev_y = p.global_position.y
+	Input.action_release("move_forward")
+	await frames(30)
+	check(approx(p.global_position.y, 1.6, 0.03) and p.global_position.z < -2.5, "climbed stairs onto landing (y=%.2f z=%.2f)" % [p.global_position.y, p.global_position.z])
+	check(steps.size() == 8 and steps.all(func(h): return h > 0.15 and h < 0.25), "stepped up each 0.2 m riser (%d steps: %s)" % [steps.size(), steps])
+	check(air_frames == 0 and landed.is_empty(), "grounded the whole way up (air frames %d, landings %d)" % [air_frames, landed.size()])
+	check(max_dip < 0.03, "no step pops: max frame drop while climbing %.3f m" % max_dip)
+	check(t < 180, "climb took %.2f s (no stalls at risers)" % (t / HZ))
+	# Walk back down (camera turned around), at sprint speed: no hopping.
+	p.camera_rig.set_yaw(PI)
+	await teleport(p, Vector3(-22, 1.6, -4.0))
+	await frames(10)
+	landed.clear()
+	air_frames = 0
+	var max_drop_speed := 0.0
+	Input.action_press("move_forward")
+	Input.action_press("sprint")
+	for i in 90:
+		await frames(1)
+		if not p.is_on_floor():
+			air_frames += 1
+		max_drop_speed = maxf(max_drop_speed, -p.velocity.y)
+	Input.action_release("move_forward")
+	Input.action_release("sprint")
+	await frames(30)
+	check(approx(p.global_position.y, 0.0, 0.03) and p.global_position.z > 0.5, "walked down to the floor (y=%.2f z=%.2f)" % [p.global_position.y, p.global_position.z])
+	check(air_frames == 0 and landed.is_empty(), "stays grounded walking down at sprint speed (air frames %d, landings %d)" % [air_frames, landed.size()])
+	# A real drop (1.6 m off the landing's side) still falls and lands.
+	p.camera_rig.set_yaw(-PI / 2.0)  # forward = +X
+	await teleport(p, Vector3(-22, 1.6, -4.0))
+	await frames(5)
+	landed.clear()
+	Input.action_press("move_forward")
+	await seconds(1.5)
+	Input.action_release("move_forward")
+	check(landed.size() == 1 and approx(p.global_position.y, 0.0, 0.03), "walking off a 1.6 m edge falls and lands (landings %d, y=%.2f)" % [landed.size(), p.global_position.y])
+	await despawn(scene)
+
+func test_step_and_ledge() -> void:
+	print("[GPTEST] == 0.3 m step vs 0.5 m ledge (T-GP-01c)")
+	var scene := spawn(TEST_RANGE)
+	var p := scene.get_node("Player") as PlayerController
+	await frames(5)
+	var steps := []
+	p.stepped_up.connect(func(h): steps.append(h))
+	await teleport(p, Vector3(-32, 0, 1))
+	Input.action_press("move_forward")
+	await seconds(1.5)
+	Input.action_release("move_forward")
+	await frames(20)
+	check(approx(p.global_position.y, 0.3, 0.03) and steps.size() == 1, "walks onto 0.3 m step (y=%.2f, steps %s)" % [p.global_position.y, steps])
+	steps.clear()
+	await teleport(p, Vector3(-28, 0, 1))
+	Input.action_press("move_forward")
+	Input.action_press("sprint")
+	var max_y := 0.0
+	for i in 120:
+		await frames(1)
+		max_y = maxf(max_y, p.global_position.y)
+	Input.action_release("move_forward")
+	Input.action_release("sprint")
+	check(max_y < 0.05 and steps.is_empty(), "0.5 m ledge blocks (max y=%.3f, steps %d)" % [max_y, steps.size()])
+	check(p.global_position.z > -2.0 + p.capsule_radius - 0.03, "stopped at the ledge face (z=%.2f)" % p.global_position.z)
+	# Jumping onto the ledge still works (jump apex 1.0 m > 0.5 m).
+	Input.action_press("move_forward")
+	await tap("jump")
+	await seconds(1.0)
+	Input.action_release("move_forward")
+	await frames(20)
+	check(approx(p.global_position.y, 0.5, 0.03), "can jump onto the 0.5 m ledge (y=%.2f)" % p.global_position.y)
+	# Walls are never climbed: run into the 3 m pillar and the 1.5 m crate.
+	steps.clear()
+	await teleport(p, Vector3(6, 0, 7))
+	Input.action_press("move_forward")
+	await seconds(1.5)
+	Input.action_release("move_forward")
+	check(steps.is_empty() and p.global_position.y < 0.05, "no climbing the pillar wall (y=%.2f)" % p.global_position.y)
 	await despawn(scene)
 
 func test_no_penetration_main_scene() -> void:

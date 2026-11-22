@@ -3,6 +3,8 @@
 Append-only, newest on top. `YYYY-MM-DD HH:MM (Europe/Berlin) · Bot N · Task ID · what was done · how it was verified`.
 
 ## 2026-11-22 · Bot 3
+- **2026-11-22 09:50 · T-GP-01c** Step-up for the player (step height 0.35 m, grounded stair descent via floor snap 0.4 m, no wall/ledge climbing); collision capsule → cylinder for stable stair contact; stairs, 0.5 m ledge and 0.3 m step added to `PT_PlayerTestRange`. Verified: `./Tests/run_all.sh` → RUN_ALL: PASS (gameplay 112 checks); negative check `step_height = 0` → exit 1.
+- **2026-11-22 09:50 · T-GP-01** Applied Bot 1 decisions: gamepad A = jump only, Y = interact + enter_vehicle (input map regenerated, asserted in tests); TD-010 recorded as ACCEPTED; REQ-GP01-JASON marked confirmed; facing +Z conflict marked resolved; T-GP-01b/01c added to TASK_BOARD.
 - **2026-11-22 09:44 · T-GP-01** Third-person controller on `bot3/dev`: CharacterBody3D capsule player (walk/run/sprint, analog walk, crouch with stand-up check, jump with coyote/buffer, heavier fall gravity, slope snap), SpringArm3D orbit camera (mouse + right stick, pitch clamp, collision), over-shoulder aim mode (arm/FOV/offset blend, shoulder swap, face aim direction, crosshair raycast), `CharacterVisual` that swaps the PT capsule for a model and builds an AnimationTree from `A_Jason_*` clips, 19 input actions, PT test map. Verified: `./Tests/run_all.sh` → pipeline smoke PASS + gameplay tests PASS (94 checks); clean `.godot/` cache run also PASS; negative check (jump velocity halved) → exit 1. Asset request for Jason: `Docs/Handoffs/REQ_SK_Jason_Controller.md`.
 
 ## 2026-11-22 · Bot 1

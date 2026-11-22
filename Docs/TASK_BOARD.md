@@ -24,7 +24,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-ART-06 | P1 | Bot 2 | 3 NPC models on shared rig | T-ART-01 | BACKLOG |
 | T-GP-01 | P0 | Bot 3 | Third-person controller + camera | T-PIPE-00 | READY FOR REVIEW |
 | T-GP-01b | P2 | Bot 3 | Vault-lite (low obstacles) | T-GP-01, T-ART-02 | BACKLOG |
-| T-GP-01c | P1 | Bot 3 | Stairs / step-up for the player | T-GP-01 | IN PROGRESS |
+| T-GP-01c | P1 | Bot 3 | Stairs / step-up for the player | T-GP-01 | READY FOR REVIEW |
 | T-GP-02 | P1 | Bot 3 | Gunplay (pistol) | T-GP-01 | BACKLOG |
 | T-GP-03 | P1 | Bot 3 | Vehicle physics + enter/exit | T-GP-01 | BACKLOG |
 | T-AI-01 | P1 | Bot 3 | Enemy AI (cartel gunmen) | T-GP-02 | BACKLOG |
@@ -130,7 +130,8 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Delivered (Bot 3, 2026-11-22):** `Scenes/Player/Player.tscn` (CharacterBody3D + `PT_Capsule`, `Visual`, `CameraRig`→`Pitch`→`SpringArm3D`→`Camera3D`), `Scripts/player/player_controller.gd`, `camera_rig.gd`, `character_visual.gd`, test map `Scenes/Test/PT_PlayerTestRange.tscn` (generator `Scripts/tools/build_test_range.gd`), 19 input actions KB/M + gamepad in `project.godot` (generator `Scripts/tools/setup_input_map.gd`), tests `GodotProject/Tests/test_player_controller.gd`, runners `Tests/run_gameplay_tests.sh`, `Tests/run_all.sh`.
 - **Verified:** `./Tests/run_all.sh` → `PIPELINE SMOKE TEST: PASS`, `GAMEPLAY TESTS: PASS` (94 checks, fixed 60 fps headless): scene loads, gravity + landing, 10 m forward (dz −10.31 m in 2.97 s), stops at Main.tscn PT crate (min z 0.850 = 0.5 + capsule r) without sinking, camera-relative move/strafe, walk/run/sprint 1.4/3.5/6.0 m/s, analog walk, jump apex 1.04 m, aim mode (arm 3.2→1.3 m, FOV 70→55, shoulder 0.6 m, faces aim dir, crosshair ray hits wall), shoulder swap, mouse + stick look, spring-arm wall collision, crouch under 1.4 m ceiling, 20° ramp, AnimationTree built from dummy `A_Jason_*` clips. Negative check: halving jump velocity → test exits 1.
 - **Bot 1 decisions (2026-11-22):** facing TD-004 (+Z) stands; gamepad A = jump, Y = interact + enter vehicle, keyboard E/F (TD-010 ACCEPTED, input map regenerated + asserted in tests); REQ-GP01-JASON confirmed.
-- **Not done / open:** vault-lite → **T-GP-01b**; stairs/step-up → **T-GP-01c**; real animation blending only verified with empty dummy clips (needs T-ART-02); camera feel/visuals unverified without GPU (B-003).
+- **Note (T-GP-01c):** player collision is now a cylinder (r 0.35, h 1.8), not a capsule – see T-GP-01c.
+- **Not done / open:** vault-lite → **T-GP-01b**; stairs/step-up → **T-GP-01c** (READY FOR REVIEW); real animation blending only verified with empty dummy clips (needs T-ART-02); camera feel/visuals unverified without GPU (B-003).
 - **Asset requirement for Bot 2 (T-ART-01/02) – REQ-GP01-JASON:** full spec in `Docs/Handoffs/REQ_SK_Jason_Controller.md`. Summary: `Assets/Characters/SK_Jason/SK_Jason.glb` with all actions; 1.82 m, origin at feet, 1 u = 1 m, Y-up, faces Godot +Z (TD-004); `SkeletonProfileHumanoid` bone names (+ `Root`, fingers recommended), T-pose, `SOCKET_RightHand_Weapon` parented to `RightHand`; **in place, no root motion**; 30 fps; P1 clips `A_Jason_Idle/Walk(1.4)/Run(3.5)/Sprint(6.0)/Crouch_Idle/Crouch_Walk(1.2)/Jump_Start/Jump_Loop/Land/Aim_Pistol_Idle/Aim_Pistol_Walk_F|B|L|R(2.0)/Shoot_Pistol(0.25 s)/Reload_Pistol(1.6 s)`; P2 `Carry_Idle/Carry_Walk, Death, Car_Enter_L/Car_Exit_L`. Extends T-ART-02 (new: crouch, jump, land, aim strafes; renames `A_Jason_Aim_Pistol` → `A_Jason_Aim_Pistol_Idle`). **CONFIRMED by Bot 1 (2026-11-22): takes priority over the older names in T-ART-02; Bot 1 assigns it to Bot 2.**
 
 ### T-GP-01b – Vault-lite
@@ -139,10 +140,13 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Acceptance:** headless test: 1.0 m fence is crossed with jump input, 2 m wall is not.
 
 ### T-GP-01c – Stairs / step-up
-- **Agent:** Bot 3 · **Pri:** P1 · **Deps:** T-GP-01 · **Status:** IN PROGRESS (2026-11-22, Bot 3)
+- **Agent:** Bot 3 · **Pri:** P1 · **Deps:** T-GP-01 · **Status:** READY FOR REVIEW (2026-11-22, Bot 3; branch `bot3/dev`)
 - **Description:** `CharacterBody3D` step-up for steps up to ~0.35 m, stay grounded walking down steps (no hopping), never climb walls/ledges higher than the step height; stairs + ledges in the PT test range.
 - **Expected output:** changes in `Scripts/player/player_controller.gd`, `Scenes/Test/PT_PlayerTestRange.tscn` (+ generator), tests in `GodotProject/Tests/test_player_controller.gd`.
 - **Acceptance:** headless tests: climbs a stair flight; 0.5 m ledge blocks; walking down stays grounded; `Tests/run_all.sh` PASS.
+- **Delivered:** `PlayerController._try_step_up()` (probe this frame's motion → wall-like hit → downward ray finds a walkable top ≤ `step_height` 0.35 m → head-room + clearance checks → lift; `stepped_up(height)` signal), `floor_snap_length = step_height + 0.05` for going down, player collision changed from capsule to **cylinder** (r 0.35, h 1.8; flat base rests on stair nosings – the capsule's round bottom lost floor contact on every riser; the PT visual is still a capsule). Test range: `Stairs_*` (8 × 0.2 m rise / 0.3 m tread → 1.6 m landing), `Ledge_050`, `Step_030`.
+- **Verified:** `./Tests/run_all.sh` → `RUN_ALL: PASS` (smoke 12/12, gameplay 112/112). Stairs up: 8 step-ups of ~0.2 m, y 1.60 on landing, 0 airborne frames, 0 landings, max frame-to-frame drop 0.000 m, 1.92 s; stairs down at sprint: 0 airborne frames, 0 landings; walking off the 1.6 m landing side still falls + lands; 0.3 m step climbed (1 step-up); 0.5 m ledge blocks (max y 0.000, stops at the face) but can be jumped onto; pillar wall not climbed; no step-up on flat floor; 20° ramp + crouch tunnel + Main.tscn crate tests still pass. Negative check: `step_height = 0` → 5 failures, exit 1.
+- **Known limits:** step-up only while grounded (not mid-air ledge grab = T-GP-01b); stairs steeper than 0.35 m rise need a collision ramp; camera smooths the vertical pivot so steps don't jolt (visual feel unverified without GPU, B-003).
 
 ### T-GP-02 – Gunplay (pistol)
 - **Agent:** Bot 3 · **Deps:** T-GP-01 · **Status:** BACKLOG

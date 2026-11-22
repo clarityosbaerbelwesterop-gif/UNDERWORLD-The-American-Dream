@@ -5,6 +5,10 @@
 #   Ramp       x = 14, 20° slope rising towards -Z
 #   CrouchTunnel x = -12, z = -7..-13, ceiling underside at 1.4 m (stand 1.8 / crouch 1.2)
 #   Crates/Pillar  scattered blockers
+#   Stairs     x = -22, 8 steps (rise 0.2 m, tread 0.3 m) from z = 0 rising towards -Z,
+#              top landing 1.6 m high from z = -2.4 to -5.4 (T-GP-01c)
+#   Ledge_050  x = -28, 0.5 m block (must NOT be stepped onto)
+#   Step_030   x = -32, single 0.3 m step (must be stepped onto)
 extends SceneTree
 
 const OUT := "res://Scenes/Test/PT_PlayerTestRange.tscn"
@@ -47,6 +51,15 @@ func _initialize() -> void:
 	_box("CrouchTunnel_Ceiling", Vector3(3, 0.3, 6), Vector3(-12, 1.55, -10), Vector3.ZERO, Color(0.35, 0.4, 0.45))
 	_box("CrouchTunnel_WallL", Vector3(0.3, 1.4, 6), Vector3(-13.65, 0.7, -10), Vector3.ZERO, Color(0.35, 0.4, 0.45))
 	_box("CrouchTunnel_WallR", Vector3(0.3, 1.4, 6), Vector3(-10.35, 0.7, -10), Vector3.ZERO, Color(0.35, 0.4, 0.45))
+
+	# Stairs + ledges for step-up tests (T-GP-01c).
+	var stair_col := Color(0.5, 0.45, 0.4)
+	for i in 8:
+		var h := 0.2 * (i + 1)
+		_box("Stairs_Step_%d" % (i + 1), Vector3(2, h, 0.3), Vector3(-22, h * 0.5, -0.15 - 0.3 * i), Vector3.ZERO, stair_col)
+	_box("Stairs_Landing", Vector3(2, 1.6, 3), Vector3(-22, 0.8, -3.9), Vector3.ZERO, stair_col)
+	_box("Ledge_050", Vector3(2, 0.5, 2), Vector3(-28, 0.25, -3), Vector3.ZERO, Color(0.6, 0.3, 0.3))
+	_box("Step_030", Vector3(2, 0.3, 2), Vector3(-32, 0.15, -3), Vector3.ZERO, Color(0.3, 0.6, 0.3))
 
 	var player: Node3D = (load("res://Scenes/Player/Player.tscn") as PackedScene).instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
 	player.name = "Player"

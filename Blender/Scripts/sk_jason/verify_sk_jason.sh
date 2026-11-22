@@ -39,7 +39,7 @@ bones = [l.strip() for l in open(sys.argv[3]) if l.strip()]
 json.dump({"path": "res://assets/Characters/SK_Jason/SK_Jason.glb", "bones": bones,
            "animations": {a["name"]: [a["duration_s"], a["loop"]] for a in m["animations"]}}, open(sys.argv[2], "w"))
 # Godot's scene importer strips a trailing _loop/-loop/_cycle/-cycle (any case) from animation names
-# (A_Jason_Jump_Loop -> A_Jason_Jump); the Godot check accepts that name but reports it as [WARN].
+# (TD-005 addendum, uwp NAME_ACTION_LOOP); should one slip through, the Godot check accepts the stripped name but reports [WARN].
 PY
 "$GODOT" --headless --path "$G" --script res://verify_sk_jason_godot.gd -- "$G/expect.json" > "$T/godot_verify.log" 2>&1
 rc=$?; grep -E '^\[JASON-GODOT\]' "$T/godot_verify.log"

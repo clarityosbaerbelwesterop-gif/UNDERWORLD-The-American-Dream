@@ -274,10 +274,12 @@ def validate(ctx):
         if top == "Characters" and abs(an["frame_start"]) > 1e-3:
             iss.warn("ANIM_START_FRAME", f"action starts at frame {an['frame_start']} (REQ-GP01-JASON: start at frame 0; exporter slides to t=0 anyway)", nm)
         low = nm.lower()
-        if low.endswith(("-loop", "-cycle", "_loop", "_cycle")) or "$loop" in low or "$cycle" in low:
-            # verified in Godot 4.7 (SK_Jason): the glTF scene importer matches these hints case-insensitively,
-            # strips them from the name ("A_Jason_Jump_Loop" -> "A_Jason_Jump") and forces loop mode
-            iss.warn("ANIM_LOOP_SUFFIX", f"Godot import renames this to '{nm[:-5] if low.endswith(('_loop', '-loop')) else nm[:-6] if low.endswith(('_cycle', '-cycle')) else nm}' (loop/cycle name hint, case-insensitive) and forces looping; loop flags belong in the manifest (REQ-GP01-JASON §5)", nm)
+        if low.endswith(("_loop", "-loop", "_cycle", "-cycle")) or "$loop" in low or "$cycle" in low:
+            # TD-005 addendum (director, 2026-11-22): Godot's scene importer matches these hints case-insensitively,
+            # strips them from the name (verified 4.7.2: "A_Jason_Jump_Loop" -> "A_Jason_Jump") and forces looping,
+            # so the engine would not find the clip by its Blender name. Loop mode comes only from the manifest.
+            iss.error("NAME_ACTION_LOOP", "action names must not end in _Loop/-Loop/_Cycle/-Cycle (any case, TD-005 addendum): "
+                      "Godot strips the suffix on import; set looping via the action's loop flag (manifest) instead", nm)
     stats["animations"] = anims
 
     # --- sockets

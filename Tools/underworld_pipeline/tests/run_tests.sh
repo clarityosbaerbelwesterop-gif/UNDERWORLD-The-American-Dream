@@ -88,7 +88,7 @@ check(rv["steps"]["verify"]["glb"]["skins"][0]["joints"] == 3, "rig glb has a 3-
 br = J("out/PT_UWP_Broken/PT_UWP_Broken.validation.json")
 codes = {i["code"] for i in br["issues"] if i["severity"] == "error"}
 want = {"ROOT_MISSING", "NAME_OBJECT", "TRANSFORM_SCALE", "NO_UVS", "NO_MATERIAL", "LOOSE_GEOMETRY", "TRI_BUDGET",
-        "ORIGIN_GROUND", "NAME_MATERIAL", "TEXTURE_SIZE", "BONE_INFLUENCES", "NAME_ACTION"}
+        "ORIGIN_GROUND", "NAME_MATERIAL", "TEXTURE_SIZE", "BONE_INFLUENCES", "NAME_ACTION", "NAME_ACTION_LOOP"}
 check(want <= codes, f"broken report error codes ⊇ expected (missing: {sorted(want - codes)})")
 check(br["result"] == "VALIDATION_FAILED" and br["exit_code"] == 1, "broken report result VALIDATION_FAILED / 1")
 h = J("out/humanoid.json")

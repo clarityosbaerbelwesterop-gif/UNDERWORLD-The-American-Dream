@@ -580,7 +580,7 @@ CLIPS_P1 = {
     "A_Jason_Idle": (60, True, lambda rig, k, t: idle_pose(rig, k, t)),
     "A_Jason_Crouch_Idle": (60, True, lambda rig, k, t: idle_pose(rig, k, t, crouch=True)),
     "A_Jason_Jump_Start": (8, False, clip_jump_start),
-    "A_Jason_Jump_Loop": (20, True, jump_air),
+    "A_Jason_Jump_Air": (20, True, jump_air),  # was A_Jason_Jump_Loop (TD-005 addendum)
     "A_Jason_Land": (9, False, clip_land),
     "A_Jason_Aim_Pistol_Idle": (60, True, lambda rig, k, t: idle_pose(rig, k, t, aim=True)),
     "A_Jason_Shoot_Pistol": (8, False, clip_shoot),

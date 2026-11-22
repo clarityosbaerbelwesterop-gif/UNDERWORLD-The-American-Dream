@@ -44,7 +44,7 @@ Budgets come from `Config/asset_budgets.json` (Bot 1); tool defaults from `under
 | UV / materials / textures | `NO_UVS`, `NO_MATERIAL`, `EMPTY_MATERIAL_SLOT`, `TEXTURE_SIZE` (hero 2048 for Characters/Vehicles/Weapons, else 1024), `TEXTURE_MISSING` | `MATERIAL_COUNT`, `TEXTURE_POT` |
 | Skinning | `BONE_INFLUENCES` (> `max_bone_influences` = 4), `UNWEIGHTED_VERTICES`, `SK_NOT_SKINNED`, `ARMATURE_MOD_EMPTY`, `HUMANOID_BONES` (Characters: all 22 required `SkeletonProfileHumanoid` bones of REQ-GP01-JASON) | `SKIN_PARENT`, `HUMANOID_OPTIONAL`, `VGROUP_NO_BONE` |
 | Sockets | `SOCKET_MISSING`, `SOCKET_PARENT` (`required_sockets`, e.g. `SOCKET_RightHand_Weapon` on bone `RightHand` for SK_Jason) | – |
-| Animation | `NAME_ACTION` | `ACTION_EMPTY`, `ANIM_FPS` (≠ 30), `ANIM_START_FRAME` (Characters), `ANIM_LOOP_SUFFIX` (name ends in `_loop`/`-loop`/`_cycle`/`-cycle`, any case: Godot strips it and forces looping, e.g. `A_Jason_Jump_Loop` → `A_Jason_Jump`) |
+| Animation | `NAME_ACTION`, `NAME_ACTION_LOOP` (name ends in `_Loop`/`-Loop`/`_Cycle`/`-Cycle`, any case – Godot strips it on import, e.g. `A_Jason_Jump_Loop` → `A_Jason_Jump`; TD-005 addendum, loop mode comes only from the manifest) | `ACTION_EMPTY`, `ANIM_FPS` (≠ 30), `ANIM_START_FRAME` (Characters) |
 
 `--strict` turns every warning into an error.
 

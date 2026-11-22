@@ -227,6 +227,11 @@ def make_broken(path):
     arm.animation_data_create()
     arm.animation_data.action = act
     arm.pose.bones["B1"].keyframe_insert("rotation_quaternion", frame=1)
+    act2 = bpy.data.actions.new("A_PT_UWP_Broken_Jump_loop")   # TD-005 addendum: loop suffix -> NAME_ACTION_LOOP
+    act2.use_fake_user = True
+    arm.animation_data.action = act2
+    arm.pose.bones["B1"].keyframe_insert("rotation_quaternion", frame=1)
+    arm.animation_data.action = act
     bpy.ops.wm.save_as_mainfile(filepath=path)
 
 

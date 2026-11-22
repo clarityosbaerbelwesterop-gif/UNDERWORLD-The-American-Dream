@@ -158,7 +158,7 @@
       "reach_clamp_m": 0.0009,
       "length_s": 0.2667
     },
-    "A_Jason_Jump_Loop": {
+    "A_Jason_Jump_Air": {
       "frames": 20,
       "loop": true,
       "speed": 0.0,

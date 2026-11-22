@@ -2,13 +2,13 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.2.4 LTS",
-  "timestamp": "2026-11-22T10:09:38+01:00",
+  "timestamp": "2026-11-22T10:15:00+01:00",
   "command": "export",
   "input": "Blender/Source/Characters/SK_Jason/SK_Jason.blend",
   "steps": {
     "validate": {
       "errors": 0,
-      "warnings": 1
+      "warnings": 0
     },
     "lods": [],
     "collision": {
@@ -178,7 +178,7 @@
           "A_Jason_Crouch_Walk",
           "A_Jason_Death",
           "A_Jason_Idle",
-          "A_Jason_Jump_Loop",
+          "A_Jason_Jump_Air",
           "A_Jason_Jump_Start",
           "A_Jason_Land",
           "A_Jason_Reload_Pistol",
@@ -216,7 +216,7 @@
         "A_Jason_Crouch_Walk",
         "A_Jason_Death",
         "A_Jason_Idle",
-        "A_Jason_Jump_Loop",
+        "A_Jason_Jump_Air",
         "A_Jason_Jump_Start",
         "A_Jason_Land",
         "A_Jason_Reload_Pistol",
@@ -239,12 +239,6 @@
       "message": "optional humanoid bones absent: ['LeftEye', 'RightEye', 'Jaw']"
     },
     {
-      "severity": "warning",
-      "code": "ANIM_LOOP_SUFFIX",
-      "object": "A_Jason_Jump_Loop",
-      "message": "Godot import renames this to 'A_Jason_Jump' (loop/cycle name hint, case-insensitive) and forces looping; loop flags belong in the manifest (REQ-GP01-JASON \u00a75)"
-    },
-    {
       "severity": "info",
       "code": "LOD_NONE",
       "object": null,
@@ -253,10 +247,10 @@
   ],
   "summary": {
     "errors": 0,
-    "warnings": 1,
+    "warnings": 0,
     "infos": 2
   },
-  "seconds": 3.26,
+  "seconds": 3.25,
   "exit_code": 0,
   "result": "PASS"
 }

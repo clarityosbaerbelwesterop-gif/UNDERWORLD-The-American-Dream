@@ -1,11 +1,10 @@
 # UNDERWORLD - character visual + animation driver (T-GP-01).
 #
 # The PlayerController rotates this node (facing) and calls update_from_player()
-# every physics frame. Today it only holds the PT_ capsule stand-in. When Bot 2
-# delivers SK_Jason.glb (T-ART-01/02), set `model_scene` to it: the capsule is
-# hidden, the model is instanced under this node, and an AnimationTree is built
-# from the model's AnimationPlayer using CLIP_NAMES (see
-# Docs/Handoffs/REQ_SK_Jason_Controller.md for the contract).
+# every physics frame. Player.tscn sets `model_scene` to SK_Jason v2 (T-GP-01c-Jason):
+# the PT_ capsule is hidden, the model is instanced under this node, and an
+# AnimationTree is built from the model's AnimationPlayer using CLIP_NAMES (contract:
+# Docs/Handoffs/REQ_SK_Jason_Controller.md). Empty model_scene = PT capsule stand-in.
 class_name CharacterVisual
 extends Node3D
 
@@ -18,7 +17,8 @@ const CLIP_NAMES := {
 	"crouch_idle": "A_Jason_Crouch_Idle",
 	"crouch_walk": "A_Jason_Crouch_Walk",
 	"jump_start": "A_Jason_Jump_Start",
-	"jump_loop": "A_Jason_Jump_Loop",
+	# Loop mode comes from the manifest, never from the name (no "_Loop" suffix, REQ-GP01-JASON).
+	"jump_loop": "A_Jason_Jump_Air",
 	"land": "A_Jason_Land",
 	"aim_idle": "A_Jason_Aim_Pistol_Idle",
 	"aim_walk_fwd": "A_Jason_Aim_Pistol_Walk_F",
@@ -26,8 +26,13 @@ const CLIP_NAMES := {
 	"aim_walk_left": "A_Jason_Aim_Pistol_Walk_L",
 	"aim_walk_right": "A_Jason_Aim_Pistol_Walk_R",
 }
-## Speeds (m/s) at which the in-place clips were authored; must match the controller.
+## Speeds (m/s) at which the in-place clips were authored; must match the controller
+## and the SK_Jason manifest "speed_mps" (checked in test_player_controller.gd).
 const CLIP_SPEEDS := {"idle": 0.0, "walk": 1.4, "run": 3.5, "sprint": 6.0, "crouch_idle": 0.0, "crouch_walk": 1.2}
+
+## Emitted before the current model is freed (attachments must leave it) and after a new one is in.
+signal model_changing(old_model: Node3D)
+signal model_changed(new_model: Node3D)
 
 ## Character model (e.g. res://Assets/Characters/SK_Jason/SK_Jason.glb). Empty = PT capsule.
 @export var model_scene: PackedScene
@@ -37,11 +42,15 @@ const CLIP_SPEEDS := {"idle": 0.0, "walk": 1.4, "run": 3.5, "sprint": 6.0, "crou
 ## Smoothing rate for blend parameters (1/s).
 @export var blend_rate := 10.0
 
+## Per-instance copy of CLIP_NAMES used to build the tree (tests / variants may override a slot).
+var clip_names: Dictionary = CLIP_NAMES.duplicate()
 var model: Node3D
 var animation_player: AnimationPlayer
 var animation_tree: AnimationTree
 ## Slots that were missing in the model (filled with idle); reported once.
 var missing_clips: PackedStringArray = []
+## True if animation_tree was built by build_default_tree() (rebuilt on model swap).
+var _auto_tree := false
 
 var _crouch := 0.0
 var _aim := 0.0
@@ -59,7 +68,14 @@ func _ready() -> void:
 ## Swap the stand-in for a real model at runtime (also used by tests).
 func set_model(scene: PackedScene) -> void:
 	if model != null:
+		model_changing.emit(model)
 		model.queue_free()
+		model = null
+	if _auto_tree and animation_tree != null:
+		animation_tree.queue_free()
+		animation_tree = null
+		_auto_tree = false
+	missing_clips.clear()
 	model = scene.instantiate() as Node3D
 	model.name = "Model"
 	add_child(model)
@@ -69,6 +85,8 @@ func set_model(scene: PackedScene) -> void:
 	animation_player = _find_animation_player(model)
 	if animation_player != null and animation_tree == null:
 		animation_tree = build_default_tree(animation_player)
+		_auto_tree = true
+	model_changed.emit(model)
 
 func _find_animation_player(n: Node) -> AnimationPlayer:
 	if n is AnimationPlayer:
@@ -80,12 +98,27 @@ func _find_animation_player(n: Node) -> AnimationPlayer:
 	return null
 
 func _clip(slot: String, ap: AnimationPlayer) -> String:
-	var name: String = CLIP_NAMES[slot]
+	var name: String = clip_names[slot]
 	if ap.has_animation(name):
 		return name
 	if not missing_clips.has(slot):
 		missing_clips.append(slot)
-	return CLIP_NAMES["idle"] if ap.has_animation(CLIP_NAMES["idle"]) else name
+	return clip_names["idle"] if ap.has_animation(clip_names["idle"]) else name
+
+## Contract check of the current model: one "slot: problem" line per mapped clip that is
+## missing from the AnimationPlayer or named with a loop suffix. Empty = OK.
+func validate_clips() -> PackedStringArray:
+	var errs: PackedStringArray = []
+	if animation_player == null:
+		errs.append("no AnimationPlayer in model")
+		return errs
+	for slot in clip_names:
+		var n: String = clip_names[slot]
+		if not animation_player.has_animation(n):
+			errs.append("%s: clip %s not in model" % [slot, n])
+		if n.ends_with("_Loop"):
+			errs.append("%s: clip %s uses a _Loop suffix (loop mode comes from the manifest)" % [slot, n])
+	return errs
 
 ## Builds the default locomotion graph:
 ##   loco (BlendSpace1D by speed) ─┐

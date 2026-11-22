@@ -145,9 +145,10 @@ func test_setup_and_data() -> void:
 		return
 	w = ctrl.weapon
 	check(w.data.id == "WPN_Pistol_01" and w.ammo == 12 and w.reserve == 60, "player starts with the pistol, 12 + 60 rounds")
-	check(w.get_parent().name == "PT_SOCKET_RightHand_Weapon", "weapon sits on the PT hand socket")
+	check(w.get_parent().name == "SOCKET_RightHand_Weapon" and p.visual.model.is_ancestor_of(w), "weapon sits on SK_Jason's SOCKET_RightHand_Weapon")
 	check(w.model != null and w.muzzle != null and w.model.get_node_or_null("Magazine") != null, "PT_Pistol model with SOCKET_Muzzle + Magazine node")
-	check(w.muzzle.global_position.y > 1.0, "muzzle at hand height (y=%.2f)" % w.muzzle.global_position.y)
+	var mh := w.muzzle.global_position.y - p.global_position.y
+	check(mh > 0.6 and mh < 1.7, "muzzle at hand height (%.2f m above the feet, Jason idle pose)" % mh)
 	check(scene.get_node_or_null("Target_10m/DamageReceiver") is DamageReceiver and scene.get_node_or_null("Target_35m") != null, "shooting-lane targets present")
 	await teardown()
 

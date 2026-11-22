@@ -2,6 +2,12 @@
 
 Every Blender→Godot integration (or engine-side change to an asset) gets an entry. Newest on top. Times Europe/Berlin.
 
+## 2026-11-22 13:10 – SK_Jason v2 → player visual (Bot 3, T-GP-01c-J)
+- Asset: `Assets/Characters/SK_Jason/SK_Jason.glb` (v2, 53 bones, 21 clips) unchanged; used as `Player.tscn` Visual model.
+- Checked on the imported scene: all 14 controller clip slots present (Jump_Air), loop modes from manifest, manifest speed_mps match controller speeds, height 1.833 m, feet at 0, `SOCKET_RightHand_Weapon` under BoneAttachment3D RightHand (pistol attached, 0.055 m from the hand bone), clips in place.
+- Not verified: visual look / foot sliding / pistol grip orientation (B-003).
+- Result: **PASS** (headless).
+
 ## 2026-11-22 13:05 – VH_Sedan_01 → drivable vehicle (Bot 3, T-GP-03)
 - Asset: `Assets/Vehicles/VH_Sedan_01/VH_Sedan_01.glb` (T-ART-04 v0, 3,382 tris) used unchanged; `Data/Vehicles/VH_Sedan_01.tres` → `Scenes/Vehicles/VH_Sedan_01.tscn` (VehicleBody3D + `vehicle.gd`, TD-014).
 - Engine-side changes at runtime (asset file untouched): `UCX_VH_Sedan_01` StaticBody3D removed, its convex shape becomes the car's collision; `Wheel_*` meshes posed from generated VehicleWheel3D nodes (spin/steer); `Door_*` rotated about their hinge origin; sockets read by name.

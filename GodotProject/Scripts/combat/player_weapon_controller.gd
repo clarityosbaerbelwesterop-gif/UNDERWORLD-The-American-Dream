@@ -25,12 +25,35 @@ func _ready() -> void:
 	if weapon != null:
 		weapon.hit_confirmed.connect(_on_hit)
 		weapon.fired.connect(func(s): shot_fired.emit(s))
+		_stand_in_parent = weapon.get_parent()
+	# Follow model swaps: weapon goes to the model's SOCKET_RightHand_Weapon, and back to
+	# the PT_ socket before the old model is freed (else it would be freed with it).
+	# (Children are ready before the player, so player.visual is not set yet here.)
+	var vis := _visual()
+	if vis != null:
+		vis.model_changing.connect(_on_model_changing)
+		vis.model_changed.connect(func(_m): attach_to_model_socket())
+		if vis.model != null:
+			attach_to_model_socket()
+
+var _stand_in_parent: Node
+
+func _visual() -> CharacterVisual:
+	if player == null:
+		return null
+	return player.get_node_or_null(player.visual_path) as CharacterVisual
+
+func _on_model_changing(old_model: Node3D) -> void:
+	if weapon != null and _stand_in_parent != null and old_model.is_ancestor_of(weapon):
+		weapon.reparent(_stand_in_parent, false)
+		weapon.transform = Transform3D.IDENTITY
 
 ## Move the weapon onto the model's hand socket once a real character model is set.
 func attach_to_model_socket() -> bool:
-	if weapon == null or player.visual == null or player.visual.model == null:
+	var vis := _visual()
+	if weapon == null or vis == null or vis.model == null:
 		return false
-	var sock := _find(player.visual.model, "SOCKET_RightHand_Weapon")
+	var sock := _find(vis.model, "SOCKET_RightHand_Weapon")
 	if sock == null:
 		return false
 	weapon.reparent(sock, false)

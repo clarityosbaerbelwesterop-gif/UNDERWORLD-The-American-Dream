@@ -1,0 +1,114 @@
+{
+  "_doc": "NPC spec: SK_NPC_Sam (60s heavy-set LA crime boss, dark formal suit). Budget: Characters/SK_NPC (<= 25k tris).",
+  "asset_name": "SK_NPC_Sam",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "height_m": 1.78,
+  "boot_sole_extra_m": 0.022,
+  "npc_decimate_body": 0.62,
+  "macro": {
+    "gender": 1.0,
+    "age": 0.78,
+    "muscle": 0.42,
+    "weight": 0.76,
+    "proportions": 0.45,
+    "height_morph": 0.48,
+    "ethnicity": { "caucasian": 0.85, "asian": 0.10, "african": 0.05 }
+  },
+  "morphs": {
+    "chin-jaw-drop-decr-incr": 0.35,
+    "chin-width-decr-incr": 0.40,
+    "head-fat-decr-incr": 0.45,
+    "neck-scale-horiz-decr-incr": 0.35,
+    "nose-width1-decr-incr": 0.25
+  },
+  "skin": {
+    "texture_size": 1024,
+    "base_diffuse": "makehuman_system_assets/skins/old_caucasian_male/old_lightskinned_male_diffuse.png",
+    "base_normal": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_NRM.png",
+    "base_spec": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_SPEC.png",
+    "tint_rgb": [0.96, 0.90, 0.85],
+    "gamma": 1.04,
+    "sss_weight": 0.15,
+    "hair_color_rgb": [0.28, 0.27, 0.26],
+    "skin_fade": { "enabled": true },
+    "beard_stubble": { "density": 0.18 },
+    "seed": 201
+  },
+  "eyes": {
+    "mhclo": "mh_eyes/low-poly.mhclo",
+    "iris_texture": "makehuman_system_assets/eyes/materials/grey_eye.png",
+    "iris_tint": [0.78, 0.82, 0.86]
+  },
+  "eyebrows": {
+    "mhclo": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.mhclo",
+    "texture": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.png",
+    "scar_notch": false
+  },
+  "eyelashes": {
+    "mhclo": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.mhclo",
+    "texture": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.png"
+  },
+  "teeth": { "enabled": false },
+  "hair": { "style": "skin_fade_crop", "color_rgb": [0.28, 0.27, 0.26], "seed": 202 },
+  "beard": { "style": "none" },
+  "outfit": {
+    "tshirt": {
+      "enabled": true,
+      "style": "under_jacket_tshirt",
+      "polyhaven_id": "cotton_jersey",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 4.0,
+      "desaturate": 0.95,
+      "tint_rgb": [0.88, 0.88, 0.90],
+      "roughness_scale": 1.0,
+      "roughness_bias": 0.15
+    },
+    "jacket": {
+      "enabled": true,
+      "style": "suit_jacket",
+      "polyhaven_id": "knitted_fleece",
+      "texture_size": 1024,
+      "bake_size": 512,
+      "normal_size": 512,
+      "tile": 5.0,
+      "desaturate": 0.85,
+      "gamma": 0.85,
+      "tint_rgb": [0.16, 0.17, 0.20],
+      "roughness_scale": 1.05,
+      "roughness_bias": 0.12
+    },
+    "jeans": {
+      "enabled": true,
+      "style": "straight_jeans",
+      "polyhaven_id": "knitted_fleece",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 5.0,
+      "desaturate": 0.85,
+      "tint_rgb": [0.15, 0.16, 0.19],
+      "roughness_scale": 1.05,
+      "roughness_bias": 0.12
+    },
+    "boots": {
+      "enabled": true,
+      "polyhaven_id": "brown_leather",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 3.0,
+      "desaturate": 0.85,
+      "tint_rgb": [0.12, 0.12, 0.13],
+      "roughness_scale": 0.65,
+      "roughness_bias": 0.0,
+      "zone_mode": "boot_sole"
+    },
+    "watch": { "enabled": false }
+  },
+  "animations": {
+    "clip_prefix": "A_Humanoid_",
+    "mocap_walk_bvh": "mocap/makehuman_walk1.bvh",
+    "include_p2": false,
+    "minimal_npc_set": true
+  }
+}

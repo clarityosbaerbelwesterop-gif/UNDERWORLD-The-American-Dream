@@ -1,0 +1,173 @@
+{
+  "asset": "SM_LA_Bldg_ShopStucco",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_Bldg_ShopStucco/SM_LA_Bldg_ShopStucco.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_Bldg_ShopStucco/SM_LA_Bldg_ShopStucco.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_Bldg_ShopStucco/SM_LA_Bldg_ShopStucco_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -5.15,
+      0.0,
+      -4.15
+    ],
+    "max": [
+      5.15,
+      7.57,
+      5.3582
+    ],
+    "size": [
+      10.3,
+      7.57,
+      9.5082
+    ]
+  },
+  "triangles": {
+    "lod0": 240,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 240,
+      "LOD1": 120,
+      "LOD2": 60
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_LA_Bldg_ShopStucco_Mesh",
+      "levels": [
+        {
+          "name": "SM_LA_Bldg_ShopStucco_Mesh",
+          "level": 0,
+          "triangles": 240
+        },
+        {
+          "name": "SM_LA_Bldg_ShopStucco_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 120
+        },
+        {
+          "name": "SM_LA_Bldg_ShopStucco_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 60
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "trimesh",
+    "generated": [
+      {
+        "name": "UCX_SM_LA_Bldg_ShopStucco_Mesh_LOD2-colonly",
+        "vertices": 54,
+        "triangles": 60
+      }
+    ],
+    "existing": []
+  },
+  "materials": [
+    "M_LA_Awning",
+    "M_LA_SignBoard",
+    "M_LA_StoreGlass",
+    "M_LA_Stucco",
+    "M_LA_TrimBrick"
+  ],
+  "textures": [
+    {
+      "image": "T_LA_Stucco_D",
+      "material": "M_LA_Stucco",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_tl28sdcp/T_LA_Stucco_D.jpg"
+    },
+    {
+      "image": "T_LA_Stucco_ORM",
+      "material": "M_LA_Stucco",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_c_my8o1q/T_LA_Stucco_ORM.jpg"
+    },
+    {
+      "image": "T_LA_Stucco_N",
+      "material": "M_LA_Stucco",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_9og4uino/T_LA_Stucco_N.png"
+    },
+    {
+      "image": "T_LA_TrimBrick_D",
+      "material": "M_LA_TrimBrick",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_skfxfudu/T_LA_TrimBrick_D.jpg"
+    },
+    {
+      "image": "T_LA_TrimBrick_ORM",
+      "material": "M_LA_TrimBrick",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex__k_6ekr9/T_LA_TrimBrick_ORM.jpg"
+    },
+    {
+      "image": "T_LA_TrimBrick_N",
+      "material": "M_LA_TrimBrick",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_6mdwv2pu/T_LA_TrimBrick_N.png"
+    }
+  ],
+  "uv_overlap": {
+    "SM_LA_Bldg_ShopStucco_Mesh": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.7178
+    }
+  },
+  "texel_density": {
+    "SM_LA_Bldg_ShopStucco_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 16.6,
+      "p10_px_per_m": 14.0,
+      "p90_px_per_m": 16.6
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_Bldg_ShopStucco_Mesh_LOD1",
+    "SM_LA_Bldg_ShopStucco_Mesh_LOD2",
+    "SM_LA_Bldg_ShopStucco_Mesh",
+    "UCX_SM_LA_Bldg_ShopStucco_Mesh_LOD2-colonly",
+    "SM_LA_Bldg_ShopStucco"
+  ],
+  "glb_bytes": 1199708
+}

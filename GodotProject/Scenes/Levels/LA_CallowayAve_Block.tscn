@@ -1,0 +1,122 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Environment" path="res://Assets/Environments/ENV_LA_GoldenHour.tres" id="1_env"]
+[ext_resource type="PackedScene" path="res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb" id="2_road"]
+[ext_resource type="PackedScene" path="res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb" id="3_sw"]
+[ext_resource type="PackedScene" path="res://Assets/Environment/LA/SM_LA_Bldg_ShopStucco/SM_LA_Bldg_ShopStucco.glb" id="4_shop"]
+[ext_resource type="PackedScene" path="res://Assets/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01.glb" id="5_garage"]
+[ext_resource type="PackedScene" path="res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.glb" id="6_lamp"]
+[ext_resource type="PackedScene" path="res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.glb" id="7_palm"]
+[ext_resource type="PackedScene" path="res://Assets/Props/SM_Prop_PackageCrate/SM_Prop_PackageCrate.glb" id="8_crate"]
+[ext_resource type="PackedScene" path="res://Assets/Vehicles/VH_Sedan_01/VH_Sedan_01.glb" id="9_sedan"]
+
+[sub_resource type="SphereShape3D" id="Shape_GarageArrival"]
+radius = 8.0
+
+[sub_resource type="BoxShape3D" id="Shape_GarageInside"]
+size = Vector3(10.0, 4.0, 8.0)
+
+[sub_resource type="BoxShape3D" id="Shape_Warehouse"]
+size = Vector3(12.0, 5.0, 12.0)
+
+[node name="LA_CallowayAve_Block" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_env")
+
+[node name="Sun_GoldenHour" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.17101, 0.469846, 0, 0.939693, 0.34202, -0.5, -0.296198, 0.813798, 0, 22, 0)
+light_color = Color(1, 0.82, 0.58, 1)
+light_energy = 2.6
+shadow_enabled = true
+
+[node name="Road_01" parent="." instance=ExtResource("2_road")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Road_02" parent="." instance=ExtResource("2_road")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
+
+[node name="Road_03" parent="." instance=ExtResource("2_road")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 28)
+
+[node name="Road_04" parent="." instance=ExtResource("2_road")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 42)
+
+[node name="Sidewalk_L1" parent="." instance=ExtResource("3_sw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 0)
+
+[node name="Sidewalk_L2" parent="." instance=ExtResource("3_sw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 10)
+
+[node name="Sidewalk_L3" parent="." instance=ExtResource("3_sw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 20)
+
+[node name="Sidewalk_L4" parent="." instance=ExtResource("3_sw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 30)
+
+[node name="Sidewalk_R1" parent="." instance=ExtResource("3_sw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 0)
+
+[node name="Sidewalk_R2" parent="." instance=ExtResource("3_sw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 10)
+
+[node name="Sidewalk_R3" parent="." instance=ExtResource("3_sw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 20)
+
+[node name="Sidewalk_R4" parent="." instance=ExtResource("3_sw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 30)
+
+[node name="Shop_East_01" parent="." instance=ExtResource("4_shop")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 13, 0, 4)
+
+[node name="Shop_West_01" parent="." instance=ExtResource("4_shop")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -13, 0, 6)
+
+[node name="Garage_M01" parent="." instance=ExtResource("5_garage")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 14, 0, 24)
+
+[node name="Pickup_Package" parent="." instance=ExtResource("8_crate")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.95, 0.94, 24)
+
+[node name="VH_Sedan_01" parent="." instance=ExtResource("9_sedan")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0.04, 2.0)
+
+[node name="Streetlight_01" parent="." instance=ExtResource("6_lamp")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 5.4, 0.16, 4)
+
+[node name="Streetlight_02" parent="." instance=ExtResource("6_lamp")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 5.4, 0.16, 22)
+
+[node name="Streetlight_03" parent="." instance=ExtResource("6_lamp")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -5.4, 0.16, 14)
+
+[node name="Palm_01" parent="." instance=ExtResource("7_palm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2, 0.16, 12)
+
+[node name="Palm_02" parent="." instance=ExtResource("7_palm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2, 0.16, 26)
+
+[node name="Palm_03" parent="." instance=ExtResource("7_palm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2, 0.16, 36)
+
+[node name="Area_GarageArrival" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, 24)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area_GarageArrival"]
+shape = SubResource("Shape_GarageArrival")
+
+[node name="Area_GarageInside" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 2, 24)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area_GarageInside"]
+shape = SubResource("Shape_GarageInside")
+
+[node name="Area_Warehouse" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 44)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area_Warehouse"]
+shape = SubResource("Shape_Warehouse")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.866025, -0.17101, 0.469846, 0, 0.939693, 0.34202, -0.5, -0.296198, 0.813798, 12, 8, -10)
+current = true

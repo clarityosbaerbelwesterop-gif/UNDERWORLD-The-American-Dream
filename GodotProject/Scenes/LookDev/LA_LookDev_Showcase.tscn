@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Environment" path="res://Assets/Environments/ENV_LA_GoldenHour.tres" id="1_env"]
+[ext_resource type="PackedScene" path="res://Assets/Characters/SK_Jason/SK_Jason.glb" id="2_jason"]
+[ext_resource type="PackedScene" path="res://Assets/Characters/SK_NPC_Sam/SK_NPC_Sam.glb" id="3_sam"]
+[ext_resource type="PackedScene" path="res://Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01.glb" id="4_pistol"]
+[ext_resource type="PackedScene" path="res://Assets/Vehicles/VH_Sedan_01/VH_Sedan_01.glb" id="5_sedan"]
+
+[node name="LA_LookDev_Showcase" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_env")
+
+[node name="KeySun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 10, 0)
+light_color = Color(1, 0.84, 0.62, 1)
+light_energy = 2.4
+shadow_enabled = true
+
+[node name="SK_Jason" parent="." instance=ExtResource("2_jason")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0, 0)
+
+[node name="SK_NPC_Sam" parent="." instance=ExtResource("3_sam")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+
+[node name="WPN_Pistol_01" parent="." instance=ExtResource("4_pistol")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 1.2, 0.6)
+
+[node name="VH_Sedan_01" parent="." instance=ExtResource("5_sedan")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 3.8, 0, -1.8)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0.8, 2.2, 6.2)
+current = true

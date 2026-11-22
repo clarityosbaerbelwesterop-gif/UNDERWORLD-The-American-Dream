@@ -2,6 +2,14 @@
 
 Every Blender→Godot integration (or engine-side change to an asset) gets an entry. Newest on top. Times Europe/Berlin.
 
+## 2026-11-22 12:55 – T-PIPE-04 recovered pipeline assets → Godot 4.7.2 (Bot 1)
+- Source: the Gemini cloud agent (bc-7a497c1f) wrote these generators/specs after pushing PR #7 but never committed them. Bot 1 re-applied its 42 recorded file edits onto main (`ea52f0c`) and **re-ran every generator on this box** (nothing copied from the agent's VM): `uwp build-shared-anims`, `build-character SK_NPC_Sam`, `build-weapon`, `build-vehicle`, `build-env` + `uwp export` for each.
+- Assets: `SK_NPC_Sam.glb` (23,735 tris, 1.79 m, 16 clips), `A_Humanoid_Locomotion.glb` (21 clips), `WPN_Pistol_01.glb` (1,920 tris), `VH_Sedan_01.glb` (3,382 tris), 6 × `SM_LA_*` + `SM_Prop_PackageCrate` – all `uwp export` RESULT: PASS (0 errors; warnings only NAME_MESH_PREFIX on named parts + NON_MANIFOLD on the sedan UCX hull).
+- Fixes by Bot 1: `VH_Sedan_01` greenhouse moved to its own un-subdivided `Cabin` mesh (was a crumpled blob inside the subsurf'd Body); Sam hair `short_combed` → `skin_fade_crop` (bowl/helmet look).
+- Import: `godot --headless --import` 0 errors; one-off verify script (load + instantiate every new glb, scenes, environments; pistol nodes `Slide/Magazine/SOCKET_Muzzle/Eject/Grip`, muzzle +Z 0.165 m; sedan wheels/doors/Cabin) → 33 PASS, 0 FAIL. `WPN_Pistol_01.tres` now resolves the real pistol glb: weapon tests stay 68/68.
+- Not verified: GPU look of `ENV_LA_*` presets (headless dummy renderer, B-003). Renders are Blender Cycles CPU only.
+- Result: **PASS** (v0 / blockout quality, see TASK_BOARD T-PIPE-04 + T-ART-03..06).
+
 ## 2026-11-22 12:15 – PR #7 merge gate: SK_Jason v2 + uwp gates into main (Bot 1)
 - Merged `origin/main` (9cf6baf, T-GP-02a bloom) into `cursor/character-pipeline-sk-jason-v2-6fae`; only conflict `Docs/DEVELOPMENT_LOG.md` (both entries kept); gameplay code = main's bloom version (no overlap).
 - Fixes in the same push: retired v1 entrypoint `Blender/Scripts/sk_jason/build_sk_jason.py` (exits 2 with pointer to the v2 builder, so it cannot overwrite SK_Jason v2); `skins01` CC0 verified on makehumancommunity.org and added to `Docs/ASSET_LICENSES.md`.

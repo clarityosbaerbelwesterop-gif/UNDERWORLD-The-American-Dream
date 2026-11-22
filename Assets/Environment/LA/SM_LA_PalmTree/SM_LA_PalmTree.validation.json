@@ -1,0 +1,140 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-22T12:13:19+01:00",
+  "command": "export",
+  "input": "Blender/Source/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "lods": [
+      {
+        "object": "SM_LA_PalmTree_Mesh",
+        "levels": [
+          {
+            "name": "SM_LA_PalmTree_Mesh",
+            "level": 0,
+            "triangles": 616
+          },
+          {
+            "name": "SM_LA_PalmTree_Mesh_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 308
+          },
+          {
+            "name": "SM_LA_PalmTree_Mesh_LOD2",
+            "level": 2,
+            "ratio": 0.25,
+            "triangles": 154
+          }
+        ]
+      }
+    ],
+    "collision": {
+      "mode": "trimesh",
+      "generated": [
+        {
+          "name": "UCX_SM_LA_PalmTree_Mesh_LOD2-colonly",
+          "vertices": 159,
+          "triangles": 154
+        }
+      ],
+      "existing": []
+    },
+    "export": {
+      "glb": "Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.glb",
+      "bytes": 956336
+    },
+    "preview": "Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree_preview.png",
+    "manifest": "Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "SM_LA_PalmTree_Mesh_LOD1",
+          "SM_LA_PalmTree_Mesh_LOD2",
+          "SM_LA_PalmTree_Mesh",
+          "UCX_SM_LA_PalmTree_Mesh_LOD2-colonly",
+          "SM_LA_PalmTree"
+        ],
+        "node_extras": {
+          "SM_LA_PalmTree_Mesh_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              40.0,
+              100.0
+            ]
+          },
+          "SM_LA_PalmTree_Mesh_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              100.0,
+              300.0
+            ]
+          },
+          "SM_LA_PalmTree_Mesh": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              40.0
+            ]
+          }
+        },
+        "meshes": 4,
+        "materials": [
+          "M_LA_PalmBark",
+          "M_LA_PalmFrond"
+        ],
+        "images": 3,
+        "skins": [],
+        "joint_names": [],
+        "animations": [],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 956336
+      },
+      "reimport_objects": [
+        "SM_LA_PalmTree",
+        "SM_LA_PalmTree_Mesh",
+        "SM_LA_PalmTree_Mesh_LOD1",
+        "SM_LA_PalmTree_Mesh_LOD2",
+        "UCX_SM_LA_PalmTree_Mesh_LOD2-colonly"
+      ],
+      "reimport_actions": [],
+      "problems": []
+    }
+  },
+  "asset": "SM_LA_PalmTree",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SM_LA_PalmTree_Mesh",
+      "message": "224 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "TEXEL_DENSITY",
+      "object": "SM_LA_PalmTree_Mesh",
+      "message": "median texel density 52.1 px/m < target 128.0 px/m",
+      "data": {
+        "texture_px": 512,
+        "median_px_per_m": 52.1,
+        "p10_px_per_m": 49.2,
+        "p90_px_per_m": 54.8
+      }
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "infos": 2
+  },
+  "seconds": 0.52,
+  "exit_code": 0,
+  "result": "PASS"
+}

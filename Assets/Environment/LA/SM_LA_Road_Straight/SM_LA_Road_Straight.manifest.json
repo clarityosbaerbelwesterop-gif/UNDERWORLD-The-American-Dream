@@ -1,0 +1,112 @@
+{
+  "asset": "SM_LA_Road_Straight",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -5.0,
+      0.0,
+      -7.0
+    ],
+    "max": [
+      5.0,
+      0.045,
+      7.0
+    ],
+    "size": [
+      10.0,
+      0.045,
+      14.0
+    ]
+  },
+  "triangles": {
+    "lod0": 60,
+    "budget": 10000,
+    "per_lod_total": {}
+  },
+  "lods": [],
+  "collision": {
+    "mode": "trimesh",
+    "generated": [
+      {
+        "name": "UCX_SM_LA_Road_Straight_Mesh-colonly",
+        "vertices": 40,
+        "triangles": 60
+      }
+    ],
+    "existing": []
+  },
+  "materials": [
+    "M_LA_Asphalt",
+    "M_LA_RoadLineWhite",
+    "M_LA_RoadLineYellow"
+  ],
+  "textures": [
+    {
+      "image": "T_LA_Asphalt_D",
+      "material": "M_LA_Asphalt",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_5w3vgq_s/T_LA_Asphalt_D.jpg"
+    },
+    {
+      "image": "T_LA_Asphalt_ORM",
+      "material": "M_LA_Asphalt",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_nsmve1zw/T_LA_Asphalt_ORM.jpg"
+    },
+    {
+      "image": "T_LA_Asphalt_N",
+      "material": "M_LA_Asphalt",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_ibec5h04/T_LA_Asphalt_N.png"
+    }
+  ],
+  "uv_overlap": {
+    "SM_LA_Road_Straight_Mesh": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.5824
+    }
+  },
+  "texel_density": {
+    "SM_LA_Road_Straight_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 23.6,
+      "p10_px_per_m": 23.6,
+      "p90_px_per_m": 23.6
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_Road_Straight_Mesh",
+    "UCX_SM_LA_Road_Straight_Mesh-colonly",
+    "SM_LA_Road_Straight"
+  ],
+  "glb_bytes": 851428
+}

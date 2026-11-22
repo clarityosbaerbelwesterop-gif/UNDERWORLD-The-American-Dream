@@ -1,0 +1,7 @@
+{
+  "_doc": "Vehicle spec for VH_Sedan_01 (original late-90s American full-size crime-drama sedan, T-ART-04).",
+  "asset_name": "VH_Sedan_01",
+  "category": "Vehicles",
+  "budget_key": "Vehicles",
+  "paint_rgba": [0.09, 0.14, 0.22, 1.0]
+}

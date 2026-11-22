@@ -1,0 +1,140 @@
+{
+  "asset": "SM_LA_Streetlight",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.18,
+      0.0,
+      -0.18
+    ],
+    "max": [
+      0.18,
+      7.15,
+      2.11
+    ],
+    "size": [
+      0.36,
+      7.15,
+      2.29
+    ]
+  },
+  "triangles": {
+    "lod0": 180,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 180,
+      "LOD1": 90,
+      "LOD2": 44
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_LA_Streetlight_Mesh",
+      "levels": [
+        {
+          "name": "SM_LA_Streetlight_Mesh",
+          "level": 0,
+          "triangles": 180
+        },
+        {
+          "name": "SM_LA_Streetlight_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 90
+        },
+        {
+          "name": "SM_LA_Streetlight_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 44
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "trimesh",
+    "generated": [
+      {
+        "name": "UCX_SM_LA_Streetlight_Mesh_LOD2-colonly",
+        "vertices": 32,
+        "triangles": 44
+      }
+    ],
+    "existing": []
+  },
+  "materials": [
+    "M_LA_LampMetal",
+    "M_LA_SodiumLamp"
+  ],
+  "textures": [
+    {
+      "image": "T_LA_LampMetal_D",
+      "material": "M_LA_LampMetal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_u4fgc2fl/T_LA_LampMetal_D.jpg"
+    },
+    {
+      "image": "T_LA_LampMetal_ORM",
+      "material": "M_LA_LampMetal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_jcb44f95/T_LA_LampMetal_ORM.jpg"
+    },
+    {
+      "image": "T_LA_LampMetal_N",
+      "material": "M_LA_LampMetal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_l4fi5ga8/T_LA_LampMetal_N.png"
+    }
+  ],
+  "uv_overlap": {
+    "SM_LA_Streetlight_Mesh": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.412
+    }
+  },
+  "texel_density": {
+    "SM_LA_Streetlight_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 148.5,
+      "p10_px_per_m": 127.4,
+      "p90_px_per_m": 149.7
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_Streetlight_Mesh_LOD1",
+    "SM_LA_Streetlight_Mesh_LOD2",
+    "SM_LA_Streetlight_Mesh",
+    "UCX_SM_LA_Streetlight_Mesh_LOD2-colonly",
+    "SM_LA_Streetlight"
+  ],
+  "glb_bytes": 431540
+}

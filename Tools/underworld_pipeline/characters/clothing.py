@@ -226,6 +226,7 @@ def _add_turned_rim(ob, depth=0.0045, inset=0.0035):
 
 
 def _enforce_clearance(outer_ob, inner_obs, min_clearance=0.003, passes=2):
+    bpy.context.view_layer.update()
     dg = bpy.context.evaluated_depsgraph_get()
     bvhs = [BVHTree.FromObject(iob, dg) for iob in inner_obs if iob is not None]
     if not bvhs:
@@ -262,15 +263,19 @@ def _tuck_inner_behind_outer(inner_ob, outer_ob, margin=0.0035, max_probe=0.015)
     """Gently tuck any interior vertex of inner_ob that protrudes outside outer_ob back inside by `margin`."""
     if inner_ob is None or outer_ob is None:
         return 0
+    bpy.context.view_layer.update()
     dg = bpy.context.evaluated_depsgraph_get()
     bm_o = bmesh.new()
     bm_o.from_mesh(outer_ob.data)
     b_verts = {v.index for v in bm_o.verts if v.is_boundary}
     b_verts2 = set(b_verts)
-    for v in bm_o.verts:
-        if v.index in b_verts:
-            for e in v.link_edges:
-                b_verts2.add(e.other_vert(v).index)
+    for _ in range(2):
+        nxt = set(b_verts2)
+        for v in bm_o.verts:
+            if v.index in b_verts2:
+                for e in v.link_edges:
+                    nxt.add(e.other_vert(v).index)
+        b_verts2 = nxt
     border_faces = {f.index for f in bm_o.faces if any(v.index in b_verts2 for v in f.verts)}
     bm_o.free()
 

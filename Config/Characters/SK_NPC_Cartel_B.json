@@ -1,0 +1,43 @@
+{
+  "_doc": "NPC spec: SK_NPC_Cartel_B (Los Cuervos heavy enforcer: tall muscular, charcoal bomber, crimson tee). Budget: <= 25k tris.",
+  "asset_name": "SK_NPC_Cartel_B",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "height_m": 1.86,
+  "boot_sole_extra_m": 0.024,
+  "npc_decimate_body": 0.62,
+  "macro": {
+    "gender": 1.0,
+    "age": 0.62,
+    "muscle": 0.82,
+    "weight": 0.64,
+    "proportions": 0.58,
+    "height_morph": 0.78,
+    "ethnicity": { "caucasian": 0.45, "asian": 0.25, "african": 0.30 }
+  },
+  "morphs": { "chin-width-decr-incr": 0.42, "neck-scale-horiz-decr-incr": 0.38 },
+  "skin": {
+    "texture_size": 1024,
+    "base_diffuse": "skins02/skins/mindfront_skin_male_african_middleage/skin_male_african_middleage.png",
+    "base_normal": "skins02/skins/mindfront_skin_male_african_middleage/skin_male_african_middleage_NRM.png",
+    "tint_rgb": [1.0, 0.96, 0.92],
+    "hair_color_rgb": [0.025, 0.022, 0.020],
+    "skin_fade": { "enabled": true },
+    "beard_stubble": { "density": 0.80 },
+    "seed": 501
+  },
+  "eyes": { "mhclo": "mh_eyes/low-poly.mhclo", "iris_texture": "makehuman_system_assets/eyes/materials/brown_eye.png" },
+  "eyebrows": { "mhclo": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.mhclo", "texture": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.png", "scar_notch": false },
+  "eyelashes": { "mhclo": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.mhclo", "texture": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.png" },
+  "teeth": { "enabled": false },
+  "hair": { "style": "buzz_cut", "color_rgb": [0.025, 0.022, 0.020], "seed": 502 },
+  "beard": { "style": "short_boxed_beard", "seed": 503 },
+  "outfit": {
+    "tshirt": { "enabled": true, "style": "under_jacket_tshirt", "polyhaven_id": "cotton_jersey", "texture_size": 512, "bake_high_to_low": false, "tile": 4.0, "desaturate": 0.35, "tint_rgb": [0.42, 0.14, 0.14] },
+    "jacket": { "enabled": true, "style": "bomber_jacket", "polyhaven_id": "knitted_fleece", "texture_size": 1024, "bake_size": 512, "normal_size": 512, "tile": 4.5, "desaturate": 0.80, "tint_rgb": [0.18, 0.19, 0.21], "zone_mode": "bomber_trim" },
+    "jeans": { "enabled": true, "style": "straight_jeans", "polyhaven_id": "denim_fabric_04", "texture_size": 512, "bake_high_to_low": false, "tile": 5.0, "tint_rgb": [0.16, 0.19, 0.24] },
+    "boots": { "enabled": true, "polyhaven_id": "fabric_leather_02", "texture_size": 512, "bake_high_to_low": false, "tile": 3.0, "desaturate": 0.90, "tint_rgb": [0.10, 0.10, 0.11], "zone_mode": "boot_sole" },
+    "watch": { "enabled": false }
+  },
+  "animations": { "clip_prefix": "A_Humanoid_", "mocap_walk_bvh": "mocap/makehuman_walk1.bvh", "include_p2": false, "minimal_npc_set": true }
+}

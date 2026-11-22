@@ -1,0 +1,255 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-22T12:12:09+01:00",
+  "command": "export",
+  "input": "Blender/Source/Weapons/WPN_Pistol_01/WPN_Pistol_01.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 5
+    },
+    "lods": [
+      {
+        "object": "Frame",
+        "levels": [
+          {
+            "name": "Frame",
+            "level": 0,
+            "triangles": 576
+          },
+          {
+            "name": "Frame_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 288
+          },
+          {
+            "name": "Frame_LOD2",
+            "level": 2,
+            "ratio": 0.25,
+            "triangles": 144
+          }
+        ]
+      },
+      {
+        "object": "Barrel",
+        "levels": [
+          {
+            "name": "Barrel",
+            "level": 0,
+            "triangles": 124
+          },
+          {
+            "name": "Barrel_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 62
+          },
+          {
+            "name": "Barrel_LOD2",
+            "level": 2,
+            "ratio": 0.25,
+            "triangles": 30
+          }
+        ]
+      }
+    ],
+    "collision": {
+      "mode": "convex",
+      "generated": [
+        {
+          "name": "UCX_WPN_Pistol_01-convcolonly",
+          "vertices": 64,
+          "triangles": 124
+        }
+      ],
+      "existing": []
+    },
+    "export": {
+      "glb": "Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01.glb",
+      "bytes": 1752972
+    },
+    "preview": "Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01_preview.png",
+    "manifest": "Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "Barrel_LOD1",
+          "Barrel_LOD2",
+          "Barrel",
+          "Frame_LOD1",
+          "Frame_LOD2",
+          "Frame",
+          "SOCKET_Eject",
+          "SOCKET_Grip",
+          "SOCKET_Muzzle",
+          "UCX_WPN_Pistol_01-convcolonly",
+          "MagBone",
+          "SlideBone",
+          "TrigBone",
+          "WpnRoot",
+          "Magazine",
+          "Slide",
+          "Trigger",
+          "WeaponRig",
+          "WPN_Pistol_01"
+        ],
+        "node_extras": {
+          "Barrel_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              10.0,
+              30.0
+            ]
+          },
+          "Barrel_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              30.0,
+              80.0
+            ]
+          },
+          "Barrel": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              10.0
+            ]
+          },
+          "Frame_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              10.0,
+              30.0
+            ]
+          },
+          "Frame_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              30.0,
+              80.0
+            ]
+          },
+          "Frame": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              10.0
+            ]
+          }
+        },
+        "meshes": 10,
+        "materials": [
+          "M_WPN_Pistol_01"
+        ],
+        "images": 3,
+        "skins": [
+          {
+            "name": "WeaponRig",
+            "joints": 4
+          }
+        ],
+        "joint_names": [
+          "MagBone",
+          "SlideBone",
+          "TrigBone",
+          "WpnRoot"
+        ],
+        "animations": [
+          "A_WPN_Pistol_01_Empty",
+          "A_WPN_Pistol_01_Fire",
+          "A_WPN_Pistol_01_Reload"
+        ],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 1752972
+      },
+      "reimport_objects": [
+        "Barrel",
+        "Barrel_LOD1",
+        "Barrel_LOD2",
+        "Frame",
+        "Frame_LOD1",
+        "Frame_LOD2",
+        "Icosphere",
+        "Magazine",
+        "SOCKET_Eject",
+        "SOCKET_Grip",
+        "SOCKET_Muzzle",
+        "Slide",
+        "Trigger",
+        "UCX_WPN_Pistol_01-convcolonly",
+        "WPN_Pistol_01",
+        "WeaponRig"
+      ],
+      "reimport_actions": [
+        "A_WPN_Pistol_01_Empty",
+        "A_WPN_Pistol_01_Fire",
+        "A_WPN_Pistol_01_Reload"
+      ],
+      "problems": []
+    }
+  },
+  "asset": "WPN_Pistol_01",
+  "category": "Weapons",
+  "budget_key": "Weapons",
+  "issues": [
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Frame",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Slide",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Barrel",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Magazine",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "warning",
+      "code": "NAME_MESH_PREFIX",
+      "object": "Trigger",
+      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SKINNED",
+      "object": "Slide",
+      "message": "skinned mesh: no baked LODs (Godot generates mesh LODs on import)"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SKINNED",
+      "object": "Magazine",
+      "message": "skinned mesh: no baked LODs (Godot generates mesh LODs on import)"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SKINNED",
+      "object": "Trigger",
+      "message": "skinned mesh: no baked LODs (Godot generates mesh LODs on import)"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 5,
+    "infos": 3
+  },
+  "seconds": 0.81,
+  "exit_code": 0,
+  "result": "PASS"
+}

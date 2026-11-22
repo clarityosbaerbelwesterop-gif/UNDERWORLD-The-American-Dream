@@ -1,0 +1,9 @@
+{
+  "_doc": "Weapon spec for WPN_Pistol_01 (original semi-auto 9mm handgun, REQ-GP02-PISTOL).",
+  "asset_name": "WPN_Pistol_01",
+  "category": "Weapons",
+  "budget_key": "Weapons",
+  "polyhaven_id": "metal_plate",
+  "texture_size": 1024,
+  "tint_rgb": [0.18, 0.19, 0.21]
+}

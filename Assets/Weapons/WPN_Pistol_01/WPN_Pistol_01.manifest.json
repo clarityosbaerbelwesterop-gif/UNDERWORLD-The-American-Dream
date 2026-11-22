@@ -1,0 +1,293 @@
+{
+  "asset": "WPN_Pistol_01",
+  "status": "READY FOR REVIEW",
+  "category": "Weapons",
+  "budget_key": "Weapons",
+  "source_blend": "Blender/Source/Weapons/WPN_Pistol_01/WPN_Pistol_01.blend",
+  "export_glb": "Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01.glb",
+  "preview_png": "Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.016,
+      -0.0808,
+      -0.0391
+    ],
+    "max": [
+      0.0168,
+      0.0602,
+      0.16
+    ],
+    "size": [
+      0.0328,
+      0.141,
+      0.1991
+    ]
+  },
+  "triangles": {
+    "lod0": 1920,
+    "budget": 8000,
+    "per_lod_total": {
+      "LOD0": 700,
+      "LOD1": 350,
+      "LOD2": 174
+    }
+  },
+  "lods": [
+    {
+      "object": "Frame",
+      "levels": [
+        {
+          "name": "Frame",
+          "level": 0,
+          "triangles": 576
+        },
+        {
+          "name": "Frame_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 288
+        },
+        {
+          "name": "Frame_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 144
+        }
+      ]
+    },
+    {
+      "object": "Barrel",
+      "levels": [
+        {
+          "name": "Barrel",
+          "level": 0,
+          "triangles": 124
+        },
+        {
+          "name": "Barrel_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 62
+        },
+        {
+          "name": "Barrel_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 30
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "convex",
+    "generated": [
+      {
+        "name": "UCX_WPN_Pistol_01-convcolonly",
+        "vertices": 64,
+        "triangles": 124
+      }
+    ],
+    "existing": []
+  },
+  "materials": [
+    "M_WPN_Pistol_01"
+  ],
+  "textures": [
+    {
+      "image": "T_WPN_Pistol_01_D",
+      "material": "M_WPN_Pistol_01",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../tmp/uwp_tex_pbfna42d/T_WPN_Pistol_01_D.jpg"
+    },
+    {
+      "image": "T_WPN_Pistol_01_ORM.001",
+      "material": "M_WPN_Pistol_01",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../tmp/uwp_tex_eayd6yrj/T_WPN_Pistol_01_ORM.jpg"
+    },
+    {
+      "image": "T_WPN_Pistol_01_N",
+      "material": "M_WPN_Pistol_01",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../tmp/uwp_tex_baj6dy7t/T_WPN_Pistol_01_N.png"
+    }
+  ],
+  "uv_overlap": {
+    "Frame": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.3879
+    },
+    "Slide": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.4214
+    },
+    "Barrel": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.7357
+    },
+    "Magazine": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.7179
+    },
+    "Trigger": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.7269
+    }
+  },
+  "texel_density": {
+    "Frame": {
+      "texture_px": 1024,
+      "median_px_per_m": 2932.6,
+      "p10_px_per_m": 2561.4,
+      "p90_px_per_m": 3072.3
+    },
+    "Slide": {
+      "texture_px": 1024,
+      "median_px_per_m": 3822.9,
+      "p10_px_per_m": 3537.2,
+      "p90_px_per_m": 4546.1
+    },
+    "Barrel": {
+      "texture_px": 1024,
+      "median_px_per_m": 10583.4,
+      "p10_px_per_m": 8954.9,
+      "p90_px_per_m": 10649.2
+    },
+    "Magazine": {
+      "texture_px": 1024,
+      "median_px_per_m": 7681.6,
+      "p10_px_per_m": 6459.4,
+      "p90_px_per_m": 7681.6
+    },
+    "Trigger": {
+      "texture_px": 1024,
+      "median_px_per_m": 38156.1,
+      "p10_px_per_m": 38156.1,
+      "p90_px_per_m": 45375.5
+    }
+  },
+  "clipping": [],
+  "armatures": {
+    "WeaponRig": {
+      "bones": [
+        "WpnRoot",
+        "SlideBone",
+        "MagBone",
+        "TrigBone"
+      ],
+      "deform_bones": 4
+    }
+  },
+  "blendshapes": [],
+  "animations": [
+    {
+      "name": "A_WPN_Pistol_01_Empty",
+      "frame_start": 0.0,
+      "frame_end": 2.0,
+      "fps": 30.0,
+      "duration_s": 0.0667,
+      "frames": 2,
+      "loop": false,
+      "speed_mps": null,
+      "slots": [
+        "OBWeaponRig"
+      ]
+    },
+    {
+      "name": "A_WPN_Pistol_01_Fire",
+      "frame_start": 0.0,
+      "frame_end": 3.0,
+      "fps": 30.0,
+      "duration_s": 0.1,
+      "frames": 3,
+      "loop": false,
+      "speed_mps": null,
+      "slots": [
+        "OBWeaponRig"
+      ]
+    },
+    {
+      "name": "A_WPN_Pistol_01_Reload",
+      "frame_start": 0.0,
+      "frame_end": 48.0,
+      "fps": 30.0,
+      "duration_s": 1.6,
+      "frames": 48,
+      "loop": false,
+      "speed_mps": null,
+      "slots": [
+        "OBWeaponRig"
+      ]
+    }
+  ],
+  "sockets": {
+    "SOCKET_Grip": {
+      "parent": "WPN_Pistol_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.0,
+        -0.0
+      ]
+    },
+    "SOCKET_Muzzle": {
+      "parent": "WPN_Pistol_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.041,
+        0.165
+      ]
+    },
+    "SOCKET_Eject": {
+      "parent": "WPN_Pistol_01",
+      "parent_bone": null,
+      "position_godot": [
+        -0.014,
+        0.045,
+        0.046
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "Barrel_LOD1",
+    "Barrel_LOD2",
+    "Barrel",
+    "Frame_LOD1",
+    "Frame_LOD2",
+    "Frame",
+    "SOCKET_Eject",
+    "SOCKET_Grip",
+    "SOCKET_Muzzle",
+    "UCX_WPN_Pistol_01-convcolonly",
+    "MagBone",
+    "SlideBone",
+    "TrigBone",
+    "WpnRoot",
+    "Magazine",
+    "Slide",
+    "Trigger",
+    "WeaponRig",
+    "WPN_Pistol_01"
+  ],
+  "glb_bytes": 1752972
+}

@@ -27,4 +27,9 @@ Thumbs.db
 # External asset source caches (CC0 packs, raw texture downloads, high-poly bake temps)
 .cache/
 Blender/Cache/
+# Godot auto-extracted embedded GLB texture duplicates (textures stay embedded inside .glb)
+Assets/**/*_T_*.jpg
+Assets/**/*_T_*.png
+Assets/**/*.import
+!Assets/Test/PT_PipelineTest_Crate.glb.import
 

@@ -1,0 +1,42 @@
+{
+  "_doc": "NPC spec: SK_NPC_Civilian_Female (ambient LA pedestrian/jogger: female hm08 morphs, casual top & jeans). Budget: <= 25k tris.",
+  "asset_name": "SK_NPC_Civilian_Female",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "height_m": 1.68,
+  "boot_sole_extra_m": 0.020,
+  "npc_decimate_body": 0.62,
+  "macro": {
+    "gender": 0.0,
+    "age": 0.52,
+    "muscle": 0.45,
+    "weight": 0.42,
+    "proportions": 0.68,
+    "height_morph": 0.50,
+    "ethnicity": { "caucasian": 0.60, "asian": 0.25, "african": 0.15 }
+  },
+  "morphs": { "cheek-bones-decr-incr": 0.20 },
+  "skin": {
+    "texture_size": 1024,
+    "base_diffuse": "makehuman_system_assets/skins/young_caucasian_female/young_lightskinned_female_diffuse.png",
+    "base_normal": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_NRM.png",
+    "tint_rgb": [0.95, 0.88, 0.82],
+    "hair_color_rgb": [0.10, 0.06, 0.04],
+    "beard_stubble": { "density": 0.0 },
+    "seed": 701
+  },
+  "eyes": { "mhclo": "mh_eyes/low-poly.mhclo", "iris_texture": "makehuman_system_assets/eyes/materials/green_eye.png" },
+  "eyebrows": { "mhclo": "makehuman_system_assets/eyebrows/eyebrow004/eyebrow004.mhclo", "texture": "makehuman_system_assets/eyebrows/eyebrow004/eyebrow004.png", "scar_notch": false },
+  "eyelashes": { "mhclo": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.mhclo", "texture": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.png" },
+  "teeth": { "enabled": false },
+  "hair": { "style": "medium_crop", "color_rgb": [0.10, 0.06, 0.04], "seed": 702 },
+  "beard": { "style": "none" },
+  "outfit": {
+    "tshirt": { "enabled": true, "style": "crew_tshirt", "polyhaven_id": "cotton_jersey", "texture_size": 512, "bake_high_to_low": false, "tile": 4.0, "desaturate": 0.25, "tint_rgb": [0.68, 0.42, 0.36] },
+    "jacket": { "enabled": false },
+    "jeans": { "enabled": true, "style": "straight_jeans", "polyhaven_id": "denim_fabric_04", "texture_size": 512, "bake_high_to_low": false, "tile": 5.0, "tint_rgb": [0.30, 0.42, 0.60], "zone_mode": "denim_wash" },
+    "boots": { "enabled": true, "polyhaven_id": "cotton_jersey", "texture_size": 512, "bake_high_to_low": false, "tile": 3.0, "desaturate": 0.90, "tint_rgb": [0.78, 0.78, 0.80], "zone_mode": "boot_sole" },
+    "watch": { "enabled": false }
+  },
+  "animations": { "clip_prefix": "A_Humanoid_", "mocap_walk_bvh": "mocap/makehuman_walk1.bvh", "include_p2": false, "minimal_npc_set": true }
+}

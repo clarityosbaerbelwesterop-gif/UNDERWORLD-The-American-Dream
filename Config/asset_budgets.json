@@ -1,5 +1,5 @@
 {
-  "_doc": "Machine-readable budgets (TD-009). Owner Bot 1. Read by the Bot 2 validator (T-PIPE-01).",
+  "_doc": "Machine-readable asset budgets (TD-009 / T-PIPE-03). Read by Tools/uwp validator.",
   "units": "metres",
   "max_triangles": {
     "Characters/SK_Jason": 40000,
@@ -10,7 +10,21 @@
     "Props": 5000,
     "Test": 1000
   },
-  "max_texture_size": {"hero": 2048, "default": 1024},
+  "max_texture_size": {
+    "hero": 2048,
+    "default": 1024
+  },
   "max_bone_influences": 4,
-  "reference_heights_m": {"Jason": 1.82}
+  "max_materials": {
+    "default": 8,
+    "Characters": 10,
+    "Vehicles": 12
+  },
+  "texel_density_px_per_m": {
+    "hero_min": 256,
+    "default_min": 128
+  },
+  "reference_heights_m": {
+    "Jason": 1.82
+  }
 }

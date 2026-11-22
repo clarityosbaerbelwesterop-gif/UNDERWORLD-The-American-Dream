@@ -9,6 +9,7 @@
 #              top landing 1.6 m high from z = -2.4 to -5.4 (T-GP-01c)
 #   Ledge_050  x = -28, 0.5 m block (must NOT be stepped onto)
 #   Step_030   x = -32, single 0.3 m step (must be stepped onto)
+#   Shooting lane (T-GP-02): Target_10m (27, 0, -10), Target_35m (24, 0, -35), Backstop wall z=-38.5
 extends SceneTree
 
 const OUT := "res://Scenes/Test/PT_PlayerTestRange.tscn"
@@ -60,6 +61,15 @@ func _initialize() -> void:
 	_box("Stairs_Landing", Vector3(2, 1.6, 3), Vector3(-22, 0.8, -3.9), Vector3.ZERO, stair_col)
 	_box("Ledge_050", Vector3(2, 0.5, 2), Vector3(-28, 0.25, -3), Vector3.ZERO, Color(0.6, 0.3, 0.3))
 	_box("Step_030", Vector3(2, 0.3, 2), Vector3(-32, 0.15, -3), Vector3.ZERO, Color(0.3, 0.6, 0.3))
+
+	# Shooting lane (T-GP-02).
+	var dummy := load("res://Scenes/Test/PT_TargetDummy.tscn") as PackedScene
+	for t in [["Target_10m", Vector3(27, 0, -10)], ["Target_35m", Vector3(24, 0, -35)]]:
+		var d: Node3D = dummy.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+		d.name = t[0]
+		d.position = t[1]
+		_add(d)
+	_box("Backstop", Vector3(8, 4, 1), Vector3(25, 2, -38.5), Vector3.ZERO, Color(0.4, 0.42, 0.45))
 
 	var player: Node3D = (load("res://Scenes/Player/Player.tscn") as PackedScene).instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
 	player.name = "Player"

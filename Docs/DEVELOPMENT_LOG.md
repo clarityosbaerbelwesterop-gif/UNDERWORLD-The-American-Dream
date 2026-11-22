@@ -2,6 +2,9 @@
 
 Append-only, newest on top. `YYYY-MM-DD HH:MM (Europe/Berlin) · Bot N · Task ID · what was done · how it was verified`.
 
+## 2026-11-22 · Bot 3 (T-GP-02)
+- **2026-11-22 10:10 · T-GP-02** Pistol gunplay on `bot3/t-gp-02`: data-driven `WeaponData` (`WPN_Pistol_01.tres`), hitscan along the crosshair with muzzle correction, spread/bloom by stance, camera recoil + recovery, magazine/reserve, 1.6 s interruptible reload, damage with falloff + head/limb zones, `DamageReceiver` + `Hitbox` (layer 5), hitmarker signal, PT impact decals, muzzle flash, PT pistol on the hand socket, target dummies (10 m / 35 m) + backstop in the test range. Weapon REQ for Bot 2: `Docs/Handoffs/REQ_WPN_Pistol_01.md`. Verified: `./Tests/run_all.sh` → RUN_ALL: PASS (see PR); `test_weapon.gd` 57 checks, player tests 112 unchanged; negative check (falloff off + no cooldown) → 7 FAIL, exit 1.
+
 ## 2026-11-22 · Bot 3 (T-PIPE-02)
 - **2026-11-22 09:59 · T-PIPE-02** Godot scene import preset (`[importer_defaults]` → `Scripts/import/uw_post_import.gd`: Bot 2's LOD ranges + loop modes from manifest), asset import tests (`Tests/run_asset_import_tests.sh`, `GodotProject/Tests/Import/test_assets.gd`), `Tests/run_all.sh` now also runs Bot 2's uwp tool tests. Verified: `./Tests/run_all.sh` with clean `.godot/` → RUN_ALL: PASS (smoke, uwp 106, asset import 38, gameplay 112); control import without script draws all LODs (detected); negative check (loop step disabled) → exit 1.
 

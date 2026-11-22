@@ -143,3 +143,9 @@ pause={
 3d_physics/layer_3="Characters"
 3d_physics/layer_4="Vehicles"
 3d_physics/layer_5="Hitboxes"
+
+[importer_defaults]
+
+scene={
+"import_script/path": "res://Scripts/import/uw_post_import.gd"
+}

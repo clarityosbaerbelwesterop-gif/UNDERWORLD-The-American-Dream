@@ -75,3 +75,10 @@ Jason ≤ 40k tris, NPC ≤ 25k, car ≤ 60k (LOD0), pistol ≤ 8k, street-kit m
 4. **Gameplay tests:** `GodotProject/Tests/test_*.gd` (SceneTree scripts, `[GPTEST]` output) run by `Tests/run_gameplay_tests.sh` with `--fixed-fps 60`; `Tests/run_all.sh` = pipeline smoke + gameplay = **the merge gate for `main`** (must print `RUN_ALL: PASS`).
 5. **Vault-lite** (T-GP-01 description) split into T-GP-01b (P2, BACKLOG); stairs/step-up into T-GP-01c (P1).
 
+## TD-011 – Player collision shape: cylinder instead of capsule (proposed Bot 3, ACCEPTED by Bot 1, 2026-11-22)
+**Status: ACCEPTED (Bot 1, PR #1 review).** Recorded by Bot 3 on Bot 1's instruction.
+- **Decision:** the player `CharacterBody3D` uses a `CylinderShape3D` (r 0.35 m, h 1.8 m standing / 1.2 m crouched, origin at the feet). The visual stand-in stays a capsule (`PT_Capsule`), later SK_Jason.
+- **Why:** with a capsule the round bottom rests on stair nosings with a ~64° contact normal, which is not a floor contact: re-checked with the final step-up code, a capsule goes airborne 44 frames and "lands" 8 times on the 8-step test flight, 27 airborne frames + 1 landing walking down at sprint, and settles at 0.26 m on a 0.3 m step. The flat cylinder base stays grounded on every tread (0 airborne frames, verified in `test_player_controller.gd`, T-GP-01c).
+- **Consequences:** step-up (`step_height` 0.35 m) + floor snap 0.4 m handle stairs and step-downs. Steps > 0.35 m need collision ramps. NPCs (T-AI-01/02) should use the same shape for consistency. If a different physics backend makes cylinders jittery, re-evaluate (tests will catch it).
+- **Note:** Bot 2's T-PIPE-01 handoff proposes a "TD-011" for LOD/collision budgets; that proposal needs a new number (suggest TD-012) – Bot 1 to assign.
+

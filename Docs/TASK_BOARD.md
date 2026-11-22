@@ -14,7 +14,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-PIPE-00 | P0 | Bot 1 | Pipeline smoke test baseline | T-BOOT-01/02 | COMPLETED |
 | T-DES-01 | P1 | Bot 1 | Mission M01 design doc | T-BOOT-03 | READY FOR REVIEW |
 | T-DES-02 | P1 | Bot 1 | Art direction + LA street layout brief | T-BOOT-03 | IN PROGRESS |
-| T-PIPE-01 | P0 | Bot 2 | Production Blender export/validation tool | T-PIPE-00 | READY FOR REVIEW |
+| T-PIPE-01 | P0 | Bot 2 | Production Blender export/validation tool | T-PIPE-00 | COMPLETED |
 | T-PIPE-02 | P0 | Bot 3 | Godot import presets + per-asset import tests | T-PIPE-01 | BACKLOG |
 | T-ART-01 | P1 | Bot 2 | Jason model + rig + skin | T-PIPE-01 | BACKLOG |
 | T-ART-02 | P1 | Bot 2 | Jason animation set | T-ART-01 | BACKLOG |
@@ -76,7 +76,7 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Acceptance:** Bot 2 can model the kit with exact dimensions; Bot 3 can block out the level.
 
 ### T-PIPE-01 – Production Blender export & validation tool
-- **Agent:** Bot 2 · **Deps:** T-PIPE-00 · **Status:** READY FOR REVIEW (2026-11-22, handoff `Docs/Handoffs/2026-11-22_T-PIPE-01.md`)
+- **Agent:** Bot 2 · **Deps:** T-PIPE-00 · **Status:** COMPLETED (2026-11-22, merged to `main` in 5cad0aa, reviewed by Bot 1; handoff `Docs/Handoffs/2026-11-22_T-PIPE-01.md`)
 - **Description:** Turn `Tools/blender_export.py` into a reusable package `Tools/underworld_pipeline/` (CLI: `export <blend>`/`export-all`). Steps: validate (naming TD-005, applied transforms, UVs, materials, tri budget TD-009, non-manifold check), generate LODs (Decimate → `_LOD1/_LOD2`), collision (`UCX_`/Godot hints), export .glb (+ optional FBX), write `.manifest.json`, Cycles-CPU preview render PNG (`Assets/<...>/<Name>_preview.png`).
 - **Expected output:** `Tools/underworld_pipeline/*.py`, docs in `Tools/README.md`, smoke test still passing.
 - **File ownership:** Bot 2 (`Tools/`, `Blender/Scripts/`).
@@ -123,14 +123,14 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Acceptance:** ≤ 25k tris each; Jason's `A_Jason_Walk` plays on all three in Godot without retarget errors.
 
 ### T-GP-01 – Third-person controller + camera
-- **Agent:** Bot 3 · **Deps:** T-PIPE-00 · **Status:** READY FOR REVIEW (2026-11-22, Bot 3; branch `bot3/dev`, not pushed yet – waiting for owner approval to push)
+- **Agent:** Bot 3 · **Deps:** T-PIPE-00 · **Status:** READY FOR REVIEW (2026-11-22, Bot 3; branch `bot3/dev`, PR #1)
 - **Description:** `CharacterBody3D` player: walk/run/sprint, crouch, jump/vault-lite, acceleration curves, slope handling; `SpringArm3D` orbit camera with collision, over-shoulder aim mode (RMB), shoulder swap; input map for KB/M + gamepad; `AnimationTree` locomotion blend (placeholder capsule until T-ART-02).
 - **Expected output:** `GodotProject/Scenes/Player/Player.tscn`, `GodotProject/Scripts/player/*.gd`.
 - **Acceptance:** headless test moves the player 10 m forward with simulated input and asserts position; no penetration through Main.tscn ground/crate.
 - **Delivered (Bot 3, 2026-11-22):** `Scenes/Player/Player.tscn` (CharacterBody3D + `PT_Capsule`, `Visual`, `CameraRig`→`Pitch`→`SpringArm3D`→`Camera3D`), `Scripts/player/player_controller.gd`, `camera_rig.gd`, `character_visual.gd`, test map `Scenes/Test/PT_PlayerTestRange.tscn` (generator `Scripts/tools/build_test_range.gd`), 19 input actions KB/M + gamepad in `project.godot` (generator `Scripts/tools/setup_input_map.gd`), tests `GodotProject/Tests/test_player_controller.gd`, runners `Tests/run_gameplay_tests.sh`, `Tests/run_all.sh`.
 - **Verified:** `./Tests/run_all.sh` → `PIPELINE SMOKE TEST: PASS`, `GAMEPLAY TESTS: PASS` (94 checks, fixed 60 fps headless): scene loads, gravity + landing, 10 m forward (dz −10.31 m in 2.97 s), stops at Main.tscn PT crate (min z 0.850 = 0.5 + capsule r) without sinking, camera-relative move/strafe, walk/run/sprint 1.4/3.5/6.0 m/s, analog walk, jump apex 1.04 m, aim mode (arm 3.2→1.3 m, FOV 70→55, shoulder 0.6 m, faces aim dir, crosshair ray hits wall), shoulder swap, mouse + stick look, spring-arm wall collision, crouch under 1.4 m ceiling, 20° ramp, AnimationTree built from dummy `A_Jason_*` clips. Negative check: halving jump velocity → test exits 1.
 - **Bot 1 decisions (2026-11-22):** facing TD-004 (+Z) stands; gamepad A = jump, Y = interact + enter vehicle, keyboard E/F (TD-010 ACCEPTED, input map regenerated + asserted in tests); REQ-GP01-JASON confirmed.
-- **Note (T-GP-01c):** player collision is now a cylinder (r 0.35, h 1.8), not a capsule – see T-GP-01c.
+- **Note (T-GP-01c):** player collision is now a cylinder (r 0.35, h 1.8), not a capsule – see T-GP-01c, accepted as TD-011.
 - **Not done / open:** vault-lite → **T-GP-01b**; stairs/step-up → **T-GP-01c** (READY FOR REVIEW); real animation blending only verified with empty dummy clips (needs T-ART-02); camera feel/visuals unverified without GPU (B-003).
 - **Asset requirement for Bot 2 (T-ART-01/02) – REQ-GP01-JASON:** full spec in `Docs/Handoffs/REQ_SK_Jason_Controller.md`. Summary: `Assets/Characters/SK_Jason/SK_Jason.glb` with all actions; 1.82 m, origin at feet, 1 u = 1 m, Y-up, faces Godot +Z (TD-004); `SkeletonProfileHumanoid` bone names (+ `Root`, fingers recommended), T-pose, `SOCKET_RightHand_Weapon` parented to `RightHand`; **in place, no root motion**; 30 fps; P1 clips `A_Jason_Idle/Walk(1.4)/Run(3.5)/Sprint(6.0)/Crouch_Idle/Crouch_Walk(1.2)/Jump_Start/Jump_Loop/Land/Aim_Pistol_Idle/Aim_Pistol_Walk_F|B|L|R(2.0)/Shoot_Pistol(0.25 s)/Reload_Pistol(1.6 s)`; P2 `Carry_Idle/Carry_Walk, Death, Car_Enter_L/Car_Exit_L`. Extends T-ART-02 (new: crouch, jump, land, aim strafes; renames `A_Jason_Aim_Pistol` → `A_Jason_Aim_Pistol_Idle`). **CONFIRMED by Bot 1 (2026-11-22): takes priority over the older names in T-ART-02; Bot 1 assigns it to Bot 2.**
 

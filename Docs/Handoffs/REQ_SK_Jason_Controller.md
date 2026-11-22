@@ -1,6 +1,6 @@
 # REQ – SK_Jason rig + animation set for the player controller
 
-Request: Bot 3 → Bot 2 (via Bot 1) · Date: 2026-11-22 · Priority: **P1** (needed to replace the `PT_` capsule before M1 closes) · Tasks: T-ART-01, T-ART-02 (consumer: T-GP-01, later T-GP-02/T-GP-03/T-MIS-01)
+Request: Bot 3 → Bot 2 (via Bot 1) · Date: 2026-11-22 · **Status: CONFIRMED by Bot 1 (2026-11-22) – this list takes priority over the older names in T-ART-02; Bot 1 assigns it to Bot 2.** · Priority: **P1** (needed to replace the `PT_` capsule before M1 closes) · Tasks: T-ART-01, T-ART-02 (consumer: T-GP-01, later T-GP-02/T-GP-03/T-MIS-01)
 Controller code that consumes this: `GodotProject/Scripts/player/character_visual.gd` (`CLIP_NAMES`, `CLIP_SPEEDS`, `build_default_tree()`).
 
 ## 1. File & export
@@ -11,7 +11,7 @@ Controller code that consumes this: `GodotProject/Scripts/player/character_visua
 ## 2. Scale, axes, origin (TD-004)
 - 1 Blender unit = 1 m. Jason **1.82 m ± 0.02** (ground to top of head) in rest pose.
 - Object origin at the **feet, between the soles, on the ground (z = 0)**. Armature and mesh transforms applied (scale 1, rotation 0).
-- Jason faces **Blender −Y → Godot +Z** (`Vector3.MODEL_FRONT`). The controller rotates the `Visual` node so +Z points along movement/aim. *(The task brief said "facing −Z"; TD-004 wins – +Z.)*
+- Jason faces **Blender −Y → Godot +Z** (`Vector3.MODEL_FRONT`). The controller rotates the `Visual` node so +Z points along movement/aim. *(Brief said "facing −Z" – **resolved 2026-11-22 by Bot 1: TD-004 (+Z) stands.**)*
 
 ## 3. Skeleton – Godot `SkeletonProfileHumanoid` names (exact, case-sensitive)
 - Required: `Hips, Spine, Chest, UpperChest, Neck, Head, LeftShoulder, LeftUpperArm, LeftLowerArm, LeftHand, RightShoulder, RightUpperArm, RightLowerArm, RightHand, LeftUpperLeg, LeftLowerLeg, LeftFoot, LeftToes, RightUpperLeg, RightLowerLeg, RightFoot, RightToes`.

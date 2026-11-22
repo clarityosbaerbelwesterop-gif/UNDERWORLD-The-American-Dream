@@ -49,9 +49,9 @@ static func bindings() -> Dictionary:
 		"aim": [mouse(MOUSE_BUTTON_RIGHT), joy_axis(JOY_AXIS_TRIGGER_LEFT, 1.0)],
 		"fire": [mouse(MOUSE_BUTTON_LEFT), joy_axis(JOY_AXIS_TRIGGER_RIGHT, 1.0)],
 		"reload": [key(KEY_R), joy_button(JOY_BUTTON_X)],
-		# GDD lists gamepad "A" for both jump and interact; interact is KB-only
-		# until that is resolved (context-sensitive A is a T-MIS-01 question).
-		"interact": [key(KEY_E)],
+		# TD-010 (accepted): gamepad A = jump only; Y = "use" button shared by
+		# interact and enter_vehicle. Keyboard keeps E (interact) / F (vehicle).
+		"interact": [key(KEY_E), joy_button(JOY_BUTTON_Y)],
 		"enter_vehicle": [key(KEY_F), joy_button(JOY_BUTTON_Y)],
 		"shoulder_swap": [key(KEY_Q), joy_button(JOY_BUTTON_RIGHT_STICK)],
 		"pause": [key(KEY_ESCAPE), joy_button(JOY_BUTTON_START)],

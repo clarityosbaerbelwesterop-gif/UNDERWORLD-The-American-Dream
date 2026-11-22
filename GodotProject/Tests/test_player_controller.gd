@@ -99,12 +99,30 @@ func _run_all() -> void:
 			print("[GPTEST]   - ", f)
 		quit(1)
 
+func _has_joy_button(action: String, button: JoyButton) -> bool:
+	for e in InputMap.action_get_events(action):
+		if e is InputEventJoypadButton and e.button_index == button:
+			return true
+	return false
+
+func _has_key(action: String, k: Key) -> bool:
+	for e in InputMap.action_get_events(action):
+		if e is InputEventKey and e.physical_keycode == k:
+			return true
+	return false
+
 # --- tests ----------------------------------------------------------------
 
 func test_scene_loads() -> void:
 	print("[GPTEST] == scene loads")
 	for a in REQUIRED_ACTIONS:
 		check(InputMap.has_action(a) and not InputMap.action_get_events(a).is_empty(), "input action '%s' defined with events" % a)
+	# TD-010 gamepad layout: A = jump only, Y = interact + enter_vehicle, keyboard E/F.
+	check(_has_joy_button("jump", JOY_BUTTON_A) and _has_key("jump", KEY_SPACE), "jump = Space / gamepad A")
+	check(_has_joy_button("interact", JOY_BUTTON_Y) and _has_key("interact", KEY_E), "interact = E / gamepad Y")
+	check(_has_joy_button("enter_vehicle", JOY_BUTTON_Y) and _has_key("enter_vehicle", KEY_F), "enter_vehicle = F / gamepad Y")
+	var a_users := REQUIRED_ACTIONS.filter(func(a): return _has_joy_button(a, JOY_BUTTON_A))
+	check(a_users == ["jump"], "gamepad A bound to jump only (got %s)" % [a_users])
 	var packed: PackedScene = load(TEST_RANGE)
 	check(packed != null, "PT_PlayerTestRange.tscn loads")
 	var scene := spawn(TEST_RANGE)

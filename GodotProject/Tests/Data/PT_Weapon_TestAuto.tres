@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Scripts/combat/weapon_data.gd" id="1_wd"]
+[ext_resource type="PackedScene" path="res://Scenes/Weapons/PT_Pistol.tscn" id="2_model"]
+
+; Test-only weapon (never ships): proves a different .tres changes behaviour (auto fire, 30 rounds,
+; 600 rpm, no auto-reload, non-interruptible reload, fixed recoil pattern).
+[resource]
+script = ExtResource("1_wd")
+id = "PT_Weapon_TestAuto"
+display_name = "Test Auto"
+scene = ExtResource("2_model")
+fire_mode = 1
+rpm = 600.0
+damage = 10.0
+magazine_size = 30
+reserve_ammo = 30
+reload_time = 2.5
+reload_interruptible = false
+auto_reload_on_empty = false
+recoil_pattern = PackedVector2Array(0, 1, 0.5, 1.5, -0.5, 2)

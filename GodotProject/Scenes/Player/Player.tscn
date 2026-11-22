@@ -3,6 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/player/player_controller.gd" id="1_ctrl"]
 [ext_resource type="Script" path="res://Scripts/player/character_visual.gd" id="2_visual"]
 [ext_resource type="Script" path="res://Scripts/player/camera_rig.gd" id="3_rig"]
+[ext_resource type="Script" path="res://Scripts/combat/weapon.gd" id="4_weapon"]
+[ext_resource type="Resource" path="res://Data/Weapons/WPN_Pistol_01.tres" id="5_pistol"]
+[ext_resource type="Script" path="res://Scripts/combat/player_weapon_controller.gd" id="6_wctrl"]
 
 [sub_resource type="CylinderShape3D" id="Shape_body"]
 radius = 0.35
@@ -47,6 +50,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0.33)
 mesh = SubResource("Mesh_front")
 surface_material_override/0 = SubResource("Mat_front")
 
+[node name="PT_SOCKET_RightHand_Weapon" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1.2, 0.35)
+
+[node name="Weapon" type="Node3D" parent="Visual/PT_SOCKET_RightHand_Weapon"]
+script = ExtResource("4_weapon")
+data = ExtResource("5_pistol")
+
 [node name="CameraRig" type="Node3D" parent="."]
 top_level = true
 script = ExtResource("3_rig")
@@ -63,3 +73,6 @@ margin = 0.1
 current = true
 fov = 70.0
 far = 2000.0
+
+[node name="WeaponController" type="Node" parent="."]
+script = ExtResource("6_wctrl")

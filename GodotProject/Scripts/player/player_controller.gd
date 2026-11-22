@@ -93,6 +93,8 @@ var move_input := Vector2.ZERO
 var aim_point := Vector3.ZERO
 var aim_collider: Object = null
 var air_time := 0.0
+## > 0: keep facing the camera/aim direction (set by the weapon controller after hip-fire).
+var combat_face_time := 0.0
 
 var _coyote := 0.0
 var _jump_buffer := 0.0
@@ -275,7 +277,8 @@ func _try_step_up(hv: Vector3, delta: float) -> bool:
 func _update_facing(delta: float, hv: Vector3) -> void:
 	var target_yaw := facing_yaw
 	var rate := turn_rate
-	if is_aiming and camera_rig != null:
+	combat_face_time = maxf(combat_face_time - delta, 0.0)
+	if (is_aiming or combat_face_time > 0.0) and camera_rig != null:
 		# Face where the camera looks (yaw of camera forward = -Z of the rig).
 		var fwd := -camera_rig.get_planar_basis().z
 		target_yaw = atan2(fwd.x, fwd.z)

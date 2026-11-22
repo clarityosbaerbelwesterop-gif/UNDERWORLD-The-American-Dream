@@ -58,6 +58,10 @@ var shoulder_side := 1.0
 var aim_point := Vector3.ZERO
 var aim_normal := Vector3.UP
 var aim_collider: Object = null
+## Weapon recoil offset in radians (x = yaw, y = pitch up), added on top of yaw/pitch and
+## recovering to zero at recoil_recovery_rate (1/s, set from WeaponData by the weapon controller).
+var recoil_offset := Vector2.ZERO
+var recoil_recovery_rate := 8.0
 var _pending_look := Vector2.ZERO
 var _pivot := Vector3.ZERO
 
@@ -85,6 +89,15 @@ func apply_look(delta_rad: Vector2) -> void:
 func set_yaw(rad: float) -> void:
 	yaw = rad
 	_apply_rotation()
+
+## Instant camera kick in degrees (x = yaw right, y = pitch up) - T-GP-02 recoil.
+func add_recoil(kick_deg: Vector2) -> void:
+	recoil_offset += Vector2(-deg_to_rad(kick_deg.x), deg_to_rad(kick_deg.y))
+	_apply_rotation()
+
+## Effective pitch (look + recoil), radians.
+func get_effective_pitch() -> float:
+	return clampf(pitch + recoil_offset.y, deg_to_rad(min_pitch_deg), deg_to_rad(max_pitch_deg))
 
 func swap_shoulder() -> void:
 	shoulder_side = -shoulder_side
@@ -121,6 +134,11 @@ func update_rig(delta: float) -> void:
 	_pending_look = Vector2.ZERO
 	if look != Vector2.ZERO:
 		apply_look(look)
+	if recoil_offset != Vector2.ZERO:
+		recoil_offset = recoil_offset.lerp(Vector2.ZERO, 1.0 - exp(-recoil_recovery_rate * delta))
+		if recoil_offset.length() < 0.00005:
+			recoil_offset = Vector2.ZERO
+		_apply_rotation()
 
 	# Blend framing.
 	var target_aim := 1.0 if player.is_aiming else 0.0
@@ -139,25 +157,31 @@ func update_rig(delta: float) -> void:
 	_update_aim_ray()
 
 func _apply_rotation() -> void:
-	rotation = Vector3(0.0, yaw, 0.0)
+	rotation = Vector3(0.0, yaw + recoil_offset.x, 0.0)
 	if pitch_node != null:
-		pitch_node.rotation = Vector3(pitch, 0.0, 0.0)
+		pitch_node.rotation = Vector3(get_effective_pitch(), 0.0, 0.0)
 
 func _apply_framing() -> void:
 	spring_arm.spring_length = lerpf(arm_length, aim_arm_length, aim_blend)
 	spring_arm.position = Vector3(lerpf(shoulder_offset, aim_shoulder_offset, aim_blend) * shoulder_side, 0.0, 0.0)
 	camera.fov = lerpf(fov, aim_fov, aim_blend)
 
-## Crosshair = screen centre = camera -Z. Ray starts at the camera, excludes the player.
-func _update_aim_ray() -> void:
-	# The camera sits at spring_length (or the collision point) along +Z of the arm;
-	# compute from the arm so the result is valid even before SpringArm3D's own update.
+## Crosshair ray [origin, direction]: from the camera along its -Z (screen centre),
+## computed from the arm so it is valid before SpringArm3D's own update.
+func get_aim_ray() -> Array:
 	var arm_xf := spring_arm.global_transform
 	var length := spring_arm.get_hit_length() if spring_arm.get_hit_length() > 0.0 else spring_arm.spring_length
 	var origin := arm_xf.origin + arm_xf.basis.z.normalized() * length
-	var dir := -arm_xf.basis.z.normalized()
+	return [origin, -arm_xf.basis.z.normalized()]
+
+## Crosshair = screen centre = camera -Z. Ray starts at the camera, excludes the player.
+func _update_aim_ray() -> void:
+	var r := get_aim_ray()
+	var origin: Vector3 = r[0]
+	var dir: Vector3 = r[1]
 	var to := origin + dir * aim_ray_length
 	var q := PhysicsRayQueryParameters3D.create(origin, to, aim_ray_mask, [player.get_rid()])
+	q.collide_with_areas = true
 	var hit := get_world_3d().direct_space_state.intersect_ray(q)
 	if hit.is_empty():
 		aim_point = to

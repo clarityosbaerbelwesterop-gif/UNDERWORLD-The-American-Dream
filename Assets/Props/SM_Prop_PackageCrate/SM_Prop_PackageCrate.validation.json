@@ -1,9 +1,9 @@
 {
   "tool": "underworld_pipeline",
   "version": "1.0.0",
-  "blender": "5.2.4 LTS",
-  "timestamp": "2026-11-22T12:13:23+01:00",
-  "command": "export",
+  "blender": "5.0.1",
+  "timestamp": "2026-11-22T20:07:11+00:00",
+  "command": "export-all",
   "input": "Blender/Source/Props/SM_Prop_PackageCrate/SM_Prop_PackageCrate.blend",
   "steps": {
     "validate": {
@@ -47,7 +47,7 @@
     },
     "export": {
       "glb": "Assets/Props/SM_Prop_PackageCrate/SM_Prop_PackageCrate.glb",
-      "bytes": 968272
+      "bytes": 77320
     },
     "preview": "Assets/Props/SM_Prop_PackageCrate/SM_Prop_PackageCrate_preview.png",
     "manifest": "Assets/Props/SM_Prop_PackageCrate/SM_Prop_PackageCrate.manifest.json",
@@ -92,8 +92,8 @@
         "skins": [],
         "joint_names": [],
         "animations": [],
-        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
-        "bytes": 968272
+        "asset_generator": "Khronos glTF Blender I/O v5.0.21",
+        "bytes": 77320
       },
       "reimport_objects": [
         "SM_Prop_PackageCrate",
@@ -115,7 +115,7 @@
     "warnings": 0,
     "infos": 0
   },
-  "seconds": 0.6,
+  "seconds": 1.74,
   "exit_code": 0,
   "result": "PASS"
 }

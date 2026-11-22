@@ -1,0 +1,328 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.0.1",
+  "timestamp": "2026-11-22T19:59:42+00:00",
+  "command": "export-all",
+  "input": "Blender/Source/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 1
+    },
+    "lods": [],
+    "collision": {
+      "mode": "none",
+      "generated": [],
+      "existing": []
+    },
+    "export": {
+      "glb": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA.glb",
+      "bytes": 6212740
+    },
+    "preview": {
+      "front": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview_front.png",
+      "3q": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview_3q.png",
+      "side": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview_side.png",
+      "back": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview_back.png",
+      "face": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview_face.png",
+      "face_side": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview_face_side.png",
+      "default": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview.png",
+      "aim": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview_aim.png"
+    },
+    "manifest": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "Head",
+          "Neck",
+          "LeftThumbDistal",
+          "LeftThumbProximal",
+          "LeftThumbMetacarpal",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftHand",
+          "LeftLowerArm",
+          "LeftUpperArm",
+          "LeftShoulder",
+          "RightThumbDistal",
+          "RightThumbProximal",
+          "RightThumbMetacarpal",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "SOCKET_RightHand_Weapon",
+          "RightHand",
+          "RightLowerArm",
+          "RightUpperArm",
+          "RightShoulder",
+          "UpperChest",
+          "Chest",
+          "Spine",
+          "LeftToes",
+          "LeftFoot",
+          "LeftLowerLeg",
+          "LeftUpperLeg",
+          "RightToes",
+          "RightFoot",
+          "RightLowerLeg",
+          "RightUpperLeg",
+          "Hips",
+          "Root",
+          "SK_NPC_Cop_LA_Body",
+          "SK_NPC_Cop_LA_Boots",
+          "SK_NPC_Cop_LA_Eyebrows",
+          "SK_NPC_Cop_LA_Eyelashes_L",
+          "SK_NPC_Cop_LA_Eyelashes_R",
+          "SK_NPC_Cop_LA_Eyes",
+          "SK_NPC_Cop_LA_Hair",
+          "SK_NPC_Cop_LA_Jeans",
+          "SK_NPC_Cop_LA_TShirt",
+          "Armature",
+          "SK_NPC_Cop_LA"
+        ],
+        "node_extras": {
+          "SK_NPC_Cop_LA_Eyebrows": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Cop_LA_Eyelashes_L": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Cop_LA_Eyelashes_R": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Cop_LA_Hair": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Cop_LA": {
+            "uw_character_spec": "Config/Characters/SK_NPC_Cop_LA.json"
+          }
+        },
+        "meshes": 9,
+        "materials": [
+          "M_NPC_Cop_LA_Skin",
+          "M_NPC_Cop_LA_Boots",
+          "M_NPC_Cop_LA_BrowsLashes",
+          "M_NPC_Cop_LA_Eyes",
+          "M_NPC_Cop_LA_Hair",
+          "M_NPC_Cop_LA_Jeans",
+          "M_NPC_Cop_LA_TShirt"
+        ],
+        "images": 16,
+        "skins": [
+          {
+            "name": "Armature",
+            "joints": 53
+          }
+        ],
+        "joint_names": [
+          "Chest",
+          "Head",
+          "Hips",
+          "LeftFoot",
+          "LeftHand",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftLowerArm",
+          "LeftLowerLeg",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftShoulder",
+          "LeftThumbDistal",
+          "LeftThumbMetacarpal",
+          "LeftThumbProximal",
+          "LeftToes",
+          "LeftUpperArm",
+          "LeftUpperLeg",
+          "Neck",
+          "RightFoot",
+          "RightHand",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "RightLowerArm",
+          "RightLowerLeg",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightShoulder",
+          "RightThumbDistal",
+          "RightThumbMetacarpal",
+          "RightThumbProximal",
+          "RightToes",
+          "RightUpperArm",
+          "RightUpperLeg",
+          "Root",
+          "Spine",
+          "UpperChest"
+        ],
+        "animations": [
+          "A_Humanoid_Aim_Pistol_Idle",
+          "A_Humanoid_Aim_Pistol_Walk_B",
+          "A_Humanoid_Aim_Pistol_Walk_F",
+          "A_Humanoid_Aim_Pistol_Walk_L",
+          "A_Humanoid_Aim_Pistol_Walk_R",
+          "A_Humanoid_Crouch_Idle",
+          "A_Humanoid_Crouch_Walk",
+          "A_Humanoid_Idle",
+          "A_Humanoid_Jump_Air",
+          "A_Humanoid_Jump_Start",
+          "A_Humanoid_Land",
+          "A_Humanoid_Reload_Pistol",
+          "A_Humanoid_Run",
+          "A_Humanoid_Shoot_Pistol",
+          "A_Humanoid_Sprint",
+          "A_Humanoid_Walk"
+        ],
+        "asset_generator": "Khronos glTF Blender I/O v5.0.21",
+        "bytes": 6212740
+      },
+      "reimport_objects": [
+        "Armature",
+        "Icosphere",
+        "SK_NPC_Cop_LA",
+        "SK_NPC_Cop_LA_Body",
+        "SK_NPC_Cop_LA_Boots",
+        "SK_NPC_Cop_LA_Eyebrows",
+        "SK_NPC_Cop_LA_Eyelashes_L",
+        "SK_NPC_Cop_LA_Eyelashes_R",
+        "SK_NPC_Cop_LA_Eyes",
+        "SK_NPC_Cop_LA_Hair",
+        "SK_NPC_Cop_LA_Jeans",
+        "SK_NPC_Cop_LA_TShirt",
+        "SOCKET_RightHand_Weapon"
+      ],
+      "reimport_actions": [
+        "A_Humanoid_Aim_Pistol_Idle",
+        "A_Humanoid_Aim_Pistol_Walk_B",
+        "A_Humanoid_Aim_Pistol_Walk_F",
+        "A_Humanoid_Aim_Pistol_Walk_L",
+        "A_Humanoid_Aim_Pistol_Walk_R",
+        "A_Humanoid_Crouch_Idle",
+        "A_Humanoid_Crouch_Walk",
+        "A_Humanoid_Idle",
+        "A_Humanoid_Jump_Air",
+        "A_Humanoid_Jump_Start",
+        "A_Humanoid_Land",
+        "A_Humanoid_Reload_Pistol",
+        "A_Humanoid_Run",
+        "A_Humanoid_Shoot_Pistol",
+        "A_Humanoid_Sprint",
+        "A_Humanoid_Walk"
+      ],
+      "problems": []
+    }
+  },
+  "asset": "SK_NPC_Cop_LA",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cop_LA_Body",
+      "message": "174 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cop_LA_Eyes",
+      "message": "32 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cop_LA_Eyebrows",
+      "message": "1536 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cop_LA_Eyelashes_L",
+      "message": "288 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cop_LA_Eyelashes_R",
+      "message": "288 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cop_LA_TShirt",
+      "message": "140 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cop_LA_Jeans",
+      "message": "95 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cop_LA_Hair",
+      "message": "842 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "warning",
+      "code": "ORIGIN_CENTRE",
+      "object": null,
+      "message": "bbox centre Y=-0.073 m; origin should be centred for Characters"
+    },
+    {
+      "severity": "info",
+      "code": "HUMANOID_OPTIONAL",
+      "object": "Armature",
+      "message": "optional humanoid bones absent: ['LeftEye', 'RightEye', 'Jaw']"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_NONE",
+      "object": null,
+      "message": "no LOD ratios configured for Characters"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 1,
+    "infos": 10
+  },
+  "seconds": 205.68,
+  "exit_code": 0,
+  "result": "PASS"
+}

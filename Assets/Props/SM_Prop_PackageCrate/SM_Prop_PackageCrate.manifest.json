@@ -8,7 +8,7 @@
   "preview_png": "Assets/Props/SM_Prop_PackageCrate/SM_Prop_PackageCrate_preview.png",
   "previews": null,
   "tool": "underworld_pipeline 1.0.0",
-  "blender_version": "5.2.4 LTS",
+  "blender_version": "5.0.1",
   "units": "metres (1 BU = 1 m = 1 Godot unit)",
   "up_axis": "Blender +Z -> glTF/Godot +Y",
   "front": "Blender -Y -> Godot +Z",
@@ -86,7 +86,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_q1nmr_wi/T_Prop_CrateMetal_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_y6uef5lq/T_Prop_CrateMetal_D.jpg"
     },
     {
       "image": "T_Prop_CrateMetal_ORM",
@@ -96,7 +96,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_w4mjpl04/T_Prop_CrateMetal_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_7gu9kqz0/T_Prop_CrateMetal_ORM.jpg"
     },
     {
       "image": "T_Prop_CrateMetal_N",
@@ -106,7 +106,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex__qazg7hi/T_Prop_CrateMetal_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_qarx9xpk/T_Prop_CrateMetal_N.png"
     },
     {
       "image": "T_Prop_CrateWood_D",
@@ -116,7 +116,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_o0tgeas2/T_Prop_CrateWood_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_eltz1zok/T_Prop_CrateWood_D.jpg"
     },
     {
       "image": "T_Prop_CrateWood_ORM",
@@ -126,7 +126,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_z2qbke4b/T_Prop_CrateWood_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_s0bynxni/T_Prop_CrateWood_ORM.jpg"
     },
     {
       "image": "T_Prop_CrateWood_N",
@@ -136,7 +136,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_se5mkc_t/T_Prop_CrateWood_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_8y9xzsfz/T_Prop_CrateWood_N.png"
     }
   ],
   "uv_overlap": {
@@ -166,5 +166,5 @@
     "UCX_SM_Prop_PackageCrate-convcolonly",
     "SM_Prop_PackageCrate"
   ],
-  "glb_bytes": 968272
+  "glb_bytes": 77320
 }

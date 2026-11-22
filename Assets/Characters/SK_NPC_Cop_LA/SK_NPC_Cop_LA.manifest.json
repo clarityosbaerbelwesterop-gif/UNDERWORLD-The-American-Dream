@@ -1,0 +1,675 @@
+{
+  "asset": "SK_NPC_Cop_LA",
+  "status": "READY FOR REVIEW",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "source_blend": "Blender/Source/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA.blend",
+  "export_glb": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA.glb",
+  "preview_png": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview.png",
+  "previews": {
+    "front": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview_front.png",
+    "3q": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview_3q.png",
+    "side": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview_side.png",
+    "back": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview_back.png",
+    "face": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview_face.png",
+    "face_side": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview_face_side.png",
+    "default": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview.png",
+    "aim": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA_preview_aim.png"
+  },
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.0.1",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.9313,
+      -0.0,
+      -0.101
+    ],
+    "max": [
+      0.9313,
+      1.848,
+      0.2464
+    ],
+    "size": [
+      1.8626,
+      1.848,
+      0.3474
+    ]
+  },
+  "triangles": {
+    "lod0": 22593,
+    "budget": 25000,
+    "per_lod_total": {}
+  },
+  "lods": [],
+  "collision": {
+    "mode": "none",
+    "generated": [],
+    "existing": []
+  },
+  "materials": [
+    "M_NPC_Cop_LA_Boots",
+    "M_NPC_Cop_LA_BrowsLashes",
+    "M_NPC_Cop_LA_Eyes",
+    "M_NPC_Cop_LA_Hair",
+    "M_NPC_Cop_LA_Jeans",
+    "M_NPC_Cop_LA_Skin",
+    "M_NPC_Cop_LA_TShirt"
+  ],
+  "textures": [
+    {
+      "image": "T_NPC_Cop_LA_Boots_D",
+      "material": "M_NPC_Cop_LA_Boots",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex__98dzt04/T_NPC_Cop_LA_Boots_D.jpg"
+    },
+    {
+      "image": "T_NPC_Cop_LA_Boots_ORM",
+      "material": "M_NPC_Cop_LA_Boots",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_zsbdygs8/T_NPC_Cop_LA_Boots_ORM.jpg"
+    },
+    {
+      "image": "T_NPC_Cop_LA_Boots_N",
+      "material": "M_NPC_Cop_LA_Boots",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_jqxqy1u6/T_NPC_Cop_LA_Boots_N.png"
+    },
+    {
+      "image": "T_NPC_Cop_LA_BrowsLashes_D",
+      "material": "M_NPC_Cop_LA_BrowsLashes",
+      "size": [
+        512,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_9i2ykzti/T_NPC_Cop_LA_BrowsLashes_D.png"
+    },
+    {
+      "image": "T_NPC_Cop_LA_Eyes_D",
+      "material": "M_NPC_Cop_LA_Eyes",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_p4gwrg17/T_NPC_Cop_LA_Eyes_D.jpg"
+    },
+    {
+      "image": "T_NPC_Cop_LA_Hair_D",
+      "material": "M_NPC_Cop_LA_Hair",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_6t4nq1xe/T_NPC_Cop_LA_Hair_D.png"
+    },
+    {
+      "image": "T_NPC_Cop_LA_Hair_N",
+      "material": "M_NPC_Cop_LA_Hair",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_j0xyx2x0/T_NPC_Cop_LA_Hair_N.png"
+    },
+    {
+      "image": "T_NPC_Cop_LA_Jeans_D",
+      "material": "M_NPC_Cop_LA_Jeans",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_0tg7_jd_/T_NPC_Cop_LA_Jeans_D.jpg"
+    },
+    {
+      "image": "T_NPC_Cop_LA_Jeans_ORM",
+      "material": "M_NPC_Cop_LA_Jeans",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_vvync6rv/T_NPC_Cop_LA_Jeans_ORM.jpg"
+    },
+    {
+      "image": "T_NPC_Cop_LA_Jeans_N",
+      "material": "M_NPC_Cop_LA_Jeans",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_kxrscn0m/T_NPC_Cop_LA_Jeans_N.png"
+    },
+    {
+      "image": "T_NPC_Cop_LA_Skin_D",
+      "material": "M_NPC_Cop_LA_Skin",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex__nuu5sel/T_NPC_Cop_LA_Skin_D.jpg"
+    },
+    {
+      "image": "T_NPC_Cop_LA_Skin_ORM",
+      "material": "M_NPC_Cop_LA_Skin",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_p84lvugb/T_NPC_Cop_LA_Skin_ORM.jpg"
+    },
+    {
+      "image": "T_NPC_Cop_LA_Skin_N",
+      "material": "M_NPC_Cop_LA_Skin",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_rk8z2gc3/T_NPC_Cop_LA_Skin_N.png"
+    },
+    {
+      "image": "T_NPC_Cop_LA_TShirt_D",
+      "material": "M_NPC_Cop_LA_TShirt",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_24l8_e7v/T_NPC_Cop_LA_TShirt_D.jpg"
+    },
+    {
+      "image": "T_NPC_Cop_LA_TShirt_ORM",
+      "material": "M_NPC_Cop_LA_TShirt",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_gnnk4vc3/T_NPC_Cop_LA_TShirt_ORM.jpg"
+    },
+    {
+      "image": "T_NPC_Cop_LA_TShirt_N",
+      "material": "M_NPC_Cop_LA_TShirt",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_gsd7xn2q/T_NPC_Cop_LA_TShirt_N.png"
+    }
+  ],
+  "uv_overlap": {
+    "SK_NPC_Cop_LA_Body": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.373
+    },
+    "SK_NPC_Cop_LA_Eyes": {
+      "overlap_fraction": 0.0001,
+      "uv_coverage": 0.8707
+    },
+    "SK_NPC_Cop_LA_TShirt": {
+      "overlap_fraction": 0.0004,
+      "uv_coverage": 0.4098
+    },
+    "SK_NPC_Cop_LA_Jeans": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.4088
+    },
+    "SK_NPC_Cop_LA_Boots": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.3754
+    }
+  },
+  "texel_density": {
+    "SK_NPC_Cop_LA_Body": {
+      "texture_px": 1024,
+      "median_px_per_m": 616.9,
+      "p10_px_per_m": 394.7,
+      "p90_px_per_m": 1191.0
+    },
+    "SK_NPC_Cop_LA_Eyes": {
+      "texture_px": 512,
+      "median_px_per_m": 17415.4,
+      "p10_px_per_m": 7888.6,
+      "p90_px_per_m": 19001.0
+    },
+    "SK_NPC_Cop_LA_Eyebrows": {
+      "texture_px": 1024,
+      "median_px_per_m": 16123.2,
+      "p10_px_per_m": 13244.5,
+      "p90_px_per_m": 26614.7
+    },
+    "SK_NPC_Cop_LA_Eyelashes_L": {
+      "texture_px": 1024,
+      "median_px_per_m": 70085.9,
+      "p10_px_per_m": 58162.4,
+      "p90_px_per_m": 113459.1
+    },
+    "SK_NPC_Cop_LA_Eyelashes_R": {
+      "texture_px": 1024,
+      "median_px_per_m": 68465.2,
+      "p10_px_per_m": 56860.3,
+      "p90_px_per_m": 111711.3
+    },
+    "SK_NPC_Cop_LA_TShirt": {
+      "texture_px": 1024,
+      "median_px_per_m": 855.6,
+      "p10_px_per_m": 745.2,
+      "p90_px_per_m": 953.6
+    },
+    "SK_NPC_Cop_LA_Jeans": {
+      "texture_px": 512,
+      "median_px_per_m": 334.2,
+      "p10_px_per_m": 301.6,
+      "p90_px_per_m": 351.1
+    },
+    "SK_NPC_Cop_LA_Boots": {
+      "texture_px": 512,
+      "median_px_per_m": 601.0,
+      "p10_px_per_m": 506.6,
+      "p90_px_per_m": 646.4
+    },
+    "SK_NPC_Cop_LA_Hair": {
+      "texture_px": 512,
+      "median_px_per_m": 809.0,
+      "p10_px_per_m": 324.0,
+      "p90_px_per_m": 16840.2
+    }
+  },
+  "clipping": [
+    {
+      "inner": "SK_NPC_Cop_LA_Body",
+      "outer": "SK_NPC_Cop_LA_TShirt",
+      "tested_vertices": 797,
+      "clipped_vertices": 0,
+      "clipped_fraction": 0.0
+    },
+    {
+      "inner": "SK_NPC_Cop_LA_Body",
+      "outer": "SK_NPC_Cop_LA_Jeans",
+      "tested_vertices": 0,
+      "clipped_vertices": 0,
+      "clipped_fraction": 0.0
+    },
+    {
+      "inner": "SK_NPC_Cop_LA_Body",
+      "outer": "SK_NPC_Cop_LA_Boots",
+      "tested_vertices": 0,
+      "clipped_vertices": 0,
+      "clipped_fraction": 0.0
+    }
+  ],
+  "armatures": {
+    "Armature": {
+      "bones": [
+        "Root",
+        "Hips",
+        "Spine",
+        "Chest",
+        "UpperChest",
+        "Neck",
+        "Head",
+        "LeftShoulder",
+        "LeftUpperArm",
+        "LeftLowerArm",
+        "LeftHand",
+        "LeftThumbMetacarpal",
+        "LeftThumbProximal",
+        "LeftThumbDistal",
+        "LeftIndexProximal",
+        "LeftIndexIntermediate",
+        "LeftIndexDistal",
+        "LeftMiddleProximal",
+        "LeftMiddleIntermediate",
+        "LeftMiddleDistal",
+        "LeftRingProximal",
+        "LeftRingIntermediate",
+        "LeftRingDistal",
+        "LeftLittleProximal",
+        "LeftLittleIntermediate",
+        "LeftLittleDistal",
+        "RightShoulder",
+        "RightUpperArm",
+        "RightLowerArm",
+        "RightHand",
+        "RightThumbMetacarpal",
+        "RightThumbProximal",
+        "RightThumbDistal",
+        "RightIndexProximal",
+        "RightIndexIntermediate",
+        "RightIndexDistal",
+        "RightMiddleProximal",
+        "RightMiddleIntermediate",
+        "RightMiddleDistal",
+        "RightRingProximal",
+        "RightRingIntermediate",
+        "RightRingDistal",
+        "RightLittleProximal",
+        "RightLittleIntermediate",
+        "RightLittleDistal",
+        "LeftUpperLeg",
+        "LeftLowerLeg",
+        "LeftFoot",
+        "LeftToes",
+        "RightUpperLeg",
+        "RightLowerLeg",
+        "RightFoot",
+        "RightToes"
+      ],
+      "deform_bones": 53
+    }
+  },
+  "blendshapes": [],
+  "animations": [
+    {
+      "name": "A_Humanoid_Aim_Pistol_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_B",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_F",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_L",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_R",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Crouch_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Crouch_Walk",
+      "frame_start": 0.0,
+      "frame_end": 36.0,
+      "fps": 30.0,
+      "duration_s": 1.2,
+      "frames": 36,
+      "loop": true,
+      "speed_mps": 1.2,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Jump_Air",
+      "frame_start": 0.0,
+      "frame_end": 20.0,
+      "fps": 30.0,
+      "duration_s": 0.6667,
+      "frames": 20,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Jump_Start",
+      "frame_start": 0.0,
+      "frame_end": 8.0,
+      "fps": 30.0,
+      "duration_s": 0.2667,
+      "frames": 8,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Land",
+      "frame_start": 0.0,
+      "frame_end": 9.0,
+      "fps": 30.0,
+      "duration_s": 0.3,
+      "frames": 9,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Reload_Pistol",
+      "frame_start": 0.0,
+      "frame_end": 48.0,
+      "fps": 30.0,
+      "duration_s": 1.6,
+      "frames": 48,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Run",
+      "frame_start": 0.0,
+      "frame_end": 20.0,
+      "fps": 30.0,
+      "duration_s": 0.6667,
+      "frames": 20,
+      "loop": true,
+      "speed_mps": 3.5,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Shoot_Pistol",
+      "frame_start": 0.0,
+      "frame_end": 8.0,
+      "fps": 30.0,
+      "duration_s": 0.2667,
+      "frames": 8,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Sprint",
+      "frame_start": 0.0,
+      "frame_end": 16.0,
+      "fps": 30.0,
+      "duration_s": 0.5333,
+      "frames": 16,
+      "loop": true,
+      "speed_mps": 6.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Walk",
+      "frame_start": 0.0,
+      "frame_end": 32.0,
+      "fps": 30.0,
+      "duration_s": 1.0667,
+      "frames": 32,
+      "loop": true,
+      "speed_mps": 1.4,
+      "slots": [
+        "OBArmature"
+      ]
+    }
+  ],
+  "sockets": {
+    "SOCKET_RightHand_Weapon": {
+      "parent": "Armature",
+      "parent_bone": "RightHand",
+      "position_godot": [
+        -0.2914,
+        0.8824,
+        0.0934
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "Head",
+    "Neck",
+    "LeftThumbDistal",
+    "LeftThumbProximal",
+    "LeftThumbMetacarpal",
+    "LeftIndexDistal",
+    "LeftIndexIntermediate",
+    "LeftIndexProximal",
+    "LeftMiddleDistal",
+    "LeftMiddleIntermediate",
+    "LeftMiddleProximal",
+    "LeftRingDistal",
+    "LeftRingIntermediate",
+    "LeftRingProximal",
+    "LeftLittleDistal",
+    "LeftLittleIntermediate",
+    "LeftLittleProximal",
+    "LeftHand",
+    "LeftLowerArm",
+    "LeftUpperArm",
+    "LeftShoulder",
+    "RightThumbDistal",
+    "RightThumbProximal",
+    "RightThumbMetacarpal",
+    "RightIndexDistal",
+    "RightIndexIntermediate",
+    "RightIndexProximal",
+    "RightMiddleDistal",
+    "RightMiddleIntermediate",
+    "RightMiddleProximal",
+    "RightRingDistal",
+    "RightRingIntermediate",
+    "RightRingProximal",
+    "RightLittleDistal",
+    "RightLittleIntermediate",
+    "RightLittleProximal",
+    "SOCKET_RightHand_Weapon",
+    "RightHand",
+    "RightLowerArm",
+    "RightUpperArm",
+    "RightShoulder",
+    "UpperChest",
+    "Chest",
+    "Spine",
+    "LeftToes",
+    "LeftFoot",
+    "LeftLowerLeg",
+    "LeftUpperLeg",
+    "RightToes",
+    "RightFoot",
+    "RightLowerLeg",
+    "RightUpperLeg",
+    "Hips",
+    "Root",
+    "SK_NPC_Cop_LA_Body",
+    "SK_NPC_Cop_LA_Boots",
+    "SK_NPC_Cop_LA_Eyebrows",
+    "SK_NPC_Cop_LA_Eyelashes_L",
+    "SK_NPC_Cop_LA_Eyelashes_R",
+    "SK_NPC_Cop_LA_Eyes",
+    "SK_NPC_Cop_LA_Hair",
+    "SK_NPC_Cop_LA_Jeans",
+    "SK_NPC_Cop_LA_TShirt",
+    "Armature",
+    "SK_NPC_Cop_LA"
+  ],
+  "glb_bytes": 6212740
+}

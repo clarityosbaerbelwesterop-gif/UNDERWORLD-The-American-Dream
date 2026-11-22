@@ -32,9 +32,11 @@ if TOOLS_DIR not in sys.path:
 
 from underworld_pipeline.characters import animations as ANIM  # noqa: E402
 from underworld_pipeline.characters import clothing as CLOTH  # noqa: E402
+from underworld_pipeline.characters import face_details as FACE  # noqa: E402
 from underworld_pipeline.characters import hair_beard as HAIR  # noqa: E402
 from underworld_pipeline.characters import mh_loader as MH  # noqa: E402
 from underworld_pipeline.characters import pbr_textures as PBR  # noqa: E402
+from underworld_pipeline.characters import procedural_assets as PROC  # noqa: E402
 from underworld_pipeline.characters import retarget as RETARGET  # noqa: E402
 
 
@@ -171,14 +173,38 @@ def build_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None, out_blend=No
         eyes_ob.select_set(True)
         bpy.context.view_layer.objects.active = eyes_ob
         bpy.ops.object.modifier_apply(modifier=sub.name)
+        # The low-poly CC0 eyeball maps a two-eye iris/sclera atlas across the whole 0..1 UV
+        # square. Frame each eyeball into its own atlas quadrant and scale the iris ~3.5x so it
+        # reads as a human iris (raw atlas = three 7 mm irises per eye).
+        FACE.frame_eyeballs(eyes_ob)
 
+    # 2b. Brows / lashes: use the CC0 .mhclo cards when the system-asset pack is on disk,
+    #     otherwise derive the geometry from the morphed face itself (see face_details.py).
     brow_cfg = spec.get("eyebrows", {})
-    brow_mhclo = os.path.join(cache_dir, brow_cfg.get("mhclo", "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.mhclo"))
-    brows_ob, _ = mh.load_mhclo(brow_mhclo, f"{name}_Eyebrows", inherit_shapes=True, offset_normal_m=0.0006)
-
     lash_cfg = spec.get("eyelashes", {})
+    brow_mhclo = os.path.join(cache_dir, brow_cfg.get("mhclo", "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.mhclo"))
     lash_mhclo = os.path.join(cache_dir, lash_cfg.get("mhclo", "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.mhclo"))
-    lashes_ob, _ = mh.load_mhclo(lash_mhclo, f"{name}_Eyelashes", inherit_shapes=True, offset_normal_m=0.0003)
+    brows_ob = lashes_ob = None
+    lashes_r_ob = None
+    procedural_face = False
+    if os.path.isfile(brow_mhclo) and os.path.isfile(lash_mhclo):
+        brows_ob, _ = mh.load_mhclo(brow_mhclo, f"{name}_Eyebrows", inherit_shapes=True, offset_normal_m=0.0006)
+        lashes_ob, _ = mh.load_mhclo(lash_mhclo, f"{name}_Eyelashes", inherit_shapes=True, offset_normal_m=0.0003)
+        print("[CHAR] eyebrows/eyelashes from CC0 MakeHuman cards")
+    else:
+        procedural_face = True
+        # NPCs get fewer brow cards: they keep the same silhouette but stay inside the
+        # Characters/SK_NPC triangle budget (TD-009).
+        # NPC brow cards are a fixed count, but the band change (face_details.build_brows)
+        # means almost no ray is rejected now, so 300 landed every card and pushed Sam to
+        # 25 046 tris - over the 25 000 budget. 256 leaves ~700 tris of headroom.
+        brow_cards = 1050 if npc_dec >= 0.99 else 256
+        brows_ob = FACE.build_brows(body_ob, lm, f"{name}_Eyebrows", card_count=brow_cards)
+        lashes_ob, lashes_r_ob = FACE.build_lashes(body_ob, lm, f"{name}_Eyelashes_L", f"{name}_Eyelashes_R")
+        print(f"[CHAR] eyebrows/lashes built as hair cards on the morphed face "
+              f"({len(brows_ob.data.polygons) // 2} brow quads, "
+              f"{len(lashes_ob.data.polygons) // 2}+{len(lashes_r_ob.data.polygons) // 2} lash quads; "
+              f"CC0 cards unavailable)")
 
     teeth_ob = None
     if spec.get("teeth", {}).get("enabled", True):
@@ -186,6 +212,9 @@ def build_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None, out_blend=No
         if os.path.isfile(teeth_mhclo):
             teeth_ob, _ = mh.load_mhclo(teeth_mhclo, f"{name}_Teeth", inherit_shapes=True)
             _clean_decimate_teeth(teeth_ob, ratio=float(spec.get("teeth", {}).get("decimate_ratio", 0.20)))
+        else:
+            teeth_ob = FACE.build_teeth(lm, height_m / 1.82, f"{name}_Teeth")
+            print(f"[CHAR] teeth arch generated ({len(teeth_ob.data.polygons)} faces, jawOpen blendshape; CC0 teeth unavailable)")
 
     # 3. Build fitted separate clothing meshes in A-pose (zero clipping, real seams/folds/rims!)
     outfit = spec.get("outfit", {})
@@ -283,7 +312,7 @@ def build_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None, out_blend=No
     eye_mat = PBR.build_eye_material(
         cache_dir, prefix,
         iris_rel=eyes_cfg.get("iris_texture", "makehuman_system_assets/eyes/materials/brown_eye.png"),
-        iris_tint=tuple(eyes_cfg.get("iris_tint", [0.62, 0.44, 0.32])),
+        iris_tint=(tuple(eyes_cfg["iris_tint"]) if eyes_cfg.get("iris_tint") else None),
     )
     eyes_ob.data.materials.append(eye_mat)
 
@@ -293,6 +322,9 @@ def build_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None, out_blend=No
     if beard_ob is not None:
         beard_ob.data.materials.append(hair_mat)
 
+    for lash_side in (lashes_r_ob,):
+        if lash_side is not None:
+            lash_side.data.materials.clear()
     brow_lash_mat = PBR.build_brows_and_lashes_material(
         cache_dir, prefix,
         eyebrow_png_rel=brow_cfg.get("texture", "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.png"),
@@ -301,16 +333,20 @@ def build_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None, out_blend=No
         lashes_ob=lashes_ob,
         hair_rgb=hair_rgb,
         scar_notch=bool(brow_cfg.get("scar_notch", True)),
+        lashes_r_ob=lashes_r_ob,
+        uv_atlas_ready=procedural_face,
     )
     brows_ob.data.materials.append(brow_lash_mat)
     lashes_ob.data.materials.append(brow_lash_mat)
+    if lashes_r_ob is not None:
+        lashes_r_ob.data.materials.append(brow_lash_mat)
 
     if teeth_ob is not None:
         teeth_mat = PBR.build_teeth_material(cache_dir, prefix)
         teeth_ob.data.materials.append(teeth_mat)
 
     # 10. Parent all meshes to Armature, attach Armature modifier, convert A-pose -> crisp T-pose rest pose!
-    all_meshes = [m for m in [body_ob, eyes_ob, brows_ob, lashes_ob, teeth_ob, hair_ob, beard_ob,
+    all_meshes = [m for m in [body_ob, eyes_ob, brows_ob, lashes_ob, lashes_r_ob, teeth_ob, hair_ob, beard_ob,
                               tshirt_ob, jacket_ob, jeans_ob, boots_ob, watch_ob] if m is not None]
     for ob in all_meshes:
         ob.parent = arm

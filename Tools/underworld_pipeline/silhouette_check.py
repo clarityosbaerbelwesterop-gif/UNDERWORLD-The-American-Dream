@@ -17,10 +17,25 @@ import bpy
 import numpy as np
 
 
+class ConceptArtUnavailable(RuntimeError):
+    """The reference board could not be read as an image (missing, or a Git LFS pointer)."""
+
+
 def _load_rgb_np(path):
     """Load image into float32 (H, W, 3) array with row 0 = TOP of image (standard image order)."""
+    if not os.path.isfile(path):
+        raise ConceptArtUnavailable(f"{path} does not exist")
+    with open(path, "rb") as fh:
+        head = fh.read(64)
+    if head.startswith(b"version https://git-lfs"):
+        # An unresolved Git LFS pointer: 131 bytes of text, not an image. Loading it used to
+        # crash the whole export with "zero-size array to reduction operation maximum".
+        raise ConceptArtUnavailable(f"{path} is an unresolved Git LFS pointer, not an image")
     img = bpy.data.images.load(path, check_existing=False)
     w, h = img.size[0], img.size[1]
+    if w == 0 or h == 0:
+        bpy.data.images.remove(img)
+        raise ConceptArtUnavailable(f"{path} decoded to {w}x{h}")
     arr = np.array(img.pixels[:], dtype=np.float32).reshape((h, w, 4))[:, :, :3]
     bpy.data.images.remove(img)
     return arr[::-1].copy()  # flip from OpenGL bottom-up -> top-down
@@ -39,6 +54,8 @@ def _segment_foreground(rgb, bg_thresh=0.075):
     thresh[int(h * 0.85):, :] = bg_thresh * 1.50
     mask = dist > thresh
 
+    if mask.size == 0 or not mask.any():
+        return mask
     col_counts = mask.sum(axis=0)
     if col_counts.max() == 0:
         return mask

@@ -7,9 +7,12 @@ baked garment maps + CC0 Poly Haven PBR micro-textures, and rich concept-art-mat
 import math
 import os
 import tempfile
+import zlib
 
 import bpy
 import numpy as np
+
+from underworld_pipeline.characters import procedural_assets as PROC
 
 
 def load_image_np(path, size=None, non_color=False):
@@ -46,13 +49,28 @@ def pack_np_image(name, arr_rgba, non_color=False, file_format="PNG", jpeg_quali
         prev_fmt = sc.render.image_settings.file_format
         prev_mode = sc.render.image_settings.color_mode
         prev_qual = sc.render.image_settings.quality
+        prev_view = sc.view_settings.view_transform
+        prev_look = sc.view_settings.look
+        prev_exp = sc.view_settings.exposure
+        prev_gamma = sc.view_settings.gamma
         sc.render.image_settings.file_format = file_format
         sc.render.image_settings.color_mode = "RGBA" if has_alpha else "RGB"
         sc.render.image_settings.quality = jpeg_quality
+        # Texture maps are DATA: they must be written straight to sRGB, never through the
+        # scene's display transform. With AgX/Filmic the skin came out neutral grey and roughly
+        # 30 % too bright - every material in the library was washed out.
+        sc.view_settings.view_transform = "Standard"
+        sc.view_settings.look = "None"
+        sc.view_settings.exposure = 0.0
+        sc.view_settings.gamma = 1.0
         img.save_render(tmp, scene=sc)
         sc.render.image_settings.file_format = prev_fmt
         sc.render.image_settings.color_mode = prev_mode
         sc.render.image_settings.quality = prev_qual
+        sc.view_settings.view_transform = prev_view
+        sc.view_settings.look = prev_look
+        sc.view_settings.exposure = prev_exp
+        sc.view_settings.gamma = prev_gamma
 
         bpy.data.images.remove(img)
         packed = bpy.data.images.load(tmp, check_existing=False)
@@ -115,7 +133,7 @@ def find_polyhaven_maps(cache_dir, asset_id):
 def make_pbr_material(name, albedo_img, normal_img=None, orm_img=None,
                       base_color=(1, 1, 1, 1), roughness=0.7, metallic=0.0,
                       normal_strength=1.0, alpha_mode=None, sss_weight=0.0, sss_scale=0.008,
-                      coat_weight=0.0, coat_roughness=0.08):
+                      coat_weight=0.0, coat_roughness=0.08, specular_ior=None):
     mat = bpy.data.materials.new(name)
     mat.use_nodes = True
     nt = mat.node_tree
@@ -130,6 +148,8 @@ def make_pbr_material(name, albedo_img, normal_img=None, orm_img=None,
             bsdf.inputs["Subsurface Scale"].default_value = sss_scale
         if "Subsurface Radius" in bsdf.inputs:
             bsdf.inputs["Subsurface Radius"].default_value = (1.0, 0.35, 0.20)
+    if specular_ior is not None and "Specular IOR Level" in bsdf.inputs:
+        bsdf.inputs["Specular IOR Level"].default_value = specular_ior
     if coat_weight > 0.0 and "Coat Weight" in bsdf.inputs:
         bsdf.inputs["Coat Weight"].default_value = coat_weight
         bsdf.inputs["Coat Roughness"].default_value = coat_roughness
@@ -252,22 +272,30 @@ def build_hero_skin_material(body_ob, lm, cache_dir, asset_prefix, skin_spec):
         "base_spec",
         "skins02/skins/mindfront_aksel_skin/Aksel_Skin_SPEC.png",
     ))
-    if not os.path.isfile(skin_diff_path):
-        skin_diff_path = os.path.join(
-            cache_dir, "makehuman_system_assets/skins/young_caucasian_male/young_lightskinned_male_diffuse.png"
-        )
-
-    diff = load_image_np(skin_diff_path, (tex_size, tex_size), non_color=False)[:, :, :3]
-    nrm = load_image_np(skin_nrm_path, (tex_size, tex_size), non_color=True)[:, :, :3] if os.path.isfile(skin_nrm_path) else np.full((tex_size, tex_size, 3), [0.5, 0.5, 1.0], dtype=np.float32)
-    if os.path.isfile(skin_spec_path):
-        sp = load_image_np(skin_spec_path, (tex_size, tex_size), non_color=True)[:, :, 0]
-        rough = np.clip(0.70 - sp * 0.30, 0.36, 0.78)
-    else:
-        rough = np.full((tex_size, tex_size), 0.52, dtype=np.float32)
-
     tint = np.array(skin_spec.get("tint_rgb", [0.94, 0.85, 0.76]), dtype=np.float32)
     gamma = float(skin_spec.get("gamma", 1.08))
-    diff = np.clip((diff ** gamma) * tint[None, None, :], 0.0, 1.0)
+
+    if os.path.isfile(skin_diff_path):
+        diff = load_image_np(skin_diff_path, (tex_size, tex_size), non_color=False)[:, :, :3]
+        nrm = load_image_np(skin_nrm_path, (tex_size, tex_size), non_color=True)[:, :, :3] if os.path.isfile(skin_nrm_path) else np.full((tex_size, tex_size, 3), [0.5, 0.5, 1.0], dtype=np.float32)
+        if os.path.isfile(skin_spec_path):
+            sp = load_image_np(skin_spec_path, (tex_size, tex_size), non_color=True)[:, :, 0]
+            rough = np.clip(0.74 - sp * 0.28, 0.42, 0.84)
+        else:
+            rough = np.full((tex_size, tex_size), 0.52, dtype=np.float32)
+        diff = np.clip((diff ** gamma) * tint[None, None, :], 0.0, 1.0)
+    else:
+        # CC0 photo-skin pack not on disk (host unreachable) -> build the maps ourselves
+        proc_sz = min(tex_size, 1024)
+        diff, nrm, rough = PROC.skin_maps(proc_sz, int(skin_spec.get("seed", 77)))
+        # Our generator already applies the tint; keep the spec tint only as a light grade.
+        diff = np.clip(diff ** (gamma / 1.08), 0.0, 1.0)
+        if proc_sz != tex_size:
+            idx = np.linspace(0, proc_sz - 1, tex_size).astype(np.int32)
+            diff = diff[np.ix_(idx, idx)]
+            nrm = nrm[np.ix_(idx, idx)]
+            rough = rough[np.ix_(idx, idx)]
+        print(f"[PBR] procedural skin maps ({tex_size}px, seed {skin_spec.get('seed', 77)}) - CC0 photo skin unavailable")
 
     # Bake 3D coordinates onto UV layout
     bake_sz = min(tex_size, 1024)
@@ -309,7 +337,7 @@ def build_hero_skin_material(body_ob, lm, cache_dir, asset_prefix, skin_spec):
         fade_t = np.clip((Z - fade_bot) / np.maximum(fade_top - fade_bot, 1e-4), 0.0, 1.0) ** 1.15
 
         # Crisp straight forehead hairline + sharp temple corner dropping into sideburns!
-        hairline_z = brow_z + face_h * 0.160
+        hairline_z = brow_z + face_h * 0.118
         # On forehead (|X| < 0.046): cut cleanly above hairline_z
         forehead_mask = np.clip((Z - hairline_z) / 0.005, 0.0, 1.0)
         # On sides/temples (|X| >= 0.046): clean vertical temple edge around Y > eye_y + 0.032
@@ -324,13 +352,46 @@ def build_hero_skin_material(body_ob, lm, cache_dir, asset_prefix, skin_spec):
 
         fade_mask = fade_t * region_mask * ear_clear * (Z > lm["neck_z"] + 0.015).astype(np.float32)
         # Crown under-hair completely darkened so zero skin shines between hair cards
-        crown_fill = np.clip((Z - (brow_z + face_h * 0.155)) / 0.012, 0.0, 1.0) * np.clip((Y - (eye_y + 0.004)) / 0.006, 0.0, 1.0)
+        crown_fill = np.clip((Z - (brow_z + face_h * 0.098)) / 0.014, 0.0, 1.0) * np.clip((Y - (eye_y + 0.004)) / 0.006, 0.0, 1.0)
         fade_mask = np.maximum(fade_mask, crown_fill * 0.96)
 
         stipple = np.clip(fade_mask * (0.72 + 0.45 * follicle), 0.0, 0.96)
         diff = diff * (1.0 - stipple[:, :, None]) + hair_col[None, None, :] * stipple[:, :, None]
         rough = np.clip(rough + stipple * 0.22, 0.25, 0.92)
         ao = np.clip(ao - stipple * 0.14, 0.5, 1.0)
+
+    # 1b. Lips: geometry mask first, colour later
+    # The beard (step 2) must end at the vermilion border instead of around a rectangle,
+    # so the shape is computed before the stubble and only painted afterwards.
+    # Landmarks: lower_lip_z < mouth_z < upper_lip_z. The vermilion therefore has two lobes with a
+    # *crisp* outer border and a soft inner one; a single Gaussian oval (previous version) bled the
+    # colour into the philtrum and read as a bruise.
+    lip_col = np.array(skin_spec.get("lip_rgb", [0.42, 0.21, 0.19]), dtype=np.float32)
+    on_front_of_face = (Y < head_cy - 0.035).astype(np.float32)
+    # Anatomical heights: the landmark spans are generous (upper ~11 mm), the visible vermilion is
+    # ~7 mm above / ~9 mm below the opening, so scale each lobe to 0.75 / 0.85 of its span.
+    up_h = max((upper_lip_z - mouth_z) * 0.75, 0.004)
+    lo_h = max((mouth_z - lower_lip_z) * 0.85, 0.004)
+    lip_half_w = 0.0235
+    t_up = (Z - mouth_z) / up_h
+    t_lo = (mouth_z - Z) / lo_h
+    # full colour at the opening, sharp (~1.2 mm) fade at the outer vermilion border
+    up_edge = np.clip((1.0 - t_up) / 0.16, 0.0, 1.0)
+    lo_edge = np.clip((1.0 - t_lo) / 0.16, 0.0, 1.0)
+    # Cupid's bow. The vermilion border is allowed to *dip* in the middle (that is the bow) but it
+    # must not be pushed out again over the philtrum, which is how the previous version ended up
+    # with a dark moustache-shaped band above the lip.
+    bow = (np.exp(-(((np.abs(X) - 0.0078) / 0.0046) ** 2))
+           - np.exp(-(X / 0.0052) ** 2))
+    up_edge *= np.clip(1.0 + 0.34 * bow, 0.0, 1.0)
+    # Straight corners: the lip tapers to a point at each commissure instead of a blunt oval.
+    ellipse = np.clip(1.0 - (np.abs(X) / lip_half_w) ** 3.2, 0.0, 1.0) ** 0.34
+    lip_mask = np.clip((up_edge * (t_up > 0) + lo_edge * (t_lo > 0)) * ellipse * on_front_of_face, 0.0, 1.0)
+    # Lower lip is the lighter, glossier one; the upper lip reads darker where it turns under.
+    lip_tint = np.where((Z < mouth_z)[:, :, None], lip_col * 1.18, lip_col * 0.94)
+    lip_mix = np.clip(lip_mask * 0.86, 0.0, 0.95)[:, :, None]
+    diff = diff * (1.0 - lip_mix) + lip_tint * lip_mix
+    rough = np.clip(rough - lip_mask * 0.07, 0.44, 0.92)
 
     # 2. Lush, groomed short beard & mustache stubble on skin (exact CA_Jason_Head_v01.jpg full chin+jaw+mustache!)
     beard_cfg = skin_spec.get("beard_stubble")
@@ -362,8 +423,10 @@ def build_hero_skin_material(body_ob, lm, cache_dir, asset_prefix, skin_spec):
             * (Y < nose_y + 0.055).astype(np.float32)
         )
 
-        # Clean lip cutout centered on BOTH upper & lower pink lips (lip_center_z +- 0.009m)!
-        lip_cut = np.exp(-(((Z - lip_center_z) / 0.0095) ** 4 + (ax / 0.025) ** 4))
+        # Lip cut-out: same lobed shape that the vermilion is painted with, slightly dilated so the
+        # stubble stops on the lip border. The old cut was an axis-aligned superellipse, which left a
+        # pale rectangle of bare skin around the mouth (visible as a pale band in the face render).
+        lip_cut = np.clip(lip_mask * 1.18, 0.0, 1.0)
         # Subtle soul patch flanking skin patches below lower lip (center |X|<0.010 stays dark soul patch, chin below z=lip_center_z-0.022 stays full beard!)
         soul_gap = np.exp(-(((Z - (lip_center_z - 0.015)) / 0.008) ** 2 + ((ax - 0.016) / 0.0065) ** 2))
 
@@ -386,6 +449,30 @@ def build_hero_skin_material(body_ob, lm, cache_dir, asset_prefix, skin_spec):
         rough = np.clip(rough + bstip * 0.22, 0.25, 0.92)
         nrm[:, :, 0] = np.clip(nrm[:, :, 0] + (follicle - 0.5) * bstip * 0.14, 0.0, 1.0)
         nrm[:, :, 1] = np.clip(nrm[:, :, 1] + (noise - 0.5) * bstip * 0.14, 0.0, 1.0)
+
+    # 2b. Lip colour on top of the stubble pass (so the vermilion is never tinted by beard)
+    diff = diff * (1.0 - lip_mix) + lip_tint * lip_mix
+    rough = np.clip(rough - lip_mask * 0.07, 0.44, 0.92)
+
+    # mouth line: a narrow crease exactly at mouth_z
+    # The opening: a lens, not a bar. It must be widest in the middle, taper to nothing at the
+    # corners and stay inside the vermilion - the previous version ran 26.5 mm wide (3 mm past the
+    # lips) at constant strength and read as a black rectangle painted across the mouth.
+    # ... and it must stop short of the commissures, otherwise the taper reads as a slit that is
+    # cut into the beard rather than as lips meeting.
+    mouth_line = (np.exp(-((Z - mouth_z) / 0.0012) ** 2)
+                  * np.clip(1.0 - (np.abs(X) / (lip_half_w * 0.88)) ** 2, 0.0, 1.0) ** 0.9
+                  * on_front_of_face)
+    diff = diff * (1.0 - mouth_line[:, :, None] * 0.45)
+    nrm[:, :, 1] = np.clip(nrm[:, :, 1] - mouth_line * 0.16, 0.0, 1.0)
+
+    # nose tip / cheeks a touch warmer (capillary flush), ears slightly pink as well
+    nose_glow = np.exp(-(((Z - nose_z) / 0.014) ** 2 + ((np.abs(X) - 0.0) / 0.020) ** 2)) * on_front_of_face
+    cheek_glow = np.exp(-(((np.abs(X) - 0.043) / 0.024) ** 2 + ((Z - (eye_z - 0.028)) / 0.022) ** 2)) * on_front_of_face
+    warm = np.clip(nose_glow * 0.55 + cheek_glow * 0.35, 0.0, 1.0)
+    diff[:, :, 0] = np.clip(diff[:, :, 0] * (1.0 + 0.10 * warm), 0.0, 1.0)
+    diff[:, :, 1] = np.clip(diff[:, :, 1] * (1.0 - 0.03 * warm), 0.0, 1.0)
+    diff[:, :, 2] = np.clip(diff[:, :, 2] * (1.0 - 0.06 * warm), 0.0, 1.0)
 
     # 3. Distinctive diagonal scar slicing across Jason's LEFT eyebrow (anatomical +X, exact brow_z!)
     scar_cfg = skin_spec.get("eyebrow_scar")
@@ -450,15 +537,32 @@ def build_garment_material(ob, cache_dir, asset_prefix, part_name, mat_spec, bak
         raw_d = load_image_np(maps["diff"], None, non_color=False)[:, :, :3]
         diff = tile_array(raw_d, tile_uv, tile_uv, tex_size)
     else:
-        diff = np.full((tex_size, tex_size, 3), [0.5, 0.5, 0.5], dtype=np.float32)
+        # No CC0 Poly Haven set on disk -> generate a seamless weave/grain for this family.
+        gen_sz = min(tex_size, 512)
+        diff_g, nrm_g, rough_g, ao_g = PROC.fabric_maps(str(ph_id), gen_sz, seed=zlib.crc32(str(ph_id).encode()) % 10007)
+        if gen_sz != tex_size:
+            gi = np.linspace(0, gen_sz - 1, tex_size).astype(np.int32)
+            diff = diff_g[np.ix_(gi, gi)]
+        else:
+            diff = diff_g
+        maps = dict(maps)
+        maps["_proc"] = (nrm_g, rough_g, ao_g, gen_sz)
 
     if "nor" in maps:
         raw_n = load_image_np(maps["nor"], None, non_color=True)[:, :, :3]
         micro_n = tile_array(raw_n, tile_uv, tile_uv, tex_size)
+    elif "_proc" in maps:
+        nrm_g = maps["_proc"][0]
+        gi = np.linspace(0, nrm_g.shape[0] - 1, tex_size).astype(np.int32)
+        micro_n = nrm_g[np.ix_(gi, gi)]
     else:
         micro_n = np.full((tex_size, tex_size, 3), [0.5, 0.5, 1.0], dtype=np.float32)
 
-    if "rough" in maps:
+    if "_proc" in maps and "rough" not in maps and "arm" not in maps:
+        r_g = maps["_proc"][1]
+        gi = np.linspace(0, r_g.shape[0] - 1, tex_size).astype(np.int32)
+        rough = r_g[np.ix_(gi, gi)]
+    elif "rough" in maps:
         raw_r = load_image_np(maps["rough"], None, non_color=True)[:, :, 0:1]
         rough = tile_array(raw_r, tile_uv, tile_uv, tex_size)[:, :, 0]
     elif "arm" in maps:
@@ -470,6 +574,10 @@ def build_garment_material(ob, cache_dir, asset_prefix, part_name, mat_spec, bak
     if "ao" in maps:
         raw_ao = load_image_np(maps["ao"], None, non_color=True)[:, :, 0:1]
         ao = tile_array(raw_ao, tile_uv, tile_uv, tex_size)[:, :, 0]
+    elif "_proc" in maps:
+        a_g = maps["_proc"][2]
+        gi = np.linspace(0, a_g.shape[0] - 1, tex_size).astype(np.int32)
+        ao = a_g[np.ix_(gi, gi)]
     else:
         ao = np.ones((tex_size, tex_size), dtype=np.float32)
 
@@ -664,21 +772,44 @@ def build_hair_material(asset_prefix, hair_rgb=(0.038, 0.030, 0.025), tex_size=5
         f"M_{asset_prefix}_Hair",
         albedo_img=img_d,
         normal_img=img_n,
-        roughness=0.56,
+        roughness=0.74,
         normal_strength=0.65,
         alpha_mode="HASHED",
+        specular_ior=0.10,
     )
 
 
+def _atlas_to_quadrants(arr, cols, rows, size):
+    """Nearest-neighbour resize of a procedural cell atlas to size x size (keeps cell edges)."""
+    h, w = arr.shape[:2]
+    ys = np.linspace(0, h - 1, size).astype(np.int32)
+    xs = np.linspace(0, w - 1, size).astype(np.int32)
+    return arr[np.ix_(ys, xs)]
+
+
 def build_brows_and_lashes_material(cache_dir, asset_prefix, eyebrow_png_rel, eyelash_png_rel,
-                                    brows_ob, lashes_ob, hair_rgb=(0.036, 0.028, 0.024), scar_notch=True):
+                                    brows_ob, lashes_ob, hair_rgb=(0.036, 0.028, 0.024), scar_notch=True,
+                                    lashes_r_ob=None, uv_atlas_ready=False):
     """Pack CC0 MakeHuman eyebrows (bottom half V=[0..0.5]) + delicate eyelashes (top half V=[0.5..1.0])
     into ONE 512x1024 RGBA atlas so eyebrows AND natural eyelashes render cleanly within 10 materials!"""
-    brow_arr = load_image_np(os.path.join(cache_dir, eyebrow_png_rel), (512, 512), non_color=False)
+    brow_fp = os.path.join(cache_dir, eyebrow_png_rel)
+    lash_fp = os.path.join(cache_dir, eyelash_png_rel)
+    have_cards = os.path.isfile(brow_fp) and os.path.isfile(lash_fp)
+    if have_cards:
+        brow_arr = load_image_np(brow_fp, (512, 512), non_color=False)
+    else:
+        # CC0 eyebrow/eyelash cards unavailable. The procedural path does NOT need an atlas:
+        # every hair card gets its own cell, so a single strand per cell is what we build.
+        seed_base = abs(zlib.crc32(str(asset_prefix).encode())) % 9999
+        brow_arr = PROC.strand_atlas(1024, 16, 16, seed_base + 1, hair_rgb=hair_rgb, kind="brow")
+        lash_arr_proc = PROC.strand_atlas(512, 8, 8, seed_base + 2, hair_rgb=hair_rgb, kind="lash")
+        brow_arr = _atlas_to_quadrants(brow_arr, 16, 16, 512)
+        lash_arr_proc = _atlas_to_quadrants(lash_arr_proc, 8, 8, 512)
     base = np.array(hair_rgb, dtype=np.float32)[None, None, :]
-    lum = 0.299 * brow_arr[:, :, 0:1] + 0.587 * brow_arr[:, :, 1:2] + 0.114 * brow_arr[:, :, 2:3]
-    brow_arr[:, :, :3] = np.clip(base * (0.60 + 0.95 * lum), 0.0, 1.0)
-    brow_arr[:, :, 3] = np.clip(brow_arr[:, :, 3] * 1.40, 0.0, 1.0)
+    if have_cards:
+        lum = 0.299 * brow_arr[:, :, 0:1] + 0.587 * brow_arr[:, :, 1:2] + 0.114 * brow_arr[:, :, 2:3]
+        brow_arr[:, :, :3] = np.clip(base * (0.60 + 0.95 * lum), 0.0, 1.0)
+        brow_arr[:, :, 3] = np.clip(brow_arr[:, :, 3] * 1.40, 0.0, 1.0)
 
     if scar_notch:
         u = np.linspace(0.0, 1.0, 512, dtype=np.float32)
@@ -690,26 +821,30 @@ def build_brows_and_lashes_material(cache_dir, asset_prefix, eyebrow_png_rel, ey
         notch = np.exp(-((across / 0.024) ** 2)) * (V > 0.42).astype(np.float32)
         brow_arr[:, :, 3] *= (1.0 - notch * 0.96)
 
-    lash_fp = os.path.join(cache_dir, eyelash_png_rel)
-    if os.path.isfile(lash_fp):
+    if have_cards:
         lash_arr = load_image_np(lash_fp, (512, 512), non_color=False)
         lash_arr[:, :, :3] = np.clip(base * 0.85, 0.0, 1.0)
         # Keep masculine lashes subtle & natural (not heavy mascara!)
         lash_arr[:, :, 3] = np.clip(lash_arr[:, :, 3] * 0.72, 0.0, 1.0)
     else:
-        lash_arr = np.zeros((512, 512, 4), dtype=np.float32)
+        lash_arr = lash_arr_proc.copy()
+        lash_arr[:, :, :3] = np.clip(base * 0.85, 0.0, 1.0)
+        lash_arr[:, :, 3] = np.clip(lash_arr[:, :, 3], 0.0, 1.0)
 
     atlas = np.concatenate([brow_arr, lash_arr], axis=0)  # (1024, 512, 4): bottom=brows, top=lashes
-    # Remap UVs cleanly into their respective atlas halves
-    if brows_ob and brows_ob.data.uv_layers:
-        for l in brows_ob.data.uv_layers[0].data:
-            l.uv[1] = l.uv[1] * 0.5
-    if lashes_ob and lashes_ob.data.uv_layers:
-        for l in lashes_ob.data.uv_layers[0].data:
-            l.uv[1] = 0.5 + l.uv[1] * 0.5
+    if not uv_atlas_ready:
+        # .mhclo cards carry their own 0..1 UVs -> remap them into the two atlas halves
+        if brows_ob and brows_ob.data.uv_layers:
+            for l in brows_ob.data.uv_layers[0].data:
+                l.uv[1] = l.uv[1] * 0.5
+        for ob_l in (lashes_ob, lashes_r_ob):
+            if ob_l and ob_l.data.uv_layers:
+                for l in ob_l.data.uv_layers[0].data:
+                    l.uv[1] = 0.5 + l.uv[1] * 0.5
 
     img = pack_np_image(f"T_{asset_prefix}_BrowsLashes_D", atlas, non_color=False, file_format="PNG")
-    return make_pbr_material(f"M_{asset_prefix}_BrowsLashes", albedo_img=img, roughness=0.66, alpha_mode="HASHED")
+    return make_pbr_material(f"M_{asset_prefix}_BrowsLashes", albedo_img=img, roughness=0.70,
+                             alpha_mode="HASHED", specular_ior=0.20)
 
 
 def build_eye_material(cache_dir, asset_prefix, iris_rel="makehuman_system_assets/eyes/materials/brown_eye.png", iris_tint=(0.62, 0.44, 0.32)):
@@ -717,17 +852,21 @@ def build_eye_material(cache_dir, asset_prefix, iris_rel="makehuman_system_asset
     if not os.path.isfile(fp):
         fp = os.path.join(cache_dir, "mh_eyes/brown_eye.png")
     arr = load_image_np(fp, (512, 512), non_color=False)
-    lum = 0.299 * arr[:, :, 0] + 0.587 * arr[:, :, 1] + 0.114 * arr[:, :, 2]
-    is_iris = np.clip((0.72 - lum) / 0.22, 0.0, 1.0)
-    tint = np.array(iris_tint, dtype=np.float32)[None, None, :]
-    arr[:, :, :3] = arr[:, :, :3] * (1.0 - is_iris[:, :, None]) + np.clip(arr[:, :, :3] * tint, 0.0, 1.0) * is_iris[:, :, None]
+    if iris_tint is not None:
+        # Optional hue grade of the iris disc only (sclera untouched).
+        lum = 0.299 * arr[:, :, 0] + 0.587 * arr[:, :, 1] + 0.114 * arr[:, :, 2]
+        is_iris = np.clip((0.72 - lum) / 0.22, 0.0, 1.0)
+        tint = np.array(iris_tint, dtype=np.float32)[None, None, :]
+        arr[:, :, :3] = arr[:, :, :3] * (1.0 - is_iris[:, :, None]) + np.clip(arr[:, :, :3] * tint, 0.0, 1.0) * is_iris[:, :, None]
+    else:
+        print("[PBR] eye material uses the CC0 iris texture un-tinted (natural brown)")
     img = pack_np_image(f"T_{asset_prefix}_Eyes_D", arr[:, :, :3], non_color=False, file_format="JPEG", jpeg_quality=92)
     return make_pbr_material(
         f"M_{asset_prefix}_Eyes",
         albedo_img=img,
-        roughness=0.06,
-        coat_weight=1.0,
-        coat_roughness=0.03,
+        roughness=0.14,
+        coat_weight=0.55,
+        coat_roughness=0.05,
     )
 
 

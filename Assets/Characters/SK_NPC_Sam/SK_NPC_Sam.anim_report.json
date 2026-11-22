@@ -1,19 +1,20 @@
 {
   "asset": "SK_NPC_Sam",
   "status": "v2 production pipeline (T-PIPE-03, spec SK_NPC_Sam.json)",
-  "height_m": 1.7935,
+  "height_m": 1.793,
   "triangles": {
     "SK_NPC_Sam_Body": 10796,
     "SK_NPC_Sam_Eyes": 688,
-    "SK_NPC_Sam_Eyebrows": 192,
-    "SK_NPC_Sam_Eyelashes": 368,
-    "SK_NPC_Sam_Hair": 1708,
+    "SK_NPC_Sam_Eyebrows": 1024,
+    "SK_NPC_Sam_Eyelashes_L": 192,
+    "SK_NPC_Sam_Eyelashes_R": 192,
+    "SK_NPC_Sam_Hair": 1996,
     "SK_NPC_Sam_TShirt": 2485,
     "SK_NPC_Sam_Jacket": 3754,
     "SK_NPC_Sam_Jeans": 2064,
     "SK_NPC_Sam_Boots": 1680
   },
-  "triangles_total": 23735,
+  "triangles_total": 24871,
   "materials": [
     "M_NPC_Sam_Boots",
     "M_NPC_Sam_BrowsLashes",
@@ -229,5 +230,5 @@
     ]
   },
   "max_foot_sliding_m": 0.0483,
-  "build_seconds": 11.3
+  "build_seconds": 11.1
 }

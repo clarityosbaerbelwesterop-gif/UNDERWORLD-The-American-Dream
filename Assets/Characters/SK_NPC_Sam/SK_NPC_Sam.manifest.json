@@ -17,7 +17,7 @@
     "aim": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam_preview_aim.png"
   },
   "tool": "underworld_pipeline 1.0.0",
-  "blender_version": "5.2.4 LTS",
+  "blender_version": "5.0.1",
   "units": "metres (1 BU = 1 m = 1 Godot unit)",
   "up_axis": "Blender +Z -> glTF/Godot +Y",
   "front": "Blender -Y -> Godot +Z",
@@ -29,17 +29,17 @@
     ],
     "max": [
       0.8748,
-      1.7935,
+      1.793,
       0.2424
     ],
     "size": [
       1.7496,
-      1.7935,
+      1.793,
       0.3819
     ]
   },
   "triangles": {
-    "lod0": 23735,
+    "lod0": 24871,
     "budget": 25000,
     "per_lod_total": {}
   },
@@ -68,7 +68,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_g8n3culf/T_NPC_Sam_Boots_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_j2jkxvfa/T_NPC_Sam_Boots_D.jpg"
     },
     {
       "image": "T_NPC_Sam_Boots_ORM",
@@ -78,7 +78,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_jc0hrfrx/T_NPC_Sam_Boots_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_3hegiwuy/T_NPC_Sam_Boots_ORM.jpg"
     },
     {
       "image": "T_NPC_Sam_Boots_N",
@@ -88,7 +88,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_hbhu5sk3/T_NPC_Sam_Boots_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_2gp17fbq/T_NPC_Sam_Boots_N.png"
     },
     {
       "image": "T_NPC_Sam_BrowsLashes_D",
@@ -98,7 +98,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_vh81tv_k/T_NPC_Sam_BrowsLashes_D.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_fehdcuv3/T_NPC_Sam_BrowsLashes_D.png"
     },
     {
       "image": "T_NPC_Sam_Eyes_D",
@@ -108,7 +108,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_tf53uc9q/T_NPC_Sam_Eyes_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_thg531xg/T_NPC_Sam_Eyes_D.jpg"
     },
     {
       "image": "T_NPC_Sam_Hair_D",
@@ -118,7 +118,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_ht8hbyxg/T_NPC_Sam_Hair_D.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_9qf27qcp/T_NPC_Sam_Hair_D.png"
     },
     {
       "image": "T_NPC_Sam_Hair_N",
@@ -128,7 +128,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_3qkc_wtj/T_NPC_Sam_Hair_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_5en1wde9/T_NPC_Sam_Hair_N.png"
     },
     {
       "image": "T_NPC_Sam_Jacket_D",
@@ -138,7 +138,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_leslv_fw/T_NPC_Sam_Jacket_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_nd08gzjq/T_NPC_Sam_Jacket_D.jpg"
     },
     {
       "image": "T_NPC_Sam_Jacket_ORM",
@@ -148,7 +148,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_mp629nec/T_NPC_Sam_Jacket_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_1vh8oojy/T_NPC_Sam_Jacket_ORM.jpg"
     },
     {
       "image": "T_NPC_Sam_Jacket_N",
@@ -158,7 +158,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_0xgy8s_y/T_NPC_Sam_Jacket_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_37iuldje/T_NPC_Sam_Jacket_N.png"
     },
     {
       "image": "T_NPC_Sam_Jeans_D",
@@ -168,7 +168,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_3dco_i_w/T_NPC_Sam_Jeans_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_0wo4iokc/T_NPC_Sam_Jeans_D.jpg"
     },
     {
       "image": "T_NPC_Sam_Jeans_ORM",
@@ -178,7 +178,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_2kec18f_/T_NPC_Sam_Jeans_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_rliy9hee/T_NPC_Sam_Jeans_ORM.jpg"
     },
     {
       "image": "T_NPC_Sam_Jeans_N",
@@ -188,7 +188,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_us77uvfi/T_NPC_Sam_Jeans_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_zb0hvob6/T_NPC_Sam_Jeans_N.png"
     },
     {
       "image": "T_NPC_Sam_Skin_D",
@@ -198,7 +198,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_dpaqaqv9/T_NPC_Sam_Skin_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_w1a8_eis/T_NPC_Sam_Skin_D.jpg"
     },
     {
       "image": "T_NPC_Sam_Skin_ORM",
@@ -208,7 +208,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_pimxv3iq/T_NPC_Sam_Skin_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_7n9df5rd/T_NPC_Sam_Skin_ORM.jpg"
     },
     {
       "image": "T_NPC_Sam_Skin_N",
@@ -218,7 +218,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_1usx1qkw/T_NPC_Sam_Skin_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_hcil014_/T_NPC_Sam_Skin_N.png"
     },
     {
       "image": "T_NPC_Sam_TShirt_D",
@@ -228,7 +228,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_lf4dq3lh/T_NPC_Sam_TShirt_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_k9s03on6/T_NPC_Sam_TShirt_D.jpg"
     },
     {
       "image": "T_NPC_Sam_TShirt_ORM",
@@ -238,7 +238,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_l35p2ykf/T_NPC_Sam_TShirt_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_lbrspp8d/T_NPC_Sam_TShirt_ORM.jpg"
     },
     {
       "image": "T_NPC_Sam_TShirt_N",
@@ -248,7 +248,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_xuhae2m5/T_NPC_Sam_TShirt_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_18azgl8_/T_NPC_Sam_TShirt_N.png"
     }
   ],
   "uv_overlap": {
@@ -257,16 +257,8 @@
       "uv_coverage": 0.3308
     },
     "SK_NPC_Sam_Eyes": {
-      "overlap_fraction": 0.0,
-      "uv_coverage": 0.4498
-    },
-    "SK_NPC_Sam_Eyebrows": {
-      "overlap_fraction": 0.0,
-      "uv_coverage": 0.234
-    },
-    "SK_NPC_Sam_Eyelashes": {
-      "overlap_fraction": 0.0,
-      "uv_coverage": 0.1407
+      "overlap_fraction": 0.0015,
+      "uv_coverage": 0.89
     },
     "SK_NPC_Sam_TShirt": {
       "overlap_fraction": 0.0024,
@@ -281,40 +273,46 @@
       "uv_coverage": 0.3975
     },
     "SK_NPC_Sam_Jacket": {
-      "overlap_fraction": 0.0049,
-      "uv_coverage": 0.4163
+      "overlap_fraction": 0.0023,
+      "uv_coverage": 0.3839
     }
   },
   "texel_density": {
     "SK_NPC_Sam_Body": {
       "texture_px": 1024,
       "median_px_per_m": 657.3,
-      "p10_px_per_m": 429.4,
+      "p10_px_per_m": 429.2,
       "p90_px_per_m": 1183.3
     },
     "SK_NPC_Sam_Eyes": {
       "texture_px": 512,
-      "median_px_per_m": 6136.6,
-      "p10_px_per_m": 4450.3,
-      "p90_px_per_m": 8644.2
+      "median_px_per_m": 16723.5,
+      "p10_px_per_m": 8028.8,
+      "p90_px_per_m": 18439.6
     },
     "SK_NPC_Sam_Eyebrows": {
       "texture_px": 1024,
-      "median_px_per_m": 11179.3,
-      "p10_px_per_m": 7212.3,
-      "p90_px_per_m": 15490.4
+      "median_px_per_m": 16122.9,
+      "p10_px_per_m": 13244.6,
+      "p90_px_per_m": 26615.3
     },
-    "SK_NPC_Sam_Eyelashes": {
+    "SK_NPC_Sam_Eyelashes_L": {
       "texture_px": 1024,
-      "median_px_per_m": 13979.7,
-      "p10_px_per_m": 12624.9,
-      "p90_px_per_m": 15154.5
+      "median_px_per_m": 70089.7,
+      "p10_px_per_m": 58162.7,
+      "p90_px_per_m": 113472.1
+    },
+    "SK_NPC_Sam_Eyelashes_R": {
+      "texture_px": 1024,
+      "median_px_per_m": 68465.7,
+      "p10_px_per_m": 56861.5,
+      "p90_px_per_m": 111707.7
     },
     "SK_NPC_Sam_TShirt": {
       "texture_px": 512,
-      "median_px_per_m": 452.5,
-      "p10_px_per_m": 371.7,
-      "p90_px_per_m": 517.9
+      "median_px_per_m": 452.3,
+      "p10_px_per_m": 372.6,
+      "p90_px_per_m": 517.1
     },
     "SK_NPC_Sam_Jeans": {
       "texture_px": 512,
@@ -330,22 +328,22 @@
     },
     "SK_NPC_Sam_Jacket": {
       "texture_px": 1024,
-      "median_px_per_m": 668.8,
-      "p10_px_per_m": 535.0,
-      "p90_px_per_m": 793.7
+      "median_px_per_m": 643.9,
+      "p10_px_per_m": 516.0,
+      "p90_px_per_m": 767.4
     },
     "SK_NPC_Sam_Hair": {
       "texture_px": 512,
-      "median_px_per_m": 951.7,
-      "p10_px_per_m": 371.7,
-      "p90_px_per_m": 19025.2
+      "median_px_per_m": 862.2,
+      "p10_px_per_m": 411.1,
+      "p90_px_per_m": 18105.0
     }
   },
   "clipping": [
     {
       "inner": "SK_NPC_Sam_Body",
       "outer": "SK_NPC_Sam_TShirt",
-      "tested_vertices": 659,
+      "tested_vertices": 658,
       "clipped_vertices": 1,
       "clipped_fraction": 0.0015
     },
@@ -366,16 +364,16 @@
     {
       "inner": "SK_NPC_Sam_Body",
       "outer": "SK_NPC_Sam_Jacket",
-      "tested_vertices": 19,
+      "tested_vertices": 23,
       "clipped_vertices": 2,
-      "clipped_fraction": 0.1053
+      "clipped_fraction": 0.087
     },
     {
       "inner": "SK_NPC_Sam_TShirt",
       "outer": "SK_NPC_Sam_Jacket",
-      "tested_vertices": 165,
-      "clipped_vertices": 4,
-      "clipped_fraction": 0.0242
+      "tested_vertices": 164,
+      "clipped_vertices": 2,
+      "clipped_fraction": 0.0122
     }
   ],
   "armatures": {
@@ -662,50 +660,42 @@
   },
   "silhouette": null,
   "nodes": [
-    "LeftToes",
-    "LeftFoot",
-    "LeftLowerLeg",
-    "LeftUpperLeg",
-    "RightToes",
-    "RightFoot",
-    "RightLowerLeg",
-    "RightUpperLeg",
+    "Head",
+    "Neck",
+    "LeftThumbDistal",
+    "LeftThumbProximal",
+    "LeftThumbMetacarpal",
     "LeftIndexDistal",
     "LeftIndexIntermediate",
     "LeftIndexProximal",
-    "LeftLittleDistal",
-    "LeftLittleIntermediate",
-    "LeftLittleProximal",
     "LeftMiddleDistal",
     "LeftMiddleIntermediate",
     "LeftMiddleProximal",
     "LeftRingDistal",
     "LeftRingIntermediate",
     "LeftRingProximal",
-    "LeftThumbDistal",
-    "LeftThumbProximal",
-    "LeftThumbMetacarpal",
+    "LeftLittleDistal",
+    "LeftLittleIntermediate",
+    "LeftLittleProximal",
     "LeftHand",
     "LeftLowerArm",
     "LeftUpperArm",
     "LeftShoulder",
-    "Head",
-    "Neck",
+    "RightThumbDistal",
+    "RightThumbProximal",
+    "RightThumbMetacarpal",
     "RightIndexDistal",
     "RightIndexIntermediate",
     "RightIndexProximal",
-    "RightLittleDistal",
-    "RightLittleIntermediate",
-    "RightLittleProximal",
     "RightMiddleDistal",
     "RightMiddleIntermediate",
     "RightMiddleProximal",
     "RightRingDistal",
     "RightRingIntermediate",
     "RightRingProximal",
-    "RightThumbDistal",
-    "RightThumbProximal",
-    "RightThumbMetacarpal",
+    "RightLittleDistal",
+    "RightLittleIntermediate",
+    "RightLittleProximal",
     "SOCKET_RightHand_Weapon",
     "RightHand",
     "RightLowerArm",
@@ -714,12 +704,21 @@
     "UpperChest",
     "Chest",
     "Spine",
+    "LeftToes",
+    "LeftFoot",
+    "LeftLowerLeg",
+    "LeftUpperLeg",
+    "RightToes",
+    "RightFoot",
+    "RightLowerLeg",
+    "RightUpperLeg",
     "Hips",
     "Root",
     "SK_NPC_Sam_Body",
     "SK_NPC_Sam_Boots",
     "SK_NPC_Sam_Eyebrows",
-    "SK_NPC_Sam_Eyelashes",
+    "SK_NPC_Sam_Eyelashes_L",
+    "SK_NPC_Sam_Eyelashes_R",
     "SK_NPC_Sam_Eyes",
     "SK_NPC_Sam_Hair",
     "SK_NPC_Sam_Jacket",
@@ -728,5 +727,5 @@
     "Armature",
     "SK_NPC_Sam"
   ],
-  "glb_bytes": 6757040
+  "glb_bytes": 6752484
 }

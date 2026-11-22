@@ -10,6 +10,8 @@
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$HERE/../../.." && pwd)"
+# shellcheck source=/dev/null
+. "$REPO/Tests/lib/godot_errors.sh"
 UWP="$REPO/Tools/uwp"
 BLENDER="${BLENDER:-/workspace/tools/blender/blender}"
 GODOT="${GODOT:-/workspace/tools/godot}"
@@ -155,8 +157,9 @@ if [ $NO_GODOT -eq 0 ] && [ -x "$GODOT" ]; then
   n=$(grep -c '^\[UWP-GODOT\]' "$T/logs/godot_import1.log")
   [ "$n" -eq 4 ] && ok "LOD post-import script ran for 4 .glb files" || bad "LOD post-import script ran $n times (expected 4)"
   grep -E '^\[UWP-GODOT\]' "$T/logs/godot_import1.log"
-  if [ $rc -ne 0 ] || grep -qE '^(ERROR|SCRIPT ERROR|USER ERROR):' "$T/logs/godot_import1.log"; then
-    bad "Godot import (rc=$rc)"; grep -E -A2 '^(ERROR|SCRIPT ERROR|USER ERROR):' "$T"/logs/godot_import*.log | head -20
+  ierrs="$(godot_log_errors "$T/logs/godot_import1.log")"
+  if [ $rc -ne 0 ] || [ -n "$ierrs" ]; then
+    bad "Godot import (rc=$rc)"; echo "$ierrs" | head -20
   else ok "Godot import, no errors"; fi
   cat > "$G/expect.json" <<'JSON'
 {"assets": [

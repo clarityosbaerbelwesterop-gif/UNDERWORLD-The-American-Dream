@@ -1,0 +1,675 @@
+{
+  "asset": "SK_NPC_Civilian_Female",
+  "status": "READY FOR REVIEW",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "source_blend": "Blender/Source/Characters/SK_NPC_Civilian_Female/SK_NPC_Civilian_Female.blend",
+  "export_glb": "Assets/Characters/SK_NPC_Civilian_Female/SK_NPC_Civilian_Female.glb",
+  "preview_png": "Assets/Characters/SK_NPC_Civilian_Female/SK_NPC_Civilian_Female_preview.png",
+  "previews": {
+    "front": "Assets/Characters/SK_NPC_Civilian_Female/SK_NPC_Civilian_Female_preview_front.png",
+    "3q": "Assets/Characters/SK_NPC_Civilian_Female/SK_NPC_Civilian_Female_preview_3q.png",
+    "side": "Assets/Characters/SK_NPC_Civilian_Female/SK_NPC_Civilian_Female_preview_side.png",
+    "back": "Assets/Characters/SK_NPC_Civilian_Female/SK_NPC_Civilian_Female_preview_back.png",
+    "face": "Assets/Characters/SK_NPC_Civilian_Female/SK_NPC_Civilian_Female_preview_face.png",
+    "face_side": "Assets/Characters/SK_NPC_Civilian_Female/SK_NPC_Civilian_Female_preview_face_side.png",
+    "default": "Assets/Characters/SK_NPC_Civilian_Female/SK_NPC_Civilian_Female_preview.png",
+    "aim": "Assets/Characters/SK_NPC_Civilian_Female/SK_NPC_Civilian_Female_preview_aim.png"
+  },
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.0.1",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.7999,
+      0.0,
+      -0.1052
+    ],
+    "max": [
+      0.7999,
+      1.7017,
+      0.2323
+    ],
+    "size": [
+      1.5998,
+      1.7017,
+      0.3375
+    ]
+  },
+  "triangles": {
+    "lod0": 23806,
+    "budget": 25000,
+    "per_lod_total": {}
+  },
+  "lods": [],
+  "collision": {
+    "mode": "none",
+    "generated": [],
+    "existing": []
+  },
+  "materials": [
+    "M_NPC_Civilian_Female_Boots",
+    "M_NPC_Civilian_Female_BrowsLashes",
+    "M_NPC_Civilian_Female_Eyes",
+    "M_NPC_Civilian_Female_Hair",
+    "M_NPC_Civilian_Female_Jeans",
+    "M_NPC_Civilian_Female_Skin",
+    "M_NPC_Civilian_Female_TShirt"
+  ],
+  "textures": [
+    {
+      "image": "T_NPC_Civilian_Female_Boots_D",
+      "material": "M_NPC_Civilian_Female_Boots",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_p214h8p5/T_NPC_Civilian_Female_Boots_D.jpg"
+    },
+    {
+      "image": "T_NPC_Civilian_Female_Boots_ORM",
+      "material": "M_NPC_Civilian_Female_Boots",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_t5sctfi_/T_NPC_Civilian_Female_Boots_ORM.jpg"
+    },
+    {
+      "image": "T_NPC_Civilian_Female_Boots_N",
+      "material": "M_NPC_Civilian_Female_Boots",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_0eg9lnn7/T_NPC_Civilian_Female_Boots_N.png"
+    },
+    {
+      "image": "T_NPC_Civilian_Female_BrowsLashes_D",
+      "material": "M_NPC_Civilian_Female_BrowsLashes",
+      "size": [
+        512,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_u0qa_1o_/T_NPC_Civilian_Female_BrowsLashes_D.png"
+    },
+    {
+      "image": "T_NPC_Civilian_Female_Eyes_D",
+      "material": "M_NPC_Civilian_Female_Eyes",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_rsug53wl/T_NPC_Civilian_Female_Eyes_D.jpg"
+    },
+    {
+      "image": "T_NPC_Civilian_Female_Hair_D",
+      "material": "M_NPC_Civilian_Female_Hair",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_ecob832l/T_NPC_Civilian_Female_Hair_D.png"
+    },
+    {
+      "image": "T_NPC_Civilian_Female_Hair_N",
+      "material": "M_NPC_Civilian_Female_Hair",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_dabkj9gh/T_NPC_Civilian_Female_Hair_N.png"
+    },
+    {
+      "image": "T_NPC_Civilian_Female_Jeans_D",
+      "material": "M_NPC_Civilian_Female_Jeans",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_rq1qttwx/T_NPC_Civilian_Female_Jeans_D.jpg"
+    },
+    {
+      "image": "T_NPC_Civilian_Female_Jeans_ORM",
+      "material": "M_NPC_Civilian_Female_Jeans",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_lb3txplz/T_NPC_Civilian_Female_Jeans_ORM.jpg"
+    },
+    {
+      "image": "T_NPC_Civilian_Female_Jeans_N",
+      "material": "M_NPC_Civilian_Female_Jeans",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_t656dd9u/T_NPC_Civilian_Female_Jeans_N.png"
+    },
+    {
+      "image": "T_NPC_Civilian_Female_Skin_D",
+      "material": "M_NPC_Civilian_Female_Skin",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_sutl7_ul/T_NPC_Civilian_Female_Skin_D.jpg"
+    },
+    {
+      "image": "T_NPC_Civilian_Female_Skin_ORM",
+      "material": "M_NPC_Civilian_Female_Skin",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_vopdyrj5/T_NPC_Civilian_Female_Skin_ORM.jpg"
+    },
+    {
+      "image": "T_NPC_Civilian_Female_Skin_N",
+      "material": "M_NPC_Civilian_Female_Skin",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_og18v3sg/T_NPC_Civilian_Female_Skin_N.png"
+    },
+    {
+      "image": "T_NPC_Civilian_Female_TShirt_D",
+      "material": "M_NPC_Civilian_Female_TShirt",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_fmc6fuqd/T_NPC_Civilian_Female_TShirt_D.jpg"
+    },
+    {
+      "image": "T_NPC_Civilian_Female_TShirt_ORM",
+      "material": "M_NPC_Civilian_Female_TShirt",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_x2yy47ou/T_NPC_Civilian_Female_TShirt_ORM.jpg"
+    },
+    {
+      "image": "T_NPC_Civilian_Female_TShirt_N",
+      "material": "M_NPC_Civilian_Female_TShirt",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../tmp/uwp_tex_b32svooo/T_NPC_Civilian_Female_TShirt_N.png"
+    }
+  ],
+  "uv_overlap": {
+    "SK_NPC_Civilian_Female_Body": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.3734
+    },
+    "SK_NPC_Civilian_Female_Eyes": {
+      "overlap_fraction": 0.003,
+      "uv_coverage": 0.8976
+    },
+    "SK_NPC_Civilian_Female_TShirt": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.4399
+    },
+    "SK_NPC_Civilian_Female_Jeans": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.3272
+    },
+    "SK_NPC_Civilian_Female_Boots": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.4021
+    }
+  },
+  "texel_density": {
+    "SK_NPC_Civilian_Female_Body": {
+      "texture_px": 1024,
+      "median_px_per_m": 667.9,
+      "p10_px_per_m": 447.7,
+      "p90_px_per_m": 1219.4
+    },
+    "SK_NPC_Civilian_Female_Eyes": {
+      "texture_px": 512,
+      "median_px_per_m": 17217.2,
+      "p10_px_per_m": 6670.5,
+      "p90_px_per_m": 18667.2
+    },
+    "SK_NPC_Civilian_Female_Eyebrows": {
+      "texture_px": 1024,
+      "median_px_per_m": 16123.3,
+      "p10_px_per_m": 13244.6,
+      "p90_px_per_m": 26615.1
+    },
+    "SK_NPC_Civilian_Female_Eyelashes_L": {
+      "texture_px": 1024,
+      "median_px_per_m": 70084.8,
+      "p10_px_per_m": 58161.2,
+      "p90_px_per_m": 113467.4
+    },
+    "SK_NPC_Civilian_Female_Eyelashes_R": {
+      "texture_px": 1024,
+      "median_px_per_m": 68464.5,
+      "p10_px_per_m": 56860.3,
+      "p90_px_per_m": 111703.0
+    },
+    "SK_NPC_Civilian_Female_TShirt": {
+      "texture_px": 512,
+      "median_px_per_m": 477.2,
+      "p10_px_per_m": 404.8,
+      "p90_px_per_m": 536.1
+    },
+    "SK_NPC_Civilian_Female_Jeans": {
+      "texture_px": 512,
+      "median_px_per_m": 322.3,
+      "p10_px_per_m": 292.2,
+      "p90_px_per_m": 337.8
+    },
+    "SK_NPC_Civilian_Female_Boots": {
+      "texture_px": 512,
+      "median_px_per_m": 685.2,
+      "p10_px_per_m": 576.7,
+      "p90_px_per_m": 735.9
+    },
+    "SK_NPC_Civilian_Female_Hair": {
+      "texture_px": 512,
+      "median_px_per_m": 761.9,
+      "p10_px_per_m": 390.9,
+      "p90_px_per_m": 15588.9
+    }
+  },
+  "clipping": [
+    {
+      "inner": "SK_NPC_Civilian_Female_Body",
+      "outer": "SK_NPC_Civilian_Female_TShirt",
+      "tested_vertices": 770,
+      "clipped_vertices": 0,
+      "clipped_fraction": 0.0
+    },
+    {
+      "inner": "SK_NPC_Civilian_Female_Body",
+      "outer": "SK_NPC_Civilian_Female_Jeans",
+      "tested_vertices": 0,
+      "clipped_vertices": 0,
+      "clipped_fraction": 0.0
+    },
+    {
+      "inner": "SK_NPC_Civilian_Female_Body",
+      "outer": "SK_NPC_Civilian_Female_Boots",
+      "tested_vertices": 0,
+      "clipped_vertices": 0,
+      "clipped_fraction": 0.0
+    }
+  ],
+  "armatures": {
+    "Armature": {
+      "bones": [
+        "Root",
+        "Hips",
+        "Spine",
+        "Chest",
+        "UpperChest",
+        "Neck",
+        "Head",
+        "LeftShoulder",
+        "LeftUpperArm",
+        "LeftLowerArm",
+        "LeftHand",
+        "LeftThumbMetacarpal",
+        "LeftThumbProximal",
+        "LeftThumbDistal",
+        "LeftIndexProximal",
+        "LeftIndexIntermediate",
+        "LeftIndexDistal",
+        "LeftMiddleProximal",
+        "LeftMiddleIntermediate",
+        "LeftMiddleDistal",
+        "LeftRingProximal",
+        "LeftRingIntermediate",
+        "LeftRingDistal",
+        "LeftLittleProximal",
+        "LeftLittleIntermediate",
+        "LeftLittleDistal",
+        "RightShoulder",
+        "RightUpperArm",
+        "RightLowerArm",
+        "RightHand",
+        "RightThumbMetacarpal",
+        "RightThumbProximal",
+        "RightThumbDistal",
+        "RightIndexProximal",
+        "RightIndexIntermediate",
+        "RightIndexDistal",
+        "RightMiddleProximal",
+        "RightMiddleIntermediate",
+        "RightMiddleDistal",
+        "RightRingProximal",
+        "RightRingIntermediate",
+        "RightRingDistal",
+        "RightLittleProximal",
+        "RightLittleIntermediate",
+        "RightLittleDistal",
+        "LeftUpperLeg",
+        "LeftLowerLeg",
+        "LeftFoot",
+        "LeftToes",
+        "RightUpperLeg",
+        "RightLowerLeg",
+        "RightFoot",
+        "RightToes"
+      ],
+      "deform_bones": 53
+    }
+  },
+  "blendshapes": [],
+  "animations": [
+    {
+      "name": "A_Humanoid_Aim_Pistol_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_B",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_F",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_L",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_R",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Crouch_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Crouch_Walk",
+      "frame_start": 0.0,
+      "frame_end": 36.0,
+      "fps": 30.0,
+      "duration_s": 1.2,
+      "frames": 36,
+      "loop": true,
+      "speed_mps": 1.2,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Jump_Air",
+      "frame_start": 0.0,
+      "frame_end": 20.0,
+      "fps": 30.0,
+      "duration_s": 0.6667,
+      "frames": 20,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Jump_Start",
+      "frame_start": 0.0,
+      "frame_end": 8.0,
+      "fps": 30.0,
+      "duration_s": 0.2667,
+      "frames": 8,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Land",
+      "frame_start": 0.0,
+      "frame_end": 9.0,
+      "fps": 30.0,
+      "duration_s": 0.3,
+      "frames": 9,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Reload_Pistol",
+      "frame_start": 0.0,
+      "frame_end": 48.0,
+      "fps": 30.0,
+      "duration_s": 1.6,
+      "frames": 48,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Run",
+      "frame_start": 0.0,
+      "frame_end": 20.0,
+      "fps": 30.0,
+      "duration_s": 0.6667,
+      "frames": 20,
+      "loop": true,
+      "speed_mps": 3.5,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Shoot_Pistol",
+      "frame_start": 0.0,
+      "frame_end": 8.0,
+      "fps": 30.0,
+      "duration_s": 0.2667,
+      "frames": 8,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Sprint",
+      "frame_start": 0.0,
+      "frame_end": 16.0,
+      "fps": 30.0,
+      "duration_s": 0.5333,
+      "frames": 16,
+      "loop": true,
+      "speed_mps": 6.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Walk",
+      "frame_start": 0.0,
+      "frame_end": 32.0,
+      "fps": 30.0,
+      "duration_s": 1.0667,
+      "frames": 32,
+      "loop": true,
+      "speed_mps": 1.4,
+      "slots": [
+        "OBArmature"
+      ]
+    }
+  ],
+  "sockets": {
+    "SOCKET_RightHand_Weapon": {
+      "parent": "Armature",
+      "parent_bone": "RightHand",
+      "position_godot": [
+        -0.2475,
+        0.8086,
+        0.0882
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "Head",
+    "Neck",
+    "LeftThumbDistal",
+    "LeftThumbProximal",
+    "LeftThumbMetacarpal",
+    "LeftIndexDistal",
+    "LeftIndexIntermediate",
+    "LeftIndexProximal",
+    "LeftMiddleDistal",
+    "LeftMiddleIntermediate",
+    "LeftMiddleProximal",
+    "LeftRingDistal",
+    "LeftRingIntermediate",
+    "LeftRingProximal",
+    "LeftLittleDistal",
+    "LeftLittleIntermediate",
+    "LeftLittleProximal",
+    "LeftHand",
+    "LeftLowerArm",
+    "LeftUpperArm",
+    "LeftShoulder",
+    "RightThumbDistal",
+    "RightThumbProximal",
+    "RightThumbMetacarpal",
+    "RightIndexDistal",
+    "RightIndexIntermediate",
+    "RightIndexProximal",
+    "RightMiddleDistal",
+    "RightMiddleIntermediate",
+    "RightMiddleProximal",
+    "RightRingDistal",
+    "RightRingIntermediate",
+    "RightRingProximal",
+    "RightLittleDistal",
+    "RightLittleIntermediate",
+    "RightLittleProximal",
+    "SOCKET_RightHand_Weapon",
+    "RightHand",
+    "RightLowerArm",
+    "RightUpperArm",
+    "RightShoulder",
+    "UpperChest",
+    "Chest",
+    "Spine",
+    "LeftToes",
+    "LeftFoot",
+    "LeftLowerLeg",
+    "LeftUpperLeg",
+    "RightToes",
+    "RightFoot",
+    "RightLowerLeg",
+    "RightUpperLeg",
+    "Hips",
+    "Root",
+    "SK_NPC_Civilian_Female_Body",
+    "SK_NPC_Civilian_Female_Boots",
+    "SK_NPC_Civilian_Female_Eyebrows",
+    "SK_NPC_Civilian_Female_Eyelashes_L",
+    "SK_NPC_Civilian_Female_Eyelashes_R",
+    "SK_NPC_Civilian_Female_Eyes",
+    "SK_NPC_Civilian_Female_Hair",
+    "SK_NPC_Civilian_Female_Jeans",
+    "SK_NPC_Civilian_Female_TShirt",
+    "Armature",
+    "SK_NPC_Civilian_Female"
+  ],
+  "glb_bytes": 5498924
+}

@@ -1,9 +1,9 @@
 {
   "tool": "underworld_pipeline",
   "version": "1.0.0",
-  "blender": "5.2.4 LTS",
-  "timestamp": "2026-11-22T12:37:41+01:00",
-  "command": "export",
+  "blender": "5.0.1",
+  "timestamp": "2026-11-22T20:05:29+00:00",
+  "command": "export-all",
   "input": "Blender/Source/Characters/SK_NPC_Sam/SK_NPC_Sam.blend",
   "steps": {
     "validate": {
@@ -18,7 +18,7 @@
     },
     "export": {
       "glb": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam.glb",
-      "bytes": 6757040
+      "bytes": 6752484
     },
     "preview": {
       "front": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam_preview_front.png",
@@ -34,50 +34,42 @@
     "verify": {
       "glb": {
         "nodes": [
-          "LeftToes",
-          "LeftFoot",
-          "LeftLowerLeg",
-          "LeftUpperLeg",
-          "RightToes",
-          "RightFoot",
-          "RightLowerLeg",
-          "RightUpperLeg",
+          "Head",
+          "Neck",
+          "LeftThumbDistal",
+          "LeftThumbProximal",
+          "LeftThumbMetacarpal",
           "LeftIndexDistal",
           "LeftIndexIntermediate",
           "LeftIndexProximal",
-          "LeftLittleDistal",
-          "LeftLittleIntermediate",
-          "LeftLittleProximal",
           "LeftMiddleDistal",
           "LeftMiddleIntermediate",
           "LeftMiddleProximal",
           "LeftRingDistal",
           "LeftRingIntermediate",
           "LeftRingProximal",
-          "LeftThumbDistal",
-          "LeftThumbProximal",
-          "LeftThumbMetacarpal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
           "LeftHand",
           "LeftLowerArm",
           "LeftUpperArm",
           "LeftShoulder",
-          "Head",
-          "Neck",
+          "RightThumbDistal",
+          "RightThumbProximal",
+          "RightThumbMetacarpal",
           "RightIndexDistal",
           "RightIndexIntermediate",
           "RightIndexProximal",
-          "RightLittleDistal",
-          "RightLittleIntermediate",
-          "RightLittleProximal",
           "RightMiddleDistal",
           "RightMiddleIntermediate",
           "RightMiddleProximal",
           "RightRingDistal",
           "RightRingIntermediate",
           "RightRingProximal",
-          "RightThumbDistal",
-          "RightThumbProximal",
-          "RightThumbMetacarpal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
           "SOCKET_RightHand_Weapon",
           "RightHand",
           "RightLowerArm",
@@ -86,12 +78,21 @@
           "UpperChest",
           "Chest",
           "Spine",
+          "LeftToes",
+          "LeftFoot",
+          "LeftLowerLeg",
+          "LeftUpperLeg",
+          "RightToes",
+          "RightFoot",
+          "RightLowerLeg",
+          "RightUpperLeg",
           "Hips",
           "Root",
           "SK_NPC_Sam_Body",
           "SK_NPC_Sam_Boots",
           "SK_NPC_Sam_Eyebrows",
-          "SK_NPC_Sam_Eyelashes",
+          "SK_NPC_Sam_Eyelashes_L",
+          "SK_NPC_Sam_Eyelashes_R",
           "SK_NPC_Sam_Eyes",
           "SK_NPC_Sam_Hair",
           "SK_NPC_Sam_Jacket",
@@ -101,6 +102,15 @@
           "SK_NPC_Sam"
         ],
         "node_extras": {
+          "SK_NPC_Sam_Eyebrows": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Sam_Eyelashes_L": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Sam_Eyelashes_R": {
+            "uw_allow_uv_overlap": true
+          },
           "SK_NPC_Sam_Hair": {
             "uw_allow_uv_overlap": true
           },
@@ -108,7 +118,7 @@
             "uw_character_spec": "Config/Characters/SK_NPC_Sam.json"
           }
         },
-        "meshes": 9,
+        "meshes": 10,
         "materials": [
           "M_NPC_Sam_Skin",
           "M_NPC_Sam_Boots",
@@ -199,8 +209,8 @@
           "A_Humanoid_Sprint",
           "A_Humanoid_Walk"
         ],
-        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
-        "bytes": 6757040
+        "asset_generator": "Khronos glTF Blender I/O v5.0.21",
+        "bytes": 6752484
       },
       "reimport_objects": [
         "Armature",
@@ -209,7 +219,8 @@
         "SK_NPC_Sam_Body",
         "SK_NPC_Sam_Boots",
         "SK_NPC_Sam_Eyebrows",
-        "SK_NPC_Sam_Eyelashes",
+        "SK_NPC_Sam_Eyelashes_L",
+        "SK_NPC_Sam_Eyelashes_R",
         "SK_NPC_Sam_Eyes",
         "SK_NPC_Sam_Hair",
         "SK_NPC_Sam_Jacket",
@@ -258,13 +269,19 @@
       "severity": "info",
       "code": "OPEN_BOUNDARY",
       "object": "SK_NPC_Sam_Eyebrows",
-      "message": "52 open boundary edges (mesh not closed)"
+      "message": "1536 open boundary edges (mesh not closed)"
     },
     {
       "severity": "info",
       "code": "OPEN_BOUNDARY",
-      "object": "SK_NPC_Sam_Eyelashes",
-      "message": "124 open boundary edges (mesh not closed)"
+      "object": "SK_NPC_Sam_Eyelashes_L",
+      "message": "288 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Sam_Eyelashes_R",
+      "message": "288 open boundary edges (mesh not closed)"
     },
     {
       "severity": "info",
@@ -288,17 +305,17 @@
       "severity": "info",
       "code": "OPEN_BOUNDARY",
       "object": "SK_NPC_Sam_Hair",
-      "message": "802 open boundary edges (mesh not closed)"
+      "message": "810 open boundary edges (mesh not closed)"
     },
     {
       "severity": "info",
       "code": "MESH_CLIPPING",
       "object": "SK_NPC_Sam_Body",
-      "message": "SK_NPC_Sam_Body vs SK_NPC_Sam_TShirt: 1/659 verts (0.15%)",
+      "message": "SK_NPC_Sam_Body vs SK_NPC_Sam_TShirt: 1/658 verts (0.15%)",
       "data": {
         "inner": "SK_NPC_Sam_Body",
         "outer": "SK_NPC_Sam_TShirt",
-        "tested_vertices": 659,
+        "tested_vertices": 658,
         "clipped_vertices": 1,
         "clipped_fraction": 0.0015
       }
@@ -307,26 +324,26 @@
       "severity": "info",
       "code": "MESH_CLIPPING",
       "object": "SK_NPC_Sam_Body",
-      "message": "SK_NPC_Sam_Body vs SK_NPC_Sam_Jacket: 2/19 verts (10.53%)",
+      "message": "SK_NPC_Sam_Body vs SK_NPC_Sam_Jacket: 2/23 verts (8.70%)",
       "data": {
         "inner": "SK_NPC_Sam_Body",
         "outer": "SK_NPC_Sam_Jacket",
-        "tested_vertices": 19,
+        "tested_vertices": 23,
         "clipped_vertices": 2,
-        "clipped_fraction": 0.1053
+        "clipped_fraction": 0.087
       }
     },
     {
       "severity": "info",
       "code": "MESH_CLIPPING",
       "object": "SK_NPC_Sam_TShirt",
-      "message": "SK_NPC_Sam_TShirt vs SK_NPC_Sam_Jacket: 4/165 verts (2.42%)",
+      "message": "SK_NPC_Sam_TShirt vs SK_NPC_Sam_Jacket: 2/164 verts (1.22%)",
       "data": {
         "inner": "SK_NPC_Sam_TShirt",
         "outer": "SK_NPC_Sam_Jacket",
-        "tested_vertices": 165,
-        "clipped_vertices": 4,
-        "clipped_fraction": 0.0242
+        "tested_vertices": 164,
+        "clipped_vertices": 2,
+        "clipped_fraction": 0.0122
       }
     },
     {
@@ -345,9 +362,9 @@
   "summary": {
     "errors": 0,
     "warnings": 0,
-    "infos": 13
+    "infos": 14
   },
-  "seconds": 20.75,
+  "seconds": 93.35,
   "exit_code": 0,
   "result": "PASS"
 }

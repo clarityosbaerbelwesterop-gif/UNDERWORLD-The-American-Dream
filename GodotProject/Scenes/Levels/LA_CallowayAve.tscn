@@ -1,0 +1,2279 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb" id="1_wxvex"]
+[ext_resource type="PackedScene" path="res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb" id="2_73idg"]
+[ext_resource type="PackedScene" path="res://Assets/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01.glb" id="3_toodi"]
+[ext_resource type="PackedScene" path="res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.glb" id="4_5cxmi"]
+[ext_resource type="PackedScene" path="res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.glb" id="5_xqs3v"]
+[ext_resource type="Script" path="res://Scripts/ai/npc_route.gd" id="6_ks4ri"]
+[ext_resource type="PackedScene" path="res://Scenes/NPC/PT_NPC_Civilian.tscn" id="7_eyelu"]
+[ext_resource type="Script" path="res://Scripts/ai/npc_controller.gd" id="8_dlulc"]
+[ext_resource type="Resource" path="res://Data/AI/AI_Civilian.tres" id="9_ij7ys"]
+[ext_resource type="PackedScene" path="res://Scenes/NPC/PT_NPC_Gunman.tscn" id="10_wwerc"]
+[ext_resource type="Resource" path="res://Data/AI/AI_Gunman_Cartel.tres" id="11_vpxj7"]
+[ext_resource type="Script" path="res://Scripts/mission/carried_item.gd" id="12_gybwa"]
+[ext_resource type="PackedScene" path="res://Assets/Props/SM_Prop_PackageCrate/SM_Prop_PackageCrate.glb" id="13_3wlxm"]
+[ext_resource type="Script" path="res://Scripts/mission/interactable.gd" id="14_jm764"]
+[ext_resource type="Script" path="res://Scripts/combat/damage_receiver.gd" id="15_pcy2h"]
+[ext_resource type="PackedScene" path="res://Scenes/Player/Player.tscn" id="16_62hif"]
+[ext_resource type="Script" path="res://Scripts/player/player_controller.gd" id="17_tan5r"]
+[ext_resource type="PackedScene" path="res://Scenes/Vehicles/VH_Sedan_01.tscn" id="18_m7xdo"]
+[ext_resource type="Script" path="res://Scripts/vehicle/vehicle.gd" id="19_vk0x2"]
+[ext_resource type="Resource" path="res://Data/Vehicles/VH_Sedan_01.tres" id="20_q5dld"]
+[ext_resource type="Script" path="res://Scripts/ui/hud.gd" id="21_q7jnv"]
+[ext_resource type="Script" path="res://Scripts/mission/mission_manager.gd" id="22_qijjk"]
+[ext_resource type="Resource" path="res://Data/Missions/M01_DeadDrop.tres" id="23_62ihu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_176gi"]
+albedo_color = Color(0.24, 0.22, 0.2, 1)
+roughness = 0.95
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xothl"]
+size = Vector2(240, 240)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_62p13"]
+size = Vector3(240, 0.2, 240)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8pni4"]
+albedo_color = Color(0.72, 0.62, 0.48, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_031bu"]
+size = Vector3(10, 7.2, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_coqe6"]
+size = Vector3(10, 7.2, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l4s50"]
+albedo_color = Color(0.62, 0.52, 0.44, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_bkhwv"]
+size = Vector3(10, 7.2, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pceqa"]
+size = Vector3(10, 7.2, 8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rrqou"]
+size = Vector3(10, 7.2, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5bfal"]
+size = Vector3(10, 7.2, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nc5l5"]
+albedo_color = Color(0.45, 0.28, 0.24, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="BoxMesh_jrjbl"]
+size = Vector3(10, 7.2, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3u0bu"]
+size = Vector3(10, 7.2, 8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nhnqv"]
+size = Vector3(10, 7.2, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dhbkw"]
+size = Vector3(10, 7.2, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j6ncm"]
+albedo_color = Color(0.52, 0.53, 0.5, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_av7h0"]
+size = Vector3(10, 7.2, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nft0b"]
+size = Vector3(10, 7.2, 8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ndhgl"]
+size = Vector3(10, 7.2, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6drup"]
+size = Vector3(10, 7.2, 8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rrvjv"]
+size = Vector3(10, 6, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ia05j"]
+size = Vector3(10, 6, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_po70p"]
+albedo_color = Color(0.35, 0.37, 0.4, 1)
+metallic = 0.6
+roughness = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_aco1l"]
+size = Vector3(6, 4.2, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kionu"]
+size = Vector3(6, 4.2, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hntnv"]
+albedo_color = Color(0.52, 0.5, 0.47, 1)
+roughness = 0.92
+
+[sub_resource type="BoxMesh" id="BoxMesh_klfcr"]
+size = Vector3(10, 0.2, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rxchn"]
+size = Vector3(10, 0.2, 8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_clxg6"]
+size = Vector3(4, 4.6, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wp1nx"]
+size = Vector3(4, 4.6, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fc0go"]
+size = Vector3(5, 4.6, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dgws4"]
+size = Vector3(5, 4.6, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wvaaw"]
+size = Vector3(1, 2.4, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yern4"]
+size = Vector3(1, 2.4, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h02t7"]
+size = Vector3(10, 4.6, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qf5lh"]
+size = Vector3(10, 4.6, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yj15w"]
+size = Vector3(0.3, 4.6, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kibt5"]
+size = Vector3(0.3, 4.6, 8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5kvn2"]
+size = Vector3(0.3, 4.6, 7.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aygfr"]
+size = Vector3(0.3, 4.6, 7.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bitn0"]
+size = Vector3(0.3, 4.6, 1.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rv0f5"]
+size = Vector3(0.3, 4.6, 1.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gkxwk"]
+size = Vector3(0.3, 1.6, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7yl10"]
+size = Vector3(0.3, 1.6, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eb06a"]
+albedo_color = Color(0.34, 0.24, 0.16, 1)
+roughness = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_uapw3"]
+size = Vector3(2.4, 0.95, 0.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bnixe"]
+size = Vector3(2.4, 0.95, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gaolx"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+metallic = 0.4
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_ymlwy"]
+size = Vector3(1.8, 1.1, 4.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5tqbe"]
+size = Vector3(1.8, 1.1, 4.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jd5gc"]
+albedo_color = Color(0.42, 0.34, 0.24, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_qhvjt"]
+size = Vector3(1.2, 1.2, 1.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2yjdy"]
+size = Vector3(1.2, 1.2, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dbvmq"]
+albedo_color = Color(0.42, 0.34, 0.24, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_nnxfn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mp0mg"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_86uix"]
+size = Vector3(0.4, 4.6, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r8ma2"]
+size = Vector3(0.4, 4.6, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_iqeu1"]
+size = Vector3(0.4, 4.6, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oyovn"]
+size = Vector3(0.4, 4.6, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6lr8u"]
+albedo_color = Color(0.18, 0.32, 0.24, 1)
+roughness = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_oby8d"]
+size = Vector3(2, 1.3, 1.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cqt1a"]
+size = Vector3(2, 1.3, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8cmfu"]
+albedo_color = Color(0.35, 0.12, 0.12, 1)
+metallic = 0.5
+roughness = 0.45
+
+[sub_resource type="BoxMesh" id="BoxMesh_4rnm4"]
+size = Vector3(1.9, 1.45, 4.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_htrpx"]
+size = Vector3(1.9, 1.45, 4.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vu4nj"]
+albedo_color = Color(0.35, 0.12, 0.12, 1)
+metallic = 0.5
+roughness = 0.45
+
+[sub_resource type="BoxMesh" id="BoxMesh_6xu21"]
+size = Vector3(1.9, 1.45, 4.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_asm4w"]
+size = Vector3(1.9, 1.45, 4.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_daqkl"]
+albedo_color = Color(0.35, 0.12, 0.12, 1)
+metallic = 0.5
+roughness = 0.45
+
+[sub_resource type="BoxMesh" id="BoxMesh_gv58k"]
+size = Vector3(1.9, 1.45, 4.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mtaq8"]
+size = Vector3(1.9, 1.45, 4.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eib7i"]
+albedo_color = Color(0.15, 0.15, 0.16, 1)
+metallic = 0.5
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_y4nu1"]
+size = Vector3(0.3, 5.6, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_go527"]
+size = Vector3(0.3, 5.6, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1is5h"]
+albedo_color = Color(0.85, 0.85, 0.83, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_x01uo"]
+size = Vector3(0.6, 0.02, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nqdix"]
+size = Vector3(0.6, 0.02, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oy7s2"]
+albedo_color = Color(0.85, 0.85, 0.83, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_oj55o"]
+size = Vector3(0.6, 0.02, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6ytp7"]
+size = Vector3(0.6, 0.02, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uksex"]
+albedo_color = Color(0.85, 0.85, 0.83, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_6o0yb"]
+size = Vector3(0.6, 0.02, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jneqb"]
+size = Vector3(0.6, 0.02, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gw8t7"]
+albedo_color = Color(0.85, 0.85, 0.83, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_dor4m"]
+size = Vector3(0.6, 0.02, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rwi3r"]
+size = Vector3(0.6, 0.02, 4)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r1oyp"]
+sky_top_color = Color(0.32, 0.44, 0.62, 1)
+sky_horizon_color = Color(0.92, 0.72, 0.52, 1)
+ground_horizon_color = Color(0.55, 0.45, 0.36, 1)
+sun_angle_max = 12.0
+
+[sub_resource type="Sky" id="Sky_b8dn2"]
+sky_material = SubResource("ProceduralSkyMaterial_r1oyp")
+
+[sub_resource type="Environment" id="Environment_ef61p"]
+background_mode = 2
+sky = SubResource("Sky_b8dn2")
+ambient_light_source = 3
+ambient_light_energy = 0.55
+tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.86, 0.74, 0.58, 1)
+fog_density = 0.006
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_oduas"]
+geometry_parsed_geometry_type = 0
+agent_height = 2.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_ed2bl"]
+size = Vector3(150, 0.1, 190)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j208u"]
+radius = 8.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l85mo"]
+size = Vector3(10, 3, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_04bfc"]
+size = Vector3(12, 6, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_66xjr"]
+size = Vector3(1.2, 1.2, 1.2)
+
+[node name="LA_CallowayAve" type="Node3D" unique_id=1732515040]
+
+[node name="Ground" type="Node3D" parent="." unique_id=1815623362]
+
+[node name="GroundMesh" type="MeshInstance3D" parent="Ground" unique_id=1612360114]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
+material_override = SubResource("StandardMaterial3D_176gi")
+mesh = SubResource("PlaneMesh_xothl")
+
+[node name="GroundBody" type="StaticBody3D" parent="Ground" unique_id=185781779]
+collision_mask = 0
+
+[node name="@CollisionShape3D@2" type="CollisionShape3D" parent="Ground/GroundBody" unique_id=727218229]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12, 0)
+shape = SubResource("BoxShape3D_62p13")
+
+[node name="Streets" type="Node3D" parent="." unique_id=1273456085]
+
+[node name="SM_LA_Road_Straight_2" type="Node3D" parent="Streets" unique_id=1230204470 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -79)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@3" type="Node3D" parent="Streets" unique_id=782947264 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -79)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@4" type="Node3D" parent="Streets" unique_id=583448602 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -65)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@5" type="Node3D" parent="Streets" unique_id=1635328645 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -65)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@6" type="Node3D" parent="Streets" unique_id=1008197912 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -51)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@7" type="Node3D" parent="Streets" unique_id=1143181206 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -51)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@8" type="Node3D" parent="Streets" unique_id=94429079 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -37)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@9" type="Node3D" parent="Streets" unique_id=714396442 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -37)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@10" type="Node3D" parent="Streets" unique_id=1604308582 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -23)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@11" type="Node3D" parent="Streets" unique_id=2067613735 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -23)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@12" type="Node3D" parent="Streets" unique_id=89818897 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -9)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@13" type="Node3D" parent="Streets" unique_id=978024994 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -9)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@14" type="Node3D" parent="Streets" unique_id=1733246731 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 5)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@15" type="Node3D" parent="Streets" unique_id=699289123 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 5)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@16" type="Node3D" parent="Streets" unique_id=619726944 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 19)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@17" type="Node3D" parent="Streets" unique_id=1843934918 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 19)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@18" type="Node3D" parent="Streets" unique_id=190759868 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 33)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@19" type="Node3D" parent="Streets" unique_id=631211593 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 33)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@20" type="Node3D" parent="Streets" unique_id=932474763 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 47)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@21" type="Node3D" parent="Streets" unique_id=1684715392 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 47)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@22" type="Node3D" parent="Streets" unique_id=184566209 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 61)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@23" type="Node3D" parent="Streets" unique_id=881261928 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 61)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@24" type="Node3D" parent="Streets" unique_id=2045391588 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 75)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@25" type="Node3D" parent="Streets" unique_id=499183882 instance=ExtResource("1_wxvex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 75)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="SM_LA_Sidewalk_Curb_2" type="Node3D" parent="Streets" unique_id=543253156 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -80)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@26" type="Node3D" parent="Streets" unique_id=1747552457 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -80)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@27" type="Node3D" parent="Streets" unique_id=711246396 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -80)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@28" type="Node3D" parent="Streets" unique_id=1368191129 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -80)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@29" type="Node3D" parent="Streets" unique_id=1945157565 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -70)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@30" type="Node3D" parent="Streets" unique_id=2005920897 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -70)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@31" type="Node3D" parent="Streets" unique_id=203890364 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -70)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@32" type="Node3D" parent="Streets" unique_id=1221696866 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -70)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@33" type="Node3D" parent="Streets" unique_id=1170196573 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -60)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@34" type="Node3D" parent="Streets" unique_id=1955757719 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -60)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@35" type="Node3D" parent="Streets" unique_id=762403133 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -60)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@36" type="Node3D" parent="Streets" unique_id=2059514709 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -60)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@37" type="Node3D" parent="Streets" unique_id=1691215467 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -50)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@38" type="Node3D" parent="Streets" unique_id=1757998127 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -50)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@39" type="Node3D" parent="Streets" unique_id=1878490051 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -50)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@40" type="Node3D" parent="Streets" unique_id=507542109 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -50)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@41" type="Node3D" parent="Streets" unique_id=1231376579 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -40)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@42" type="Node3D" parent="Streets" unique_id=1157068912 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -40)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@43" type="Node3D" parent="Streets" unique_id=2033072913 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -40)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@44" type="Node3D" parent="Streets" unique_id=928487316 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -40)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@45" type="Node3D" parent="Streets" unique_id=1220895198 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -30)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@46" type="Node3D" parent="Streets" unique_id=1675060982 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -30)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@47" type="Node3D" parent="Streets" unique_id=839065236 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -30)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@48" type="Node3D" parent="Streets" unique_id=65707807 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -30)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@49" type="Node3D" parent="Streets" unique_id=1765606531 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -20)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@50" type="Node3D" parent="Streets" unique_id=1578922559 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -20)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@51" type="Node3D" parent="Streets" unique_id=1649964281 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -20)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@52" type="Node3D" parent="Streets" unique_id=1486787569 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -20)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@53" type="Node3D" parent="Streets" unique_id=1686319031 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -10)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@54" type="Node3D" parent="Streets" unique_id=2050387907 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -10)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@55" type="Node3D" parent="Streets" unique_id=1871317905 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -10)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@56" type="Node3D" parent="Streets" unique_id=89278717 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -10)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@57" type="Node3D" parent="Streets" unique_id=2019661933 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 0)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@58" type="Node3D" parent="Streets" unique_id=1910937300 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 0)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@59" type="Node3D" parent="Streets" unique_id=1572982872 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 0)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@60" type="Node3D" parent="Streets" unique_id=560887835 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 0)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@61" type="Node3D" parent="Streets" unique_id=503506163 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 10)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@62" type="Node3D" parent="Streets" unique_id=1428726238 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 10)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@63" type="Node3D" parent="Streets" unique_id=2127284894 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 10)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@64" type="Node3D" parent="Streets" unique_id=2068655498 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 10)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@65" type="Node3D" parent="Streets" unique_id=1150616548 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 20)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@66" type="Node3D" parent="Streets" unique_id=740885617 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 20)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@67" type="Node3D" parent="Streets" unique_id=1352444343 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 20)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@68" type="Node3D" parent="Streets" unique_id=1526981154 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 20)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@69" type="Node3D" parent="Streets" unique_id=1958454491 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 30)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@70" type="Node3D" parent="Streets" unique_id=615100500 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 30)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@71" type="Node3D" parent="Streets" unique_id=1037220638 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 30)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@72" type="Node3D" parent="Streets" unique_id=2020917129 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 30)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@73" type="Node3D" parent="Streets" unique_id=1826822766 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 40)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@74" type="Node3D" parent="Streets" unique_id=1670123000 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 40)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@75" type="Node3D" parent="Streets" unique_id=421642758 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 40)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@76" type="Node3D" parent="Streets" unique_id=1964158275 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 40)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@77" type="Node3D" parent="Streets" unique_id=1090606982 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 50)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@78" type="Node3D" parent="Streets" unique_id=517940158 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 50)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@79" type="Node3D" parent="Streets" unique_id=1568226428 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 50)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@80" type="Node3D" parent="Streets" unique_id=2134236977 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 50)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@81" type="Node3D" parent="Streets" unique_id=1863343415 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 60)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@82" type="Node3D" parent="Streets" unique_id=2095097353 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 60)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@83" type="Node3D" parent="Streets" unique_id=1420402551 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 60)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@84" type="Node3D" parent="Streets" unique_id=75991754 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 60)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@85" type="Node3D" parent="Streets" unique_id=1284864748 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 70)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@86" type="Node3D" parent="Streets" unique_id=1370915233 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 70)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@87" type="Node3D" parent="Streets" unique_id=1686149497 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 70)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@88" type="Node3D" parent="Streets" unique_id=903103241 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 70)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@89" type="Node3D" parent="Streets" unique_id=700329433 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 80)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@90" type="Node3D" parent="Streets" unique_id=661362232 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 80)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@91" type="Node3D" parent="Streets" unique_id=330541667 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 80)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@92" type="Node3D" parent="Streets" unique_id=1695103299 instance=ExtResource("2_73idg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 80)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@93" type="Node3D" parent="Streets" unique_id=2123548532 instance=ExtResource("1_wxvex")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -28, 0, 79)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@94" type="Node3D" parent="Streets" unique_id=1488768585 instance=ExtResource("1_wxvex")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -28, 0, -79)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@95" type="Node3D" parent="Streets" unique_id=1794243842 instance=ExtResource("1_wxvex")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -14, 0, 79)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@96" type="Node3D" parent="Streets" unique_id=1035520977 instance=ExtResource("1_wxvex")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -14, 0, -79)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@97" type="Node3D" parent="Streets" unique_id=456354955 instance=ExtResource("1_wxvex")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 79)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@98" type="Node3D" parent="Streets" unique_id=1063024136 instance=ExtResource("1_wxvex")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, -79)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@99" type="Node3D" parent="Streets" unique_id=265896352 instance=ExtResource("1_wxvex")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 14, 0, 79)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@100" type="Node3D" parent="Streets" unique_id=643997615 instance=ExtResource("1_wxvex")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 14, 0, -79)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@101" type="Node3D" parent="Streets" unique_id=1803687971 instance=ExtResource("1_wxvex")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28, 0, 79)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@102" type="Node3D" parent="Streets" unique_id=359877310 instance=ExtResource("1_wxvex")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28, 0, -79)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@103" type="Node3D" parent="Streets" unique_id=1338857276 instance=ExtResource("1_wxvex")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -42, 0, -4)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@104" type="Node3D" parent="Streets" unique_id=1774223549 instance=ExtResource("1_wxvex")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -42, 0, 4)
+metadata/uw_post_import = {
+"lod_nodes": 0,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="Buildings" type="Node3D" parent="." unique_id=257550044]
+
+[node name="Bldg_Shop_01" type="StaticBody3D" parent="Buildings" unique_id=1081399354]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -22, 3.6, -60)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Bldg_Shop_01" unique_id=293612639]
+material_override = SubResource("StandardMaterial3D_8pni4")
+mesh = SubResource("BoxMesh_031bu")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Bldg_Shop_01" unique_id=328264567]
+shape = SubResource("BoxShape3D_coqe6")
+
+[node name="Bldg_Shop_02" type="StaticBody3D" parent="Buildings" unique_id=225158116]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -22, 3.6, -38)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Bldg_Shop_02" unique_id=977700205]
+material_override = SubResource("StandardMaterial3D_l4s50")
+mesh = SubResource("BoxMesh_bkhwv")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Bldg_Shop_02" unique_id=458669373]
+shape = SubResource("BoxShape3D_pceqa")
+
+[node name="Bldg_Shop_03" type="StaticBody3D" parent="Buildings" unique_id=508468351]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -22, 3.6, 20)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Bldg_Shop_03" unique_id=1811948015]
+material_override = SubResource("StandardMaterial3D_8pni4")
+mesh = SubResource("BoxMesh_rrqou")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Bldg_Shop_03" unique_id=811994511]
+shape = SubResource("BoxShape3D_5bfal")
+
+[node name="Bldg_Apartment_A" type="StaticBody3D" parent="Buildings" unique_id=629691860]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -22, 3.6, 52)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Bldg_Apartment_A" unique_id=598534337]
+material_override = SubResource("StandardMaterial3D_nc5l5")
+mesh = SubResource("BoxMesh_jrjbl")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Bldg_Apartment_A" unique_id=65040400]
+shape = SubResource("BoxShape3D_3u0bu")
+
+[node name="Bldg_Shop_04" type="StaticBody3D" parent="Buildings" unique_id=746177210]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -4, 3.6, -80)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Bldg_Shop_04" unique_id=1456480393]
+material_override = SubResource("StandardMaterial3D_l4s50")
+mesh = SubResource("BoxMesh_nhnqv")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Bldg_Shop_04" unique_id=540295492]
+shape = SubResource("BoxShape3D_dhbkw")
+
+[node name="Bldg_Industrial_01" type="StaticBody3D" parent="Buildings" unique_id=1919129556]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 22, 3.6, -50)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Bldg_Industrial_01" unique_id=719044278]
+material_override = SubResource("StandardMaterial3D_j6ncm")
+mesh = SubResource("BoxMesh_av7h0")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Bldg_Industrial_01" unique_id=1098369047]
+shape = SubResource("BoxShape3D_nft0b")
+
+[node name="Bldg_Warehouse" type="StaticBody3D" parent="Buildings" unique_id=837721382]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 24, 3.6, 78)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Bldg_Warehouse" unique_id=969946898]
+material_override = SubResource("StandardMaterial3D_j6ncm")
+mesh = SubResource("BoxMesh_ndhgl")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Bldg_Warehouse" unique_id=1256605706]
+shape = SubResource("BoxShape3D_6drup")
+
+[node name="Bldg_Apartment_A_Upper" type="StaticBody3D" parent="Buildings" unique_id=1763923131]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -22, 10.2, 52)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Bldg_Apartment_A_Upper" unique_id=1046439972]
+material_override = SubResource("StandardMaterial3D_nc5l5")
+mesh = SubResource("BoxMesh_rrvjv")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Bldg_Apartment_A_Upper" unique_id=752581225]
+shape = SubResource("BoxShape3D_ia05j")
+
+[node name="Warehouse_Door" type="StaticBody3D" parent="Buildings" unique_id=1614609885]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 2.1, 73.6)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Warehouse_Door" unique_id=1067949537]
+material_override = SubResource("StandardMaterial3D_po70p")
+mesh = SubResource("BoxMesh_aco1l")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Warehouse_Door" unique_id=1258420018]
+shape = SubResource("BoxShape3D_kionu")
+
+[node name="Bldg_GarageM01" type="Node3D" parent="Buildings" unique_id=1987253448 instance=ExtResource("3_toodi")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 24, 0, 6)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="Garage_Floor" type="StaticBody3D" parent="Buildings" unique_id=1198865164]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, -0.1, 6)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Garage_Floor" unique_id=79607422]
+material_override = SubResource("StandardMaterial3D_hntnv")
+mesh = SubResource("BoxMesh_klfcr")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Garage_Floor" unique_id=1578987152]
+shape = SubResource("BoxShape3D_rxchn")
+
+[node name="Garage_Wall_N_W" type="StaticBody3D" parent="Buildings" unique_id=2081869527]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5, 2.3, 10)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Garage_Wall_N_W" unique_id=997575637]
+material_override = SubResource("StandardMaterial3D_hntnv")
+mesh = SubResource("BoxMesh_clxg6")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Garage_Wall_N_W" unique_id=1835218956]
+shape = SubResource("BoxShape3D_wp1nx")
+
+[node name="Garage_Wall_N_E" type="StaticBody3D" parent="Buildings" unique_id=169406242]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5, 2.3, 10)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Garage_Wall_N_E" unique_id=1220307395]
+material_override = SubResource("StandardMaterial3D_hntnv")
+mesh = SubResource("BoxMesh_fc0go")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Garage_Wall_N_E" unique_id=2033710962]
+shape = SubResource("BoxShape3D_dgws4")
+
+[node name="Garage_Wall_N_Lintel" type="StaticBody3D" parent="Buildings" unique_id=627256201]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 3.4, 10)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Garage_Wall_N_Lintel" unique_id=2020121231]
+material_override = SubResource("StandardMaterial3D_hntnv")
+mesh = SubResource("BoxMesh_wvaaw")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Garage_Wall_N_Lintel" unique_id=818957255]
+shape = SubResource("BoxShape3D_yern4")
+
+[node name="Garage_Wall_S" type="StaticBody3D" parent="Buildings" unique_id=158482958]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 2.3, 2)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Garage_Wall_S" unique_id=1974511448]
+material_override = SubResource("StandardMaterial3D_hntnv")
+mesh = SubResource("BoxMesh_h02t7")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Garage_Wall_S" unique_id=1749793788]
+shape = SubResource("BoxShape3D_qf5lh")
+
+[node name="Garage_Wall_E" type="StaticBody3D" parent="Buildings" unique_id=2141553814]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 2.3, 6)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Garage_Wall_E" unique_id=1640677287]
+material_override = SubResource("StandardMaterial3D_hntnv")
+mesh = SubResource("BoxMesh_yj15w")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Garage_Wall_E" unique_id=674687461]
+shape = SubResource("BoxShape3D_kibt5")
+
+[node name="Garage_Wall_W_N" type="StaticBody3D" parent="Buildings" unique_id=245797959]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 2.3, 8.3)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Garage_Wall_W_N" unique_id=1470253609]
+material_override = SubResource("StandardMaterial3D_hntnv")
+mesh = SubResource("BoxMesh_5kvn2")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Garage_Wall_W_N" unique_id=432348792]
+shape = SubResource("BoxShape3D_aygfr")
+
+[node name="Garage_Wall_W_S" type="StaticBody3D" parent="Buildings" unique_id=614489346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 2.3, 3)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Garage_Wall_W_S" unique_id=98985118]
+material_override = SubResource("StandardMaterial3D_hntnv")
+mesh = SubResource("BoxMesh_bitn0")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Garage_Wall_W_S" unique_id=205257504]
+shape = SubResource("BoxShape3D_rv0f5")
+
+[node name="Garage_Wall_W_Lintel" type="StaticBody3D" parent="Buildings" unique_id=870075599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 3.8, 6.9)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Garage_Wall_W_Lintel" unique_id=1240646642]
+material_override = SubResource("StandardMaterial3D_hntnv")
+mesh = SubResource("BoxMesh_gkxwk")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Garage_Wall_W_Lintel" unique_id=1745561091]
+shape = SubResource("BoxShape3D_7yl10")
+
+[node name="Garage_Bench" type="StaticBody3D" parent="Buildings" unique_id=1948285804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5, 0.48, 8.5)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Garage_Bench" unique_id=19758471]
+material_override = SubResource("StandardMaterial3D_eb06a")
+mesh = SubResource("BoxMesh_uapw3")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Garage_Bench" unique_id=1881187593]
+shape = SubResource("BoxShape3D_bnixe")
+
+[node name="Garage_WreckCar" type="StaticBody3D" parent="Buildings" unique_id=401893916]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0.55, 4)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Garage_WreckCar" unique_id=1293296576]
+material_override = SubResource("StandardMaterial3D_gaolx")
+mesh = SubResource("BoxMesh_ymlwy")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Garage_WreckCar" unique_id=1420626741]
+shape = SubResource("BoxShape3D_5tqbe")
+
+[node name="Garage_Crate_A" type="StaticBody3D" parent="Buildings" unique_id=1624979193]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, 0.6, 5)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Garage_Crate_A" unique_id=2024576738]
+material_override = SubResource("StandardMaterial3D_jd5gc")
+mesh = SubResource("BoxMesh_qhvjt")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Garage_Crate_A" unique_id=1697519749]
+shape = SubResource("BoxShape3D_2yjdy")
+
+[node name="Garage_Crate_B" type="StaticBody3D" parent="Buildings" unique_id=2049243984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, 1.7, 5)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Garage_Crate_B" unique_id=849338589]
+material_override = SubResource("StandardMaterial3D_dbvmq")
+mesh = SubResource("BoxMesh_nnxfn")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Garage_Crate_B" unique_id=1273001036]
+shape = SubResource("BoxShape3D_mp0mg")
+
+[node name="Garage_Pillar_N" type="StaticBody3D" parent="Buildings" unique_id=1297344839]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 2.3, 9.5)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Garage_Pillar_N" unique_id=508260362]
+material_override = SubResource("StandardMaterial3D_hntnv")
+mesh = SubResource("BoxMesh_86uix")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Garage_Pillar_N" unique_id=1769231051]
+shape = SubResource("BoxShape3D_r8ma2")
+
+[node name="Garage_Pillar_S" type="StaticBody3D" parent="Buildings" unique_id=1311734710]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 2.3, 4.5)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Garage_Pillar_S" unique_id=307665688]
+material_override = SubResource("StandardMaterial3D_hntnv")
+mesh = SubResource("BoxMesh_iqeu1")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Garage_Pillar_S" unique_id=1157699831]
+shape = SubResource("BoxShape3D_oyovn")
+
+[node name="Forecourt_Dumpster" type="StaticBody3D" parent="Buildings" unique_id=1499419300]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 0.65, -2)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Buildings/Forecourt_Dumpster" unique_id=1909847456]
+material_override = SubResource("StandardMaterial3D_6lr8u")
+mesh = SubResource("BoxMesh_oby8d")
+
+[node name="Collision" type="CollisionShape3D" parent="Buildings/Forecourt_Dumpster" unique_id=1956823959]
+shape = SubResource("BoxShape3D_cqt1a")
+
+[node name="Props" type="Node3D" parent="." unique_id=357086133]
+
+[node name="SM_LA_Streetlight_4" type="Node3D" parent="Props" unique_id=1438125557 instance=ExtResource("4_5cxmi")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -15.8, 0.16, -70)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="SM_LA_PalmTree_4" type="Node3D" parent="Props" unique_id=428106061 instance=ExtResource("5_xqs3v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0.16, -60)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@105" type="Node3D" parent="Props" unique_id=326368755 instance=ExtResource("4_5cxmi")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -15.8, 0.16, -50)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@106" type="Node3D" parent="Props" unique_id=676502502 instance=ExtResource("5_xqs3v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0.16, -40)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@107" type="Node3D" parent="Props" unique_id=850444009 instance=ExtResource("4_5cxmi")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -15.8, 0.16, -30)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@108" type="Node3D" parent="Props" unique_id=1804961057 instance=ExtResource("5_xqs3v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0.16, -20)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@109" type="Node3D" parent="Props" unique_id=1061065656 instance=ExtResource("4_5cxmi")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -15.8, 0.16, -10)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@110" type="Node3D" parent="Props" unique_id=1817275245 instance=ExtResource("5_xqs3v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0.16, 0)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@111" type="Node3D" parent="Props" unique_id=1169678883 instance=ExtResource("4_5cxmi")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -15.8, 0.16, 10)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@112" type="Node3D" parent="Props" unique_id=1809705425 instance=ExtResource("5_xqs3v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0.16, 20)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@113" type="Node3D" parent="Props" unique_id=1419410414 instance=ExtResource("4_5cxmi")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -15.8, 0.16, 30)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@114" type="Node3D" parent="Props" unique_id=39392456 instance=ExtResource("5_xqs3v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0.16, 40)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@115" type="Node3D" parent="Props" unique_id=1502485446 instance=ExtResource("4_5cxmi")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -15.8, 0.16, 50)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@116" type="Node3D" parent="Props" unique_id=1956462546 instance=ExtResource("5_xqs3v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0.16, 60)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@117" type="Node3D" parent="Props" unique_id=502592456 instance=ExtResource("4_5cxmi")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -15.8, 0.16, 70)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="@Node3D@118" type="Node3D" parent="Props" unique_id=35572319 instance=ExtResource("5_xqs3v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0.16, 80)
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="Prop_ParkedCar" type="StaticBody3D" parent="Props" unique_id=951174993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9, 0.77000004, -30)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_ParkedCar" unique_id=1935681799]
+material_override = SubResource("StandardMaterial3D_8cmfu")
+mesh = SubResource("BoxMesh_4rnm4")
+
+[node name="Collision" type="CollisionShape3D" parent="Props/Prop_ParkedCar" unique_id=1521782630]
+shape = SubResource("BoxShape3D_htrpx")
+
+[node name="@StaticBody3D@119" type="StaticBody3D" parent="Props" unique_id=2016015037]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9, 0.77000004, 34)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/@StaticBody3D@119" unique_id=155425526]
+material_override = SubResource("StandardMaterial3D_vu4nj")
+mesh = SubResource("BoxMesh_6xu21")
+
+[node name="Collision" type="CollisionShape3D" parent="Props/@StaticBody3D@119" unique_id=481067197]
+shape = SubResource("BoxShape3D_asm4w")
+
+[node name="@StaticBody3D@120" type="StaticBody3D" parent="Props" unique_id=427087494]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 19, 0.77000004, -22)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/@StaticBody3D@120" unique_id=759494309]
+material_override = SubResource("StandardMaterial3D_daqkl")
+mesh = SubResource("BoxMesh_gv58k")
+
+[node name="Collision" type="CollisionShape3D" parent="Props/@StaticBody3D@120" unique_id=1865541554]
+shape = SubResource("BoxShape3D_mtaq8")
+
+[node name="Prop_TrafficLight" type="StaticBody3D" parent="Props" unique_id=2069256516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 2.8, 70)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_TrafficLight" unique_id=1204740993]
+material_override = SubResource("StandardMaterial3D_eib7i")
+mesh = SubResource("BoxMesh_y4nu1")
+
+[node name="Collision" type="CollisionShape3D" parent="Props/Prop_TrafficLight" unique_id=122545094]
+shape = SubResource("BoxShape3D_go527")
+
+[node name="Prop_CrosswalkStripe_0" type="StaticBody3D" parent="Props" unique_id=80105099]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.6, 0.05, 68)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_CrosswalkStripe_0" unique_id=552771580]
+material_override = SubResource("StandardMaterial3D_1is5h")
+mesh = SubResource("BoxMesh_x01uo")
+
+[node name="Collision" type="CollisionShape3D" parent="Props/Prop_CrosswalkStripe_0" unique_id=434782783]
+shape = SubResource("BoxShape3D_nqdix")
+
+[node name="Prop_CrosswalkStripe_1" type="StaticBody3D" parent="Props" unique_id=711725283]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.2, 0.05, 68)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_CrosswalkStripe_1" unique_id=103121441]
+material_override = SubResource("StandardMaterial3D_oy7s2")
+mesh = SubResource("BoxMesh_oj55o")
+
+[node name="Collision" type="CollisionShape3D" parent="Props/Prop_CrosswalkStripe_1" unique_id=656539402]
+shape = SubResource("BoxShape3D_6ytp7")
+
+[node name="Prop_CrosswalkStripe_2" type="StaticBody3D" parent="Props" unique_id=691371654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.8, 0.05, 68)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_CrosswalkStripe_2" unique_id=33878403]
+material_override = SubResource("StandardMaterial3D_uksex")
+mesh = SubResource("BoxMesh_6o0yb")
+
+[node name="Collision" type="CollisionShape3D" parent="Props/Prop_CrosswalkStripe_2" unique_id=771996278]
+shape = SubResource("BoxShape3D_jneqb")
+
+[node name="Prop_CrosswalkStripe_3" type="StaticBody3D" parent="Props" unique_id=863416371]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.4, 0.05, 68)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_CrosswalkStripe_3" unique_id=1895814878]
+material_override = SubResource("StandardMaterial3D_gw8t7")
+mesh = SubResource("BoxMesh_dor4m")
+
+[node name="Collision" type="CollisionShape3D" parent="Props/Prop_CrosswalkStripe_3" unique_id=592224633]
+shape = SubResource("BoxShape3D_rwi3r")
+
+[node name="Lighting" type="Node3D" parent="." unique_id=1046630835]
+
+[node name="Sun" type="DirectionalLight3D" parent="Lighting" unique_id=165081391]
+transform = Transform3D(-0.34202006, 0.1953731, -0.91915816, 0, 0.9781476, 0.2079117, 0.9396927, 0.07110997, -0.33454612, 0, 0, 0)
+light_color = Color(1, 0.86, 0.66, 1)
+light_energy = 1.35
+shadow_enabled = true
+directional_shadow_max_distance = 120.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Lighting" unique_id=1891175205]
+environment = SubResource("Environment_ef61p")
+
+[node name="GarageLamp_0" type="OmniLight3D" parent="Lighting" unique_id=1709011361]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5, 4, 8)
+light_color = Color(1, 0.72, 0.36, 1)
+light_energy = 2.2
+omni_range = 9.0
+
+[node name="GarageLamp_1" type="OmniLight3D" parent="Lighting" unique_id=1377864295]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.5, 4, 4)
+light_color = Color(1, 0.72, 0.36, 1)
+light_energy = 2.2
+omni_range = 9.0
+
+[node name="NavRegion_Block" type="NavigationRegion3D" parent="." unique_id=509808248]
+navigation_mesh = SubResource("NavigationMesh_oduas")
+
+[node name="NavFloor" type="MeshInstance3D" parent="NavRegion_Block" unique_id=2125137365]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+mesh = SubResource("BoxMesh_ed2bl")
+
+[node name="AI" type="Node3D" parent="." unique_id=1211760807]
+
+[node name="Spawn_Wave1_A" type="Marker3D" parent="AI" unique_id=33172384]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.16, 22)
+
+[node name="Spawn_Wave1_B" type="Marker3D" parent="AI" unique_id=821957442]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.16, 2)
+
+[node name="Spawn_Wave1_C" type="Marker3D" parent="AI" unique_id=1688217653]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.16, 20)
+
+[node name="Spawn_Wave2_Van" type="Marker3D" parent="AI" unique_id=2074580168]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0.16, -8)
+
+[node name="Spawn_Wave2_Roof" type="Marker3D" parent="AI" unique_id=2037909142]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.6, 4.9, 6)
+
+[node name="Routes" type="Node3D" parent="AI" unique_id=1112364670]
+
+[node name="Route_WestSidewalk" type="Node3D" parent="AI/Routes" unique_id=854275575]
+script = ExtResource("6_ks4ri")
+
+[node name="P0" type="Marker3D" parent="AI/Routes/Route_WestSidewalk" unique_id=724330507]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0.16, -60)
+
+[node name="P1" type="Marker3D" parent="AI/Routes/Route_WestSidewalk" unique_id=591830004]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0.16, -10)
+
+[node name="P2" type="Marker3D" parent="AI/Routes/Route_WestSidewalk" unique_id=914051195]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0.16, 40)
+
+[node name="P3" type="Marker3D" parent="AI/Routes/Route_WestSidewalk" unique_id=928755546]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0.16, 40)
+
+[node name="P4" type="Marker3D" parent="AI/Routes/Route_WestSidewalk" unique_id=2047416097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0.16, -20)
+
+[node name="Civilian_1" type="CharacterBody3D" parent="AI" unique_id=186352765 instance=ExtResource("7_eyelu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0.16, -60)
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("8_dlulc")
+profile = ExtResource("9_ij7ys")
+route_path = NodePath("../Routes/Route_WestSidewalk")
+
+[node name="Civilian_2" type="CharacterBody3D" parent="AI" unique_id=1580080669 instance=ExtResource("7_eyelu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0.16, -10)
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("8_dlulc")
+profile = ExtResource("9_ij7ys")
+route_path = NodePath("../Routes/Route_WestSidewalk")
+route_start_index = 1
+
+[node name="Civilian_3" type="CharacterBody3D" parent="AI" unique_id=785274045 instance=ExtResource("7_eyelu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0.16, 40)
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("8_dlulc")
+profile = ExtResource("9_ij7ys")
+route_path = NodePath("../Routes/Route_WestSidewalk")
+route_start_index = 2
+
+[node name="Enemy_Wave1_1" type="CharacterBody3D" parent="AI" unique_id=1630895009 groups=["mission_enemies", "wave1"] instance=ExtResource("10_wwerc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.16, 22)
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("8_dlulc")
+profile = ExtResource("11_vpxj7")
+
+[node name="Enemy_Wave1_2" type="CharacterBody3D" parent="AI" unique_id=49439244 groups=["mission_enemies", "wave1"] instance=ExtResource("10_wwerc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.16, 2)
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("8_dlulc")
+profile = ExtResource("11_vpxj7")
+
+[node name="Enemy_Wave1_3" type="CharacterBody3D" parent="AI" unique_id=850287267 groups=["mission_enemies", "wave1"] instance=ExtResource("10_wwerc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.16, 20)
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("8_dlulc")
+profile = ExtResource("11_vpxj7")
+
+[node name="Enemy_Wave2_1" type="CharacterBody3D" parent="AI" unique_id=274719141 groups=["mission_enemies", "wave2"] instance=ExtResource("10_wwerc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0.16, -8)
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("8_dlulc")
+profile = ExtResource("11_vpxj7")
+
+[node name="Enemy_Wave2_2" type="CharacterBody3D" parent="AI" unique_id=1114487193 groups=["mission_enemies", "wave2"] instance=ExtResource("10_wwerc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.6, 4.9, 6)
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("8_dlulc")
+profile = ExtResource("11_vpxj7")
+
+[node name="Mission" type="Node3D" parent="." unique_id=849102209]
+
+[node name="PlayerSpawn" type="Marker3D" parent="Mission" unique_id=1046349482]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.5, 0.2, -78)
+
+[node name="CarSpawn" type="Marker3D" parent="Mission" unique_id=1775431730]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.5, 0.1, -74)
+
+[node name="Marco_Seat" type="Marker3D" parent="Mission" unique_id=368436996]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0.6, -74)
+
+[node name="Area_GarageArrival" type="Area3D" parent="Mission" unique_id=1716061319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 6)
+collision_layer = 0
+collision_mask = 10
+
+[node name="@CollisionShape3D@121" type="CollisionShape3D" parent="Mission/Area_GarageArrival" unique_id=786417476]
+shape = SubResource("SphereShape3D_j208u")
+
+[node name="Area_GarageInside" type="Area3D" parent="Mission" unique_id=933755061]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1.5, 6)
+collision_layer = 0
+collision_mask = 10
+
+[node name="@CollisionShape3D@122" type="CollisionShape3D" parent="Mission/Area_GarageInside" unique_id=1538493553]
+shape = SubResource("BoxShape3D_l85mo")
+
+[node name="Area_Warehouse" type="Area3D" parent="Mission" unique_id=1238000968]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 3, 78)
+collision_layer = 0
+collision_mask = 10
+
+[node name="@CollisionShape3D@123" type="CollisionShape3D" parent="Mission/Area_Warehouse" unique_id=2133100001]
+shape = SubResource("BoxShape3D_04bfc")
+
+[node name="Marker_GarageDoor" type="Marker3D" parent="Mission" unique_id=1727902471]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 0.5, 6)
+
+[node name="Pickup_Package" type="Node3D" parent="Mission" unique_id=917375912 groups=["interactables"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5, 1, 8.5)
+script = ExtResource("12_gybwa")
+
+[node name="CrateMesh" type="Node3D" parent="Mission/Pickup_Package" unique_id=1212108648 instance=ExtResource("13_3wlxm")]
+metadata/uw_post_import = {
+"lod_nodes": 3,
+"loops_set": 0,
+"manifest": "res://Assets/Props/SM_Prop_PackageCrate/SM_Prop_PackageCrate.manifest.json",
+"missing_animations": PackedStringArray(),
+"source": "res://Assets/Props/SM_Prop_PackageCrate/SM_Prop_PackageCrate.glb",
+"unlisted_animations": PackedStringArray()
+}
+
+[node name="Interact" type="Area3D" parent="Mission/Pickup_Package" unique_id=934342485]
+script = ExtResource("14_jm764")
+prompt = "Pick up the package"
+
+[node name="@CollisionShape3D@124" type="CollisionShape3D" parent="Mission/Pickup_Package/Interact" unique_id=2073026912]
+shape = SubResource("BoxShape3D_66xjr")
+
+[node name="DamageReceiver" type="Node" parent="Mission/Pickup_Package" unique_id=884576956]
+script = ExtResource("15_pcy2h")
+max_health = 200.0
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=1606100632 groups=["player"] instance=ExtResource("16_62hif")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.5, 0.2, -78)
+collision_layer = 2
+collision_mask = 13
+script = ExtResource("17_tan5r")
+
+[node name="VH_Sedan_01" type="VehicleBody3D" parent="." unique_id=339728918 instance=ExtResource("18_m7xdo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.5, 0.1, -74)
+collision_layer = 8
+collision_mask = 15
+script = ExtResource("19_vk0x2")
+data = ExtResource("20_q5dld")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=717240571]
+script = ExtResource("21_q7jnv")
+
+[node name="MissionManager" type="Node" parent="." unique_id=1625790375]
+script = ExtResource("22_qijjk")
+mission = ExtResource("23_62ihu")

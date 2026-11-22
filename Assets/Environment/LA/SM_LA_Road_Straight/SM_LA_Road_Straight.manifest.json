@@ -8,7 +8,7 @@
   "preview_png": "Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight_preview.png",
   "previews": null,
   "tool": "underworld_pipeline 1.0.0",
-  "blender_version": "5.2.4 LTS",
+  "blender_version": "5.0.1",
   "units": "metres (1 BU = 1 m = 1 Godot unit)",
   "up_axis": "Blender +Z -> glTF/Godot +Y",
   "front": "Blender -Y -> Godot +Z",
@@ -60,7 +60,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_5w3vgq_s/T_LA_Asphalt_D.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_2j76hv3s/T_LA_Asphalt_D.jpg"
     },
     {
       "image": "T_LA_Asphalt_ORM",
@@ -70,7 +70,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_nsmve1zw/T_LA_Asphalt_ORM.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_kb4wi6jm/T_LA_Asphalt_ORM.jpg"
     },
     {
       "image": "T_LA_Asphalt_N",
@@ -80,7 +80,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_ibec5h04/T_LA_Asphalt_N.png"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_uyb5rwmd/T_LA_Asphalt_N.png"
     }
   ],
   "uv_overlap": {
@@ -108,5 +108,5 @@
     "UCX_SM_LA_Road_Straight_Mesh-colonly",
     "SM_LA_Road_Straight"
   ],
-  "glb_bytes": 851428
+  "glb_bytes": 30880
 }

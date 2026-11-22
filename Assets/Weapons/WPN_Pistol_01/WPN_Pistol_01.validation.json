@@ -1,9 +1,9 @@
 {
   "tool": "underworld_pipeline",
   "version": "1.0.0",
-  "blender": "5.2.4 LTS",
-  "timestamp": "2026-11-22T12:12:09+01:00",
-  "command": "export",
+  "blender": "5.0.1",
+  "timestamp": "2026-11-22T20:07:15+00:00",
+  "command": "export-all",
   "input": "Blender/Source/Weapons/WPN_Pistol_01/WPN_Pistol_01.blend",
   "steps": {
     "validate": {
@@ -69,7 +69,7 @@
     },
     "export": {
       "glb": "Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01.glb",
-      "bytes": 1752972
+      "bytes": 425324
     },
     "preview": "Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01_preview.png",
     "manifest": "Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01.manifest.json",
@@ -86,8 +86,8 @@
           "SOCKET_Grip",
           "SOCKET_Muzzle",
           "UCX_WPN_Pistol_01-convcolonly",
-          "MagBone",
           "SlideBone",
+          "MagBone",
           "TrigBone",
           "WpnRoot",
           "Magazine",
@@ -162,8 +162,8 @@
           "A_WPN_Pistol_01_Fire",
           "A_WPN_Pistol_01_Reload"
         ],
-        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
-        "bytes": 1752972
+        "asset_generator": "Khronos glTF Blender I/O v5.0.21",
+        "bytes": 425324
       },
       "reimport_objects": [
         "Barrel",
@@ -249,7 +249,7 @@
     "warnings": 5,
     "infos": 3
   },
-  "seconds": 0.81,
+  "seconds": 1.71,
   "exit_code": 0,
   "result": "PASS"
 }

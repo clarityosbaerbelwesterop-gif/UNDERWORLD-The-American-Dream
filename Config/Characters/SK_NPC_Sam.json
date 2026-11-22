@@ -13,11 +13,15 @@
     "weight": 0.76,
     "proportions": 0.45,
     "height_morph": 0.48,
-    "ethnicity": { "caucasian": 0.85, "asian": 0.10, "african": 0.05 }
+    "ethnicity": {
+      "caucasian": 0.85,
+      "asian": 0.1,
+      "african": 0.05
+    }
   },
   "morphs": {
     "chin-jaw-drop-decr-incr": 0.35,
-    "chin-width-decr-incr": 0.40,
+    "chin-width-decr-incr": 0.4,
     "head-fat-decr-incr": 0.45,
     "neck-scale-horiz-decr-incr": 0.35,
     "nose-width1-decr-incr": 0.25
@@ -27,18 +31,39 @@
     "base_diffuse": "makehuman_system_assets/skins/old_caucasian_male/old_lightskinned_male_diffuse.png",
     "base_normal": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_NRM.png",
     "base_spec": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_SPEC.png",
-    "tint_rgb": [0.96, 0.90, 0.85],
+    "tint_rgb": [
+      0.86,
+      0.73,
+      0.64
+    ],
     "gamma": 1.04,
     "sss_weight": 0.15,
-    "hair_color_rgb": [0.28, 0.27, 0.26],
-    "skin_fade": { "enabled": true },
-    "beard_stubble": { "density": 0.18 },
-    "seed": 201
+    "hair_color_rgb": [
+      0.28,
+      0.27,
+      0.26
+    ],
+    "skin_fade": {
+      "enabled": true
+    },
+    "beard_stubble": {
+      "density": 0.1
+    },
+    "seed": 201,
+    "lip_rgb": [
+      0.34,
+      0.17,
+      0.15
+    ]
   },
   "eyes": {
     "mhclo": "mh_eyes/low-poly.mhclo",
     "iris_texture": "makehuman_system_assets/eyes/materials/grey_eye.png",
-    "iris_tint": [0.78, 0.82, 0.86]
+    "iris_tint": [
+      0.78,
+      0.82,
+      0.86
+    ]
   },
   "eyebrows": {
     "mhclo": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.mhclo",
@@ -49,9 +74,21 @@
     "mhclo": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.mhclo",
     "texture": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.png"
   },
-  "teeth": { "enabled": false },
-  "hair": { "style": "skin_fade_crop", "color_rgb": [0.28, 0.27, 0.26], "seed": 202 },
-  "beard": { "style": "none" },
+  "teeth": {
+    "enabled": false
+  },
+  "hair": {
+    "style": "skin_fade_crop",
+    "color_rgb": [
+      0.28,
+      0.27,
+      0.26
+    ],
+    "seed": 202
+  },
+  "beard": {
+    "style": "none"
+  },
   "outfit": {
     "tshirt": {
       "enabled": true,
@@ -61,7 +98,11 @@
       "bake_high_to_low": false,
       "tile": 4.0,
       "desaturate": 0.95,
-      "tint_rgb": [0.88, 0.88, 0.90],
+      "tint_rgb": [
+        0.88,
+        0.88,
+        0.9
+      ],
       "roughness_scale": 1.0,
       "roughness_bias": 0.15
     },
@@ -75,7 +116,11 @@
       "tile": 5.0,
       "desaturate": 0.85,
       "gamma": 0.85,
-      "tint_rgb": [0.16, 0.17, 0.20],
+      "tint_rgb": [
+        0.16,
+        0.17,
+        0.2
+      ],
       "roughness_scale": 1.05,
       "roughness_bias": 0.12
     },
@@ -87,7 +132,11 @@
       "bake_high_to_low": false,
       "tile": 5.0,
       "desaturate": 0.85,
-      "tint_rgb": [0.15, 0.16, 0.19],
+      "tint_rgb": [
+        0.15,
+        0.16,
+        0.19
+      ],
       "roughness_scale": 1.05,
       "roughness_bias": 0.12
     },
@@ -98,12 +147,18 @@
       "bake_high_to_low": false,
       "tile": 3.0,
       "desaturate": 0.85,
-      "tint_rgb": [0.12, 0.12, 0.13],
+      "tint_rgb": [
+        0.12,
+        0.12,
+        0.13
+      ],
       "roughness_scale": 0.65,
       "roughness_bias": 0.0,
       "zone_mode": "boot_sole"
     },
-    "watch": { "enabled": false }
+    "watch": {
+      "enabled": false
+    }
   },
   "animations": {
     "clip_prefix": "A_Humanoid_",

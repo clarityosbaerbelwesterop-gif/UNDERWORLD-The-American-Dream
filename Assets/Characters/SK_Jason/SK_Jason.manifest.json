@@ -17,7 +17,7 @@
     "aim": "Assets/Characters/SK_Jason/SK_Jason_preview_aim.png"
   },
   "tool": "underworld_pipeline 1.0.0",
-  "blender_version": "5.2.4 LTS",
+  "blender_version": "5.0.1",
   "units": "metres (1 BU = 1 m = 1 Godot unit)",
   "up_axis": "Blender +Z -> glTF/Godot +Y",
   "front": "Blender -Y -> Godot +Z",
@@ -29,17 +29,17 @@
     ],
     "max": [
       0.9288,
-      1.8335,
+      1.8331,
       0.243
     ],
     "size": [
       1.8576,
-      1.8335,
+      1.8331,
       0.3581
     ]
   },
   "triangles": {
-    "lod0": 35789,
+    "lod0": 38842,
     "budget": 40000,
     "per_lod_total": {}
   },
@@ -70,7 +70,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_rhp4kdsk/T_Jason_Boots_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_njyzkk2g/T_Jason_Boots_D.jpg"
     },
     {
       "image": "T_Jason_Boots_ORM",
@@ -80,7 +80,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_3e5dy5xx/T_Jason_Boots_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_t2qay07j/T_Jason_Boots_ORM.jpg"
     },
     {
       "image": "T_Jason_Boots_N",
@@ -90,7 +90,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_ir18nd_q/T_Jason_Boots_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_e7dg3rjm/T_Jason_Boots_N.png"
     },
     {
       "image": "T_Jason_BrowsLashes_D",
@@ -100,7 +100,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_jl1onmvs/T_Jason_BrowsLashes_D.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_tibn5hxb/T_Jason_BrowsLashes_D.png"
     },
     {
       "image": "T_Jason_Eyes_D",
@@ -110,7 +110,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_yq0c5rgp/T_Jason_Eyes_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_m24trzff/T_Jason_Eyes_D.jpg"
     },
     {
       "image": "T_Jason_Hair_D",
@@ -120,7 +120,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_ndgh3pbt/T_Jason_Hair_D.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_90f14tf6/T_Jason_Hair_D.png"
     },
     {
       "image": "T_Jason_Hair_N",
@@ -130,7 +130,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_8jh2vydo/T_Jason_Hair_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_uhcwlwzk/T_Jason_Hair_N.png"
     },
     {
       "image": "T_Jason_Jacket_D",
@@ -140,7 +140,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_r1t05xkr/T_Jason_Jacket_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_snne071x/T_Jason_Jacket_D.jpg"
     },
     {
       "image": "T_Jason_Jacket_ORM",
@@ -150,7 +150,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_wm7inrf1/T_Jason_Jacket_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_ojhdqiqv/T_Jason_Jacket_ORM.jpg"
     },
     {
       "image": "T_Jason_Jacket_N",
@@ -160,7 +160,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_t8f5g_kj/T_Jason_Jacket_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_g3h5gvux/T_Jason_Jacket_N.png"
     },
     {
       "image": "T_Jason_Jeans_D",
@@ -170,7 +170,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_3sdpqg1j/T_Jason_Jeans_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_7rzwjzsf/T_Jason_Jeans_D.jpg"
     },
     {
       "image": "T_Jason_Jeans_ORM",
@@ -180,7 +180,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_wycdvo_6/T_Jason_Jeans_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_sxt8emxs/T_Jason_Jeans_ORM.jpg"
     },
     {
       "image": "T_Jason_Jeans_N",
@@ -190,7 +190,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_u44uj865/T_Jason_Jeans_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex__m0a4fjp/T_Jason_Jeans_N.png"
     },
     {
       "image": "T_Jason_Skin_D",
@@ -200,7 +200,7 @@
         2048
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_9h2b9sqv/T_Jason_Skin_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_b39v4hwo/T_Jason_Skin_D.jpg"
     },
     {
       "image": "T_Jason_Skin_ORM",
@@ -210,7 +210,7 @@
         2048
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_l2p87e7i/T_Jason_Skin_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_66xr02yn/T_Jason_Skin_ORM.jpg"
     },
     {
       "image": "T_Jason_Skin_N",
@@ -220,7 +220,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_3xa2j8pi/T_Jason_Skin_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_xgaznwov/T_Jason_Skin_N.png"
     },
     {
       "image": "T_Jason_TShirt_D",
@@ -230,7 +230,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_yfgq7s31/T_Jason_TShirt_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_fsglamfe/T_Jason_TShirt_D.jpg"
     },
     {
       "image": "T_Jason_TShirt_ORM",
@@ -240,7 +240,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_ui17626q/T_Jason_TShirt_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_ab_s6lrj/T_Jason_TShirt_ORM.jpg"
     },
     {
       "image": "T_Jason_TShirt_N",
@@ -250,17 +250,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_977hw9kj/T_Jason_TShirt_N.png"
-    },
-    {
-      "image": "T_Jason_Teeth_D",
-      "material": "M_Jason_Teeth",
-      "size": [
-        512,
-        512
-      ],
-      "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_fjihatpl/T_Jason_Teeth_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_lbcj74ix/T_Jason_TShirt_N.png"
     },
     {
       "image": "T_Jason_Watch_D",
@@ -270,7 +260,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_ww0f4x3m/T_Jason_Watch_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_12a5l1t3/T_Jason_Watch_D.jpg"
     },
     {
       "image": "T_Jason_Watch_ORM",
@@ -280,7 +270,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_pm5vm17c/T_Jason_Watch_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_in1l6fsv/T_Jason_Watch_ORM.jpg"
     },
     {
       "image": "T_Jason_Watch_N",
@@ -290,7 +280,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../tmp/uwp_tex_s0_yhoc3/T_Jason_Watch_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_t1qek9af/T_Jason_Watch_N.png"
     }
   ],
   "uv_overlap": {
@@ -299,28 +289,20 @@
       "uv_coverage": 0.3361
     },
     "SK_Jason_Eyes": {
-      "overlap_fraction": 0.0,
-      "uv_coverage": 0.4498
-    },
-    "SK_Jason_Eyebrows": {
-      "overlap_fraction": 0.0,
-      "uv_coverage": 0.234
-    },
-    "SK_Jason_Eyelashes": {
-      "overlap_fraction": 0.0,
-      "uv_coverage": 0.1407
+      "overlap_fraction": 0.0001,
+      "uv_coverage": 0.8698
     },
     "SK_Jason_Teeth": {
-      "overlap_fraction": 0.0,
-      "uv_coverage": 0.3352
+      "overlap_fraction": 0.3252,
+      "uv_coverage": 0.3847
     },
     "SK_Jason_TShirt": {
-      "overlap_fraction": 0.0001,
-      "uv_coverage": 0.4336
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.4335
     },
     "SK_Jason_Jeans": {
-      "overlap_fraction": 0.0,
-      "uv_coverage": 0.4556
+      "overlap_fraction": 0.0001,
+      "uv_coverage": 0.4554
     },
     "SK_Jason_Boots": {
       "overlap_fraction": 0.0,
@@ -328,7 +310,7 @@
     },
     "SK_Jason_Jacket": {
       "overlap_fraction": 0.0002,
-      "uv_coverage": 0.4004
+      "uv_coverage": 0.4002
     },
     "SK_Jason_Watch": {
       "overlap_fraction": 0.0,
@@ -338,45 +320,45 @@
   "texel_density": {
     "SK_Jason_Body": {
       "texture_px": 2048,
-      "median_px_per_m": 1343.1,
-      "p10_px_per_m": 913.8,
-      "p90_px_per_m": 2434.8
+      "median_px_per_m": 1362.9,
+      "p10_px_per_m": 919.4,
+      "p90_px_per_m": 2538.1
     },
     "SK_Jason_Eyes": {
       "texture_px": 512,
-      "median_px_per_m": 6399.7,
-      "p10_px_per_m": 4635.1,
-      "p90_px_per_m": 9007.3
+      "median_px_per_m": 17630.9,
+      "p10_px_per_m": 7999.8,
+      "p90_px_per_m": 19227.6
     },
     "SK_Jason_Eyebrows": {
       "texture_px": 1024,
-      "median_px_per_m": 12185.2,
-      "p10_px_per_m": 7598.5,
-      "p90_px_per_m": 16794.8
+      "median_px_per_m": 16170.3,
+      "p10_px_per_m": 13291.4,
+      "p90_px_per_m": 26634.9
     },
-    "SK_Jason_Eyelashes": {
+    "SK_Jason_Eyelashes_L": {
       "texture_px": 1024,
-      "median_px_per_m": 14301.9,
-      "p10_px_per_m": 12500.1,
-      "p90_px_per_m": 15553.5
+      "median_px_per_m": 70084.6,
+      "p10_px_per_m": 58163.0,
+      "p90_px_per_m": 113461.6
     },
-    "SK_Jason_Teeth": {
-      "texture_px": 512,
-      "median_px_per_m": 2355.0,
-      "p10_px_per_m": 1820.1,
-      "p90_px_per_m": 2755.2
+    "SK_Jason_Eyelashes_R": {
+      "texture_px": 1024,
+      "median_px_per_m": 68464.4,
+      "p10_px_per_m": 56860.5,
+      "p90_px_per_m": 111709.3
     },
     "SK_Jason_TShirt": {
       "texture_px": 1024,
-      "median_px_per_m": 950.2,
-      "p10_px_per_m": 799.4,
-      "p90_px_per_m": 1009.8
+      "median_px_per_m": 950.6,
+      "p10_px_per_m": 804.7,
+      "p90_px_per_m": 1010.3
     },
     "SK_Jason_Jeans": {
       "texture_px": 1024,
-      "median_px_per_m": 709.1,
-      "p10_px_per_m": 642.1,
-      "p90_px_per_m": 741.9
+      "median_px_per_m": 709.6,
+      "p10_px_per_m": 642.2,
+      "p90_px_per_m": 742.0
     },
     "SK_Jason_Boots": {
       "texture_px": 1024,
@@ -386,9 +368,9 @@
     },
     "SK_Jason_Jacket": {
       "texture_px": 1024,
-      "median_px_per_m": 712.2,
-      "p10_px_per_m": 587.6,
-      "p90_px_per_m": 793.5
+      "median_px_per_m": 711.7,
+      "p10_px_per_m": 580.4,
+      "p90_px_per_m": 811.8
     },
     "SK_Jason_Watch": {
       "texture_px": 512,
@@ -398,16 +380,16 @@
     },
     "SK_Jason_Hair": {
       "texture_px": 512,
-      "median_px_per_m": 919.6,
-      "p10_px_per_m": 340.1,
-      "p90_px_per_m": 18795.0
+      "median_px_per_m": 846.8,
+      "p10_px_per_m": 422.4,
+      "p90_px_per_m": 18000.1
     }
   },
   "clipping": [
     {
       "inner": "SK_Jason_Body",
       "outer": "SK_Jason_TShirt",
-      "tested_vertices": 838,
+      "tested_vertices": 837,
       "clipped_vertices": 0,
       "clipped_fraction": 0.0
     },
@@ -428,16 +410,16 @@
     {
       "inner": "SK_Jason_Body",
       "outer": "SK_Jason_Jacket",
-      "tested_vertices": 19,
-      "clipped_vertices": 3,
-      "clipped_fraction": 0.1579
+      "tested_vertices": 14,
+      "clipped_vertices": 4,
+      "clipped_fraction": 0.2857
     },
     {
       "inner": "SK_Jason_TShirt",
       "outer": "SK_Jason_Jacket",
-      "tested_vertices": 151,
-      "clipped_vertices": 3,
-      "clipped_fraction": 0.0199
+      "tested_vertices": 161,
+      "clipped_vertices": 2,
+      "clipped_fraction": 0.0124
     }
   ],
   "armatures": {
@@ -504,8 +486,6 @@
     "browDownLeft",
     "browDownRight",
     "browInnerUp",
-    "cheekSquintLeft",
-    "cheekSquintRight",
     "eyeBlinkLeft",
     "eyeBlinkRight",
     "jawOpen",
@@ -515,11 +495,8 @@
     "mouthSmileRight",
     "noseSneerLeft",
     "noseSneerRight",
-    "viseme_E",
-    "viseme_FF",
     "viseme_O",
-    "viseme_PP",
-    "viseme_SS",
+    "viseme_U",
     "viseme_aa"
   ],
   "animations": [
@@ -809,56 +786,45 @@
     }
   },
   "silhouette": {
-    "report": "Assets/Characters/SK_Jason/SK_Jason.silhouette_report.json",
-    "mean_iou": 0.7565,
-    "mean_proportion_delta": 0.0146,
-    "pass": true
+    "skipped": "/home/user/UNDERWORLD-The-American-Dream/Docs/ArtDirection/Concepts/CA_Jason_Turnaround_v01.jpg is an unresolved Git LFS pointer, not an image"
   },
   "nodes": [
-    "LeftToes",
-    "LeftFoot",
-    "LeftLowerLeg",
-    "LeftUpperLeg",
-    "RightToes",
-    "RightFoot",
-    "RightLowerLeg",
-    "RightUpperLeg",
+    "Head",
+    "Neck",
+    "LeftThumbDistal",
+    "LeftThumbProximal",
+    "LeftThumbMetacarpal",
     "LeftIndexDistal",
     "LeftIndexIntermediate",
     "LeftIndexProximal",
-    "LeftLittleDistal",
-    "LeftLittleIntermediate",
-    "LeftLittleProximal",
     "LeftMiddleDistal",
     "LeftMiddleIntermediate",
     "LeftMiddleProximal",
     "LeftRingDistal",
     "LeftRingIntermediate",
     "LeftRingProximal",
-    "LeftThumbDistal",
-    "LeftThumbProximal",
-    "LeftThumbMetacarpal",
+    "LeftLittleDistal",
+    "LeftLittleIntermediate",
+    "LeftLittleProximal",
     "LeftHand",
     "LeftLowerArm",
     "LeftUpperArm",
     "LeftShoulder",
-    "Head",
-    "Neck",
+    "RightThumbDistal",
+    "RightThumbProximal",
+    "RightThumbMetacarpal",
     "RightIndexDistal",
     "RightIndexIntermediate",
     "RightIndexProximal",
-    "RightLittleDistal",
-    "RightLittleIntermediate",
-    "RightLittleProximal",
     "RightMiddleDistal",
     "RightMiddleIntermediate",
     "RightMiddleProximal",
     "RightRingDistal",
     "RightRingIntermediate",
     "RightRingProximal",
-    "RightThumbDistal",
-    "RightThumbProximal",
-    "RightThumbMetacarpal",
+    "RightLittleDistal",
+    "RightLittleIntermediate",
+    "RightLittleProximal",
     "SOCKET_RightHand_Weapon",
     "RightHand",
     "RightLowerArm",
@@ -867,13 +833,22 @@
     "UpperChest",
     "Chest",
     "Spine",
+    "LeftToes",
+    "LeftFoot",
+    "LeftLowerLeg",
+    "LeftUpperLeg",
+    "RightToes",
+    "RightFoot",
+    "RightLowerLeg",
+    "RightUpperLeg",
     "Hips",
     "Root",
     "SK_Jason_Beard",
     "SK_Jason_Body",
     "SK_Jason_Boots",
     "SK_Jason_Eyebrows",
-    "SK_Jason_Eyelashes",
+    "SK_Jason_Eyelashes_L",
+    "SK_Jason_Eyelashes_R",
     "SK_Jason_Eyes",
     "SK_Jason_Hair",
     "SK_Jason_Jacket",
@@ -884,5 +859,5 @@
     "Armature",
     "SK_Jason"
   ],
-  "glb_bytes": 11210160
+  "glb_bytes": 11173532
 }

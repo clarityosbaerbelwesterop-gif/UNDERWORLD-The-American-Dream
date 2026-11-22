@@ -8,7 +8,7 @@
   "preview_png": "Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree_preview.png",
   "previews": null,
   "tool": "underworld_pipeline 1.0.0",
-  "blender_version": "5.2.4 LTS",
+  "blender_version": "5.0.1",
   "units": "metres (1 BU = 1 m = 1 Godot unit)",
   "up_axis": "Blender +Z -> glTF/Godot +Y",
   "front": "Blender -Y -> Godot +Z",
@@ -86,7 +86,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_3t0_or1q/T_LA_PalmBark_D.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_cg5ckpg7/T_LA_PalmBark_D.jpg"
     },
     {
       "image": "T_LA_PalmBark_ORM",
@@ -96,7 +96,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_f9akp40t/T_LA_PalmBark_ORM.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_mkh31enk/T_LA_PalmBark_ORM.jpg"
     },
     {
       "image": "T_LA_PalmBark_N",
@@ -106,7 +106,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_jwbufkr3/T_LA_PalmBark_N.png"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_2qjo6mrr/T_LA_PalmBark_N.png"
     }
   ],
   "uv_overlap": {
@@ -136,5 +136,5 @@
     "UCX_SM_LA_PalmTree_Mesh_LOD2-colonly",
     "SM_LA_PalmTree"
   ],
-  "glb_bytes": 956336
+  "glb_bytes": 84340
 }

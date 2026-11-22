@@ -1,14 +1,14 @@
 {
   "tool": "underworld_pipeline",
   "version": "1.0.0",
-  "blender": "5.2.4 LTS",
-  "timestamp": "2026-11-22T10:24:13+00:00",
-  "command": "export",
+  "blender": "5.0.1",
+  "timestamp": "2026-11-22T19:40:49+00:00",
+  "command": "export-all",
   "input": "Blender/Source/Characters/SK_Jason/SK_Jason.blend",
   "steps": {
     "validate": {
       "errors": 0,
-      "warnings": 0
+      "warnings": 1
     },
     "lods": [],
     "collision": {
@@ -18,7 +18,7 @@
     },
     "export": {
       "glb": "Assets/Characters/SK_Jason/SK_Jason.glb",
-      "bytes": 11210160
+      "bytes": 11173532
     },
     "preview": {
       "front": "Assets/Characters/SK_Jason/SK_Jason_preview_front.png",
@@ -31,59 +31,48 @@
       "aim": "Assets/Characters/SK_Jason/SK_Jason_preview_aim.png"
     },
     "silhouette": {
-      "report": "Assets/Characters/SK_Jason/SK_Jason.silhouette_report.json",
-      "mean_iou": 0.7565,
-      "mean_proportion_delta": 0.0146,
-      "pass": true
+      "skipped": "/home/user/UNDERWORLD-The-American-Dream/Docs/ArtDirection/Concepts/CA_Jason_Turnaround_v01.jpg is an unresolved Git LFS pointer, not an image"
     },
     "manifest": "Assets/Characters/SK_Jason/SK_Jason.manifest.json",
     "verify": {
       "glb": {
         "nodes": [
-          "LeftToes",
-          "LeftFoot",
-          "LeftLowerLeg",
-          "LeftUpperLeg",
-          "RightToes",
-          "RightFoot",
-          "RightLowerLeg",
-          "RightUpperLeg",
+          "Head",
+          "Neck",
+          "LeftThumbDistal",
+          "LeftThumbProximal",
+          "LeftThumbMetacarpal",
           "LeftIndexDistal",
           "LeftIndexIntermediate",
           "LeftIndexProximal",
-          "LeftLittleDistal",
-          "LeftLittleIntermediate",
-          "LeftLittleProximal",
           "LeftMiddleDistal",
           "LeftMiddleIntermediate",
           "LeftMiddleProximal",
           "LeftRingDistal",
           "LeftRingIntermediate",
           "LeftRingProximal",
-          "LeftThumbDistal",
-          "LeftThumbProximal",
-          "LeftThumbMetacarpal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
           "LeftHand",
           "LeftLowerArm",
           "LeftUpperArm",
           "LeftShoulder",
-          "Head",
-          "Neck",
+          "RightThumbDistal",
+          "RightThumbProximal",
+          "RightThumbMetacarpal",
           "RightIndexDistal",
           "RightIndexIntermediate",
           "RightIndexProximal",
-          "RightLittleDistal",
-          "RightLittleIntermediate",
-          "RightLittleProximal",
           "RightMiddleDistal",
           "RightMiddleIntermediate",
           "RightMiddleProximal",
           "RightRingDistal",
           "RightRingIntermediate",
           "RightRingProximal",
-          "RightThumbDistal",
-          "RightThumbProximal",
-          "RightThumbMetacarpal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
           "SOCKET_RightHand_Weapon",
           "RightHand",
           "RightLowerArm",
@@ -92,13 +81,22 @@
           "UpperChest",
           "Chest",
           "Spine",
+          "LeftToes",
+          "LeftFoot",
+          "LeftLowerLeg",
+          "LeftUpperLeg",
+          "RightToes",
+          "RightFoot",
+          "RightLowerLeg",
+          "RightUpperLeg",
           "Hips",
           "Root",
           "SK_Jason_Beard",
           "SK_Jason_Body",
           "SK_Jason_Boots",
           "SK_Jason_Eyebrows",
-          "SK_Jason_Eyelashes",
+          "SK_Jason_Eyelashes_L",
+          "SK_Jason_Eyelashes_R",
           "SK_Jason_Eyes",
           "SK_Jason_Hair",
           "SK_Jason_Jacket",
@@ -113,6 +111,15 @@
           "SK_Jason_Beard": {
             "uw_allow_uv_overlap": true
           },
+          "SK_Jason_Eyebrows": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_Jason_Eyelashes_L": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_Jason_Eyelashes_R": {
+            "uw_allow_uv_overlap": true
+          },
           "SK_Jason_Hair": {
             "uw_allow_uv_overlap": true
           },
@@ -122,7 +129,7 @@
             "uw_concept_head": "Docs/ArtDirection/Concepts/CA_Jason_Head_v01.jpg"
           }
         },
-        "meshes": 12,
+        "meshes": 13,
         "materials": [
           "M_Jason_Hair",
           "M_Jason_Skin",
@@ -135,7 +142,7 @@
           "M_Jason_TShirt",
           "M_Jason_Watch"
         ],
-        "images": 23,
+        "images": 22,
         "skins": [
           {
             "name": "Armature",
@@ -220,8 +227,8 @@
           "A_Jason_Sprint",
           "A_Jason_Walk"
         ],
-        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
-        "bytes": 11210160
+        "asset_generator": "Khronos glTF Blender I/O v5.0.21",
+        "bytes": 11173532
       },
       "reimport_objects": [
         "Armature",
@@ -231,7 +238,8 @@
         "SK_Jason_Body",
         "SK_Jason_Boots",
         "SK_Jason_Eyebrows",
-        "SK_Jason_Eyelashes",
+        "SK_Jason_Eyelashes_L",
+        "SK_Jason_Eyelashes_R",
         "SK_Jason_Eyes",
         "SK_Jason_Hair",
         "SK_Jason_Jacket",
@@ -287,25 +295,31 @@
       "severity": "info",
       "code": "OPEN_BOUNDARY",
       "object": "SK_Jason_Eyebrows",
-      "message": "52 open boundary edges (mesh not closed)"
+      "message": "6300 open boundary edges (mesh not closed)"
     },
     {
       "severity": "info",
       "code": "OPEN_BOUNDARY",
-      "object": "SK_Jason_Eyelashes",
-      "message": "124 open boundary edges (mesh not closed)"
+      "object": "SK_Jason_Eyelashes_L",
+      "message": "288 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Jason_Eyelashes_R",
+      "message": "288 open boundary edges (mesh not closed)"
     },
     {
       "severity": "info",
       "code": "OPEN_BOUNDARY",
       "object": "SK_Jason_Teeth",
-      "message": "342 open boundary edges (mesh not closed)"
+      "message": "80 open boundary edges (mesh not closed)"
     },
     {
       "severity": "info",
       "code": "OPEN_BOUNDARY",
       "object": "SK_Jason_TShirt",
-      "message": "188 open boundary edges (mesh not closed)"
+      "message": "191 open boundary edges (mesh not closed)"
     },
     {
       "severity": "info",
@@ -317,44 +331,53 @@
       "severity": "info",
       "code": "OPEN_BOUNDARY",
       "object": "SK_Jason_Jacket",
-      "message": "205 open boundary edges (mesh not closed)"
+      "message": "201 open boundary edges (mesh not closed)"
     },
     {
       "severity": "info",
       "code": "OPEN_BOUNDARY",
       "object": "SK_Jason_Hair",
-      "message": "798 open boundary edges (mesh not closed)"
+      "message": "806 open boundary edges (mesh not closed)"
     },
     {
       "severity": "info",
       "code": "OPEN_BOUNDARY",
       "object": "SK_Jason_Beard",
-      "message": "296 open boundary edges (mesh not closed)"
+      "message": "288 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "warning",
+      "code": "UV_OVERLAP",
+      "object": "SK_Jason_Teeth",
+      "message": "UV self-overlap 32.5% > 8%",
+      "data": {
+        "overlap": 0.3252
+      }
     },
     {
       "severity": "info",
       "code": "MESH_CLIPPING",
       "object": "SK_Jason_Body",
-      "message": "SK_Jason_Body vs SK_Jason_Jacket: 3/19 verts (15.79%)",
+      "message": "SK_Jason_Body vs SK_Jason_Jacket: 4/14 verts (28.57%)",
       "data": {
         "inner": "SK_Jason_Body",
         "outer": "SK_Jason_Jacket",
-        "tested_vertices": 19,
-        "clipped_vertices": 3,
-        "clipped_fraction": 0.1579
+        "tested_vertices": 14,
+        "clipped_vertices": 4,
+        "clipped_fraction": 0.2857
       }
     },
     {
       "severity": "info",
       "code": "MESH_CLIPPING",
       "object": "SK_Jason_TShirt",
-      "message": "SK_Jason_TShirt vs SK_Jason_Jacket: 3/151 verts (1.99%)",
+      "message": "SK_Jason_TShirt vs SK_Jason_Jacket: 2/161 verts (1.24%)",
       "data": {
         "inner": "SK_Jason_TShirt",
         "outer": "SK_Jason_Jacket",
-        "tested_vertices": 151,
-        "clipped_vertices": 3,
-        "clipped_fraction": 0.0199
+        "tested_vertices": 161,
+        "clipped_vertices": 2,
+        "clipped_fraction": 0.0124
       }
     },
     {
@@ -370,24 +393,18 @@
       "message": "no LOD ratios configured for Characters"
     },
     {
-      "severity": "info",
-      "code": "SILHOUETTE_MATCH",
+      "severity": "warning",
+      "code": "CONCEPT_UNAVAILABLE",
       "object": "SK_Jason",
-      "message": "turnaround match PASS: mean IoU=0.756, mean proportion delta=0.0146",
-      "data": {
-        "report": "Assets/Characters/SK_Jason/SK_Jason.silhouette_report.json",
-        "mean_iou": 0.7565,
-        "mean_proportion_delta": 0.0146,
-        "pass": true
-      }
+      "message": "silhouette comparison skipped: /home/user/UNDERWORLD-The-American-Dream/Docs/ArtDirection/Concepts/CA_Jason_Turnaround_v01.jpg is an unresolved Git LFS pointer, not an image (the reference board must be restored before any PRODUCTION-READY claim)"
     }
   ],
   "summary": {
     "errors": 0,
-    "warnings": 0,
+    "warnings": 2,
     "infos": 15
   },
-  "seconds": 35.09,
+  "seconds": 293.33,
   "exit_code": 0,
   "result": "PASS"
 }

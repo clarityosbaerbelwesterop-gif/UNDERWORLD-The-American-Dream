@@ -1,0 +1,232 @@
+{
+  "asset": "SK_NPC_Cop_LA",
+  "status": "v2 production pipeline (T-PIPE-03, spec SK_NPC_Cop_LA.json)",
+  "height_m": 1.848,
+  "triangles": {
+    "SK_NPC_Cop_LA_Body": 11306,
+    "SK_NPC_Cop_LA_Eyes": 688,
+    "SK_NPC_Cop_LA_Eyebrows": 1024,
+    "SK_NPC_Cop_LA_Eyelashes_L": 192,
+    "SK_NPC_Cop_LA_Eyelashes_R": 192,
+    "SK_NPC_Cop_LA_Hair": 2700,
+    "SK_NPC_Cop_LA_TShirt": 2756,
+    "SK_NPC_Cop_LA_Jeans": 2055,
+    "SK_NPC_Cop_LA_Boots": 1680
+  },
+  "triangles_total": 22593,
+  "materials": [
+    "M_NPC_Cop_LA_Boots",
+    "M_NPC_Cop_LA_BrowsLashes",
+    "M_NPC_Cop_LA_Eyes",
+    "M_NPC_Cop_LA_Hair",
+    "M_NPC_Cop_LA_Jeans",
+    "M_NPC_Cop_LA_Skin",
+    "M_NPC_Cop_LA_TShirt"
+  ],
+  "bones": [
+    "Root",
+    "Hips",
+    "Spine",
+    "Chest",
+    "UpperChest",
+    "Neck",
+    "Head",
+    "LeftShoulder",
+    "LeftUpperArm",
+    "LeftLowerArm",
+    "LeftHand",
+    "LeftThumbMetacarpal",
+    "LeftThumbProximal",
+    "LeftThumbDistal",
+    "LeftIndexProximal",
+    "LeftIndexIntermediate",
+    "LeftIndexDistal",
+    "LeftMiddleProximal",
+    "LeftMiddleIntermediate",
+    "LeftMiddleDistal",
+    "LeftRingProximal",
+    "LeftRingIntermediate",
+    "LeftRingDistal",
+    "LeftLittleProximal",
+    "LeftLittleIntermediate",
+    "LeftLittleDistal",
+    "RightShoulder",
+    "RightUpperArm",
+    "RightLowerArm",
+    "RightHand",
+    "RightThumbMetacarpal",
+    "RightThumbProximal",
+    "RightThumbDistal",
+    "RightIndexProximal",
+    "RightIndexIntermediate",
+    "RightIndexDistal",
+    "RightMiddleProximal",
+    "RightMiddleIntermediate",
+    "RightMiddleDistal",
+    "RightRingProximal",
+    "RightRingIntermediate",
+    "RightRingDistal",
+    "RightLittleProximal",
+    "RightLittleIntermediate",
+    "RightLittleDistal",
+    "LeftUpperLeg",
+    "LeftLowerLeg",
+    "LeftFoot",
+    "LeftToes",
+    "RightUpperLeg",
+    "RightLowerLeg",
+    "RightFoot",
+    "RightToes"
+  ],
+  "bone_count": 53,
+  "blendshapes": [],
+  "blendshape_count": 0,
+  "rest_pose": "T-pose (baked from MakeHuman CC0 hm08 A-pose)",
+  "front": "Blender -Y = Godot +Z",
+  "root_motion": "none (in place); Root bone has no keys",
+  "mocap_walk_profile": {
+    "source_bvh": "makehuman_walk1.bvh",
+    "source_frames": 14,
+    "source_fps": 24.0,
+    "bob_m": 0.01,
+    "sway_m": 0.008,
+    "pelvis_roll_deg": 5.32,
+    "pelvis_yaw_deg": 7.99,
+    "chest_twist_deg": 3.62
+  },
+  "fps": 30,
+  "clips": {
+    "A_Humanoid_Walk": {
+      "frames": 32,
+      "loop": true,
+      "speed": 1.4,
+      "reach_clamp_m": 0.016,
+      "foot_sliding_m": 0.0339,
+      "length_s": 1.0667
+    },
+    "A_Humanoid_Run": {
+      "frames": 20,
+      "loop": true,
+      "speed": 3.5,
+      "reach_clamp_m": 0.0,
+      "foot_sliding_m": 0.0,
+      "length_s": 0.6667
+    },
+    "A_Humanoid_Sprint": {
+      "frames": 16,
+      "loop": true,
+      "speed": 6.0,
+      "reach_clamp_m": 0.033,
+      "foot_sliding_m": 0.02,
+      "length_s": 0.5333
+    },
+    "A_Humanoid_Crouch_Walk": {
+      "frames": 36,
+      "loop": true,
+      "speed": 1.2,
+      "reach_clamp_m": 0.0,
+      "foot_sliding_m": 0.0362,
+      "length_s": 1.2
+    },
+    "A_Humanoid_Aim_Pistol_Walk_F": {
+      "frames": 24,
+      "loop": true,
+      "speed": 2.0,
+      "reach_clamp_m": 0.025,
+      "foot_sliding_m": 0.0005,
+      "length_s": 0.8
+    },
+    "A_Humanoid_Aim_Pistol_Walk_B": {
+      "frames": 24,
+      "loop": true,
+      "speed": 2.0,
+      "reach_clamp_m": 0.0247,
+      "foot_sliding_m": 0.0405,
+      "length_s": 0.8
+    },
+    "A_Humanoid_Aim_Pistol_Walk_L": {
+      "frames": 24,
+      "loop": true,
+      "speed": 2.0,
+      "reach_clamp_m": 0.0227,
+      "foot_sliding_m": 0.0487,
+      "length_s": 0.8
+    },
+    "A_Humanoid_Aim_Pistol_Walk_R": {
+      "frames": 24,
+      "loop": true,
+      "speed": 2.0,
+      "reach_clamp_m": 0.0227,
+      "foot_sliding_m": 0.0487,
+      "length_s": 0.8
+    },
+    "A_Humanoid_Idle": {
+      "frames": 60,
+      "loop": true,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0,
+      "length_s": 2.0
+    },
+    "A_Humanoid_Crouch_Idle": {
+      "frames": 60,
+      "loop": true,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0,
+      "length_s": 2.0
+    },
+    "A_Humanoid_Jump_Start": {
+      "frames": 8,
+      "loop": false,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0,
+      "length_s": 0.2667
+    },
+    "A_Humanoid_Jump_Air": {
+      "frames": 20,
+      "loop": true,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0,
+      "length_s": 0.6667
+    },
+    "A_Humanoid_Land": {
+      "frames": 9,
+      "loop": false,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0,
+      "length_s": 0.3
+    },
+    "A_Humanoid_Aim_Pistol_Idle": {
+      "frames": 60,
+      "loop": true,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0,
+      "length_s": 2.0
+    },
+    "A_Humanoid_Shoot_Pistol": {
+      "frames": 8,
+      "loop": false,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0,
+      "length_s": 0.2667
+    },
+    "A_Humanoid_Reload_Pistol": {
+      "frames": 48,
+      "loop": false,
+      "speed": 0.0,
+      "reach_clamp_m": 0.0,
+      "length_s": 1.6
+    }
+  },
+  "socket": {
+    "name": "SOCKET_RightHand_Weapon",
+    "parent_bone": "RightHand",
+    "convention": "local +Y up, +Z barrel in Godot (= Blender local +Z up, -Y barrel); identity orientation in Aim_Pistol_Idle",
+    "aim_pose_position_godot": [
+      -0.0422,
+      1.3991,
+      0.5622
+    ]
+  },
+  "max_foot_sliding_m": 0.0487,
+  "build_seconds": 9.9
+}

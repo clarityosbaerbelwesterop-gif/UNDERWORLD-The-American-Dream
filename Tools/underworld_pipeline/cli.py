@@ -60,6 +60,7 @@ def build_parser():
         sp.add_argument("--force-collision", action="store_true", help="generate even if UCX_ collision exists")
         sp.add_argument("--no-preview", action="store_true", help="skip the Cycles CPU preview PNG")
         sp.add_argument("--no-verify", action="store_true", help="skip the re-import round-trip check")
+        sp.add_argument("--concept-turnaround", help="path to 4-panel concept art turnaround JPG/PNG for automated silhouette/proportion check")
 
     for name in ("validate", "export"):
         sp = sub.add_parser(name)
@@ -157,15 +158,54 @@ def process(blend, args, cfg, do_export, out=None):
         print(f"[UWP] exported {out} ({summ['bytes']} bytes, {len(summ['nodes'])} nodes, {len(summ['animations'])} animations)")
 
         preview = None
+        previews_map = {}
+        silhouette_rep = None
         if not args.no_preview and stats.get("bbox"):
-            preview = os.path.join(out_dir, name + "_preview.png")
-            ok = E.render_preview(ctx, preview, stats["bbox"])
-            if not ok:
-                iss.warn("PREVIEW", "preview render failed")
-                preview = None
-            report["steps"]["preview"] = _rel(cfg, preview) if preview else "failed"
+            if C.Config.top(cat) == "Characters" and not name.startswith("PT_"):
+                previews_map = E.render_character_previews(ctx, out_dir, name, stats["bbox"])
+                preview = previews_map.get("default")
+                report["steps"]["preview"] = {k: _rel(cfg, v) for k, v in previews_map.items()}
+            else:
+                preview = os.path.join(out_dir, name + "_preview.png")
+                ok = E.render_preview(ctx, preview, stats["bbox"])
+                if not ok:
+                    iss.warn("PREVIEW", "preview render failed")
+                    preview = None
+                report["steps"]["preview"] = _rel(cfg, preview) if preview else "failed"
         else:
             report["steps"]["preview"] = "skipped"
+
+        # Automated silhouette & proportion comparison against turnaround concept art (if present)
+        root_ob = sc.objects.get(name)
+        concept_rel = getattr(args, "concept_turnaround", None) or (root_ob.get("uw_concept_turnaround") if root_ob else None)
+        if concept_rel and previews_map.get("front") and previews_map.get("side"):
+            concept_abs = concept_rel if os.path.isabs(concept_rel) else os.path.join(cfg.repo, concept_rel)
+            if os.path.isfile(concept_abs):
+                from underworld_pipeline import silhouette_check as SIL
+                sil_path = os.path.join(out_dir, name + ".silhouette_report.json")
+                silhouette_rep = SIL.compare_turnaround(concept_abs, previews_map["front"], previews_map["side"], out_report_path=sil_path)
+                report["steps"]["silhouette"] = {
+                    "report": _rel(cfg, sil_path),
+                    "mean_iou": silhouette_rep["mean_iou"],
+                    "mean_proportion_delta": silhouette_rep["mean_proportion_delta"],
+                    "pass": silhouette_rep["pass"],
+                }
+                if silhouette_rep["pass"]:
+                    iss.info("SILHOUETTE_MATCH",
+                             f"turnaround match PASS: mean IoU={silhouette_rep['mean_iou']:.3f}, mean proportion delta={silhouette_rep['mean_proportion_delta']:.4f}",
+                             name, **report["steps"]["silhouette"])
+                else:
+                    iss.warn("SILHOUETTE_MATCH",
+                             f"turnaround match below threshold: mean IoU={silhouette_rep['mean_iou']:.3f}, mean proportion delta={silhouette_rep['mean_proportion_delta']:.4f}",
+                             name, **report["steps"]["silhouette"])
+
+        # Collect blendshape names on exported meshes
+        blendshapes = sorted({
+            kb.name
+            for o in sc.objects
+            if o.type == "MESH" and o.data.shape_keys and len(o.data.shape_keys.key_blocks) > 1
+            for kb in o.data.shape_keys.key_blocks[1:]
+        })
 
         bb = stats.get("bbox")
         lod_totals = {}
@@ -174,12 +214,13 @@ def process(blend, args, cfg, do_export, out=None):
                 lod_totals[lv["level"]] = lod_totals.get(lv["level"], 0) + lv["triangles"]
         manifest = {
             "asset": name,
-            "status": "PIPELINE TEST PLACEHOLDER - NOT FINAL ART" if name.startswith("PT_") else "WIP",
+            "status": "PIPELINE TEST PLACEHOLDER - NOT FINAL ART" if name.startswith("PT_") else "READY FOR REVIEW",
             "category": cat,
             "budget_key": bkey,
             "source_blend": _rel(cfg, os.path.abspath(blend)),
             "export_glb": _rel(cfg, out),
             "preview_png": _rel(cfg, preview) if preview else None,
+            "previews": {k: _rel(cfg, v) for k, v in previews_map.items()} if previews_map else None,
             "tool": f"underworld_pipeline {VERSION}",
             "blender_version": bpy.app.version_string,
             "units": "metres (1 BU = 1 m = 1 Godot unit)",
@@ -192,9 +233,14 @@ def process(blend, args, cfg, do_export, out=None):
             "collision": col,
             "materials": stats["materials"],
             "textures": stats["textures"],
+            "uv_overlap": stats.get("uv_overlap", {}),
+            "texel_density": stats.get("texel_density", {}),
+            "clipping": stats.get("clipping", []),
             "armatures": stats["armatures"],
+            "blendshapes": blendshapes,
             "animations": stats["animations"],
             "sockets": stats["sockets"],
+            "silhouette": report["steps"].get("silhouette"),
             "nodes": summ["nodes"],
             "glb_bytes": summ["bytes"],
         }

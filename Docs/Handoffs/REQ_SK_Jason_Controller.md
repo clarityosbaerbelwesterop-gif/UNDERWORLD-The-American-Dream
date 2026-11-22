@@ -34,7 +34,7 @@ Loop flags are set by Bot 3 in the Godot import settings (T-PIPE-02) – **do no
 | `A_Jason_Crouch_Idle` | yes | 0 m/s | P1 | **new** (GDD §5 crouch) |
 | `A_Jason_Crouch_Walk` | yes | 1.2 m/s | P1 | **new** |
 | `A_Jason_Jump_Start` | no | ~0.25 s takeoff | P1 | **new** |
-| `A_Jason_Jump_Loop` | yes | airborne/falling pose | P1 | **new** |
+| `A_Jason_Jump_Air` | yes | airborne/falling pose | P1 | **new** – renamed from `A_Jason_Jump_Loop` (director 2026-11-22, TD-005 addendum: Godot strips `_Loop`) |
 | `A_Jason_Land` | no | ~0.3 s | P1 | **new** |
 | `A_Jason_Aim_Pistol_Idle` | yes | full-body pistol aim | P1 | **renamed** from `A_Jason_Aim_Pistol` |
 | `A_Jason_Aim_Pistol_Walk_F` / `_B` / `_L` / `_R` | yes | 2.0 m/s, upper body holds aim | P1 | **new** (aim strafing) |

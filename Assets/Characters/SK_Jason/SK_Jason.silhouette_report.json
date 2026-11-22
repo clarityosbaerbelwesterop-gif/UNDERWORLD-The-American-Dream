@@ -1,0 +1,78 @@
+{
+  "concept_art": "/workspace/Docs/ArtDirection/Concepts/CA_Jason_Turnaround_v01.jpg",
+  "front_render": "/workspace/Assets/Characters/SK_Jason/SK_Jason_preview_front.png",
+  "side_render": "/workspace/Assets/Characters/SK_Jason/SK_Jason_preview_side.png",
+  "views": {
+    "front": {
+      "silhouette_iou": 0.8132,
+      "concept_proportions": {
+        "aspect_w_over_h": 0.3642,
+        "head_92": 0.1055,
+        "shoulders_79": 0.2812,
+        "chest_70": 0.3281,
+        "waist_58": 0.3555,
+        "hips_49": 0.3438,
+        "thighs_38": 0.2266,
+        "calves_18": 0.2422
+      },
+      "render_proportions": {
+        "aspect_w_over_h": 0.353,
+        "head_92": 0.0898,
+        "shoulders_79": 0.2773,
+        "chest_70": 0.3086,
+        "waist_58": 0.3359,
+        "hips_49": 0.3516,
+        "thighs_38": 0.2227,
+        "calves_18": 0.2188
+      },
+      "proportion_deltas": {
+        "aspect_w_over_h": -0.0112,
+        "head_92": -0.0157,
+        "shoulders_79": -0.0039,
+        "chest_70": -0.0195,
+        "waist_58": -0.0196,
+        "hips_49": 0.0078,
+        "thighs_38": -0.0039,
+        "calves_18": -0.0234
+      },
+      "mean_abs_proportion_delta": 0.0131
+    },
+    "side": {
+      "silhouette_iou": 0.6998,
+      "concept_proportions": {
+        "aspect_w_over_h": 0.2054,
+        "head_92": 0.1172,
+        "shoulders_79": 0.1484,
+        "chest_70": 0.1719,
+        "waist_58": 0.1719,
+        "hips_49": 0.1484,
+        "thighs_38": 0.1094,
+        "calves_18": 0.0898
+      },
+      "render_proportions": {
+        "aspect_w_over_h": 0.1986,
+        "head_92": 0.1094,
+        "shoulders_79": 0.1445,
+        "chest_70": 0.1445,
+        "waist_58": 0.1406,
+        "hips_49": 0.1562,
+        "thighs_38": 0.125,
+        "calves_18": 0.1172
+      },
+      "proportion_deltas": {
+        "aspect_w_over_h": -0.0068,
+        "head_92": -0.0078,
+        "shoulders_79": -0.0039,
+        "chest_70": -0.0274,
+        "waist_58": -0.0313,
+        "hips_49": 0.0078,
+        "thighs_38": 0.0156,
+        "calves_18": 0.0274
+      },
+      "mean_abs_proportion_delta": 0.016
+    }
+  },
+  "mean_iou": 0.7565,
+  "mean_proportion_delta": 0.0146,
+  "pass": true
+}

@@ -2,6 +2,18 @@
 
 Every Blender→Godot integration (or engine-side change to an asset) gets an entry. Newest on top. Times Europe/Berlin.
 
+## 2026-11-22 12:15 – PR #7 merge gate: SK_Jason v2 + uwp gates into main (Bot 1)
+- Merged `origin/main` (9cf6baf, T-GP-02a bloom) into `cursor/character-pipeline-sk-jason-v2-6fae`; only conflict `Docs/DEVELOPMENT_LOG.md` (both entries kept); gameplay code = main's bloom version (no overlap).
+- Fixes in the same push: retired v1 entrypoint `Blender/Scripts/sk_jason/build_sk_jason.py` (exits 2 with pointer to the v2 builder, so it cannot overwrite SK_Jason v2); `skins01` CC0 verified on makehumancommunity.org and added to `Docs/ASSET_LICENSES.md`.
+- Verified on a fresh worktree: `Tests/run_all.sh` RUN_ALL: PASS (smoke PASS, uwp tests PASS, asset import 40 checks, player 112, weapon 68); `Blender/Scripts/sk_jason/verify_sk_jason.sh` PASS (0 Godot warnings).
+- Result: **PASS** → merged to main.
+
+## 2026-11-22 10:25 – SK_Jason v2 production character asset → Godot 4.7.2 (Lead TD, T-PIPE-03)
+- Asset: `Assets/Characters/SK_Jason/SK_Jason.glb` (10.7 MB, 35,789 tris, 12 meshes, 10 PBR materials, 20 ARKit/viseme blendshapes, 53 `SkeletonProfileHumanoid` bones, `SOCKET_RightHand_Weapon`, 21 `A_Jason_*` animations) replacing procedural primitive v1 at the identical path and contract (`REQ-GP01-JASON`, TD-004, TD-005 addendum `A_Jason_Jump_Air`).
+- Import: Godot 4.7.2 headless with `res://Scripts/import/uw_post_import.gd` — 0 errors, 0 warnings; `[UW-IMPORT]` `lod_nodes=0 loops_set=21 manifest=yes missing=[]`.
+- Verified: `Blender/Scripts/sk_jason/verify_sk_jason.sh` PASS (53/53 bones mapped to `SkeletonProfileHumanoid`, 12 skinned `MeshInstance3D` nodes, height 1.834 m within 1.82 ± 0.02 m, min y 0.0000, +Z front, `SOCKET_RightHand_Weapon` under `BoneAttachment3D(RightHand)` with aim basis +Y=1.000 / +Z=1.000, all 21 clip lengths & loop modes exact, Root untranslated, Hips max horizontal offset ≤ 1.5 cm); `Tests/run_all.sh` PASS (no Godot gameplay scripts modified).
+- Result: **PASS** (visual look verified via 7 denoised Cycles CPU studio previews + concept-art silhouette check: front IoU 0.814, side IoU 0.700; in-engine GPU shader validation pending B-003).
+
 ## 2026-11-22 10:10 – PT pistol stand-in on the player hand socket (Bot 3, T-GP-02)
 - No Bot 2 asset integrated: `Scenes/Weapons/PT_Pistol.tscn` (Godot primitives, PT_ prefix) mirrors the REQ-GP02-PISTOL node contract (origin at grip, barrel +Z, `Magazine`, `SOCKET_Muzzle`, `SOCKET_Eject`).
 - Integration point: `WPN_Pistol_01.tres` → `scene = res://Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01.glb`; the weapon follows `Visual/PT_SOCKET_RightHand_Weapon` now and `SOCKET_RightHand_Weapon` of SK_Jason once `PlayerWeaponController.attach_to_model_socket()` runs (verified headless with a dummy model).

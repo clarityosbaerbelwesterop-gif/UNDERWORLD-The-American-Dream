@@ -221,12 +221,30 @@ def make_broken(path):
     for b in ["B1", "B2", "B3", "B4", "B5"]:
         g = c.vertex_groups.new(name=b)
         g.add([v.index for v in c.data.vertices], 0.2, "REPLACE")   # 5 influences everywhere
+    # Also add a mesh with unnormalized weights (sum = 0.5) & overlapping UVs for T-PIPE-03 gates (kept floating so ORIGIN_GROUND still triggers!)
+    bpy.ops.mesh.primitive_cube_add(size=0.4, location=(-1.5, 0, 0.6))
+    u = bpy.context.active_object
+    u.name = "SM_Broken_Unnorm"
+    u.data.materials.append(c.data.materials[0])
+    # Stack all UV faces on top of each other -> ~100% UV overlap -> UV_OVERLAP error
+    uv = u.data.uv_layers[0].data
+    for p in u.data.polygons:
+        coords = [(0.1, 0.1), (0.9, 0.1), (0.9, 0.9), (0.1, 0.9)]
+        for li, xy in zip(p.loop_indices, coords):
+            uv[li].uv = xy
+    u.modifiers.new("Armature", "ARMATURE").object = arm
+    u.vertex_groups.new(name="B1").add([v.index for v in u.data.vertices], 0.5, "REPLACE")  # sum=0.5 -> WEIGHT_UNNORMALIZED
     c.modifiers.new("Armature", "ARMATURE").object = arm
     act = bpy.data.actions.new("Wave")
     act.use_fake_user = True
     arm.animation_data_create()
     arm.animation_data.action = act
     arm.pose.bones["B1"].keyframe_insert("rotation_quaternion", frame=1)
+    act2 = bpy.data.actions.new("A_PT_UWP_Broken_Jump_loop")   # TD-005 addendum: loop suffix -> NAME_ACTION_LOOP
+    act2.use_fake_user = True
+    arm.animation_data.action = act2
+    arm.pose.bones["B1"].keyframe_insert("rotation_quaternion", frame=1)
+    arm.animation_data.action = act
     bpy.ops.wm.save_as_mainfile(filepath=path)
 
 

@@ -24,3 +24,7 @@ Thumbs.db
 .env
 *.pem
 *.key
+# External asset source caches (CC0 packs, raw texture downloads, high-poly bake temps)
+.cache/
+Blender/Cache/
+

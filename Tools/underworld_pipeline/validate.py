@@ -160,6 +160,47 @@ def validate(ctx):
     stats["textures"] = textures
     stats["max_texture_size"] = max_tex
 
+    # --- UV overlap & texel density checks (T-PIPE-03 quality gates)
+    uv_warn = float(tol.get("uv_overlap_warn", 0.08))
+    uv_err = float(tol.get("uv_overlap_error", 0.35))
+    td_min = float(tol.get("texel_density_min_hero", 256) if tex_tier == "hero" else tol.get("texel_density_min_default", 128))
+    uv_overlaps = {}
+    texel_densities = {}
+    for ob in meshes:
+        if ob.data.uv_layers:
+            if not ob.get("uw_allow_uv_overlap"):
+                ov, cov = S.uv_overlap_ratio(ob)
+                uv_overlaps[ob.name] = {"overlap_fraction": ov, "uv_coverage": cov}
+                if ov > uv_err:
+                    iss.error("UV_OVERLAP", f"UV self-overlap {ov * 100:.1f}% > {uv_err * 100:.0f}% (set uw_allow_uv_overlap for intentional stacked cards)", ob.name, overlap=ov)
+                elif ov > uv_warn:
+                    iss.warn("UV_OVERLAP", f"UV self-overlap {ov * 100:.1f}% > {uv_warn * 100:.0f}%", ob.name, overlap=ov)
+            td = S.texel_density_stats(ob)
+            if td:
+                texel_densities[ob.name] = td
+                if td["median_px_per_m"] < td_min:
+                    iss.info("TEXEL_DENSITY", f"median texel density {td['median_px_per_m']} px/m < target {td_min} px/m", ob.name, **td)
+    stats["uv_overlap"] = uv_overlaps
+    stats["texel_density"] = texel_densities
+
+    # --- layered clothing clipping check (Characters, rest pose)
+    clipping = []
+    if top == "Characters":
+        clip_err = float(tol.get("clipping_error_frac", 0.03))
+        with S.rest_pose(sc):
+            dg_clip = bpy.context.evaluated_depsgraph_get()
+            clipping = S.check_layered_clipping(sc, dg_clip)
+        for c in clipping:
+            if c["tested_vertices"] >= 20 and c["clipped_fraction"] > clip_err:
+                iss.error("MESH_CLIPPING",
+                          f"{c['inner']} clips through {c['outer']}: {c['clipped_vertices']}/{c['tested_vertices']} verts ({c['clipped_fraction']*100:.1f}% > {clip_err*100:.1f}%)",
+                          c["inner"], **c)
+            elif c["clipped_vertices"] > 0:
+                iss.info("MESH_CLIPPING",
+                         f"{c['inner']} vs {c['outer']}: {c['clipped_vertices']}/{c['tested_vertices']} verts ({c['clipped_fraction']*100:.2f}%)",
+                         c["inner"], **c)
+    stats["clipping"] = clipping
+
     # --- origin / pivot (TD-004)
     if bb:
         stats["bbox_blender"] = [[round(x, 4) for x in bb[0]], [round(x, 4) for x in bb[1]]]
@@ -232,18 +273,24 @@ def validate(ctx):
             continue
         deform = {b.name for b in arm.data.bones if b.use_deform}
         gidx = {g.index: g.name for g in ob.vertex_groups}
-        over, unweighted, max_seen = 0, 0, 0
+        w_tol = float(tol.get("weight_sum_tol", 0.02))
+        over, unweighted, unnorm, max_seen = 0, 0, 0, 0
         for v in ob.data.vertices:
-            n = sum(1 for g in v.groups if g.weight > 1e-4 and gidx.get(g.group) in deform)
+            ws = [g.weight for g in v.groups if g.weight > 1e-4 and gidx.get(g.group) in deform]
+            n = len(ws)
             max_seen = max(max_seen, n)
             if n > max_inf:
                 over += 1
             elif n == 0:
                 unweighted += 1
+            elif abs(sum(ws) - 1.0) > w_tol:
+                unnorm += 1
         if over:
             iss.error("BONE_INFLUENCES", f"{over} vertices have > {max_inf} bone influences (max {max_seen})", ob.name)
         if unweighted:
             iss.error("UNWEIGHTED_VERTICES", f"{unweighted} vertices have no deform-bone weight", ob.name)
+        if unnorm:
+            iss.error("WEIGHT_UNNORMALIZED", f"{unnorm} vertices have deform weight sum outside 1.0 ± {w_tol}", ob.name)
         stray = sorted(set(gidx.values()) - {b.name for b in arm.data.bones})
         if stray:
             iss.info("VGROUP_NO_BONE", f"vertex groups without bone (ignored for skinning): {stray[:8]}", ob.name)
@@ -259,7 +306,9 @@ def validate(ctx):
         fs, fe = a.frame_range
         anims.append({"name": a.name, "frame_start": round(fs, 3), "frame_end": round(fe, 3), "fps": fps,
                       "duration_s": round((fe - fs) / fps, 4),
+                      "frames": int(round(fe - fs)),
                       "loop": bool(a.get("loop", a.use_frame_range and a.use_cyclic)),
+                      "speed_mps": float(a["speed_mps"]) if "speed_mps" in a else None,
                       "slots": [s.identifier for s in a.slots]})
         if not a.name.startswith("A_") or not S.NAME_RE.match(a.name):
             iss.error("NAME_ACTION", "animation actions must be named A_<Asset>_<Name> (TD-005)", a.name)
@@ -271,8 +320,13 @@ def validate(ctx):
         nm = an["name"]
         if top == "Characters" and abs(an["frame_start"]) > 1e-3:
             iss.warn("ANIM_START_FRAME", f"action starts at frame {an['frame_start']} (REQ-GP01-JASON: start at frame 0; exporter slides to t=0 anyway)", nm)
-        if nm.endswith(("-loop", "-cycle", "_loop", "_cycle")) and top == "Characters":  # case-sensitive: A_Jason_Jump_Loop is a valid REQ name
-            iss.warn("ANIM_LOOP_SUFFIX", "no loop suffixes on character actions; loop flags come from the manifest / Godot import settings (REQ-GP01-JASON §5)", nm)
+        low = nm.lower()
+        if low.endswith(("_loop", "-loop", "_cycle", "-cycle")) or "$loop" in low or "$cycle" in low:
+            # TD-005 addendum (director, 2026-11-22): Godot's scene importer matches these hints case-insensitively,
+            # strips them from the name (verified 4.7.2: "A_Jason_Jump_Loop" -> "A_Jason_Jump") and forces looping,
+            # so the engine would not find the clip by its Blender name. Loop mode comes only from the manifest.
+            iss.error("NAME_ACTION_LOOP", "action names must not end in _Loop/-Loop/_Cycle/-Cycle (any case, TD-005 addendum): "
+                      "Godot strips the suffix on import; set looping via the action's loop flag (manifest) instead", nm)
     stats["animations"] = anims
 
     # --- sockets

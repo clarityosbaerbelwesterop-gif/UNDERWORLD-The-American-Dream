@@ -34,6 +34,8 @@ var agent: NavigationAgent3D
 var pose: Node3D
 var hitboxes: HumanoidHitboxes
 var route: NPCRoute
+## Real SK_NPC model + clip driver (T-GP-01); null while the PT capsule stands in.
+var visual: CharacterVisual
 
 var target: Node3D
 var awareness := 0.0
@@ -86,6 +88,7 @@ func _ready() -> void:
 	agent = get_node("NavigationAgent3D") as NavigationAgent3D
 	pose = get_node("Pose") as Node3D
 	hitboxes = pose.get_node_or_null("Hitboxes") as HumanoidHitboxes
+	visual = pose.get_node_or_null("Visual/CharacterVisual") as CharacterVisual
 	weapon = _find_weapon(pose)
 	if weapon != null and profile.weapon != null:
 		weapon.data = profile.weapon
@@ -113,6 +116,31 @@ func _find_weapon(n: Node) -> Weapon:
 	return null
 
 # --- public helpers -----------------------------------------------------------
+
+## Checkpoint restart (T-MIS-01): bring a dead NPC back exactly as it was spawned.
+## Used by MissionManager when it rewinds to a checkpoint - the enemies of the failed attempt
+## must be alive again and must not carry over their old awareness/cover state.
+func revive() -> void:
+	if not is_dead():
+		return
+	health.reset()
+	collision_layer = 1 << 2               # 3 Characters
+	if hitboxes != null:
+		hitboxes.set_enabled(true)
+	pose.rotation_degrees.x = 0.0
+	add_to_group(AIPerception.HEARING_GROUP)
+	awareness = 0.0
+	target_visible = false
+	visible_time = 0.0
+	unseen_time = 0.0
+	has_last_known = false
+	last_known_pos = Vector3.ZERO
+	shots_fired = 0
+	_bad_covers.clear()
+	_release_cover()
+	fsm.state = profile.initial_state
+	fsm.time_in_state = 0.0
+	_enter_state(fsm.state, "dead", "revive")
 
 func get_state() -> String:
 	return fsm.state
@@ -224,6 +252,19 @@ func _physics_process(delta: float) -> void:
 	_tick_state(delta)
 	_process_events()
 	_apply_motion(delta, _desired_velocity())
+	_update_visual()
+
+## Drive the locomotion clip of the SK_NPC model from the actual planar speed and the FSM
+## state (dead -> freeze, aiming states -> aim clips, otherwise idle/walk/run).
+func _update_visual() -> void:
+	if visual == null:
+		return
+	var speed := Vector2(velocity.x, velocity.z).length()
+	visual.set_speed(speed)
+	visual.set_aiming(fsm.state == "engage" or fsm.state == "take_cover" or fsm.state == "in_cover")
+	visual.set_crouching(false)
+	visual.set_dead(is_dead())
+	visual.update_generic(get_physics_process_delta_time())
 
 func _process_events() -> void:
 	var guard := 0

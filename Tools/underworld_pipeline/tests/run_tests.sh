@@ -10,6 +10,8 @@
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$HERE/../../.." && pwd)"
+# shellcheck source=/dev/null
+. "$REPO/Tests/lib/godot_errors.sh"
 UWP="$REPO/Tools/uwp"
 BLENDER="${BLENDER:-/workspace/tools/blender/blender}"
 GODOT="${GODOT:-/workspace/tools/godot}"
@@ -113,6 +115,63 @@ sys.exit(1 if fails else 0)
 PY
 [ $? -eq 0 ] || FAILS=$((FAILS+1))
 
+echo "== [4b] pure-numpy unit checks (no Blender)"
+# procedural_assets.py needs numpy only (no bpy). The system python3 here has no numpy, the
+# Blender-bundled interpreter does, so prefer that one.
+NUMPY_PY="${NUMPY_PY:-}"
+if [ -z "$NUMPY_PY" ]; then
+  for c in /workspace/tools/blender/*/python/bin/python3* /usr/local/venv/bin/python python3; do
+    [ -x "$c" ] || continue
+    "$c" -c "import numpy" 2>/dev/null && { NUMPY_PY="$c"; break; }
+  done
+fi
+[ -n "$NUMPY_PY" ] || { bad "no python with numpy found for unit checks"; NUMPY_PY=python3; }
+"$NUMPY_PY" - "$REPO" <<'PYUNIT'
+import os, sys, numpy as np
+repo = sys.argv[1]
+here = os.path.join(repo, "Tools", "underworld_pipeline", "characters")
+sys.path.insert(0, os.path.join(repo, "Tools", "underworld_pipeline"))
+sys.path.insert(0, here)
+import importlib.util
+spec = importlib.util.spec_from_file_location("proc", os.path.join(here, "procedural_assets.py"))
+proc = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(proc)
+
+fails = 0
+def check(cond, what):
+    global fails
+    print(("[TEST][PASS] " if cond else "[TEST][FAIL] ") + what)
+    if not cond:
+        fails += 1
+
+# Skin-space lip mask (SK_NPC_Sam landmarks, metres). Regression: np.clip(t, 0, 1) saturates at 1,
+# so a clipped parameter turned every point above the lip into a full-strength mask and the whole
+# face was painted in lip colour.
+MZ, UP, LO = 1.6552, 1.6662, 1.6477
+m = lambda x, z: float(proc.lip_mask(np.array([x]), np.array([z]), MZ, UP, LO)[0])
+check(0.95 <= m(0.008, MZ) <= 1.0, "lip_mask: full strength at the opening")
+check(m(0.008, UP + 0.002) == 0.0, "lip_mask: zero above the upper vermilion border")
+check(m(0.008, LO - 0.002) == 0.0, "lip_mask: zero below the lower vermilion border")
+check(m(0.0, 1.69) == 0.0 and m(0.0, 1.61) == 0.0, "lip_mask: zero on forehead and chin")
+# cos(pi/2) is 6e-17, not exactly 0, so "outside" needs a tolerance - a real value there
+# would be >= 0.1, not 1e-9.
+check(m(0.05, MZ) <= 1e-6 and m(0.05, 1.6600) <= 1e-6, "lip_mask: zero outside the mouth width")
+check(0.0 < m(0.008, (MZ + UP) * 0.5) < 1.0, "lip_mask: partial on the upper lip body")
+Z, X = np.meshgrid(np.linspace(1.60, 1.71, 300), np.linspace(-0.06, 0.06, 300), indexing="ij")
+grid = proc.lip_mask(X, Z, MZ, UP, LO)
+check(not np.isnan(grid).any(), "lip_mask: NaN-free over the whole face box")
+# Texture-resolution float32 regression: cos(pi/2 * 1.0) is -1e-17 in float32, and a negative base
+# to a fractional power is NaN - which silently turned ~90 % of the skin maps black.
+Zf, Xf = np.meshgrid(np.linspace(1.60, 1.71, 1024, dtype=np.float32),
+                     np.linspace(-0.06, 0.06, 1024, dtype=np.float32), indexing="ij")
+gf = proc.lip_mask(Xf, Zf, np.float32(MZ), np.float32(UP), np.float32(LO))
+check(int(np.isnan(gf).sum()) == 0, "lip_mask: NaN-free in float32 at texture resolution")
+check(0.01 < float((gf > 0.05).mean()) < 0.12, "lip_mask: float32 coverage unchanged (2-12%)")
+check(0.01 < float((grid > 0.05).mean()) < 0.12, "lip_mask: covers the lips only (2-12% of the face box)")
+sys.exit(1 if fails else 0)
+PYUNIT
+[ $? -eq 0 ] || FAILS=$((FAILS+1))
+
 echo "== [5] Blender re-import verification"
 cat > "$T/expect_blender.json" <<JSON
 {"assets": [
@@ -155,8 +214,9 @@ if [ $NO_GODOT -eq 0 ] && [ -x "$GODOT" ]; then
   n=$(grep -c '^\[UWP-GODOT\]' "$T/logs/godot_import1.log")
   [ "$n" -eq 4 ] && ok "LOD post-import script ran for 4 .glb files" || bad "LOD post-import script ran $n times (expected 4)"
   grep -E '^\[UWP-GODOT\]' "$T/logs/godot_import1.log"
-  if [ $rc -ne 0 ] || grep -qE '^(ERROR|SCRIPT ERROR|USER ERROR):' "$T/logs/godot_import1.log"; then
-    bad "Godot import (rc=$rc)"; grep -E -A2 '^(ERROR|SCRIPT ERROR|USER ERROR):' "$T"/logs/godot_import*.log | head -20
+  ierrs="$(godot_log_errors "$T/logs/godot_import1.log")"
+  if [ $rc -ne 0 ] || [ -n "$ierrs" ]; then
+    bad "Godot import (rc=$rc)"; echo "$ierrs" | head -20
   else ok "Godot import, no errors"; fi
   cat > "$G/expect.json" <<'JSON'
 {"assets": [

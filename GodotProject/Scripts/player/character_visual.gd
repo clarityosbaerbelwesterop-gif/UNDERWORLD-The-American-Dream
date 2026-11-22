@@ -36,6 +36,10 @@ signal model_changed(new_model: Node3D)
 
 ## Character model (e.g. res://Assets/Characters/SK_Jason/SK_Jason.glb). Empty = PT capsule.
 @export var model_scene: PackedScene
+## Clip prefix of this model. SK_Jason exports "A_Jason_*"; NPCs share the humanoid library
+## "A_Humanoid_*" (A_Humanoid_Locomotion.glb). CLIP_NAMES below holds the *logical* names for
+## Jason; when the prefix differs each slot is resolved by its suffix (idle -> *_Idle).
+@export var clip_prefix := "A_Jason_"
 ## Optional: an AnimationTree authored by hand in the editor. If empty and a model
 ## with an AnimationPlayer is present, build_default_tree() creates one.
 @export var animation_tree_path: NodePath
@@ -97,13 +101,26 @@ func _find_animation_player(n: Node) -> AnimationPlayer:
 			return r
 	return null
 
+## Resolve a logical slot ("run") to a clip that exists in this model's AnimationPlayer.
+func resolve_clip(slot: String, ap: AnimationPlayer) -> String:
+	var logical: String = clip_names[slot] if clip_names.has(slot) else slot
+	if ap.has_animation(logical):
+		return logical
+	if clip_prefix != "" and logical.begins_with("A_Jason_"):
+		var shared := clip_prefix + logical.substr("A_Jason_".length())
+		if ap.has_animation(shared):
+			return shared
+		return shared
+	return logical
+
 func _clip(slot: String, ap: AnimationPlayer) -> String:
-	var name: String = clip_names[slot]
+	var name := resolve_clip(slot, ap)
 	if ap.has_animation(name):
 		return name
 	if not missing_clips.has(slot):
 		missing_clips.append(slot)
-	return clip_names["idle"] if ap.has_animation(clip_names["idle"]) else name
+	var idle := resolve_clip("idle", ap)
+	return idle if ap.has_animation(idle) else name
 
 ## Contract check of the current model: one "slot: problem" line per mapped clip that is
 ## missing from the AnimationPlayer or named with a loop suffix. Empty = OK.
@@ -113,7 +130,7 @@ func validate_clips() -> PackedStringArray:
 		errs.append("no AnimationPlayer in model")
 		return errs
 	for slot in clip_names:
-		var n: String = clip_names[slot]
+		var n := resolve_clip(slot, animation_player)
 		if not animation_player.has_animation(n):
 			errs.append("%s: clip %s not in model" % [slot, n])
 		if n.ends_with("_Loop"):
@@ -195,6 +212,49 @@ func _anim(slot: String, ap: AnimationPlayer) -> AnimationNodeAnimation:
 
 func _on_player_jumped() -> void:
 	_jump_requested = true
+
+## --- generic (NPC) driver ---------------------------------------------------------
+## PlayerController drives the player through update_from_player(); NPCs only have a speed and
+## an FSM state, so they push these values and the visual smooths them the same way.
+var speed := 0.0
+var aiming := false
+var crouching := false
+var dead := false
+
+func set_speed(v: float) -> void:
+	speed = v
+
+func set_aiming(v: bool) -> void:
+	aiming = v
+
+func set_crouching(v: bool) -> void:
+	crouching = v
+
+func set_dead(v: bool) -> void:
+	dead = v
+
+## Called by NPCController every physics frame (there is no PlayerController to read from).
+func update_generic(delta: float) -> void:
+	var t := 1.0 - exp(-blend_rate * delta)
+	_crouch = lerpf(_crouch, 1.0 if crouching else 0.0, t)
+	_aim = lerpf(_aim, 1.0 if aiming else 0.0, t)
+	_air = lerpf(_air, 0.0, t)
+	if animation_tree == null:
+		return
+	if dead:
+		animation_tree.set("parameters/loco/blend_position", 0.0)
+		animation_tree.set("parameters/crouch_loco/blend_position", 0.0)
+		animation_tree.set("parameters/crouch/blend_amount", 0.0)
+		animation_tree.set("parameters/aim/blend_amount", 0.0)
+		animation_tree.set("parameters/air/blend_amount", 0.0)
+		animation_tree.active = false
+		return
+	animation_tree.set("parameters/loco/blend_position", speed)
+	animation_tree.set("parameters/crouch_loco/blend_position", speed)
+	animation_tree.set("parameters/aim_loco/blend_position", Vector2.ZERO)
+	animation_tree.set("parameters/crouch/blend_amount", _crouch)
+	animation_tree.set("parameters/aim/blend_amount", _aim)
+	animation_tree.set("parameters/air/blend_amount", _air)
 
 func update_from_player(p: PlayerController, delta: float) -> void:
 	if _player != p:

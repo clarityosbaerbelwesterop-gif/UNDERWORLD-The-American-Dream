@@ -1,0 +1,580 @@
+# UNDERWORLD - generates Scenes/Levels/LA_CallowayAve.tscn (T-LVL-01).
+#
+# Reproducible level assembly: the street is generated from the modular LA kit and the
+# layout brief (Docs/LevelDesign/LA_CallowayAve_Layout.md), NOT hand-placed in the editor.
+# Every mission anchor (Area3D / Marker3D) is created with the exact name M01 needs.
+#
+# Run headless (writes the .tscn in the repo):
+#   godot --headless --path GodotProject --script res://Scripts/tools/build_level_calloway.gd
+#
+# The layout uses the real kit .glb files when they are present (Assets/Environment/LA/...)
+# and falls back to greybox primitives with the same footprints when they are not, so the
+# level can always be built and played on a machine without the LFS assets. Kit instances
+# keep the kit's node names (SM_LA_*), so the art pass only replaces the files, not the level.
+extends SceneTree
+
+const OUT := "res://Scenes/Levels/LA_CallowayAve.tscn"
+const KIT_DIR := "res://Assets/Environment/LA/"
+const CRATE := "res://Assets/Props/SM_Prop_PackageCrate/SM_Prop_PackageCrate.glb"
+
+# Layout constants (Docs/LevelDesign/LA_CallowayAve_Layout.md §3)
+const ROAD_W := 10.0
+const ROAD_LEN := 14.0
+const SIDEWALK_W := 4.0
+const SIDEWALK_LEN := 10.0
+const WEST_X := -24.0      # centre of the west street road
+const EAST_X := 24.0       # centre of the east service lane road
+const WSIDE_W := -17.0     # inner sidewalk centre (west street, east side)
+const WSIDE_E := -31.0     # outer sidewalk centre (west street, west side)
+const ESIDE_W := 17.0
+const ESIDE_E := 31.0
+const NORTH_Z := 79.0
+const SOUTH_Z := -79.0
+
+var level: Node3D
+var kit: Dictionary = {}       # name -> PackedScene or null
+var rng := RandomNumberGenerator.new()
+
+
+func _initialize() -> void:
+	rng.seed = 20261122
+	level = Node3D.new()
+	root.name = "LA_CallowayAve"
+	_load_kit()
+	_build_ground()
+	_build_streets()
+	_build_buildings()
+	_build_props()
+	_build_lighting()
+	_build_navmesh()
+	_build_spawns_and_ai()
+	_build_mission_anchors()
+	_save()
+	quit(0)
+
+
+# --- helpers ------------------------------------------------------------------
+
+func _load_kit() -> void:
+	for n in ["SM_LA_Road_Straight", "SM_LA_Sidewalk_Curb", "SM_LA_Bldg_ShopStucco",
+			"SM_LA_Bldg_GarageM01", "SM_LA_Streetlight", "SM_LA_PalmTree"]:
+		var res_path: String = KIT_DIR + n + "/" + n + ".glb"
+		kit[n] = load(res_path) if ResourceLoader.exists(res_path) else null
+		if kit[n] == null:
+			print("[LVL] kit piece missing, greybox fallback: ", n)
+	var crate_pack: PackedScene = null
+	if ResourceLoader.exists(CRATE):
+		crate_pack = load(CRATE) as PackedScene
+	var c = crate_pack
+	kit["SM_Prop_PackageCrate"] = c
+	print("[LVL] kit loaded: %d/6 real, crate=%s" % [
+		kit.values().filter(func(v): return v != null and v is PackedScene).size() - (1 if c != null else 0),
+		str(c != null)])
+
+
+func _mesh_instance(name: String, mesh: Mesh, mat: StandardMaterial3D, parent: Node, pos: Vector3, rot_y := 0.0) -> MeshInstance3D:
+	var mi := MeshInstance3D.new()
+	mi.name = name
+	mi.mesh = mesh
+	if mat != null:
+		mi.material_override = mat
+	if parent != null:
+		parent.add_child(mi)
+	mi.position = pos
+	mi.rotation.y = rot_y
+	return mi
+
+
+func _static_box(name: String, size: Vector3, pos: Vector3, mat: StandardMaterial3D, parent: Node, rot_y := 0.0) -> StaticBody3D:
+	var body := StaticBody3D.new()
+	body.name = name
+	body.collision_layer = 1        # World
+	body.collision_mask = 0
+	parent.add_child(body)
+	body.position = pos
+	body.rotation.y = rot_y
+	var mi := MeshInstance3D.new()
+	mi.name = "Mesh"
+	var bm := BoxMesh.new()
+	bm.size = size
+	mi.mesh = bm
+	if mat != null:
+		mi.material_override = mat
+	body.add_child(mi)
+	var cs := CollisionShape3D.new()
+	cs.name = "Collision"
+	var sh := BoxShape3D.new()
+	sh.size = size
+	cs.shape = sh
+	body.add_child(cs)
+	return body
+
+
+func _mat(color: Color, rough := 0.85, metal := 0.0) -> StandardMaterial3D:
+	var m := StandardMaterial3D.new()
+	m.albedo_color = color
+	m.roughness = rough
+	m.metallic = metal
+	return m
+
+
+## Instance a kit piece if available, else its greybox fallback (same footprint + collision).
+func _kit_piece(name: String, pos: Vector3, rot_y: float, fallback_size: Vector3, fallback_mat: StandardMaterial3D, parent: Node) -> Node3D:
+	var scene = kit.get(name)
+	if scene != null and scene is PackedScene:
+		var inst := (scene as PackedScene).instantiate()
+		inst.name = name + "_" + str(level.get_child_count())
+		parent.add_child(inst)
+		inst.position = pos
+		inst.rotation.y = rot_y
+		return inst
+	var body := _static_box(name, fallback_size, pos, fallback_mat, parent, rot_y)
+	return body
+
+
+# --- geometry -----------------------------------------------------------------
+
+func _build_ground() -> void:
+	var g := Node3D.new()
+	g.name = "Ground"
+	level.add_child(g)
+	var mat := _mat(Color(0.24, 0.22, 0.20), 0.95)
+	var plane := PlaneMesh.new()
+	plane.size = Vector2(240, 240)
+	_mesh_instance("GroundMesh", plane, mat, g, Vector3(0, -0.02, 0))
+	var body := StaticBody3D.new()
+	body.name = "GroundBody"
+	body.collision_layer = 1
+	body.collision_mask = 0
+	g.add_child(body)
+	var cs := CollisionShape3D.new()
+	var sh := BoxShape3D.new()
+	sh.size = Vector3(240, 0.2, 240)
+	cs.shape = sh
+	cs.position = Vector3(0, -0.12, 0)
+	body.add_child(cs)
+
+
+func _build_streets() -> void:
+	var s := Node3D.new()
+	s.name = "Streets"
+	level.add_child(s)
+	var asphalt := _mat(Color(0.20, 0.20, 0.21), 0.92)
+	var concrete := _mat(Color(0.55, 0.53, 0.50), 0.88)
+
+	# West street: road strip along Z from -86..+86, modules of 14 m
+	var z := -86.0 + ROAD_LEN * 0.5
+	while z <= 86.0:
+		_kit_piece("SM_LA_Road_Straight", Vector3(WEST_X, 0, z), 0.0,
+			Vector3(ROAD_W, 0.04, ROAD_LEN), asphalt, s)
+		_kit_piece("SM_LA_Road_Straight", Vector3(EAST_X, 0, z), 0.0,
+			Vector3(ROAD_W, 0.04, ROAD_LEN), asphalt, s)
+		z += ROAD_LEN
+	# Sidewalks (west street both sides, east lane both sides)
+	var zz := -85.0 + SIDEWALK_LEN * 0.5
+	while zz <= 85.0:
+		for x in [WSIDE_E, WSIDE_W, ESIDE_W, ESIDE_E]:
+			_kit_piece("SM_LA_Sidewalk_Curb", Vector3(x, 0, zz), 0.0,
+				Vector3(SIDEWALK_W, 0.16, SIDEWALK_LEN), concrete, s)
+		zz += SIDEWALK_LEN
+	# North and south closing roads (X from -33..+33, 8 m deep)
+	for x in [-30.0, -16.0, -2.0, 12.0, 26.0]:
+		for zc in [NORTH_Z, SOUTH_Z]:
+			_kit_piece("SM_LA_Road_Straight", Vector3(x + 2.0, 0, zc), PI * 0.5,
+				Vector3(14.0, 0.04, ROAD_W), asphalt, s)
+	# Kerb-gap alley on the west side (never a dead end, layout §3.1)
+	for zc in [-4.0, 4.0]:
+		_kit_piece("SM_LA_Road_Straight", Vector3(-42.0, 0, zc), PI * 0.5,
+			Vector3(14.0, 0.04, 8.0), concrete, s)
+
+
+func _build_buildings() -> void:
+	var b := Node3D.new()
+	b.name = "Buildings"
+	level.add_child(b)
+	var stucco_a := _mat(Color(0.72, 0.62, 0.48), 0.9)
+	var stucco_b := _mat(Color(0.62, 0.52, 0.44), 0.9)
+	var brick := _mat(Color(0.45, 0.28, 0.24), 0.95)
+	var industrial := _mat(Color(0.52, 0.53, 0.50), 0.85)
+	var shop_size := Vector3(10, 7.2, 8)
+	# West block: shop row facing +X (east street)
+	var shops := [
+		["Bldg_Shop_01", Vector3(-22.0, 0, -60.0), -PI * 0.5, stucco_a],
+		["Bldg_Shop_02", Vector3(-22.0, 0, -38.0), -PI * 0.5, stucco_b],
+		["Bldg_Shop_03", Vector3(-22.0, 0, 20.0), -PI * 0.5, stucco_a],
+		["Bldg_Apartment_A", Vector3(-22.0, 0, 52.0), -PI * 0.5, brick],
+		["Bldg_Shop_04", Vector3(-4.0, 0, -80.0), PI, stucco_b],
+		# East block: garage + industrial
+		["Bldg_Industrial_01", Vector3(22.0, 0, -50.0), PI * 0.5, industrial],
+		["Bldg_Warehouse", Vector3(24.0, 0, 78.0), PI, industrial],
+	]
+	for entry in shops:
+		_kit_piece(entry[0], entry[1] + Vector3(0, shop_size.y * 0.5, 0), entry[2],
+			shop_size, entry[3], b)
+	# 4-storey apartment: stacked masses (placeholder until the brick block exists)
+	_static_box("Bldg_Apartment_A_Upper", Vector3(10, 6.0, 8),
+		Vector3(-22.0, 10.2, 52.0), brick, b, -PI * 0.5)
+	# Big warehouse roll-up door (visual + cover)
+	_static_box("Warehouse_Door", Vector3(6, 4.2, 0.3), Vector3(24.0, 2.1, 73.6),
+		_mat(Color(0.35, 0.37, 0.40), 0.5, 0.6), b)
+	# The M01 garage: hollow interior, roll-up door facing west (layout §3.2)
+	var garage_pos := Vector3(24.0, 0, 6.0)
+	var garage := _kit_piece("SM_LA_Bldg_GarageM01", garage_pos, PI * 0.5,
+		Vector3(12.2, 4.9, 10.2), _mat(Color(0.58, 0.55, 0.50), 0.9), b)
+	garage.name = "Bldg_GarageM01"
+	# Garage interior walls with collision (the kit shell is visual; keep physics explicit)
+	var walls := _mat(Color(0.52, 0.50, 0.47), 0.92)
+	_static_box("Garage_Floor", Vector3(10.0, 0.2, 8.0), garage_pos + Vector3(0, -0.1, 0), walls, b)
+	_static_box("Garage_Wall_N_W", Vector3(4.0, 4.6, 0.3), garage_pos + Vector3(-3.5, 2.3, 4.0), walls, b)
+	_static_box("Garage_Wall_N_E", Vector3(5.0, 4.6, 0.3), garage_pos + Vector3(2.5, 2.3, 4.0), walls, b)
+	_static_box("Garage_Wall_N_Lintel", Vector3(1.0, 2.4, 0.3), garage_pos + Vector3(-1.0, 3.4, 4.0), walls, b)
+	_static_box("Garage_Wall_S", Vector3(10.0, 4.6, 0.3), garage_pos + Vector3(0, 2.3, -4.0), walls, b)
+	_static_box("Garage_Wall_E", Vector3(0.3, 4.6, 8.0), garage_pos + Vector3(5.0, 2.3, 0), walls, b)
+	# West wall is split by the roll-up door (3 m opening at z = +6, i.e. centre of the north half)
+	_static_box("Garage_Wall_W_N", Vector3(0.3, 4.6, 7.4), garage_pos + Vector3(-5.0, 2.3, 2.3), walls, b)
+	_static_box("Garage_Wall_W_S", Vector3(0.3, 4.6, 1.2), garage_pos + Vector3(-5.0, 2.3, -3.0), walls, b)
+	_static_box("Garage_Wall_W_Lintel", Vector3(0.3, 1.6, 3.0), garage_pos + Vector3(-5.0, 3.8, 0.9), walls, b)
+	# North wall is split by a 1.0 m personnel door at x = -2.0 (flank route, layout §5)
+	# Interior props: bench + wrecked car + crate stack (cover, layout §5)
+	_static_box("Garage_Bench", Vector3(2.4, 0.95, 0.9), garage_pos + Vector3(2.5, 0.48, 2.5), _mat(Color(0.34, 0.24, 0.16), 0.8), b)
+	_static_box("Garage_WreckCar", Vector3(1.8, 1.1, 4.2), garage_pos + Vector3(-1.0, 0.55, -2.0), _mat(Color(0.30, 0.32, 0.34), 0.6, 0.4), b)
+	_static_box("Garage_Crate_A", Vector3(1.2, 1.2, 1.2), garage_pos + Vector3(3.5, 0.6, -1.0), _mat(Color(0.42, 0.34, 0.24), 0.9), b)
+	_static_box("Garage_Crate_B", Vector3(1.0, 1.0, 1.0), garage_pos + Vector3(3.5, 1.7, -1.0), _mat(Color(0.42, 0.34, 0.24), 0.9), b)
+	_static_box("Garage_Pillar_N", Vector3(0.4, 4.6, 0.4), garage_pos + Vector3(-3.0, 2.3, 3.5), walls, b)
+	_static_box("Garage_Pillar_S", Vector3(0.4, 4.6, 0.4), garage_pos + Vector3(-3.0, 2.3, -1.5), walls, b)
+	_static_box("Forecourt_Dumpster", Vector3(2.0, 1.3, 1.2), Vector3(15.5, 0.65, -2.0), _mat(Color(0.18, 0.32, 0.24), 0.8), b)
+
+
+func _build_props() -> void:
+	var p := Node3D.new()
+	p.name = "Props"
+	level.add_child(p)
+	var metal := _mat(Color(0.30, 0.30, 0.32), 0.5, 0.7)
+	var bark := _mat(Color(0.32, 0.26, 0.20), 0.95)
+	# Streetlights + palms down the west street (2 m grid friendly spacing)
+	var z := -70.0
+	while z <= 70.0:
+		_kit_piece("SM_LA_Streetlight", Vector3(WSIDE_W + 1.2, 0.16, z), -PI * 0.5,
+			Vector3(0.3, 7.2, 0.3), metal, p)
+		_kit_piece("SM_LA_PalmTree", Vector3(WSIDE_E - 1.0, 0.16, z + 10.0), 0.0,
+			Vector3(0.5, 11.5, 0.5), bark, p)
+		z += 20.0
+	# Parked cars (cover, layer 4 is for vehicles; these are static world props)
+	for entry in [[Vector3(-18.9, 0.05, -30.0), 0.0], [Vector3(-18.9, 0.05, 34.0), 0.0],
+			[Vector3(19.0, 0.05, -22.0), PI]]:
+		_static_box("Prop_ParkedCar", Vector3(1.9, 1.45, 4.8), entry[0] + Vector3(0, 0.72, 0),
+			_mat(Color(0.35, 0.12, 0.12), 0.45, 0.5), p, entry[1])
+	# Traffic light + crosswalk (north-west corner)
+	_static_box("Prop_TrafficLight", Vector3(0.3, 5.6, 0.3), Vector3(-17.5, 2.8, 70.0),
+		_mat(Color(0.15, 0.15, 0.16), 0.6, 0.5), p)
+	for i in 4:
+		_static_box("Prop_CrosswalkStripe_%d" % i, Vector3(0.6, 0.02, 4.0),
+			Vector3(WEST_X - 3.6 + i * 2.4, 0.05, 68.0), _mat(Color(0.85, 0.85, 0.83), 0.9), p)
+
+
+func _build_lighting() -> void:
+	var l := Node3D.new()
+	l.name = "Lighting"
+	level.add_child(l)
+	# Golden-hour sun, matching ENV_LA_GoldenHour (look never verified on a GPU, B-003)
+	var sun := DirectionalLight3D.new()
+	sun.name = "Sun"
+	sun.rotation_degrees = Vector3(-12, 250, 0)
+	sun.light_color = Color(1.0, 0.86, 0.66)
+	sun.light_energy = 1.35
+	sun.shadow_enabled = true
+	sun.directional_shadow_max_distance = 120.0
+	l.add_child(sun)
+	var we := WorldEnvironment.new()
+	we.name = "WorldEnvironment"
+	var env := Environment.new()
+	env.background_mode = Environment.BG_SKY
+	var sky := Sky.new()
+	var sm := ProceduralSkyMaterial.new()
+	sm.sky_top_color = Color(0.32, 0.44, 0.62)
+	sm.sky_horizon_color = Color(0.92, 0.72, 0.52)
+	sm.ground_horizon_color = Color(0.55, 0.45, 0.36)
+	sm.sun_angle_max = 12.0
+	sky.sky_material = sm
+	env.sky = sky
+	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
+	env.ambient_light_energy = 0.55
+	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	env.fog_enabled = true
+	env.fog_light_color = Color(0.86, 0.74, 0.58)
+	env.fog_density = 0.006
+	we.environment = env
+	l.add_child(we)
+	# Garage sodium practicals
+	for i in 2:
+		var lamp := OmniLight3D.new()
+		lamp.name = "GarageLamp_%d" % i
+		lamp.light_color = Color(1.0, 0.72, 0.36)
+		lamp.light_energy = 2.2
+		lamp.omni_range = 9.0
+		lamp.position = Vector3(24.0 + (2.5 if i == 0 else -2.5), 4.0, 6.0 + (2.0 if i == 0 else -2.0))
+		l.add_child(lamp)
+
+
+func _build_navmesh() -> void:
+	var nav := NavigationRegion3D.new()
+	nav.name = "NavRegion_Block"
+	level.add_child(nav)
+	var nm := NavigationMesh.new()
+	nm.cell_size = 0.25
+	nm.cell_height = 0.25
+	nm.agent_radius = 0.5
+	nm.agent_height = 2.0
+	nm.agent_max_climb = 0.25
+	nm.geometry_parsed_geometry_type = NavigationMesh.PARSED_GEOMETRY_MESH_INSTANCES
+	nm.geometry_source_geometry_mode = NavigationMesh.SOURCE_GEOMETRY_ROOT_NODE_CHILDREN
+	nm.geometry_collision_mask = 1
+	var box := BoxMesh.new()
+	box.size = Vector3(150, 0.1, 190)
+	var mi := MeshInstance3D.new()
+	mi.name = "NavFloor"
+	mi.mesh = box
+	mi.position = Vector3(0, 0.16, 0)
+	nav.add_child(mi)
+	nav.navigation_mesh = nm
+
+
+func _build_spawns_and_ai() -> void:
+	var ai := Node3D.new()
+	ai.name = "AI"
+	level.add_child(ai)
+	var gunman := load("res://Scenes/NPC/PT_NPC_Gunman.tscn") as PackedScene
+	var civilian := load("res://Scenes/NPC/PT_NPC_Civilian.tscn") as PackedScene
+	# Ambush spawn markers (wave 1: street, wave 2: van + rooftop), layout §3.3
+	var markers := {
+		"Spawn_Wave1_A": Vector3(-14.0, 0.16, 22.0),
+		"Spawn_Wave1_B": Vector3(-14.0, 0.16, 2.0),
+		"Spawn_Wave1_C": Vector3(2.0, 0.16, 20.0),
+		"Spawn_Wave2_Van": Vector3(31.0, 0.16, -8.0),
+		"Spawn_Wave2_Roof": Vector3(29.6, 4.9, 6.0),
+	}
+	for k in markers:
+		var m := Marker3D.new()
+		m.name = k
+		m.position = markers[k]
+		ai.add_child(m)
+	# Enemies are spawned at runtime by M01Mission so the objective/group bookkeeping is clean.
+	# Civilian routes down the west sidewalks (T-AI-02)
+	var routes := Node3D.new()
+	routes.name = "Routes"
+	ai.add_child(routes)
+	var route_a := Node3D.new()
+	route_a.name = "Route_WestSidewalk"
+	route_a.set_script(load("res://Scripts/ai/npc_route.gd"))
+	routes.add_child(route_a)
+	var pts := [Vector3(-17.0, 0.16, -60.0), Vector3(-17.0, 0.16, -10.0),
+		Vector3(-17.0, 0.16, 40.0), Vector3(-31.0, 0.16, 40.0), Vector3(-31.0, 0.16, -20.0)]
+	for i in pts.size():
+		var p := Marker3D.new()
+		p.name = "P%d" % i
+		p.position = pts[i]
+		route_a.add_child(p)
+	if civilian != null:
+		for i in 3:
+			var c := civilian.instantiate()
+			c.name = "Civilian_%d" % (i + 1)
+			c.position = pts[i % pts.size()]
+			c.set("route_path", NodePath("../Routes/Route_WestSidewalk"))
+			c.set("route_start_index", i % pts.size())
+			ai.add_child(c)
+	# Enemies: 5 gunmen for M01 wave bookkeeping (group mission_enemies is set by M01Mission)
+	if gunman != null:
+		var wave1 := [markers["Spawn_Wave1_A"], markers["Spawn_Wave1_B"], markers["Spawn_Wave1_C"]]
+		for i in wave1.size():
+			var g := gunman.instantiate()
+			g.name = "Enemy_Wave1_%d" % (i + 1)
+			g.position = wave1[i]
+			# persistent=true: only persistent groups are written into the .tscn by
+			# PackedScene.pack(), otherwise the saved level has no mission_enemies group.
+			g.add_to_group("mission_enemies", true)
+			g.add_to_group("wave1", true)
+			ai.add_child(g)
+		var wave2 := [markers["Spawn_Wave2_Van"], markers["Spawn_Wave2_Roof"]]
+		for i in wave2.size():
+			var g2 := gunman.instantiate()
+			g2.name = "Enemy_Wave2_%d" % (i + 1)
+			g2.position = wave2[i]
+			g2.add_to_group("mission_enemies", true)
+			g2.add_to_group("wave2", true)
+			ai.add_child(g2)
+
+
+func _build_mission_anchors() -> void:
+	var m := Node3D.new()
+	m.name = "Mission"
+	level.add_child(m)
+	# Player spawn + start car (layout §3.3)
+	var spawn := Marker3D.new()
+	spawn.name = "PlayerSpawn"
+	spawn.position = Vector3(-24.5, 0.2, -78.0)
+	m.add_child(spawn)
+	var car := Marker3D.new()
+	car.name = "CarSpawn"
+	car.position = Vector3(-24.5, 0.1, -74.0)
+	m.add_child(car)
+	var seat := Marker3D.new()
+	seat.name = "Marco_Seat"
+	seat.position = Vector3(-24.0, 0.6, -74.0)
+	m.add_child(seat)
+	# Trigger areas with the exact M01 names
+	_area("Area_GarageArrival", Vector3(16.0, 0.0, 6.0), 8.0, true)
+	_area_box("Area_GarageInside", Vector3(24.0, 1.5, 6.0), Vector3(10.0, 3.0, 8.0))
+	_area_box("Area_Warehouse", Vector3(24.0, 3.0, 78.0), Vector3(12.0, 6.0, 10.0))
+	var door := Marker3D.new()
+	door.name = "Marker_GarageDoor"
+	door.position = Vector3(18.5, 0.5, 6.0)
+	m.add_child(door)
+	# Package: crate + interactable + 200 HP (M01 step 5)
+	var pkg := Node3D.new()
+	pkg.name = "Pickup_Package"
+	pkg.set_script(load("res://Scripts/mission/carried_item.gd"))
+	pkg.position = Vector3(26.5, 1.0, 8.5)
+	pkg.add_to_group("interactables", true)
+	m.add_child(pkg)
+	var crate: Node3D = null
+	if kit["SM_Prop_PackageCrate"] != null:
+		crate = (kit["SM_Prop_PackageCrate"] as PackedScene).instantiate()
+	else:
+		var mi := MeshInstance3D.new()
+		var bm := BoxMesh.new()
+		bm.size = Vector3(0.61, 0.41, 0.41)
+		mi.mesh = bm
+		mi.material_override = _mat(Color(0.45, 0.36, 0.24), 0.9)
+		crate = mi
+	crate.name = "CrateMesh"
+	pkg.add_child(crate)
+	var inter := Area3D.new()
+	inter.name = "Interact"
+	inter.set_script(load("res://Scripts/mission/interactable.gd"))
+	inter.set("prompt", "Pick up the package")
+	pkg.add_child(inter)
+	var ics := CollisionShape3D.new()
+	var ibox := BoxShape3D.new()
+	ibox.size = Vector3(1.2, 1.2, 1.2)
+	ics.shape = ibox
+	inter.add_child(ics)
+	var health := Node.new()
+	health.name = "DamageReceiver"
+	health.set_script(load("res://Scripts/combat/damage_receiver.gd"))
+	health.set("max_health", 200.0)
+	pkg.add_child(health)
+	# Player + car instances placed in the level (tests and the game both use these)
+	var player_scene := load("res://Scenes/Player/Player.tscn") as PackedScene
+	if player_scene != null:
+		var pl := player_scene.instantiate()
+		pl.name = "Player"
+		pl.position = spawn.position
+		level.add_child(pl)
+	var car_scene := load("res://Scenes/Vehicles/VH_Sedan_01.tscn") as PackedScene
+	if car_scene != null:
+		var c := car_scene.instantiate()
+		c.name = "VH_Sedan_01"
+		c.position = car.position
+		level.add_child(c)
+	# HUD (T-UI-01) - CanvasLayer, builds its Control tree in code
+	var hud := CanvasLayer.new()
+	hud.name = "HUD"
+	hud.set_script(load("res://Scripts/ui/hud.gd"))
+	level.add_child(hud)
+	# Mission manager with M01 data
+	var mm := Node.new()
+	mm.name = "MissionManager"
+	mm.set_script(load("res://Scripts/mission/mission_manager.gd"))
+	mm.set("level_root", NodePath(".."))
+	var mdata := load("res://Data/Missions/M01_DeadDrop.tres")
+	if mdata != null:
+		mm.set("mission", mdata)
+	level.add_child(mm)
+
+
+func _area(name: String, pos: Vector3, radius: float, is_sphere: bool) -> Area3D:
+	var a := Area3D.new()
+	a.name = name
+	a.position = pos
+	a.collision_layer = 0
+	a.collision_mask = (1 << 1) | (1 << 3)   # Player | Vehicles
+	a.monitoring = true
+	var cs := CollisionShape3D.new()
+	if is_sphere:
+		var sp := SphereShape3D.new()
+		sp.radius = radius
+		cs.shape = sp
+	else:
+		var bx := BoxShape3D.new()
+		bx.size = Vector3(radius, radius, radius)
+		cs.shape = bx
+	a.add_child(cs)
+	_mission_root().add_child(a)
+	return a
+
+
+func _area_box(name: String, pos: Vector3, size: Vector3) -> Area3D:
+	var a := Area3D.new()
+	a.name = name
+	a.position = pos
+	a.collision_layer = 0
+	a.collision_mask = (1 << 1) | (1 << 3)
+	a.monitoring = true
+	var cs := CollisionShape3D.new()
+	var bx := BoxShape3D.new()
+	bx.size = size
+	cs.shape = bx
+	a.add_child(cs)
+	_mission_root().add_child(a)
+	return a
+
+
+func _mission_root() -> Node3D:
+	var n := level.get_node_or_null("Mission") as Node3D
+	if n == null:
+		n = Node3D.new()
+		n.name = "Mission"
+		level.add_child(n)
+	return n
+
+
+func _save() -> void:
+	# PackedScene only serialises nodes whose owner is the scene root, and the root itself
+	# must already carry its final name (set in _initialize). Without this every child is
+	# dropped and the .tscn saves as a single empty node.
+	level.name = "LA_CallowayAve"
+	_own_all(level, level)
+	var packed := PackedScene.new()
+	var err := packed.pack(level)
+	if err != OK:
+		push_error("pack failed: %d" % err)
+		quit(1)
+		return
+	err = ResourceSaver.save(packed, OUT)
+	print("[LVL] saved %s (%d nodes) err=%d" % [OUT, _count(level), err])
+	if err != OK:
+		quit(1)
+
+
+## Give every node of *our own* hierarchy an owner so PackedScene.pack() keeps it.
+##
+## Nodes that belong to an instanced sub-scene (kit pieces, Player.tscn, the sedan, NPC
+## scenes) must keep owner == null for their internal nodes: owning them makes Godot serialise
+## a full copy of the sub-scene into the level instead of an instance reference, and every later
+## edit to that sub-scene (e.g. adding the real SK_NPC character model) would never reach the
+## level. Instances whose own root we placed stay instances; only nodes we created in *this*
+## script are owned.
+func _own_all(n: Node, owner_node: Node) -> void:
+	for c in n.get_children():
+		c.owner = owner_node
+		# Do not descend into an instanced sub-scene: owning its internal nodes makes Godot
+		# write a full copy of that scene into the level instead of an instance reference.
+		if c.scene_file_path == "":
+			_own_all(c, owner_node)
+
+
+func _count(n: Node) -> int:
+	var c := 1
+	for ch in n.get_children():
+		c += _count(ch)
+	return c

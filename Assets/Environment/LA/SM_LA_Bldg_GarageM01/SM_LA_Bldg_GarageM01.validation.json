@@ -1,9 +1,9 @@
 {
   "tool": "underworld_pipeline",
   "version": "1.0.0",
-  "blender": "5.2.4 LTS",
-  "timestamp": "2026-11-22T12:13:17+01:00",
-  "command": "export",
+  "blender": "5.0.1",
+  "timestamp": "2026-11-22T20:52:12+00:00",
+  "command": "export-all",
   "input": "Blender/Source/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01.blend",
   "steps": {
     "validate": {
@@ -47,7 +47,7 @@
     },
     "export": {
       "glb": "Assets/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01.glb",
-      "bytes": 1865428
+      "bytes": 93140
     },
     "preview": "Assets/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01_preview.png",
     "manifest": "Assets/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01.manifest.json",
@@ -95,8 +95,8 @@
         "skins": [],
         "joint_names": [],
         "animations": [],
-        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
-        "bytes": 1865428
+        "asset_generator": "Khronos glTF Blender I/O v5.0.21",
+        "bytes": 93140
       },
       "reimport_objects": [
         "SM_LA_Bldg_GarageM01",
@@ -132,7 +132,7 @@
     "warnings": 0,
     "infos": 1
   },
-  "seconds": 0.67,
+  "seconds": 1.8,
   "exit_code": 0,
   "result": "PASS"
 }

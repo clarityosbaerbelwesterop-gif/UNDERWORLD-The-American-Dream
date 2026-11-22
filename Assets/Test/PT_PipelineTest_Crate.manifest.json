@@ -3,7 +3,7 @@
   "status": "PIPELINE TEST PLACEHOLDER - NOT FINAL ART",
   "source_blend": "Blender/Source/Test/PT_PipelineTest_Crate.blend",
   "export_glb": "Assets/Test/PT_PipelineTest_Crate.glb",
-  "blender_version": "5.2.4 LTS",
+  "blender_version": "5.0.1",
   "units": "metres (1 BU = 1 m)",
   "up_axis": "Blender +Z -> glTF/Godot +Y (exporter export_yup)",
   "front": "Blender -Y -> Godot +Z (Vector3.MODEL_FRONT)",

@@ -8,7 +8,7 @@
   "preview_png": "Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb_preview.png",
   "previews": null,
   "tool": "underworld_pipeline 1.0.0",
-  "blender_version": "5.2.4 LTS",
+  "blender_version": "5.0.1",
   "units": "metres (1 BU = 1 m = 1 Godot unit)",
   "up_axis": "Blender +Z -> glTF/Godot +Y",
   "front": "Blender -Y -> Godot +Z",
@@ -58,7 +58,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_g33av6r3/T_LA_Concrete_D.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_e0e6itgq/T_LA_Concrete_D.jpg"
     },
     {
       "image": "T_LA_Concrete_ORM",
@@ -68,7 +68,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_20z9pqyi/T_LA_Concrete_ORM.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_6ovn0kg_/T_LA_Concrete_ORM.jpg"
     },
     {
       "image": "T_LA_Concrete_N",
@@ -78,7 +78,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_pvm0_qnb/T_LA_Concrete_N.png"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_rs1gmrce/T_LA_Concrete_N.png"
     }
   ],
   "uv_overlap": {
@@ -106,5 +106,5 @@
     "UCX_SM_LA_Sidewalk_Curb_Mesh-colonly",
     "SM_LA_Sidewalk_Curb"
   ],
-  "glb_bytes": 770508
+  "glb_bytes": 26124
 }

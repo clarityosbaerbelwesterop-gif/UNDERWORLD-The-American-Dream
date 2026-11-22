@@ -8,7 +8,7 @@
   "preview_png": "Assets/Environment/LA/SM_LA_Bldg_ShopStucco/SM_LA_Bldg_ShopStucco_preview.png",
   "previews": null,
   "tool": "underworld_pipeline 1.0.0",
-  "blender_version": "5.2.4 LTS",
+  "blender_version": "5.0.1",
   "units": "metres (1 BU = 1 m = 1 Godot unit)",
   "up_axis": "Blender +Z -> glTF/Godot +Y",
   "front": "Blender -Y -> Godot +Z",
@@ -89,7 +89,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_tl28sdcp/T_LA_Stucco_D.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_7cch2o5p/T_LA_Stucco_D.jpg"
     },
     {
       "image": "T_LA_Stucco_ORM",
@@ -99,7 +99,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_c_my8o1q/T_LA_Stucco_ORM.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_t5h3t8uf/T_LA_Stucco_ORM.jpg"
     },
     {
       "image": "T_LA_Stucco_N",
@@ -109,7 +109,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_9og4uino/T_LA_Stucco_N.png"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_fthxxln5/T_LA_Stucco_N.png"
     },
     {
       "image": "T_LA_TrimBrick_D",
@@ -119,7 +119,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_skfxfudu/T_LA_TrimBrick_D.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_wuey4gp3/T_LA_TrimBrick_D.jpg"
     },
     {
       "image": "T_LA_TrimBrick_ORM",
@@ -129,7 +129,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex__k_6ekr9/T_LA_TrimBrick_ORM.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_oi4shg3j/T_LA_TrimBrick_ORM.jpg"
     },
     {
       "image": "T_LA_TrimBrick_N",
@@ -139,7 +139,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_6mdwv2pu/T_LA_TrimBrick_N.png"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_yge8i87q/T_LA_TrimBrick_N.png"
     }
   ],
   "uv_overlap": {
@@ -169,5 +169,5 @@
     "UCX_SM_LA_Bldg_ShopStucco_Mesh_LOD2-colonly",
     "SM_LA_Bldg_ShopStucco"
   ],
-  "glb_bytes": 1199708
+  "glb_bytes": 101380
 }

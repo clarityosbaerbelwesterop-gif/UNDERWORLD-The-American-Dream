@@ -210,18 +210,28 @@ def process(blend, args, cfg, do_export, out=None):
             if os.path.isfile(concept_abs):
                 from underworld_pipeline import silhouette_check as SIL
                 sil_path = os.path.join(out_dir, name + ".silhouette_report.json")
-                silhouette_rep = SIL.compare_turnaround(concept_abs, previews_map["front"], previews_map["side"], out_report_path=sil_path)
-                report["steps"]["silhouette"] = {
-                    "report": _rel(cfg, sil_path),
-                    "mean_iou": silhouette_rep["mean_iou"],
-                    "mean_proportion_delta": silhouette_rep["mean_proportion_delta"],
-                    "pass": silhouette_rep["pass"],
-                }
-                if silhouette_rep["pass"]:
+                try:
+                    silhouette_rep = SIL.compare_turnaround(concept_abs, previews_map["front"], previews_map["side"], out_report_path=sil_path)
+                except SIL.ConceptArtUnavailable as exc:
+                    silhouette_rep = None
+                    iss.warn("CONCEPT_UNAVAILABLE",
+                             f"silhouette comparison skipped: {exc} (the reference board must be "
+                             f"restored before any PRODUCTION-READY claim)", name)
+                    report["steps"]["silhouette"] = {"skipped": str(exc)}
+                if silhouette_rep is None:
+                    pass
+                else:
+                    report["steps"]["silhouette"] = {
+                        "report": _rel(cfg, sil_path),
+                        "mean_iou": silhouette_rep["mean_iou"],
+                        "mean_proportion_delta": silhouette_rep["mean_proportion_delta"],
+                        "pass": silhouette_rep["pass"],
+                    }
+                if silhouette_rep is not None and silhouette_rep["pass"]:
                     iss.info("SILHOUETTE_MATCH",
                              f"turnaround match PASS: mean IoU={silhouette_rep['mean_iou']:.3f}, mean proportion delta={silhouette_rep['mean_proportion_delta']:.4f}",
                              name, **report["steps"]["silhouette"])
-                else:
+                elif silhouette_rep is not None:
                     iss.warn("SILHOUETTE_MATCH",
                              f"turnaround match below threshold: mean IoU={silhouette_rep['mean_iou']:.3f}, mean proportion delta={silhouette_rep['mean_proportion_delta']:.4f}",
                              name, **report["steps"]["silhouette"])

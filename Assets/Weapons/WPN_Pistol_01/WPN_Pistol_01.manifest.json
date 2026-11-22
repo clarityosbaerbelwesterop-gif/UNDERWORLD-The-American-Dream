@@ -8,7 +8,7 @@
   "preview_png": "Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01_preview.png",
   "previews": null,
   "tool": "underworld_pipeline 1.0.0",
-  "blender_version": "5.2.4 LTS",
+  "blender_version": "5.0.1",
   "units": "metres (1 BU = 1 m = 1 Godot unit)",
   "up_axis": "Blender +Z -> glTF/Godot +Y",
   "front": "Blender -Y -> Godot +Z",
@@ -107,7 +107,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_pbfna42d/T_WPN_Pistol_01_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_acii596m/T_WPN_Pistol_01_D.jpg"
     },
     {
       "image": "T_WPN_Pistol_01_ORM.001",
@@ -117,7 +117,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_eayd6yrj/T_WPN_Pistol_01_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_clu7lehv/T_WPN_Pistol_01_ORM.jpg"
     },
     {
       "image": "T_WPN_Pistol_01_N",
@@ -127,7 +127,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../tmp/uwp_tex_baj6dy7t/T_WPN_Pistol_01_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_bo916nms/T_WPN_Pistol_01_N.png"
     }
   ],
   "uv_overlap": {
@@ -279,8 +279,8 @@
     "SOCKET_Grip",
     "SOCKET_Muzzle",
     "UCX_WPN_Pistol_01-convcolonly",
-    "MagBone",
     "SlideBone",
+    "MagBone",
     "TrigBone",
     "WpnRoot",
     "Magazine",
@@ -289,5 +289,5 @@
     "WeaponRig",
     "WPN_Pistol_01"
   ],
-  "glb_bytes": 1752972
+  "glb_bytes": 425324
 }

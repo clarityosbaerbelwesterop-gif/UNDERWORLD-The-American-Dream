@@ -1,0 +1,381 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.0.1",
+  "timestamp": "2026-11-22T20:44:33+00:00",
+  "command": "export-all",
+  "input": "Blender/Source/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "lods": [],
+    "collision": {
+      "mode": "none",
+      "generated": [],
+      "existing": []
+    },
+    "export": {
+      "glb": "Assets/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B.glb",
+      "bytes": 7128144
+    },
+    "preview": {
+      "front": "Assets/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B_preview_front.png",
+      "3q": "Assets/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B_preview_3q.png",
+      "side": "Assets/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B_preview_side.png",
+      "back": "Assets/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B_preview_back.png",
+      "face": "Assets/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B_preview_face.png",
+      "face_side": "Assets/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B_preview_face_side.png",
+      "default": "Assets/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B_preview.png",
+      "aim": "Assets/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B_preview_aim.png"
+    },
+    "manifest": "Assets/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "Head",
+          "Neck",
+          "LeftThumbDistal",
+          "LeftThumbProximal",
+          "LeftThumbMetacarpal",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftHand",
+          "LeftLowerArm",
+          "LeftUpperArm",
+          "LeftShoulder",
+          "RightThumbDistal",
+          "RightThumbProximal",
+          "RightThumbMetacarpal",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "SOCKET_RightHand_Weapon",
+          "RightHand",
+          "RightLowerArm",
+          "RightUpperArm",
+          "RightShoulder",
+          "UpperChest",
+          "Chest",
+          "Spine",
+          "LeftToes",
+          "LeftFoot",
+          "LeftLowerLeg",
+          "LeftUpperLeg",
+          "RightToes",
+          "RightFoot",
+          "RightLowerLeg",
+          "RightUpperLeg",
+          "Hips",
+          "Root",
+          "SK_NPC_Cartel_B_Beard",
+          "SK_NPC_Cartel_B_Body",
+          "SK_NPC_Cartel_B_Boots",
+          "SK_NPC_Cartel_B_Eyebrows",
+          "SK_NPC_Cartel_B_Eyelashes_L",
+          "SK_NPC_Cartel_B_Eyelashes_R",
+          "SK_NPC_Cartel_B_Eyes",
+          "SK_NPC_Cartel_B_Hair",
+          "SK_NPC_Cartel_B_Jacket",
+          "SK_NPC_Cartel_B_Jeans",
+          "SK_NPC_Cartel_B_TShirt",
+          "Armature",
+          "SK_NPC_Cartel_B"
+        ],
+        "node_extras": {
+          "SK_NPC_Cartel_B_Beard": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Cartel_B_Eyebrows": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Cartel_B_Eyelashes_L": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Cartel_B_Eyelashes_R": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Cartel_B_Hair": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Cartel_B": {
+            "uw_character_spec": "Config/Characters/SK_NPC_Cartel_B.json"
+          }
+        },
+        "meshes": 11,
+        "materials": [
+          "M_NPC_Cartel_B_Hair",
+          "M_NPC_Cartel_B_Skin",
+          "M_NPC_Cartel_B_Boots",
+          "M_NPC_Cartel_B_BrowsLashes",
+          "M_NPC_Cartel_B_Eyes",
+          "M_NPC_Cartel_B_Jacket",
+          "M_NPC_Cartel_B_Jeans",
+          "M_NPC_Cartel_B_TShirt"
+        ],
+        "images": 19,
+        "skins": [
+          {
+            "name": "Armature",
+            "joints": 53
+          }
+        ],
+        "joint_names": [
+          "Chest",
+          "Head",
+          "Hips",
+          "LeftFoot",
+          "LeftHand",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftLowerArm",
+          "LeftLowerLeg",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftShoulder",
+          "LeftThumbDistal",
+          "LeftThumbMetacarpal",
+          "LeftThumbProximal",
+          "LeftToes",
+          "LeftUpperArm",
+          "LeftUpperLeg",
+          "Neck",
+          "RightFoot",
+          "RightHand",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "RightLowerArm",
+          "RightLowerLeg",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightShoulder",
+          "RightThumbDistal",
+          "RightThumbMetacarpal",
+          "RightThumbProximal",
+          "RightToes",
+          "RightUpperArm",
+          "RightUpperLeg",
+          "Root",
+          "Spine",
+          "UpperChest"
+        ],
+        "animations": [
+          "A_Humanoid_Aim_Pistol_Idle",
+          "A_Humanoid_Aim_Pistol_Walk_B",
+          "A_Humanoid_Aim_Pistol_Walk_F",
+          "A_Humanoid_Aim_Pistol_Walk_L",
+          "A_Humanoid_Aim_Pistol_Walk_R",
+          "A_Humanoid_Crouch_Idle",
+          "A_Humanoid_Crouch_Walk",
+          "A_Humanoid_Idle",
+          "A_Humanoid_Jump_Air",
+          "A_Humanoid_Jump_Start",
+          "A_Humanoid_Land",
+          "A_Humanoid_Reload_Pistol",
+          "A_Humanoid_Run",
+          "A_Humanoid_Shoot_Pistol",
+          "A_Humanoid_Sprint",
+          "A_Humanoid_Walk"
+        ],
+        "asset_generator": "Khronos glTF Blender I/O v5.0.21",
+        "bytes": 7128144
+      },
+      "reimport_objects": [
+        "Armature",
+        "Icosphere",
+        "SK_NPC_Cartel_B",
+        "SK_NPC_Cartel_B_Beard",
+        "SK_NPC_Cartel_B_Body",
+        "SK_NPC_Cartel_B_Boots",
+        "SK_NPC_Cartel_B_Eyebrows",
+        "SK_NPC_Cartel_B_Eyelashes_L",
+        "SK_NPC_Cartel_B_Eyelashes_R",
+        "SK_NPC_Cartel_B_Eyes",
+        "SK_NPC_Cartel_B_Hair",
+        "SK_NPC_Cartel_B_Jacket",
+        "SK_NPC_Cartel_B_Jeans",
+        "SK_NPC_Cartel_B_TShirt",
+        "SOCKET_RightHand_Weapon"
+      ],
+      "reimport_actions": [
+        "A_Humanoid_Aim_Pistol_Idle",
+        "A_Humanoid_Aim_Pistol_Walk_B",
+        "A_Humanoid_Aim_Pistol_Walk_F",
+        "A_Humanoid_Aim_Pistol_Walk_L",
+        "A_Humanoid_Aim_Pistol_Walk_R",
+        "A_Humanoid_Crouch_Idle",
+        "A_Humanoid_Crouch_Walk",
+        "A_Humanoid_Idle",
+        "A_Humanoid_Jump_Air",
+        "A_Humanoid_Jump_Start",
+        "A_Humanoid_Land",
+        "A_Humanoid_Reload_Pistol",
+        "A_Humanoid_Run",
+        "A_Humanoid_Shoot_Pistol",
+        "A_Humanoid_Sprint",
+        "A_Humanoid_Walk"
+      ],
+      "problems": []
+    }
+  },
+  "asset": "SK_NPC_Cartel_B",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cartel_B_Body",
+      "message": "290 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cartel_B_Eyes",
+      "message": "32 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cartel_B_Eyebrows",
+      "message": "1536 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cartel_B_Eyelashes_L",
+      "message": "288 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cartel_B_Eyelashes_R",
+      "message": "288 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cartel_B_TShirt",
+      "message": "161 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cartel_B_Jeans",
+      "message": "96 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cartel_B_Jacket",
+      "message": "182 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cartel_B_Hair",
+      "message": "136 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cartel_B_Beard",
+      "message": "282 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_NPC_Cartel_B_Body",
+      "message": "SK_NPC_Cartel_B_Body vs SK_NPC_Cartel_B_TShirt: 4/656 verts (0.61%)",
+      "data": {
+        "inner": "SK_NPC_Cartel_B_Body",
+        "outer": "SK_NPC_Cartel_B_TShirt",
+        "tested_vertices": 656,
+        "clipped_vertices": 4,
+        "clipped_fraction": 0.0061
+      }
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_NPC_Cartel_B_Body",
+      "message": "SK_NPC_Cartel_B_Body vs SK_NPC_Cartel_B_Jacket: 3/29 verts (10.34%)",
+      "data": {
+        "inner": "SK_NPC_Cartel_B_Body",
+        "outer": "SK_NPC_Cartel_B_Jacket",
+        "tested_vertices": 29,
+        "clipped_vertices": 3,
+        "clipped_fraction": 0.1034
+      }
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_NPC_Cartel_B_TShirt",
+      "message": "SK_NPC_Cartel_B_TShirt vs SK_NPC_Cartel_B_Jacket: 2/123 verts (1.63%)",
+      "data": {
+        "inner": "SK_NPC_Cartel_B_TShirt",
+        "outer": "SK_NPC_Cartel_B_Jacket",
+        "tested_vertices": 123,
+        "clipped_vertices": 2,
+        "clipped_fraction": 0.0163
+      }
+    },
+    {
+      "severity": "info",
+      "code": "HUMANOID_OPTIONAL",
+      "object": "Armature",
+      "message": "optional humanoid bones absent: ['LeftEye', 'RightEye', 'Jaw']"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_NONE",
+      "object": null,
+      "message": "no LOD ratios configured for Characters"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "infos": 15
+  },
+  "seconds": 90.75,
+  "exit_code": 0,
+  "result": "PASS"
+}

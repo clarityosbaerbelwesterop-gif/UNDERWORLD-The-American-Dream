@@ -8,7 +8,7 @@
   "preview_png": "Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight_preview.png",
   "previews": null,
   "tool": "underworld_pipeline 1.0.0",
-  "blender_version": "5.2.4 LTS",
+  "blender_version": "5.0.1",
   "units": "metres (1 BU = 1 m = 1 Godot unit)",
   "up_axis": "Blender +Z -> glTF/Godot +Y",
   "front": "Blender -Y -> Godot +Z",
@@ -86,7 +86,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_u4fgc2fl/T_LA_LampMetal_D.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_sq3zehk6/T_LA_LampMetal_D.jpg"
     },
     {
       "image": "T_LA_LampMetal_ORM",
@@ -96,7 +96,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_jcb44f95/T_LA_LampMetal_ORM.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_och8qwhr/T_LA_LampMetal_ORM.jpg"
     },
     {
       "image": "T_LA_LampMetal_N",
@@ -106,7 +106,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_l4fi5ga8/T_LA_LampMetal_N.png"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_ur3l7n6_/T_LA_LampMetal_N.png"
     }
   ],
   "uv_overlap": {
@@ -136,5 +136,5 @@
     "UCX_SM_LA_Streetlight_Mesh_LOD2-colonly",
     "SM_LA_Streetlight"
   ],
-  "glb_bytes": 431540
+  "glb_bytes": 47268
 }

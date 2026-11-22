@@ -15,7 +15,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-DES-01 | P1 | Bot 1 | Mission M01 design doc | T-BOOT-03 | READY FOR REVIEW |
 | T-DES-02 | P1 | Bot 1 | Art direction + LA street layout brief | T-BOOT-03 | IN PROGRESS |
 | T-PIPE-01 | P0 | Bot 2 | Production Blender export/validation tool | T-PIPE-00 | COMPLETED |
-| T-PIPE-02 | P0 | Bot 3 | Godot import presets + per-asset import tests | T-PIPE-01 | BACKLOG |
+| T-PIPE-02 | P0 | Bot 3 | Godot import presets + per-asset import tests | T-PIPE-01 | IN PROGRESS |
 | T-ART-01 | P1 | Bot 2 | Jason model + rig + skin | T-PIPE-01 | BACKLOG |
 | T-ART-02 | P1 | Bot 2 | Jason animation set | T-ART-01 | BACKLOG |
 | T-ART-03 | P1 | Bot 2 | LA street environment kit | T-PIPE-01, T-DES-02 | BACKLOG |
@@ -83,7 +83,7 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Acceptance:** runs headless on all assets in `Blender/Source/`, fails non-zero on any validation error; preview PNG produced; `Tests/run_pipeline_smoke.sh` PASS.
 
 ### T-PIPE-02 – Godot import presets + per-asset import tests
-- **Agent:** Bot 3 · **Deps:** T-PIPE-01 · **Status:** BACKLOG
+- **Agent:** Bot 3 · **Deps:** T-PIPE-01 · **Status:** IN PROGRESS (2026-11-22, Bot 3, branch `bot3/t-pipe-02`)
 - **Description:** import settings per category (characters: `SkeletonProfileHumanoid` retarget, animation loop flags; vehicles: keep wheel nodes; env: generate LODs/shadow meshes), test that loads every .glb listed in `ASSET_REGISTRY.md` and checks manifest dims vs. Godot AABB.
 - **Expected output:** `GodotProject/Tests/test_assets.gd`, wired into `Tests/run_all.sh`.
 - **File ownership:** Bot 3 (`.import` changes need a handoff note to Bot 2).

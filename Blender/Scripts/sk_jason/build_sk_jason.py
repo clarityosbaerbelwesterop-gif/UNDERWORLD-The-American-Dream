@@ -1,3 +1,25 @@
+"""RETIRED (Bot 1, 2026-11-22): SK_Jason v1 procedural builder - superseded by SK_Jason v2 (T-PIPE-03).
+
+Running this would overwrite the v2 source Blender/Source/Characters/SK_Jason/SK_Jason.blend with the
+v1 "stickman" build. It now refuses to run. Build Jason with the v2 spec-driven pipeline instead:
+
+  /workspace/tools/blender/blender -b --factory-startup --python-exit-code 1 \\
+      --python Tools/underworld_pipeline/characters/build_character.py -- --spec Config/Characters/SK_Jason.json
+
+(see Docs/PIPELINE_CHARACTERS.md). The v1 code below is kept only for reference; set
+UW_ALLOW_V1_JASON=1 to run it into a scratch location at your own risk.
+"""
+import os as _os
+import sys as _sys
+
+if _os.environ.get("UW_ALLOW_V1_JASON") != "1":
+    _sys.stderr.write(
+        "[build_sk_jason] RETIRED: SK_Jason v1 builder would overwrite SK_Jason v2. Use\n"
+        "  blender -b --factory-startup --python Tools/underworld_pipeline/characters/build_character.py "
+        "-- --spec Config/Characters/SK_Jason.json\n"
+        "(Docs/PIPELINE_CHARACTERS.md).\n")
+    _sys.exit(2)
+
 """Build SK_Jason (T-ART-01 + T-ART-02, Bot 2) fully procedurally and save the source .blend.
 
   /workspace/tools/blender/blender -b --factory-startup --python-exit-code 1 \\

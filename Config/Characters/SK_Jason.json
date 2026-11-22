@@ -1,0 +1,172 @@
+{
+  "_doc": "Character specification for SK_Jason (Protagonist, Chapter 1 LA wardrobe). Binding concept art: Docs/ArtDirection/Concepts/CA_Jason_Turnaround_v01.jpg and CA_Jason_Head_v01.jpg.",
+  "asset_name": "SK_Jason",
+  "category": "Characters",
+  "budget_key": "Characters/SK_Jason",
+  "height_m": 1.82,
+  "boot_sole_extra_m": 0.024,
+  "concept_art": {
+    "turnaround": "Docs/ArtDirection/Concepts/CA_Jason_Turnaround_v01.jpg",
+    "head": "Docs/ArtDirection/Concepts/CA_Jason_Head_v01.jpg"
+  },
+  "macro": {
+    "gender": 1.0,
+    "age": 0.56,
+    "muscle": 0.68,
+    "weight": 0.44,
+    "proportions": 0.72,
+    "height_morph": 0.72,
+    "ethnicity": {
+      "caucasian": 0.62,
+      "asian": 0.24,
+      "african": 0.14
+    }
+  },
+  "morphs": {
+    "chin-bones-decr-incr": 0.40,
+    "chin-height-decr-incr": 0.18,
+    "chin-prominent-decr-incr": 0.28,
+    "chin-width-decr-incr": 0.32,
+    "chin-jaw-drop-decr-incr": 0.12,
+    "head-rectangular": 0.24,
+    "cheek-bones-decr-incr": 0.35,
+    "eyebrows-trans-down-up": -0.25,
+    "nose-width1-decr-incr": 0.14,
+    "nose-point-width-decr-incr": 0.10,
+    "nose-scale-vert-decr-incr": 0.08,
+    "mouth-scale-horiz-decr-incr": 0.12,
+    "mouth-lowerlip-height-decr-incr": 0.20,
+    "neck-scale-horiz-decr-incr": 0.22,
+    "head-fat-decr-incr": -0.18
+  },
+  "skin": {
+    "texture_size": 2048,
+    "base_diffuse": "skins02/skins/toigo_light_skin_male_bronze/young_lightskinned_male_diffuse_Bronze.png",
+    "base_normal": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_NRM.png",
+    "base_spec": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_SPEC.png",
+    "tint_rgb": [0.94, 0.85, 0.76],
+    "gamma": 1.08,
+    "sss_weight": 0.18,
+    "sss_scale": 0.008,
+    "hair_color_rgb": [0.036, 0.028, 0.024],
+    "skin_fade": {
+      "enabled": true
+    },
+    "beard_stubble": {
+      "density": 0.84
+    },
+    "eyebrow_scar": {
+      "x_m": 0.039,
+      "z_offset_m": 0.001,
+      "angle_deg": 64.0,
+      "length_m": 0.021,
+      "width_m": 0.0017
+    },
+    "seed": 77
+  },
+  "eyes": {
+    "mhclo": "mh_eyes/low-poly.mhclo",
+    "iris_texture": "makehuman_system_assets/eyes/materials/brown_eye.png",
+    "iris_tint": [0.60, 0.42, 0.28]
+  },
+  "eyebrows": {
+    "mhclo": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.mhclo",
+    "texture": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.png",
+    "scar_notch": true
+  },
+  "eyelashes": {
+    "mhclo": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.mhclo",
+    "texture": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.png"
+  },
+  "teeth": {
+    "enabled": true,
+    "decimate_ratio": 0.20
+  },
+  "hair": {
+    "style": "skin_fade_crop",
+    "color_rgb": [0.036, 0.028, 0.024],
+    "seed": 42
+  },
+  "beard": {
+    "style": "short_boxed_beard",
+    "seed": 101
+  },
+  "outfit": {
+    "tshirt": {
+      "enabled": true,
+      "style": "under_jacket_tshirt",
+      "polyhaven_id": "cotton_jersey",
+      "texture_size": 1024,
+      "bake_size": 512,
+      "tile": 4.0,
+      "desaturate": 0.88,
+      "gamma": 0.90,
+      "tint_rgb": [0.60, 0.61, 0.62],
+      "roughness_scale": 1.05,
+      "roughness_bias": 0.14,
+      "normal_strength": 0.85
+    },
+    "jacket": {
+      "enabled": true,
+      "style": "bomber_jacket",
+      "polyhaven_id": "brown_leather",
+      "texture_size": 1024,
+      "bake_size": 512,
+      "tile": 4.2,
+      "desaturate": 0.18,
+      "gamma": 0.80,
+      "tint_rgb": [0.56, 0.42, 0.32],
+      "roughness_scale": 0.85,
+      "roughness_bias": 0.04,
+      "normal_strength": 1.15,
+      "zone_mode": "bomber_trim"
+    },
+    "jeans": {
+      "enabled": true,
+      "style": "straight_jeans",
+      "polyhaven_id": "denim_fabric_04",
+      "texture_size": 1024,
+      "bake_size": 512,
+      "tile": 5.0,
+      "desaturate": 0.18,
+      "gamma": 0.88,
+      "tint_rgb": [0.28, 0.38, 0.56],
+      "roughness_scale": 1.05,
+      "roughness_bias": 0.12,
+      "normal_strength": 0.90,
+      "zone_mode": "denim_wash"
+    },
+    "boots": {
+      "enabled": true,
+      "polyhaven_id": "fabric_leather_02",
+      "texture_size": 1024,
+      "bake_size": 512,
+      "tile": 3.5,
+      "desaturate": 0.22,
+      "gamma": 0.88,
+      "tint_rgb": [0.52, 0.38, 0.27],
+      "roughness_scale": 0.92,
+      "roughness_bias": 0.10,
+      "normal_strength": 1.05,
+      "zone_mode": "boot_sole"
+    },
+    "watch": {
+      "enabled": true,
+      "polyhaven_id": "metal_plate",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 2.0,
+      "desaturate": 0.70,
+      "tint_rgb": [0.24, 0.25, 0.27],
+      "roughness_scale": 0.48,
+      "roughness_bias": 0.0,
+      "metallic": 0.88,
+      "normal_strength": 0.5
+    }
+  },
+  "animations": {
+    "clip_prefix": "A_Jason_",
+    "mocap_walk_bvh": "mocap/makehuman_walk1.bvh",
+    "include_p2": true
+  }
+}

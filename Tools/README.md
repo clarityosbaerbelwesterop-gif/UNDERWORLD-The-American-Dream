@@ -41,10 +41,10 @@ Budgets come from `Config/asset_budgets.json` (Bot 1); tool defaults from `under
 | Origin (TD-004) | `ORIGIN_GROUND` (lowest point at z=0 ±1 cm, all but Weapons), `REFERENCE_HEIGHT` (`reference_heights_m`, e.g. Jason 1.82 ±0.02 m) | `ORIGIN_CENTRE` (Props/Characters/Vehicles/Test) |
 | Geometry | `EMPTY_MESH`, `LOOSE_GEOMETRY` (loose verts/edges) | `NON_MANIFOLD` (>2 faces per edge, bow-tie verts), `DEGENERATE_FACES`, `OPEN_BOUNDARY` (warn on trimesh collision, info otherwise) |
 | Budget (TD-009) | `TRI_BUDGET` (LOD0 visible tris vs `max_triangles`, most specific key: `Characters/SK_Jason` > category), `NO_BUDGET` | – |
-| UV / materials / textures | `NO_UVS`, `NO_MATERIAL`, `EMPTY_MATERIAL_SLOT`, `TEXTURE_SIZE` (hero 2048 for Characters/Vehicles/Weapons, else 1024), `TEXTURE_MISSING` | `MATERIAL_COUNT`, `TEXTURE_POT` |
-| Skinning | `BONE_INFLUENCES` (> `max_bone_influences` = 4), `UNWEIGHTED_VERTICES`, `SK_NOT_SKINNED`, `ARMATURE_MOD_EMPTY`, `HUMANOID_BONES` (Characters: all 22 required `SkeletonProfileHumanoid` bones of REQ-GP01-JASON) | `SKIN_PARENT`, `HUMANOID_OPTIONAL`, `VGROUP_NO_BONE` |
+| UV / materials / textures | `NO_UVS`, `NO_MATERIAL`, `EMPTY_MATERIAL_SLOT`, `TEXTURE_SIZE` (hero 2048 for Characters/Vehicles/Weapons, else 1024), `TEXTURE_MISSING`, `UV_OVERLAP` (>35% self-overlap; opt out via `uw_allow_uv_overlap`) | `MATERIAL_COUNT`, `TEXTURE_POT`, `UV_OVERLAP` (>8%), `TEXEL_DENSITY` |
+| Skinning & clipping | `BONE_INFLUENCES` (> `max_bone_influences` = 4), `UNWEIGHTED_VERTICES`, `WEIGHT_UNNORMALIZED` (deform weight sum outside `1.0 ± 0.02`), `SK_NOT_SKINNED`, `ARMATURE_MOD_EMPTY`, `HUMANOID_BONES` (Characters: all 22 required `SkeletonProfileHumanoid` bones of REQ-GP01-JASON), `MESH_CLIPPING` (layered clothing penetration >3%) | `SKIN_PARENT`, `HUMANOID_OPTIONAL`, `VGROUP_NO_BONE`, `SILHOUETTE_MATCH` |
 | Sockets | `SOCKET_MISSING`, `SOCKET_PARENT` (`required_sockets`, e.g. `SOCKET_RightHand_Weapon` on bone `RightHand` for SK_Jason) | – |
-| Animation | `NAME_ACTION` | `ACTION_EMPTY`, `ANIM_FPS` (≠ 30), `ANIM_START_FRAME` / `ANIM_LOOP_SUFFIX` (Characters) |
+| Animation | `NAME_ACTION`, `NAME_ACTION_LOOP` (name ends in `_Loop`/`-Loop`/`_Cycle`/`-Cycle`, any case – Godot strips it on import, e.g. `A_Jason_Jump_Loop` → `A_Jason_Jump`; TD-005 addendum, loop mode comes only from the manifest) | `ACTION_EMPTY`, `ANIM_FPS` (≠ 30), `ANIM_START_FRAME` (Characters) |
 
 `--strict` turns every warning into an error.
 

@@ -1,0 +1,393 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-22T10:24:13+00:00",
+  "command": "export",
+  "input": "Blender/Source/Characters/SK_Jason/SK_Jason.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "lods": [],
+    "collision": {
+      "mode": "none",
+      "generated": [],
+      "existing": []
+    },
+    "export": {
+      "glb": "Assets/Characters/SK_Jason/SK_Jason.glb",
+      "bytes": 11210160
+    },
+    "preview": {
+      "front": "Assets/Characters/SK_Jason/SK_Jason_preview_front.png",
+      "3q": "Assets/Characters/SK_Jason/SK_Jason_preview_3q.png",
+      "side": "Assets/Characters/SK_Jason/SK_Jason_preview_side.png",
+      "back": "Assets/Characters/SK_Jason/SK_Jason_preview_back.png",
+      "face": "Assets/Characters/SK_Jason/SK_Jason_preview_face.png",
+      "face_side": "Assets/Characters/SK_Jason/SK_Jason_preview_face_side.png",
+      "default": "Assets/Characters/SK_Jason/SK_Jason_preview.png",
+      "aim": "Assets/Characters/SK_Jason/SK_Jason_preview_aim.png"
+    },
+    "silhouette": {
+      "report": "Assets/Characters/SK_Jason/SK_Jason.silhouette_report.json",
+      "mean_iou": 0.7565,
+      "mean_proportion_delta": 0.0146,
+      "pass": true
+    },
+    "manifest": "Assets/Characters/SK_Jason/SK_Jason.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "LeftToes",
+          "LeftFoot",
+          "LeftLowerLeg",
+          "LeftUpperLeg",
+          "RightToes",
+          "RightFoot",
+          "RightLowerLeg",
+          "RightUpperLeg",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftThumbDistal",
+          "LeftThumbProximal",
+          "LeftThumbMetacarpal",
+          "LeftHand",
+          "LeftLowerArm",
+          "LeftUpperArm",
+          "LeftShoulder",
+          "Head",
+          "Neck",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightThumbDistal",
+          "RightThumbProximal",
+          "RightThumbMetacarpal",
+          "SOCKET_RightHand_Weapon",
+          "RightHand",
+          "RightLowerArm",
+          "RightUpperArm",
+          "RightShoulder",
+          "UpperChest",
+          "Chest",
+          "Spine",
+          "Hips",
+          "Root",
+          "SK_Jason_Beard",
+          "SK_Jason_Body",
+          "SK_Jason_Boots",
+          "SK_Jason_Eyebrows",
+          "SK_Jason_Eyelashes",
+          "SK_Jason_Eyes",
+          "SK_Jason_Hair",
+          "SK_Jason_Jacket",
+          "SK_Jason_Jeans",
+          "SK_Jason_Teeth",
+          "SK_Jason_TShirt",
+          "SK_Jason_Watch",
+          "Armature",
+          "SK_Jason"
+        ],
+        "node_extras": {
+          "SK_Jason_Beard": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_Jason_Hair": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_Jason": {
+            "uw_character_spec": "Config/Characters/SK_Jason.json",
+            "uw_concept_turnaround": "Docs/ArtDirection/Concepts/CA_Jason_Turnaround_v01.jpg",
+            "uw_concept_head": "Docs/ArtDirection/Concepts/CA_Jason_Head_v01.jpg"
+          }
+        },
+        "meshes": 12,
+        "materials": [
+          "M_Jason_Hair",
+          "M_Jason_Skin",
+          "M_Jason_Boots",
+          "M_Jason_BrowsLashes",
+          "M_Jason_Eyes",
+          "M_Jason_Jacket",
+          "M_Jason_Jeans",
+          "M_Jason_Teeth",
+          "M_Jason_TShirt",
+          "M_Jason_Watch"
+        ],
+        "images": 23,
+        "skins": [
+          {
+            "name": "Armature",
+            "joints": 53
+          }
+        ],
+        "joint_names": [
+          "Chest",
+          "Head",
+          "Hips",
+          "LeftFoot",
+          "LeftHand",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftLowerArm",
+          "LeftLowerLeg",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftShoulder",
+          "LeftThumbDistal",
+          "LeftThumbMetacarpal",
+          "LeftThumbProximal",
+          "LeftToes",
+          "LeftUpperArm",
+          "LeftUpperLeg",
+          "Neck",
+          "RightFoot",
+          "RightHand",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "RightLowerArm",
+          "RightLowerLeg",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightShoulder",
+          "RightThumbDistal",
+          "RightThumbMetacarpal",
+          "RightThumbProximal",
+          "RightToes",
+          "RightUpperArm",
+          "RightUpperLeg",
+          "Root",
+          "Spine",
+          "UpperChest"
+        ],
+        "animations": [
+          "A_Jason_Aim_Pistol_Idle",
+          "A_Jason_Aim_Pistol_Walk_B",
+          "A_Jason_Aim_Pistol_Walk_F",
+          "A_Jason_Aim_Pistol_Walk_L",
+          "A_Jason_Aim_Pistol_Walk_R",
+          "A_Jason_Car_Enter_L",
+          "A_Jason_Car_Exit_L",
+          "A_Jason_Carry_Idle",
+          "A_Jason_Carry_Walk",
+          "A_Jason_Crouch_Idle",
+          "A_Jason_Crouch_Walk",
+          "A_Jason_Death",
+          "A_Jason_Idle",
+          "A_Jason_Jump_Air",
+          "A_Jason_Jump_Start",
+          "A_Jason_Land",
+          "A_Jason_Reload_Pistol",
+          "A_Jason_Run",
+          "A_Jason_Shoot_Pistol",
+          "A_Jason_Sprint",
+          "A_Jason_Walk"
+        ],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 11210160
+      },
+      "reimport_objects": [
+        "Armature",
+        "Icosphere",
+        "SK_Jason",
+        "SK_Jason_Beard",
+        "SK_Jason_Body",
+        "SK_Jason_Boots",
+        "SK_Jason_Eyebrows",
+        "SK_Jason_Eyelashes",
+        "SK_Jason_Eyes",
+        "SK_Jason_Hair",
+        "SK_Jason_Jacket",
+        "SK_Jason_Jeans",
+        "SK_Jason_TShirt",
+        "SK_Jason_Teeth",
+        "SK_Jason_Watch",
+        "SOCKET_RightHand_Weapon"
+      ],
+      "reimport_actions": [
+        "A_Jason_Aim_Pistol_Idle",
+        "A_Jason_Aim_Pistol_Walk_B",
+        "A_Jason_Aim_Pistol_Walk_F",
+        "A_Jason_Aim_Pistol_Walk_L",
+        "A_Jason_Aim_Pistol_Walk_R",
+        "A_Jason_Car_Enter_L",
+        "A_Jason_Car_Exit_L",
+        "A_Jason_Carry_Idle",
+        "A_Jason_Carry_Walk",
+        "A_Jason_Crouch_Idle",
+        "A_Jason_Crouch_Walk",
+        "A_Jason_Death",
+        "A_Jason_Idle",
+        "A_Jason_Jump_Air",
+        "A_Jason_Jump_Start",
+        "A_Jason_Land",
+        "A_Jason_Reload_Pistol",
+        "A_Jason_Run",
+        "A_Jason_Shoot_Pistol",
+        "A_Jason_Sprint",
+        "A_Jason_Walk"
+      ],
+      "problems": []
+    }
+  },
+  "asset": "SK_Jason",
+  "category": "Characters",
+  "budget_key": "Characters/SK_Jason",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Jason_Body",
+      "message": "304 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Jason_Eyes",
+      "message": "32 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Jason_Eyebrows",
+      "message": "52 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Jason_Eyelashes",
+      "message": "124 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Jason_Teeth",
+      "message": "342 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Jason_TShirt",
+      "message": "188 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Jason_Jeans",
+      "message": "96 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Jason_Jacket",
+      "message": "205 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Jason_Hair",
+      "message": "798 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Jason_Beard",
+      "message": "296 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_Jason_Body",
+      "message": "SK_Jason_Body vs SK_Jason_Jacket: 3/19 verts (15.79%)",
+      "data": {
+        "inner": "SK_Jason_Body",
+        "outer": "SK_Jason_Jacket",
+        "tested_vertices": 19,
+        "clipped_vertices": 3,
+        "clipped_fraction": 0.1579
+      }
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_Jason_TShirt",
+      "message": "SK_Jason_TShirt vs SK_Jason_Jacket: 3/151 verts (1.99%)",
+      "data": {
+        "inner": "SK_Jason_TShirt",
+        "outer": "SK_Jason_Jacket",
+        "tested_vertices": 151,
+        "clipped_vertices": 3,
+        "clipped_fraction": 0.0199
+      }
+    },
+    {
+      "severity": "info",
+      "code": "HUMANOID_OPTIONAL",
+      "object": "Armature",
+      "message": "optional humanoid bones absent: ['LeftEye', 'RightEye', 'Jaw']"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_NONE",
+      "object": null,
+      "message": "no LOD ratios configured for Characters"
+    },
+    {
+      "severity": "info",
+      "code": "SILHOUETTE_MATCH",
+      "object": "SK_Jason",
+      "message": "turnaround match PASS: mean IoU=0.756, mean proportion delta=0.0146",
+      "data": {
+        "report": "Assets/Characters/SK_Jason/SK_Jason.silhouette_report.json",
+        "mean_iou": 0.7565,
+        "mean_proportion_delta": 0.0146,
+        "pass": true
+      }
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "infos": 15
+  },
+  "seconds": 35.09,
+  "exit_code": 0,
+  "result": "PASS"
+}

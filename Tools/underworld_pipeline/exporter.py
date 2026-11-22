@@ -73,6 +73,154 @@ def glb_summary(path):
     }
 
 
+def _setup_studio_lighting(sc):
+    """3-point studio lighting + neutral studio backdrop + floor for clean inspection renders."""
+    created = []
+    world = sc.world or bpy.data.worlds.new("UW_PreviewWorld")
+    sc.world = world
+    bg = world.node_tree.nodes.get("Background") if world.node_tree else None
+    if bg:
+        bg.inputs["Color"].default_value = (0.74, 0.74, 0.76, 1.0)
+        bg.inputs["Strength"].default_value = 0.85
+
+    bpy.ops.mesh.primitive_plane_add(size=14, location=(0, 0, -0.001))
+    fl = bpy.context.active_object
+    fl.name = "UW_StudioFloor"
+    fmat = bpy.data.materials.new("UW_StudioFloorMat")
+    bsdf = next(n for n in fmat.node_tree.nodes if n.type == "BSDF_PRINCIPLED")
+    bsdf.inputs["Base Color"].default_value = (0.76, 0.76, 0.78, 1.0)
+    bsdf.inputs["Roughness"].default_value = 0.92
+    fl.data.materials.append(fmat)
+    created.append(fl)
+
+    for name, loc, tgt, energy, size, col in (
+        ("UW_Key", (-1.8, -2.8, 2.5), (0, 0, 1.0), 175.0, 2.0, (1.0, 0.97, 0.94)),
+        ("UW_Fill", (2.3, -2.0, 1.8), (0, 0, 1.0), 82.0, 2.5, (0.90, 0.94, 1.0)),
+        ("UW_Rim", (0.5, 2.5, 2.3), (0, 0, 1.2), 110.0, 1.6, (1.0, 0.98, 0.95)),
+    ):
+        ld = bpy.data.lights.new(name, "AREA")
+        ld.energy = energy
+        ld.size = size
+        ld.color = col
+        lo = bpy.data.objects.new(name, ld)
+        sc.collection.objects.link(lo)
+        lo.location = Vector(loc)
+        lo.rotation_euler = (Vector(tgt) - Vector(loc)).to_track_quat("-Z", "Y").to_euler()
+        created.append(lo)
+    return created
+
+
+def render_character_previews(ctx, out_dir, name, bbox):
+    """Render studio Cycles CPU multi-view previews for Characters (front, 3/4, side, back, face, face_side, aim).
+
+    Writes `<Name>_preview.png` (= 3/4 view for backwards compatibility) plus dedicated view PNGs.
+    Returns dict {view_name: filepath}.
+    """
+    sc = bpy.context.scene
+    for ob in sc.objects:
+        if ob.type == "MESH" and (S.is_collision_only(ob) or S.lod_level(ob.name) > 0):
+            ob.hide_render = True
+
+    _setup_studio_lighting(sc)
+    cam_data = bpy.data.cameras.new("UW_CharPreviewCam")
+    cam = bpy.data.objects.new("UW_CharPreviewCam", cam_data)
+    sc.collection.objects.link(cam)
+    sc.camera = cam
+
+    r = sc.render
+    r.engine = "CYCLES"
+    sc.cycles.device = "CPU"
+    sc.cycles.samples = 32
+    sc.cycles.use_denoising = True
+    r.resolution_percentage = 100
+    r.image_settings.file_format = "PNG"
+    r.film_transparent = False
+
+    lo, hi = Vector(bbox[0]), Vector(bbox[1])
+    h = max(hi.z - lo.z, 0.5)
+    mid_z = 0.5 * (lo.z + hi.z)
+
+    arm = next((o for o in sc.objects if o.type == "ARMATURE"), None)
+
+    def set_action(exact_or_sub=None, frame=0, exclude=()):
+        if not arm:
+            return False
+        if exact_or_sub is None:
+            arm.data.pose_position = "REST"
+            bpy.context.view_layer.update()
+            return True
+        act = next(
+            (a for a in bpy.data.actions
+             if exact_or_sub in a.name and not any(ex in a.name for ex in exclude)),
+            None,
+        )
+        if act is None:
+            return False
+        arm.data.pose_position = "POSE"
+        arm.animation_data_create()
+        arm.animation_data.action = act
+        if act.slots:
+            arm.animation_data.action_slot = act.slots[0]
+        sc.frame_set(frame)
+        bpy.context.view_layer.update()
+        return True
+
+    def shoot(fpath, loc, tgt, lens=65, rx=512, ry=680):
+        r.resolution_x, r.resolution_y = rx, ry
+        cam_data.lens = lens
+        cam.location = Vector(loc)
+        cam.rotation_euler = (Vector(tgt) - Vector(loc)).to_track_quat("-Z", "Y").to_euler()
+        cam_data.clip_end = 50.0
+        r.filepath = fpath
+        os.makedirs(os.path.dirname(fpath), exist_ok=True)
+        bpy.ops.render.render(write_still=True)
+        return os.path.isfile(fpath)
+
+    # Use standing Idle pose (explicitly excluding Aim/Crouch/Carry!) for concept-art turnaround match
+    if not set_action("_Idle", 0, exclude=("Aim", "Crouch", "Carry")):
+        set_action(None)
+
+    # Frame head dynamically from actual posed Head bone so face close-up is always dead-center!
+    head_z = hi.z - 0.135
+    head_y = -0.02
+    if arm and "Head" in arm.pose.bones:
+        hb = arm.pose.bones["Head"]
+        hc = arm.matrix_world @ ((hb.head + hb.tail) * 0.5)
+        head_z = hc.z - 0.015
+        head_y = hc.y - 0.02
+
+    dist = h * 2.15
+    views = {}
+    specs = [
+        ("front", f"{name}_preview_front.png", (0.0, -dist, mid_z + 0.02), (0.0, 0.0, mid_z), 65, 512, 680),
+        ("3q", f"{name}_preview_3q.png", (-dist * 0.52, -dist * 0.87, mid_z + 0.06), (0.0, 0.0, mid_z), 65, 512, 680),
+        ("side", f"{name}_preview_side.png", (-dist, 0.0, mid_z + 0.02), (0.0, 0.0, mid_z), 65, 512, 680),
+        ("back", f"{name}_preview_back.png", (0.0, dist, mid_z + 0.02), (0.0, 0.0, mid_z), 65, 512, 680),
+        ("face", f"{name}_preview_face.png", (0.0, head_y - 0.76, head_z + 0.01), (0.0, head_y, head_z), 95, 512, 512),
+        ("face_side", f"{name}_preview_face_side.png", (-0.76, head_y, head_z + 0.01), (0.0, head_y, head_z), 95, 512, 512),
+    ]
+    for vkey, fname, loc, tgt, lens, rx, ry in specs:
+        fp = os.path.join(out_dir, fname)
+        if shoot(fp, loc, tgt, lens, rx, ry):
+            views[vkey] = fp
+
+    # Also copy 3/4 view to canonical <Name>_preview.png so legacy tools/manifests always find it!
+    if "3q" in views:
+        import shutil
+        main_pv = os.path.join(out_dir, f"{name}_preview.png")
+        shutil.copyfile(views["3q"], main_pv)
+        views["default"] = main_pv
+
+    # Aim pose preview if Aim action exists!
+    if set_action("Aim_Pistol_Idle", 0) or set_action("_Aim", 0):
+        fp_aim = os.path.join(out_dir, f"{name}_preview_aim.png")
+        if shoot(fp_aim, (-dist * 0.55, -dist * 0.78, mid_z + 0.20), (0.0, -0.15, mid_z + 0.05), 62, 512, 680):
+            views["aim"] = fp_aim
+
+    set_action(None)
+    return views
+
+
 def render_preview(ctx, path, bbox):
     """Cycles CPU 3/4 front view (front = Blender -Y). LOD>0 and collision hidden."""
     sc = bpy.context.scene
@@ -109,7 +257,7 @@ def render_preview(ctx, path, bbox):
     r.engine = "CYCLES"
     sc.cycles.device = "CPU"
     sc.cycles.samples = int(pv.get("samples", 16))
-    sc.cycles.use_denoising = False
+    sc.cycles.use_denoising = True
     r.resolution_x = r.resolution_y = int(pv.get("resolution", 320))
     r.resolution_percentage = 100
     r.image_settings.file_format = "PNG"

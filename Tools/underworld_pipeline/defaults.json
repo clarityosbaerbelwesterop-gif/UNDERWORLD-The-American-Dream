@@ -94,7 +94,13 @@
     "ground_m": 0.01,
     "centre_m": 0.05,
     "centre_rel": 0.05,
-    "height_m": 0.02
+    "height_m": 0.02,
+    "weight_sum_tol": 0.02,
+    "uv_overlap_warn": 0.08,
+    "uv_overlap_error": 0.35,
+    "clipping_error_frac": 0.03,
+    "texel_density_min_hero": 256,
+    "texel_density_min_default": 128
   },
   "humanoid_required_bones": [
     "Hips",

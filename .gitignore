@@ -1,0 +1,26 @@
+# Godot
+GodotProject/.godot/
+GodotProject/.import/
+*.translation
+export_presets.cfg.local
+# Builds and logs
+Builds/*
+!Builds/.gitkeep
+Tests/logs/
+*.log
+# Blender backups / autosave
+*.blend1
+*.blend2
+*.blend@
+__pycache__/
+*.pyc
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+# Secrets never in git
+.env
+*.pem
+*.key

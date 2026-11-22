@@ -1,0 +1,22 @@
+{
+  "asset": "PT_PipelineTest_Crate",
+  "status": "PIPELINE TEST PLACEHOLDER - NOT FINAL ART",
+  "source_blend": "Blender/Source/Test/PT_PipelineTest_Crate.blend",
+  "export_glb": "Assets/Test/PT_PipelineTest_Crate.glb",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y (exporter export_yup)",
+  "front": "Blender -Y -> Godot +Z (Vector3.MODEL_FRONT)",
+  "body_dimensions_m": [
+    1.0,
+    1.0,
+    1.0
+  ],
+  "triangles_visible": 170,
+  "roundtrip_meshes": [
+    "SM_PT_PipelineTest_Crate_Body",
+    "SM_PT_PipelineTest_Crate_FrontMarker",
+    "UCX_PT_PipelineTest_Crate-colonly"
+  ],
+  "glb_bytes": 15864
+}

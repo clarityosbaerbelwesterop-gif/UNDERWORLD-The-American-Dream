@@ -2,6 +2,9 @@
 
 Append-only, newest on top. `YYYY-MM-DD HH:MM (Europe/Berlin) · Bot N · Task ID · what was done · how it was verified`.
 
+## 2026-11-22 · Bot 3 (T-GP-02a)
+- **2026-11-22 10:25 · T-GP-02a** Rapid-fire bloom: `bloom_recovery_delay` (0.35 s) + `bloom_aim_multiplier` (0.5) in `WeaponData` ([DEFAULT] in `WPN_Pistol_01.tres`); bloom stacks to `bloom_max`, recovers only after the delay. Applied Bot 1 decisions: REQ-GP02-PISTOL CONFIRMED, T-GP-02 tuning + reload interruption accepted, T-GP-02b ragdoll-lite added (P2 BACKLOG). Verified: `./Tests/run_all.sh` → RUN_ALL: PASS (weapon 68 checks, player 112); negative check (delay removed) → 6 FAIL, exit 1.
+
 ## 2026-11-22 · Bot 3 (T-GP-02)
 - **2026-11-22 10:10 · T-GP-02** Pistol gunplay on `bot3/t-gp-02`: data-driven `WeaponData` (`WPN_Pistol_01.tres`), hitscan along the crosshair with muzzle correction, spread/bloom by stance, camera recoil + recovery, magazine/reserve, 1.6 s interruptible reload, damage with falloff + head/limb zones, `DamageReceiver` + `Hitbox` (layer 5), hitmarker signal, PT impact decals, muzzle flash, PT pistol on the hand socket, target dummies (10 m / 35 m) + backstop in the test range. Weapon REQ for Bot 2: `Docs/Handoffs/REQ_WPN_Pistol_01.md`. Verified: `./Tests/run_all.sh` → RUN_ALL: PASS (see PR); `test_weapon.gd` 57 checks, player tests 112 unchanged; negative check (falloff off + no cooldown) → 7 FAIL, exit 1.
 

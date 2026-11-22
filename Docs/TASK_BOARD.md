@@ -26,6 +26,8 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-GP-01b | P2 | Bot 3 | Vault-lite (low obstacles) | T-GP-01, T-ART-02 | BACKLOG |
 | T-GP-01c | P1 | Bot 3 | Stairs / step-up for the player | T-GP-01 | READY FOR REVIEW |
 | T-GP-02 | P1 | Bot 3 | Gunplay (pistol) | T-GP-01 | READY FOR REVIEW |
+| T-GP-02a | P1 | Bot 3 | Rapid-fire bloom (stacking, cap, recovery delay) | T-GP-02 | READY FOR REVIEW |
+| T-GP-02b | P2 | Bot 3 | Ragdoll-lite hit reaction | T-GP-02, T-ART-01 | BACKLOG |
 | T-GP-03 | P1 | Bot 3 | Vehicle physics + enter/exit | T-GP-01 | BACKLOG |
 | T-AI-01 | P1 | Bot 3 | Enemy AI (cartel gunmen) | T-GP-02 | BACKLOG |
 | T-AI-02 | P2 | Bot 3 | Civilian NPC behaviour | T-GP-01 | BACKLOG |
@@ -157,9 +159,20 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Acceptance:** headless test: 12 shots then reload; damage applied to a dummy target; no fire during reload.
 - **Delivered (Bot 3, 2026-11-22):** `Scripts/combat/` (`WeaponData` resource, `Weapon`, `PlayerWeaponController`, `DamageReceiver`, `Hitbox` (layer 5, zones BODY/HEAD/LIMB), `DamageInfo`, `TargetDummy`); `Data/Weapons/WPN_Pistol_01.tres`; stand-in `Scenes/Weapons/PT_Pistol.tscn` on `Visual/PT_SOCKET_RightHand_Weapon` (moves to the model's `SOCKET_RightHand_Weapon` via `attach_to_model_socket()`); camera recoil kick + exponential recovery in `CameraRig`; hitscan along the crosshair ray (mask World|Vehicles|Hitboxes) + muzzle-line correction; spread cone (aim/hip, crouch, moving, airborne, bloom); hitmarker signal + data, pooled PT impact decals (32), muzzle flash; target dummies + backstop in `PT_PlayerTestRange` (lane at x≈25).
 - **Verified:** `GodotProject/Tests/test_weapon.gd` (57 checks): ammo, semi/auto fire rate, empty mag → auto-reload (1.6 s), no fire during empty reload, interruptible reload (fire with rounds left / sprint), dry fire, body 25 / head 50 / leg 18.75 dmg, falloff at 35 m, kill + world hit, spread ordering + bloom, recoil kick + recovery, other `.tres` changes behaviour, socket re-attach. Negative check (falloff disabled + cooldown removed) → 7 failures, exit 1.
-- **Tuning defaults (not in GDD/M01 – Bot 1 to confirm):** RPM 300 (semi), damage 25, head ×2.0, limb ×0.75, falloff 15→40 m down to ×0.5, reserve 60, spread hip 2.0° / aim 0.6°, crouch ×0.7, moving +2.5° (half when aiming), airborne +5°, bloom +0.8°/shot (max 4°, recovers 6°/s – note: at 300 RPM bloom never stacks, raise per-shot or lower recovery if stacking is wanted), recoil 2.2° up / ±0.6° yaw, aim ×0.7, recovery 8/s; reload interruptible by firing (rounds left) and by sprint, no fire while sprinting; dummy 100 HP. Values marked `[DEFAULT]` in the `.tres`.
-- **Not in this task:** ragdoll-lite hit reaction (only death tilt on the PT dummy); hitboxes on SK_Jason/NPCs (with T-AI-01); HUD crosshair/ammo/hitmarker visuals (T-UI-01).
-- **Asset requirement for Bot 2 – REQ-GP02-PISTOL:** `Docs/Handoffs/REQ_WPN_Pistol_01.md` (extends T-ART-05 + T-ART-02): `WPN_Pistol_01.glb` + manifest, ~0.19 m, origin at grip, barrel +Z, separate `Slide` + `Magazine` nodes, `SOCKET_Muzzle/Eject/Grip`, ≤ 8k tris, LOD1/2 via uwp, weapon clips Fire/Reload (1.6 s)/Empty, Jason clips Shoot_Pistol (0.25 s), Reload_Pistol (1.6 s, mag-out/in frames in manifest), Hip_Pistol_Idle. **PROPOSED – Bot 1 to confirm and assign.**
+- **Tuning defaults (not in GDD/M01) – ACCEPTED by Bot 1 (2026-11-22) as starting values, stay data-driven; reload interruption accepted:** RPM 300 (semi), damage 25, head ×2.0, limb ×0.75, falloff 15→40 m down to ×0.5, reserve 60, spread hip 2.0° / aim 0.6°, crouch ×0.7, moving +2.5° (half when aiming), airborne +5°, bloom +0.8°/shot (max 4°, recovers 6°/s; stacking fixed in T-GP-02a), recoil 2.2° up / ±0.6° yaw, aim ×0.7, recovery 8/s; reload interruptible by firing (rounds left) and by sprint, no fire while sprinting; dummy 100 HP. Values marked `[DEFAULT]` in the `.tres`.
+- **Not in this task:** ragdoll-lite hit reaction (only death tilt on the PT dummy) → **T-GP-02b**; hitboxes on SK_Jason/NPCs (with T-AI-01); HUD crosshair/ammo/hitmarker visuals (T-UI-01).
+- **Asset requirement for Bot 2 – REQ-GP02-PISTOL:** `Docs/Handoffs/REQ_WPN_Pistol_01.md` (extends T-ART-05 + T-ART-02): `WPN_Pistol_01.glb` + manifest, ~0.19 m, origin at grip, barrel +Z, separate `Slide` + `Magazine` nodes, `SOCKET_Muzzle/Eject/Grip`, ≤ 8k tris, LOD1/2 via uwp, weapon clips Fire/Reload (1.6 s)/Empty, Jason clips Shoot_Pistol (0.25 s), Reload_Pistol (1.6 s, mag-out/in frames in manifest), Hip_Pistol_Idle. **CONFIRMED by Bot 1 (2026-11-22).**
+
+### T-GP-02a – Rapid-fire bloom
+- **Agent:** Bot 3 · **Deps:** T-GP-02 · **Status:** READY FOR REVIEW (2026-11-22, Bot 3, branch `bot3/t-gp-02a`)
+- **Description:** spread grows with rapid fire: +`bloom_per_shot` per shot up to `bloom_max`, recovery (`bloom_recovery` °/s) only after `bloom_recovery_delay`; aimed bloom scaled by `bloom_aim_multiplier` so aimed spread stays below hip fire. All in `WeaponData`.
+- **Tuning defaults ([DEFAULT] in `WPN_Pistol_01.tres`):** `bloom_recovery_delay` 0.35 s (> 0.2 s fire interval at 300 RPM, so max-rate fire stacks), `bloom_aim_multiplier` 0.5. Resulting pistol: hip 2.0° → 6.0° after 5 rapid shots (cap), aimed 0.6° → 2.6°; full recovery 0.35 s + 0.67 s after the last shot.
+- **Verified:** `test_weapon.gd` (68 checks): +0.8°/shot stacking to the cap after 5 shots, shots 6–8 stay at the cap, no recovery during the delay, recovery after it, full recovery, aimed < hip at every shot, aimed cap = 4.0 × 0.5. Negative check (delay removed) → 6 FAIL, exit 1.
+
+### T-GP-02b – Ragdoll-lite hit reaction
+- **Agent:** Bot 3 · **Deps:** T-GP-02, T-ART-01 · **Status:** BACKLOG (P2, added 2026-11-22 per Bot 1)
+- **Description:** short procedural hit reaction (upper-body flinch / partial physical bones on the hit bone) and death collapse for SK_Jason/NPC skeletons, driven by `DamageReceiver.damaged/died` (`DamageInfo.zone`, direction). Currently only the PT dummy tilts on death.
+- **Acceptance:** headless test: hit applies an impulse/flinch to the hit zone's bones and settles; death collapses without falling through the floor.
 
 ### T-GP-03 – Vehicle physics + enter/exit
 - **Agent:** Bot 3 · **Deps:** T-GP-01 · **Status:** BACKLOG

@@ -2,7 +2,7 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.0.1",
-  "timestamp": "2026-11-22T19:45:43+00:00",
+  "timestamp": "2026-11-22T20:43:02+00:00",
   "command": "export-all",
   "input": "Blender/Source/Characters/SK_NPC_Cartel_A/SK_NPC_Cartel_A.blend",
   "steps": {
@@ -18,7 +18,7 @@
     },
     "export": {
       "glb": "Assets/Characters/SK_NPC_Cartel_A/SK_NPC_Cartel_A.glb",
-      "bytes": 6870664
+      "bytes": 6864472
     },
     "preview": {
       "front": "Assets/Characters/SK_NPC_Cartel_A/SK_NPC_Cartel_A_preview_front.png",
@@ -214,7 +214,7 @@
           "A_Humanoid_Walk"
         ],
         "asset_generator": "Khronos glTF Blender I/O v5.0.21",
-        "bytes": 6870664
+        "bytes": 6864472
       },
       "reimport_objects": [
         "Armature",
@@ -304,7 +304,7 @@
       "severity": "info",
       "code": "OPEN_BOUNDARY",
       "object": "SK_NPC_Cartel_A_Jacket",
-      "message": "185 open boundary edges (mesh not closed)"
+      "message": "181 open boundary edges (mesh not closed)"
     },
     {
       "severity": "info",
@@ -321,14 +321,27 @@
     {
       "severity": "info",
       "code": "MESH_CLIPPING",
+      "object": "SK_NPC_Cartel_A_Body",
+      "message": "SK_NPC_Cartel_A_Body vs SK_NPC_Cartel_A_Jacket: 1/17 verts (5.88%)",
+      "data": {
+        "inner": "SK_NPC_Cartel_A_Body",
+        "outer": "SK_NPC_Cartel_A_Jacket",
+        "tested_vertices": 17,
+        "clipped_vertices": 1,
+        "clipped_fraction": 0.0588
+      }
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
       "object": "SK_NPC_Cartel_A_TShirt",
-      "message": "SK_NPC_Cartel_A_TShirt vs SK_NPC_Cartel_A_Jacket: 4/123 verts (3.25%)",
+      "message": "SK_NPC_Cartel_A_TShirt vs SK_NPC_Cartel_A_Jacket: 2/145 verts (1.38%)",
       "data": {
         "inner": "SK_NPC_Cartel_A_TShirt",
         "outer": "SK_NPC_Cartel_A_Jacket",
-        "tested_vertices": 123,
-        "clipped_vertices": 4,
-        "clipped_fraction": 0.0325
+        "tested_vertices": 145,
+        "clipped_vertices": 2,
+        "clipped_fraction": 0.0138
       }
     },
     {
@@ -347,9 +360,9 @@
   "summary": {
     "errors": 0,
     "warnings": 0,
-    "infos": 13
+    "infos": 14
   },
-  "seconds": 279.85,
+  "seconds": 90.28,
   "exit_code": 0,
   "result": "PASS"
 }

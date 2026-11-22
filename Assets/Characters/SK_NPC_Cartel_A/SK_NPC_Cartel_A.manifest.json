@@ -39,7 +39,7 @@
     ]
   },
   "triangles": {
-    "lod0": 24575,
+    "lod0": 24577,
     "budget": 25000,
     "per_lod_total": {}
   },
@@ -68,7 +68,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_b8fo07px/T_NPC_Cartel_A_Boots_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_g2a6j9mp/T_NPC_Cartel_A_Boots_D.jpg"
     },
     {
       "image": "T_NPC_Cartel_A_Boots_ORM",
@@ -78,7 +78,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_ukaxmm5o/T_NPC_Cartel_A_Boots_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_7471l2l6/T_NPC_Cartel_A_Boots_ORM.jpg"
     },
     {
       "image": "T_NPC_Cartel_A_Boots_N",
@@ -88,7 +88,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_32q1d2z9/T_NPC_Cartel_A_Boots_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_8odwopih/T_NPC_Cartel_A_Boots_N.png"
     },
     {
       "image": "T_NPC_Cartel_A_BrowsLashes_D",
@@ -98,7 +98,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_nf0x39zb/T_NPC_Cartel_A_BrowsLashes_D.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_07o_v2oz/T_NPC_Cartel_A_BrowsLashes_D.png"
     },
     {
       "image": "T_NPC_Cartel_A_Eyes_D",
@@ -108,7 +108,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_gbwdqy25/T_NPC_Cartel_A_Eyes_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_b9k__igi/T_NPC_Cartel_A_Eyes_D.jpg"
     },
     {
       "image": "T_NPC_Cartel_A_Hair_D",
@@ -118,7 +118,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_h23uxvl7/T_NPC_Cartel_A_Hair_D.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_4n9af2aa/T_NPC_Cartel_A_Hair_D.png"
     },
     {
       "image": "T_NPC_Cartel_A_Hair_N",
@@ -128,7 +128,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_cv_r8ns6/T_NPC_Cartel_A_Hair_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_tejsql83/T_NPC_Cartel_A_Hair_N.png"
     },
     {
       "image": "T_NPC_Cartel_A_Jacket_D",
@@ -138,7 +138,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_1e_lx98j/T_NPC_Cartel_A_Jacket_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_fe2xs0w0/T_NPC_Cartel_A_Jacket_D.jpg"
     },
     {
       "image": "T_NPC_Cartel_A_Jacket_ORM",
@@ -148,7 +148,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_oh29icy3/T_NPC_Cartel_A_Jacket_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_fe4mkmj0/T_NPC_Cartel_A_Jacket_ORM.jpg"
     },
     {
       "image": "T_NPC_Cartel_A_Jacket_N",
@@ -158,7 +158,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_ll_m2cez/T_NPC_Cartel_A_Jacket_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_l_vdcpye/T_NPC_Cartel_A_Jacket_N.png"
     },
     {
       "image": "T_NPC_Cartel_A_Jeans_D",
@@ -168,7 +168,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_zlb1vcht/T_NPC_Cartel_A_Jeans_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_1frwts2l/T_NPC_Cartel_A_Jeans_D.jpg"
     },
     {
       "image": "T_NPC_Cartel_A_Jeans_ORM",
@@ -178,7 +178,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_r666df_a/T_NPC_Cartel_A_Jeans_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_g_mwf90u/T_NPC_Cartel_A_Jeans_ORM.jpg"
     },
     {
       "image": "T_NPC_Cartel_A_Jeans_N",
@@ -188,7 +188,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_umohe3rc/T_NPC_Cartel_A_Jeans_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex__f9oa_gw/T_NPC_Cartel_A_Jeans_N.png"
     },
     {
       "image": "T_NPC_Cartel_A_Skin_D",
@@ -198,7 +198,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_vuvf_zsu/T_NPC_Cartel_A_Skin_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_j_2p6b6t/T_NPC_Cartel_A_Skin_D.jpg"
     },
     {
       "image": "T_NPC_Cartel_A_Skin_ORM",
@@ -208,7 +208,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_ksdvclan/T_NPC_Cartel_A_Skin_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_0swemxa5/T_NPC_Cartel_A_Skin_ORM.jpg"
     },
     {
       "image": "T_NPC_Cartel_A_Skin_N",
@@ -218,7 +218,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_mkjrzitq/T_NPC_Cartel_A_Skin_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_vrw2nfxj/T_NPC_Cartel_A_Skin_N.png"
     },
     {
       "image": "T_NPC_Cartel_A_TShirt_D",
@@ -228,7 +228,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_n6xgupdh/T_NPC_Cartel_A_TShirt_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_2uwgp73z/T_NPC_Cartel_A_TShirt_D.jpg"
     },
     {
       "image": "T_NPC_Cartel_A_TShirt_ORM",
@@ -238,7 +238,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_v9977740/T_NPC_Cartel_A_TShirt_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_w8lhk88x/T_NPC_Cartel_A_TShirt_ORM.jpg"
     },
     {
       "image": "T_NPC_Cartel_A_TShirt_N",
@@ -248,7 +248,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_lrrl1iv9/T_NPC_Cartel_A_TShirt_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_omefw3ck/T_NPC_Cartel_A_TShirt_N.png"
     }
   ],
   "uv_overlap": {
@@ -274,14 +274,14 @@
     },
     "SK_NPC_Cartel_A_Jacket": {
       "overlap_fraction": 0.0001,
-      "uv_coverage": 0.4203
+      "uv_coverage": 0.4207
     }
   },
   "texel_density": {
     "SK_NPC_Cartel_A_Body": {
       "texture_px": 1024,
-      "median_px_per_m": 655.5,
-      "p10_px_per_m": 434.7,
+      "median_px_per_m": 655.8,
+      "p10_px_per_m": 434.6,
       "p90_px_per_m": 1216.2
     },
     "SK_NPC_Cartel_A_Eyes": {
@@ -310,7 +310,7 @@
     },
     "SK_NPC_Cartel_A_TShirt": {
       "texture_px": 512,
-      "median_px_per_m": 486.3,
+      "median_px_per_m": 486.4,
       "p10_px_per_m": 401.9,
       "p90_px_per_m": 547.7
     },
@@ -328,9 +328,9 @@
     },
     "SK_NPC_Cartel_A_Jacket": {
       "texture_px": 1024,
-      "median_px_per_m": 723.5,
-      "p10_px_per_m": 575.7,
-      "p90_px_per_m": 866.4
+      "median_px_per_m": 724.1,
+      "p10_px_per_m": 579.6,
+      "p90_px_per_m": 871.3
     },
     "SK_NPC_Cartel_A_Hair": {
       "texture_px": 512,
@@ -343,7 +343,7 @@
     {
       "inner": "SK_NPC_Cartel_A_Body",
       "outer": "SK_NPC_Cartel_A_TShirt",
-      "tested_vertices": 658,
+      "tested_vertices": 657,
       "clipped_vertices": 0,
       "clipped_fraction": 0.0
     },
@@ -364,16 +364,16 @@
     {
       "inner": "SK_NPC_Cartel_A_Body",
       "outer": "SK_NPC_Cartel_A_Jacket",
-      "tested_vertices": 9,
-      "clipped_vertices": 0,
-      "clipped_fraction": 0.0
+      "tested_vertices": 17,
+      "clipped_vertices": 1,
+      "clipped_fraction": 0.0588
     },
     {
       "inner": "SK_NPC_Cartel_A_TShirt",
       "outer": "SK_NPC_Cartel_A_Jacket",
-      "tested_vertices": 123,
-      "clipped_vertices": 4,
-      "clipped_fraction": 0.0325
+      "tested_vertices": 145,
+      "clipped_vertices": 2,
+      "clipped_fraction": 0.0138
     }
   ],
   "armatures": {
@@ -728,5 +728,5 @@
     "Armature",
     "SK_NPC_Cartel_A"
   ],
-  "glb_bytes": 6870664
+  "glb_bytes": 6864472
 }

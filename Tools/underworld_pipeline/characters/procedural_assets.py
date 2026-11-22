@@ -346,3 +346,42 @@ def strand_atlas(size: int, cols: int, rows: int, seed: int,
 def solid_hair_material_rgb(hair_rgb):
     """Constant hair colour tuple for strand geometry (eyebrows, lashes, stubble cards)."""
     return tuple(float(c) for c in hair_rgb)
+
+
+def lip_mask(X, Z, mouth_z, upper_lip_z, lower_lip_z, half_w=0.0230):
+    """Vermilion mask of both lips on a (X, Z) grid, 1 at the centre of a lip, 0 outside.
+
+    Landmarks give lower_lip_z < mouth_z < upper_lip_z. Each lobe is a half-ellipse with a
+    sin^p profile, so it reaches exactly 0 at its own border; the width tapers to 0 at the
+    commissures and the upper border dips over the philtrum (cupid's bow).
+
+    Every term is a *real* zero outside its span - note that np.clip(t, 0, 1) does NOT do that
+    (it saturates at 1, i.e. maximum), which is how an earlier version ended up painting the
+    whole face.
+    """
+    up_h = max((upper_lip_z - mouth_z) * 0.78, 0.004)
+    lo_h = max((mouth_z - lower_lip_z) * 0.92, 0.004)
+    dip = 1.0 - 0.16 * np.exp(-(X / 0.0055) ** 2)
+
+    # Clamp the *argument* (not the result) and zero out the invalid side: np.cos/np.sin of a
+    # value outside their quarter arc would otherwise be fed to a fractional power -> NaN.
+    v = np.clip(np.abs(X) / half_w, 0.0, 1.0)
+    # np.maximum(..., 0.0) is essential, not cosmetic: in float32 cos(pi/2 * 1.0) evaluates to
+    # about -1e-17, and a negative base raised to a fractional power is NaN. At texture resolution
+    # (1024^2) enough pixels hit exactly that value to poison ~90 % of the skin maps.
+    across = np.maximum(np.cos(np.pi * 0.5 * v), 0.0) ** 0.55
+
+    up_raw = (Z - mouth_z) / (up_h * dip)
+    lo_raw = (mouth_z - Z) / lo_h
+    # Keep the *raw* parameter for the "inside" test, clamp only for the trigonometry: a clamped
+    # parameter alone would turn every point above the lip into sin(pi/2) = 1, i.e. full lip.
+    inside_up = ((up_raw >= 0.0) & (up_raw < 1.0)).astype(np.float64)
+    inside_lo = ((lo_raw >= 0.0) & (lo_raw < 1.0)).astype(np.float64)
+    # A half-ellipse has to start at full width *at the opening* and die at the border, so the
+    # profile is sin(pi/2 * (1 - t)), not sin(pi/2 * t) - the latter peaks at the outer border and
+    # leaves the lip line itself naked.
+    up = (np.maximum(np.sin(np.pi * 0.5 * (1.0 - np.clip(up_raw, 0.0, 1.0))), 0.0) ** 0.85
+          * inside_up)
+    lo = (np.maximum(np.sin(np.pi * 0.5 * (1.0 - np.clip(lo_raw, 0.0, 1.0))), 0.0) ** 0.65
+          * inside_lo)
+    return np.clip((up + lo) * across, 0.0, 1.0)

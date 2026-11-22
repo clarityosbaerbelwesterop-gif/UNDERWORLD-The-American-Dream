@@ -2,7 +2,7 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.0.1",
-  "timestamp": "2026-11-22T20:07:09+00:00",
+  "timestamp": "2026-11-22T20:52:18+00:00",
   "command": "export-all",
   "input": "Blender/Source/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.blend",
   "steps": {
@@ -84,7 +84,7 @@
     "warnings": 0,
     "infos": 2
   },
-  "seconds": 1.32,
+  "seconds": 1.25,
   "exit_code": 0,
   "result": "PASS"
 }

@@ -2,7 +2,7 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.0.1",
-  "timestamp": "2026-11-22T20:05:29+00:00",
+  "timestamp": "2026-11-22T20:50:39+00:00",
   "command": "export-all",
   "input": "Blender/Source/Characters/SK_NPC_Sam/SK_NPC_Sam.blend",
   "steps": {
@@ -18,7 +18,7 @@
     },
     "export": {
       "glb": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam.glb",
-      "bytes": 6752484
+      "bytes": 6752368
     },
     "preview": {
       "front": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam_preview_front.png",
@@ -210,7 +210,7 @@
           "A_Humanoid_Walk"
         ],
         "asset_generator": "Khronos glTF Blender I/O v5.0.21",
-        "bytes": 6752484
+        "bytes": 6752368
       },
       "reimport_objects": [
         "Armature",
@@ -324,26 +324,26 @@
       "severity": "info",
       "code": "MESH_CLIPPING",
       "object": "SK_NPC_Sam_Body",
-      "message": "SK_NPC_Sam_Body vs SK_NPC_Sam_Jacket: 2/23 verts (8.70%)",
+      "message": "SK_NPC_Sam_Body vs SK_NPC_Sam_Jacket: 3/18 verts (16.67%)",
       "data": {
         "inner": "SK_NPC_Sam_Body",
         "outer": "SK_NPC_Sam_Jacket",
-        "tested_vertices": 23,
-        "clipped_vertices": 2,
-        "clipped_fraction": 0.087
+        "tested_vertices": 18,
+        "clipped_vertices": 3,
+        "clipped_fraction": 0.1667
       }
     },
     {
       "severity": "info",
       "code": "MESH_CLIPPING",
       "object": "SK_NPC_Sam_TShirt",
-      "message": "SK_NPC_Sam_TShirt vs SK_NPC_Sam_Jacket: 2/164 verts (1.22%)",
+      "message": "SK_NPC_Sam_TShirt vs SK_NPC_Sam_Jacket: 2/151 verts (1.32%)",
       "data": {
         "inner": "SK_NPC_Sam_TShirt",
         "outer": "SK_NPC_Sam_Jacket",
-        "tested_vertices": 164,
+        "tested_vertices": 151,
         "clipped_vertices": 2,
-        "clipped_fraction": 0.0122
+        "clipped_fraction": 0.0132
       }
     },
     {
@@ -364,7 +364,7 @@
     "warnings": 0,
     "infos": 14
   },
-  "seconds": 93.35,
+  "seconds": 92.58,
   "exit_code": 0,
   "result": "PASS"
 }

@@ -2,7 +2,7 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.0.1",
-  "timestamp": "2026-11-22T20:07:06+00:00",
+  "timestamp": "2026-11-22T20:52:15+00:00",
   "command": "export-all",
   "input": "Blender/Source/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.blend",
   "steps": {
@@ -134,7 +134,7 @@
     "warnings": 0,
     "infos": 2
   },
-  "seconds": 1.29,
+  "seconds": 1.26,
   "exit_code": 0,
   "result": "PASS"
 }

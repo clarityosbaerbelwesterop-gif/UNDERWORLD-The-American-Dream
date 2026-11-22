@@ -2,7 +2,7 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.0.1",
-  "timestamp": "2026-11-22T19:50:22+00:00",
+  "timestamp": "2026-11-22T20:44:33+00:00",
   "command": "export-all",
   "input": "Blender/Source/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B.blend",
   "steps": {
@@ -18,7 +18,7 @@
     },
     "export": {
       "glb": "Assets/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B.glb",
-      "bytes": 6994184
+      "bytes": 7128144
     },
     "preview": {
       "front": "Assets/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B_preview_front.png",
@@ -214,7 +214,7 @@
           "A_Humanoid_Walk"
         ],
         "asset_generator": "Khronos glTF Blender I/O v5.0.21",
-        "bytes": 6994184
+        "bytes": 7128144
       },
       "reimport_objects": [
         "Armature",
@@ -292,7 +292,7 @@
       "severity": "info",
       "code": "OPEN_BOUNDARY",
       "object": "SK_NPC_Cartel_B_TShirt",
-      "message": "164 open boundary edges (mesh not closed)"
+      "message": "161 open boundary edges (mesh not closed)"
     },
     {
       "severity": "info",
@@ -304,7 +304,7 @@
       "severity": "info",
       "code": "OPEN_BOUNDARY",
       "object": "SK_NPC_Cartel_B_Jacket",
-      "message": "179 open boundary edges (mesh not closed)"
+      "message": "182 open boundary edges (mesh not closed)"
     },
     {
       "severity": "info",
@@ -322,11 +322,11 @@
       "severity": "info",
       "code": "MESH_CLIPPING",
       "object": "SK_NPC_Cartel_B_Body",
-      "message": "SK_NPC_Cartel_B_Body vs SK_NPC_Cartel_B_TShirt: 4/655 verts (0.61%)",
+      "message": "SK_NPC_Cartel_B_Body vs SK_NPC_Cartel_B_TShirt: 4/656 verts (0.61%)",
       "data": {
         "inner": "SK_NPC_Cartel_B_Body",
         "outer": "SK_NPC_Cartel_B_TShirt",
-        "tested_vertices": 655,
+        "tested_vertices": 656,
         "clipped_vertices": 4,
         "clipped_fraction": 0.0061
       }
@@ -335,13 +335,26 @@
       "severity": "info",
       "code": "MESH_CLIPPING",
       "object": "SK_NPC_Cartel_B_Body",
-      "message": "SK_NPC_Cartel_B_Body vs SK_NPC_Cartel_B_Jacket: 6/35 verts (17.14%)",
+      "message": "SK_NPC_Cartel_B_Body vs SK_NPC_Cartel_B_Jacket: 3/29 verts (10.34%)",
       "data": {
         "inner": "SK_NPC_Cartel_B_Body",
         "outer": "SK_NPC_Cartel_B_Jacket",
-        "tested_vertices": 35,
-        "clipped_vertices": 6,
-        "clipped_fraction": 0.1714
+        "tested_vertices": 29,
+        "clipped_vertices": 3,
+        "clipped_fraction": 0.1034
+      }
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_NPC_Cartel_B_TShirt",
+      "message": "SK_NPC_Cartel_B_TShirt vs SK_NPC_Cartel_B_Jacket: 2/123 verts (1.63%)",
+      "data": {
+        "inner": "SK_NPC_Cartel_B_TShirt",
+        "outer": "SK_NPC_Cartel_B_Jacket",
+        "tested_vertices": 123,
+        "clipped_vertices": 2,
+        "clipped_fraction": 0.0163
       }
     },
     {
@@ -360,9 +373,9 @@
   "summary": {
     "errors": 0,
     "warnings": 0,
-    "infos": 14
+    "infos": 15
   },
-  "seconds": 280.5,
+  "seconds": 90.75,
   "exit_code": 0,
   "result": "PASS"
 }

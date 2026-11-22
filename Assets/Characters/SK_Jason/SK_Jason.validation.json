@@ -2,7 +2,7 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.0.1",
-  "timestamp": "2026-11-22T19:40:49+00:00",
+  "timestamp": "2026-11-22T20:41:27+00:00",
   "command": "export-all",
   "input": "Blender/Source/Characters/SK_Jason/SK_Jason.blend",
   "steps": {
@@ -18,7 +18,7 @@
     },
     "export": {
       "glb": "Assets/Characters/SK_Jason/SK_Jason.glb",
-      "bytes": 11173532
+      "bytes": 11785052
     },
     "preview": {
       "front": "Assets/Characters/SK_Jason/SK_Jason_preview_front.png",
@@ -228,7 +228,7 @@
           "A_Jason_Walk"
         ],
         "asset_generator": "Khronos glTF Blender I/O v5.0.21",
-        "bytes": 11173532
+        "bytes": 11785052
       },
       "reimport_objects": [
         "Armature",
@@ -319,7 +319,7 @@
       "severity": "info",
       "code": "OPEN_BOUNDARY",
       "object": "SK_Jason_TShirt",
-      "message": "191 open boundary edges (mesh not closed)"
+      "message": "193 open boundary edges (mesh not closed)"
     },
     {
       "severity": "info",
@@ -358,26 +358,26 @@
       "severity": "info",
       "code": "MESH_CLIPPING",
       "object": "SK_Jason_Body",
-      "message": "SK_Jason_Body vs SK_Jason_Jacket: 4/14 verts (28.57%)",
+      "message": "SK_Jason_Body vs SK_Jason_Jacket: 1/11 verts (9.09%)",
       "data": {
         "inner": "SK_Jason_Body",
         "outer": "SK_Jason_Jacket",
-        "tested_vertices": 14,
-        "clipped_vertices": 4,
-        "clipped_fraction": 0.2857
+        "tested_vertices": 11,
+        "clipped_vertices": 1,
+        "clipped_fraction": 0.0909
       }
     },
     {
       "severity": "info",
       "code": "MESH_CLIPPING",
       "object": "SK_Jason_TShirt",
-      "message": "SK_Jason_TShirt vs SK_Jason_Jacket: 2/161 verts (1.24%)",
+      "message": "SK_Jason_TShirt vs SK_Jason_Jacket: 1/149 verts (0.67%)",
       "data": {
         "inner": "SK_Jason_TShirt",
         "outer": "SK_Jason_Jacket",
-        "tested_vertices": 161,
-        "clipped_vertices": 2,
-        "clipped_fraction": 0.0124
+        "tested_vertices": 149,
+        "clipped_vertices": 1,
+        "clipped_fraction": 0.0067
       }
     },
     {
@@ -404,7 +404,7 @@
     "warnings": 2,
     "infos": 15
   },
-  "seconds": 293.33,
+  "seconds": 95.67,
   "exit_code": 0,
   "result": "PASS"
 }

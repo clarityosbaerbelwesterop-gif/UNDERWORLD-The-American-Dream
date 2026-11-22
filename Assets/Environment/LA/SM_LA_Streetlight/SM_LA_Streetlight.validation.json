@@ -2,7 +2,7 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.0.1",
-  "timestamp": "2026-11-22T20:07:10+00:00",
+  "timestamp": "2026-11-22T20:52:19+00:00",
   "command": "export-all",
   "input": "Blender/Source/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.blend",
   "steps": {
@@ -115,7 +115,7 @@
     "warnings": 0,
     "infos": 0
   },
-  "seconds": 1.2,
+  "seconds": 1.17,
   "exit_code": 0,
   "result": "PASS"
 }

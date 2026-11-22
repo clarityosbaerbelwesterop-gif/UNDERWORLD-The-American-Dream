@@ -11,11 +11,11 @@
     "SK_NPC_Cartel_A_Hair": 1856,
     "SK_NPC_Cartel_A_Beard": 800,
     "SK_NPC_Cartel_A_TShirt": 2473,
-    "SK_NPC_Cartel_A_Jacket": 3273,
+    "SK_NPC_Cartel_A_Jacket": 3275,
     "SK_NPC_Cartel_A_Jeans": 2053,
     "SK_NPC_Cartel_A_Boots": 1680
   },
-  "triangles_total": 24575,
+  "triangles_total": 24577,
   "materials": [
     "M_NPC_Cartel_A_Boots",
     "M_NPC_Cartel_A_BrowsLashes",
@@ -231,5 +231,5 @@
     ]
   },
   "max_foot_sliding_m": 0.0485,
-  "build_seconds": 11.1
+  "build_seconds": 13.0
 }

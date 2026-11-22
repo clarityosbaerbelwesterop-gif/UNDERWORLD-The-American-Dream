@@ -11,11 +11,11 @@
     "SK_NPC_Marco_Hair": 3596,
     "SK_NPC_Marco_Beard": 1100,
     "SK_NPC_Marco_TShirt": 2238,
-    "SK_NPC_Marco_Jacket": 2950,
+    "SK_NPC_Marco_Jacket": 2949,
     "SK_NPC_Marco_Jeans": 1847,
     "SK_NPC_Marco_Boots": 1512
   },
-  "triangles_total": 24625,
+  "triangles_total": 24624,
   "materials": [
     "M_NPC_Marco_Boots",
     "M_NPC_Marco_BrowsLashes",
@@ -231,5 +231,5 @@
     ]
   },
   "max_foot_sliding_m": 0.0484,
-  "build_seconds": 11.5
+  "build_seconds": 13.0
 }

@@ -39,7 +39,7 @@
     ]
   },
   "triangles": {
-    "lod0": 38842,
+    "lod0": 38840,
     "budget": 40000,
     "per_lod_total": {}
   },
@@ -70,7 +70,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_njyzkk2g/T_Jason_Boots_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_j7ar78yz/T_Jason_Boots_D.jpg"
     },
     {
       "image": "T_Jason_Boots_ORM",
@@ -80,7 +80,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_t2qay07j/T_Jason_Boots_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_8_4udhlo/T_Jason_Boots_ORM.jpg"
     },
     {
       "image": "T_Jason_Boots_N",
@@ -90,7 +90,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_e7dg3rjm/T_Jason_Boots_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_mmzrfngy/T_Jason_Boots_N.png"
     },
     {
       "image": "T_Jason_BrowsLashes_D",
@@ -100,7 +100,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_tibn5hxb/T_Jason_BrowsLashes_D.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_1wmq_dgl/T_Jason_BrowsLashes_D.png"
     },
     {
       "image": "T_Jason_Eyes_D",
@@ -110,7 +110,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_m24trzff/T_Jason_Eyes_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_jfvsuf4d/T_Jason_Eyes_D.jpg"
     },
     {
       "image": "T_Jason_Hair_D",
@@ -120,7 +120,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_90f14tf6/T_Jason_Hair_D.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_65j6r8f7/T_Jason_Hair_D.png"
     },
     {
       "image": "T_Jason_Hair_N",
@@ -130,7 +130,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_uhcwlwzk/T_Jason_Hair_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_y55wm_0w/T_Jason_Hair_N.png"
     },
     {
       "image": "T_Jason_Jacket_D",
@@ -140,7 +140,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_snne071x/T_Jason_Jacket_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_fvr_629d/T_Jason_Jacket_D.jpg"
     },
     {
       "image": "T_Jason_Jacket_ORM",
@@ -150,7 +150,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_ojhdqiqv/T_Jason_Jacket_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_76fb_em_/T_Jason_Jacket_ORM.jpg"
     },
     {
       "image": "T_Jason_Jacket_N",
@@ -160,7 +160,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_g3h5gvux/T_Jason_Jacket_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_8pjirrdi/T_Jason_Jacket_N.png"
     },
     {
       "image": "T_Jason_Jeans_D",
@@ -170,7 +170,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_7rzwjzsf/T_Jason_Jeans_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_ueinv0uf/T_Jason_Jeans_D.jpg"
     },
     {
       "image": "T_Jason_Jeans_ORM",
@@ -180,7 +180,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_sxt8emxs/T_Jason_Jeans_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_y_me5w5i/T_Jason_Jeans_ORM.jpg"
     },
     {
       "image": "T_Jason_Jeans_N",
@@ -190,7 +190,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex__m0a4fjp/T_Jason_Jeans_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_boqi0pwk/T_Jason_Jeans_N.png"
     },
     {
       "image": "T_Jason_Skin_D",
@@ -200,7 +200,7 @@
         2048
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_b39v4hwo/T_Jason_Skin_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_hc1gz2tc/T_Jason_Skin_D.jpg"
     },
     {
       "image": "T_Jason_Skin_ORM",
@@ -210,7 +210,7 @@
         2048
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_66xr02yn/T_Jason_Skin_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex__3s1ah6l/T_Jason_Skin_ORM.jpg"
     },
     {
       "image": "T_Jason_Skin_N",
@@ -220,7 +220,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_xgaznwov/T_Jason_Skin_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_bhoytgfa/T_Jason_Skin_N.png"
     },
     {
       "image": "T_Jason_TShirt_D",
@@ -230,7 +230,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_fsglamfe/T_Jason_TShirt_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_vwoahedk/T_Jason_TShirt_D.jpg"
     },
     {
       "image": "T_Jason_TShirt_ORM",
@@ -240,7 +240,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_ab_s6lrj/T_Jason_TShirt_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_5x0jzdpu/T_Jason_TShirt_ORM.jpg"
     },
     {
       "image": "T_Jason_TShirt_N",
@@ -250,7 +250,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_lbcj74ix/T_Jason_TShirt_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_nvwlz277/T_Jason_TShirt_N.png"
     },
     {
       "image": "T_Jason_Watch_D",
@@ -260,7 +260,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_12a5l1t3/T_Jason_Watch_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_tt1gxuzc/T_Jason_Watch_D.jpg"
     },
     {
       "image": "T_Jason_Watch_ORM",
@@ -270,7 +270,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_in1l6fsv/T_Jason_Watch_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_184fxgjk/T_Jason_Watch_ORM.jpg"
     },
     {
       "image": "T_Jason_Watch_N",
@@ -280,7 +280,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_t1qek9af/T_Jason_Watch_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_sg8mbusj/T_Jason_Watch_N.png"
     }
   ],
   "uv_overlap": {
@@ -298,7 +298,7 @@
     },
     "SK_Jason_TShirt": {
       "overlap_fraction": 0.0,
-      "uv_coverage": 0.4335
+      "uv_coverage": 0.4334
     },
     "SK_Jason_Jeans": {
       "overlap_fraction": 0.0001,
@@ -309,8 +309,8 @@
       "uv_coverage": 0.381
     },
     "SK_Jason_Jacket": {
-      "overlap_fraction": 0.0002,
-      "uv_coverage": 0.4002
+      "overlap_fraction": 0.0003,
+      "uv_coverage": 0.4013
     },
     "SK_Jason_Watch": {
       "overlap_fraction": 0.0,
@@ -350,8 +350,8 @@
     },
     "SK_Jason_TShirt": {
       "texture_px": 1024,
-      "median_px_per_m": 950.6,
-      "p10_px_per_m": 804.7,
+      "median_px_per_m": 950.8,
+      "p10_px_per_m": 805.5,
       "p90_px_per_m": 1010.3
     },
     "SK_Jason_Jeans": {
@@ -368,9 +368,9 @@
     },
     "SK_Jason_Jacket": {
       "texture_px": 1024,
-      "median_px_per_m": 711.7,
-      "p10_px_per_m": 580.4,
-      "p90_px_per_m": 811.8
+      "median_px_per_m": 712.8,
+      "p10_px_per_m": 585.3,
+      "p90_px_per_m": 814.6
     },
     "SK_Jason_Watch": {
       "texture_px": 512,
@@ -389,7 +389,7 @@
     {
       "inner": "SK_Jason_Body",
       "outer": "SK_Jason_TShirt",
-      "tested_vertices": 837,
+      "tested_vertices": 833,
       "clipped_vertices": 0,
       "clipped_fraction": 0.0
     },
@@ -410,16 +410,16 @@
     {
       "inner": "SK_Jason_Body",
       "outer": "SK_Jason_Jacket",
-      "tested_vertices": 14,
-      "clipped_vertices": 4,
-      "clipped_fraction": 0.2857
+      "tested_vertices": 11,
+      "clipped_vertices": 1,
+      "clipped_fraction": 0.0909
     },
     {
       "inner": "SK_Jason_TShirt",
       "outer": "SK_Jason_Jacket",
-      "tested_vertices": 161,
-      "clipped_vertices": 2,
-      "clipped_fraction": 0.0124
+      "tested_vertices": 149,
+      "clipped_vertices": 1,
+      "clipped_fraction": 0.0067
     }
   ],
   "armatures": {
@@ -859,5 +859,5 @@
     "Armature",
     "SK_Jason"
   ],
-  "glb_bytes": 11173532
+  "glb_bytes": 11785052
 }

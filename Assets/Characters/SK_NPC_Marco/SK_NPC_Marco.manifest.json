@@ -39,7 +39,7 @@
     ]
   },
   "triangles": {
-    "lod0": 24625,
+    "lod0": 24624,
     "budget": 25000,
     "per_lod_total": {}
   },
@@ -68,7 +68,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_dxkmtm0d/T_NPC_Marco_Boots_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_65ydr3tz/T_NPC_Marco_Boots_D.jpg"
     },
     {
       "image": "T_NPC_Marco_Boots_ORM",
@@ -78,7 +78,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_epqzcs8t/T_NPC_Marco_Boots_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_vv7p4rt1/T_NPC_Marco_Boots_ORM.jpg"
     },
     {
       "image": "T_NPC_Marco_Boots_N",
@@ -88,7 +88,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_jluwidq8/T_NPC_Marco_Boots_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_vk_lc85z/T_NPC_Marco_Boots_N.png"
     },
     {
       "image": "T_NPC_Marco_BrowsLashes_D",
@@ -98,7 +98,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_ay8f8w9t/T_NPC_Marco_BrowsLashes_D.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_ypu0r1ch/T_NPC_Marco_BrowsLashes_D.png"
     },
     {
       "image": "T_NPC_Marco_Eyes_D",
@@ -108,7 +108,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_no8l5p2f/T_NPC_Marco_Eyes_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_rx2p84pk/T_NPC_Marco_Eyes_D.jpg"
     },
     {
       "image": "T_NPC_Marco_Hair_D",
@@ -118,7 +118,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_yjckns2z/T_NPC_Marco_Hair_D.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_jgsx0xdj/T_NPC_Marco_Hair_D.png"
     },
     {
       "image": "T_NPC_Marco_Hair_N",
@@ -128,7 +128,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_1k5zn83r/T_NPC_Marco_Hair_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex__8alcy3n/T_NPC_Marco_Hair_N.png"
     },
     {
       "image": "T_NPC_Marco_Jacket_D",
@@ -138,7 +138,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_empro5yg/T_NPC_Marco_Jacket_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_pl7nnvm_/T_NPC_Marco_Jacket_D.jpg"
     },
     {
       "image": "T_NPC_Marco_Jacket_ORM",
@@ -148,7 +148,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_3349ig8q/T_NPC_Marco_Jacket_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_oe0gy_pe/T_NPC_Marco_Jacket_ORM.jpg"
     },
     {
       "image": "T_NPC_Marco_Jacket_N",
@@ -158,7 +158,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_aisuq8jd/T_NPC_Marco_Jacket_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_ptv_pqwk/T_NPC_Marco_Jacket_N.png"
     },
     {
       "image": "T_NPC_Marco_Jeans_D",
@@ -168,7 +168,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_rvfk9hfu/T_NPC_Marco_Jeans_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_bc3wcdw9/T_NPC_Marco_Jeans_D.jpg"
     },
     {
       "image": "T_NPC_Marco_Jeans_ORM",
@@ -178,7 +178,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_cev749hz/T_NPC_Marco_Jeans_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_eh0x70wy/T_NPC_Marco_Jeans_ORM.jpg"
     },
     {
       "image": "T_NPC_Marco_Jeans_N",
@@ -188,7 +188,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_d5v3v9_a/T_NPC_Marco_Jeans_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_ectnbsri/T_NPC_Marco_Jeans_N.png"
     },
     {
       "image": "T_NPC_Marco_Skin_D",
@@ -198,7 +198,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_ni4m0h7j/T_NPC_Marco_Skin_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_qjr1o5ss/T_NPC_Marco_Skin_D.jpg"
     },
     {
       "image": "T_NPC_Marco_Skin_ORM",
@@ -208,7 +208,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_oj6nzbwv/T_NPC_Marco_Skin_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_kwnnaome/T_NPC_Marco_Skin_ORM.jpg"
     },
     {
       "image": "T_NPC_Marco_Skin_N",
@@ -218,7 +218,7 @@
         1024
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_4krnswuq/T_NPC_Marco_Skin_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_d5fmez2w/T_NPC_Marco_Skin_N.png"
     },
     {
       "image": "T_NPC_Marco_TShirt_D",
@@ -228,7 +228,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_d0dq_0bi/T_NPC_Marco_TShirt_D.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_g7fhxmlx/T_NPC_Marco_TShirt_D.jpg"
     },
     {
       "image": "T_NPC_Marco_TShirt_ORM",
@@ -238,7 +238,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_e3wa_d8q/T_NPC_Marco_TShirt_ORM.jpg"
+      "filepath": "//../../../../../../../tmp/uwp_tex_w3vqed0l/T_NPC_Marco_TShirt_ORM.jpg"
     },
     {
       "image": "T_NPC_Marco_TShirt_N",
@@ -248,7 +248,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_8p9v0spy/T_NPC_Marco_TShirt_N.png"
+      "filepath": "//../../../../../../../tmp/uwp_tex_ji74hlw6/T_NPC_Marco_TShirt_N.png"
     }
   ],
   "uv_overlap": {
@@ -273,15 +273,15 @@
       "uv_coverage": 0.4012
     },
     "SK_NPC_Marco_Jacket": {
-      "overlap_fraction": 0.0001,
-      "uv_coverage": 0.3812
+      "overlap_fraction": 0.0002,
+      "uv_coverage": 0.3801
     }
   },
   "texel_density": {
     "SK_NPC_Marco_Body": {
       "texture_px": 1024,
       "median_px_per_m": 645.7,
-      "p10_px_per_m": 423.7,
+      "p10_px_per_m": 423.9,
       "p90_px_per_m": 1210.2
     },
     "SK_NPC_Marco_Eyes": {
@@ -310,9 +310,9 @@
     },
     "SK_NPC_Marco_TShirt": {
       "texture_px": 512,
-      "median_px_per_m": 485.2,
-      "p10_px_per_m": 399.2,
-      "p90_px_per_m": 548.1
+      "median_px_per_m": 485.3,
+      "p10_px_per_m": 398.6,
+      "p90_px_per_m": 548.5
     },
     "SK_NPC_Marco_Jeans": {
       "texture_px": 512,
@@ -328,9 +328,9 @@
     },
     "SK_NPC_Marco_Jacket": {
       "texture_px": 1024,
-      "median_px_per_m": 685.4,
-      "p10_px_per_m": 553.2,
-      "p90_px_per_m": 845.8
+      "median_px_per_m": 686.8,
+      "p10_px_per_m": 556.2,
+      "p90_px_per_m": 847.7
     },
     "SK_NPC_Marco_Hair": {
       "texture_px": 512,
@@ -343,7 +343,7 @@
     {
       "inner": "SK_NPC_Marco_Body",
       "outer": "SK_NPC_Marco_TShirt",
-      "tested_vertices": 564,
+      "tested_vertices": 563,
       "clipped_vertices": 1,
       "clipped_fraction": 0.0018
     },
@@ -364,16 +364,16 @@
     {
       "inner": "SK_NPC_Marco_Body",
       "outer": "SK_NPC_Marco_Jacket",
-      "tested_vertices": 14,
+      "tested_vertices": 12,
       "clipped_vertices": 0,
       "clipped_fraction": 0.0
     },
     {
       "inner": "SK_NPC_Marco_TShirt",
       "outer": "SK_NPC_Marco_Jacket",
-      "tested_vertices": 116,
-      "clipped_vertices": 2,
-      "clipped_fraction": 0.0172
+      "tested_vertices": 113,
+      "clipped_vertices": 3,
+      "clipped_fraction": 0.0265
     }
   ],
   "armatures": {
@@ -728,5 +728,5 @@
     "Armature",
     "SK_NPC_Marco"
   ],
-  "glb_bytes": 7178892
+  "glb_bytes": 7443152
 }

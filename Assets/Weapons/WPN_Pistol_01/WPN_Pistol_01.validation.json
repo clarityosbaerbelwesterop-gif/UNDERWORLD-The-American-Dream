@@ -2,7 +2,7 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.0.1",
-  "timestamp": "2026-11-22T20:07:15+00:00",
+  "timestamp": "2026-11-22T20:52:24+00:00",
   "command": "export-all",
   "input": "Blender/Source/Weapons/WPN_Pistol_01/WPN_Pistol_01.blend",
   "steps": {
@@ -249,7 +249,7 @@
     "warnings": 5,
     "infos": 3
   },
-  "seconds": 1.71,
+  "seconds": 1.62,
   "exit_code": 0,
   "result": "PASS"
 }

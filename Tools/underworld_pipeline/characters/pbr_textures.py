@@ -27,15 +27,49 @@ def load_image_np(path, size=None, non_color=False):
     return arr
 
 
+def _pil():
+    """Pillow, if importable. It is the only reliable encoder here (see pack_np_image)."""
+    try:
+        from PIL import Image as PILImage
+        return PILImage
+    except Exception:
+        return None
+
+
 def pack_np_image(name, arr_rgba, non_color=False, file_format="PNG", jpeg_quality=90):
-    arr = np.clip(arr_rgba, 0.0, 1.0).astype(np.float32)
+    """Encode a float array to a packed Blender image.
+
+    Why this does not use bpy's save_render any more: saving the image buffer through the scene
+    (image.save_render(tmp, scene=sc)) wrote a *broken* file whenever the sky/background or the
+    film needed to be evaluated - the packed skin diffuse came out as a black field with a few
+    correctly coloured islands (mean 0.05 instead of 0.57), and every character rendered with
+    black blotches over the parts of the body that sampled it. The bytes on disk were fine, only
+    the packed copy was wrong, so no renderer-side setting could explain it.
+
+    Encoding with Pillow from the same numpy buffer is deterministic and independent of any scene
+    state. Blender is only used to hold the packed image afterwards.
+
+    Colour management: the buffer holds *display-referred* values (the pipeline composes the maps
+    that way), so the file gets written as-is and the image is tagged sRGB for colour maps /
+    Non-Color for data maps.
+    """
+    arr = np.asarray(arr_rgba, dtype=np.float32)
+    # A NaN anywhere in a map renders as pure black and is invisible in the .json reports, so it
+    # must never reach the packer. It is a bug in the compositor, not "bad input": say so loudly.
+    n_nan = int(np.isnan(arr).sum())
+    if n_nan:
+        print(f"[TEX][WARN] {name}: {n_nan} NaN values in the source array - replaced by 0. "
+              f"This is a fault in the map compositor, not in the asset.")
+        arr = np.nan_to_num(arr, nan=0.0, posinf=1.0, neginf=0.0)
+    arr = np.clip(arr, 0.0, 1.0)
     h, w = arr.shape[:2]
+    has_alpha = (arr.shape[2] == 4) and (file_format == "PNG")
     if arr.shape[2] == 3:
         rgba = np.ones((h, w, 4), dtype=np.float32)
         rgba[:, :, :3] = arr
     else:
         rgba = arr
-    has_alpha = (file_format == "PNG" and arr.shape[2] == 4)
+    rgba = np.ascontiguousarray(rgba)
 
     img = bpy.data.images.new(name, w, h, alpha=has_alpha, float_buffer=False)
     if non_color:
@@ -45,32 +79,35 @@ def pack_np_image(name, arr_rgba, non_color=False, file_format="PNG", jpeg_quali
     ext = ".jpg" if file_format == "JPEG" else ".png"
     with tempfile.TemporaryDirectory(prefix="uwp_tex_") as td:
         tmp = os.path.join(td, name + ext)
-        sc = bpy.context.scene
-        prev_fmt = sc.render.image_settings.file_format
-        prev_mode = sc.render.image_settings.color_mode
-        prev_qual = sc.render.image_settings.quality
-        prev_view = sc.view_settings.view_transform
-        prev_look = sc.view_settings.look
-        prev_exp = sc.view_settings.exposure
-        prev_gamma = sc.view_settings.gamma
-        sc.render.image_settings.file_format = file_format
-        sc.render.image_settings.color_mode = "RGBA" if has_alpha else "RGB"
-        sc.render.image_settings.quality = jpeg_quality
-        # Texture maps are DATA: they must be written straight to sRGB, never through the
-        # scene's display transform. With AgX/Filmic the skin came out neutral grey and roughly
-        # 30 % too bright - every material in the library was washed out.
-        sc.view_settings.view_transform = "Standard"
-        sc.view_settings.look = "None"
-        sc.view_settings.exposure = 0.0
-        sc.view_settings.gamma = 1.0
-        img.save_render(tmp, scene=sc)
-        sc.render.image_settings.file_format = prev_fmt
-        sc.render.image_settings.color_mode = prev_mode
-        sc.render.image_settings.quality = prev_qual
-        sc.view_settings.view_transform = prev_view
-        sc.view_settings.look = prev_look
-        sc.view_settings.exposure = prev_exp
-        sc.view_settings.gamma = prev_gamma
+        PILImage = _pil()
+        if PILImage is not None:
+            u8 = np.clip(rgba * 255.0 + 0.5, 0.0, 255.0).astype(np.uint8)
+            # Blender's pixel buffer is bottom-up; PNG/JPEG are top-down.
+            u8 = u8[::-1]
+            pil_img = PILImage.fromarray(u8[:, :, :4] if has_alpha else u8[:, :, :3],
+                                         mode="RGBA" if has_alpha else "RGB")
+            if file_format == "JPEG":
+                pil_img.save(tmp, format="JPEG", quality=int(jpeg_quality), subsampling=0)
+            else:
+                pil_img.save(tmp, format="PNG", compress_level=6)
+        else:
+            # Fallback: let Blender encode, but never through the scene's display transform.
+            sc = bpy.context.scene
+            prev = (sc.render.image_settings.file_format, sc.render.image_settings.color_mode,
+                    sc.render.image_settings.quality, sc.view_settings.view_transform,
+                    sc.view_settings.look, sc.view_settings.exposure, sc.view_settings.gamma)
+            sc.render.image_settings.file_format = file_format
+            sc.render.image_settings.color_mode = "RGBA" if has_alpha else "RGB"
+            sc.render.image_settings.quality = jpeg_quality
+            sc.view_settings.view_transform = "Standard"
+            sc.view_settings.look = "None"
+            sc.view_settings.exposure = 0.0
+            sc.view_settings.gamma = 1.0
+            img.save_render(tmp, scene=sc)
+            (sc.render.image_settings.file_format, sc.render.image_settings.color_mode,
+             sc.render.image_settings.quality, sc.view_settings.view_transform,
+             sc.view_settings.look, sc.view_settings.exposure,
+             sc.view_settings.gamma) = prev
 
         bpy.data.images.remove(img)
         packed = bpy.data.images.load(tmp, check_existing=False)
@@ -306,7 +343,6 @@ def build_hero_skin_material(body_ob, lm, cache_dir, asset_prefix, skin_spec):
     else:
         pos = pos_s
     X, Y, Z = pos[:, :, 0], pos[:, :, 1], pos[:, :, 2]
-
     eye_z = float(lm["eye_z"])
     brow_z = float(lm["brow_z"])
     mouth_z = float(lm["mouth_z"])
@@ -361,37 +397,20 @@ def build_hero_skin_material(body_ob, lm, cache_dir, asset_prefix, skin_spec):
         ao = np.clip(ao - stipple * 0.14, 0.5, 1.0)
 
     # 1b. Lips: geometry mask first, colour later
-    # The beard (step 2) must end at the vermilion border instead of around a rectangle,
-    # so the shape is computed before the stubble and only painted afterwards.
-    # Landmarks: lower_lip_z < mouth_z < upper_lip_z. The vermilion therefore has two lobes with a
-    # *crisp* outer border and a soft inner one; a single Gaussian oval (previous version) bled the
-    # colour into the philtrum and read as a bruise.
+    # The beard (step 2) must end at the vermilion border instead of around a rectangle, so the
+    # shape is computed before the stubble and only painted afterwards.
+    # Landmarks: lower_lip_z < mouth_z < upper_lip_z. Each lobe is a half-ellipse that reaches zero
+    # exactly at its border (sin^p profile). A clipped superellipse - the previous version - has a
+    # *plateau* with a hard edge, which renders as a flat dark block painted on the face.
     lip_col = np.array(skin_spec.get("lip_rgb", [0.42, 0.21, 0.19]), dtype=np.float32)
     on_front_of_face = (Y < head_cy - 0.035).astype(np.float32)
-    # Anatomical heights: the landmark spans are generous (upper ~11 mm), the visible vermilion is
-    # ~7 mm above / ~9 mm below the opening, so scale each lobe to 0.75 / 0.85 of its span.
-    up_h = max((upper_lip_z - mouth_z) * 0.75, 0.004)
-    lo_h = max((mouth_z - lower_lip_z) * 0.85, 0.004)
-    lip_half_w = 0.0235
-    t_up = (Z - mouth_z) / up_h
-    t_lo = (mouth_z - Z) / lo_h
-    # full colour at the opening, sharp (~1.2 mm) fade at the outer vermilion border
-    up_edge = np.clip((1.0 - t_up) / 0.16, 0.0, 1.0)
-    lo_edge = np.clip((1.0 - t_lo) / 0.16, 0.0, 1.0)
-    # Cupid's bow. The vermilion border is allowed to *dip* in the middle (that is the bow) but it
-    # must not be pushed out again over the philtrum, which is how the previous version ended up
-    # with a dark moustache-shaped band above the lip.
-    bow = (np.exp(-(((np.abs(X) - 0.0078) / 0.0046) ** 2))
-           - np.exp(-(X / 0.0052) ** 2))
-    up_edge *= np.clip(1.0 + 0.34 * bow, 0.0, 1.0)
-    # Straight corners: the lip tapers to a point at each commissure instead of a blunt oval.
-    ellipse = np.clip(1.0 - (np.abs(X) / lip_half_w) ** 3.2, 0.0, 1.0) ** 0.34
-    lip_mask = np.clip((up_edge * (t_up > 0) + lo_edge * (t_lo > 0)) * ellipse * on_front_of_face, 0.0, 1.0)
-    # Lower lip is the lighter, glossier one; the upper lip reads darker where it turns under.
-    lip_tint = np.where((Z < mouth_z)[:, :, None], lip_col * 1.18, lip_col * 0.94)
-    lip_mix = np.clip(lip_mask * 0.86, 0.0, 0.95)[:, :, None]
-    diff = diff * (1.0 - lip_mix) + lip_tint * lip_mix
-    rough = np.clip(rough - lip_mask * 0.07, 0.44, 0.92)
+    lip_half_w = 0.0230
+    # Lobe shape lives in PROC.lip_mask() so it can be unit-tested without Blender.
+    lip_m = PROC.lip_mask(X, Z, mouth_z, upper_lip_z, lower_lip_z, half_w=lip_half_w) * on_front_of_face
+    lip_mask = np.clip(lip_m, 0.0, 1.0)
+    # Lower lip is the fuller, slightly lighter one; the upper lip turns under and reads darker.
+    lip_tint = np.where((Z < mouth_z)[:, :, None], lip_col * 1.12, lip_col * 0.92)
+    lip_mix = np.clip(lip_mask * 0.88, 0.0, 0.94)[:, :, None]
 
     # 2. Lush, groomed short beard & mustache stubble on skin (exact CA_Jason_Head_v01.jpg full chin+jaw+mustache!)
     beard_cfg = skin_spec.get("beard_stubble")
@@ -463,7 +482,7 @@ def build_hero_skin_material(body_ob, lm, cache_dir, asset_prefix, skin_spec):
     mouth_line = (np.exp(-((Z - mouth_z) / 0.0012) ** 2)
                   * np.clip(1.0 - (np.abs(X) / (lip_half_w * 0.88)) ** 2, 0.0, 1.0) ** 0.9
                   * on_front_of_face)
-    diff = diff * (1.0 - mouth_line[:, :, None] * 0.45)
+    diff = diff * (1.0 - mouth_line[:, :, None] * 0.30)
     nrm[:, :, 1] = np.clip(nrm[:, :, 1] - mouth_line * 0.16, 0.0, 1.0)
 
     # nose tip / cheeks a touch warmer (capillary flush), ears slightly pink as well

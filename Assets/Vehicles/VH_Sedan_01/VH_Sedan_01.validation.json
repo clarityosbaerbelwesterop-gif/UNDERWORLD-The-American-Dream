@@ -2,7 +2,7 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.0.1",
-  "timestamp": "2026-11-22T20:07:13+00:00",
+  "timestamp": "2026-11-22T20:52:22+00:00",
   "command": "export-all",
   "input": "Blender/Source/Vehicles/VH_Sedan_01/VH_Sedan_01.blend",
   "steps": {
@@ -714,7 +714,7 @@
     "warnings": 15,
     "infos": 6
   },
-  "seconds": 1.97,
+  "seconds": 1.86,
   "exit_code": 0,
   "result": "PASS"
 }

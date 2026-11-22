@@ -11,13 +11,13 @@
     "SK_Jason_Teeth": 200,
     "SK_Jason_Hair": 1916,
     "SK_Jason_Beard": 1148,
-    "SK_Jason_TShirt": 3545,
+    "SK_Jason_TShirt": 3543,
     "SK_Jason_Jacket": 4665,
     "SK_Jason_Jeans": 2934,
     "SK_Jason_Boots": 2400,
     "SK_Jason_Watch": 444
   },
-  "triangles_total": 38842,
+  "triangles_total": 38840,
   "materials": [
     "M_Jason_Boots",
     "M_Jason_BrowsLashes",
@@ -287,5 +287,5 @@
     ]
   },
   "max_foot_sliding_m": 0.0486,
-  "build_seconds": 20.6
+  "build_seconds": 23.7
 }

@@ -10,8 +10,8 @@
     "SK_NPC_Cartel_B_Eyelashes_R": 192,
     "SK_NPC_Cartel_B_Hair": 1856,
     "SK_NPC_Cartel_B_Beard": 1116,
-    "SK_NPC_Cartel_B_TShirt": 2468,
-    "SK_NPC_Cartel_B_Jacket": 3275,
+    "SK_NPC_Cartel_B_TShirt": 2469,
+    "SK_NPC_Cartel_B_Jacket": 3274,
     "SK_NPC_Cartel_B_Jeans": 2056,
     "SK_NPC_Cartel_B_Boots": 1680
   },
@@ -231,5 +231,5 @@
     ]
   },
   "max_foot_sliding_m": 0.0489,
-  "build_seconds": 11.2
+  "build_seconds": 12.8
 }

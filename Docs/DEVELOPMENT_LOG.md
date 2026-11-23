@@ -1,5 +1,11 @@
 # Development Log
 
+## 2026-11-23 · Claude Code · T-ENV-01 (cloud toolchain)
+- **Toolchain:** `Tools/sandbox/bootstrap_cloud.sh` installs the exact studio versions without apt: Blender **5.2.4 LTS** as `bpy` wheel + CLI shim, Godot **4.7.2** official (SHA512), Linux/Windows export templates; links `/workspace/tools/*` so all repo defaults work.
+- **Forward Plus without GPU:** Mesa lavapipe (Vulkan on CPU) runs the shipping renderer under Xvfb; `Tools/godot_phase8_capture.sh --renderer auto|fwdplus|compat` (+ `--movie` for Godot Movie Maker). Exported release binary recorded 240 frames of M01 in Forward Plus (15 % real time).
+- **Fix:** `run_tests.sh` numpy-interpreter lookup now accepts a bpy-wheel shim's venv (was FAIL "no python with numpy found").
+- **Gate:** `RUN_ALL: PASS` 749 checks; `build_linux.sh` exit 0; `UW_BUILD_SABOTAGE=1` exit 6.
+
 ## 2026-11-23 · Bot 1 · Review of PR #17 (Auftrag 02) + fixes
 - **Verified** merge `d3809d0` on a fresh worktree (`git worktree add`, `git lfs pull`, `Tests/run_all.sh`): `RUN_ALL: PASS`, 738 checks (smoke 12, uwp 58, import 71, AI 102, HUD 40, level 23, mission 105, player 171, vehicle 88, weapon 68) – matches the report. Test diff 1c619b2..d3809d0: no test removed or loosened; hitbox count 5 → 7 follows the new bone zones; vehicle enter/exit waits use the clip-driven `enter_duration()/exit_duration()` (fallback = old data times). `Config/`, `Tests/*.sh`, `QUALITY_GATE.md` unchanged. LFS: 114/114 pointer files, `git lfs fsck --pointers` OK.
 - **Defect – build boots the wrong scene:** `run/main_scene` was `Scenes/Main.tscn` (pipeline smoke scene with the PT crate) and no code outside the tests called `MissionManager.start()`. Fix: `Scenes/Game_M01.tscn` + `Scripts/game/game_boot.gd` (TD-020), `Tests/test_boot.gd` 7 checks, `UW_BOOT_SABOTAGE=1` → 2 FAIL; `build_linux.sh` requires the `UNDERWORLD: GameBoot` banner (exit 8).

@@ -120,7 +120,14 @@ echo "== [4b] pure-numpy unit checks (no Blender)"
 # Blender-bundled interpreter does, so prefer that one.
 NUMPY_PY="${NUMPY_PY:-}"
 if [ -z "$NUMPY_PY" ]; then
-  for c in /workspace/tools/blender/*/python/bin/python3* /usr/local/venv/bin/python python3; do
+  # A bpy-wheel `blender` shim (Tools/sandbox/bootstrap_*.sh) is a Python script: its shebang
+  # interpreter is the venv that holds bpy + numpy.
+  SHIM_PY=""
+  _bl="$(readlink -f "${BLENDER:-/workspace/tools/blender/blender}" 2>/dev/null || true)"
+  if [ -n "$_bl" ] && head -c2 "$_bl" 2>/dev/null | grep -q '#!'; then
+    SHIM_PY="$(head -1 "$_bl" | sed 's/^#!//' | awk '{print $1}')"
+  fi
+  for c in /workspace/tools/blender/*/python/bin/python3* $SHIM_PY /opt/uwtools/venv/bin/python /usr/local/venv/bin/python python3; do
     [ -x "$c" ] || continue
     "$c" -c "import numpy" 2>/dev/null && { NUMPY_PY="$c"; break; }
   done

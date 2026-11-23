@@ -143,7 +143,7 @@ Jason ≤ 40k tris, NPC ≤ 25k, car ≤ 60k (LOD0), pistol ≤ 8k, street-kit m
   5. The navmesh was never baked: the empty `NavigationRegion3D` shipped, `map_get_path()` returned nothing. The generator now bakes it (`NavigationServer3D.parse_source_geometry_data` + `bake_from_source_geometry_data`) **after one idle/physics frame** — the parser reads global transforms, so baking right after `add_child()` yields 0 polygons. Result: 428 polygons covering road **and** sidewalk; the old flat `NavFloor` box (which buried the 0.16 m sidewalk in the road) is gone.
   6. The civilian route crossed the roadway at z = 40, and a pedestrian is a solid 0.56 m obstacle: it stopped the player's sedan dead at z ≈ 37 with no feedback (the M01 drive test went from 26 s to a stall). The route stays on the outer west sidewalk now; civilians also spawn 1.4 m off the kerb line.
 - **Materials:** asphalt `0.15` luminance, sidewalk `0.60`, kerb line `0.78` (bright edge strips along every sidewalk) — a 0.45 luminance step where the first capture had 0.00.
-- **Tests:** `Tests/test_level.gd` (20 checks): no `@` names, no unused `ext_resource`, building/garage/navmesh really in the file, luminance differences, navmesh reachability probes on road + sidewalk + both closing segments, and a walk from one end of the block to the other with real movement input (44 waypoints). **`UW_LEVEL_SABOTAGE=1`** makes the contrast audit lie (0.02) → FAIL.
+- **Tests:** `Tests/test_level.gd` (23 checks): no `@` names, no unused `ext_resource`, building/garage/navmesh really in the file, luminance differences, navmesh reachability probes on road + sidewalk + both closing segments, and a walk from one end of the block to the other with real movement input (44 waypoints). **`UW_LEVEL_SABOTAGE=1`** makes the contrast audit lie (0.02) → FAIL.
 - **Honest limit:** this is still a blockout. The fix makes road/kerb/sidewalk distinguishable and the block walkable/drivable; it does not add art. In-engine Phase-8 captures are **not possible on this box** (no X server/Xvfb, no GPU); the report states that instead of faking a screenshot.
 
 ## TD-019 – Linux export (T-BUILD-01)
@@ -153,3 +153,19 @@ Jason ≤ 40k tris, NPC ≤ 25k, car ≤ 60k (LOD0), pistol ≤ 8k, street-kit m
 - **Export templates are version-locked** to the engine build. The official `.tpz` (~1 GB) is unreachable from this sandbox, so the template was **compiled from the same `4.7.2-stable` source tree** and installed as `~/.local/share/godot/export_templates/4.7.2.stable/linux_release.x86_64` (47 min, 2 vCPU). `Docs/BUILD.md` has the exact scons line.
 - **The template has no renderer** (`vulkan=no opengl3=no`, like the sandboxed editor). It boots `Main.tscn` from the PCK, runs the scene tree and exits cleanly — that is the acceptance criterion — but it cannot present a frame. **A desktop-playable build therefore still requires a Forward+/Vulkan template**, built or downloaded on a machine that has the Vulkan loader.
 - **Negative control:** `UW_BUILD_SABOTAGE=1` plants an `ERROR:` line in the smoke log; the script must fail with exit 6 (checked).
+
+### TD-018 addendum (2026-11-22, second pass) – a bug the luminance test could not see
+The painted surface copies from the first pass were saved **at the origin**, so all 26 road pieces
+and every kerb sat stacked in one place while `test_level.gd` stayed green (it only looked at the
+material, never at the transform). Found by `Tests/tools/capture_level_plan.gd`, a headless plan
+view drawn from the scene's real AABBs.
+- Why: a `--script` `SceneTree` runs `_initialize()` **before** `SceneTree::initialize()` sets the
+  tree, so `root.add_child(level)` does not make the level "inside tree"; every `global_transform`
+  still reads identity, and setting one on a node outside the tree silently writes the identity.
+- Fix: `_own_painted_meshes()` composes `inst.transform * (chain of `.transform` from the instance
+  down to the mesh)`. **Never use `global_transform` in this generator** – the same trap applies to
+  every other piece of geometry it places.
+- Regression guard: `test_level.gd` now asserts 118 painted copies, **0 of them at the origin**, and
+  the first road segment at (-24, 0, -79) – read before `free()`, because a freed Object compares
+  equal to `null` and returns zero vectors (a second silent trap that made two draft assertions
+  always pass/fail for the wrong reason).

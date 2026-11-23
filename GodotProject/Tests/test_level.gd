@@ -86,6 +86,27 @@ func test_hygiene() -> void:
 	check(text.contains("Bldg_Shop_01") and text.contains("Garage_Wall_N"),
 		"the buildings and the garage are actually IN the shipped scene")
 	check(text.contains("NavRegion_Block"), "the navmesh region is in the shipped scene")
+	# The painted surface copies are level-owned meshes. Their transform has to come from the kit
+	# instance they were copied out of; a copy stored at the origin is invisible in-game while the
+	# material check above stays green (that bug shipped once - see TD-018).
+	var level2 := (load(LEVEL) as PackedScene).instantiate()
+	var origin_copies := 0
+	var copies := 0
+	for n in level2.find_children("*_SM_*", "MeshInstance3D", true, false):
+		copies += 1
+		if (n as Node3D).position.length() < 0.5:
+			origin_copies += 1
+	var road0 := level2.find_child("Road_Straight_01_SM_LA_Road_Straight", true, false) as Node3D
+	# Read the position BEFORE free(): a freed node still compares != null, and every read on it
+	# returns a zero vector, so the check would silently test the origin.
+	var road0_pos := road0.position if road0 != null else Vector3.ZERO
+	# ... and compare before free(), too: a freed Object compares equal to null, so the
+	# `road0 != null` half of the expression would flip to false after the free.
+	var road_ok := road0 != null and road0_pos.distance_to(Vector3(-24, 0, -79)) < 0.6
+	level2.free()
+	check(copies > 50, "painted surface copies exist (%d)" % copies)
+	check(origin_copies == 0, "no painted surface copy sits at the origin (%d of %d)" % [origin_copies, copies])
+	check(road_ok, "the first road segment is where the layout says (-24, 0, -79), got %s" % [road0_pos])
 
 # --- 2. materials -----------------------------------------------------------------
 

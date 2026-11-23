@@ -573,23 +573,23 @@ size = Vector3(12, 6, 10)
 [sub_resource type="BoxShape3D" id="BoxShape3D_hthmb"]
 size = Vector3(1.2, 1.2, 1.2)
 
-[node name="LA_CallowayAve" type="Node3D" unique_id=184264650]
+[node name="LA_CallowayAve" type="Node3D" unique_id=1530268479]
 
-[node name="Ground" type="Node3D" parent="." unique_id=323689379]
+[node name="Ground" type="Node3D" parent="." unique_id=871661555]
 
-[node name="GroundMesh" type="MeshInstance3D" parent="Ground" unique_id=1266011726]
+[node name="GroundMesh" type="MeshInstance3D" parent="Ground" unique_id=770361007]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
 material_override = SubResource("StandardMaterial3D_6drup")
 mesh = SubResource("PlaneMesh_rrvjv")
 
-[node name="GroundBody" type="StaticBody3D" parent="Ground" unique_id=460777286]
+[node name="GroundBody" type="StaticBody3D" parent="Ground" unique_id=1604404200]
 collision_mask = 0
 
-[node name="Collision" type="CollisionShape3D" parent="Ground/GroundBody" unique_id=1050278215]
+[node name="Collision" type="CollisionShape3D" parent="Ground/GroundBody" unique_id=1476516901]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12, 0)
 shape = SubResource("BoxShape3D_ia05j")
 
-[node name="Streets" type="Node3D" parent="." unique_id=1938776904]
+[node name="Streets" type="Node3D" parent="." unique_id=511884058]
 
 [node name="Road_Straight_01" type="Node3D" parent="Streets" unique_id=552770020 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -79)
@@ -603,11 +603,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_01_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1016649995]
+[node name="Road_Straight_01_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=2062435300]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -79)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_02" type="Node3D" parent="Streets" unique_id=506302172 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_02" type="Node3D" parent="Streets" unique_id=812405091 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -79)
 visible = false
 metadata/uw_post_import = {
@@ -619,11 +620,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_02_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1641306739]
+[node name="Road_Straight_02_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1795301453]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -79)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_03" type="Node3D" parent="Streets" unique_id=1677122623 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_03" type="Node3D" parent="Streets" unique_id=140791829 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -65)
 visible = false
 metadata/uw_post_import = {
@@ -635,11 +637,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_03_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1761737864]
+[node name="Road_Straight_03_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1389720816]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -65)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_04" type="Node3D" parent="Streets" unique_id=755505742 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_04" type="Node3D" parent="Streets" unique_id=1104031710 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -65)
 visible = false
 metadata/uw_post_import = {
@@ -651,11 +654,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_04_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=179543329]
+[node name="Road_Straight_04_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1664880614]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -65)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_05" type="Node3D" parent="Streets" unique_id=1854734949 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_05" type="Node3D" parent="Streets" unique_id=1337690356 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -51)
 visible = false
 metadata/uw_post_import = {
@@ -667,11 +671,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_05_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1037175352]
+[node name="Road_Straight_05_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1753938195]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -51)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_06" type="Node3D" parent="Streets" unique_id=809818055 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_06" type="Node3D" parent="Streets" unique_id=295126373 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -51)
 visible = false
 metadata/uw_post_import = {
@@ -683,11 +688,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_06_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=604241524]
+[node name="Road_Straight_06_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1276564272]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -51)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_07" type="Node3D" parent="Streets" unique_id=438025695 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_07" type="Node3D" parent="Streets" unique_id=322455155 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -37)
 visible = false
 metadata/uw_post_import = {
@@ -699,11 +705,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_07_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=2008938673]
+[node name="Road_Straight_07_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1448911830]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -37)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_08" type="Node3D" parent="Streets" unique_id=1375531183 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_08" type="Node3D" parent="Streets" unique_id=1362402465 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -37)
 visible = false
 metadata/uw_post_import = {
@@ -715,11 +722,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_08_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1896033948]
+[node name="Road_Straight_08_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1384018287]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -37)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_09" type="Node3D" parent="Streets" unique_id=733652911 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_09" type="Node3D" parent="Streets" unique_id=904250277 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -23)
 visible = false
 metadata/uw_post_import = {
@@ -731,11 +739,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_09_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1844825180]
+[node name="Road_Straight_09_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=226702210]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -23)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_10" type="Node3D" parent="Streets" unique_id=2065367329 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_10" type="Node3D" parent="Streets" unique_id=1780622960 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -23)
 visible = false
 metadata/uw_post_import = {
@@ -747,11 +756,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_10_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1818830633]
+[node name="Road_Straight_10_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=2039550202]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -23)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_11" type="Node3D" parent="Streets" unique_id=1346072682 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_11" type="Node3D" parent="Streets" unique_id=592824179 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -9)
 visible = false
 metadata/uw_post_import = {
@@ -763,11 +773,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_11_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=290085380]
+[node name="Road_Straight_11_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=396863366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -9)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_12" type="Node3D" parent="Streets" unique_id=286853518 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_12" type="Node3D" parent="Streets" unique_id=1962196686 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -9)
 visible = false
 metadata/uw_post_import = {
@@ -779,11 +790,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_12_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=68610673]
+[node name="Road_Straight_12_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=197243364]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -9)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_13" type="Node3D" parent="Streets" unique_id=1212001849 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_13" type="Node3D" parent="Streets" unique_id=1905051863 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 5)
 visible = false
 metadata/uw_post_import = {
@@ -795,11 +807,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_13_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=90261412]
+[node name="Road_Straight_13_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=567400454]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 5)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_14" type="Node3D" parent="Streets" unique_id=46038550 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_14" type="Node3D" parent="Streets" unique_id=749697280 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 5)
 visible = false
 metadata/uw_post_import = {
@@ -811,11 +824,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_14_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1360542708]
+[node name="Road_Straight_14_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1105595036]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 5)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_15" type="Node3D" parent="Streets" unique_id=958463295 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_15" type="Node3D" parent="Streets" unique_id=2142706712 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 19)
 visible = false
 metadata/uw_post_import = {
@@ -827,11 +841,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_15_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1388616271]
+[node name="Road_Straight_15_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1838857400]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 19)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_16" type="Node3D" parent="Streets" unique_id=1588364323 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_16" type="Node3D" parent="Streets" unique_id=1692956146 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 19)
 visible = false
 metadata/uw_post_import = {
@@ -843,11 +858,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_16_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1353553632]
+[node name="Road_Straight_16_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1119017974]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 19)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_17" type="Node3D" parent="Streets" unique_id=1107513591 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_17" type="Node3D" parent="Streets" unique_id=1795828363 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 33)
 visible = false
 metadata/uw_post_import = {
@@ -859,11 +875,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_17_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=199810151]
+[node name="Road_Straight_17_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=162800584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 33)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_18" type="Node3D" parent="Streets" unique_id=654949280 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_18" type="Node3D" parent="Streets" unique_id=1939209593 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 33)
 visible = false
 metadata/uw_post_import = {
@@ -875,11 +892,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_18_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=776724165]
+[node name="Road_Straight_18_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1338733557]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 33)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_19" type="Node3D" parent="Streets" unique_id=480795458 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_19" type="Node3D" parent="Streets" unique_id=235316610 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 47)
 visible = false
 metadata/uw_post_import = {
@@ -891,11 +909,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_19_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1468211042]
+[node name="Road_Straight_19_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=358094906]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 47)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_20" type="Node3D" parent="Streets" unique_id=143487048 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_20" type="Node3D" parent="Streets" unique_id=1023003533 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 47)
 visible = false
 metadata/uw_post_import = {
@@ -907,11 +926,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_20_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1469796342]
+[node name="Road_Straight_20_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1483857702]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 47)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_21" type="Node3D" parent="Streets" unique_id=1617075130 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_21" type="Node3D" parent="Streets" unique_id=427955158 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 61)
 visible = false
 metadata/uw_post_import = {
@@ -923,11 +943,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_21_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=297862395]
+[node name="Road_Straight_21_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1990503213]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 61)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_22" type="Node3D" parent="Streets" unique_id=1206243509 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_22" type="Node3D" parent="Streets" unique_id=2095206946 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 61)
 visible = false
 metadata/uw_post_import = {
@@ -939,11 +960,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_22_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=928960288]
+[node name="Road_Straight_22_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=111692436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 61)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_23" type="Node3D" parent="Streets" unique_id=1508998995 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_23" type="Node3D" parent="Streets" unique_id=406486031 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 75)
 visible = false
 metadata/uw_post_import = {
@@ -955,11 +977,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_23_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1888677334]
+[node name="Road_Straight_23_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=771871166]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 75)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_24" type="Node3D" parent="Streets" unique_id=1917875323 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_24" type="Node3D" parent="Streets" unique_id=579618930 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 75)
 visible = false
 metadata/uw_post_import = {
@@ -971,7 +994,8 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_24_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=368778344]
+[node name="Road_Straight_24_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=207067206]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 75)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
@@ -987,11 +1011,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_01_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=702686472]
+[node name="Sidewalk_Curb_01_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1768325093]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -80)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_02" type="Node3D" parent="Streets" unique_id=1322011618 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_02" type="Node3D" parent="Streets" unique_id=1130376987 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -80)
 visible = false
 metadata/uw_post_import = {
@@ -1003,11 +1028,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_02_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=2086050286]
+[node name="Sidewalk_Curb_02_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1566887227]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -80)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_03" type="Node3D" parent="Streets" unique_id=168164335 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_03" type="Node3D" parent="Streets" unique_id=311124351 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -80)
 visible = false
 metadata/uw_post_import = {
@@ -1019,11 +1045,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_03_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=454529510]
+[node name="Sidewalk_Curb_03_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=655657195]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -80)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_04" type="Node3D" parent="Streets" unique_id=1102359197 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_04" type="Node3D" parent="Streets" unique_id=1129366283 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -80)
 visible = false
 metadata/uw_post_import = {
@@ -1035,11 +1062,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_04_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1532556155]
+[node name="Sidewalk_Curb_04_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1796783574]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -80)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_05" type="Node3D" parent="Streets" unique_id=2132630618 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_05" type="Node3D" parent="Streets" unique_id=1816359006 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -70)
 visible = false
 metadata/uw_post_import = {
@@ -1051,11 +1079,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_05_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=671746802]
+[node name="Sidewalk_Curb_05_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1119595325]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -70)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_06" type="Node3D" parent="Streets" unique_id=795795735 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_06" type="Node3D" parent="Streets" unique_id=705217439 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -70)
 visible = false
 metadata/uw_post_import = {
@@ -1067,11 +1096,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_06_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1072098402]
+[node name="Sidewalk_Curb_06_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=582025083]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -70)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_07" type="Node3D" parent="Streets" unique_id=493315934 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_07" type="Node3D" parent="Streets" unique_id=1149374627 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -70)
 visible = false
 metadata/uw_post_import = {
@@ -1083,11 +1113,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_07_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=574887764]
+[node name="Sidewalk_Curb_07_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1410663012]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -70)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_08" type="Node3D" parent="Streets" unique_id=961925103 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_08" type="Node3D" parent="Streets" unique_id=1514892965 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -70)
 visible = false
 metadata/uw_post_import = {
@@ -1099,11 +1130,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_08_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1405027169]
+[node name="Sidewalk_Curb_08_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1394941529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -70)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_09" type="Node3D" parent="Streets" unique_id=1663088937 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_09" type="Node3D" parent="Streets" unique_id=2007223221 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -60)
 visible = false
 metadata/uw_post_import = {
@@ -1115,11 +1147,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_09_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=2121122784]
+[node name="Sidewalk_Curb_09_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1375893070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -60)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_10" type="Node3D" parent="Streets" unique_id=609879033 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_10" type="Node3D" parent="Streets" unique_id=2054798906 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -60)
 visible = false
 metadata/uw_post_import = {
@@ -1131,11 +1164,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_10_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=51220227]
+[node name="Sidewalk_Curb_10_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1938485430]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -60)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_11" type="Node3D" parent="Streets" unique_id=1876895953 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_11" type="Node3D" parent="Streets" unique_id=1687718168 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -60)
 visible = false
 metadata/uw_post_import = {
@@ -1147,11 +1181,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_11_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1923032487]
+[node name="Sidewalk_Curb_11_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1248774317]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -60)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_12" type="Node3D" parent="Streets" unique_id=144239553 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_12" type="Node3D" parent="Streets" unique_id=405684900 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -60)
 visible = false
 metadata/uw_post_import = {
@@ -1163,11 +1198,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_12_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1228303633]
+[node name="Sidewalk_Curb_12_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1840740370]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -60)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_13" type="Node3D" parent="Streets" unique_id=1808789967 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_13" type="Node3D" parent="Streets" unique_id=1880246064 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -50)
 visible = false
 metadata/uw_post_import = {
@@ -1179,11 +1215,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_13_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1815259443]
+[node name="Sidewalk_Curb_13_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1282287146]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -50)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_14" type="Node3D" parent="Streets" unique_id=1962273986 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_14" type="Node3D" parent="Streets" unique_id=1849253266 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -50)
 visible = false
 metadata/uw_post_import = {
@@ -1195,11 +1232,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_14_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1924307639]
+[node name="Sidewalk_Curb_14_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=17838200]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -50)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_15" type="Node3D" parent="Streets" unique_id=1013164355 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_15" type="Node3D" parent="Streets" unique_id=1492719996 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -50)
 visible = false
 metadata/uw_post_import = {
@@ -1211,11 +1249,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_15_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1999537646]
+[node name="Sidewalk_Curb_15_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=2041480111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -50)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_16" type="Node3D" parent="Streets" unique_id=591611028 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_16" type="Node3D" parent="Streets" unique_id=1425830048 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -50)
 visible = false
 metadata/uw_post_import = {
@@ -1227,11 +1266,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_16_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1088645822]
+[node name="Sidewalk_Curb_16_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=43511993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -50)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_17" type="Node3D" parent="Streets" unique_id=964333587 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_17" type="Node3D" parent="Streets" unique_id=757451495 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -40)
 visible = false
 metadata/uw_post_import = {
@@ -1243,11 +1283,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_17_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=777572485]
+[node name="Sidewalk_Curb_17_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=996178680]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -40)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_18" type="Node3D" parent="Streets" unique_id=2041255748 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_18" type="Node3D" parent="Streets" unique_id=1448890105 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -40)
 visible = false
 metadata/uw_post_import = {
@@ -1259,11 +1300,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_18_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1907660874]
+[node name="Sidewalk_Curb_18_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1844707425]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -40)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_19" type="Node3D" parent="Streets" unique_id=541814832 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_19" type="Node3D" parent="Streets" unique_id=1906742765 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -40)
 visible = false
 metadata/uw_post_import = {
@@ -1275,11 +1317,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_19_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1702339540]
+[node name="Sidewalk_Curb_19_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=138707471]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -40)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_20" type="Node3D" parent="Streets" unique_id=2101641666 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_20" type="Node3D" parent="Streets" unique_id=1875794492 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -40)
 visible = false
 metadata/uw_post_import = {
@@ -1291,11 +1334,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_20_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=734599519]
+[node name="Sidewalk_Curb_20_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1743798327]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -40)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_21" type="Node3D" parent="Streets" unique_id=1784848635 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_21" type="Node3D" parent="Streets" unique_id=850620666 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -30)
 visible = false
 metadata/uw_post_import = {
@@ -1307,11 +1351,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_21_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1865498827]
+[node name="Sidewalk_Curb_21_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=676862330]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -30)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_22" type="Node3D" parent="Streets" unique_id=1740745029 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_22" type="Node3D" parent="Streets" unique_id=1844921200 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -30)
 visible = false
 metadata/uw_post_import = {
@@ -1323,11 +1368,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_22_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=319235724]
+[node name="Sidewalk_Curb_22_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1776109429]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -30)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_23" type="Node3D" parent="Streets" unique_id=2092259276 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_23" type="Node3D" parent="Streets" unique_id=1758785832 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -30)
 visible = false
 metadata/uw_post_import = {
@@ -1339,11 +1385,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_23_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=693908224]
+[node name="Sidewalk_Curb_23_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=942598571]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -30)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_24" type="Node3D" parent="Streets" unique_id=763613573 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_24" type="Node3D" parent="Streets" unique_id=348600293 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -30)
 visible = false
 metadata/uw_post_import = {
@@ -1355,11 +1402,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_24_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1473723144]
+[node name="Sidewalk_Curb_24_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=2082306359]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -30)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_25" type="Node3D" parent="Streets" unique_id=1394426144 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_25" type="Node3D" parent="Streets" unique_id=318775101 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -20)
 visible = false
 metadata/uw_post_import = {
@@ -1371,11 +1419,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_25_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=55321403]
+[node name="Sidewalk_Curb_25_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=783605955]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -20)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_26" type="Node3D" parent="Streets" unique_id=1745519761 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_26" type="Node3D" parent="Streets" unique_id=124098370 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -20)
 visible = false
 metadata/uw_post_import = {
@@ -1387,11 +1436,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_26_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1772988854]
+[node name="Sidewalk_Curb_26_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1865511222]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -20)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_27" type="Node3D" parent="Streets" unique_id=2009303622 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_27" type="Node3D" parent="Streets" unique_id=1585734416 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -20)
 visible = false
 metadata/uw_post_import = {
@@ -1403,11 +1453,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_27_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=889615158]
+[node name="Sidewalk_Curb_27_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=140348361]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -20)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_28" type="Node3D" parent="Streets" unique_id=1381932431 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_28" type="Node3D" parent="Streets" unique_id=1766537456 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -20)
 visible = false
 metadata/uw_post_import = {
@@ -1419,11 +1470,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_28_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1545933660]
+[node name="Sidewalk_Curb_28_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1612693016]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -20)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_29" type="Node3D" parent="Streets" unique_id=1475041896 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_29" type="Node3D" parent="Streets" unique_id=410989070 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -10)
 visible = false
 metadata/uw_post_import = {
@@ -1435,11 +1487,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_29_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=2014901026]
+[node name="Sidewalk_Curb_29_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1571265570]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -10)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_30" type="Node3D" parent="Streets" unique_id=224223857 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_30" type="Node3D" parent="Streets" unique_id=1436837944 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -10)
 visible = false
 metadata/uw_post_import = {
@@ -1451,11 +1504,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_30_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1904201628]
+[node name="Sidewalk_Curb_30_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1677704834]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -10)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_31" type="Node3D" parent="Streets" unique_id=1190362517 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_31" type="Node3D" parent="Streets" unique_id=569154558 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -10)
 visible = false
 metadata/uw_post_import = {
@@ -1467,11 +1521,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_31_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1336530020]
+[node name="Sidewalk_Curb_31_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1666420482]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -10)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_32" type="Node3D" parent="Streets" unique_id=1947768599 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_32" type="Node3D" parent="Streets" unique_id=1890809852 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -10)
 visible = false
 metadata/uw_post_import = {
@@ -1483,11 +1538,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_32_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1235222314]
+[node name="Sidewalk_Curb_32_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=925980634]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, -10)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_33" type="Node3D" parent="Streets" unique_id=1304529720 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_33" type="Node3D" parent="Streets" unique_id=1146194172 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 0)
 visible = false
 metadata/uw_post_import = {
@@ -1499,11 +1555,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_33_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=693154636]
+[node name="Sidewalk_Curb_33_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=797355302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 0)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_34" type="Node3D" parent="Streets" unique_id=1464452150 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_34" type="Node3D" parent="Streets" unique_id=219125972 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 0)
 visible = false
 metadata/uw_post_import = {
@@ -1515,11 +1572,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_34_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1708754392]
+[node name="Sidewalk_Curb_34_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=857296612]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 0)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_35" type="Node3D" parent="Streets" unique_id=73624504 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_35" type="Node3D" parent="Streets" unique_id=881132746 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 0)
 visible = false
 metadata/uw_post_import = {
@@ -1531,11 +1589,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_35_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=861631517]
+[node name="Sidewalk_Curb_35_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1686545741]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 0)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_36" type="Node3D" parent="Streets" unique_id=1218817688 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_36" type="Node3D" parent="Streets" unique_id=1406485446 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 0)
 visible = false
 metadata/uw_post_import = {
@@ -1547,11 +1606,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_36_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=331724961]
+[node name="Sidewalk_Curb_36_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=215408930]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 0)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_37" type="Node3D" parent="Streets" unique_id=1103608898 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_37" type="Node3D" parent="Streets" unique_id=1003956988 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 10)
 visible = false
 metadata/uw_post_import = {
@@ -1563,11 +1623,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_37_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=526532989]
+[node name="Sidewalk_Curb_37_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1225817804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 10)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_38" type="Node3D" parent="Streets" unique_id=2080316134 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_38" type="Node3D" parent="Streets" unique_id=1714333633 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 10)
 visible = false
 metadata/uw_post_import = {
@@ -1579,11 +1640,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_38_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1435041910]
+[node name="Sidewalk_Curb_38_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=301416170]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 10)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_39" type="Node3D" parent="Streets" unique_id=1688991612 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_39" type="Node3D" parent="Streets" unique_id=2033617037 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 10)
 visible = false
 metadata/uw_post_import = {
@@ -1595,11 +1657,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_39_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1242295356]
+[node name="Sidewalk_Curb_39_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1592929578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 10)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_40" type="Node3D" parent="Streets" unique_id=1350493036 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_40" type="Node3D" parent="Streets" unique_id=774748171 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 10)
 visible = false
 metadata/uw_post_import = {
@@ -1611,11 +1674,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_40_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1452461260]
+[node name="Sidewalk_Curb_40_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=572483922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 10)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_41" type="Node3D" parent="Streets" unique_id=1212465519 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_41" type="Node3D" parent="Streets" unique_id=330742489 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 20)
 visible = false
 metadata/uw_post_import = {
@@ -1627,11 +1691,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_41_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=866318974]
+[node name="Sidewalk_Curb_41_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1424925975]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 20)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_42" type="Node3D" parent="Streets" unique_id=1919028101 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_42" type="Node3D" parent="Streets" unique_id=84077631 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 20)
 visible = false
 metadata/uw_post_import = {
@@ -1643,11 +1708,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_42_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=967868815]
+[node name="Sidewalk_Curb_42_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1931575974]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 20)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_43" type="Node3D" parent="Streets" unique_id=1783786295 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_43" type="Node3D" parent="Streets" unique_id=1520613015 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 20)
 visible = false
 metadata/uw_post_import = {
@@ -1659,11 +1725,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_43_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=23428989]
+[node name="Sidewalk_Curb_43_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=246504452]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 20)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_44" type="Node3D" parent="Streets" unique_id=1103528905 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_44" type="Node3D" parent="Streets" unique_id=2039698663 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 20)
 visible = false
 metadata/uw_post_import = {
@@ -1675,11 +1742,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_44_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1180460805]
+[node name="Sidewalk_Curb_44_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=266912252]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 20)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_45" type="Node3D" parent="Streets" unique_id=84277556 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_45" type="Node3D" parent="Streets" unique_id=1505940158 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 30)
 visible = false
 metadata/uw_post_import = {
@@ -1691,11 +1759,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_45_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=421341802]
+[node name="Sidewalk_Curb_45_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1262359149]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 30)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_46" type="Node3D" parent="Streets" unique_id=253196610 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_46" type="Node3D" parent="Streets" unique_id=1309889028 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 30)
 visible = false
 metadata/uw_post_import = {
@@ -1707,11 +1776,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_46_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1923941840]
+[node name="Sidewalk_Curb_46_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=497354042]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 30)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_47" type="Node3D" parent="Streets" unique_id=1121903049 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_47" type="Node3D" parent="Streets" unique_id=1851204444 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 30)
 visible = false
 metadata/uw_post_import = {
@@ -1723,11 +1793,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_47_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=252465466]
+[node name="Sidewalk_Curb_47_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1756366246]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 30)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_48" type="Node3D" parent="Streets" unique_id=1386942475 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_48" type="Node3D" parent="Streets" unique_id=173209343 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 30)
 visible = false
 metadata/uw_post_import = {
@@ -1739,11 +1810,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_48_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1284645182]
+[node name="Sidewalk_Curb_48_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=344716394]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 30)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_49" type="Node3D" parent="Streets" unique_id=296272859 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_49" type="Node3D" parent="Streets" unique_id=1141234815 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 40)
 visible = false
 metadata/uw_post_import = {
@@ -1755,11 +1827,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_49_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1261199974]
+[node name="Sidewalk_Curb_49_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1178707315]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 40)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_50" type="Node3D" parent="Streets" unique_id=1280541663 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_50" type="Node3D" parent="Streets" unique_id=1718008056 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 40)
 visible = false
 metadata/uw_post_import = {
@@ -1771,11 +1844,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_50_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1992453028]
+[node name="Sidewalk_Curb_50_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1140640212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 40)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_51" type="Node3D" parent="Streets" unique_id=1790592013 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_51" type="Node3D" parent="Streets" unique_id=1148936731 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 40)
 visible = false
 metadata/uw_post_import = {
@@ -1787,11 +1861,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_51_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1579943234]
+[node name="Sidewalk_Curb_51_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=2055591924]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 40)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_52" type="Node3D" parent="Streets" unique_id=1765027791 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_52" type="Node3D" parent="Streets" unique_id=867843470 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 40)
 visible = false
 metadata/uw_post_import = {
@@ -1803,11 +1878,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_52_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=773361748]
+[node name="Sidewalk_Curb_52_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1161938341]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 40)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_53" type="Node3D" parent="Streets" unique_id=947445631 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_53" type="Node3D" parent="Streets" unique_id=774453716 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 50)
 visible = false
 metadata/uw_post_import = {
@@ -1819,11 +1895,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_53_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=805095828]
+[node name="Sidewalk_Curb_53_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1831195996]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 50)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_54" type="Node3D" parent="Streets" unique_id=1901895224 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_54" type="Node3D" parent="Streets" unique_id=1967995643 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 50)
 visible = false
 metadata/uw_post_import = {
@@ -1835,11 +1912,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_54_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1811891850]
+[node name="Sidewalk_Curb_54_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=965164449]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 50)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_55" type="Node3D" parent="Streets" unique_id=598459852 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_55" type="Node3D" parent="Streets" unique_id=1252564765 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 50)
 visible = false
 metadata/uw_post_import = {
@@ -1851,11 +1929,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_55_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=762604589]
+[node name="Sidewalk_Curb_55_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1321401982]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 50)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_56" type="Node3D" parent="Streets" unique_id=1138760664 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_56" type="Node3D" parent="Streets" unique_id=1928347064 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 50)
 visible = false
 metadata/uw_post_import = {
@@ -1867,11 +1946,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_56_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1508963891]
+[node name="Sidewalk_Curb_56_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1066188968]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 50)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_57" type="Node3D" parent="Streets" unique_id=928046642 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_57" type="Node3D" parent="Streets" unique_id=1488971513 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 60)
 visible = false
 metadata/uw_post_import = {
@@ -1883,11 +1963,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_57_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=351592334]
+[node name="Sidewalk_Curb_57_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=562296112]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 60)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_58" type="Node3D" parent="Streets" unique_id=1183595691 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_58" type="Node3D" parent="Streets" unique_id=1228961970 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 60)
 visible = false
 metadata/uw_post_import = {
@@ -1899,11 +1980,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_58_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=360922255]
+[node name="Sidewalk_Curb_58_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=57941594]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 60)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_59" type="Node3D" parent="Streets" unique_id=1163048895 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_59" type="Node3D" parent="Streets" unique_id=449314680 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 60)
 visible = false
 metadata/uw_post_import = {
@@ -1915,11 +1997,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_59_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=940711260]
+[node name="Sidewalk_Curb_59_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=908511971]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 60)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_60" type="Node3D" parent="Streets" unique_id=1095305229 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_60" type="Node3D" parent="Streets" unique_id=1200803267 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 60)
 visible = false
 metadata/uw_post_import = {
@@ -1931,11 +2014,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_60_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=384144657]
+[node name="Sidewalk_Curb_60_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=863302366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 60)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_61" type="Node3D" parent="Streets" unique_id=1713193957 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_61" type="Node3D" parent="Streets" unique_id=602135799 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 70)
 visible = false
 metadata/uw_post_import = {
@@ -1947,11 +2031,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_61_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1871785863]
+[node name="Sidewalk_Curb_61_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1863112920]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 70)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_62" type="Node3D" parent="Streets" unique_id=372540232 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_62" type="Node3D" parent="Streets" unique_id=899872267 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 70)
 visible = false
 metadata/uw_post_import = {
@@ -1963,11 +2048,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_62_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=703974181]
+[node name="Sidewalk_Curb_62_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1825255653]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 70)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_63" type="Node3D" parent="Streets" unique_id=1614524363 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_63" type="Node3D" parent="Streets" unique_id=749535646 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 70)
 visible = false
 metadata/uw_post_import = {
@@ -1979,11 +2065,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_63_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=778434399]
+[node name="Sidewalk_Curb_63_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1556737135]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 70)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_64" type="Node3D" parent="Streets" unique_id=136081259 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_64" type="Node3D" parent="Streets" unique_id=1494538110 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 70)
 visible = false
 metadata/uw_post_import = {
@@ -1995,11 +2082,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_64_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1721197788]
+[node name="Sidewalk_Curb_64_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1265161377]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 70)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_65" type="Node3D" parent="Streets" unique_id=1301550024 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_65" type="Node3D" parent="Streets" unique_id=1928911121 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 80)
 visible = false
 metadata/uw_post_import = {
@@ -2011,11 +2099,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_65_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=488820441]
+[node name="Sidewalk_Curb_65_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=78623041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 80)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_66" type="Node3D" parent="Streets" unique_id=677850542 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_66" type="Node3D" parent="Streets" unique_id=689152860 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 80)
 visible = false
 metadata/uw_post_import = {
@@ -2027,11 +2116,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_66_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1530490857]
+[node name="Sidewalk_Curb_66_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=728872531]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 80)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_67" type="Node3D" parent="Streets" unique_id=619310022 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_67" type="Node3D" parent="Streets" unique_id=626710088 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 80)
 visible = false
 metadata/uw_post_import = {
@@ -2043,11 +2133,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_67_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=619133666]
+[node name="Sidewalk_Curb_67_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=2055776728]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 80)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_68" type="Node3D" parent="Streets" unique_id=1732959250 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_68" type="Node3D" parent="Streets" unique_id=840314684 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 80)
 visible = false
 metadata/uw_post_import = {
@@ -2059,77 +2150,78 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_68_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1445636390]
+[node name="Sidewalk_Curb_68_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1823861142]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 80)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Kerb_Line_-15_1" type="StaticBody3D" parent="Streets" unique_id=503747261]
+[node name="Kerb_Line_-15_1" type="StaticBody3D" parent="Streets" unique_id=820257097]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.09, 0.17, 0)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Streets/Kerb_Line_-15_1" unique_id=1315174833]
+[node name="Mesh" type="MeshInstance3D" parent="Streets/Kerb_Line_-15_1" unique_id=1752972917]
 material_override = SubResource("StandardMaterial3D_kionu")
 mesh = SubResource("BoxMesh_hntnv")
 
-[node name="Collision" type="CollisionShape3D" parent="Streets/Kerb_Line_-15_1" unique_id=1667358369]
+[node name="Collision" type="CollisionShape3D" parent="Streets/Kerb_Line_-15_1" unique_id=856861163]
 shape = SubResource("BoxShape3D_klfcr")
 
-[node name="Kerb_Line_-32_9" type="StaticBody3D" parent="Streets" unique_id=1066115070]
+[node name="Kerb_Line_-32_9" type="StaticBody3D" parent="Streets" unique_id=694725011]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.91, 0.17, 0)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Streets/Kerb_Line_-32_9" unique_id=9302405]
+[node name="Mesh" type="MeshInstance3D" parent="Streets/Kerb_Line_-32_9" unique_id=1382827347]
 material_override = SubResource("StandardMaterial3D_kionu")
 mesh = SubResource("BoxMesh_rxchn")
 
-[node name="Collision" type="CollisionShape3D" parent="Streets/Kerb_Line_-32_9" unique_id=1115939135]
+[node name="Collision" type="CollisionShape3D" parent="Streets/Kerb_Line_-32_9" unique_id=670517018]
 shape = SubResource("BoxShape3D_clxg6")
 
-[node name="Kerb_Line_+15_1" type="StaticBody3D" parent="Streets" unique_id=1207013891]
+[node name="Kerb_Line_+15_1" type="StaticBody3D" parent="Streets" unique_id=1205735026]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.09, 0.17, 0)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Streets/Kerb_Line_+15_1" unique_id=2082503262]
+[node name="Mesh" type="MeshInstance3D" parent="Streets/Kerb_Line_+15_1" unique_id=783975616]
 material_override = SubResource("StandardMaterial3D_kionu")
 mesh = SubResource("BoxMesh_wp1nx")
 
-[node name="Collision" type="CollisionShape3D" parent="Streets/Kerb_Line_+15_1" unique_id=1327842840]
+[node name="Collision" type="CollisionShape3D" parent="Streets/Kerb_Line_+15_1" unique_id=1759378114]
 shape = SubResource("BoxShape3D_fc0go")
 
-[node name="Kerb_Line_+32_9" type="StaticBody3D" parent="Streets" unique_id=217101102]
+[node name="Kerb_Line_+32_9" type="StaticBody3D" parent="Streets" unique_id=605995374]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.91, 0.17, 0)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Streets/Kerb_Line_+32_9" unique_id=161301803]
+[node name="Mesh" type="MeshInstance3D" parent="Streets/Kerb_Line_+32_9" unique_id=403922124]
 material_override = SubResource("StandardMaterial3D_kionu")
 mesh = SubResource("BoxMesh_dgws4")
 
-[node name="Collision" type="CollisionShape3D" parent="Streets/Kerb_Line_+32_9" unique_id=548127709]
+[node name="Collision" type="CollisionShape3D" parent="Streets/Kerb_Line_+32_9" unique_id=1764173459]
 shape = SubResource("BoxShape3D_wvaaw")
 
-[node name="Kerb_Line_z-82_1" type="StaticBody3D" parent="Streets" unique_id=2097756118]
+[node name="Kerb_Line_z-82_1" type="StaticBody3D" parent="Streets" unique_id=2144515093]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17, -82.09)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Streets/Kerb_Line_z-82_1" unique_id=312472222]
+[node name="Mesh" type="MeshInstance3D" parent="Streets/Kerb_Line_z-82_1" unique_id=1503247]
 material_override = SubResource("StandardMaterial3D_kionu")
 mesh = SubResource("BoxMesh_yern4")
 
-[node name="Collision" type="CollisionShape3D" parent="Streets/Kerb_Line_z-82_1" unique_id=718359386]
+[node name="Collision" type="CollisionShape3D" parent="Streets/Kerb_Line_z-82_1" unique_id=1964891375]
 shape = SubResource("BoxShape3D_h02t7")
 
-[node name="Kerb_Line_z+82_1" type="StaticBody3D" parent="Streets" unique_id=1684463401]
+[node name="Kerb_Line_z+82_1" type="StaticBody3D" parent="Streets" unique_id=2057763068]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17, 82.09)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Streets/Kerb_Line_z+82_1" unique_id=624456226]
+[node name="Mesh" type="MeshInstance3D" parent="Streets/Kerb_Line_z+82_1" unique_id=692694898]
 material_override = SubResource("StandardMaterial3D_kionu")
 mesh = SubResource("BoxMesh_qf5lh")
 
-[node name="Collision" type="CollisionShape3D" parent="Streets/Kerb_Line_z+82_1" unique_id=1087659708]
+[node name="Collision" type="CollisionShape3D" parent="Streets/Kerb_Line_z+82_1" unique_id=869742226]
 shape = SubResource("BoxShape3D_yj15w")
 
-[node name="Sidewalk_Curb_69" type="Node3D" parent="Streets" unique_id=575841128 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_69" type="Node3D" parent="Streets" unique_id=1200183138 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -33, 0, -84)
 visible = false
 metadata/uw_post_import = {
@@ -2141,11 +2233,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_69_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=653831297]
+[node name="Sidewalk_Curb_69_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1137707199]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -33, 0, -84)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_70" type="Node3D" parent="Streets" unique_id=1455414590 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_70" type="Node3D" parent="Streets" unique_id=1346864030 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -33, 0, 84)
 visible = false
 metadata/uw_post_import = {
@@ -2157,11 +2250,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_70_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=889150151]
+[node name="Sidewalk_Curb_70_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=856412790]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -33, 0, 84)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_71" type="Node3D" parent="Streets" unique_id=1852472026 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_71" type="Node3D" parent="Streets" unique_id=159769771 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -23, 0, -84)
 visible = false
 metadata/uw_post_import = {
@@ -2173,11 +2267,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_71_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=2054783939]
+[node name="Sidewalk_Curb_71_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=197460319]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -23, 0, -84)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_72" type="Node3D" parent="Streets" unique_id=1666473501 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_72" type="Node3D" parent="Streets" unique_id=1715742094 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -23, 0, 84)
 visible = false
 metadata/uw_post_import = {
@@ -2189,11 +2284,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_72_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1676358572]
+[node name="Sidewalk_Curb_72_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1972111595]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -23, 0, 84)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_73" type="Node3D" parent="Streets" unique_id=609175607 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_73" type="Node3D" parent="Streets" unique_id=350763464 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -13, 0, -84)
 visible = false
 metadata/uw_post_import = {
@@ -2205,11 +2301,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_73_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=602058142]
+[node name="Sidewalk_Curb_73_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1880572127]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -13, 0, -84)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_74" type="Node3D" parent="Streets" unique_id=1620344056 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_74" type="Node3D" parent="Streets" unique_id=1001491049 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -13, 0, 84)
 visible = false
 metadata/uw_post_import = {
@@ -2221,11 +2318,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_74_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=160737665]
+[node name="Sidewalk_Curb_74_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=43320637]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -13, 0, 84)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_75" type="Node3D" parent="Streets" unique_id=153189821 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_75" type="Node3D" parent="Streets" unique_id=639157564 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3, 0, -84)
 visible = false
 metadata/uw_post_import = {
@@ -2237,11 +2335,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_75_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1253741854]
+[node name="Sidewalk_Curb_75_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1740575420]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3, 0, -84)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_76" type="Node3D" parent="Streets" unique_id=1384020044 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_76" type="Node3D" parent="Streets" unique_id=117672409 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3, 0, 84)
 visible = false
 metadata/uw_post_import = {
@@ -2253,11 +2352,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_76_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1316284527]
+[node name="Sidewalk_Curb_76_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1233000804]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3, 0, 84)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_77" type="Node3D" parent="Streets" unique_id=387424354 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_77" type="Node3D" parent="Streets" unique_id=1120504576 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7, 0, -84)
 visible = false
 metadata/uw_post_import = {
@@ -2269,11 +2369,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_77_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=192563347]
+[node name="Sidewalk_Curb_77_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1028823421]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7, 0, -84)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_78" type="Node3D" parent="Streets" unique_id=2049538558 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_78" type="Node3D" parent="Streets" unique_id=526677724 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7, 0, 84)
 visible = false
 metadata/uw_post_import = {
@@ -2285,11 +2386,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_78_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1416256594]
+[node name="Sidewalk_Curb_78_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=403329531]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7, 0, 84)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_79" type="Node3D" parent="Streets" unique_id=1664538576 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_79" type="Node3D" parent="Streets" unique_id=273202972 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 17, 0, -84)
 visible = false
 metadata/uw_post_import = {
@@ -2301,11 +2403,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_79_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=110793530]
+[node name="Sidewalk_Curb_79_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1525334744]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 17, 0, -84)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_80" type="Node3D" parent="Streets" unique_id=368300677 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_80" type="Node3D" parent="Streets" unique_id=1680650489 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 17, 0, 84)
 visible = false
 metadata/uw_post_import = {
@@ -2317,11 +2420,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_80_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1476062637]
+[node name="Sidewalk_Curb_80_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1857114661]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 17, 0, 84)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_81" type="Node3D" parent="Streets" unique_id=1828076693 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_81" type="Node3D" parent="Streets" unique_id=839565838 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 27, 0, -84)
 visible = false
 metadata/uw_post_import = {
@@ -2333,11 +2437,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_81_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1077797743]
+[node name="Sidewalk_Curb_81_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=717473584]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 27, 0, -84)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Sidewalk_Curb_82" type="Node3D" parent="Streets" unique_id=913409603 instance=ExtResource("5_pcy2h")]
+[node name="Sidewalk_Curb_82" type="Node3D" parent="Streets" unique_id=2004534836 instance=ExtResource("5_pcy2h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 27, 0, 84)
 visible = false
 metadata/uw_post_import = {
@@ -2349,11 +2454,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Sidewalk_Curb_82_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=66256771]
+[node name="Sidewalk_Curb_82_SM_LA_Sidewalk_Curb" type="MeshInstance3D" parent="Streets" unique_id=1932811764]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 27, 0, 84)
 mesh = SubResource("ArrayMesh_6jdfj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aco1l")
 
-[node name="Road_Straight_25" type="Node3D" parent="Streets" unique_id=919297055 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_25" type="Node3D" parent="Streets" unique_id=989129793 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -28, 0, 79)
 visible = false
 metadata/uw_post_import = {
@@ -2365,11 +2471,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_25_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=906536076]
+[node name="Road_Straight_25_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=2106470814]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -28, 0, 79)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_26" type="Node3D" parent="Streets" unique_id=393244451 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_26" type="Node3D" parent="Streets" unique_id=1349787536 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -28, 0, -79)
 visible = false
 metadata/uw_post_import = {
@@ -2381,11 +2488,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_26_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=207624670]
+[node name="Road_Straight_26_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1958959120]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -28, 0, -79)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_27" type="Node3D" parent="Streets" unique_id=923947734 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_27" type="Node3D" parent="Streets" unique_id=1455782579 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -14, 0, 79)
 visible = false
 metadata/uw_post_import = {
@@ -2397,11 +2505,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_27_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=340641249]
+[node name="Road_Straight_27_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1768666071]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -14, 0, 79)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_28" type="Node3D" parent="Streets" unique_id=1446472366 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_28" type="Node3D" parent="Streets" unique_id=1172360440 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -14, 0, -79)
 visible = false
 metadata/uw_post_import = {
@@ -2413,11 +2522,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_28_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1381074868]
+[node name="Road_Straight_28_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1383878168]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -14, 0, -79)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_29" type="Node3D" parent="Streets" unique_id=506818138 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_29" type="Node3D" parent="Streets" unique_id=1313544872 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 79)
 visible = false
 metadata/uw_post_import = {
@@ -2429,11 +2539,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_29_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1093749289]
+[node name="Road_Straight_29_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=543384219]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 79)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_30" type="Node3D" parent="Streets" unique_id=848040746 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_30" type="Node3D" parent="Streets" unique_id=2034378378 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, -79)
 visible = false
 metadata/uw_post_import = {
@@ -2445,11 +2556,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_30_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=2069978101]
+[node name="Road_Straight_30_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1082514498]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, -79)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_31" type="Node3D" parent="Streets" unique_id=1062326737 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_31" type="Node3D" parent="Streets" unique_id=219628627 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 14, 0, 79)
 visible = false
 metadata/uw_post_import = {
@@ -2461,11 +2573,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_31_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1689452134]
+[node name="Road_Straight_31_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=398001494]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 14, 0, 79)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_32" type="Node3D" parent="Streets" unique_id=1991637301 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_32" type="Node3D" parent="Streets" unique_id=669558143 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 14, 0, -79)
 visible = false
 metadata/uw_post_import = {
@@ -2477,11 +2590,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_32_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=863356613]
+[node name="Road_Straight_32_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1596214579]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 14, 0, -79)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_33" type="Node3D" parent="Streets" unique_id=2076410059 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_33" type="Node3D" parent="Streets" unique_id=1672744029 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28, 0, 79)
 visible = false
 metadata/uw_post_import = {
@@ -2493,11 +2607,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_33_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=288297379]
+[node name="Road_Straight_33_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1662909369]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28, 0, 79)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_34" type="Node3D" parent="Streets" unique_id=459153654 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_34" type="Node3D" parent="Streets" unique_id=830030194 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28, 0, -79)
 visible = false
 metadata/uw_post_import = {
@@ -2509,11 +2624,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_34_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1472161244]
+[node name="Road_Straight_34_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=572333919]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28, 0, -79)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_po70p")
 
-[node name="Road_Straight_35" type="Node3D" parent="Streets" unique_id=991049077 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_35" type="Node3D" parent="Streets" unique_id=238585884 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -42, 0, -4)
 visible = false
 metadata/uw_post_import = {
@@ -2525,11 +2641,12 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_35_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1534627267]
+[node name="Road_Straight_35_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1066958998]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -42, 0, -4)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_kibt5")
 
-[node name="Road_Straight_36" type="Node3D" parent="Streets" unique_id=1787060413 instance=ExtResource("1_vpxj7")]
+[node name="Road_Straight_36" type="Node3D" parent="Streets" unique_id=799707513 instance=ExtResource("1_vpxj7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -42, 0, 4)
 visible = false
 metadata/uw_post_import = {
@@ -2541,123 +2658,124 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Road_Straight_36_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1323570635]
+[node name="Road_Straight_36_SM_LA_Road_Straight" type="MeshInstance3D" parent="Streets" unique_id=1910793692]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -42, 0, 4)
 mesh = SubResource("ArrayMesh_onkqk")
 surface_material_override/0 = SubResource("StandardMaterial3D_5kvn2")
 
-[node name="BlockBuildings" type="Node3D" parent="." unique_id=1364517033]
+[node name="BlockBuildings" type="Node3D" parent="." unique_id=1561560626]
 
-[node name="Bldg_Shop_01_Block" type="Node3D" parent="BlockBuildings" unique_id=1004657218]
+[node name="Bldg_Shop_01_Block" type="Node3D" parent="BlockBuildings" unique_id=1485945693]
 
-[node name="Bldg_Shop_01_01" type="StaticBody3D" parent="BlockBuildings/Bldg_Shop_01_Block" unique_id=261832534]
+[node name="Bldg_Shop_01_01" type="StaticBody3D" parent="BlockBuildings/Bldg_Shop_01_Block" unique_id=7083475]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -38, 0, -60)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Shop_01_Block/Bldg_Shop_01_01" unique_id=699701730]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Shop_01_Block/Bldg_Shop_01_01" unique_id=1851090602]
 material_override = SubResource("StandardMaterial3D_aygfr")
 mesh = SubResource("BoxMesh_bitn0")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Shop_01_Block/Bldg_Shop_01_01" unique_id=1466130302]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Shop_01_Block/Bldg_Shop_01_01" unique_id=674271068]
 shape = SubResource("BoxShape3D_rv0f5")
 
-[node name="Bldg_Shop_02_Block" type="Node3D" parent="BlockBuildings" unique_id=1987718907]
+[node name="Bldg_Shop_02_Block" type="Node3D" parent="BlockBuildings" unique_id=1385079760]
 
-[node name="Bldg_Shop_02_01" type="StaticBody3D" parent="BlockBuildings/Bldg_Shop_02_Block" unique_id=1703416272]
+[node name="Bldg_Shop_02_01" type="StaticBody3D" parent="BlockBuildings/Bldg_Shop_02_Block" unique_id=1872678161]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -38, 0, -38)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Shop_02_Block/Bldg_Shop_02_01" unique_id=157143198]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Shop_02_Block/Bldg_Shop_02_01" unique_id=1994611231]
 material_override = SubResource("StandardMaterial3D_gkxwk")
 mesh = SubResource("BoxMesh_7yl10")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Shop_02_Block/Bldg_Shop_02_01" unique_id=2079955451]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Shop_02_Block/Bldg_Shop_02_01" unique_id=1133454596]
 shape = SubResource("BoxShape3D_eb06a")
 
-[node name="Bldg_Shop_03_Block" type="Node3D" parent="BlockBuildings" unique_id=1115428741]
+[node name="Bldg_Shop_03_Block" type="Node3D" parent="BlockBuildings" unique_id=1850042295]
 
-[node name="Bldg_Shop_03_01" type="StaticBody3D" parent="BlockBuildings/Bldg_Shop_03_Block" unique_id=1894041528]
+[node name="Bldg_Shop_03_01" type="StaticBody3D" parent="BlockBuildings/Bldg_Shop_03_Block" unique_id=333839776]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -38, 0, 20)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Shop_03_Block/Bldg_Shop_03_01" unique_id=1598015504]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Shop_03_Block/Bldg_Shop_03_01" unique_id=128810482]
 material_override = SubResource("StandardMaterial3D_aygfr")
 mesh = SubResource("BoxMesh_uapw3")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Shop_03_Block/Bldg_Shop_03_01" unique_id=617937893]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Shop_03_Block/Bldg_Shop_03_01" unique_id=1145529657]
 shape = SubResource("BoxShape3D_bnixe")
 
-[node name="Bldg_Apartment_A_Block" type="Node3D" parent="BlockBuildings" unique_id=1257700824]
+[node name="Bldg_Apartment_A_Block" type="Node3D" parent="BlockBuildings" unique_id=362836069]
 
-[node name="Bldg_Apartment_A_01" type="StaticBody3D" parent="BlockBuildings/Bldg_Apartment_A_Block" unique_id=1372984798]
+[node name="Bldg_Apartment_A_01" type="StaticBody3D" parent="BlockBuildings/Bldg_Apartment_A_Block" unique_id=370494956]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -38, 0, 52)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Apartment_A_Block/Bldg_Apartment_A_01" unique_id=1399642002]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Apartment_A_Block/Bldg_Apartment_A_01" unique_id=677153467]
 material_override = SubResource("StandardMaterial3D_gaolx")
 mesh = SubResource("BoxMesh_ymlwy")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Apartment_A_Block/Bldg_Apartment_A_01" unique_id=656736437]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Apartment_A_Block/Bldg_Apartment_A_01" unique_id=1250999628]
 shape = SubResource("BoxShape3D_5tqbe")
 
-[node name="Bldg_Industrial_01_Block" type="Node3D" parent="BlockBuildings" unique_id=1210576082]
+[node name="Bldg_Industrial_01_Block" type="Node3D" parent="BlockBuildings" unique_id=2101443207]
 
-[node name="Bldg_Industrial_01_01" type="StaticBody3D" parent="BlockBuildings/Bldg_Industrial_01_Block" unique_id=53560797]
+[node name="Bldg_Industrial_01_01" type="StaticBody3D" parent="BlockBuildings/Bldg_Industrial_01_Block" unique_id=1244413217]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 38, 0, -50)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Industrial_01_Block/Bldg_Industrial_01_01" unique_id=138055602]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Industrial_01_Block/Bldg_Industrial_01_01" unique_id=526887940]
 material_override = SubResource("StandardMaterial3D_jd5gc")
 mesh = SubResource("BoxMesh_qhvjt")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Industrial_01_Block/Bldg_Industrial_01_01" unique_id=1345129688]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Industrial_01_Block/Bldg_Industrial_01_01" unique_id=1091253473]
 shape = SubResource("BoxShape3D_2yjdy")
 
-[node name="Bldg_Warehouse_Block" type="Node3D" parent="BlockBuildings" unique_id=224168035]
+[node name="Bldg_Warehouse_Block" type="Node3D" parent="BlockBuildings" unique_id=1457731825]
 
-[node name="Bldg_Warehouse_01" type="StaticBody3D" parent="BlockBuildings/Bldg_Warehouse_Block" unique_id=1181165370]
+[node name="Bldg_Warehouse_01" type="StaticBody3D" parent="BlockBuildings/Bldg_Warehouse_Block" unique_id=1161521157]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 38, 0, 78)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Warehouse_Block/Bldg_Warehouse_01" unique_id=1114234896]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Warehouse_Block/Bldg_Warehouse_01" unique_id=1691667194]
 material_override = SubResource("StandardMaterial3D_jd5gc")
 mesh = SubResource("BoxMesh_dbvmq")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Warehouse_Block/Bldg_Warehouse_01" unique_id=2146989265]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Warehouse_Block/Bldg_Warehouse_01" unique_id=1958617927]
 shape = SubResource("BoxShape3D_nnxfn")
 
-[node name="Bldg_Apartment_A_Upper" type="StaticBody3D" parent="BlockBuildings" unique_id=1589055145]
+[node name="Bldg_Apartment_A_Upper" type="StaticBody3D" parent="BlockBuildings" unique_id=1805711163]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 10.2, 52)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Apartment_A_Upper" unique_id=983898616]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Apartment_A_Upper" unique_id=2037657525]
 material_override = SubResource("StandardMaterial3D_gaolx")
 mesh = SubResource("BoxMesh_mp0mg")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Apartment_A_Upper" unique_id=1088750460]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Apartment_A_Upper" unique_id=1592997698]
 shape = SubResource("BoxShape3D_86uix")
 
-[node name="Bldg_Shop_04_Block" type="Node3D" parent="BlockBuildings" unique_id=626217020]
+[node name="Bldg_Shop_04_Block" type="Node3D" parent="BlockBuildings" unique_id=1010611043]
 
-[node name="Bldg_Shop_04_01" type="StaticBody3D" parent="BlockBuildings/Bldg_Shop_04_Block" unique_id=2071696597]
+[node name="Bldg_Shop_04_01" type="StaticBody3D" parent="BlockBuildings/Bldg_Shop_04_Block" unique_id=1186451352]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -90)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Shop_04_Block/Bldg_Shop_04_01" unique_id=1855212150]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Bldg_Shop_04_Block/Bldg_Shop_04_01" unique_id=423762789]
 material_override = SubResource("StandardMaterial3D_gkxwk")
 mesh = SubResource("BoxMesh_r8ma2")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Shop_04_Block/Bldg_Shop_04_01" unique_id=1103748210]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Bldg_Shop_04_Block/Bldg_Shop_04_01" unique_id=412929618]
 shape = SubResource("BoxShape3D_iqeu1")
 
-[node name="Warehouse_Door" type="StaticBody3D" parent="BlockBuildings" unique_id=813947129]
+[node name="Warehouse_Door" type="StaticBody3D" parent="BlockBuildings" unique_id=1509631836]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.85, 2.1, 78)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Warehouse_Door" unique_id=441153873]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Warehouse_Door" unique_id=1150712556]
 material_override = SubResource("StandardMaterial3D_oyovn")
 mesh = SubResource("BoxMesh_6lr8u")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Warehouse_Door" unique_id=339329584]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Warehouse_Door" unique_id=1102631179]
 shape = SubResource("BoxShape3D_oby8d")
 
 [node name="Bldg_GarageM01" type="Node3D" parent="BlockBuildings" unique_id=630154756 instance=ExtResource("9_vk0x2")]
@@ -2671,194 +2789,194 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Garage_Floor" type="StaticBody3D" parent="BlockBuildings" unique_id=1713791684]
+[node name="Garage_Floor" type="StaticBody3D" parent="BlockBuildings" unique_id=1703140611]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, -0.1, 6)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Floor" unique_id=1671451845]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Floor" unique_id=1559408537]
 material_override = SubResource("StandardMaterial3D_cqt1a")
 mesh = SubResource("BoxMesh_8cmfu")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Floor" unique_id=2122477389]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Floor" unique_id=499201290]
 shape = SubResource("BoxShape3D_4rnm4")
 
-[node name="Garage_Wall_N" type="StaticBody3D" parent="BlockBuildings" unique_id=451772590]
+[node name="Garage_Wall_N" type="StaticBody3D" parent="BlockBuildings" unique_id=2108790837]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 2.3, 10)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_N" unique_id=789507319]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_N" unique_id=471660168]
 material_override = SubResource("StandardMaterial3D_cqt1a")
 mesh = SubResource("BoxMesh_htrpx")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_N" unique_id=1922087585]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_N" unique_id=103417065]
 shape = SubResource("BoxShape3D_vu4nj")
 
-[node name="Garage_Wall_S" type="StaticBody3D" parent="BlockBuildings" unique_id=905998920]
+[node name="Garage_Wall_S" type="StaticBody3D" parent="BlockBuildings" unique_id=102459654]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 2.3, 2)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_S" unique_id=852258054]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_S" unique_id=328485707]
 material_override = SubResource("StandardMaterial3D_cqt1a")
 mesh = SubResource("BoxMesh_6xu21")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_S" unique_id=1565588280]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_S" unique_id=994787576]
 shape = SubResource("BoxShape3D_asm4w")
 
-[node name="Garage_Wall_E" type="StaticBody3D" parent="BlockBuildings" unique_id=1720040748]
+[node name="Garage_Wall_E" type="StaticBody3D" parent="BlockBuildings" unique_id=858863101]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 2.3, 6)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_E" unique_id=1654992903]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_E" unique_id=1542941699]
 material_override = SubResource("StandardMaterial3D_cqt1a")
 mesh = SubResource("BoxMesh_daqkl")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_E" unique_id=519935621]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_E" unique_id=1191320303]
 shape = SubResource("BoxShape3D_gv58k")
 
-[node name="Garage_Wall_W_N" type="StaticBody3D" parent="BlockBuildings" unique_id=51226362]
+[node name="Garage_Wall_W_N" type="StaticBody3D" parent="BlockBuildings" unique_id=1326902340]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 2.3, 8.75)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_W_N" unique_id=1297559651]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_W_N" unique_id=1180136462]
 material_override = SubResource("StandardMaterial3D_cqt1a")
 mesh = SubResource("BoxMesh_mtaq8")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_W_N" unique_id=1762633242]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_W_N" unique_id=1961468341]
 shape = SubResource("BoxShape3D_eib7i")
 
-[node name="Garage_Wall_W_S" type="StaticBody3D" parent="BlockBuildings" unique_id=2016673062]
+[node name="Garage_Wall_W_S" type="StaticBody3D" parent="BlockBuildings" unique_id=255475847]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 2.3, 3.25)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_W_S" unique_id=1961423217]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_W_S" unique_id=1889263112]
 material_override = SubResource("StandardMaterial3D_cqt1a")
 mesh = SubResource("BoxMesh_y4nu1")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_W_S" unique_id=874715515]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_W_S" unique_id=1076154386]
 shape = SubResource("BoxShape3D_go527")
 
-[node name="Garage_Wall_W_Lintel" type="StaticBody3D" parent="BlockBuildings" unique_id=180747184]
+[node name="Garage_Wall_W_Lintel" type="StaticBody3D" parent="BlockBuildings" unique_id=1097946076]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 3.8, 6)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_W_Lintel" unique_id=727883158]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_W_Lintel" unique_id=352150147]
 material_override = SubResource("StandardMaterial3D_cqt1a")
 mesh = SubResource("BoxMesh_1is5h")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_W_Lintel" unique_id=652155429]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_W_Lintel" unique_id=2102882257]
 shape = SubResource("BoxShape3D_x01uo")
 
-[node name="Garage_Wall_N_W" type="StaticBody3D" parent="BlockBuildings" unique_id=1424903794]
+[node name="Garage_Wall_N_W" type="StaticBody3D" parent="BlockBuildings" unique_id=1680540038]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 2.3, 10)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_N_W" unique_id=233319959]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_N_W" unique_id=327412927]
 material_override = SubResource("StandardMaterial3D_cqt1a")
 mesh = SubResource("BoxMesh_nqdix")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_N_W" unique_id=1943616092]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_N_W" unique_id=441757945]
 shape = SubResource("BoxShape3D_oy7s2")
 
-[node name="Garage_Wall_N_E" type="StaticBody3D" parent="BlockBuildings" unique_id=357703766]
+[node name="Garage_Wall_N_E" type="StaticBody3D" parent="BlockBuildings" unique_id=888626181]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.5, 2.3, 10)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_N_E" unique_id=550581924]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_N_E" unique_id=1351183242]
 material_override = SubResource("StandardMaterial3D_cqt1a")
 mesh = SubResource("BoxMesh_oj55o")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_N_E" unique_id=2022430349]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_N_E" unique_id=1817868292]
 shape = SubResource("BoxShape3D_6ytp7")
 
-[node name="Garage_Wall_N_Lintel" type="StaticBody3D" parent="BlockBuildings" unique_id=82634541]
+[node name="Garage_Wall_N_Lintel" type="StaticBody3D" parent="BlockBuildings" unique_id=190118692]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 3.4, 10)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_N_Lintel" unique_id=270892127]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Wall_N_Lintel" unique_id=203605523]
 material_override = SubResource("StandardMaterial3D_cqt1a")
 mesh = SubResource("BoxMesh_uksex")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_N_Lintel" unique_id=1063742647]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Wall_N_Lintel" unique_id=1284646041]
 shape = SubResource("BoxShape3D_6o0yb")
 
-[node name="Garage_Bench" type="StaticBody3D" parent="BlockBuildings" unique_id=1800719977]
+[node name="Garage_Bench" type="StaticBody3D" parent="BlockBuildings" unique_id=2142255375]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.5, 0.48, 8.5)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Bench" unique_id=429318410]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Bench" unique_id=242020706]
 material_override = SubResource("StandardMaterial3D_jneqb")
 mesh = SubResource("BoxMesh_gw8t7")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Bench" unique_id=1064261199]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Bench" unique_id=975948334]
 shape = SubResource("BoxShape3D_dor4m")
 
-[node name="Garage_WreckCar" type="StaticBody3D" parent="BlockBuildings" unique_id=80362372]
+[node name="Garage_WreckCar" type="StaticBody3D" parent="BlockBuildings" unique_id=541260196]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0.55, 4)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_WreckCar" unique_id=2048615293]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_WreckCar" unique_id=2075202540]
 material_override = SubResource("StandardMaterial3D_rwi3r")
 mesh = SubResource("BoxMesh_r1oyp")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_WreckCar" unique_id=794814090]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_WreckCar" unique_id=117853968]
 shape = SubResource("BoxShape3D_b8dn2")
 
-[node name="Garage_Crate_A" type="StaticBody3D" parent="BlockBuildings" unique_id=1206206264]
+[node name="Garage_Crate_A" type="StaticBody3D" parent="BlockBuildings" unique_id=331940837]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, 0.6, 5)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Crate_A" unique_id=1540711653]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Crate_A" unique_id=1503419746]
 material_override = SubResource("StandardMaterial3D_ef61p")
 mesh = SubResource("BoxMesh_oduas")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Crate_A" unique_id=1528088394]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Crate_A" unique_id=2131976898]
 shape = SubResource("BoxShape3D_ed2bl")
 
-[node name="Garage_Crate_B" type="StaticBody3D" parent="BlockBuildings" unique_id=1407223948]
+[node name="Garage_Crate_B" type="StaticBody3D" parent="BlockBuildings" unique_id=771174931]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, 1.7, 5)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Crate_B" unique_id=1570118004]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Crate_B" unique_id=666647388]
 material_override = SubResource("StandardMaterial3D_j208u")
 mesh = SubResource("BoxMesh_l85mo")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Crate_B" unique_id=1292354538]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Crate_B" unique_id=1772607041]
 shape = SubResource("BoxShape3D_04bfc")
 
-[node name="Garage_Pillar_N" type="StaticBody3D" parent="BlockBuildings" unique_id=203583462]
+[node name="Garage_Pillar_N" type="StaticBody3D" parent="BlockBuildings" unique_id=1895534135]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 2.3, 9.5)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Pillar_N" unique_id=1397454095]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Pillar_N" unique_id=2065628290]
 material_override = SubResource("StandardMaterial3D_cqt1a")
 mesh = SubResource("BoxMesh_66xjr")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Pillar_N" unique_id=1351586417]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Pillar_N" unique_id=1046332114]
 shape = SubResource("BoxShape3D_5buaj")
 
-[node name="Garage_Pillar_S" type="StaticBody3D" parent="BlockBuildings" unique_id=453913283]
+[node name="Garage_Pillar_S" type="StaticBody3D" parent="BlockBuildings" unique_id=2123137921]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 2.3, 4.5)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Pillar_S" unique_id=2054557048]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Garage_Pillar_S" unique_id=1432378857]
 material_override = SubResource("StandardMaterial3D_cqt1a")
 mesh = SubResource("BoxMesh_2764j")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Pillar_S" unique_id=713431781]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Garage_Pillar_S" unique_id=416980518]
 shape = SubResource("BoxShape3D_tgi0e")
 
-[node name="Forecourt_Dumpster" type="StaticBody3D" parent="BlockBuildings" unique_id=915471210]
+[node name="Forecourt_Dumpster" type="StaticBody3D" parent="BlockBuildings" unique_id=548956740]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0.65, -2)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Forecourt_Dumpster" unique_id=808222060]
+[node name="Mesh" type="MeshInstance3D" parent="BlockBuildings/Forecourt_Dumpster" unique_id=1481504117]
 material_override = SubResource("StandardMaterial3D_1rnv5")
 mesh = SubResource("BoxMesh_uil1b")
 
-[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Forecourt_Dumpster" unique_id=738056523]
+[node name="Collision" type="CollisionShape3D" parent="BlockBuildings/Forecourt_Dumpster" unique_id=267356187]
 shape = SubResource("BoxShape3D_8gfgp")
 
-[node name="Props" type="Node3D" parent="." unique_id=159381124]
+[node name="Props" type="Node3D" parent="." unique_id=1175946794]
 
 [node name="Streetlight_01" type="Node3D" parent="Props" unique_id=1020120338 instance=ExtResource("10_q5dld")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -29.8, 0.16, -70)
@@ -2882,7 +3000,7 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Streetlight_02" type="Node3D" parent="Props" unique_id=1571142191 instance=ExtResource("10_q5dld")]
+[node name="Streetlight_02" type="Node3D" parent="Props" unique_id=313168333 instance=ExtResource("10_q5dld")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -29.8, 0.16, -50)
 metadata/uw_post_import = {
 "lod_nodes": 3,
@@ -2893,7 +3011,7 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="PalmTree_02" type="Node3D" parent="Props" unique_id=4028956 instance=ExtResource("11_q7jnv")]
+[node name="PalmTree_02" type="Node3D" parent="Props" unique_id=1874104535 instance=ExtResource("11_q7jnv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.16, -40)
 metadata/uw_post_import = {
 "lod_nodes": 3,
@@ -2904,7 +3022,7 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Streetlight_03" type="Node3D" parent="Props" unique_id=1663842712 instance=ExtResource("10_q5dld")]
+[node name="Streetlight_03" type="Node3D" parent="Props" unique_id=1291445751 instance=ExtResource("10_q5dld")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -29.8, 0.16, -30)
 metadata/uw_post_import = {
 "lod_nodes": 3,
@@ -2915,7 +3033,7 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="PalmTree_03" type="Node3D" parent="Props" unique_id=831735057 instance=ExtResource("11_q7jnv")]
+[node name="PalmTree_03" type="Node3D" parent="Props" unique_id=863693121 instance=ExtResource("11_q7jnv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.16, -20)
 metadata/uw_post_import = {
 "lod_nodes": 3,
@@ -2926,7 +3044,7 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Streetlight_04" type="Node3D" parent="Props" unique_id=1102005468 instance=ExtResource("10_q5dld")]
+[node name="Streetlight_04" type="Node3D" parent="Props" unique_id=627049727 instance=ExtResource("10_q5dld")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -29.8, 0.16, -10)
 metadata/uw_post_import = {
 "lod_nodes": 3,
@@ -2937,7 +3055,7 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="PalmTree_04" type="Node3D" parent="Props" unique_id=1499879483 instance=ExtResource("11_q7jnv")]
+[node name="PalmTree_04" type="Node3D" parent="Props" unique_id=659923390 instance=ExtResource("11_q7jnv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.16, 0)
 metadata/uw_post_import = {
 "lod_nodes": 3,
@@ -2948,7 +3066,7 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Streetlight_05" type="Node3D" parent="Props" unique_id=1144460802 instance=ExtResource("10_q5dld")]
+[node name="Streetlight_05" type="Node3D" parent="Props" unique_id=1123024957 instance=ExtResource("10_q5dld")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -29.8, 0.16, 10)
 metadata/uw_post_import = {
 "lod_nodes": 3,
@@ -2959,7 +3077,7 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="PalmTree_05" type="Node3D" parent="Props" unique_id=929105646 instance=ExtResource("11_q7jnv")]
+[node name="PalmTree_05" type="Node3D" parent="Props" unique_id=1234183724 instance=ExtResource("11_q7jnv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.16, 20)
 metadata/uw_post_import = {
 "lod_nodes": 3,
@@ -2970,7 +3088,7 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Streetlight_06" type="Node3D" parent="Props" unique_id=702074498 instance=ExtResource("10_q5dld")]
+[node name="Streetlight_06" type="Node3D" parent="Props" unique_id=896782431 instance=ExtResource("10_q5dld")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -29.8, 0.16, 30)
 metadata/uw_post_import = {
 "lod_nodes": 3,
@@ -2981,7 +3099,7 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="PalmTree_06" type="Node3D" parent="Props" unique_id=1036085248 instance=ExtResource("11_q7jnv")]
+[node name="PalmTree_06" type="Node3D" parent="Props" unique_id=454907005 instance=ExtResource("11_q7jnv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.16, 40)
 metadata/uw_post_import = {
 "lod_nodes": 3,
@@ -2992,7 +3110,7 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Streetlight_07" type="Node3D" parent="Props" unique_id=1778688305 instance=ExtResource("10_q5dld")]
+[node name="Streetlight_07" type="Node3D" parent="Props" unique_id=1120190488 instance=ExtResource("10_q5dld")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -29.8, 0.16, 50)
 metadata/uw_post_import = {
 "lod_nodes": 3,
@@ -3003,7 +3121,7 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="PalmTree_07" type="Node3D" parent="Props" unique_id=1186396329 instance=ExtResource("11_q7jnv")]
+[node name="PalmTree_07" type="Node3D" parent="Props" unique_id=919909244 instance=ExtResource("11_q7jnv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.16, 60)
 metadata/uw_post_import = {
 "lod_nodes": 3,
@@ -3014,7 +3132,7 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Streetlight_08" type="Node3D" parent="Props" unique_id=1950733411 instance=ExtResource("10_q5dld")]
+[node name="Streetlight_08" type="Node3D" parent="Props" unique_id=1760733838 instance=ExtResource("10_q5dld")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -29.8, 0.16, 70)
 metadata/uw_post_import = {
 "lod_nodes": 3,
@@ -3025,7 +3143,7 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="PalmTree_08" type="Node3D" parent="Props" unique_id=932181954 instance=ExtResource("11_q7jnv")]
+[node name="PalmTree_08" type="Node3D" parent="Props" unique_id=681305421 instance=ExtResource("11_q7jnv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.16, 80)
 metadata/uw_post_import = {
 "lod_nodes": 3,
@@ -3036,171 +3154,171 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Prop_ParkedCar" type="StaticBody3D" parent="Props" unique_id=1653939562]
+[node name="Prop_ParkedCar" type="StaticBody3D" parent="Props" unique_id=20716296]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9, 0.77000004, -30)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_ParkedCar" unique_id=1209233265]
+[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_ParkedCar" unique_id=936823478]
 material_override = SubResource("StandardMaterial3D_1da6k")
 mesh = SubResource("BoxMesh_3n50x")
 
-[node name="Collision" type="CollisionShape3D" parent="Props/Prop_ParkedCar" unique_id=781163207]
+[node name="Collision" type="CollisionShape3D" parent="Props/Prop_ParkedCar" unique_id=420994768]
 shape = SubResource("BoxShape3D_y2akd")
 
-[node name="Prop" type="StaticBody3D" parent="Props" unique_id=1168715950]
+[node name="Prop" type="StaticBody3D" parent="Props" unique_id=1802723214]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9, 0.77000004, 34)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Props/Prop" unique_id=235257576]
+[node name="Mesh" type="MeshInstance3D" parent="Props/Prop" unique_id=619907518]
 material_override = SubResource("StandardMaterial3D_xt7m4")
 mesh = SubResource("BoxMesh_6glpd")
 
-[node name="Collision" type="CollisionShape3D" parent="Props/Prop" unique_id=579332763]
+[node name="Collision" type="CollisionShape3D" parent="Props/Prop" unique_id=226600947]
 shape = SubResource("BoxShape3D_2vb4y")
 
-[node name="Prop2" type="StaticBody3D" parent="Props" unique_id=1741865970]
+[node name="Prop2" type="StaticBody3D" parent="Props" unique_id=1610226315]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 19, 0.77000004, -22)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Props/Prop2" unique_id=1425430948]
+[node name="Mesh" type="MeshInstance3D" parent="Props/Prop2" unique_id=1810399129]
 material_override = SubResource("StandardMaterial3D_rty8x")
 mesh = SubResource("BoxMesh_as4n2")
 
-[node name="Collision" type="CollisionShape3D" parent="Props/Prop2" unique_id=394292647]
+[node name="Collision" type="CollisionShape3D" parent="Props/Prop2" unique_id=130272427]
 shape = SubResource("BoxShape3D_rtgug")
 
-[node name="Prop_TrafficLight" type="StaticBody3D" parent="Props" unique_id=1681694581]
+[node name="Prop_TrafficLight" type="StaticBody3D" parent="Props" unique_id=1022733518]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 2.8, 70)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_TrafficLight" unique_id=808490556]
+[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_TrafficLight" unique_id=2071745394]
 material_override = SubResource("StandardMaterial3D_4m2qo")
 mesh = SubResource("BoxMesh_gesr7")
 
-[node name="Collision" type="CollisionShape3D" parent="Props/Prop_TrafficLight" unique_id=151662503]
+[node name="Collision" type="CollisionShape3D" parent="Props/Prop_TrafficLight" unique_id=1828836483]
 shape = SubResource("BoxShape3D_ke1dm")
 
-[node name="Prop_CrosswalkStripe_0" type="StaticBody3D" parent="Props" unique_id=165548730]
+[node name="Prop_CrosswalkStripe_0" type="StaticBody3D" parent="Props" unique_id=1224226071]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.6, 0.05, 68)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_CrosswalkStripe_0" unique_id=1430718844]
+[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_CrosswalkStripe_0" unique_id=1579006558]
 material_override = SubResource("StandardMaterial3D_7wxse")
 mesh = SubResource("BoxMesh_4dc8j")
 
-[node name="Collision" type="CollisionShape3D" parent="Props/Prop_CrosswalkStripe_0" unique_id=415148946]
+[node name="Collision" type="CollisionShape3D" parent="Props/Prop_CrosswalkStripe_0" unique_id=76058725]
 shape = SubResource("BoxShape3D_fi5ml")
 
-[node name="Prop_CrosswalkStripe_1" type="StaticBody3D" parent="Props" unique_id=1649726641]
+[node name="Prop_CrosswalkStripe_1" type="StaticBody3D" parent="Props" unique_id=635862320]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.2, 0.05, 68)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_CrosswalkStripe_1" unique_id=774577215]
+[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_CrosswalkStripe_1" unique_id=626249818]
 material_override = SubResource("StandardMaterial3D_dbayu")
 mesh = SubResource("BoxMesh_qikp6")
 
-[node name="Collision" type="CollisionShape3D" parent="Props/Prop_CrosswalkStripe_1" unique_id=1758191281]
+[node name="Collision" type="CollisionShape3D" parent="Props/Prop_CrosswalkStripe_1" unique_id=2064925372]
 shape = SubResource("BoxShape3D_pd4x7")
 
-[node name="Prop_CrosswalkStripe_2" type="StaticBody3D" parent="Props" unique_id=133608255]
+[node name="Prop_CrosswalkStripe_2" type="StaticBody3D" parent="Props" unique_id=705394541]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.8, 0.05, 68)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_CrosswalkStripe_2" unique_id=1550982067]
+[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_CrosswalkStripe_2" unique_id=1345553099]
 material_override = SubResource("StandardMaterial3D_ow2yp")
 mesh = SubResource("BoxMesh_u6uxj")
 
-[node name="Collision" type="CollisionShape3D" parent="Props/Prop_CrosswalkStripe_2" unique_id=1031168791]
+[node name="Collision" type="CollisionShape3D" parent="Props/Prop_CrosswalkStripe_2" unique_id=1153966439]
 shape = SubResource("BoxShape3D_wpo1k")
 
-[node name="Prop_CrosswalkStripe_3" type="StaticBody3D" parent="Props" unique_id=1895509127]
+[node name="Prop_CrosswalkStripe_3" type="StaticBody3D" parent="Props" unique_id=2037422468]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.4, 0.05, 68)
 collision_mask = 0
 
-[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_CrosswalkStripe_3" unique_id=350460367]
+[node name="Mesh" type="MeshInstance3D" parent="Props/Prop_CrosswalkStripe_3" unique_id=1245119545]
 material_override = SubResource("StandardMaterial3D_1w8bc")
 mesh = SubResource("BoxMesh_g8d33")
 
-[node name="Collision" type="CollisionShape3D" parent="Props/Prop_CrosswalkStripe_3" unique_id=1490255169]
+[node name="Collision" type="CollisionShape3D" parent="Props/Prop_CrosswalkStripe_3" unique_id=1720712843]
 shape = SubResource("BoxShape3D_fdybu")
 
-[node name="Lighting" type="Node3D" parent="." unique_id=777787679]
+[node name="Lighting" type="Node3D" parent="." unique_id=300197053]
 
-[node name="Sun" type="DirectionalLight3D" parent="Lighting" unique_id=1614880581]
+[node name="Sun" type="DirectionalLight3D" parent="Lighting" unique_id=831025321]
 transform = Transform3D(-0.34202006, 0.1953731, -0.91915816, 0, 0.9781476, 0.2079117, 0.9396927, 0.07110997, -0.33454612, 0, 0, 0)
 light_color = Color(1, 0.86, 0.66, 1)
 light_energy = 1.35
 shadow_enabled = true
 directional_shadow_max_distance = 120.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Lighting" unique_id=1113997850]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Lighting" unique_id=1233651618]
 environment = SubResource("Environment_jepqm")
 
-[node name="GarageLamp_0" type="OmniLight3D" parent="Lighting" unique_id=2145000288]
+[node name="GarageLamp_0" type="OmniLight3D" parent="Lighting" unique_id=100365960]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.8, 4.1, 4)
 light_color = Color(1, 0.72, 0.36, 1)
 light_energy = 2.6
 omni_range = 11.0
 
-[node name="GarageLamp_1" type="OmniLight3D" parent="Lighting" unique_id=1816075375]
+[node name="GarageLamp_1" type="OmniLight3D" parent="Lighting" unique_id=302924959]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.2, 4.1, 8)
 light_color = Color(1, 0.72, 0.36, 1)
 light_energy = 2.6
 omni_range = 11.0
 
-[node name="StreetLamp_E_-70" type="OmniLight3D" parent="Lighting" unique_id=187385557]
+[node name="StreetLamp_E_-70" type="OmniLight3D" parent="Lighting" unique_id=838577758]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 5.2, -70)
 light_color = Color(1, 0.86, 0.62, 1)
 light_energy = 1.6
 omni_range = 14.0
 
-[node name="StreetLamp_E_+0" type="OmniLight3D" parent="Lighting" unique_id=1294443770]
+[node name="StreetLamp_E_+0" type="OmniLight3D" parent="Lighting" unique_id=1365137204]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 5.2, 0)
 light_color = Color(1, 0.86, 0.62, 1)
 light_energy = 1.6
 omni_range = 14.0
 
-[node name="StreetLamp_E_+70" type="OmniLight3D" parent="Lighting" unique_id=957353370]
+[node name="StreetLamp_E_+70" type="OmniLight3D" parent="Lighting" unique_id=695129972]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 5.2, 70)
 light_color = Color(1, 0.86, 0.62, 1)
 light_energy = 1.6
 omni_range = 14.0
 
-[node name="NavRegion_Block" type="NavigationRegion3D" parent="." unique_id=1951445992]
+[node name="NavRegion_Block" type="NavigationRegion3D" parent="." unique_id=1655503282]
 navigation_mesh = SubResource("NavigationMesh_tsgfh")
 
-[node name="AI" type="Node3D" parent="." unique_id=1537918174]
+[node name="AI" type="Node3D" parent="." unique_id=1198046442]
 
-[node name="Spawn_Wave1_A" type="Marker3D" parent="AI" unique_id=1501288316]
+[node name="Spawn_Wave1_A" type="Marker3D" parent="AI" unique_id=2054841409]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0.16, 4)
 
-[node name="Spawn_Wave1_B" type="Marker3D" parent="AI" unique_id=1830260254]
+[node name="Spawn_Wave1_B" type="Marker3D" parent="AI" unique_id=850125951]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.5, 0.16, 3)
 
-[node name="Spawn_Wave1_C" type="Marker3D" parent="AI" unique_id=1706826167]
+[node name="Spawn_Wave1_C" type="Marker3D" parent="AI" unique_id=880165087]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0.16, 7.5)
 
-[node name="Spawn_Wave2_Van" type="Marker3D" parent="AI" unique_id=1176082184]
+[node name="Spawn_Wave2_Van" type="Marker3D" parent="AI" unique_id=404112181]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0.16, -8)
 
-[node name="Spawn_Wave2_Roof" type="Marker3D" parent="AI" unique_id=1974769670]
+[node name="Spawn_Wave2_Roof" type="Marker3D" parent="AI" unique_id=1162781846]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 4.9, 2)
 
-[node name="Routes" type="Node3D" parent="AI" unique_id=682103157]
+[node name="Routes" type="Node3D" parent="AI" unique_id=494362903]
 
-[node name="Route_WestSidewalk" type="Node3D" parent="AI/Routes" unique_id=1395530498]
+[node name="Route_WestSidewalk" type="Node3D" parent="AI/Routes" unique_id=1485515426]
 script = ExtResource("12_qijjk")
 
-[node name="P0" type="Marker3D" parent="AI/Routes/Route_WestSidewalk" unique_id=1241270858]
+[node name="P0" type="Marker3D" parent="AI/Routes/Route_WestSidewalk" unique_id=410140912]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0.16, -60)
 
-[node name="P1" type="Marker3D" parent="AI/Routes/Route_WestSidewalk" unique_id=512826005]
+[node name="P1" type="Marker3D" parent="AI/Routes/Route_WestSidewalk" unique_id=171830216]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0.16, -20)
 
-[node name="P2" type="Marker3D" parent="AI/Routes/Route_WestSidewalk" unique_id=1349182203]
+[node name="P2" type="Marker3D" parent="AI/Routes/Route_WestSidewalk" unique_id=265138425]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0.16, 20)
 
-[node name="P3" type="Marker3D" parent="AI/Routes/Route_WestSidewalk" unique_id=354396487]
+[node name="P3" type="Marker3D" parent="AI/Routes/Route_WestSidewalk" unique_id=983179403]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0.16, 60)
 
 [node name="Civilian_1" type="CharacterBody3D" parent="AI" unique_id=186352765 instance=ExtResource("13_62ihu")]
@@ -3212,7 +3330,7 @@ script = ExtResource("14_176gi")
 profile = ExtResource("15_xothl")
 route_path = NodePath("../Routes/Route_WestSidewalk")
 
-[node name="Civilian_2" type="CharacterBody3D" parent="AI" unique_id=1061983820 instance=ExtResource("13_62ihu")]
+[node name="Civilian_2" type="CharacterBody3D" parent="AI" unique_id=1340739090 instance=ExtResource("13_62ihu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.4, 0.16, -20)
 collision_layer = 4
 collision_mask = 15
@@ -3222,7 +3340,7 @@ profile = ExtResource("15_xothl")
 route_path = NodePath("../Routes/Route_WestSidewalk")
 route_start_index = 1
 
-[node name="Civilian_3" type="CharacterBody3D" parent="AI" unique_id=303742209 instance=ExtResource("13_62ihu")]
+[node name="Civilian_3" type="CharacterBody3D" parent="AI" unique_id=2109691684 instance=ExtResource("13_62ihu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.4, 0.16, 20)
 collision_layer = 4
 collision_mask = 15
@@ -3242,7 +3360,7 @@ script = ExtResource("17_8pni4")
 active = false
 profile = ExtResource("18_031bu")
 
-[node name="Enemy_Wave1_2" type="CharacterBody3D" parent="AI" unique_id=1077579176 groups=["mission_enemies", "wave1"] instance=ExtResource("16_62p13")]
+[node name="Enemy_Wave1_2" type="CharacterBody3D" parent="AI" unique_id=2123966982 groups=["mission_enemies", "wave1"] instance=ExtResource("16_62p13")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.5, 0.16, 3)
 visible = false
 collision_layer = 0
@@ -3252,7 +3370,7 @@ script = ExtResource("17_8pni4")
 active = false
 profile = ExtResource("18_031bu")
 
-[node name="Enemy_Wave1_3" type="CharacterBody3D" parent="AI" unique_id=1033704308 groups=["mission_enemies", "wave1"] instance=ExtResource("16_62p13")]
+[node name="Enemy_Wave1_3" type="CharacterBody3D" parent="AI" unique_id=1292489539 groups=["mission_enemies", "wave1"] instance=ExtResource("16_62p13")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0.16, 7.5)
 visible = false
 collision_layer = 0
@@ -3262,7 +3380,7 @@ script = ExtResource("17_8pni4")
 active = false
 profile = ExtResource("18_031bu")
 
-[node name="Enemy_Wave2_1" type="CharacterBody3D" parent="AI" unique_id=1103832083 groups=["mission_enemies", "wave2"] instance=ExtResource("16_62p13")]
+[node name="Enemy_Wave2_1" type="CharacterBody3D" parent="AI" unique_id=531263202 groups=["mission_enemies", "wave2"] instance=ExtResource("16_62p13")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0.16, -8)
 visible = false
 collision_layer = 0
@@ -3273,7 +3391,7 @@ wave = 2
 active = false
 profile = ExtResource("18_031bu")
 
-[node name="Enemy_Wave2_2" type="CharacterBody3D" parent="AI" unique_id=1656976001 groups=["mission_enemies", "wave2"] instance=ExtResource("16_62p13")]
+[node name="Enemy_Wave2_2" type="CharacterBody3D" parent="AI" unique_id=2113176769 groups=["mission_enemies", "wave2"] instance=ExtResource("16_62p13")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 4.9, 2)
 visible = false
 collision_layer = 0
@@ -3284,7 +3402,7 @@ wave = 2
 active = false
 profile = ExtResource("18_031bu")
 
-[node name="Ally_Marco" type="CharacterBody3D" parent="AI" unique_id=2054267092 instance=ExtResource("19_coqe6")]
+[node name="Ally_Marco" type="CharacterBody3D" parent="AI" unique_id=1145084889 instance=ExtResource("19_coqe6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.6, 0.2, -72)
 collision_layer = 4
 collision_mask = 15
@@ -3293,45 +3411,45 @@ script = ExtResource("20_l4s50")
 profile = ExtResource("21_bkhwv")
 rng_seed = 7717
 
-[node name="Mission" type="Node3D" parent="." unique_id=175485607]
+[node name="Mission" type="Node3D" parent="." unique_id=173938059]
 
-[node name="PlayerSpawn" type="Marker3D" parent="Mission" unique_id=340267576]
+[node name="PlayerSpawn" type="Marker3D" parent="Mission" unique_id=94654986]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0.2, -78)
 
-[node name="CarSpawn" type="Marker3D" parent="Mission" unique_id=562696632]
+[node name="CarSpawn" type="Marker3D" parent="Mission" unique_id=1981025876]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0.1, -72)
 
-[node name="Marco_Seat" type="Marker3D" parent="Mission" unique_id=1937425783]
+[node name="Marco_Seat" type="Marker3D" parent="Mission" unique_id=37390526]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.6, 0.2, -72)
 
-[node name="Area_GarageArrival" type="Area3D" parent="Mission" unique_id=1577145154]
+[node name="Area_GarageArrival" type="Area3D" parent="Mission" unique_id=1560190383]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8, 0.16, 6)
 collision_layer = 0
 collision_mask = 10
 
-[node name="Collision" type="CollisionShape3D" parent="Mission/Area_GarageArrival" unique_id=650627723]
+[node name="Collision" type="CollisionShape3D" parent="Mission/Area_GarageArrival" unique_id=1447793317]
 shape = SubResource("SphereShape3D_lnqws")
 
-[node name="Area_GarageInside" type="Area3D" parent="Mission" unique_id=1422908595]
+[node name="Area_GarageInside" type="Area3D" parent="Mission" unique_id=822830211]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 1.5, 6)
 collision_layer = 0
 collision_mask = 10
 
-[node name="Collision" type="CollisionShape3D" parent="Mission/Area_GarageInside" unique_id=1604798638]
+[node name="Collision" type="CollisionShape3D" parent="Mission/Area_GarageInside" unique_id=512319106]
 shape = SubResource("BoxShape3D_biyo7")
 
-[node name="Area_Warehouse" type="Area3D" parent="Mission" unique_id=540062612]
+[node name="Area_Warehouse" type="Area3D" parent="Mission" unique_id=539242632]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 3, 78)
 collision_layer = 0
 collision_mask = 10
 
-[node name="Collision" type="CollisionShape3D" parent="Mission/Area_Warehouse" unique_id=1820011146]
+[node name="Collision" type="CollisionShape3D" parent="Mission/Area_Warehouse" unique_id=509572919]
 shape = SubResource("BoxShape3D_xj3q2")
 
-[node name="Marker_GarageDoor" type="Marker3D" parent="Mission" unique_id=618273076]
+[node name="Marker_GarageDoor" type="Marker3D" parent="Mission" unique_id=592520660]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.8, 0.16, 6)
 
-[node name="Pickup_Package" type="Node3D" parent="Mission" unique_id=1466106051 groups=["interactables"]]
+[node name="Pickup_Package" type="Node3D" parent="Mission" unique_id=1359133119 groups=["interactables"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.5, 1.35, 8.5)
 script = ExtResource("22_pceqa")
 
@@ -3345,21 +3463,21 @@ metadata/uw_post_import = {
 "unlisted_animations": PackedStringArray()
 }
 
-[node name="Interact" type="Area3D" parent="Mission/Pickup_Package" unique_id=1536620956]
+[node name="Interact" type="Area3D" parent="Mission/Pickup_Package" unique_id=1204830500]
 collision_layer = 16
 collision_mask = 2
 monitoring = false
 script = ExtResource("24_5bfal")
 prompt = "Pick up the package"
 
-[node name="Collision" type="CollisionShape3D" parent="Mission/Pickup_Package/Interact" unique_id=201817883]
+[node name="Collision" type="CollisionShape3D" parent="Mission/Pickup_Package/Interact" unique_id=1132124182]
 shape = SubResource("BoxShape3D_hthmb")
 
-[node name="DamageReceiver" type="Node" parent="Mission/Pickup_Package" unique_id=1551104169]
+[node name="DamageReceiver" type="Node" parent="Mission/Pickup_Package" unique_id=575339155]
 script = ExtResource("25_nc5l5")
 max_health = 200.0
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=1148703733 groups=["player"] instance=ExtResource("26_jrjbl")]
+[node name="Player" type="CharacterBody3D" parent="." unique_id=1963748522 groups=["player"] instance=ExtResource("26_jrjbl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0.2, -78)
 collision_layer = 2
 collision_mask = 13
@@ -3368,7 +3486,7 @@ floor_max_angle = 0.80285144
 floor_snap_length = 0.4
 script = ExtResource("27_3u0bu")
 
-[node name="VH_Sedan_01" type="VehicleBody3D" parent="." unique_id=795128943 instance=ExtResource("28_nhnqv")]
+[node name="VH_Sedan_01" type="VehicleBody3D" parent="." unique_id=75798138 instance=ExtResource("28_nhnqv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0.1, -72)
 collision_layer = 8
 collision_mask = 15
@@ -3380,18 +3498,18 @@ max_contacts_reported = 4
 script = ExtResource("29_dhbkw")
 data = ExtResource("30_j6ncm")
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=2144827231]
+[node name="HUD" type="CanvasLayer" parent="." unique_id=2078828962]
 layer = 10
 script = ExtResource("31_av7h0")
 
-[node name="Root" type="Control" parent="HUD" unique_id=1437754914]
+[node name="Root" type="Control" parent="HUD" unique_id=213974828]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="HealthBox" type="VBoxContainer" parent="HUD/Root" unique_id=431971751]
+[node name="HealthBox" type="VBoxContainer" parent="HUD/Root" unique_id=1989146834]
 custom_minimum_size = Vector2(280, 56)
 layout_mode = 0
 anchor_top = 1.0
@@ -3401,7 +3519,7 @@ offset_top = -96.0
 offset_right = 40.0
 offset_bottom = -96.0
 
-[node name="HealthLabel" type="Label" parent="HUD/Root/HealthBox" unique_id=806173483]
+[node name="HealthLabel" type="Label" parent="HUD/Root/HealthBox" unique_id=1560077918]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.71, 0.68, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.75)
@@ -3410,13 +3528,13 @@ theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 16
 text = "100"
 
-[node name="HealthBar" type="ProgressBar" parent="HUD/Root/HealthBox" unique_id=834269557]
+[node name="HealthBar" type="ProgressBar" parent="HUD/Root/HealthBox" unique_id=332995216]
 custom_minimum_size = Vector2(280, 14)
 layout_mode = 2
 value = 100.0
 show_percentage = false
 
-[node name="AmmoLabel" type="Label" parent="HUD/Root" unique_id=952378581]
+[node name="AmmoLabel" type="Label" parent="HUD/Root" unique_id=263231990]
 custom_minimum_size = Vector2(180, 40)
 layout_mode = 0
 anchor_left = 1.0
@@ -3435,7 +3553,7 @@ theme_override_font_sizes/font_size = 30
 text = "12 / 60"
 horizontal_alignment = 2
 
-[node name="ObjectiveLabel" type="Label" parent="HUD/Root" unique_id=1088754172]
+[node name="ObjectiveLabel" type="Label" parent="HUD/Root" unique_id=1844648211]
 custom_minimum_size = Vector2(760, 40)
 layout_mode = 0
 offset_left = 44.0
@@ -3448,7 +3566,7 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 24
 
-[node name="SubtitleLabel" type="Label" parent="HUD/Root" unique_id=1966067390]
+[node name="SubtitleLabel" type="Label" parent="HUD/Root" unique_id=1435249268]
 custom_minimum_size = Vector2(960, 60)
 layout_mode = 0
 anchor_left = 0.5
@@ -3467,7 +3585,7 @@ theme_override_font_sizes/font_size = 22
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Crosshair" type="Control" parent="HUD/Root" unique_id=347221679]
+[node name="Crosshair" type="Control" parent="HUD/Root" unique_id=165847476]
 anchors_preset = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -3475,7 +3593,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 mouse_filter = 2
 
-[node name="Dot" type="ColorRect" parent="HUD/Root/Crosshair" unique_id=728038690]
+[node name="Dot" type="ColorRect" parent="HUD/Root/Crosshair" unique_id=337023510]
 layout_mode = 0
 offset_left = -1.0
 offset_top = -1.0
@@ -3484,7 +3602,7 @@ offset_bottom = 1.0
 mouse_filter = 2
 color = Color(1, 1, 1, 0.85)
 
-[node name="L" type="ColorRect" parent="HUD/Root/Crosshair" unique_id=470940430]
+[node name="L" type="ColorRect" parent="HUD/Root/Crosshair" unique_id=1173638279]
 layout_mode = 0
 offset_left = -22.0
 offset_right = -14.0
@@ -3492,7 +3610,7 @@ offset_bottom = 1.0
 mouse_filter = 2
 color = Color(1, 1, 1, 0.85)
 
-[node name="R" type="ColorRect" parent="HUD/Root/Crosshair" unique_id=1912190683]
+[node name="R" type="ColorRect" parent="HUD/Root/Crosshair" unique_id=748972312]
 layout_mode = 0
 offset_left = 14.0
 offset_right = 22.0
@@ -3500,7 +3618,7 @@ offset_bottom = 1.0
 mouse_filter = 2
 color = Color(1, 1, 1, 0.85)
 
-[node name="T" type="ColorRect" parent="HUD/Root/Crosshair" unique_id=196956924]
+[node name="T" type="ColorRect" parent="HUD/Root/Crosshair" unique_id=936387338]
 layout_mode = 0
 offset_top = -22.0
 offset_right = 1.0
@@ -3508,7 +3626,7 @@ offset_bottom = -14.0
 mouse_filter = 2
 color = Color(1, 1, 1, 0.85)
 
-[node name="B" type="ColorRect" parent="HUD/Root/Crosshair" unique_id=62156589]
+[node name="B" type="ColorRect" parent="HUD/Root/Crosshair" unique_id=1324723953]
 layout_mode = 0
 offset_top = 14.0
 offset_right = 1.0
@@ -3516,7 +3634,7 @@ offset_bottom = 22.0
 mouse_filter = 2
 color = Color(1, 1, 1, 0.85)
 
-[node name="Marker" type="Label" parent="HUD/Root" unique_id=1047047803]
+[node name="Marker" type="Label" parent="HUD/Root" unique_id=1517313666]
 custom_minimum_size = Vector2(40, 34)
 layout_mode = 0
 theme_override_colors/font_color = Color(0.92, 0.72, 0.3, 1)
@@ -3527,7 +3645,7 @@ theme_override_font_sizes/font_size = 26
 text = "◆"
 horizontal_alignment = 1
 
-[node name="CenterLabel" type="Label" parent="HUD/Root" unique_id=1007946518]
+[node name="CenterLabel" type="Label" parent="HUD/Root" unique_id=516652544]
 custom_minimum_size = Vector2(1200, 80)
 layout_mode = 0
 anchor_left = 0.5
@@ -3545,7 +3663,7 @@ theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 54
 horizontal_alignment = 1
 
-[node name="FailLabel" type="Label" parent="HUD/Root" unique_id=1230240776]
+[node name="FailLabel" type="Label" parent="HUD/Root" unique_id=337545065]
 custom_minimum_size = Vector2(1200, 60)
 layout_mode = 0
 anchor_left = 0.5
@@ -3563,6 +3681,6 @@ theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 34
 horizontal_alignment = 1
 
-[node name="MissionManager" type="Node" parent="." unique_id=18883333]
+[node name="MissionManager" type="Node" parent="." unique_id=1167400370]
 script = ExtResource("32_nft0b")
 mission = ExtResource("33_ndhgl")

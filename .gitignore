@@ -33,3 +33,8 @@ Assets/**/*_T_*.png
 Assets/**/*.import
 !Assets/Test/PT_PipelineTest_Crate.glb.import
 
+
+# Plan-view captures are regenerable from the scene (no GPU needed) and git-lfs is not
+# installable on the sandbox box, so the PNG is not committed:
+#   $GODOT --headless --path GodotProject --script res://Tests/tools/capture_level_plan.gd
+Docs/Reports/plan_calloway_ave.png

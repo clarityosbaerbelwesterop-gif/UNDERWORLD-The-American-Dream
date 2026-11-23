@@ -195,8 +195,20 @@ func _own_painted_meshes(inst: Node3D, parent: Node, piece_name: String, paint: 
 		var copy := MeshInstance3D.new()
 		copy.name = "%s_%s" % [piece_name, String(src.name).trim_suffix("_Mesh")]
 		copy.mesh = src.mesh
+		# Compose the chain from the kit instance down to this mesh BY HAND.
+		# global_transform is useless here: `_initialize()` of a --script SceneTree runs before
+		# SceneTree::initialize() sets the tree, so `root.add_child(level)` does NOT make the level
+		# "inside tree", and every global_transform still reads identity. (Measured: all 26 road
+		# copies were stored at (0,0,0) and the whole street was invisible in-game - the plan
+		# capture found it, the luminance test did not.)
+		var chain := Transform3D.IDENTITY
+		var walk: Node = src
+		while walk != null and walk != inst:
+			if walk is Node3D:
+				chain = (walk as Node3D).transform * chain
+			walk = walk.get_parent()
+		copy.transform = inst.transform * chain
 		parent.add_child(copy)
-		copy.global_transform = src.global_transform
 		for i in wanted:
 			copy.set_surface_override_material(i, wanted[i])
 

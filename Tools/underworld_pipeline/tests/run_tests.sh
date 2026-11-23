@@ -61,6 +61,28 @@ grep -q "COLLISION_MICRO_LIP" "$T/logs/lip.log" && ok "COLLISION_MICRO_LIP repor
 [ ! -f "$T/out/lip/PT_UWP_LipFloor.glb" ] && ok "no .glb written for the micro-lip floor" || bad "micro-lip floor was exported"
 rc=$(run_uwp "$T/logs/flat.log" export "$T/src/PT_UWP_FlatFloor.blend" --category Environment --no-preview --out "$T/out/flat/PT_UWP_FlatFloor.glb")
 expect_rc "export PT_UWP_FlatFloor (same stripe, authored flat UCX_ slab)" 0 "$rc" "$T/logs/flat.log"
+# T-PIPE-06 release gate (--profile gate = strict + LODs/collision required + TD-012 budgets).
+rc=$(run_uwp "$T/logs/gate_ok.log" export "$T/src/PT_UWP_Barrel.blend" --category Props --profile gate --no-preview --out "$T/out/gate/PT_UWP_Barrel.glb")
+expect_rc "export --profile gate PT_UWP_Barrel (LODs + convex collision)" 0 "$rc" "$T/logs/gate_ok.log"
+rc=$(run_uwp "$T/logs/gate_nolod.log" export "$T/src/PT_UWP_Barrel.blend" --category Props --profile gate --no-lod --no-preview --out "$T/out/gate_nolod/PT_UWP_Barrel.glb")
+expect_rc "export --profile gate --no-lod (release gate requires LODs)" 1 "$rc" "$T/logs/gate_nolod.log"
+grep -q "LOD_MISSING" "$T/logs/gate_nolod.log" && ok "LOD_MISSING reported by the release gate" || bad "LOD_MISSING missing in $T/logs/gate_nolod.log"
+rc=$(run_uwp "$T/logs/hull.log" export "$T/src/PT_UWP_Barrel.blend" --category Props --no-lod --no-preview --out "$T/out/hull/PT_UWP_Barrel.glb")
+python3 - "$T/out/hull/PT_UWP_Barrel.manifest.json" <<'PYH' && ok "convex hull within the 64-vertex budget (was 65)" || bad "convex hull over budget"
+import json, sys
+m = json.load(open(sys.argv[1]))
+v = [c["vertices"] for c in m["collision"]["generated"]]
+print("[TEST] hull vertices", v)
+sys.exit(0 if v and max(v) <= 64 else 1)
+PYH
+# T-PIPE-06 A-13: measured foot sliding is checked against animation.foot_slide_max_m (1 cm).
+mkdir -p "$T/out/slide"
+printf '{"clips": {"A_PT_Walk": {"foot_sliding_m": 0.0486}, "A_PT_Run": {"foot_sliding_m": 0.0}}}' > "$T/out/slide/PT_UWP_Barrel.anim_report.json"
+rc=$(run_uwp "$T/logs/slide_gate.log" export "$T/src/PT_UWP_Barrel.blend" --category Props --profile gate --no-preview --out "$T/out/slide/PT_UWP_Barrel.glb")
+expect_rc "release gate rejects 4.86 cm foot sliding (anim_report)" 1 "$rc" "$T/logs/slide_gate.log"
+grep -q "ANIM_FOOT_SLIDE: A_PT_Walk" "$T/logs/slide_gate.log" && ok "ANIM_FOOT_SLIDE names the clip" || bad "ANIM_FOOT_SLIDE missing in $T/logs/slide_gate.log"
+rc=$(run_uwp "$T/logs/parts.log" validate "$REPO/Blender/Source/Vehicles/VH_Sedan_01/VH_Sedan_01.blend" --report "$T/out/parts.json")
+grep -q "NAME_MESH_PREFIX" "$T/logs/parts.log" && bad "functional part names (Wheel_FL, Door_FL ...) flagged as naming errors" || ok "functional part names are not naming errors (runtime contract)"
 rc=$(run_uwp "$T/logs/missing.log" export "$T/src/Nope.blend" --category Props --out "$T/out/x.glb")
 expect_rc "missing input file" 4 "$rc" "$T/logs/missing.log"
 rc=$(run_uwp "$T/logs/nocat.log" validate "$T/src/PT_UWP_Barrel.blend" --report "$T/out/nocat.json")

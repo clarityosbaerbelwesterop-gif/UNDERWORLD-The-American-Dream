@@ -1,11 +1,15 @@
 # Development Log
 
+## 2026-11-23 · Claude Code · T-PIPE-06 / T-PIPE-05 (pipeline audit, release gate)
+- Audit `Docs/Reports/AUDIT_T-PIPE-06_Pipeline.md` (15 findings). New **release gate** `uwp export --profile gate`: strict + LODs (>= lod_min_triangles) + collision required + TD-012 LOD/collision budgets + zero clothing clipping. Run over all 17 sources: 8 pass technically (kit, crate, pistol), all 7 characters + sedan fail (clipping 1-4 verts hidden by the dev rule, teeth UV 32.5 %, Cop origin, no character LODs, non-manifold sedan hull).
+- Fixes: convex hull really <= 64 verts (was 65); functional part names (Wheel_FL, Door_FL, Slide ...) no longer naming errors. TD-012 values in `Config/asset_budgets.json`. TD-021 hybrid pipeline PROPOSED; playthrough TD renumbered TD-021 -> TD-023 (master prompt reserves TD-021).
+
 ## 2026-11-23 · Claude Code · T-QA-01 (CI)
 - `.github/workflows/ci.yml`: every PR + push to main runs `Tools/sandbox/bootstrap_cloud.sh` (Blender 5.2.4 bpy, Godot 4.7.2, templates; cached), `Tests/run_all.sh`, `Tools/build/build_linux.sh` and Forward Plus review shots on Mesa lavapipe; logs + shots as artifact. LFS objects come from the Actions cache keyed by the pointer list (B-005 bandwidth). Manual `workflow_dispatch` input `sabotage` (validated `UW_<AREA>_SABOTAGE=<v>`) = negative control.
 - `Tests/run_all.sh` now fails if the run modified tracked files (the smoke export rewrote `Assets/Test/PT_PipelineTest_Crate.*` on every run with a newer Blender). Crate re-exported with Blender 5.2.4 (byte-identical on re-run).
 
 ## 2026-11-23 · Claude Code · T-BUILD-02 (M01 acceptance, input-only)
-- **New gate:** `Tests/test_playthrough.gd` + `Tests/tools/m01_autopilot.gd` play M01 through the shipping entry scene with input actions only (TD-021 PROPOSED, deterministic seed 2, QA cheat invulnerable stated). Result: MISSION COMPLETED in 221.9 s game time, 23 hits.
+- **New gate:** `Tests/test_playthrough.gd` + `Tests/tools/m01_autopilot.gd` play M01 through the shipping entry scene with input actions only (TD-023 PROPOSED, deterministic seed 2, QA cheat invulnerable stated). Result: MISSION COMPLETED in 221.9 s game time, 23 hits.
 - **20 blockers found and fixed** (pipeline: COLLISION_MICRO_LIP rule, trimesh from LOD0; level: kerb lines, garage rotated 180°, wave spawns per layout §5, 6 cover anchors, rooftop spawn; mission: interact input, package load, outro, revive, restart placement, carried-item collision, stale area overlap, enemy reset; AI: wave briefing, NPC step-up, ambush pressure; HUD: subtitles never cleared, duplicated HUD widgets). Details + tests: `Docs/Reports/BERICHT_T-BUILD-02.md`.
 - **Balance** measured, not changed: TD-022 PROPOSED difficulty layer (value 1.0), B-007/B-008 OPEN.
 - Forward Plus video (Movie Maker, lavapipe): `Docs/Reports/renders_fwdplus_m01/`.

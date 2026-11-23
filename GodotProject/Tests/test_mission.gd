@@ -89,6 +89,7 @@ func _run() -> void:
 	await test_package_failures()
 	await test_car_destroyed()
 	await test_mission_data_matches_design()
+	await test_npc_shared_clips()
 	_done = true
 	if failures.is_empty():
 		print("[GPTEST] RESULT: PASS")
@@ -612,3 +613,46 @@ func _off_road_distance(p: Vector3) -> float:
 	if p.x >= 15.0 and p.x <= 19.0 and p.z >= -2.0 and p.z <= 14.0:
 		best = minf(best, 0.0)
 	return best
+
+
+## T-ANIM-01: NPC models bake only 16 of the 21 shared clips; the rest (Carry_*) come from
+## Assets/Characters/Shared/A_Humanoid_Locomotion.glb at runtime. That file was a 208-byte dev
+## PLACEHOLDER in git (restored from f79f136) - so the library itself is checked here too.
+func test_npc_shared_clips() -> void:
+	print("[GPTEST] == NPCs borrow missing clips from the shared humanoid library")
+	var lib := load("res://Assets/Characters/Shared/A_Humanoid_Locomotion.glb") as PackedScene
+	var inst := lib.instantiate() if lib != null else null
+	var aps := inst.find_children("*", "AnimationPlayer", true, false) if inst != null else []
+	check(not aps.is_empty() and (aps[0] as AnimationPlayer).get_animation_list().size() >= 21,
+		"shared library is the real asset (>= 21 clips), not a placeholder (%d)" % ((aps[0] as AnimationPlayer).get_animation_list().size() if not aps.is_empty() else 0))
+	if inst != null:
+		inst.free()
+	await load_level()
+	var npc_visual: CharacterVisual = null
+	for v in level.find_children("*", "CharacterVisual", true, false):
+		var cv := v as CharacterVisual
+		if cv != null and cv.clip_prefix == "A_Humanoid_" and cv.animation_player != null:
+			npc_visual = cv
+			break
+	check(npc_visual != null, "found an NPC CharacterVisual")
+	if npc_visual == null:
+		await unload()
+		return
+	check(npc_visual.missing_clips.is_empty(), "NPC has every mapped clip (missing: %s)" % ", ".join(npc_visual.missing_clips))
+	var ap := npc_visual.animation_player
+	check(ap.has_animation("A_Humanoid_Carry_Walk"), "Carry_Walk available on the NPC")
+	if ap.has_animation("A_Humanoid_Carry_Walk"):
+		var sk := npc_visual.model.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
+		var foot := sk.find_bone("LeftFoot")
+		if npc_visual.animation_tree != null:
+			npc_visual.animation_tree.active = false
+		ap.play("A_Humanoid_Carry_Walk")
+		ap.seek(0.0, true)
+		await frames(2)
+		var p0 := sk.get_bone_global_pose(foot).origin
+		ap.seek(0.5, true)
+		await frames(2)
+		var p1 := sk.get_bone_global_pose(foot).origin
+		check(p0.distance_to(p1) > 0.05, "the borrowed clip drives the NPC skeleton (foot moved %.2f m)" % p0.distance_to(p1))
+	await unload()
+

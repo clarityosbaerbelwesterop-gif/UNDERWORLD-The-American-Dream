@@ -9,6 +9,8 @@ signal health_changed(health: float, max_health: float)
 
 @export var max_health := 100.0
 @export var invulnerable := false  ## e.g. Marco in M01
+## Player only: NPC damage is scaled by the difficulty layer (TD-022, Difficulty.ai_damage_scale()).
+@export var scale_npc_damage := false
 var health := 100.0
 var is_dead := false
 var last_hit: DamageInfo
@@ -20,6 +22,8 @@ func apply_damage(info: DamageInfo) -> void:
 	if is_dead:
 		return
 	info.receiver = self
+	if scale_npc_damage and info.source is NPCController:
+		info.amount *= Difficulty.ai_damage_scale()
 	if not invulnerable:
 		health = maxf(health - info.amount, 0.0)
 	last_hit = info

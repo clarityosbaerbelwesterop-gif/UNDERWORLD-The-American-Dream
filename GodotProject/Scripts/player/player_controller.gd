@@ -16,6 +16,7 @@ class_name PlayerController
 extends CharacterBody3D
 
 signal jumped
+signal interacted
 signal landed(impact_speed: float)
 signal aim_changed(aiming: bool)
 signal crouch_changed(crouching: bool)
@@ -170,6 +171,10 @@ func _physics_process(delta: float) -> void:
 	_jumped_this_frame = false
 	if input_enabled and Input.is_action_just_pressed("enter_vehicle") and try_enter_vehicle():
 		return
+	# B-M01-01 (T-BUILD-02): the `interact` action (E / gamepad Y) was mapped but never read,
+	# so a player could not pick up the M01 package - only tests calling the API could.
+	if input_enabled and Input.is_action_just_pressed("interact") and not _sabotage_interact():
+		try_interact()
 	var wants_aim := input_enabled and Input.is_action_pressed("aim")
 	_set_aiming(wants_aim)
 	if input_enabled and Input.is_action_just_pressed("crouch"):
@@ -393,6 +398,16 @@ func get_visibility_points() -> Array:
 func is_dead() -> bool:
 	return health != null and health.is_dead
 
+## Checkpoint restart (B-M01-04, T-BUILD-02): undo everything _on_died() switched off. Before
+## this, MissionManager reset the health but input stayed disabled - after the first death a
+## player could never move again (the API tests only checked the health value).
+func revive() -> void:
+	dying = false
+	velocity = Vector3.ZERO
+	input_enabled = true
+	if visual != null:
+		visual.set_dead(false)
+
 func _on_died(_info: DamageInfo) -> void:
 	input_enabled = false
 	# T-GP-04: the Death clip is the last thing the body does. The visual keeps updating for
@@ -406,6 +421,22 @@ func _on_died(_info: DamageInfo) -> void:
 
 ## Enters the nearest vehicle (group "vehicles") whose exit socket is within its
 ## enter distance. Returns true if a vehicle took the player.
+## Routes an interact press to whoever handles interactions (MissionManager joins the
+## "interaction_handlers" group). True if something was used.
+func try_interact() -> bool:
+	if vehicle != null or is_dead():
+		return false
+	for h in get_tree().get_nodes_in_group(&"interaction_handlers"):
+		if h.has_method("try_interact") and h.try_interact(self):
+			interacted.emit()
+			return true
+	return false
+
+## Negative control for Tests/test_playthrough.gd (UW_PLAYTHROUGH_SABOTAGE=1): the interact
+## input is ignored again, exactly the shipped bug. Debug builds only (TD-020).
+static func _sabotage_interact() -> bool:
+	return OS.is_debug_build() and OS.get_environment("UW_PLAYTHROUGH_SABOTAGE").strip_edges() == "1"
+
 func try_enter_vehicle() -> bool:
 	if vehicle != null or is_dead():
 		return false

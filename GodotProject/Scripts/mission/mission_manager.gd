@@ -63,6 +63,11 @@ var ally_seated := false
 ## data/behaviour under test instead of adding a self-referential check.
 var sabotage := 0
 var _hold := 0.0
+## B-M01-07 (T-BUILD-02): Area3D.overlaps_body() still reports the pre-teleport overlap for a
+## physics step after a checkpoint restore - the "Check the garage" objective completed on the
+## restart frame and the ambush began with Jason still at the car. Area checks wait this many
+## physics frames after a restore.
+var _area_grace := 0
 var _auto_left := 0.0
 var _subtitle_queue: Array[Dictionary] = []
 var _subtitle_left := 0.0
@@ -72,6 +77,7 @@ var _rng := RandomNumberGenerator.new()
 
 func _ready() -> void:
 	add_to_group(&"mission_manager")
+	add_to_group(&"interaction_handlers")   # PlayerController.try_interact() (B-M01-01)
 	level = get_node_or_null(level_root)
 	if level == null:
 		level = get_parent()
@@ -150,6 +156,7 @@ func restart_from_checkpoint() -> void:
 	state = State.RUNNING
 	fail_reason = ""
 	_restore_checkpoint()
+	_area_grace = 3
 	current_index = idx
 	_hold = 0.0
 	_auto_left = 0.0
@@ -166,6 +173,8 @@ func _physics_process(delta: float) -> void:
 	_tick_subtitles(delta)
 	if state != State.RUNNING:
 		return
+	if _area_grace > 0:
+		_area_grace -= 1
 	elapsed += delta
 	_check_failure_conditions()
 	if state != State.RUNNING:
@@ -254,6 +263,8 @@ func _requirement_met(obj: ObjectiveData) -> bool:
 	return false
 
 func _area_occupied(obj: ObjectiveData) -> bool:
+	if _area_grace > 0:
+		return false
 	var target := _node(obj.target_path)
 	# "Get in the car." targets the sedan itself, not an Area3D. Treat a vehicle target as
 	# satisfied once it has a driver (design: M01 objective 1 = enter the car).
@@ -520,6 +531,14 @@ func _check_failure_conditions() -> void:
 func _snapshot_initial() -> void:
 	_saved.clear()
 	_saved["player_pos"] = player.global_position if player != null else Vector3.ZERO
+	# B-M01-05 (T-BUILD-02): the garage checkpoint is written while Jason sits in the car. His
+	# seat position restored as an on-foot position put his body INSIDE the car body - physics
+	# depenetration then launched the sedan ("Sedan destroyed" fail loop). Restore him at the
+	# driver's exit socket instead.
+	if player != null and mission_car != null and player.get("vehicle") == mission_car:
+		var sock := mission_car.get_socket(&"SOCKET_Exit_Left")
+		if sock != null:
+			_saved["player_pos"] = sock.global_position + Vector3(0, 0.1, 0)
 	if player_health != null:
 		_saved["player_health"] = player_health.health
 	if mission_car != null:
@@ -536,6 +555,9 @@ func _save_checkpoint() -> void:
 	_snapshot_initial()
 
 func _restore_checkpoint() -> void:
+	# Died behind the wheel: take Jason out of the car first (B-M01-05).
+	if mission_car != null and player != null and mission_car.driver == player:
+		mission_car.eject_driver()
 	if player != null and _saved.has("player_pos"):
 		player.global_position = _saved["player_pos"]
 		if "velocity" in player:
@@ -544,6 +566,8 @@ func _restore_checkpoint() -> void:
 			player.global_position = _saved["car_pos"]
 	if player_health != null:
 		player_health.reset()
+	if player != null and player.has_method("revive"):
+		player.revive()
 	if mission_car != null:
 		if _saved.has("car_pos"):
 			mission_car.global_transform = Transform3D(_saved["car_basis"], _saved["car_pos"])
@@ -563,12 +587,18 @@ func _restore_checkpoint() -> void:
 func _revive_enemies() -> void:
 	for idx in spawn_groups.keys():
 		for n in spawn_groups[idx]:
-			if is_instance_valid(n) and n.has_method("revive"):
-				n.revive()
+			_reset_enemy(n)
 	for key in wave_groups.keys():
 		for n in wave_groups[key]:
-			if is_instance_valid(n) and n.has_method("revive"):
-				n.revive()
+			_reset_enemy(n)
+
+func _reset_enemy(n: Node) -> void:
+	if not is_instance_valid(n):
+		return
+	if n.has_method("reset_to_spawn") and sabotage != 4:
+		n.reset_to_spawn()    # UW_MISSION_SABOTAGE=4: the old "revive in place" (B-M01-08)
+	elif n.has_method("revive"):
+		n.revive()
 
 # --- wiring helpers -----------------------------------------------------------
 
@@ -643,5 +673,10 @@ func _tick_subtitles(delta: float) -> void:
 	if _subtitle_left <= 0.0:
 		return
 	_subtitle_left -= delta
-	if _subtitle_left <= 0.0 and not _subtitle_queue.is_empty():
-		_show_next_subtitle()
+	if _subtitle_left <= 0.0:
+		if not _subtitle_queue.is_empty():
+			_show_next_subtitle()
+		elif sabotage != 5:
+			# B-UI-02 (T-BUILD-02): clear the line when the call is over - it used to stay on
+			# screen for the rest of the mission. UW_MISSION_SABOTAGE=5 = the old behaviour.
+			subtitle.emit("", "")

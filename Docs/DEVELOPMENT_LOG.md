@@ -1,5 +1,11 @@
 # Development Log
 
+## 2026-11-23 · Claude Code · T-BUILD-02 (M01 acceptance, input-only)
+- **New gate:** `Tests/test_playthrough.gd` + `Tests/tools/m01_autopilot.gd` play M01 through the shipping entry scene with input actions only (TD-021 PROPOSED, deterministic seed 2, QA cheat invulnerable stated). Result: MISSION COMPLETED in 221.9 s game time, 23 hits.
+- **20 blockers found and fixed** (pipeline: COLLISION_MICRO_LIP rule, trimesh from LOD0; level: kerb lines, garage rotated 180°, wave spawns per layout §5, 6 cover anchors, rooftop spawn; mission: interact input, package load, outro, revive, restart placement, carried-item collision, stale area overlap, enemy reset; AI: wave briefing, NPC step-up, ambush pressure; HUD: subtitles never cleared, duplicated HUD widgets). Details + tests: `Docs/Reports/BERICHT_T-BUILD-02.md`.
+- **Balance** measured, not changed: TD-022 PROPOSED difficulty layer (value 1.0), B-007/B-008 OPEN.
+- Forward Plus video (Movie Maker, lavapipe): `Docs/Reports/renders_fwdplus_m01/`.
+
 ## 2026-11-23 · Claude Code · T-ENV-01 (cloud toolchain)
 - **Toolchain:** `Tools/sandbox/bootstrap_cloud.sh` installs the exact studio versions without apt: Blender **5.2.4 LTS** as `bpy` wheel + CLI shim, Godot **4.7.2** official (SHA512), Linux/Windows export templates; links `/workspace/tools/*` so all repo defaults work.
 - **Forward Plus without GPU:** Mesa lavapipe (Vulkan on CPU) runs the shipping renderer under Xvfb; `Tools/godot_phase8_capture.sh --renderer auto|fwdplus|compat` (+ `--movie` for Godot Movie Maker). Exported release binary recorded 240 frames of M01 in Forward Plus (15 % real time).

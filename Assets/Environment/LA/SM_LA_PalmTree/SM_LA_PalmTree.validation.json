@@ -1,9 +1,9 @@
 {
   "tool": "underworld_pipeline",
   "version": "1.0.0",
-  "blender": "5.0.1",
-  "timestamp": "2026-11-22T20:52:15+00:00",
-  "command": "export-all",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-23T14:31:17+00:00",
+  "command": "export",
   "input": "Blender/Source/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.blend",
   "steps": {
     "validate": {
@@ -38,16 +38,17 @@
       "mode": "trimesh",
       "generated": [
         {
-          "name": "UCX_SM_LA_PalmTree_Mesh_LOD2-colonly",
-          "vertices": 159,
-          "triangles": 154
+          "name": "UCX_SM_LA_PalmTree_Mesh-colonly",
+          "vertices": 438,
+          "triangles": 616
         }
       ],
-      "existing": []
+      "existing": [],
+      "micro_lips": 0
     },
     "export": {
       "glb": "Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.glb",
-      "bytes": 84340
+      "bytes": 94576
     },
     "preview": "Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree_preview.png",
     "manifest": "Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.manifest.json",
@@ -57,7 +58,7 @@
           "SM_LA_PalmTree_Mesh_LOD1",
           "SM_LA_PalmTree_Mesh_LOD2",
           "SM_LA_PalmTree_Mesh",
-          "UCX_SM_LA_PalmTree_Mesh_LOD2-colonly",
+          "UCX_SM_LA_PalmTree_Mesh-colonly",
           "SM_LA_PalmTree"
         ],
         "node_extras": {
@@ -92,15 +93,15 @@
         "skins": [],
         "joint_names": [],
         "animations": [],
-        "asset_generator": "Khronos glTF Blender I/O v5.0.21",
-        "bytes": 84340
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 94576
       },
       "reimport_objects": [
         "SM_LA_PalmTree",
         "SM_LA_PalmTree_Mesh",
         "SM_LA_PalmTree_Mesh_LOD1",
         "SM_LA_PalmTree_Mesh_LOD2",
-        "UCX_SM_LA_PalmTree_Mesh_LOD2-colonly"
+        "UCX_SM_LA_PalmTree_Mesh-colonly"
       ],
       "reimport_actions": [],
       "problems": []
@@ -134,7 +135,7 @@
     "warnings": 0,
     "infos": 2
   },
-  "seconds": 1.26,
+  "seconds": 0.45,
   "exit_code": 0,
   "result": "PASS"
 }

@@ -83,7 +83,7 @@ requires_package = true
 script = ExtResource("2_od")
 kind = 0
 text = "MISSION PASSED"
-auto_seconds = 0.0
+auto_seconds = 5.0
 
 [resource]
 script = ExtResource("1_md")

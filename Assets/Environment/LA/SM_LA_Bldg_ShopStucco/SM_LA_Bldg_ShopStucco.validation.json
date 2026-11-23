@@ -1,9 +1,9 @@
 {
   "tool": "underworld_pipeline",
   "version": "1.0.0",
-  "blender": "5.0.1",
-  "timestamp": "2026-11-22T20:52:13+00:00",
-  "command": "export-all",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-23T14:31:14+00:00",
+  "command": "export",
   "input": "Blender/Source/Environment/LA/SM_LA_Bldg_ShopStucco/SM_LA_Bldg_ShopStucco.blend",
   "steps": {
     "validate": {
@@ -38,16 +38,17 @@
       "mode": "trimesh",
       "generated": [
         {
-          "name": "UCX_SM_LA_Bldg_ShopStucco_Mesh_LOD2-colonly",
-          "vertices": 54,
-          "triangles": 60
+          "name": "UCX_SM_LA_Bldg_ShopStucco_Mesh-colonly",
+          "vertices": 144,
+          "triangles": 240
         }
       ],
-      "existing": []
+      "existing": [],
+      "micro_lips": 0
     },
     "export": {
       "glb": "Assets/Environment/LA/SM_LA_Bldg_ShopStucco/SM_LA_Bldg_ShopStucco.glb",
-      "bytes": 101380
+      "bytes": 118584
     },
     "preview": "Assets/Environment/LA/SM_LA_Bldg_ShopStucco/SM_LA_Bldg_ShopStucco_preview.png",
     "manifest": "Assets/Environment/LA/SM_LA_Bldg_ShopStucco/SM_LA_Bldg_ShopStucco.manifest.json",
@@ -57,7 +58,7 @@
           "SM_LA_Bldg_ShopStucco_Mesh_LOD1",
           "SM_LA_Bldg_ShopStucco_Mesh_LOD2",
           "SM_LA_Bldg_ShopStucco_Mesh",
-          "UCX_SM_LA_Bldg_ShopStucco_Mesh_LOD2-colonly",
+          "UCX_SM_LA_Bldg_ShopStucco_Mesh-colonly",
           "SM_LA_Bldg_ShopStucco"
         ],
         "node_extras": {
@@ -95,15 +96,15 @@
         "skins": [],
         "joint_names": [],
         "animations": [],
-        "asset_generator": "Khronos glTF Blender I/O v5.0.21",
-        "bytes": 101380
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 118584
       },
       "reimport_objects": [
         "SM_LA_Bldg_ShopStucco",
         "SM_LA_Bldg_ShopStucco_Mesh",
         "SM_LA_Bldg_ShopStucco_Mesh_LOD1",
         "SM_LA_Bldg_ShopStucco_Mesh_LOD2",
-        "UCX_SM_LA_Bldg_ShopStucco_Mesh_LOD2-colonly"
+        "UCX_SM_LA_Bldg_ShopStucco_Mesh-colonly"
       ],
       "reimport_actions": [],
       "problems": []
@@ -131,7 +132,7 @@
     "warnings": 0,
     "infos": 1
   },
-  "seconds": 1.75,
+  "seconds": 0.67,
   "exit_code": 0,
   "result": "PASS"
 }

@@ -405,6 +405,17 @@ func test_player_death_fail_and_checkpoint() -> void:
 	var cp := mm.checkpoint_index
 	# Pin the expected checkpoint: otherwise "restart at cp + 1" is true for any cp, including -1.
 	check(cp == 2, "checkpoint before dying is the garage arrival (2), got %d" % cp)
+	# B-M01-08: a gunman that moved during the fight must be back at its spawn after the restart.
+	var g1 := level.get_node("Enemy_Wave1_1") as MissionEnemy if level.has_node("Enemy_Wave1_1") else null
+	if g1 == null:
+		for n in get_nodes_in_group("wave1"):
+			g1 = n as MissionEnemy
+			break
+	var g1_spawn := g1.global_position if g1 != null else Vector3.ZERO
+	if g1 != null:
+		g1.activate()
+		g1.global_position = g1_spawn + Vector3(3.0, 0.0, 2.0)
+		g1.awareness = 1.0
 	var hp: DamageReceiver = player.get_node("Health") as DamageReceiver
 	hp.apply_damage(_damage(999.0))
 	await frames(4)
@@ -414,6 +425,18 @@ func test_player_death_fail_and_checkpoint() -> void:
 	check(mm.state == MissionManager.State.RUNNING, "auto-restart after the fail delay")
 	check(mm.current_index == cp + 1, "restarted at the objective after the checkpoint (%d)" % mm.current_index)
 	check(not hp.is_dead, "player health restored on restart")
+	# B-M01-04: health alone is not a restart - the player must be able to move again.
+	check(player.input_enabled and not player.dying, "player control restored on restart (input_enabled=%s dying=%s)" % [player.input_enabled, player.dying])
+	var p0 := player.global_position
+	Input.action_press("move_forward")
+	await seconds(0.6)
+	Input.action_release("move_forward")
+	check(player.global_position.distance_to(p0) > 0.5, "player walks after the restart (%.2f m)" % player.global_position.distance_to(p0))
+	if g1 != null:
+		check(g1.global_position.distance_to(g1_spawn) < 0.3 and g1.awareness == 0.0 and not g1.is_active(),
+			"restart puts the gunman back at its spawn, unaware and dormant (B-M01-08, %.2f m off, awareness %.2f)" % [g1.global_position.distance_to(g1_spawn), g1.awareness])
+	check(player.global_position.distance_to(car.global_position) > 1.2,
+		"restart puts Jason beside the car, not inside its body (B-M01-05, %.2f m)" % player.global_position.distance_to(car.global_position))
 	await unload()
 
 func test_package_failures() -> void:
@@ -480,6 +503,8 @@ func test_mission_data_matches_design() -> void:
 	check(data.objectives[0].subtitles.size() == 3, "intro phone call has 3 subtitle lines")
 	check(data.objectives[6].kind == ObjectiveData.Kind.DELIVER and data.objectives[6].requires_package,
 		"delivery requires the package")
+	check(data.objectives[7].auto_seconds > 0.0,
+		"outro card 'MISSION PASSED' completes by itself (B-M01-03: was 0 s = never, %.1f s)" % data.objectives[7].auto_seconds)
 
 ## Negative control (UW_MISSION_SABOTAGE): corrupt the mission data the real checks look at.
 func _sabotage_data(data: MissionData) -> void:

@@ -49,7 +49,8 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-LVL-01a | P1 | Claude Code | Greybox readable, speaking names, baked navmesh (TD-018) | T-LVL-01 | COMPLETED (PR #17; nav-sync flake fixed by Bot 1) |
 | T-BOOT-04 | P0 | Bot 1 | Shipping entry scene Game_M01 + test_boot (TD-020) | T-MIS-01 | COMPLETED (Bot 1 review fix of PR #17) |
 | T-DOC-01 | P2 | Claude Code | GDD §2: Jason early 30s + grey crew T-shirt (art direction wins) | – | BACKLOG |
-| T-ENV-01 | P0 | Claude Code | Cloud toolchain: exact Blender 5.2.4 LTS (bpy wheel) + official Godot 4.7.2 + templates + Forward Plus on lavapipe; `bootstrap_cloud.sh` | – | READY FOR REVIEW (run_all 749 PASS, build exit 0, Forward+ capture works) |
+| T-ENV-01 | P0 | Claude Code | Cloud toolchain: exact Blender 5.2.4 LTS (bpy wheel) + official Godot 4.7.2 + templates + Forward Plus on lavapipe; `bootstrap_cloud.sh` | – | COMPLETED (PR #20, merged) |
+| T-BUILD-02 | P0 | Claude Code | M01 acceptance of the current build: input-only autopilot playthrough gate, 18 blockers fixed, Forward Plus video (lavapipe) | T-ENV-01 | READY FOR REVIEW (run_all 785 PASS; M01 completed by input; GPU human playtest still open: B-007..B-010) |
 
 > **Next work order:** `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md` (§8 = ordered task list to release).
 

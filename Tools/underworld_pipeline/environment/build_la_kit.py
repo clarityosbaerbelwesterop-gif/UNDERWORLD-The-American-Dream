@@ -140,7 +140,24 @@ def build_road_straight(repo_root, cache_dir):
     for sx in (-4.3, 4.3):
         _box(bm, (sx, 0, 0.043), (0.12, 13.9, 0.004), mat_idx=2)
     _finalize_mesh(bm, f"{name}_Mesh", root, [m_asp, m_yel, m_wht])
+    # Authored collision (T-BUILD-02, B-PT-01): ONE flat slab, top exactly at the asphalt
+    # (z = 0.04). The 4 mm paint stripes are render-only; in the old trimesh collision every
+    # stripe was a 4 mm wall the player's cylinder snagged on. Adjacent/overlapping road tiles
+    # are now coplanar, so walking and driving across tile seams is smooth.
+    _flat_collision_slab(root, name, (10.0, 14.0), 0.04)
     return _save(repo_root, "Environment/LA", name)
+
+
+def _flat_collision_slab(root, name, size_xy, top_z):
+    bm = bmesh.new()
+    _box(bm, (0, 0, top_z * 0.5), (size_xy[0], size_xy[1], top_z), mat_idx=0)
+    me = bpy.data.meshes.new(f"UCX_{name}-colonly")
+    bm.to_mesh(me)
+    bm.free()
+    ob = bpy.data.objects.new(f"UCX_{name}-colonly", me)
+    bpy.context.scene.collection.objects.link(ob)
+    ob.parent = root
+    return ob
 
 
 def build_sidewalk_curb(repo_root, cache_dir):

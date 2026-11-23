@@ -177,3 +177,17 @@ view drawn from the scene's real AABBs.
 - Every `UW_*_SABOTAGE` switch is only honoured when `OS.is_debug_build()` – a release export can never be sabotaged through the environment. Tests run the editor binary (debug), so all negative controls still bite.
 - Test: `Tests/test_boot.gd` (7 checks) instances whatever `main_scene` points at; `UW_BOOT_SABOTAGE=1` skips `start()` → 2 FAIL.
 - When a front-end/main menu exists (M7), it replaces `Game_M01.tscn` as `main_scene`; keep `test_boot.gd` pointing at the real entry.
+
+## TD-021 – Input-only playthrough as a merge gate; deterministic replays (Claude Code, 2026-11-23, T-BUILD-02)
+**Status: PROPOSED** (Bot 1 / owner to accept).
+- Every earlier M01 test drove the mission through APIs (`try_interact`, `load_into`, `debug_complete_current`, teleports). They proved the logic, not that a person can play it. `GodotProject/Tests/test_playthrough.gd` boots the shipping entry scene and `Tests/tools/m01_autopilot.gd` plays M01 using **only input actions and camera turns** (it reads the world, it never calls a state-changing game API). Its runs found 20 blockers (bug list in `Docs/Reports/BERICHT_T-BUILD-02.md`).
+- **Deterministic replay:** `UW_RNG_SEED=<n>` seeds every NPC/weapon RNG without an explicit seed from `seed + hash(node path)` (`Weapon.replay_seed()`, debug builds only). The test pins seed 2.
+- **QA cheat, stated openly:** the gate runs with the player invulnerable – it is a FLOW gate. Every gunman is still killed through aim + fire inputs (≥ 20 hits asserted). Balance is measured separately (`UW_PLAYTHROUGH_MORTAL=1`, several seeds) and reported, never gated by this test.
+- Negative controls: `UW_PLAYTHROUGH_SABOTAGE=1` (interact input ignored) → stalls at objective 5; `=2` (package not loaded on boarding) → objective 6; `=3` (released waves not briefed) → objective 4. `UW_MISSION_SABOTAGE=4` (enemies revived in place) → `test_mission` FAIL. `UW_AI_SABOTAGE=nostep` (no NPC step-up) → `test_level` FAIL.
+- Movie Maker recording of the same replay in Forward Plus: `Tests/tools/record_m01_playthrough.gd` via `Tools/godot_phase8_capture.sh --renderer fwdplus --movie ...`.
+
+## TD-022 – Difficulty layer: AI damage to the player (Claude Code, 2026-11-23, T-BUILD-02)
+**Status: PROPOSED – value unchanged (1.0), owner decides.**
+- `Scripts/game/difficulty.gd` (`Difficulty`) + `Data/Game/Difficulty_Normal.tres`: `ai_damage_to_player` multiplies damage an `NPCController` deals to the player (`DamageReceiver.scale_npc_damage`, set on `Player/Health`). Weapon data stays physical (a pistol does 25 to anyone). `UW_AI_DAMAGE_SCALE` overrides it in debug builds for balancing runs.
+- Measured with the mortal autopilot over seeds 1–3 (15 min cap each, before the later bot-tactics fixes, so these are upper bounds of difficulty): scale 1.0 → 8–14 deaths and no completion; scale 0.5 → 5–6 deaths. The bot is weaker than a skilled human (no strafing, no headshot preference), so these numbers do **not** settle the value.
+- Recommendation: decide after a human GPU playtest of M01 (T-BUILD-02 GPU part). Industry reference for a first combat mission is clearly below raw weapon damage; 0.5 is the candidate to test first.

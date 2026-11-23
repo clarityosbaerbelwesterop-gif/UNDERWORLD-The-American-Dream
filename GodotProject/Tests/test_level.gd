@@ -47,6 +47,7 @@ func _run_all() -> void:
 	await test_materials()
 	await test_navmesh()
 	await test_walk_the_street()
+	await test_npc_climbs_kerb()
 	await frames(5)
 	_done = true
 	if failures.is_empty():
@@ -159,6 +160,25 @@ func test_navmesh() -> void:
 		var closest := NavigationServer3D.map_get_closest_point(map, p)
 		check(Vector2(closest.x - p.x, closest.z - p.z).length() < 1.5,
 			"navmesh reaches the %s (%.2f m off)" % [k, Vector2(closest.x - p.x, closest.z - p.z).length()])
+	# T-BUILD-02 (B-LVL-02/04): the garage must be walkable from the street through the roll-up
+	# door, and every cover anchor of layout §5 must exist and stand ON the navmesh.
+	var door_path := NavigationServer3D.map_get_path(map, Vector3(30.0, 0.3, 6.0), Vector3(38.5, 0.3, 6.0), true)
+	var end_off := 99.0 if door_path.is_empty() else Vector2(door_path[-1].x - 38.5, door_path[-1].z - 6.0).length()
+	var max_leg := 0.0
+	for i in range(1, door_path.size()):
+		max_leg = maxf(max_leg, door_path[i].distance_to(door_path[i - 1]))
+	check(end_off < 1.0 and door_path.size() >= 2,
+		"navmesh path from the forecourt INTO the garage through the door (ends %.2f m from the goal)" % end_off)
+	var covers := 0
+	for n in level.find_children("Cover_*", "", true, false):
+		if not (n is CoverPoint):
+			continue
+		covers += 1
+		var c := (n as Node3D).global_position
+		var cp := NavigationServer3D.map_get_closest_point(map, c)
+		var off := Vector2(cp.x - c.x, cp.z - c.z).length()
+		check(off < 0.35, "%s stands on the navmesh (%.2f m off)" % [n.name, off])
+	check(covers == 6, "6 cover anchors from layout §5 (found %d)" % covers)
 	await unload()
 
 # --- 4. walk the street with real input -------------------------------------------
@@ -212,4 +232,30 @@ func test_walk_the_street() -> void:
 	check(end_dist < 1.5, "ended at the other end of the block (%.2f m from the goal)" % end_dist)
 	check(p.global_position.y > -1.0 and p.global_position.y < 1.0,
 		"stayed on the street surface (y = %.2f m, never fell through)" % p.global_position.y)
+	await unload()
+
+
+# --- 5. NPCs climb kerbs (B-AI-06, T-BUILD-02) --------------------------------------
+
+## The 16 cm kerb was a wall for every NPC (no step logic): the M01 ambush wave piled up at the
+## east kerb. A gunman ordered from the east road onto the east sidewalk must get up there.
+func test_npc_climbs_kerb() -> void:
+	print("[GPTEST] == NPC walks from the road onto the sidewalk (16 cm kerb)")
+	await load_level()
+	var g := (load("res://Scenes/NPC/PT_NPC_Gunman.tscn") as PackedScene).instantiate() as NPCController
+	g.name = "KerbTestGunman"
+	level.add_child(g)
+	g.global_position = Vector3(26.5, 0.1, -30.0)
+	for i in 10:
+		await physics_frame
+	var goal := Vector3(31.0, 0.2, -30.0)
+	g._move_to(goal, 2.0)
+	var t := 0
+	while t < 60 * 6 and g.global_position.x < 30.0:
+		g._move_to(goal, 2.0)
+		await physics_frame
+		t += 1
+	check(g.global_position.x > 29.6 and g.global_position.y > 0.12,
+		"gunman stepped up the kerb onto the sidewalk (pos %s after %.1f s)" % [g.global_position, t / 60.0])
+	g.queue_free()
 	await unload()

@@ -83,6 +83,8 @@ var visual: CharacterVisual
 var _shape: CylinderShape3D
 var _collision: CollisionShape3D
 
+## T-GP-04: true from death on - keeps the visual updating for the Death clip.
+var dying := false
 var is_aiming := false
 var is_crouching := false
 var is_sprinting := false
@@ -135,7 +137,20 @@ func _ready() -> void:
 		health.died.connect(_on_died)
 	if camera_rig != null:
 		camera_rig.attach(self)
+	# T-GP-04: the hitboxes follow the ANIMATED bones instead of fixed rest offsets.
+	# CharacterVisual builds its model in _ready (children first), so the skeleton exists here.
+	if hitboxes != null and visual != null:
+		rebuild_hitboxes()
 	_was_on_floor = is_on_floor()
+
+## Re-creates the hitbox set for the current model: bone-bound when the model has the standard
+## skeleton, rest offsets otherwise. Called on start and whenever the visual model changes.
+func rebuild_hitboxes() -> void:
+	if hitboxes == null:
+		return
+	var sk := visual.find_skeleton() if visual != null else null
+	hitboxes.build(health, sk)
+	_self_rids.clear()
 
 func get_gravity_accel() -> float:
 	return float(ProjectSettings.get_setting("physics/3d/default_gravity", 9.8)) * gravity_scale
@@ -380,6 +395,11 @@ func is_dead() -> bool:
 
 func _on_died(_info: DamageInfo) -> void:
 	input_enabled = false
+	# T-GP-04: the Death clip is the last thing the body does. The visual keeps updating for
+	# the length of the clip (see character_visual.update_generic), so `dying` stays true.
+	if visual != null:
+		visual.set_dead(true)
+	dying = true
 	died.emit()
 
 # --- vehicles (T-GP-03) -------------------------------------------------------

@@ -99,7 +99,9 @@ func _ready() -> void:
 	route = get_node_or_null(route_path) as NPCRoute
 	_route_idx = route_start_index
 	_self_rids.append(get_rid())
-	if hitboxes != null:
+	# T-GP-04: hitboxes are bone-bound for models with the standard skeleton.
+	if hitboxes != null and visual != null:
+		hitboxes.build(health, visual.find_skeleton())
 		_self_rids.append_array(hitboxes.get_rids())
 	add_to_group(AIPerception.HEARING_GROUP)
 	add_to_group("npc")

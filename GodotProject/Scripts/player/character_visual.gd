@@ -25,6 +25,14 @@ const CLIP_NAMES := {
 	"aim_walk_back": "A_Jason_Aim_Pistol_Walk_B",
 	"aim_walk_left": "A_Jason_Aim_Pistol_Walk_L",
 	"aim_walk_right": "A_Jason_Aim_Pistol_Walk_R",
+	# T-GP-04 one-shot / upper-body clips.
+	"shoot": "A_Jason_Shoot_Pistol",
+	"reload": "A_Jason_Reload_Pistol",
+	"carry_idle": "A_Jason_Carry_Idle",
+	"carry_walk": "A_Jason_Carry_Walk",
+	"death": "A_Jason_Death",
+	"car_enter": "A_Jason_Car_Enter_L",
+	"car_exit": "A_Jason_Car_Exit_L",
 }
 ## Speeds (m/s) at which the in-place clips were authored; must match the controller
 ## and the SK_Jason manifest "speed_mps" (checked in test_player_controller.gd).
@@ -55,6 +63,27 @@ var animation_tree: AnimationTree
 var missing_clips: PackedStringArray = []
 ## True if animation_tree was built by build_default_tree() (rebuilt on model swap).
 var _auto_tree := false
+
+## Upper-body aim layer (T-GP-04). Created as a child of the Skeleton3D because
+## SkeletonModifier3D only accepts its parent; it adds the spine twist on top of the tree.
+var aim_modifier: AimSpineModifier
+## Clip length of the one-shot currently playing (s), -1 while idle. Used by the vehicle so the
+## enter/exit timer comes from the CLIP, not from a constant (T-GP-04).
+var one_shot_left := -1.0
+var one_shot_name := ""
+## Last one-shot that was fired, with the frame it started (tests + debugging).
+var shots_played := 0
+var reloads_played := 0
+## Carried package (M01): the two clips replace the locomotion slots while it is true.
+var carrying := false
+## Aim in the character's own space (radians, + up / + left). Fed by the player camera.
+var aim_pitch := 0.0
+var aim_yaw := 0.0
+var _carry := 0.0
+var _shot := 0.0
+var _reload_anim := false
+var _death := 0.0
+var _car_pose := 0.0
 
 var _crouch := 0.0
 var _aim := 0.0
@@ -90,7 +119,38 @@ func set_model(scene: PackedScene) -> void:
 	if animation_player != null and animation_tree == null:
 		animation_tree = build_default_tree(animation_player)
 		_auto_tree = true
+	# The tree only references locomotion/one-shot clips. The remaining slots (death, car enter/
+	# exit, reload) are resolved on demand by play_one_shot(), so probe them here: a model that
+	# cannot serve them must report it up front, not at the first death.
+	if animation_player != null:
+		for slot in clip_names:
+			_clip(slot, animation_player)
+	# The aim layer lives on the skeleton, because SkeletonModifier3D only accepts its parent.
+	aim_modifier = null
+	var sk := find_skeleton()
+	if sk != null and not sabotage_anim():
+		aim_modifier = AimSpineModifier.new()
+		aim_modifier.name = "AimSpine"
+		sk.add_child(aim_modifier)
 	model_changed.emit(model)
+
+func find_skeleton() -> Skeleton3D:
+	if model == null:
+		return null
+	var found := model.find_children("*", "Skeleton3D", true, false)
+	return found[0] as Skeleton3D if not found.is_empty() else null
+
+
+## Negative control (UW_ANIM_SABOTAGE=1): the upper-body layer is not created and one-shot
+## clips are mapped to the wrong slot, i.e. the pre-T-GP-04 behaviour. Tests must FAIL.
+static var _sabotage_anim: int = -1
+
+
+static func sabotage_anim() -> bool:
+	if _sabotage_anim < 0:
+		_sabotage_anim = 1 if OS.get_environment("UW_ANIM_SABOTAGE").strip_edges() == "1" else 0
+	return _sabotage_anim == 1
+
 
 func _find_animation_player(n: Node) -> AnimationPlayer:
 	if n is AnimationPlayer:
@@ -141,8 +201,15 @@ func validate_clips() -> PackedStringArray:
 ##   loco (BlendSpace1D by speed) ─┐
 ##   crouch_loco (BlendSpace1D) ───┴ crouch (Blend2) ─┐
 ##   aim_loco (BlendSpace2D by local move dir) ───────┴ aim (Blend2) ─┐
-##   jump_loop ───────────────────────────────────────────────────────┴ air (Blend2)
+##   oneshot (OneShot: shoot / reload / car) ─────────────────────────┴ oneshot ─┐
+##   carry_loco (BlendSpace1D) ───────────────────────────────────────┴ carry (Blend2) ─┐
+##   jump_loop ─────────────────────────────────────────────────────────────────────────┴ air
 ##     → jump (OneShot: jump_start) → land (OneShot: land) → output
+##
+## The spine twist on top of all of this is AimSpineModifier (upper-body layer, T-GP-04) - a
+## SkeletonModifier3D, because a bone filter inside the tree would have to be maintained as a
+## NodePath list that breaks on every re-export. The modifier only touches Spine/Chest/UpperChest,
+## so the legs always keep the locomotion clip.
 func build_default_tree(ap: AnimationPlayer) -> AnimationTree:
 	var bt := AnimationNodeBlendTree.new()
 
@@ -168,26 +235,43 @@ func build_default_tree(ap: AnimationPlayer) -> AnimationTree:
 	aloco.add_blend_point(_anim("aim_walk_right", ap), Vector2(1, 0), -1, "aim_walk_right")
 	bt.add_node("aim_loco", aloco, Vector2(0, 400))
 
-	bt.add_node("jump_loop", _anim("jump_loop", ap), Vector2(0, 600))
+	var cloco2 := AnimationNodeBlendSpace1D.new()
+	cloco2.min_space = 0.0
+	cloco2.max_space = 2.0
+	cloco2.add_blend_point(_anim("carry_idle", ap), 0.0, -1, "carry_idle")
+	cloco2.add_blend_point(_anim("carry_walk", ap), CLIP_SPEEDS["walk"], -1, "carry_walk")
+	bt.add_node("carry_loco", cloco2, Vector2(0, 500))
+
+	bt.add_node("jump_loop", _anim("jump_loop", ap), Vector2(0, 700))
 	bt.add_node("crouch", AnimationNodeBlend2.new(), Vector2(300, 100))
 	bt.add_node("aim", AnimationNodeBlend2.new(), Vector2(500, 200))
-	bt.add_node("air", AnimationNodeBlend2.new(), Vector2(700, 300))
+	bt.add_node("oneshot_clip", _anim("shoot", ap), Vector2(600, 450))
+	var oneshot := AnimationNodeOneShot.new()
+	oneshot.fadein_time = 0.04
+	oneshot.fadeout_time = 0.12
+	bt.add_node("oneshot", oneshot, Vector2(700, 250))
+	bt.add_node("carry", AnimationNodeBlend2.new(), Vector2(900, 250))
+	bt.add_node("air", AnimationNodeBlend2.new(), Vector2(1100, 300))
 	var land := AnimationNodeOneShot.new()
 	land.fadein_time = 0.05
 	land.fadeout_time = 0.15
-	bt.add_node("land", land, Vector2(900, 300))
-	bt.add_node("land_clip", _anim("land", ap), Vector2(700, 500))
+	bt.add_node("land", land, Vector2(1300, 300))
+	bt.add_node("land_clip", _anim("land", ap), Vector2(1100, 550))
 	var jump := AnimationNodeOneShot.new()
 	jump.fadein_time = 0.05
 	jump.fadeout_time = 0.2
-	bt.add_node("jump", jump, Vector2(800, 300))
-	bt.add_node("jump_clip", _anim("jump_start", ap), Vector2(600, 500))
+	bt.add_node("jump", jump, Vector2(1200, 300))
+	bt.add_node("jump_clip", _anim("jump_start", ap), Vector2(1000, 550))
 
 	bt.connect_node("crouch", 0, "loco")
 	bt.connect_node("crouch", 1, "crouch_loco")
 	bt.connect_node("aim", 0, "crouch")
 	bt.connect_node("aim", 1, "aim_loco")
-	bt.connect_node("air", 0, "aim")
+	bt.connect_node("oneshot", 0, "aim")
+	bt.connect_node("oneshot", 1, "oneshot_clip")
+	bt.connect_node("carry", 0, "oneshot")
+	bt.connect_node("carry", 1, "carry_loco")
+	bt.connect_node("air", 0, "carry")
 	bt.connect_node("air", 1, "jump_loop")
 	bt.connect_node("jump", 0, "air")
 	bt.connect_node("jump", 1, "jump_clip")
@@ -213,6 +297,63 @@ func _anim(slot: String, ap: AnimationPlayer) -> AnimationNodeAnimation:
 func _on_player_jumped() -> void:
 	_jump_requested = true
 
+# --- T-GP-04: one-shot clips (shoot / reload / death / car) ----------------------
+
+## Length of a slot's clip in seconds (0 if the model has none). This is what drives the
+## vehicle's enter/exit timing, so animation and gameplay can never drift apart.
+func clip_length(slot: String) -> float:
+	if animation_player == null:
+		return 0.0
+	var name := resolve_clip(slot, animation_player)
+	if not animation_player.has_animation(name):
+		return 0.0
+	return animation_player.get_animation(name).length
+
+
+func is_one_shot_playing() -> bool:
+	return one_shot_left > 0.0
+
+
+## Plays a one-shot slot on top of the locomotion graph (see build_default_tree: "oneshot").
+## The reload clip is 1.6 s and the weapon's reload is 1.6 s, so the tree keeps the clip instead
+## of stretching it; mismatch is visible in the tests.
+func play_one_shot(slot: String) -> float:
+	if animation_tree == null or animation_player == null:
+		return 0.0
+	var len := clip_length(slot)
+	if len <= 0.0:
+		return 0.0
+	if sabotage_anim():
+		slot = "idle"  # wrong mapping on purpose (negative control)
+		len = clip_length("idle")
+	var clip := resolve_clip(slot, animation_player)
+	var anim_name := "oneshot_clip"
+	if animation_tree.tree_root is AnimationNodeBlendTree:
+		var bt := animation_tree.tree_root as AnimationNodeBlendTree
+		# AnimationNodeBlendTree uses StringName keys (no NodePath lookup, no null-returning get).
+		var n := bt.get_node(StringName(anim_name)) as AnimationNodeAnimation
+		if n != null:
+			n.animation = clip
+	animation_tree.set("parameters/oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	one_shot_left = len
+	one_shot_name = clip
+	match slot:
+		"shoot":
+			shots_played += 1
+		"reload":
+			reloads_played += 1
+	one_shot_played.emit(clip)
+	return len
+
+
+signal one_shot_played(clip: String)
+
+
+func _tick_one_shots(delta: float) -> void:
+	if one_shot_left > 0.0:
+		one_shot_left = maxf(one_shot_left - delta, 0.0)
+
+
 ## --- generic (NPC) driver ---------------------------------------------------------
 ## PlayerController drives the player through update_from_player(); NPCs only have a speed and
 ## an FSM state, so they push these values and the visual smooths them the same way.
@@ -220,6 +361,8 @@ var speed := 0.0
 var aiming := false
 var crouching := false
 var dead := false
+## True once the death clip has been started (so it is not restarted every frame).
+var _death_stopped := false
 
 func set_speed(v: float) -> void:
 	speed = v
@@ -239,15 +382,22 @@ func update_generic(delta: float) -> void:
 	_crouch = lerpf(_crouch, 1.0 if crouching else 0.0, t)
 	_aim = lerpf(_aim, 1.0 if aiming else 0.0, t)
 	_air = lerpf(_air, 0.0, t)
+	_death = lerpf(_death, 1.0 if dead else 0.0, t)
+	_sync_aim_modifier(t)
+	_tick_one_shots(delta)
 	if animation_tree == null:
 		return
 	if dead:
+		# Death clip, then freeze the pose at its end (no locomotion, no aim lean).
+		if _death_stopped:
+			if one_shot_left <= 0.0 and animation_tree.active:
+				animation_tree.active = false
+			return
 		animation_tree.set("parameters/loco/blend_position", 0.0)
 		animation_tree.set("parameters/crouch_loco/blend_position", 0.0)
 		animation_tree.set("parameters/crouch/blend_amount", 0.0)
 		animation_tree.set("parameters/aim/blend_amount", 0.0)
 		animation_tree.set("parameters/air/blend_amount", 0.0)
-		animation_tree.active = false
 		return
 	animation_tree.set("parameters/loco/blend_position", speed)
 	animation_tree.set("parameters/crouch_loco/blend_position", speed)
@@ -256,15 +406,50 @@ func update_generic(delta: float) -> void:
 	animation_tree.set("parameters/aim/blend_amount", _aim)
 	animation_tree.set("parameters/air/blend_amount", _air)
 
+func _shoot_blend(_t: float) -> void:
+	pass
+
+
+## Aim weight follows the aim state (0.35 s ramp, so the spine does not snap).
+func _sync_aim_modifier(t: float) -> void:
+	if aim_modifier != null:
+		aim_modifier.aim_pitch = aim_pitch
+		aim_modifier.aim_yaw = aim_yaw
+		aim_modifier.weight = lerpf(aim_modifier.weight, _aim, minf(t * 2.0, 1.0))
+
+
 func update_from_player(p: PlayerController, delta: float) -> void:
 	if _player != p:
 		_player = p
 		p.jumped.connect(_on_player_jumped)
+	# Death wins over locomotion: the same one-shot path the NPCs use (T-GP-04). It starts on the
+	# FIRST frame after death (no ramp), because the death clip is not a blend - it is the event.
+	if p.dying:
+		dead = true
+		aiming = false
+		speed = 0.0
+		if not _death_stopped and animation_tree != null:
+			play_one_shot("death")
+			_death_stopped = true
+		update_generic(delta)
+		return
 	var t := 1.0 - exp(-blend_rate * delta)
 	var in_air := p.move_state == PlayerController.MoveState.AIR and p.air_time > 0.1
 	_crouch = lerpf(_crouch, 1.0 if p.is_crouching else 0.0, t)
 	_aim = lerpf(_aim, 1.0 if p.is_aiming else 0.0, t)
 	_air = lerpf(_air, 1.0 if in_air else 0.0, t)
+	# T-GP-04: the upper-body layer only leans while aiming, and it leans towards the CAMERA -
+	# not towards the body facing, which is why the camera rig owns the angles.
+	if p.camera_rig != null:
+		var fwd := p.camera_rig.get_flat_forward()
+		# Camera pitch is negative when looking up; the modifier wants + = up.
+		aim_pitch = -p.camera_rig.get_effective_pitch()
+		# Signed angle from the body facing to the look direction (+ = looking left of the body).
+		aim_yaw = wrapf(p.facing_yaw - atan2(fwd.x, fwd.z), -PI, PI)
+	_sync_aim_modifier(t)
+	_carry = lerpf(_carry, 1.0 if carrying else 0.0, t)
+	_tick_one_shots(delta)
+	_shoot_blend(t)
 	if animation_tree == null:
 		_was_air = in_air
 		_jump_requested = false
@@ -280,6 +465,8 @@ func update_from_player(p: PlayerController, delta: float) -> void:
 	animation_tree.set("parameters/crouch/blend_amount", _crouch)
 	animation_tree.set("parameters/aim/blend_amount", _aim)
 	animation_tree.set("parameters/air/blend_amount", _air)
+	animation_tree.set("parameters/carry/blend_amount", _carry)
+	animation_tree.set("parameters/carry_loco/blend_position", speed)
 	if _jump_requested:
 		animation_tree.set("parameters/jump/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	if _was_air and not in_air:

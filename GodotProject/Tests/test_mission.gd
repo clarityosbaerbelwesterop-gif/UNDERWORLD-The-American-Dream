@@ -310,13 +310,14 @@ func test_full_mission() -> void:
 	check(mm.current_index == 1, "intro auto-completed -> objective 1 'Get in the car.'")
 	check(mm.objective_text() == "Get in the car.", "objective text for step 1")
 	# Step 1: actually enter the car. Vehicle.enter() is asynchronous by design: it opens the
-	# door and only reports `driver`/DRIVING after `data.enter_time` (0.6 s) of physics frames.
+	# door and only reports `driver`/DRIVING after the enter CLIP has played (T-GP-04:
+	# Vehicle.enter_duration() = A_Jason_Car_Enter_L length, VehicleData.enter_time as fallback).
 	# Entering from the spawn point requires standing at an exit socket first.
 	player.global_position = car.get_socket(&"SOCKET_Exit_Left").global_position
 	await frames(2)
 	var entered := car.enter(player)
 	check(entered, "player entered the sedan (step 1 trigger)")
-	await seconds(1.0)
+	await seconds(car.enter_duration() + 0.1)
 	check(car.driver == player and car.state == Vehicle.State.DRIVING,
 		"car reached DRIVING state with the player on the seat")
 	check(mm.current_index == 2, "objective 1 completed by entering the car")
@@ -331,7 +332,7 @@ func test_full_mission() -> void:
 	check(car.driver == player, "car still has the driver")
 	var exit_requested := car.request_exit()
 	check(exit_requested, "exit request accepted (car standing still)")
-	await seconds(1.0)          # data.exit_time = 0.5 s + the player's two-frame re-arm
+	await seconds(car.exit_duration() + 0.6)  # exit clip + the player's two-frame re-arm
 	check(car.driver == null and player.vehicle == null, "player left the seat")
 	player.global_position = level.get_node("Mission/Area_GarageInside").global_position
 	await frames(8)
@@ -474,13 +475,14 @@ func board_car() -> bool:
 	player.global_position = car.get_socket(&"SOCKET_Exit_Left").global_position
 	await frames(2)
 	var ok := car.enter(player)
-	await seconds(1.0)
+	# T-GP-04: the enter sequence lasts as long as the enter CLIP, not a constant.
+	await seconds(car.enter_duration() + 0.1)
 	return ok and car.driver == player
 
 ## Leaves the seat through the real exit sequence.
 func leave_car() -> void:
 	car.request_exit()
-	await seconds(1.0)
+	await seconds(car.exit_duration() + 0.6)
 
 func _damage(amount: float) -> DamageInfo:
 	var info := DamageInfo.new()

@@ -80,6 +80,13 @@ func attach(p: PlayerController) -> void:
 func get_planar_basis() -> Basis:
 	return Basis(Vector3.UP, yaw)
 
+## Camera forward projected on the ground (unit XZ vector). The upper-body aim layer needs the
+## direction the player LOOKS, which is the camera, not the body facing (T-GP-04).
+func get_flat_forward() -> Vector3:
+	var f := -get_planar_basis().z
+	return Vector3(f.x, 0.0, f.z).normalized()
+
+
 ## Add look input in radians (x = yaw right, y = pitch up). Used by mouse, stick and tests.
 func apply_look(delta_rad: Vector2) -> void:
 	yaw -= delta_rad.x

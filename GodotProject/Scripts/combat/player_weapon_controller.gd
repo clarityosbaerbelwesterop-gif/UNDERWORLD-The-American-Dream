@@ -24,7 +24,10 @@ func _ready() -> void:
 	weapon = get_node_or_null(weapon_path) as Weapon
 	if weapon != null:
 		weapon.hit_confirmed.connect(_on_hit)
-		weapon.fired.connect(func(s): shot_fired.emit(s))
+		weapon.fired.connect(_on_weapon_fired)
+		# T-GP-04: the reload CLIP is driven by the weapon's own reload, so animation and
+		# gameplay cannot drift apart (both are 1.6 s; the test asserts the clip length).
+		weapon.reload_started.connect(func(_d): _play("reload"))
 		_stand_in_parent = weapon.get_parent()
 	# Follow model swaps: weapon goes to the model's SOCKET_RightHand_Weapon, and back to
 	# the PT_ socket before the old model is freed (else it would be freed with it).
@@ -96,6 +99,21 @@ func _physics_process(_delta: float) -> void:
 	if not shot.is_empty():
 		player.camera_rig.add_recoil(shot["kick_deg"])
 		player.combat_face_time = hip_fire_face_time
+
+## Every real shot plays the Shoot clip; the rate limiter is the weapon's own fire rate, so
+## holding the trigger at 300 rpm cannot restart the clip 5x per second.
+func _on_weapon_fired(shot: Dictionary) -> void:
+	var vis := _visual()
+	if vis != null:
+		vis.play_one_shot("shoot")
+	shot_fired.emit(shot)
+
+
+func _play(slot: String) -> void:
+	var vis := _visual()
+	if vis != null:
+		vis.play_one_shot(slot)
+
 
 func _on_hit(info: DamageInfo) -> void:
 	last_hitmarker = info.to_dict()

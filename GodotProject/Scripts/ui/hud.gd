@@ -51,7 +51,7 @@ static var _sabotage_hud: int = -1
 
 static func sabotage_hud() -> bool:
 	if _sabotage_hud < 0:
-		_sabotage_hud = 1 if OS.get_environment("UW_HUD_SABOTAGE").strip_edges() == "1" else 0
+		_sabotage_hud = 1 if OS.is_debug_build() and OS.get_environment("UW_HUD_SABOTAGE").strip_edges() == "1" else 0
 	return _sabotage_hud == 1
 
 var player: PlayerController

@@ -148,7 +148,7 @@ static var _sabotage_anim: int = -1
 
 static func sabotage_anim() -> bool:
 	if _sabotage_anim < 0:
-		_sabotage_anim = 1 if OS.get_environment("UW_ANIM_SABOTAGE").strip_edges() == "1" else 0
+		_sabotage_anim = 1 if OS.is_debug_build() and OS.get_environment("UW_ANIM_SABOTAGE").strip_edges() == "1" else 0
 	return _sabotage_anim == 1
 
 

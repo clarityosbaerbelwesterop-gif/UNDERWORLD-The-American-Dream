@@ -83,7 +83,8 @@ func start() -> bool:
 	if mission == null or mission.objectives.is_empty():
 		push_error("MissionManager: no MissionData")
 		return false
-	sabotage = int(OS.get_environment("UW_MISSION_SABOTAGE")) if OS.get_environment("UW_MISSION_SABOTAGE") != "" else 0
+	# Test-only negative controls: never active in a release export (OS.is_debug_build() == false).
+	sabotage = int(OS.get_environment("UW_MISSION_SABOTAGE")) if OS.is_debug_build() and OS.get_environment("UW_MISSION_SABOTAGE") != "" else 0
 	_resolve_cast()
 	ally = _resolve_ally()
 	_prepare_waves()

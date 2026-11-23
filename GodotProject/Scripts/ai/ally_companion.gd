@@ -59,8 +59,11 @@ func board(v: Vehicle) -> bool:
 	set_physics_process(false)
 	collision_layer = 0
 	collision_mask = 0
+	# No sit clip exists yet: drawing the standing pose on the seat put Marco's torso through
+	# the roof (Phase 8 capture, Bot 1 review of PR #17). Hide him while seated, exactly like
+	# PlayerController hides Jason in the driver's seat; unboard() shows him again.
 	if pose != null:
-		pose.visible = true
+		pose.visible = false
 	seated.emit(v)
 	return true
 
@@ -75,6 +78,8 @@ func unboard(v: Vehicle, at: Transform3D) -> void:
 	collision_layer = 1 << 2
 	collision_mask = 1 | 2 | 4 | 8
 	set_physics_process(true)
+	if pose != null:
+		pose.visible = true
 	unseated.emit(v)
 
 

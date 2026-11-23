@@ -18,7 +18,7 @@ static var _sabotage: int = -1
 
 static func sabotage() -> bool:
 	if _sabotage < 0:
-		_sabotage = 1 if OS.get_environment("UW_LEVEL_SABOTAGE").strip_edges() == "1" else 0
+		_sabotage = 1 if OS.is_debug_build() and OS.get_environment("UW_LEVEL_SABOTAGE").strip_edges() == "1" else 0
 	return _sabotage == 1
 
 

@@ -81,6 +81,7 @@ func _run() -> void:
 	print("[GPTEST] == M01 mission framework (sabotage=%s)" % str(sabotage))
 	await test_level_contents()
 	await test_marco_and_waves()
+	await test_marco_seat_visual()
 	await test_ambush_waves_in_order()
 	await test_real_drive()
 	await test_full_mission()
@@ -118,6 +119,23 @@ func test_level_contents() -> void:
 	check(civs >= 3, "at least 3 civilians (T-AI-02) (%d)" % civs)
 	var nav := level.get_node_or_null("NavRegion_Block") as NavigationRegion3D
 	check(nav != null, "navmesh region present")
+	await unload()
+
+## Bot 1 review of PR #17: with no sit clip, the standing Marco was drawn through the car roof.
+## While seated he must be hidden (like Jason in the driver's seat) and visible again on foot.
+func test_marco_seat_visual() -> void:
+	print("[GPTEST] == Marco seat visual (no standing pose through the roof)")
+	await load_level()
+	var marco := level.get_node_or_null("AI/Ally_Marco") as AllyCompanion
+	check(marco != null and mm.start(), "mission starts with Marco for the seat-visual check")
+	if marco == null:
+		await unload()
+		return
+	await frames(3)
+	check(marco.is_seated() and not marco.pose.visible, "seated Marco is not drawn (pose hidden)")
+	check(mm.unseat_ally(), "Marco gets out through the mission API")
+	await frames(3)
+	check(not marco.is_seated() and marco.pose.visible, "Marco on foot is drawn again")
 	await unload()
 
 ## T-MIS-01b: Marco is an ally on the passenger seat, invulnerable in M1, and the two waves

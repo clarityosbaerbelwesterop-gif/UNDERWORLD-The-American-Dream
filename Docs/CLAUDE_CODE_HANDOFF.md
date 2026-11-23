@@ -10,6 +10,7 @@
 - Repo: https://github.com/clarityosbaerbelwesterop-gif/UNDERWORLD-The-American-Dream (private)
 - Written by: Bot 1 (Project Director), branch `bot1/claude-handoff`
 - Snapshot: `main` = `b2acced` (PR #12 merge) before this PR; merge gate `Tests/run_all.sh` = **RUN_ALL: PASS** on fresh worktrees (PR #12 head `a28331c` and this branch).
+- **Status update 2026-11-23, later (Bot 1):** PR #17 (Auftrag 02) merged `d3809d0`, reviewed + fixed forward in PR #18 (`29ce6e7`): **749 checks** RUN_ALL PASS, M01 gameplay complete headless, export boots into M01 via `Scenes/Game_M01.tscn` (TD-020). **Next work order: `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md`** (supersedes PROMPT_02 and §8/§9 below where they differ). Review: `Docs/Reports/REVIEW_PR17_BOT1.md`.
 - **Status update 2026-11-23 (Bot 1):** PR #14 (T-MIS-01, Claude Code) merged as `c63198a`; fixes PR #15 (LFS, `6f149e5`) and PR #16 (real mission sabotage). Gate now **589 checks** (smoke 12, uwp tool 58, import 71, AI 80, mission 75, player 137, vehicle 88, weapon 68). M01 core + greybox level + HUD v0 exist; Marco ally, wave sequencing and a real drive are open (TASK_BOARD T-MIS-01). Next work order: `Docs/Prompts/CLAUDE_CODE_PROMPT_02.md`. Where §0/§4/§8 below say "mission/level/HUD not started", this line wins.
 
 ---

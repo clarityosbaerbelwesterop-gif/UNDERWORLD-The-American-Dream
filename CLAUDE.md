@@ -1,6 +1,8 @@
 # CLAUDE.md – UNDERWORLD – THE AMERICAN DREAM
 
-**Read first:** `Docs/CLAUDE_CODE_HANDOFF.md` (full project handoff), then `Docs/TASK_BOARD.md`,
+**Current work order (start here):** `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md` (German master prompt: state after PR #17/#18, story + mission order, pipeline rebuild, roadmap M1–M10, ordered next tasks §8, standards, skills incl. the vetted Game-Studio pack). **MERGE-FREIGABE: NEIN** – open PRs, Bot 1 merges.
+
+**Then read:** `Docs/CLAUDE_CODE_HANDOFF.md` (full project handoff), then `Docs/TASK_BOARD.md`,
 `Docs/QUALITY_GATE.md`, `Docs/PROJECT_STATUS.md`, `Docs/BLOCKERS.md`, `Docs/SKILLS_AND_TOOLS.md`.
 
 Original open-world third-person crime shooter (Godot 4.7.2 + headless Blender 5.2.4 LTS, glTF, Git LFS).
@@ -9,7 +11,8 @@ Owner: Bärbel Westerop (ClarityCompassAI) – report **in German**, honestly, n
 ## Key commands
 ```bash
 git pull && git lfs pull
-./Tests/run_all.sh                         # merge gate: must print RUN_ALL: PASS (fresh worktree)
+./Tests/run_all.sh                         # merge gate: must print RUN_ALL: PASS (fresh worktree), 749 checks at 29ce6e7
+Tools/build/build_linux.sh                 # Linux export (templates 4.7.2), boots Scenes/Game_M01.tscn (TD-020)
 Tools/uwp validate|export <file.blend>     # asset pipeline (Blender headless); Tools/uwp --help
 Tools/uwp build-character|build-weapon|build-vehicle <spec.json> ; Tools/uwp build-env ; build-shared-anims
 Tools/uwp review-sheet <asset>             # reference vs render sheet (Pillow)

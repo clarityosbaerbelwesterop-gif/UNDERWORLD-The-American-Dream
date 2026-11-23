@@ -7,6 +7,12 @@
 set -uo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$DIR/.." && pwd)"
+# Hygiene (T-QA-01): the gate must not change tracked files (it once re-exported the PT crate
+# into Assets/ with a different Blender build, so every run left a dirty tree). Snapshot the
+# working-tree diff now and compare at the end.
+tree_state() { git -C "$REPO" diff HEAD 2>/dev/null | sha1sum | cut -d' ' -f1; }
+IN_GIT=0; git -C "$REPO" rev-parse --is-inside-work-tree >/dev/null 2>&1 && IN_GIT=1
+[ $IN_GIT -eq 1 ] && TREE_BEFORE="$(tree_state)"
 "$DIR/run_pipeline_smoke.sh" || { echo "RUN_ALL: FAIL (pipeline smoke)"; exit 1; }
 # Private scratch dir so parallel runs from other worktrees don't collide in /tmp/uwp_test.
 UWP_DIR="$(mktemp -d /tmp/uwp_test_runall.XXXXXX)"
@@ -18,4 +24,9 @@ grep -E '^\[TEST\]\[FAIL\]|^UWP TESTS' "$REPO/Tests/logs/uwp_tool_tests.log"
 [ $rc -eq 0 ] || { echo "RUN_ALL: FAIL (pipeline tool tests, log Tests/logs/uwp_tool_tests.log)"; exit 1; }
 "$DIR/run_asset_import_tests.sh" || { echo "RUN_ALL: FAIL (asset import)"; exit 1; }
 "$DIR/run_gameplay_tests.sh" || { echo "RUN_ALL: FAIL (gameplay)"; exit 1; }
+if [ $IN_GIT -eq 1 ] && [ "$(tree_state)" != "$TREE_BEFORE" ]; then
+  git -C "$REPO" status --short --untracked-files=no
+  echo "RUN_ALL: FAIL (the test run modified tracked files - tests must write to scratch dirs)"
+  exit 1
+fi
 echo "RUN_ALL: PASS"

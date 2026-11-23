@@ -128,7 +128,7 @@ else
 fi
 
 LVP=""
-for icd in /opt/lavapipe/lvp_icd.json /usr/share/vulkan/icd.d/lvp_icd.x86_64.json; do
+for icd in /opt/lavapipe/lvp_icd.json /usr/share/vulkan/icd.d/lvp_icd*.json; do
   [ -f "$icd" ] && LVP="$icd" && break
 done
 cat <<EOF

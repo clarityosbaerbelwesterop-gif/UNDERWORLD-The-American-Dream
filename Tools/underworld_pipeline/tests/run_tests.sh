@@ -266,7 +266,13 @@ else
 fi
 
 echo "== [7] review-sheet (system Python / Pillow, no Blender)"
-T="$T" python3 -c "
+# The fixture needs Pillow too: CI runners have no system Pillow (T-QA-01 run #2).
+PIL_PY=""
+for c in "${UWP_PYTHON:-}" python3 $SHIM_PY /opt/uwtools/venv/bin/python; do
+  [ -n "$c" ] && "$c" -c "import PIL" 2>/dev/null && { PIL_PY="$c"; break; }
+done
+[ -n "$PIL_PY" ] || { bad "no python with Pillow for the review-sheet fixture"; PIL_PY=python3; }
+T="$T" "$PIL_PY" -c "
 from PIL import Image, ImageDraw
 import os
 t = os.environ['T']

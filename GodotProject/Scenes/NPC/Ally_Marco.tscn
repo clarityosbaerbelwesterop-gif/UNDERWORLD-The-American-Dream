@@ -1,0 +1,54 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/ai/ally_companion.gd" id="1_ally"]
+[ext_resource type="Resource" path="res://Data/AI/AI_Ally_Marco.tres" id="2_profile"]
+[ext_resource type="Script" path="res://Scripts/combat/weapon.gd" id="3_weapon"]
+[ext_resource type="Script" path="res://Scripts/combat/humanoid_hitboxes.gd" id="4_hitboxes"]
+[ext_resource type="Script" path="res://Scripts/combat/damage_receiver.gd" id="5_health"]
+[ext_resource type="Script" path="res://Scripts/player/character_visual.gd" id="6_visual"]
+[ext_resource type="PackedScene" path="res://Assets/Characters/SK_NPC_Marco/SK_NPC_Marco.glb" id="7_model"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_marco"]
+height = 1.8
+radius = 0.35
+
+[node name="Ally_Marco" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("1_ally")
+profile = ExtResource("2_profile")
+rng_seed = 7717
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CylinderShape3D_marco")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.75
+target_desired_distance = 0.75
+height = 1.8
+radius = 0.35
+
+[node name="Pose" type="Node3D" parent="."]
+
+[node name="Visual" type="Node3D" parent="Pose"]
+
+[node name="CharacterVisual" type="Node3D" parent="Pose/Visual"]
+script = ExtResource("6_visual")
+model_scene = ExtResource("7_model")
+clip_prefix = "A_Humanoid_"
+
+[node name="SOCKET_RightHand_Weapon" type="Node3D" parent="Pose/Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.45, 0.4)
+
+[node name="Weapon" type="Node3D" parent="Pose/Visual/SOCKET_RightHand_Weapon"]
+script = ExtResource("3_weapon")
+
+[node name="Hitboxes" type="Node3D" parent="Pose"]
+script = ExtResource("4_hitboxes")
+receiver_path = NodePath("../../Health")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("5_health")
+max_health = 150.0
+invulnerable = true

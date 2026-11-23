@@ -28,6 +28,7 @@ const DOOR_NAMES: Array[StringName] = [&"Door_FL", &"Door_FR", &"Door_RL", &"Doo
 ## Exit socket -> door used on that side (driver = left = +X, the car faces +Z).
 const EXIT_DOORS := {&"SOCKET_Exit_Left": &"Door_FL", &"SOCKET_Exit_Right": &"Door_FR"}
 const SEAT_SOCKET := &"SOCKET_Seat_Driver"
+const PASSENGER_SOCKET := &"SOCKET_Seat_Passenger"
 ## World | Player | Characters | Vehicles
 const BODY_MASK := 1 | 2 | 4 | 8
 
@@ -37,6 +38,8 @@ const BODY_MASK := 1 | 2 | 4 | 8
 
 var state: State = State.IDLE
 var driver: Node3D = null
+## Marco's seat in M01 (T-MIS-01b). A passenger does not drive and does not block enter/exit.
+var passenger: Node3D = null
 var model: Node3D
 ## Wheel name -> generated VehicleWheel3D (asset mesh is its child).
 var wheels: Dictionary = {}
@@ -179,7 +182,7 @@ func _assemble() -> void:
 	_find_prefix(model, "SOCKET_", found)
 	for s in found:
 		sockets[StringName(s.name)] = s
-	for need in [SEAT_SOCKET, &"SOCKET_Exit_Left", &"SOCKET_Exit_Right"]:
+	for need in [SEAT_SOCKET, PASSENGER_SOCKET, &"SOCKET_Exit_Left", &"SOCKET_Exit_Right"]:
 		if not sockets.has(need):
 			assembly_errors.append("socket %s missing" % need)
 	for e in assembly_errors:
@@ -247,6 +250,8 @@ func _physics_process(delta: float) -> void:
 	_update_wheel_visuals()
 	if driver != null:
 		_attach_driver()
+	if passenger != null:
+		_attach_passenger()
 	if state == State.DRIVING or state == State.ENTERING:
 		_update_camera(delta)
 	_update_audio()
@@ -381,6 +386,31 @@ func enter(p: Node3D) -> bool:
 	chase_camera.current = true
 	entered.emit(p)
 	return true
+
+## Seats an ally on the passenger side (Marco in M01). Unlike enter() this does not change the
+## vehicle state, takes no input and never opens a door sequence: the passenger is simply
+## parented to the seat socket. False if the seat is taken or the node is not a Node3D.
+func enter_passenger(p: Node3D) -> bool:
+	if p == null or passenger != null or p == driver:
+		return false
+	var seat := get_socket(PASSENGER_SOCKET)
+	if seat == null:
+		push_error("%s: no %s socket" % [name, PASSENGER_SOCKET])
+		return false
+	passenger = p
+	_attach_passenger()
+	return true
+
+## Frees the passenger seat. The caller decides where the body goes (see AllyCompanion.unboard).
+func leave_passenger() -> Node3D:
+	var p := passenger
+	passenger = null
+	return p
+
+func _attach_passenger() -> void:
+	var seat := get_socket(PASSENGER_SOCKET)
+	if seat != null and passenger != null and is_instance_valid(passenger):
+		passenger.global_transform = seat.global_transform
 
 ## Starts the exit sequence; false if too fast or both exits are blocked.
 func request_exit() -> bool:

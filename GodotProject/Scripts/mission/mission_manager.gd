@@ -52,6 +52,16 @@ var mission_car: Vehicle
 var _package_ever_held := false
 var package: CarriedItem
 var spawn_groups: Dictionary = {}       # index -> Array[Node]
+## M01 wave bookkeeping (T-MIS-01b). wave_groups maps the wave id ("1", "2") to its enemies.
+## The ORDER is data: wave 2 is only released once wave 1 is completely dead.
+var wave_groups: Dictionary = {}        # String -> Array[Node]
+var waves_released: Array[String] = []  # waves that have been activated, in order
+## Marco, the ally companion (seated on entry, fights after the ambush trigger).
+var ally: AllyCompanion
+var ally_seated := false
+## Sabotage hooks for the negative controls (UW_MISSION_SABOTAGE=2/3). They corrupt the real
+## data/behaviour under test instead of adding a self-referential check.
+var sabotage := 0
 var _hold := 0.0
 var _auto_left := 0.0
 var _subtitle_queue: Array[Dictionary] = []
@@ -73,12 +83,18 @@ func start() -> bool:
 	if mission == null or mission.objectives.is_empty():
 		push_error("MissionManager: no MissionData")
 		return false
+	sabotage = int(OS.get_environment("UW_MISSION_SABOTAGE")) if OS.get_environment("UW_MISSION_SABOTAGE") != "" else 0
 	_resolve_cast()
+	ally = _resolve_ally()
+	_prepare_waves()
 	_snapshot_initial()
 	state = State.RUNNING
 	elapsed = 0.0
 	current_index = -1
 	checkpoint_index = -1
+	# Marco is on the passenger seat from the first frame of the mission (design: he is already
+	# outside / in the car when Sam calls).
+	seat_ally()
 	mission_started.emit(mission)
 	_advance()
 	return true
@@ -153,6 +169,7 @@ func _physics_process(delta: float) -> void:
 	_check_failure_conditions()
 	if state != State.RUNNING:
 		return
+	_tick_wave_release()
 	var obj := current_objective()
 	if obj == null:
 		return
@@ -183,6 +200,7 @@ func _advance() -> void:
 	var obj := mission.objectives[current_index]
 	_auto_left = obj.auto_seconds
 	_collect_spawn_group(current_index, obj)
+	_apply_wave_gate(obj)
 	_play_subtitles(obj)
 	objective_text_changed.emit(obj.text)
 	objective_started.emit(current_index, obj)
@@ -194,6 +212,7 @@ func _complete_current(_announce := true) -> void:
 		return
 	var obj := mission.objectives[current_index]
 	objective_completed.emit(current_index, obj)
+	_release_on_complete(obj)
 	if obj.checkpoint:
 		checkpoint_index = current_index
 		_save_checkpoint()
@@ -220,6 +239,11 @@ func _requirement_pollable(obj: ObjectiveData) -> bool:
 func _requirement_met(obj: ObjectiveData) -> bool:
 	match obj.kind:
 		ObjectiveData.Kind.SURVIVE:
+			# "Survive the ambush" is only done when BOTH waves are dead: the target group is
+			# mission_enemies (all five), and requires_group_cleared pins the ordering to
+			# wave 1 -> wave 2 as data (M01_DeadDrop.tres).
+			if not obj.requires_group_cleared.is_empty() and not _group_dead(obj.requires_group_cleared):
+				return false
 			return _group_dead(obj.target_group)
 		ObjectiveData.Kind.ENTER_AREA, ObjectiveData.Kind.REACH, ObjectiveData.Kind.DELIVER:
 			return _area_occupied(obj)
@@ -271,6 +295,146 @@ func _collect_spawn_group(index: int, obj: ObjectiveData) -> void:
 		if is_instance_valid(n):
 			nodes.append(n)
 	spawn_groups[index] = nodes
+
+# --- waves (T-MIS-01b) ---------------------------------------------------------
+
+## Collect every MissionEnemy by wave at mission start and make sure none of them is live yet
+## unless the mission data says so. The enemies in the level are built inactive; this is what
+## keeps a *reloaded* scene honest as well.
+func _prepare_waves() -> void:
+	wave_groups.clear()
+	waves_released.clear()
+	for n in get_tree().get_nodes_in_group(&"mission_enemy"):
+		var e := n as MissionEnemy
+		if e == null or not is_instance_valid(e):
+			continue
+		var key := str(e.wave)
+		if not wave_groups.has(key):
+			wave_groups[key] = []
+		wave_groups[key].append(e)
+	if sabotage == 2:
+		# Negative control: "wave 2 starts immediately". The ordering rule that wave 2 only
+		# comes after wave 1 is *disabled* in the production gate, so both waves are live from
+		# the first frame. The ordinary checks ("wave 2 is NOT active while wave 1 fights" and
+		# "objective 4 still running after wave 1 died") must then FAIL.
+		release_wave("1")
+		release_wave("2")
+		return
+	# Wave 1 is the one that is armed by the ambush trigger; wave 2 stays cold until released.
+	_deactivate_wave("1")
+	_deactivate_wave("2")
+
+## Wave keys are the bare numbers ("1", "2"); the mission data refers to them by their group
+## names ("wave1", "wave2") because that is what it also uses for the node groups.
+func _wave_key(id: String) -> String:
+	return id.trim_prefix("wave") if id.begins_with("wave") else id
+
+
+func _deactivate_wave(id: String) -> void:
+	id = _wave_key(id)
+	for n in wave_groups.get(id, []):
+		var e := n as MissionEnemy
+		if e != null and not e.is_dead():
+			e.deactivate()
+
+## Activate a wave once. Returns true if it was cold before (so callers can tell "first time").
+func release_wave(id: String) -> bool:
+	id = _wave_key(id)
+	if waves_released.has(id):
+		return false
+	for n in wave_groups.get(id, []):
+		var e := n as MissionEnemy
+		if e != null and is_instance_valid(e) and not e.is_dead():
+			e.activate()
+	waves_released.append(id)
+	return true
+
+func are_wave_dead(id: String) -> bool:
+	var nodes: Array = wave_groups.get(_wave_key(id), [])
+	if nodes.is_empty():
+		return false
+	for n in nodes:
+		var e := n as MissionEnemy
+		if e != null and is_instance_valid(e) and not e.is_dead():
+			return false
+	return true
+
+## Wave gate driven purely by the objective data:
+##   hold_group    -> that wave is NOT live while this objective runs
+##   release_group -> this wave is released when this objective *completes*
+func _apply_wave_gate(obj: ObjectiveData) -> void:
+	if obj == null:
+		return
+	# Objective 4 ("Survive the ambush") must not start with wave 2 already walking around:
+	# re-assert the hold in case something (a checkpoint restore, a test) revived it.
+	if not obj.hold_group.is_empty():
+		var hold := String(obj.hold_group)
+		if not waves_released.has(hold) and sabotage != 2:
+			_deactivate_wave(hold)
+	elif obj.kind == ObjectiveData.Kind.SURVIVE:
+		# The ambush objective arms wave 1 the moment it starts.
+		release_wave("1")
+	if not obj.release_group.is_empty():
+		release_wave(String(obj.release_group))
+
+## The sequencing BETWEEN waves is also data: the SURVIVE objective holds wave 2 and names
+## wave 1 as `requires_group_cleared`, so wave 2 goes live the moment wave 1 is wiped out -
+## not when the objective completes (which needs both waves dead).
+func _tick_wave_release() -> void:
+	var obj := current_objective()
+	if obj == null or obj.hold_group.is_empty() or obj.requires_group_cleared.is_empty():
+		return
+	var hold := String(obj.hold_group)
+	if waves_released.has(hold):
+		return
+	if _group_dead(obj.requires_group_cleared):
+		release_wave(hold)
+
+
+func _release_on_complete(obj: ObjectiveData) -> void:
+	if obj == null or obj.release_group.is_empty():
+		return
+	release_wave(String(obj.release_group))
+
+# --- ally (T-MIS-01b) ----------------------------------------------------------
+
+## Marco starts in the passenger seat. He is invulnerable in M1 and never targets Jason.
+func _resolve_ally() -> AllyCompanion:
+	for n in get_tree().get_nodes_in_group(&"marco"):
+		var a := n as AllyCompanion
+		if a != null:
+			return a
+	return null
+
+func seat_ally() -> bool:
+	if ally == null:
+		ally = _resolve_ally()
+	if ally == null or mission_car == null:
+		return false
+	if sabotage == 3:
+		# Negative control: Marco becomes killable. The real checks look at
+		# DamageReceiver.invulnerable / take a shot and expect him to survive.
+		if ally.health != null:
+			ally.health.invulnerable = false
+	else:
+		if ally.health != null:
+			ally.health.invulnerable = true
+	ally_seated = ally.board(mission_car)
+	return ally_seated
+
+## Marco gets out with Jason once the car stops at the garage and rejoins after the package is
+## picked up. Called by the mission flow (NOT on a timer) at the objectives that say so.
+func unseat_ally() -> bool:
+	if ally == null or not ally_seated or mission_car == null:
+		return false
+	var at := mission_car.get_socket(&"SOCKET_Exit_Right")
+	var xf := mission_car.global_transform
+	if at != null:
+		xf = at.global_transform
+	mission_car.leave_passenger()
+	ally.unboard(mission_car, Transform3D(Basis(Vector3.UP, xf.basis.get_euler().y), xf.origin))
+	ally_seated = false
+	return true
 
 # --- interaction entry point --------------------------------------------------
 
@@ -388,12 +552,20 @@ func _restore_checkpoint() -> void:
 	if package != null:
 		package.reset_item()
 	_revive_enemies()
+	# Waves go back to their pre-ambush state; Marco back into the car.
+	_prepare_waves()
+	if not ally_seated:
+		seat_ally()
 	package = _find_package()
 	_wire_package()
 
 func _revive_enemies() -> void:
 	for idx in spawn_groups.keys():
 		for n in spawn_groups[idx]:
+			if is_instance_valid(n) and n.has_method("revive"):
+				n.revive()
+	for key in wave_groups.keys():
+		for n in wave_groups[key]:
 			if is_instance_valid(n) and n.has_method("revive"):
 				n.revive()
 

@@ -52,14 +52,24 @@ var rng := RandomNumberGenerator.new()
 func _initialize() -> void:
 	rng.seed = 20261122
 	level = Node3D.new()
+	level.name = "LA_CallowayAve"
 	root.name = "LA_CallowayAve"
+	# The level has to be IN the tree before the navmesh is baked: parse_source_geometry_data()
+	# only sees geometry with a global transform, so baking from a detached node silently
+	# produced an empty navmesh (0 polygons).
+	root.add_child(level)
 	_load_kit()
 	_build_ground()
 	_build_streets()
 	_build_buildings()
 	_build_props()
 	_build_lighting()
-	_build_navmesh()
+	_build_navmesh()      # region + settings (no geometry)
+	# The parser reads global transforms, so the tree must have run at least one frame before the
+	# geometry is there (baking right after add_child() yields 0 polygons).
+	await process_frame
+	await physics_frame
+	_bake_navmesh()       # ... and bake it from the collision geometry above
 	_build_spawns_and_ai()
 	_build_mission_anchors()
 	_save()
@@ -131,18 +141,77 @@ func _mat(color: Color, rough := 0.85, metal := 0.0) -> StandardMaterial3D:
 	return m
 
 
+## Running counter per piece name, so a level greps like a level: Road_Straight_01 .. _26.
+var _name_counter: Dictionary = {}
+
+
 ## Instance a kit piece if available, else its greybox fallback (same footprint + collision).
-func _kit_piece(name: String, pos: Vector3, rot_y: float, fallback_size: Vector3, fallback_mat: StandardMaterial3D, parent: Node) -> Node3D:
+## Names are ALWAYS speaking (piece + running index): Godot's automatic "@Node3D@NN" names are a
+## debugging trap and the level review (T-LVL-01a) rejects them.
+func _kit_piece(name: String, pos: Vector3, rot_y: float, fallback_size: Vector3, fallback_mat: StandardMaterial3D, parent: Node, paint: Array = []) -> Node3D:
+	var short := name.trim_prefix("SM_LA_").trim_prefix("SM_Prop_")
+	_name_counter[short] = int(_name_counter.get(short, 0)) + 1
+	var piece_name := "%s_%02d" % [short, int(_name_counter[short])]
 	var scene = kit.get(name)
 	if scene != null and scene is PackedScene:
 		var inst := (scene as PackedScene).instantiate()
-		inst.name = name + "_" + str(level.get_child_count())
+		inst.name = piece_name
 		parent.add_child(inst)
 		inst.position = pos
 		inst.rotation.y = rot_y
+		# T-LVL-01a: until now the fallback material was ONLY used for the greybox, so the real
+		# kit pieces kept their near-black asphalt / light concrete textures and the capture showed
+		# three greys that nobody could tell apart. `paint` overrides selected SURFACES by their
+		# material name, so the lane markings of the road piece survive.
+		#
+		# The override cannot live on the instanced meshes: PackedScene only serialises the
+		# instance root, so per-surface overrides inside a sub-scene are silently dropped when the
+		# level is saved (measured: 0 "surface_override_material" entries in the .tscn). So the
+		# painted surfaces become LEVEL-OWNED mesh instances; the kit instance stays hidden and
+		# keeps its exported hull, which is what the physics and the navmesh parse.
+		if not paint.is_empty():
+			_own_painted_meshes(inst, parent, piece_name, paint)
+			inst.visible = false
 		return inst
-	var body := _static_box(name, fallback_size, pos, fallback_mat, parent, rot_y)
+	var body := _static_box(piece_name, fallback_size, pos, fallback_mat, parent, rot_y)
 	return body
+
+
+## Copies every MeshInstance of `inst` that carries a painted surface into `parent` as a
+## level-owned node (so it survives packing) and overrides only the named materials.
+func _own_painted_meshes(inst: Node3D, parent: Node, piece_name: String, paint: Array) -> void:
+	for mi in inst.find_children("*", "MeshInstance3D", true, false):
+		var src := mi as MeshInstance3D
+		if src.mesh == null:
+			continue
+		var wanted := {}
+		for entry in paint:
+			for i in src.mesh.get_surface_count():
+				var m = src.mesh.surface_get_material(i)
+				if m is BaseMaterial3D and String((m as BaseMaterial3D).resource_name).contains(String(entry[0])):
+					wanted[i] = entry[1]
+		if wanted.is_empty():
+			continue
+		var copy := MeshInstance3D.new()
+		copy.name = "%s_%s" % [piece_name, String(src.name).trim_suffix("_Mesh")]
+		copy.mesh = src.mesh
+		parent.add_child(copy)
+		copy.global_transform = src.global_transform
+		for i in wanted:
+			copy.set_surface_override_material(i, wanted[i])
+
+
+## Override every surface of `n` whose material name contains `needle` (keeps the others).
+func _paint_surfaces(n: Node, needle: String, mat: StandardMaterial3D) -> void:
+	if n is MeshInstance3D:
+		var mi := n as MeshInstance3D
+		if mi.mesh != null:
+			for i in mi.mesh.get_surface_count():
+				var m = mi.mesh.surface_get_material(i)
+				if m is BaseMaterial3D and String((m as BaseMaterial3D).resource_name).contains(needle):
+					mi.set_surface_override_material(i, mat)
+	for c in n.get_children():
+		_paint_surfaces(c, needle, mat)
 
 
 # --- geometry -----------------------------------------------------------------
@@ -161,6 +230,7 @@ func _build_ground() -> void:
 	body.collision_mask = 0
 	g.add_child(body)
 	var cs := CollisionShape3D.new()
+	cs.name = "Collision"
 	var sh := BoxShape3D.new()
 	sh.size = Vector3(240, 0.2, 240)
 	cs.shape = sh
@@ -172,16 +242,19 @@ func _build_streets() -> void:
 	var s := Node3D.new()
 	s.name = "Streets"
 	level.add_child(s)
-	var asphalt := _mat(Color(0.20, 0.20, 0.21), 0.92)
-	var concrete := _mat(Color(0.55, 0.53, 0.50), 0.88)
+	# T-LVL-01a: the kit textures are near-black asphalt and light concrete and the ambient sky
+	# washed both out to the same grey in the capture. Explicit override materials give road,
+	# kerb and sidewalk three clearly different values (measured in check_level.gd / test_level).
+	var asphalt := _mat(Color(0.15, 0.15, 0.16), 0.95)
+	var concrete := _mat(Color(0.62, 0.60, 0.56), 0.90)
 
 	# West street: road strip along Z from -86..+86, modules of 14 m
 	var z := -86.0 + ROAD_LEN * 0.5
 	while z <= 86.0:
 		_kit_piece("SM_LA_Road_Straight", Vector3(WEST_X, 0, z), 0.0,
-			Vector3(ROAD_W, 0.04, ROAD_LEN), asphalt, s)
+			Vector3(ROAD_W, 0.04, ROAD_LEN), asphalt, s, [["Asphalt", asphalt]])
 		_kit_piece("SM_LA_Road_Straight", Vector3(EAST_X, 0, z), 0.0,
-			Vector3(ROAD_W, 0.04, ROAD_LEN), asphalt, s)
+			Vector3(ROAD_W, 0.04, ROAD_LEN), asphalt, s, [["Asphalt", asphalt]])
 		z += ROAD_LEN
 	# Sidewalks: 4 m wide, on both sides of both N-S lanes (layout §3.1):
 	# west lane kerbs at -29 / -19 -> sidewalk centres -31 / -17; east lane -> +17 / +31.
@@ -189,26 +262,38 @@ func _build_streets() -> void:
 	while zz <= 85.0:
 		for x in [WSIDE_E, WSIDE_W, ESIDE_W, ESIDE_E]:
 			_kit_piece("SM_LA_Sidewalk_Curb", Vector3(x, 0, zz), 0.0,
-				Vector3(SIDEWALK_W, 0.16, SIDEWALK_LEN), concrete, s)
+				Vector3(SIDEWALK_W, 0.16, SIDEWALK_LEN), concrete, s, [["Concrete", concrete]])
 		zz += SIDEWALK_LEN
+	# A bright kerb line on the street side of every sidewalk: 0.18 m wide, 0.02 m above the
+	# sidewalk, so the edge reads even when the sun is flat (glyph, not decoration).
+	var kerb_mat := _mat(Color(0.80, 0.78, 0.72), 0.85)
+	# Street-side edge of each N-S sidewalk: 0.18 m wide, 2 cm proud of the slab.
+	for kx in [WSIDE_E + SIDEWALK_W * 0.5 - 0.09, WSIDE_W - SIDEWALK_W * 0.5 + 0.09,
+			ESIDE_W - SIDEWALK_W * 0.5 + 0.09, ESIDE_E + SIDEWALK_W * 0.5 - 0.09]:
+		_static_box("Kerb_Line_%+.1f" % kx, Vector3(0.18, 0.02, 170.0),
+			Vector3(kx, 0.17, 0.0), kerb_mat, s)
+	# Same line along the two closing segments (south/north).
+	for kz in [Z_SOUTH_FRONT + 4.0 - 0.09, Z_NORTH_FRONT - 4.0 + 0.09]:
+		_static_box("Kerb_Line_z%+.1f" % kz, Vector3(66.0, 0.02, 0.18),
+			Vector3(0.0, 0.17, kz), kerb_mat, s)
 	# Sidewalks along the south and north segments too, so pedestrians never walk on the
 	# roadway and the block edge is readable (z = -86 / +86 kerb, 4 m deep).
 	var xx := -33.0
 	while xx <= 33.0:
 		_kit_piece("SM_LA_Sidewalk_Curb", Vector3(xx, 0, Z_SOUTH_FRONT + 2.0), PI * 0.5,
-			Vector3(SIDEWALK_W, 0.16, SIDEWALK_LEN), concrete, s)
+			Vector3(SIDEWALK_W, 0.16, SIDEWALK_LEN), concrete, s, [["Concrete", concrete]])
 		_kit_piece("SM_LA_Sidewalk_Curb", Vector3(xx, 0, Z_NORTH_FRONT - 2.0), PI * 0.5,
-			Vector3(SIDEWALK_W, 0.16, SIDEWALK_LEN), concrete, s)
+			Vector3(SIDEWALK_W, 0.16, SIDEWALK_LEN), concrete, s, [["Concrete", concrete]])
 		xx += SIDEWALK_LEN
 	# North and south closing roads (X from -33..+33, 8 m deep)
 	for x in [-30.0, -16.0, -2.0, 12.0, 26.0]:
 		for zc in [NORTH_Z, SOUTH_Z]:
 			_kit_piece("SM_LA_Road_Straight", Vector3(x + 2.0, 0, zc), PI * 0.5,
-				Vector3(14.0, 0.04, ROAD_W), asphalt, s)
+				Vector3(14.0, 0.04, ROAD_W), asphalt, s, [["Asphalt", asphalt]])
 	# Kerb-gap alley on the west side (never a dead end, layout §3.1)
 	for zc in [-4.0, 4.0]:
 		_kit_piece("SM_LA_Road_Straight", Vector3(-42.0, 0, zc), PI * 0.5,
-			Vector3(14.0, 0.04, 8.0), concrete, s)
+			Vector3(14.0, 0.04, 8.0), concrete, s, [["Asphalt", _mat(Color(0.42, 0.40, 0.37), 0.93)]])
 
 
 ## Footprint of a kit piece as the ART actually ships it (manifest aabb_godot), not the
@@ -235,9 +320,11 @@ func _kit_size(name: String, axis: int, fallback: float) -> float:
 ##   "south" -> body at -Z, front face at +Z (faces north onto the south segment)
 ## `along` is the coordinate on the other axis. Never overlaps a sidewalk or the roadway,
 ## which is what makes the M01 drive loop drivable.
+## Returns the placed block; the caller attaches it to the scene (it is created detached here,
+## because a Node can only have one parent - attaching it twice renames it to "@Node3D@NN").
 func _building(name: String, front: float, along: float, facing: String, size: Vector3, mat: StandardMaterial3D) -> Node3D:
 	var b := Node3D.new()
-	b.name = "Buildings"
+	b.name = name + "_Block"
 	var body := _kit_piece(name, Vector3.ZERO, 0.0, size, mat, b)
 	# kit pieces carry their manifest footprint; the greybox fallback uses `size`
 	var depth_x := size.x
@@ -260,7 +347,9 @@ func _building(name: String, front: float, along: float, facing: String, size: V
 			body.rotation.y = 0.0                # front face -> +Z
 		_:
 			push_error("unknown facing %s" % facing)
-	return body
+	# Return the BLOCK, not the piece: the piece is already parented to it, and re-parenting the
+	# piece is what made every building silently disappear from the saved scene (T-LVL-01a).
+	return b
 
 
 func _build_buildings() -> void:
@@ -412,18 +501,31 @@ func _build_lighting() -> void:
 	env.fog_density = 0.006
 	we.environment = env
 	l.add_child(we)
-	# Garage sodium practicals
+	# Garage sodium practicals - positioned from the garage that is actually built (it sits in
+	# the east block since T-MIS-01b), not from the old hard-coded numbers.
+	var gpos := Vector3(X_EAST_FRONT + 5.0, 0.0, 6.0)
 	for i in 2:
 		var lamp := OmniLight3D.new()
 		lamp.name = "GarageLamp_%d" % i
 		lamp.light_color = Color(1.0, 0.72, 0.36)
-		lamp.light_energy = 2.2
-		lamp.omni_range = 9.0
-		lamp.position = Vector3(24.0 + (2.5 if i == 0 else -2.5), 4.0, 6.0 + (2.0 if i == 0 else -2.0))
+		lamp.light_energy = 2.6
+		lamp.omni_range = 11.0
+		lamp.position = gpos + Vector3(-2.2 if i == 0 else 2.2, 4.1, -2.0 if i == 0 else 2.0)
 		l.add_child(lamp)
+	# One street practical per lane end, so the road reads at night-ish exposure too.
+	for zi in [-70.0, 0.0, 70.0]:
+		var sl := OmniLight3D.new()
+		sl.name = "StreetLamp_E_%+.0f" % zi
+		sl.light_color = Color(1.0, 0.86, 0.62)
+		sl.light_energy = 1.6
+		sl.omni_range = 14.0
+		sl.position = Vector3(WEST_X + 6.5, 5.2, zi)
+		l.add_child(sl)
 
 
 func _build_navmesh() -> void:
+	# The block navmesh is baked at runtime from the collision geometry (T-AI-01). It is NOT a
+	# flat carpet: a 150 x 190 m box would bury the 0.16 m sidewalk in the road surface.
 	var nav := NavigationRegion3D.new()
 	nav.name = "NavRegion_Block"
 	level.add_child(nav)
@@ -436,14 +538,23 @@ func _build_navmesh() -> void:
 	nm.geometry_parsed_geometry_type = NavigationMesh.PARSED_GEOMETRY_MESH_INSTANCES
 	nm.geometry_source_geometry_mode = NavigationMesh.SOURCE_GEOMETRY_ROOT_NODE_CHILDREN
 	nm.geometry_collision_mask = 1
-	var box := BoxMesh.new()
-	box.size = Vector3(150, 0.1, 190)
-	var mi := MeshInstance3D.new()
-	mi.name = "NavFloor"
-	mi.mesh = box
-	mi.position = Vector3(0, 0.16, 0)
-	nav.add_child(mi)
 	nav.navigation_mesh = nm
+
+
+## Bakes the level navmesh from the real collision geometry (walkable = road AND sidewalk), so
+## the polygon set ships in the scene instead of being baked by whoever opens the level.
+## NavigationServer3D works headless; the region is created first, then baked into it.
+func _bake_navmesh() -> void:
+	var nav := level.get_node_or_null("NavRegion_Block") as NavigationRegion3D
+	if nav == null:
+		return
+	var nm := nav.navigation_mesh
+	nav.navigation_mesh = null     # do not parse the (stale) baked mesh as geometry
+	var src := NavigationMeshSourceGeometryData3D.new()
+	NavigationServer3D.parse_source_geometry_data(nm, src, level)
+	NavigationServer3D.bake_from_source_geometry_data(nm, src)
+	nav.navigation_mesh = nm
+	print("[LVL] navmesh: %d polygons, %d vertices" % [nm.get_polygon_count(), nm.get_vertices().size()])
 
 
 ## Ambush anchors. Wave 1 activates when the player walks into Area_GarageInside, wave 2 comes
@@ -477,18 +588,25 @@ func _build_spawns_and_ai() -> void:
 	route_a.name = "Route_WestSidewalk"
 	route_a.set_script(load("res://Scripts/ai/npc_route.gd"))
 	routes.add_child(route_a)
-	var pts := [Vector3(-31.0, 0.16, -60.0), Vector3(-31.0, 0.16, -10.0),
-		Vector3(-31.0, 0.16, 40.0), Vector3(-17.0, 0.16, 40.0), Vector3(-17.0, 0.16, -20.0)]
+	# T-LVL-01a: the route stays on the OUTER west sidewalk. The old route crossed the road at
+	# z = 40 - a pedestrian standing in the lane is a solid 0.56 m obstacle that stops the player's
+	# sedan dead with no feedback, and there is no traffic logic that would justify the crossing.
+	var pts := [Vector3(-31.0, 0.16, -60.0), Vector3(-31.0, 0.16, -20.0),
+		Vector3(-31.0, 0.16, 20.0), Vector3(-31.0, 0.16, 60.0)]
 	for i in pts.size():
 		var p := Marker3D.new()
 		p.name = "P%d" % i
 		p.position = pts[i]
 		route_a.add_child(p)
 	if civilian != null:
+		# Spawn them 6 m off the road: a pedestrian standing on the kerb line is a 0.56 m
+		# obstacle that stops the sedan dead (measured in the T-LVL-01a drive test).
 		for i in 3:
 			var c := civilian.instantiate()
 			c.name = "Civilian_%d" % (i + 1)
-			c.position = pts[i % pts.size()]
+			var spawn: Vector3 = pts[i % pts.size()]
+			var lane_x := -17.0 if absf(spawn.x - (-17.0)) < absf(spawn.x - (-31.0)) else -31.0
+			c.position = Vector3(spawn.x + (1.4 if spawn.x > lane_x else -1.4), spawn.y, spawn.z)
 			c.set("route_path", NodePath("../Routes/Route_WestSidewalk"))
 			c.set("route_start_index", i % pts.size())
 			ai.add_child(c)
@@ -681,6 +799,7 @@ func _save() -> void:
 	# must already carry its final name (set in _initialize). Without this every child is
 	# dropped and the .tscn saves as a single empty node.
 	level.name = "LA_CallowayAve"
+	_name_children(level)
 	_own_all(level, level)
 	var packed := PackedScene.new()
 	var err := packed.pack(level)
@@ -692,6 +811,16 @@ func _save() -> void:
 	print("[LVL] saved %s (%d nodes) err=%d" % [OUT, _count(level), err])
 	if err != OK:
 		quit(1)
+
+
+## Every node we create gets a speaking name from its role - a "Props" child that comes out of
+## the scene as "@StaticBody3D@3" is exactly the debugging trap T-LVL-01a is about.
+func _name_children(n: Node) -> void:
+	for c in n.get_children():
+		if String(c.name).begins_with("@"):
+			var base := String(c.name).trim_prefix("@").split("@")[0]
+			c.name = {"StaticBody3D": "Prop", "CollisionShape3D": "Collision", "Node3D": "Node"}.get(base, base)
+		_name_children(c)
 
 
 ## Give every node of *our own* hierarchy an owner so PackedScene.pack() keeps it.

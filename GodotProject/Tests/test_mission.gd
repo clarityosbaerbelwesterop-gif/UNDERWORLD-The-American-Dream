@@ -283,6 +283,9 @@ func test_real_drive() -> void:
 		max_off_road = maxf(max_off_road, _off_road_distance(car.global_position))
 		if _off_road_distance(car.global_position) > 6.0:
 			break   # runaway: stop the loop, the checks below report why
+		if t > 8.0 and absf(car.forward_speed) < 0.5:
+			print("[GPTEST] DRIVE STALLED at t=%.1f s pos=%s waypoint=%s dist=%.1f speed=%.2f" % [t, car.global_position, waypoints[min(idx, waypoints.size()-1)], dist, car.forward_speed])
+			break
 		if mm.current_index >= 3:
 			arrived = true
 	car.set_controls(0.0, 1.0, 0.0)

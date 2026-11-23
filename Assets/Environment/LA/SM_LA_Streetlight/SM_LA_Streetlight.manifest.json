@@ -8,7 +8,7 @@
   "preview_png": "Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight_preview.png",
   "previews": null,
   "tool": "underworld_pipeline 1.0.0",
-  "blender_version": "5.0.1",
+  "blender_version": "5.2.4 LTS",
   "units": "metres (1 BU = 1 m = 1 Godot unit)",
   "up_axis": "Blender +Z -> glTF/Godot +Y",
   "front": "Blender -Y -> Godot +Z",
@@ -66,12 +66,13 @@
     "mode": "trimesh",
     "generated": [
       {
-        "name": "UCX_SM_LA_Streetlight_Mesh_LOD2-colonly",
-        "vertices": 32,
-        "triangles": 44
+        "name": "UCX_SM_LA_Streetlight_Mesh-colonly",
+        "vertices": 100,
+        "triangles": 180
       }
     ],
-    "existing": []
+    "existing": [],
+    "micro_lips": 0
   },
   "materials": [
     "M_LA_LampMetal",
@@ -133,8 +134,8 @@
     "SM_LA_Streetlight_Mesh_LOD1",
     "SM_LA_Streetlight_Mesh_LOD2",
     "SM_LA_Streetlight_Mesh",
-    "UCX_SM_LA_Streetlight_Mesh_LOD2-colonly",
+    "UCX_SM_LA_Streetlight_Mesh-colonly",
     "SM_LA_Streetlight"
   ],
-  "glb_bytes": 47268
+  "glb_bytes": 51168
 }

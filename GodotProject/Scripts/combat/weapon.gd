@@ -43,9 +43,20 @@ var _flash: Node3D
 var _flash_left := 0.0
 var _pattern_index := 0
 
+## Deterministic replays (T-BUILD-02): UW_RNG_SEED=<n> seeds every weapon/NPC RNG that has no
+## explicit seed, from the seed and the node path, so an input-driven playthrough is exactly
+## reproducible. Debug builds only (TD-020); a release export always randomizes.
+static func replay_seed() -> int:
+	if not OS.is_debug_build():
+		return 0
+	var v := OS.get_environment("UW_RNG_SEED").strip_edges()
+	return int(v) if v.is_valid_int() else 0
+
 func _ready() -> void:
 	if spread_seed != 0:
 		_rng.seed = spread_seed
+	elif Weapon.replay_seed() != 0:
+		_rng.seed = Weapon.replay_seed() + hash(str(get_path()))
 	else:
 		_rng.randomize()
 	_impacts = Node3D.new()

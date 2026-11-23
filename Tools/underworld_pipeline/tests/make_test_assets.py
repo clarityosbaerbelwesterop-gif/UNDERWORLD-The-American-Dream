@@ -293,6 +293,32 @@ def make_humanoid(path, name, facing_back=False):
     bpy.ops.wm.save_as_mainfile(filepath=path)
 
 
+def make_lip_floor(path, name, authored_flat_collision):
+    """T-BUILD-02 / B-PT-01: a 4 x 4 m floor slab with a 4 mm paint stripe on top.
+    Trimesh collision copies the stripe -> a 4 mm wall (COLLISION_MICRO_LIP must fail it).
+    With an authored flat UCX_ slab the asset must export."""
+    reset()
+    root = root_empty(name)
+    bpy.ops.mesh.primitive_cube_add(size=1.0, location=(0, 0, 0.02))
+    slab = bpy.context.active_object
+    slab.scale = (4.0, 4.0, 0.04)
+    bpy.ops.mesh.primitive_cube_add(size=1.0, location=(0, 0, 0.042))
+    stripe = bpy.context.active_object
+    stripe.scale = (0.1, 3.9, 0.004)
+    apply_transforms([slab, stripe])
+    slab.data.materials.append(material("M_PT_UWP_Asphalt", (0.2, 0.2, 0.2, 1)))
+    stripe.data.materials.append(material("M_PT_UWP_Paint", (0.9, 0.8, 0.1, 1)))
+    finish(slab, "SM_" + name + "_Slab", root)
+    finish(stripe, "SM_" + name + "_Stripe", root)
+    if authored_flat_collision:
+        bpy.ops.mesh.primitive_cube_add(size=1.0, location=(0, 0, 0.02))
+        col = bpy.context.active_object
+        col.scale = (4.0, 4.0, 0.04)
+        apply_transforms([col])
+        finish(col, "UCX_" + name + "-colonly", root)
+    bpy.ops.wm.save_as_mainfile(filepath=path)
+
+
 if __name__ == "__main__":
     argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
     ap = argparse.ArgumentParser()
@@ -304,6 +330,8 @@ if __name__ == "__main__":
     make_broken(os.path.join(a.out_dir, "PT_UWP_Broken.blend"))
     make_humanoid(os.path.join(a.out_dir, "PT_UWP_Humanoid.blend"), "PT_UWP_Humanoid")
     make_humanoid(os.path.join(a.out_dir, "PT_UWP_HumanoidBack.blend"), "PT_UWP_HumanoidBack", facing_back=True)
+    make_lip_floor(os.path.join(a.out_dir, "PT_UWP_LipFloor.blend"), "PT_UWP_LipFloor", False)
+    make_lip_floor(os.path.join(a.out_dir, "PT_UWP_FlatFloor.blend"), "PT_UWP_FlatFloor", True)
     print("[TEST] assets written to", a.out_dir)
     sys.stdout.flush()
     os._exit(0)

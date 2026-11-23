@@ -53,6 +53,14 @@ rc=$(run_uwp "$T/logs/hum_back.log" validate "$T/src/PT_UWP_HumanoidBack.blend" 
 expect_rc "validate PT_UWP_HumanoidBack (faces +Y, must fail FRONT_AXIS)" 1 "$rc" "$T/logs/hum_back.log"
 rc=$(run_uwp "$T/logs/strict.log" validate "$REPO/Blender/Source/Test/PT_PipelineTest_Crate.blend" --strict --report "$T/out/strict.json")
 expect_rc "validate --strict (warnings become errors)" 1 "$rc" "$T/logs/strict.log"
+# B-PT-01 (T-BUILD-02): render-mesh trimesh collision with a 4 mm paint stripe = a wall the
+# player's cylinder snags on. The exporter must refuse it; an authored flat UCX_ slab passes.
+rc=$(run_uwp "$T/logs/lip.log" export "$T/src/PT_UWP_LipFloor.blend" --category Environment --no-preview --out "$T/out/lip/PT_UWP_LipFloor.glb")
+expect_rc "export PT_UWP_LipFloor (4 mm stripe in trimesh collision, must fail)" 1 "$rc" "$T/logs/lip.log"
+grep -q "COLLISION_MICRO_LIP" "$T/logs/lip.log" && ok "COLLISION_MICRO_LIP reported for the 4 mm stripe" || bad "COLLISION_MICRO_LIP missing in $T/logs/lip.log"
+[ ! -f "$T/out/lip/PT_UWP_LipFloor.glb" ] && ok "no .glb written for the micro-lip floor" || bad "micro-lip floor was exported"
+rc=$(run_uwp "$T/logs/flat.log" export "$T/src/PT_UWP_FlatFloor.blend" --category Environment --no-preview --out "$T/out/flat/PT_UWP_FlatFloor.glb")
+expect_rc "export PT_UWP_FlatFloor (same stripe, authored flat UCX_ slab)" 0 "$rc" "$T/logs/flat.log"
 rc=$(run_uwp "$T/logs/missing.log" export "$T/src/Nope.blend" --category Props --out "$T/out/x.glb")
 expect_rc "missing input file" 4 "$rc" "$T/logs/missing.log"
 rc=$(run_uwp "$T/logs/nocat.log" validate "$T/src/PT_UWP_Barrel.blend" --report "$T/out/nocat.json")
@@ -76,6 +84,10 @@ t = m["triangles"]["per_lod_total"]
 check(t["LOD0"] > t["LOD1"] > t["LOD2"] > 0, f"barrel LOD tri totals decrease {t}")
 check(abs(m["aabb_godot"]["min"][1]) < 0.01 and abs(m["aabb_godot"]["size"][1] - 0.94) < 0.01, f"barrel Godot AABB {m['aabb_godot']}")
 check([c["name"] for c in m["collision"]["generated"]] == ["UCX_PT_UWP_Barrel-convcolonly"], "barrel convex collision generated")
+tri = json.load(open(os.path.join(T, "out", "tri", "PT_UWP_Barrel.manifest.json")))
+tri_names = [c["name"] for c in tri["collision"]["generated"]]
+check(tri_names and not any("_LOD" in n for n in tri_names),
+      "trimesh collision is built from LOD0, never a decimated LOD (B-PT-02): %s" % tri_names)
 check(m["textures"] and m["textures"][0]["size"] == [256, 256] and m["textures"][0]["packed"], "barrel texture recorded (256², packed)")
 check("SM_PT_UWP_Barrel_Body" in m.get("texel_density", {}), "barrel texel density recorded in manifest")
 check("SM_PT_UWP_Barrel_Body" in m.get("uv_overlap", {}) and m["uv_overlap"]["SM_PT_UWP_Barrel_Body"]["overlap_fraction"] < 0.05, "barrel UV overlap < 5%")

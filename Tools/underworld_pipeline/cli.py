@@ -169,6 +169,14 @@ def process(blend, args, cfg, do_export, out=None):
             mode = cfg.per_category("collision", cat) if args.collision == "auto" else args.collision
             col = G.generate_collision(ctx, mode)
         report["steps"]["collision"] = col
+        # Walkable-collision rule (B-PT-01): only for categories people walk/drive on.
+        lip_cfg = cfg.get("collision_walkability") or {}
+        if C.Config.top(cat) in lip_cfg.get("categories", ["Environment"]):
+            lips = G.check_collision_micro_lips(ctx, float(lip_cfg.get("micro_lip_max_m", 0.02)),
+                                                float(lip_cfg.get("micro_lip_min_m", 0.0005)))
+            report["steps"]["collision"]["micro_lips"] = len(lips)
+            if iss.has_errors:
+                return C.EXIT_VALIDATION, report
 
         sc = bpy.context.scene
         exported = sorted(o.name for o in sc.objects if o.type not in ("CAMERA", "LIGHT"))

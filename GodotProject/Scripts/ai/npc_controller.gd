@@ -76,6 +76,8 @@ func _ready() -> void:
 	assert(profile != null, "%s: NPCController needs an AIProfile" % name)
 	if rng_seed != 0:
 		_rng.seed = rng_seed
+	elif Weapon.replay_seed() != 0:
+		_rng.seed = Weapon.replay_seed() + hash(str(get_path()))   # deterministic replay
 	else:
 		_rng.randomize()
 	collision_layer = 1 << 2               # 3 Characters
@@ -621,6 +623,38 @@ func _set_crouch(on: bool) -> void:
 	if pose != null and not is_dead():
 		pose.position.y = -profile.crouch_drop if on else 0.0
 
+## B-AI-06 (T-BUILD-02): NPCs had no step logic, so every 16 cm kerb was a wall - the whole
+## ambush wave piled up at the east kerb (x = 28.6) and the navmesh (agent_max_climb 0.25 m)
+## kept routing them into it. Same rule as the player's step-up: a riser up to STEP_HEIGHT with
+## a walkable top and head room lifts the body onto the tread.
+const STEP_HEIGHT := 0.3
+
+func _step_up(hv: Vector3, delta: float) -> void:
+	var speed := hv.length()
+	if speed < 0.05 or OS.is_debug_build() and OS.get_environment("UW_AI_SABOTAGE").strip_edges() == "nostep":
+		return
+	var dir := hv / speed
+	var xf := global_transform
+	var probe := dir * (speed * delta + 0.04)
+	var col := KinematicCollision3D.new()
+	if not test_move(xf, probe, col):
+		return
+	if col.get_normal().angle_to(Vector3.UP) <= floor_max_angle:
+		return
+	var contact := col.get_position() + dir * 0.06
+	var q := PhysicsRayQueryParameters3D.create(Vector3(contact.x, xf.origin.y + STEP_HEIGHT + 0.05, contact.z),
+		Vector3(contact.x, xf.origin.y - 0.05, contact.z), 1, [get_rid()])
+	var hit := get_world_3d().direct_space_state.intersect_ray(q)
+	if hit.is_empty() or (hit.normal as Vector3).angle_to(Vector3.UP) > floor_max_angle:
+		return
+	var rise: float = hit.position.y - xf.origin.y
+	if rise <= 0.02 or rise > STEP_HEIGHT:
+		return
+	var lift := Vector3(0.0, rise + 0.02, 0.0)
+	if test_move(xf, lift) or test_move(xf.translated(lift), probe):
+		return
+	global_position += lift
+
 func _move_to(p: Vector3, speed: float) -> void:
 	_move_target = p
 	_move_speed = speed
@@ -658,6 +692,8 @@ func _apply_motion(delta: float, want: Vector3) -> void:
 	else:
 		vy -= ProjectSettings.get_setting("physics/3d/default_gravity", 9.8) * delta
 	velocity = Vector3(h.x, vy, h.z)
+	if is_on_floor():
+		_step_up(h, delta)
 	move_and_slide()
 	if is_dead():
 		return

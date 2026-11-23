@@ -187,6 +187,10 @@ func test_subtitles() -> void:
 		"the HUD shows the first line verbatim ('%s')" % hud.subtitle_label.text)
 	check(hud.subtitle_label.text.contains(": "), "speaker prefix is shown (%s)" % hud.subtitle_label.text.substr(0, 24))
 	check(hud.subtitle_label.horizontal_alignment == HORIZONTAL_ALIGNMENT_CENTER, "subtitle is centred at the bottom")
+	# B-UI-02 (T-BUILD-02): the last line of a call used to stay on screen forever (seen in the
+	# Forward Plus video, still showing 70 s later). After the call, the subtitle must clear.
+	await seconds(14.0)
+	check(hud.subtitle_label.text == "", "the subtitle clears after the call ends ('%s')" % hud.subtitle_label.text)
 	await unload()
 
 # --- 5. GPS marker --------------------------------------------------------------

@@ -148,5 +148,13 @@
     "Characters/SK_Jason": {
       "SOCKET_RightHand_Weapon": "RightHand"
     }
+  },
+  "collision_walkability": {
+    "_doc": "B-PT-01 (T-BUILD-02): near-vertical collision faces between min and max height snag the player's cylinder (step_min_height 2 cm). Checked for these categories only.",
+    "categories": [
+      "Environment"
+    ],
+    "micro_lip_max_m": 0.02,
+    "micro_lip_min_m": 0.0005
   }
 }

@@ -28,8 +28,12 @@ signal activated
 var activated_once := false
 
 
+## Where the level placed this gunman (restored on every checkpoint restart).
+var spawn_transform := Transform3D.IDENTITY
+
 func _ready() -> void:
 	super._ready()
+	spawn_transform = global_transform
 	# Enemy group membership is what the SURVIVE objective counts. The level groups are
 	# persistent (saved in the .tscn), this one is for code that only has the node.
 	add_to_group(&"mission_enemy")
@@ -44,7 +48,26 @@ func activate() -> void:
 	active = true
 	activated_once = true
 	_apply_active(true)
+	_brief_on_player()
 	activated.emit()
+
+
+## B-AI-05 (T-BUILD-02): an ambush wave is sent AT Jason - it must know where he is. Released
+## gunmen used to start "idle" with zero awareness; if Jason stayed out of their view cone (in
+## cover, which is what a player does) they never engaged and the objective never finished.
+## Same knowledge a gunshot gives them (last known position + gunshot awareness), no more:
+## they still have to find and see him before they shoot.
+func _brief_on_player() -> void:
+	if OS.is_debug_build() and OS.get_environment("UW_PLAYTHROUGH_SABOTAGE").strip_edges() == "3":
+		return   # negative control: the shipped behaviour (waves can stay idle forever)
+	var p := get_tree().get_first_node_in_group(&"player") as Node3D
+	if p == null:
+		return
+	target = p
+	last_known_pos = p.global_position
+	has_last_known = true
+	awareness = maxf(awareness, profile.gunshot_awareness)
+	send_event("heard_gunshot")
 
 
 ## Take it out of the fight again (mission restart / test setup). Also used by
@@ -65,6 +88,20 @@ func _physics_process(delta: float) -> void:
 	if not active:
 		return
 	super._physics_process(delta)
+	# Ambush pressure (B-AI-07, T-BUILD-02): a released ambusher that lost Jason fell back to
+	# "idle" and stood there forever - the SURVIVE objective could never finish unless the player
+	# hunted him down. After 3 s idle it is briefed again on Jason's position (no free shots: it
+	# still has to see him).
+	# Only for gunmen the MISSION sent (activate()); stand-alone gunmen keep normal perception.
+	if activated_once and not is_dead() and fsm.state == profile.initial_state:
+		_idle_t += delta
+		if _idle_t > 3.0:
+			_idle_t = 0.0
+			_brief_on_player()
+	else:
+		_idle_t = 0.0
+
+var _idle_t := 0.0
 
 
 func _apply_active(on: bool) -> void:
@@ -84,3 +121,24 @@ func _apply_active(on: bool) -> void:
 		unseen_time = 0.0
 		has_last_known = false
 		target = null
+
+
+## B-M01-08 (T-BUILD-02): a checkpoint restart revived the dead but left every gunman where the
+## last fight ended - alert, in "engage", at the garage door - so the restarted player walked
+## straight into fire. Back to the spawn point with a clean mind (the wave stays dormant until
+## MissionManager releases it again).
+func reset_to_spawn() -> void:
+	if is_dead():
+		revive()
+	global_transform = spawn_transform
+	velocity = Vector3.ZERO
+	awareness = 0.0
+	target = null
+	target_visible = false
+	visible_time = 0.0
+	unseen_time = 0.0
+	has_last_known = false
+	last_known_pos = Vector3.ZERO
+	_events.clear()
+	_stop()
+	fsm.force(profile.initial_state, "checkpoint")

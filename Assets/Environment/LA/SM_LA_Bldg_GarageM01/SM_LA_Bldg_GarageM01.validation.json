@@ -1,9 +1,9 @@
 {
   "tool": "underworld_pipeline",
   "version": "1.0.0",
-  "blender": "5.0.1",
-  "timestamp": "2026-11-22T20:52:12+00:00",
-  "command": "export-all",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-23T14:31:07+00:00",
+  "command": "export",
   "input": "Blender/Source/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01.blend",
   "steps": {
     "validate": {
@@ -38,16 +38,17 @@
       "mode": "trimesh",
       "generated": [
         {
-          "name": "UCX_SM_LA_Bldg_GarageM01_Mesh_LOD2-colonly",
-          "vertices": 49,
-          "triangles": 42
+          "name": "UCX_SM_LA_Bldg_GarageM01_Mesh-colonly",
+          "vertices": 112,
+          "triangles": 168
         }
       ],
-      "existing": []
+      "existing": [],
+      "micro_lips": 0
     },
     "export": {
       "glb": "Assets/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01.glb",
-      "bytes": 93140
+      "bytes": 104996
     },
     "preview": "Assets/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01_preview.png",
     "manifest": "Assets/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01.manifest.json",
@@ -58,7 +59,7 @@
           "SM_LA_Bldg_GarageM01_Mesh_LOD2",
           "SM_LA_Bldg_GarageM01_Mesh",
           "SOCKET_PackageBench",
-          "UCX_SM_LA_Bldg_GarageM01_Mesh_LOD2-colonly",
+          "UCX_SM_LA_Bldg_GarageM01_Mesh-colonly",
           "SM_LA_Bldg_GarageM01"
         ],
         "node_extras": {
@@ -95,8 +96,8 @@
         "skins": [],
         "joint_names": [],
         "animations": [],
-        "asset_generator": "Khronos glTF Blender I/O v5.0.21",
-        "bytes": 93140
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 104996
       },
       "reimport_objects": [
         "SM_LA_Bldg_GarageM01",
@@ -104,7 +105,7 @@
         "SM_LA_Bldg_GarageM01_Mesh_LOD1",
         "SM_LA_Bldg_GarageM01_Mesh_LOD2",
         "SOCKET_PackageBench",
-        "UCX_SM_LA_Bldg_GarageM01_Mesh_LOD2-colonly"
+        "UCX_SM_LA_Bldg_GarageM01_Mesh-colonly"
       ],
       "reimport_actions": [],
       "problems": []
@@ -132,7 +133,7 @@
     "warnings": 0,
     "infos": 1
   },
-  "seconds": 1.8,
+  "seconds": 0.58,
   "exit_code": 0,
   "result": "PASS"
 }

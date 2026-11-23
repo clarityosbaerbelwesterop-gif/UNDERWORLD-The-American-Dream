@@ -87,3 +87,4 @@ script = ExtResource("6_wctrl")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("7_recv")
+scale_npc_damage = true

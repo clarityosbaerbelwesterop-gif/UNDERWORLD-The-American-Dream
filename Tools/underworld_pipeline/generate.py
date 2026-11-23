@@ -145,11 +145,13 @@ def generate_collision(ctx, mode):
     if not srcs:
         ctx.issues.warn("COLLISION_NO_SOURCE", "no visible meshes to build collision from")
         return {"mode": mode, "generated": [], "existing": existing}
-    # use the lowest LOD of each mesh when available (fewer points)
+    # Hull-type proxies (box/convex) may use the lowest LOD (fewer points, same hull).
+    # A TRIMESH proxy must come from LOD0: decimation closes openings - the M01 garage's
+    # LOD2-derived collision sealed the roll-up door shut (B-PT-02, T-BUILD-02).
     low = []
     for ob in srcs:
         lods = sorted((c for c in ob.children if S.lod_level(c.name) > 0), key=lambda c: S.lod_level(c.name))
-        low.append(lods[-1] if lods else ob)
+        low.append(lods[-1] if (lods and mode != "trimesh") else ob)
     with S.rest_pose(sc):
         pts = _world_points(low)
     made = []
@@ -185,3 +187,39 @@ def generate_collision(ctx, mode):
         out.append({"name": ob.name, "vertices": len(ob.data.vertices), "triangles": _tris(ob.data)})
         print(f"[UWP] collision {ob.name}: {len(ob.data.vertices)} verts")
     return {"mode": mode, "generated": out, "existing": existing}
+
+
+def check_collision_micro_lips(ctx, max_lip_m=0.02, min_lip_m=0.0005):
+    """T-BUILD-02 bug B-PT-01: a near-vertical collision face lower than the character
+    controller's step threshold (2 cm, PlayerController.step_min_height) is a "micro-lip": the
+    cylinder (TD-011) snags on it and stops dead. The road kit's 4 mm paint stripes inside the
+    trimesh collision did exactly that. Walkable collision must be coplanar or a real step.
+    Returns a list of {object, height_m, at} findings; each one is reported as an error."""
+    import bmesh
+    findings = []
+    sc = bpy.context.scene
+    for ob in sc.objects:
+        if not S.is_collision(ob):
+            continue
+        bm = bmesh.new()
+        bm.from_mesh(ob.data)
+        bm.transform(ob.matrix_world)
+        bm.normal_update()
+        for f in bm.faces:
+            if f.calc_area() < 1e-8 or abs(f.normal.z) > 0.2:
+                continue                      # floor/ceiling-like faces are fine
+            zs = [v.co.z for v in f.verts]
+            h = max(zs) - min(zs)
+            if min_lip_m < h < max_lip_m:
+                c = f.calc_center_median()
+                findings.append({"object": ob.name, "height_m": round(h, 4),
+                                 "at": [round(c.x, 3), round(c.y, 3), round(c.z, 3)]})
+        bm.free()
+    for fd in findings[:8]:
+        ctx.issues.error("COLLISION_MICRO_LIP",
+                         f"{fd['height_m'] * 1000:.1f} mm vertical collision face at {fd['at']} snags the player "
+                         f"(walkable collision must be coplanar or >= {max_lip_m * 100:.0f} cm; author a flat UCX_ proxy)",
+                         fd["object"])
+    if len(findings) > 8:
+        ctx.issues.error("COLLISION_MICRO_LIP", f"... {len(findings) - 8} more micro-lip faces", findings[8]["object"])
+    return findings

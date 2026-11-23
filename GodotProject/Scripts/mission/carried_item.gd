@@ -57,6 +57,7 @@ func pick_up(by: Node3D) -> bool:
 	if state == State.LOADED:
 		return false
 	state = State.CARRIED
+	_sync_world_collision()
 	carrier = by
 	vehicle = null
 	top_level = true
@@ -72,6 +73,7 @@ func drop() -> bool:
 	var pos := global_position
 	_set_carrier_carrying(carrier, false)
 	state = State.ON_GROUND
+	_sync_world_collision()
 	carrier = null
 	top_level = false
 	dropped.emit(pos)
@@ -84,6 +86,7 @@ func load_into(car: Node3D) -> bool:
 		return false
 	_set_carrier_carrying(carrier, false)
 	state = State.LOADED
+	_sync_world_collision()
 	vehicle = car
 	carrier = null
 	top_level = true
@@ -95,6 +98,7 @@ func unload(pos: Vector3) -> void:
 	if state != State.LOADED:
 		return
 	state = State.ON_GROUND
+	_sync_world_collision()
 	vehicle = null
 	top_level = false
 	global_position = pos
@@ -128,9 +132,36 @@ func _set_carrier_carrying(by: Node3D, on: bool) -> void:
 
 func _physics_process(_delta: float) -> void:
 	if state == State.CARRIED and is_instance_valid(carrier):
+		# B-M01-02 (T-BUILD-02): nothing loaded the package when Jason got into the car, so the
+		# DELIVER objective (requires a LOADED package) could never complete in real play.
+		var ride = carrier.get("vehicle")
+		if ride is Node3D and is_instance_valid(ride) and not _sabotage_autoload():
+			load_into(ride)
+			return
 		_snap_to_carrier()
 	elif state == State.LOADED and is_instance_valid(vehicle):
 		_snap_to_vehicle(vehicle)
+
+## B-M01-06 (T-BUILD-02): the crate's imported static collision (UCX_ hull) stayed solid while
+## the item was snapped in front of Jason every frame - he climbed onto his own package (seen at
+## y = 2.8 m in the playthrough), and in the boot it would fight the car body. Solid only on
+## the ground; the Interact area and the DamageReceiver (hit by hitscan) are unaffected.
+var _world_layers: Dictionary = {}
+
+func _sync_world_collision() -> void:
+	var solid := state == State.ON_GROUND
+	for n in find_children("*", "CollisionObject3D", true, false):
+		var co := n as CollisionObject3D
+		if co is Area3D:
+			continue
+		if not _world_layers.has(co):
+			_world_layers[co] = co.collision_layer
+		co.collision_layer = _world_layers[co] if solid else 0
+
+## Negative control (UW_PLAYTHROUGH_SABOTAGE=2): the package stays "carried" inside the car,
+## the shipped bug. Debug builds only (TD-020).
+static func _sabotage_autoload() -> bool:
+	return OS.is_debug_build() and OS.get_environment("UW_PLAYTHROUGH_SABOTAGE").strip_edges() == "2"
 
 func _snap_to_carrier() -> void:
 	if not is_instance_valid(carrier):
@@ -146,12 +177,14 @@ func _on_health_died(_info: DamageInfo) -> void:
 	_destroyed = true
 	_set_carrier_carrying(carrier, false)
 	state = State.ON_GROUND
+	_sync_world_collision()
 	destroyed.emit()
 
 ## Restore the pre-mission state (checkpoint restart / tests).
 func reset_item() -> void:
 	_destroyed = false
 	state = State.ON_GROUND
+	_sync_world_collision()
 	carrier = null
 	vehicle = null
 	top_level = false

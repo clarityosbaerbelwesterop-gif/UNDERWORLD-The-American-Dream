@@ -540,6 +540,15 @@ func _update_state() -> void:
 			if _state_time >= exit_duration():
 				_finish_exit()
 
+## Immediate driver removal without the exit clip - for checkpoint restarts when Jason died
+## behind the wheel (B-M01-05, T-BUILD-02). Same end state as a normal exit.
+func eject_driver() -> void:
+	if driver == null:
+		return
+	if _exit_socket == &"" or not EXIT_DOORS.has(_exit_socket):
+		_exit_socket = &"SOCKET_Exit_Left"
+	_finish_exit()
+
 func _finish_exit() -> void:
 	var p := driver
 	var s := get_socket(_exit_socket)

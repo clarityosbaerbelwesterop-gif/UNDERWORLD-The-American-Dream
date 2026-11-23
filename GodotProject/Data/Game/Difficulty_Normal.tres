@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Difficulty" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/game/difficulty.gd" id="1_diff"]
+
+[resource]
+script = ExtResource("1_diff")
+; TD-022 PROPOSED: measured with the input-only M01 autopilot, see TECHNICAL_DECISIONS.md.
+ai_damage_to_player = 1.0

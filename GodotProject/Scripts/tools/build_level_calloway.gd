@@ -108,6 +108,20 @@ func _mesh_instance(name: String, mesh: Mesh, mat: StandardMaterial3D, parent: N
 	return mi
 
 
+## Render-only box (paint, decals, markings): no collision, so it can never snag a character.
+func _visual_box(name: String, size: Vector3, pos: Vector3, mat: StandardMaterial3D, parent: Node) -> MeshInstance3D:
+	var mi := MeshInstance3D.new()
+	mi.name = name
+	var bm := BoxMesh.new()
+	bm.size = size
+	mi.mesh = bm
+	if mat != null:
+		mi.material_override = mat
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	parent.add_child(mi)
+	mi.position = pos
+	return mi
+
 func _static_box(name: String, size: Vector3, pos: Vector3, mat: StandardMaterial3D, parent: Node, rot_y := 0.0) -> StaticBody3D:
 	var body := StaticBody3D.new()
 	body.name = name
@@ -279,15 +293,19 @@ func _build_streets() -> void:
 	# A bright kerb line on the street side of every sidewalk: 0.18 m wide, 0.02 m above the
 	# sidewalk, so the edge reads even when the sun is flat (glyph, not decoration).
 	var kerb_mat := _mat(Color(0.80, 0.78, 0.72), 0.85)
-	# Street-side edge of each N-S sidewalk: 0.18 m wide, 2 cm proud of the slab.
-	for kx in [WSIDE_E + SIDEWALK_W * 0.5 - 0.09, WSIDE_W - SIDEWALK_W * 0.5 + 0.09,
-			ESIDE_W - SIDEWALK_W * 0.5 + 0.09, ESIDE_E + SIDEWALK_W * 0.5 - 0.09]:
-		_static_box("Kerb_Line_%+.1f" % kx, Vector3(0.18, 0.02, 170.0),
-			Vector3(kx, 0.17, 0.0), kerb_mat, s)
+	# Kerb lines: PAINT, not geometry (B-LVL-01, T-BUILD-02). They used to be 2 cm proud static
+	# boxes - a 2 cm lip right at the player's step threshold - and all four ran along the
+	# BUILDING side of the sidewalks, i.e. across the M01 garage door: a player could not walk in.
+	# Now: visual-only strips on the street-side edge, 3 mm proud, no collision.
+	# All four used to sit on the building side (sign error); street side = the edge facing the road.
+	for kx in [WSIDE_E - SIDEWALK_W * 0.5 + 0.09, WSIDE_W + SIDEWALK_W * 0.5 - 0.09,
+			ESIDE_W + SIDEWALK_W * 0.5 - 0.09, ESIDE_E - SIDEWALK_W * 0.5 + 0.09]:
+		_visual_box("Kerb_Line_%+.1f" % kx, Vector3(0.18, 0.006, 170.0),
+			Vector3(kx, 0.16, 0.0), kerb_mat, s)
 	# Same line along the two closing segments (south/north).
 	for kz in [Z_SOUTH_FRONT + 4.0 - 0.09, Z_NORTH_FRONT - 4.0 + 0.09]:
-		_static_box("Kerb_Line_z%+.1f" % kz, Vector3(66.0, 0.02, 0.18),
-			Vector3(0.0, 0.17, kz), kerb_mat, s)
+		_visual_box("Kerb_Line_z%+.1f" % kz, Vector3(66.0, 0.006, 0.18),
+			Vector3(0.0, 0.16, kz), kerb_mat, s)
 	# Sidewalks along the south and north segments too, so pedestrians never walk on the
 	# roadway and the block edge is readable (z = -86 / +86 kerb, 4 m deep).
 	var xx := -33.0
@@ -412,7 +430,10 @@ func _build_garage(b: Node3D) -> void:
 	# or the player can never walk in to the ambush / package. Its own collision comes from the
 	# exported UCX_-colonly hull; the interior walls below add the explicit physics we need.
 	if kit.get("SM_LA_Bldg_GarageM01") is PackedScene:
-		var shell := _kit_piece("SM_LA_Bldg_GarageM01", garage_pos, PI * 0.5,
+		# Kit front (bay) = local +Z (TD-004). -90 deg turns +Z to world -X = WEST, onto the service
+		# lane. It was +90 deg (B-LVL-02, T-BUILD-02): the bay faced the back lot and the west face
+		# - door marker, mission flow, level opening - was a solid wall nobody could walk through.
+		var shell := _kit_piece("SM_LA_Bldg_GarageM01", garage_pos, -PI * 0.5,
 			Vector3(10.0, 4.9, 8.0), _mat(Color(0.58, 0.55, 0.50), 0.9), b)
 		shell.name = "Bldg_GarageM01"
 	else:
@@ -451,6 +472,26 @@ func _build_garage(b: Node3D) -> void:
 	_static_box("Garage_Pillar_S", Vector3(0.4, 4.6, 0.4), g + Vector3(-3.0, 2.3, -1.5), walls, b)
 	_static_box("Forecourt_Dumpster", Vector3(2.0, 1.3, 1.2), Vector3(X_EAST_FRONT - 2.0, 0.65, -2.0),
 		_mat(Color(0.18, 0.32, 0.24), 0.8), b)
+	# Cover anchors (layout §3.3 + §5 are binding: 6 x CoverPoint). They were missing - neither the
+	# AI cover-lite nor a player-side check had anything to use (B-LVL-04, T-BUILD-02). Each sits
+	# on the side away from the roll-up door / street, where wave 1 and 2 come from.
+	var cover_script := load("res://Scripts/ai/cover_point.gd")
+	var covers := {
+		# Every spot keeps >= 0.6 m to walls (navmesh agent radius 0.5) - test_level checks
+		# that each one sits ON the navmesh, otherwise "go to cover" routes around the building.
+		"Cover_Garage_Car_L": g + Vector3(0.55, 0.16, -2.0),     # east of the wreck (x 36.1..37.9)
+		"Cover_Garage_Crate_A": g + Vector3(3.5, 0.16, -2.45),   # south of the crate stack (kit bench is north)
+		"Cover_Garage_Bench": g + Vector3(2.5, 0.16, 1.5),       # south of the bench
+		"Cover_Garage_Pillar_N": g + Vector3(-2.4, 0.16, 3.2),
+		"Cover_Garage_Pillar_S": g + Vector3(-3.0, 0.16, -2.3),  # south of the pillar, clear of the wreck
+		"Cover_Forecourt_Dumpster": Vector3(X_EAST_FRONT - 2.0, 0.16, -0.8),  # north of it
+	}
+	for cn in covers:
+		var cp := Marker3D.new()
+		cp.set_script(cover_script)
+		cp.name = cn
+		b.add_child(cp)
+		cp.position = covers[cn]
 
 
 func _build_props() -> void:
@@ -476,8 +517,9 @@ func _build_props() -> void:
 	_static_box("Prop_TrafficLight", Vector3(0.3, 5.6, 0.3), Vector3(-17.5, 2.8, 70.0),
 		_mat(Color(0.15, 0.15, 0.16), 0.6, 0.5), p)
 	for i in 4:
-		_static_box("Prop_CrosswalkStripe_%d" % i, Vector3(0.6, 0.02, 4.0),
-			Vector3(WEST_X - 3.6 + i * 2.4, 0.05, 68.0), _mat(Color(0.85, 0.85, 0.83), 0.9), p)
+		# Paint, not a 2 cm kerb across the road (B-PT-01 class: micro-lips snag the player).
+		_visual_box("Prop_CrosswalkStripe_%d" % i, Vector3(0.6, 0.004, 4.0),
+			Vector3(WEST_X - 3.6 + i * 2.4, 0.042, 68.0), _mat(Color(0.85, 0.85, 0.83), 0.9), p)
 
 
 func _build_lighting() -> void:
@@ -580,11 +622,18 @@ func _build_spawns_and_ai() -> void:
 	var civilian := load("res://Scenes/NPC/PT_NPC_Civilian.tscn") as PackedScene
 	var garage := Vector3(X_EAST_FRONT + 5.0, 0.16, 6.0)
 	var markers := {
-		"Spawn_Wave1_A": garage + Vector3(-3.0, 0.0, -2.0),
-		"Spawn_Wave1_B": garage + Vector3(1.5, 0.0, -3.0),
-		"Spawn_Wave1_C": garage + Vector3(4.0, 0.0, 1.5),
+		# Layout §5 (binding): "the AI never spawns behind the player's back inside the garage
+		# (wave 1 comes from the street)". They used to stand INSIDE the garage, 2-4 m from the
+		# door: Jason died 1.3 s after walking in (B-LVL-03, T-BUILD-02). Now: east service lane
+		# and the far sidewalk, 12-20 m from the door, so the player has the interior cover.
+		"Spawn_Wave1_A": Vector3(EAST_X - 1.0, 0.16, 22.0),
+		"Spawn_Wave1_B": Vector3(EAST_X + 2.0, 0.16, -6.0),
+		"Spawn_Wave1_C": Vector3(ESIDE_W, 0.16, 12.0),
 		"Spawn_Wave2_Van": Vector3(EAST_X, 0.16, -8.0),
-		"Spawn_Wave2_Roof": Vector3(EAST_X + 1.0, 4.9, 2.0),
+		# On the garage ROOF above the door (layout §3.3 "rooftop"). It was (EAST_X + 1, 4.9, 2):
+		# in mid-air over the service lane - the gunman dropped onto Jason's parked car roof
+		# (B-LVL-05, T-BUILD-02).
+		"Spawn_Wave2_Roof": garage + Vector3(-3.5, 4.95, -1.5),
 	}
 	for k in markers:
 		var m := Marker3D.new()

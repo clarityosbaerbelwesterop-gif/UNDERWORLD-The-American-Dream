@@ -1,5 +1,9 @@
 # Development Log
 
+## 2026-11-23 · Claude Code · T-WPN-01 (P5: weapon grammar + 9 weapons)
+- `Tools/uwp build-weapons` (`props/weapons.py`; kit gains multi-part assets): revolver, SMG, pump shotgun, carbine, bolt-action sniper, knife, bat, grenade, molotov. Parts Frame/Slide/Magazine/Barrel/Trigger/Hammer, sockets Grip/Muzzle/Eject, rigid rig with Fire/Reload/Empty. Reload length read from combat.json. 152–932 tris. TD-028 PROPOSED.
+- `combat.json` `scene` links + `CombatDB.weapon()` loads them; `test_combat_db.gd` checks muzzle in front, Magazine node, 15 clips, Reload clip == reload_time (with a self-check that +0.5 s fails). uwp test [9] builds rifle + revolver through the gate. Capture: weapons in side profile, objects lifted onto the ground.
+
 ## 2026-11-23 · Claude Code · T-BLDG-01 (P3: building grammar + 8 LA buildings)
 - `Tools/uwp build-buildings` (`props/buildings.py`, kit `wall()` with real openings): apartment 4F (fire escape, water tank), motel (gallery, 16 rooms, pole sign), gas station (kiosk, canopy, pumps, price sign), warehouse M01 (dock, 3 roll-up doors), hangar (barrel vault), office tower (8 floors, curtain-glass ribbons, penthouse), Crestmont villa (hip roof, balcony, garage), liquor store (security bars, awning, mural). 492–3,864 tris, ≤ 8 materials each. TD-027 PROPOSED.
 - Verified: `uwp --profile gate` 8/8 PASS; Godot import 0 errors/warnings; catalogue import test; uwp tool test builds liquor store + hangar from a synthetic cache through the gate; Forward Plus captures `Docs/Reports/renders_buildings/`.

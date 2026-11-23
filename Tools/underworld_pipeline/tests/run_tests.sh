@@ -323,8 +323,9 @@ expect_rc "uwp catalog status" 0 "$rc" "$T/logs/catalog_status.log"
 grep -q "| WPN_Pistol_01 | weapon | WIP |" "$T/out/CATALOG_STATUS.md" 2>/dev/null && ok "status report lists the pistol as WIP" || bad "status report incomplete ($T/out/CATALOG_STATUS.md)"
 rc=$(run_uwp "$T/logs/catalog_build.log" catalog build --milestone P5 --dry-run)
 expect_rc "uwp catalog build --milestone P5 --dry-run" 0 "$rc" "$T/logs/catalog_build.log"
-grep -q "RUN\] build-weapon Config/Weapons/WPN_Pistol_01.json" "$T/logs/catalog_build.log" && grep -q "SKIP\] WPN_SMG_01: spec" "$T/logs/catalog_build.log" \
-  && ok "build plans the pistol and skips weapons without a spec" || bad "catalog build plan wrong ($T/logs/catalog_build.log)"
+grep -q "RUN\] build-weapon Config/Weapons/WPN_Pistol_01.json" "$T/logs/catalog_build.log" && grep -q "RUN\] build-weapons --only WPN_SMG_01" "$T/logs/catalog_build.log" \
+  && grep -q "SKIP\] VH_Van_01: spec" "$T/logs/catalog_build.log" \
+  && ok "build plans pistol + grammar weapons and skips vehicles without a spec" || bad "catalog build plan wrong ($T/logs/catalog_build.log)"
 # Negative: a sabotaged catalogue must fail with the right reasons.
 python3 - "$REPO/Config/Content/catalog.json" "$T/out/catalog_bad.json" <<'PYEOF'
 import json, sys
@@ -378,6 +379,16 @@ for n in SM_LA_Bldg_LiquorStore SM_LA_Bldg_Hangar; do
   rc=$(run_uwp "$T/logs/bldg_gate_$n.log" export "$T/proprepo/Blender/Source/Environment/LA/$n/$n.blend" --category Environment/LA --profile gate --no-preview --out "$T/out/props/$n/$n.glb")
   expect_rc "generated $n passes the release gate (<= 8 materials, LODs, collision)" 0 "$rc" "$T/logs/bldg_gate_$n.log"
 done
+# build-weapons writes into --repo (it reads combat.json there): build into a scratch copy instead
+mkdir -p "$T/wpnrepo/GodotProject/Data/Content" && cp "$REPO/GodotProject/Data/Content/combat.json" "$T/wpnrepo/GodotProject/Data/Content/"
+UWP_CACHE="$T/propcache" "$UWP" build-weapons --repo "$T/wpnrepo" --only WPN_Rifle_01,WPN_Revolver_01 > "$T/logs/wpn_build.log" 2>&1
+expect_rc "uwp build-weapons (rifle: 5 parts + rig; revolver: cylinder + hammer)" 0 $? "$T/logs/wpn_build.log"
+for n in WPN_Rifle_01 WPN_Revolver_01; do
+  rc=$(run_uwp "$T/logs/wpn_gate_$n.log" export "$T/wpnrepo/Blender/Source/Weapons/$n/$n.blend" --category Weapons --profile gate --no-preview --out "$T/out/wpn/$n/$n.glb")
+  expect_rc "generated $n passes the release gate (sockets, LODs, collision)" 0 "$rc" "$T/logs/wpn_gate_$n.log"
+done
+grep -q '"A_WPN_Rifle_01_Reload"' "$T/out/wpn/WPN_Rifle_01/WPN_Rifle_01.manifest.json" 2>/dev/null && grep -q 'SOCKET_Muzzle' "$T/out/wpn/WPN_Rifle_01/WPN_Rifle_01.manifest.json" \
+  && ok "rifle manifest has SOCKET_Muzzle + A_WPN_Rifle_01_Reload" || bad "rifle manifest misses socket/clip"
 grep -q "T_Prop_LA_StreetSign_Labels_D" "$T/out/props/SM_LA_StreetSign/SM_LA_StreetSign.manifest.json" 2>/dev/null \
   && ok "street sign labels packed into one atlas texture" || bad "label atlas missing in SM_LA_StreetSign manifest"
 # Negative: no texture cache -> loud failure, never silent grey materials.

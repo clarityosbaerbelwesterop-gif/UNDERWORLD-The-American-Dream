@@ -1,0 +1,142 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-23T19:53:08+00:00",
+  "command": "export",
+  "profile": "gate",
+  "input": "Blender/Source/Weapons/WPN_Grenade_01/WPN_Grenade_01.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "lods": [
+      {
+        "object": "Frame",
+        "levels": [
+          {
+            "name": "Frame",
+            "level": 0,
+            "triangles": 320
+          },
+          {
+            "name": "Frame_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 160
+          },
+          {
+            "name": "Frame_LOD2",
+            "level": 2,
+            "ratio": 0.25,
+            "triangles": 80
+          }
+        ]
+      }
+    ],
+    "collision": {
+      "mode": "authored",
+      "generated": [],
+      "existing": [
+        "UCX_WPN_Grenade_01_00-convcolonly"
+      ]
+    },
+    "foot_slide": null,
+    "export": {
+      "glb": "Assets/Weapons/WPN_Grenade_01/WPN_Grenade_01.glb",
+      "bytes": 540844
+    },
+    "preview": "Assets/Weapons/WPN_Grenade_01/WPN_Grenade_01_preview.png",
+    "manifest": "Assets/Weapons/WPN_Grenade_01/WPN_Grenade_01.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "Frame_LOD1",
+          "Frame_LOD2",
+          "Frame",
+          "SOCKET_Grip",
+          "SOCKET_Muzzle",
+          "Trigger",
+          "UCX_WPN_Grenade_01_00-convcolonly",
+          "WPN_Grenade_01"
+        ],
+        "node_extras": {
+          "Frame_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              10.0,
+              30.0
+            ]
+          },
+          "Frame_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              30.0,
+              80.0
+            ]
+          },
+          "Frame": {
+            "uw_allow_uv_overlap": 1,
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              10.0
+            ]
+          },
+          "Trigger": {
+            "uw_allow_uv_overlap": 1
+          }
+        },
+        "meshes": 5,
+        "materials": [
+          "M_Prop_OlivePaint",
+          "M_Prop_SteelBright"
+        ],
+        "images": 6,
+        "skins": [],
+        "joint_names": [],
+        "animations": [],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 540844
+      },
+      "reimport_objects": [
+        "Frame",
+        "Frame_LOD1",
+        "Frame_LOD2",
+        "SOCKET_Grip",
+        "SOCKET_Muzzle",
+        "Trigger",
+        "UCX_WPN_Grenade_01_00-convcolonly",
+        "WPN_Grenade_01"
+      ],
+      "reimport_actions": [],
+      "problems": []
+    }
+  },
+  "asset": "WPN_Grenade_01",
+  "category": "Weapons",
+  "budget_key": "Weapons",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SMALL",
+      "object": "Trigger",
+      "message": "56 tris < lod_min_triangles 64"
+    },
+    {
+      "severity": "info",
+      "code": "COLLISION_AUTHORED",
+      "object": null,
+      "message": "authored collision kept, nothing generated: ['UCX_WPN_Grenade_01_00-convcolonly']"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "infos": 2
+  },
+  "seconds": 0.5,
+  "exit_code": 0,
+  "result": "PASS"
+}

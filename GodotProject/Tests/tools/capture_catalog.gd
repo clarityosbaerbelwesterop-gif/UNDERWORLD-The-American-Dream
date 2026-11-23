@@ -32,7 +32,7 @@ func _entries() -> Array:
 	for e in (cat as Dictionary).get("entries", []):
 		if String(e.get("status", "")) == "PLANNED" or not e.has("asset"):
 			continue
-		if String(e.get("type", "")) not in ["environment", "prop", "armor"]:
+		if String(e.get("type", "")) not in ["environment", "prop", "armor", "weapon"]:
 			continue
 		if not only.is_empty() and not only.has(String(e["id"])):
 			continue
@@ -89,6 +89,9 @@ func _run() -> void:
 		stage.add_child(inst)
 		await frames(2)
 		var box := _aabb(inst)
+		if box.position.y < 0.0:              # weapons/throwables have their origin at the grip
+			inst.position.y -= box.position.y
+			box.position.y = 0.0
 		var c := box.get_center()
 		var r := maxf(box.size.length() * 0.5, 0.05)
 		cam.fov = 35.0
@@ -96,6 +99,9 @@ func _run() -> void:
 		var dist := r / tan(deg_to_rad(cam.fov * 0.5)) * 1.05
 		# 3/4 front view (front = +Z in Godot, TD-004), slightly above
 		var dir := Vector3(-0.55, 0.42, 0.72).normalized()
+		if String(e.get("type", "")) == "weapon":
+			dir = Vector3(1.0, 0.16, -0.12).normalized()     # weapons read in side profile (barrel = +Z)
+			dist *= 0.82
 		cam.position = c + dir * dist
 		cam.look_at(c, Vector3.UP)
 		await frames(8)

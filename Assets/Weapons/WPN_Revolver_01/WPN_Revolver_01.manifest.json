@@ -1,0 +1,330 @@
+{
+  "asset": "WPN_Revolver_01",
+  "status": "READY FOR REVIEW",
+  "category": "Weapons",
+  "budget_key": "Weapons",
+  "source_blend": "Blender/Source/Weapons/WPN_Revolver_01/WPN_Revolver_01.blend",
+  "export_glb": "Assets/Weapons/WPN_Revolver_01/WPN_Revolver_01.glb",
+  "preview_png": "Assets/Weapons/WPN_Revolver_01/WPN_Revolver_01_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.02,
+      -0.0894,
+      -0.0614
+    ],
+    "max": [
+      0.02,
+      0.088,
+      0.205
+    ],
+    "size": [
+      0.04,
+      0.1774,
+      0.2664
+    ]
+  },
+  "triangles": {
+    "lod0": 508,
+    "budget": 8000,
+    "per_lod_total": {
+      "LOD0": 320,
+      "LOD1": 160,
+      "LOD2": 80
+    }
+  },
+  "lods": [
+    {
+      "object": "Frame",
+      "levels": [
+        {
+          "name": "Frame",
+          "level": 0,
+          "triangles": 224
+        },
+        {
+          "name": "Frame_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 112
+        },
+        {
+          "name": "Frame_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 56
+        }
+      ]
+    },
+    {
+      "object": "Barrel",
+      "levels": [
+        {
+          "name": "Barrel",
+          "level": 0,
+          "triangles": 96
+        },
+        {
+          "name": "Barrel_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 48
+        },
+        {
+          "name": "Barrel_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 24
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_WPN_Revolver_01_00-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_Prop_Gunmetal",
+    "M_Prop_SteelBright",
+    "M_Prop_WoodStock"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Gunmetal_D",
+      "material": "M_Prop_Gunmetal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_sldydmgf/T_Prop_Gunmetal_D.jpg"
+    },
+    {
+      "image": "T_Prop_Gunmetal_ORM",
+      "material": "M_Prop_Gunmetal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_epjhy1dj/T_Prop_Gunmetal_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Gunmetal_N",
+      "material": "M_Prop_Gunmetal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_5_hpcfhv/T_Prop_Gunmetal_N.jpg"
+    },
+    {
+      "image": "T_Prop_SteelBright_D",
+      "material": "M_Prop_SteelBright",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_mj7t9x49/T_Prop_SteelBright_D.jpg"
+    },
+    {
+      "image": "T_Prop_SteelBright_ORM",
+      "material": "M_Prop_SteelBright",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_qm52qy6w/T_Prop_SteelBright_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_SteelBright_N",
+      "material": "M_Prop_SteelBright",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex__55_txtm/T_Prop_SteelBright_N.jpg"
+    },
+    {
+      "image": "T_Prop_WoodStock_D",
+      "material": "M_Prop_WoodStock",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_xuhvypy1/T_Prop_WoodStock_D.jpg"
+    },
+    {
+      "image": "T_Prop_WoodStock_ORM",
+      "material": "M_Prop_WoodStock",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_8czkb3in/T_Prop_WoodStock_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_WoodStock_N",
+      "material": "M_Prop_WoodStock",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_ztp2f4p3/T_Prop_WoodStock_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "Frame": {
+      "texture_px": 512,
+      "median_px_per_m": 2152.7,
+      "p10_px_per_m": 1230.1,
+      "p90_px_per_m": 2560.0
+    },
+    "Barrel": {
+      "texture_px": 512,
+      "median_px_per_m": 2547.6,
+      "p10_px_per_m": 2334.3,
+      "p90_px_per_m": 2560.0
+    },
+    "Magazine": {
+      "texture_px": 512,
+      "median_px_per_m": 2048.0,
+      "p10_px_per_m": 1905.9,
+      "p90_px_per_m": 2560.0
+    },
+    "Hammer": {
+      "texture_px": 512,
+      "median_px_per_m": 2560.0,
+      "p10_px_per_m": 2560.0,
+      "p90_px_per_m": 2560.0
+    },
+    "Trigger": {
+      "texture_px": 512,
+      "median_px_per_m": 2560.0,
+      "p10_px_per_m": 2560.0,
+      "p90_px_per_m": 2560.0
+    }
+  },
+  "clipping": [],
+  "armatures": {
+    "WeaponRig": {
+      "bones": [
+        "WpnRoot",
+        "MagBone",
+        "TrigBone",
+        "HammerBone"
+      ],
+      "deform_bones": 4
+    }
+  },
+  "blendshapes": [],
+  "animations": [
+    {
+      "name": "A_WPN_Revolver_01_Empty",
+      "frame_start": 0.0,
+      "frame_end": 2.0,
+      "fps": 30.0,
+      "duration_s": 0.0667,
+      "frames": 2,
+      "loop": false,
+      "speed_mps": null,
+      "slots": [
+        "OBWeaponRig"
+      ]
+    },
+    {
+      "name": "A_WPN_Revolver_01_Fire",
+      "frame_start": 0.0,
+      "frame_end": 3.0,
+      "fps": 30.0,
+      "duration_s": 0.1,
+      "frames": 3,
+      "loop": false,
+      "speed_mps": null,
+      "slots": [
+        "OBWeaponRig"
+      ]
+    },
+    {
+      "name": "A_WPN_Revolver_01_Reload",
+      "frame_start": 0.0,
+      "frame_end": 78.0,
+      "fps": 30.0,
+      "duration_s": 2.6,
+      "frames": 78,
+      "loop": false,
+      "speed_mps": null,
+      "slots": [
+        "OBWeaponRig"
+      ]
+    }
+  ],
+  "sockets": {
+    "SOCKET_Grip": {
+      "parent": "WPN_Revolver_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.0,
+        -0.0
+      ]
+    },
+    "SOCKET_Muzzle": {
+      "parent": "WPN_Revolver_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.058,
+        0.205
+      ]
+    },
+    "SOCKET_Eject": {
+      "parent": "WPN_Revolver_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.02,
+        0.047,
+        0.034
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "Barrel_LOD1",
+    "Barrel_LOD2",
+    "Barrel",
+    "Frame_LOD1",
+    "Frame_LOD2",
+    "Frame",
+    "SOCKET_Eject",
+    "SOCKET_Grip",
+    "SOCKET_Muzzle",
+    "UCX_WPN_Revolver_01_00-convcolonly",
+    "HammerBone",
+    "MagBone",
+    "TrigBone",
+    "WpnRoot",
+    "Hammer",
+    "Magazine",
+    "Trigger",
+    "WeaponRig",
+    "WPN_Revolver_01"
+  ],
+  "glb_bytes": 771932
+}

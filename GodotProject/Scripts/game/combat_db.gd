@@ -48,8 +48,12 @@ static func weapon(id: String) -> WeaponData:
 		for p in wd.get_property_list():
 			props[String(p["name"])] = true
 		for k in w:
-			if props.has(String(k)):
+			if props.has(String(k)) and String(k) != "scene":
 				wd.set(String(k), w[k])
+		# visual: the weapon-grammar .glb (T-WPN-01) - SOCKET_Muzzle, Magazine, Fire/Reload clips
+		var sp := String(w.get("scene", ""))
+		if sp != "" and ResourceLoader.exists(sp):
+			wd.scene = load(sp) as PackedScene
 		_weapon_cache[id] = wd
 	return (_weapon_cache[id] as WeaponData).duplicate()
 

@@ -236,3 +236,13 @@ view drawn from the scene's real AABBs.
 - **Closed shells, no interiors:** glass is dark, and walls have no back faces, which roughly halves the triangles. Enterable interiors (garage, warehouse M01, safehouses) are separate interior kits with LightmapGI (TD-024).
 - **Collision:** one convex box per volume, plus canopies, docks and posts.
 - A new building type is a new rule set of ~30–60 lines, not a modelling session. Bespoke hero facades (landmarks) stay hand-authored (TD-021).
+
+## TD-028 – Weapon grammar and gameplay-coupled weapon animation (Claude Code, 2026-11-23, T-WPN-01)
+**Status: PROPOSED.** Evidence: `Docs/Reports/BERICHT_T-WPN-01.md`.
+- **`Tools/uwp build-weapons`** (`props/weapons.py`) builds every `combat.json` weapon as a multi-part asset with the REQ-GP02 contract:
+  - grip origin, barrel along +Z
+  - parts Frame, Slide, Magazine, Barrel, Trigger, Hammer
+  - SOCKET_Grip, SOCKET_Muzzle and SOCKET_Eject
+  - a rigid rig with A_<id>_Fire, A_<id>_Reload and A_<id>_Empty
+- **Coupling:** the generator reads the Reload clip length from `combat.json` `reload_time`. `test_combat_db.gd` fails if clip and data drift apart (tolerance 1 frame).
+- **Linking:** `combat.json` `weapons.<id>.scene` points at the asset, and `CombatDB.weapon()` loads it.

@@ -1,0 +1,193 @@
+{
+  "asset": "WPN_Molotov_01",
+  "status": "READY FOR REVIEW",
+  "category": "Weapons",
+  "budget_key": "Weapons",
+  "source_blend": "Blender/Source/Weapons/WPN_Molotov_01/WPN_Molotov_01.blend",
+  "export_glb": "Assets/Weapons/WPN_Molotov_01/WPN_Molotov_01.glb",
+  "preview_png": "Assets/Weapons/WPN_Molotov_01/WPN_Molotov_01_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.038,
+      -0.11,
+      -0.038
+    ],
+    "max": [
+      0.038,
+      0.1773,
+      0.0385
+    ],
+    "size": [
+      0.076,
+      0.2873,
+      0.0765
+    ]
+  },
+  "triangles": {
+    "lod0": 324,
+    "budget": 8000,
+    "per_lod_total": {
+      "LOD0": 324,
+      "LOD1": 162,
+      "LOD2": 80
+    }
+  },
+  "lods": [
+    {
+      "object": "Frame",
+      "levels": [
+        {
+          "name": "Frame",
+          "level": 0,
+          "triangles": 324
+        },
+        {
+          "name": "Frame_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 162
+        },
+        {
+          "name": "Frame_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 80
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_WPN_Molotov_01_00-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_Prop_GlassBottle",
+    "M_Prop_Molotov_01_Labels",
+    "M_Prop_Rag"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_GlassBottle_D",
+      "material": "M_Prop_GlassBottle",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_7cuczr9k/T_Prop_GlassBottle_D.jpg"
+    },
+    {
+      "image": "T_Prop_GlassBottle_ORM",
+      "material": "M_Prop_GlassBottle",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_hw35gey8/T_Prop_GlassBottle_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_GlassBottle_N",
+      "material": "M_Prop_GlassBottle",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_k0kdr_iz/T_Prop_GlassBottle_N.jpg"
+    },
+    {
+      "image": "T_Prop_Molotov_01_Labels_D",
+      "material": "M_Prop_Molotov_01_Labels",
+      "size": [
+        512,
+        256
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_bk7zkrjp/T_Prop_Molotov_01_Labels_D.jpg"
+    },
+    {
+      "image": "T_Prop_Rag_D",
+      "material": "M_Prop_Rag",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_hpjm9g3f/T_Prop_Rag_D.jpg"
+    },
+    {
+      "image": "T_Prop_Rag_ORM",
+      "material": "M_Prop_Rag",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_u106irqd/T_Prop_Rag_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Rag_N",
+      "material": "M_Prop_Rag",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_khuz9dnz/T_Prop_Rag_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "Frame": {
+      "texture_px": 512,
+      "median_px_per_m": 409.2,
+      "p10_px_per_m": 137.1,
+      "p90_px_per_m": 2315.4
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {
+    "SOCKET_Grip": {
+      "parent": "WPN_Molotov_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.0,
+        -0.0
+      ]
+    },
+    "SOCKET_Muzzle": {
+      "parent": "WPN_Molotov_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.024,
+        0.13,
+        0.03
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "Frame_LOD1",
+    "Frame_LOD2",
+    "Frame",
+    "SOCKET_Grip",
+    "SOCKET_Muzzle",
+    "UCX_WPN_Molotov_01_00-convcolonly",
+    "WPN_Molotov_01"
+  ],
+  "glb_bytes": 372892
+}

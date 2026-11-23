@@ -4,8 +4,8 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 
 | Status | Anzahl |
 |---|---|
-| PLANNED | 49 |
-| WIP | 52 |
+| PLANNED | 40 |
+| WIP | 61 |
 | PRODUCTION-READY | 0 |
 | **gesamt** | **101** |
 
@@ -14,7 +14,7 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | P2 | 2 | 2 | 0 | 0 | 0/2 |
 | P3 | 30 | 1 | 29 | 0 | 29/30 |
 | P4 | 20 | 13 | 7 | 0 | 20/20 |
-| P5 | 31 | 16 | 15 | 0 | 31/31 |
+| P5 | 31 | 7 | 24 | 0 | 31/31 |
 | P6 | 18 | 17 | 1 | 0 | 1/12 |
 
 ## P2
@@ -109,16 +109,16 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | VH_Sedan_01 | vehicle | WIP | hero-authored | `build-vehicle Config/Vehicles/VH_Sedan_01.json` | ✓ |
 | VH_Taxi_NY_01 | vehicle | PLANNED | blockout+ | `build-vehicle Config/Vehicles/VH_Taxi_NY_01.json` | – |
 | VH_Van_01 | vehicle | PLANNED | blockout+ | `build-vehicle Config/Vehicles/VH_Van_01.json` | – |
-| WPN_Bat_01 | weapon | PLANNED | blockout+ | `build-weapon Config/Weapons/WPN_Bat_01.json` | – |
-| WPN_Grenade_01 | weapon | PLANNED | blockout+ | `build-weapon Config/Weapons/WPN_Grenade_01.json` | – |
-| WPN_Knife_01 | weapon | PLANNED | blockout+ | `build-weapon Config/Weapons/WPN_Knife_01.json` | – |
-| WPN_Molotov_01 | weapon | PLANNED | blockout+ | `build-weapon Config/Weapons/WPN_Molotov_01.json` | – |
+| WPN_Bat_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Bat_01` | ✓ |
+| WPN_Grenade_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Grenade_01` | ✓ |
+| WPN_Knife_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Knife_01` | ✓ |
+| WPN_Molotov_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Molotov_01` | ✓ |
 | WPN_Pistol_01 | weapon | WIP | hero-authored | `build-weapon Config/Weapons/WPN_Pistol_01.json` | ✓ |
-| WPN_Revolver_01 | weapon | PLANNED | blockout+ | `build-weapon Config/Weapons/WPN_Revolver_01.json` | – |
-| WPN_Rifle_01 | weapon | PLANNED | blockout+ | `build-weapon Config/Weapons/WPN_Rifle_01.json` | – |
-| WPN_SMG_01 | weapon | PLANNED | blockout+ | `build-weapon Config/Weapons/WPN_SMG_01.json` | – |
-| WPN_Shotgun_01 | weapon | PLANNED | blockout+ | `build-weapon Config/Weapons/WPN_Shotgun_01.json` | – |
-| WPN_Sniper_01 | weapon | PLANNED | blockout+ | `build-weapon Config/Weapons/WPN_Sniper_01.json` | – |
+| WPN_Revolver_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Revolver_01` | ✓ |
+| WPN_Rifle_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Rifle_01` | ✓ |
+| WPN_SMG_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_SMG_01` | ✓ |
+| WPN_Shotgun_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Shotgun_01` | ✓ |
+| WPN_Sniper_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Sniper_01` | ✓ |
 
 ## P6
 

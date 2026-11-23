@@ -51,15 +51,16 @@
 | Asset-Import | 71 | 71 |
 | AI | 102 | 102 |
 | Boot | 7 | 7 |
-| HUD | 40 | 40 |
-| Level | 23 | SIEHE_PR |
+| HUD | 40 | 43 |
+| Level | 23 | 32 |
 | Mission | 109 | 114 |
 | **Playthrough (neu)** | – | 14 |
 | Player | 171 | 171 |
 | Vehicle | 88 | 88 |
 | Weapon | 68 | 68 |
+| **Summe** | **749** | **785** |
 
-Die endgültigen Summen stehen im PR-Text, gemessen auf dem frischen Worktree des Heads.
+Gemessen auf einem frischen Worktree (`git worktree add` + `git lfs pull` + `./Tests/run_all.sh`) → `RUN_ALL: PASS`.
 
 ### Sabotage (neu; alle alten Modi wurden erneut gefahren, siehe PR)
 | Modus | Wirkung | Ergebnis |

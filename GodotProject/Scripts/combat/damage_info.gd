@@ -13,6 +13,8 @@ var normal := Vector3.UP
 var direction := Vector3.FORWARD
 var source: Node = null    ## shooter
 var weapon_id := ""
+var armor_penetration := 0.0  ## from WeaponData (P1 armor system)
+var absorbed := 0.0           ## damage the armor took (set by the receiver)
 var killed := false        ## set by the receiver
 var receiver: Node = null  ## DamageReceiver that took it (null = world hit)
 

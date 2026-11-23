@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 # Wrapper: run the UNDERWORLD asset pipeline headless in Blender.
 #   Tools/uwp export Blender/Source/Props/SM_Foo/SM_Foo.blend [--no-lod] [--no-collision] ...
+#   Tools/uwp catalog status|plan|check|build [...]                          # content catalogue, no Blender
 #   Tools/uwp review-sheet <asset> [--ref ...] [--renders ...] [--out ...]   # system Python, no Blender
 #   Tools/uwp --help | Tools/uwp export --help
 # Exit code is the pipeline's (0 PASS, 1 validation, 2 export, 3 verify, 4 usage, 5 internal).
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# catalog is plain Python (content catalogue, P1) and must not boot Blender either.
+if [[ "${1:-}" == "catalog" ]]; then
+  shift
+  exec "${UWP_PYTHON:-python3}" "$HERE/underworld_pipeline/catalog.py" "$@"
+fi
 # review-sheet is plain Python/Pillow and must not boot Blender.
 if [[ "${1:-}" == "review-sheet" ]]; then
   shift

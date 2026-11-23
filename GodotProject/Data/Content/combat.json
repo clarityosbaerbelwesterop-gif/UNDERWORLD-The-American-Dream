@@ -1,0 +1,550 @@
+{
+ "_doc": "UNDERWORLD combat database (P1, T-DATA-01) - THE single source for weapons, armor, NPC archetypes and factions. Godot builds WeaponData/AIProfile/armor from it at runtime (Scripts/game/combat_db.gd); Tests/test_combat_db.gd checks references, value bands and time-to-kill. Status DRAFT - owner review (values are design proposals, tuned with the playthrough bot later).",
+ "version": 1,
+ "weapons": {
+  "WPN_Pistol_01": {
+   "class": "pistol",
+   "display_name": "Pistol",
+   "fire_mode": 0,
+   "rpm": 300,
+   "max_range": 150,
+   "noise_radius": 40,
+   "damage": 25,
+   "headshot_multiplier": 2.0,
+   "limb_multiplier": 0.75,
+   "falloff_start": 15,
+   "falloff_end": 40,
+   "falloff_min_multiplier": 0.5,
+   "magazine_size": 12,
+   "reserve_ammo": 60,
+   "reload_time": 1.6,
+   "spread_hip": 2.0,
+   "spread_aim": 0.6,
+   "recoil_pitch": 2.2,
+   "recoil_yaw": 0.6,
+   "armor_penetration": 0.1,
+   "asset": "WPN_Pistol_01"
+  },
+  "WPN_Revolver_01": {
+   "class": "pistol",
+   "display_name": "Revolver",
+   "fire_mode": 0,
+   "rpm": 120,
+   "max_range": 160,
+   "noise_radius": 55,
+   "damage": 45,
+   "headshot_multiplier": 2.5,
+   "limb_multiplier": 0.75,
+   "falloff_start": 20,
+   "falloff_end": 50,
+   "falloff_min_multiplier": 0.55,
+   "magazine_size": 6,
+   "reserve_ammo": 36,
+   "reload_time": 2.6,
+   "spread_hip": 2.2,
+   "spread_aim": 0.35,
+   "recoil_pitch": 4.5,
+   "recoil_yaw": 1.0,
+   "armor_penetration": 0.3,
+   "asset": "WPN_Revolver_01"
+  },
+  "WPN_SMG_01": {
+   "class": "smg",
+   "display_name": "Machine pistol",
+   "fire_mode": 1,
+   "rpm": 800,
+   "max_range": 120,
+   "noise_radius": 45,
+   "damage": 16,
+   "headshot_multiplier": 1.8,
+   "limb_multiplier": 0.7,
+   "falloff_start": 10,
+   "falloff_end": 30,
+   "falloff_min_multiplier": 0.45,
+   "magazine_size": 30,
+   "reserve_ammo": 150,
+   "reload_time": 2.0,
+   "spread_hip": 3.0,
+   "spread_aim": 1.2,
+   "recoil_pitch": 1.1,
+   "recoil_yaw": 0.7,
+   "armor_penetration": 0.05,
+   "asset": "WPN_SMG_01"
+  },
+  "WPN_Shotgun_01": {
+   "class": "shotgun",
+   "display_name": "Pump shotgun",
+   "fire_mode": 0,
+   "rpm": 70,
+   "max_range": 60,
+   "noise_radius": 60,
+   "damage": 12,
+   "pellets": 8,
+   "headshot_multiplier": 1.5,
+   "limb_multiplier": 0.8,
+   "falloff_start": 5,
+   "falloff_end": 18,
+   "falloff_min_multiplier": 0.15,
+   "magazine_size": 6,
+   "reserve_ammo": 36,
+   "reload_time": 3.2,
+   "spread_hip": 5.0,
+   "spread_aim": 4.0,
+   "recoil_pitch": 6.0,
+   "recoil_yaw": 1.5,
+   "armor_penetration": 0.0,
+   "asset": "WPN_Shotgun_01"
+  },
+  "WPN_Rifle_01": {
+   "class": "rifle",
+   "display_name": "Assault rifle",
+   "fire_mode": 1,
+   "rpm": 600,
+   "max_range": 300,
+   "noise_radius": 70,
+   "damage": 32,
+   "headshot_multiplier": 2.0,
+   "limb_multiplier": 0.75,
+   "falloff_start": 40,
+   "falloff_end": 120,
+   "falloff_min_multiplier": 0.6,
+   "magazine_size": 30,
+   "reserve_ammo": 180,
+   "reload_time": 2.4,
+   "spread_hip": 2.6,
+   "spread_aim": 0.5,
+   "recoil_pitch": 1.6,
+   "recoil_yaw": 0.8,
+   "armor_penetration": 0.4,
+   "asset": "WPN_Rifle_01"
+  },
+  "WPN_Sniper_01": {
+   "class": "sniper",
+   "display_name": "Bolt-action rifle",
+   "fire_mode": 0,
+   "rpm": 40,
+   "max_range": 600,
+   "noise_radius": 120,
+   "damage": 110,
+   "headshot_multiplier": 3.0,
+   "limb_multiplier": 0.8,
+   "falloff_start": 200,
+   "falloff_end": 400,
+   "falloff_min_multiplier": 0.8,
+   "magazine_size": 5,
+   "reserve_ammo": 25,
+   "reload_time": 3.0,
+   "spread_hip": 4.0,
+   "spread_aim": 0.05,
+   "recoil_pitch": 8.0,
+   "recoil_yaw": 1.2,
+   "armor_penetration": 0.7,
+   "asset": "WPN_Sniper_01"
+  },
+  "WPN_Knife_01": {
+   "class": "melee",
+   "display_name": "Knife",
+   "fire_mode": 0,
+   "rpm": 90,
+   "max_range": 1.6,
+   "noise_radius": 3,
+   "damage": 40,
+   "headshot_multiplier": 1.5,
+   "limb_multiplier": 0.8,
+   "falloff_start": 2,
+   "falloff_end": 3,
+   "falloff_min_multiplier": 1.0,
+   "magazine_size": 0,
+   "reserve_ammo": 0,
+   "reload_time": 0,
+   "spread_hip": 0,
+   "spread_aim": 0,
+   "recoil_pitch": 0,
+   "recoil_yaw": 0,
+   "armor_penetration": 0.2,
+   "asset": "WPN_Knife_01"
+  },
+  "WPN_Bat_01": {
+   "class": "melee",
+   "display_name": "Baseball bat",
+   "fire_mode": 0,
+   "rpm": 70,
+   "max_range": 2.0,
+   "noise_radius": 5,
+   "damage": 35,
+   "headshot_multiplier": 1.6,
+   "limb_multiplier": 0.9,
+   "falloff_start": 2,
+   "falloff_end": 3,
+   "falloff_min_multiplier": 1.0,
+   "magazine_size": 0,
+   "reserve_ammo": 0,
+   "reload_time": 0,
+   "spread_hip": 0,
+   "spread_aim": 0,
+   "recoil_pitch": 0,
+   "recoil_yaw": 0,
+   "armor_penetration": 0.0,
+   "asset": "WPN_Bat_01"
+  },
+  "WPN_Grenade_01": {
+   "class": "explosive",
+   "display_name": "Frag grenade",
+   "fire_mode": 0,
+   "rpm": 40,
+   "max_range": 35,
+   "noise_radius": 150,
+   "damage": 150,
+   "blast_radius": 6.0,
+   "headshot_multiplier": 1.0,
+   "limb_multiplier": 1.0,
+   "falloff_start": 1,
+   "falloff_end": 6,
+   "falloff_min_multiplier": 0.1,
+   "magazine_size": 1,
+   "reserve_ammo": 4,
+   "reload_time": 0.8,
+   "spread_hip": 0,
+   "spread_aim": 0,
+   "recoil_pitch": 0,
+   "recoil_yaw": 0,
+   "armor_penetration": 0.5,
+   "asset": "WPN_Grenade_01"
+  },
+  "WPN_Molotov_01": {
+   "class": "explosive",
+   "display_name": "Molotov",
+   "fire_mode": 0,
+   "rpm": 40,
+   "max_range": 30,
+   "noise_radius": 40,
+   "damage": 60,
+   "blast_radius": 4.0,
+   "burn_dps": 15,
+   "headshot_multiplier": 1.0,
+   "limb_multiplier": 1.0,
+   "falloff_start": 1,
+   "falloff_end": 4,
+   "falloff_min_multiplier": 0.3,
+   "magazine_size": 1,
+   "reserve_ammo": 3,
+   "reload_time": 0.8,
+   "spread_hip": 0,
+   "spread_aim": 0,
+   "recoil_pitch": 0,
+   "recoil_yaw": 0,
+   "armor_penetration": 0.0,
+   "asset": "WPN_Molotov_01"
+  }
+ },
+ "armor": {
+  "_doc": "absorb = share of a hit in the covered zone the armor takes (scaled by 1 - armor_penetration), until its points are used up. Zones: 0 BODY, 1 HEAD, 2 LIMB (Hitbox.Zone).",
+  "vest_light": {
+   "zone": 0,
+   "absorb": 0.35,
+   "points": 50,
+   "asset": "SM_Prop_Vest_Light"
+  },
+  "vest_heavy": {
+   "zone": 0,
+   "absorb": 0.55,
+   "points": 120,
+   "asset": "SM_Prop_Vest_Heavy"
+  },
+  "helmet": {
+   "zone": 1,
+   "absorb": 0.6,
+   "points": 40,
+   "asset": "SM_Prop_Helmet_Tactical"
+  }
+ },
+ "archetypes": {
+  "_doc": "tier: civilian < light < medium < heavy < boss. base_profile = the AIProfile .tres the values override. aim_error_deg lower = more accurate.",
+  "civilian": {
+   "tier": 0,
+   "base_profile": "AI_Civilian",
+   "max_health": 60,
+   "armor": [],
+   "weapons": [],
+   "aim_error_deg": 0,
+   "reaction_time": 0.6,
+   "burst": [
+    0,
+    0
+   ],
+   "behaviour": "flee"
+  },
+  "enemy_light": {
+   "tier": 1,
+   "base_profile": "AI_Gunman_Cartel",
+   "max_health": 80,
+   "armor": [],
+   "weapons": [
+    "WPN_Pistol_01",
+    "WPN_SMG_01",
+    "WPN_Bat_01"
+   ],
+   "aim_error_deg": 5.0,
+   "reaction_time": 0.5,
+   "burst": [
+    1,
+    3
+   ],
+   "behaviour": "skirmish",
+   "use_cover": true
+  },
+  "enemy_medium": {
+   "tier": 2,
+   "base_profile": "AI_Gunman_Cartel",
+   "max_health": 100,
+   "armor": [
+    "vest_light"
+   ],
+   "weapons": [
+    "WPN_SMG_01",
+    "WPN_Shotgun_01",
+    "WPN_Pistol_01"
+   ],
+   "aim_error_deg": 4.0,
+   "reaction_time": 0.35,
+   "burst": [
+    2,
+    4
+   ],
+   "behaviour": "cover_and_push",
+   "use_cover": true
+  },
+  "enemy_heavy": {
+   "tier": 3,
+   "base_profile": "AI_Gunman_Cartel",
+   "max_health": 150,
+   "armor": [
+    "vest_heavy",
+    "helmet"
+   ],
+   "weapons": [
+    "WPN_Rifle_01",
+    "WPN_Shotgun_01"
+   ],
+   "aim_error_deg": 3.0,
+   "reaction_time": 0.3,
+   "burst": [
+    3,
+    6
+   ],
+   "behaviour": "suppress_and_advance",
+   "use_cover": false
+  },
+  "boss": {
+   "tier": 4,
+   "base_profile": "AI_Gunman_Cartel",
+   "max_health": 650,
+   "armor": [
+    "vest_heavy",
+    "helmet"
+   ],
+   "weapons": [
+    "WPN_Rifle_01",
+    "WPN_Revolver_01"
+   ],
+   "aim_error_deg": 2.5,
+   "reaction_time": 0.25,
+   "burst": [
+    3,
+    6
+   ],
+   "behaviour": "boss",
+   "use_cover": true,
+   "phases": [
+    {
+     "at_health": 0.66,
+     "special": "grenade_barrage"
+    },
+    {
+     "at_health": 0.33,
+     "special": "call_reinforcements",
+     "reinforcements": [
+      "enemy_medium",
+      "enemy_medium"
+     ]
+    }
+   ]
+  },
+  "police_patrol": {
+   "tier": 2,
+   "base_profile": "AI_Gunman_Cartel",
+   "max_health": 100,
+   "armor": [
+    "vest_light"
+   ],
+   "weapons": [
+    "WPN_Pistol_01"
+   ],
+   "aim_error_deg": 3.5,
+   "reaction_time": 0.4,
+   "burst": [
+    1,
+    3
+   ],
+   "behaviour": "arrest_then_shoot",
+   "use_cover": true
+  },
+  "fbi_tactical": {
+   "tier": 3,
+   "base_profile": "AI_Gunman_Cartel",
+   "max_health": 130,
+   "armor": [
+    "vest_heavy",
+    "helmet"
+   ],
+   "weapons": [
+    "WPN_Rifle_01"
+   ],
+   "aim_error_deg": 2.5,
+   "reaction_time": 0.3,
+   "burst": [
+    2,
+    4
+   ],
+   "behaviour": "breach_and_clear",
+   "use_cover": true
+  },
+  "ally": {
+   "tier": 2,
+   "base_profile": "AI_Ally_Marco",
+   "max_health": 150,
+   "armor": [
+    "vest_light"
+   ],
+   "weapons": [
+    "WPN_Pistol_01"
+   ],
+   "aim_error_deg": 4.5,
+   "reaction_time": 0.4,
+   "burst": [
+    1,
+    2
+   ],
+   "behaviour": "follow_and_support",
+   "use_cover": true
+  }
+ },
+ "factions": {
+  "los_cuervos": {
+   "display": "Los Cuervos",
+   "hostile_to_player": true,
+   "roster": {
+    "enemy_light": [
+     "SK_NPC_Cartel_A",
+     "SK_NPC_Cartel_B"
+    ],
+    "enemy_medium": [
+     "SK_NPC_Cuervos_Soldier"
+    ],
+    "enemy_heavy": [
+     "SK_NPC_Cuervos_Heavy"
+    ],
+    "boss": [
+     "SK_Boss_Cuervos_Jefe"
+    ]
+   }
+  },
+  "la_hermandad": {
+   "display": "La Hermandad del Sur",
+   "hostile_to_player": true,
+   "roster": {
+    "enemy_light": [
+     "SK_NPC_Hermandad_A"
+    ],
+    "enemy_medium": [
+     "SK_NPC_Hermandad_Soldier"
+    ],
+    "enemy_heavy": [
+     "SK_NPC_Hermandad_Heavy"
+    ],
+    "boss": [
+     "SK_Boss_Hermandad_Patron"
+    ]
+   }
+  },
+  "kings_of_flatbush": {
+   "display": "Kings of Flatbush",
+   "hostile_to_player": false,
+   "roster": {
+    "enemy_light": [
+     "SK_NPC_Kings_A",
+     "SK_NPC_Kings_B"
+    ],
+    "enemy_medium": [
+     "SK_NPC_Kings_Lieutenant"
+    ]
+   }
+  },
+  "lapd": {
+   "display": "Police (fictional LA)",
+   "hostile_to_player": false,
+   "roster": {
+    "police_patrol": [
+     "SK_NPC_Cop_LA"
+    ]
+   }
+  },
+  "fbi": {
+   "display": "FBI",
+   "hostile_to_player": false,
+   "roster": {
+    "fbi_tactical": [
+     "SK_NPC_FBI_Tactical"
+    ],
+    "boss": [
+     "SK_NPC_Dana_Whitlock"
+    ]
+   }
+  },
+  "civilians": {
+   "display": "Civilians",
+   "hostile_to_player": false,
+   "roster": {
+    "civilian": [
+     "SK_NPC_Civilian_Female",
+     "SK_NPC_Civ_Kit"
+    ]
+   }
+  },
+  "crew": {
+   "display": "Jason's crew",
+   "hostile_to_player": false,
+   "roster": {
+    "ally": [
+     "SK_NPC_Marco",
+     "SK_NPC_Sam"
+    ]
+   }
+  }
+ },
+ "design_targets": {
+  "_doc": "Time-to-kill bands with the player's PISTOL, body hits at <= 15 m (checked by Tests/test_combat_db.gd). Hits, not seconds, so they hold for any fire rate.",
+  "pistol_body_hits_to_kill": {
+   "civilian": [
+    2,
+    3
+   ],
+   "enemy_light": [
+    3,
+    4
+   ],
+   "enemy_medium": [
+    5,
+    7
+   ],
+   "enemy_heavy": [
+    9,
+    14
+   ],
+   "boss": [
+    30,
+    45
+   ]
+  }
+ }
+}

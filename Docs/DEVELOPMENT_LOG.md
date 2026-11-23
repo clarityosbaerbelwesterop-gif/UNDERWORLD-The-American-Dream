@@ -1,5 +1,10 @@
 # Development Log
 
+## 2026-11-23 · Claude Code · T-DATA-01 (P1: combat database + content catalogue)
+- `Docs/PRODUCTION_PLAN.md`: 10 content-first milestones P1–P10 to the finished game, studio tool → our equivalent mapping, owner decisions E-3/E-4/E-5/E-8.
+- `GodotProject/Data/Content/combat.json` + `CombatDB`: 10 weapons (pistol, revolver, SMG, shotgun, rifle, sniper, knife, bat, grenade, molotov) with armor penetration; armor (light/heavy vest, helmet); 8 archetypes incl. boss with 2 phases; 7 factions with rosters. Armor in `DamageReceiver` (zone, absorb, penetration, depletion, reset). TD-025 PROPOSED.
+- `Config/Content/catalog.json` (101 entries: 17 WIP, 84 PLANNED) + `Tools/uwp catalog check|status|plan|build` (plain Python). Verified: `test_combat_db.gd` 33 PASS (TTK pistol body hits: civilian 3, light 4, medium 6, heavy 11, boss 31), negative `UW_COMBAT_SABOTAGE=1` → 8 FAIL; uwp catalogue tests 13 PASS incl. sabotaged catalogue and stray .glb.
+
 ## 2026-11-23 · Claude Code · T-PIPE-06 / T-PIPE-05 (pipeline audit, release gate)
 - Audit `Docs/Reports/AUDIT_T-PIPE-06_Pipeline.md` (15 findings). New **release gate** `uwp export --profile gate`: strict + LODs (>= lod_min_triangles) + collision required + TD-012 LOD/collision budgets + zero clothing clipping. Run over all 17 sources: 8 pass technically (kit, crate, pistol), all 7 characters + sedan fail (clipping 1-4 verts hidden by the dev rule, teeth UV 32.5 %, Cop origin, no character LODs, non-manifold sedan hull).
 - Fixes: convex hull really <= 64 verts (was 65); functional part names (Wheel_FL, Door_FL, Slide ...) no longer naming errors. TD-012 values in `Config/asset_budgets.json`. TD-021 hybrid pipeline PROPOSED; playthrough TD renumbered TD-021 -> TD-023 (master prompt reserves TD-021).

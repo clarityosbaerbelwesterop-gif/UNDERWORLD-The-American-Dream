@@ -526,34 +526,15 @@ func _build_lighting() -> void:
 	var l := Node3D.new()
 	l.name = "Lighting"
 	level.add_child(l)
-	# Golden-hour sun, matching ENV_LA_GoldenHour (look never verified on a GPU, B-003)
-	var sun := DirectionalLight3D.new()
-	sun.name = "Sun"
-	sun.rotation_degrees = Vector3(-12, 250, 0)
-	sun.light_color = Color(1.0, 0.86, 0.66)
-	sun.light_energy = 1.35
-	sun.shadow_enabled = true
-	sun.directional_shadow_max_distance = 120.0
+	# T-LOOK-01 / TD-024: the level uses the SAME calibrated presets as the look-dev scene
+	# (Scripts/game/sun_preset.gd + Assets/Environments/ENV_LA_GoldenHour.tres). It used to carry
+	# its own sun and an inline Environment (FILMIC, fog 2x denser) - the game never showed the
+	# look that was signed off, and the M01 video came out beige and washed out.
+	var sun := SunPreset.make_sun("golden_hour")
 	l.add_child(sun)
 	var we := WorldEnvironment.new()
 	we.name = "WorldEnvironment"
-	var env := Environment.new()
-	env.background_mode = Environment.BG_SKY
-	var sky := Sky.new()
-	var sm := ProceduralSkyMaterial.new()
-	sm.sky_top_color = Color(0.32, 0.44, 0.62)
-	sm.sky_horizon_color = Color(0.92, 0.72, 0.52)
-	sm.ground_horizon_color = Color(0.55, 0.45, 0.36)
-	sm.sun_angle_max = 12.0
-	sky.sky_material = sm
-	env.sky = sky
-	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
-	env.ambient_light_energy = 0.55
-	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
-	env.fog_enabled = true
-	env.fog_light_color = Color(0.86, 0.74, 0.58)
-	env.fog_density = 0.006
-	we.environment = env
+	we.environment = SunPreset.environment("golden_hour")
 	l.add_child(we)
 	# Garage sodium practicals - positioned from the garage that is actually built (it sits in
 	# the east block since T-MIS-01b), not from the old hard-coded numbers.

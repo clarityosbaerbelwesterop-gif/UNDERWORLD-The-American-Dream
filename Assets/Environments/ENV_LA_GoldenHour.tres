@@ -1,10 +1,10 @@
 [gd_resource type="Environment" load_steps=3 format=3]
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMat_GoldenHour"]
-sky_top_color = Color(0.24, 0.36, 0.58, 1)
-sky_horizon_color = Color(0.95, 0.56, 0.30, 1)
-ground_bottom_color = Color(0.18, 0.14, 0.12, 1)
-ground_horizon_color = Color(0.68, 0.45, 0.30, 1)
+sky_top_color = Color(0.30, 0.46, 0.74, 1)
+sky_horizon_color = Color(0.98, 0.70, 0.46, 1)
+ground_bottom_color = Color(0.20, 0.19, 0.18, 1)
+ground_horizon_color = Color(0.58, 0.50, 0.43, 1)
 sun_angle_max = 28.0
 sun_curve = 0.12
 
@@ -15,10 +15,11 @@ sky_material = SubResource("SkyMat_GoldenHour")
 background_mode = 2
 sky = SubResource("Sky_GoldenHour")
 ambient_light_source = 3
-ambient_light_color = Color(0.86, 0.68, 0.52, 1)
-ambient_light_energy = 0.65
+ambient_light_color = Color(0.50, 0.60, 0.82, 1)
+ambient_light_energy = 2.6
+ambient_light_sky_contribution = 0.55
 tonemap_mode = 3
-tonemap_exposure = 1.05
+tonemap_exposure = 0.58
 tonemap_white = 6.0
 ssao_enabled = true
 ssao_radius = 1.2

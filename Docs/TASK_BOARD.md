@@ -53,6 +53,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-BUILD-02 | P0 | Claude Code | M01 acceptance of the current build: input-only autopilot playthrough gate, 18 blockers fixed, Forward Plus video (lavapipe) | T-ENV-01 | READY FOR REVIEW (run_all 785 PASS; M01 completed by input; GPU human playtest still open: B-007..B-010) |
 | T-PIPE-06 | P0 | Claude Code | Pipeline audit + release gate `uwp --profile gate` + TD-021 hybrid pipeline (PROPOSED) | T-ENV-01 | READY FOR REVIEW (8/17 sources pass the technical gate; audit `Docs/Reports/AUDIT_T-PIPE-06_Pipeline.md`) |
 | T-PIPE-05 | P0 | Claude Code | TD-012 budgets in `Config/asset_budgets.json` (LOD fractions, collision) + checks | T-PIPE-06 | READY FOR REVIEW |
+| T-LOOK-01 | P0 | Claude Code | Look-dev calibration scene (Forward Plus), measured golden-hour/midday presets, single look source for level + look-dev, GI decision TD-024 | T-ENV-01 | READY FOR REVIEW (owner sign-off needed) |
 
 > **Next work order:** `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md` (§8 = ordered task list to release).
 

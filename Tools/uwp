@@ -9,7 +9,13 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # review-sheet is plain Python/Pillow and must not boot Blender.
 if [[ "${1:-}" == "review-sheet" ]]; then
   shift
-  exec python3 "$HERE/underworld_pipeline/review_sheet.py" "$@"
+  # Needs Pillow. Prefer a python that has it: $UWP_PYTHON, system python3, then the venv of a
+  # bpy-wheel blender shim (Tools/sandbox/bootstrap_cloud.sh) - CI runners have no system Pillow.
+  for PYC in "${UWP_PYTHON:-}" python3 "$(head -1 "$(readlink -f "${BLENDER:-/workspace/tools/blender/blender}")" 2>/dev/null | sed -n 's/^#!//p' | awk '{print $1}')"; do
+    [[ -n "$PYC" ]] && "$PYC" -c "import PIL" 2>/dev/null && exec "$PYC" "$HERE/underworld_pipeline/review_sheet.py" "$@"
+  done
+  echo "uwp review-sheet: no python with Pillow found (set UWP_PYTHON)" >&2
+  exit 4
 fi
 BLENDER="${BLENDER:-/workspace/tools/blender/blender}"
 exec "$BLENDER" -b --factory-startup --python-exit-code 5 \

@@ -45,7 +45,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 LVP_ICD=""
-for c in "${UW_LAVAPIPE_ICD:-}" /opt/lavapipe/lvp_icd.json /usr/share/vulkan/icd.d/lvp_icd.x86_64.json; do
+for c in "${UW_LAVAPIPE_ICD:-}" /opt/lavapipe/lvp_icd.json /usr/share/vulkan/icd.d/lvp_icd*.json; do
   [[ -n "$c" && -f "$c" ]] && { LVP_ICD="$c"; break; }
 done
 if [[ "$RENDERER" == auto ]]; then

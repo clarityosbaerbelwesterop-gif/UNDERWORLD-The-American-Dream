@@ -13,6 +13,11 @@ REPO="$(cd "$DIR/.." && pwd)"
 tree_state() { git -C "$REPO" diff HEAD 2>/dev/null | sha1sum | cut -d' ' -f1; }
 IN_GIT=0; git -C "$REPO" rev-parse --is-inside-work-tree >/dev/null 2>&1 && IN_GIT=1
 [ $IN_GIT -eq 1 ] && TREE_BEFORE="$(tree_state)"
+# Asset integrity (T-ANIM-01): no committed .glb may be a dev placeholder. A sandbox without LFS
+# once generated A_Humanoid_Locomotion.glb as a 208-byte stand-in and it got committed through
+# the LFS repair - the shared animation library silently had zero clips.
+placeholders="$(cd "$REPO" && git ls-files '*.glb' 2>/dev/null | while read -r f; do [ -f "$f" ] && grep -l 'uw_placeholder' "$f" 2>/dev/null; done)"
+[ -z "$placeholders" ] || { echo "$placeholders"; echo "RUN_ALL: FAIL (dev placeholder .glb committed - restore the real LFS object)"; exit 1; }
 "$DIR/run_pipeline_smoke.sh" || { echo "RUN_ALL: FAIL (pipeline smoke)"; exit 1; }
 # Private scratch dir so parallel runs from other worktrees don't collide in /tmp/uwp_test.
 UWP_DIR="$(mktemp -d /tmp/uwp_test_runall.XXXXXX)"

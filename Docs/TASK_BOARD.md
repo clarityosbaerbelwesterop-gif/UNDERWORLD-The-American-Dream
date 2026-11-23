@@ -50,10 +50,11 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-BOOT-04 | P0 | Bot 1 | Shipping entry scene Game_M01 + test_boot (TD-020) | T-MIS-01 | COMPLETED (Bot 1 review fix of PR #17) |
 | T-DOC-01 | P2 | Claude Code | GDD §2: Jason early 30s + grey crew T-shirt (art direction wins) | – | BACKLOG |
 | T-ENV-01 | P0 | Claude Code | Cloud toolchain: exact Blender 5.2.4 LTS (bpy wheel) + official Godot 4.7.2 + templates + Forward Plus on lavapipe; `bootstrap_cloud.sh` | – | COMPLETED (PR #20, merged) |
-| T-BUILD-02 | P0 | Claude Code | M01 acceptance of the current build: input-only autopilot playthrough gate, 18 blockers fixed, Forward Plus video (lavapipe) | T-ENV-01 | READY FOR REVIEW (run_all 785 PASS; M01 completed by input; GPU human playtest still open: B-007..B-010) |
-| T-PIPE-06 | P0 | Claude Code | Pipeline audit + release gate `uwp --profile gate` + TD-021 hybrid pipeline (PROPOSED) | T-ENV-01 | READY FOR REVIEW (8/17 sources pass the technical gate; audit `Docs/Reports/AUDIT_T-PIPE-06_Pipeline.md`) |
-| T-PIPE-05 | P0 | Claude Code | TD-012 budgets in `Config/asset_budgets.json` (LOD fractions, collision) + checks | T-PIPE-06 | READY FOR REVIEW |
-| T-LOOK-01 | P0 | Claude Code | Look-dev calibration scene (Forward Plus), measured golden-hour/midday presets, single look source for level + look-dev, GI decision TD-024 | T-ENV-01 | READY FOR REVIEW (owner sign-off needed) |
+| T-BUILD-02 | P0 | Claude Code | M01 acceptance of the current build: input-only autopilot playthrough gate, 18 blockers fixed, Forward Plus video (lavapipe) | T-ENV-01 | COMPLETED (PR #21, merged; run_all 785 PASS; M01 completed by input; GPU human playtest still open: B-007..B-010) |
+| T-PIPE-06 | P0 | Claude Code | Pipeline audit + release gate `uwp --profile gate` + TD-021 hybrid pipeline (PROPOSED) | T-ENV-01 | COMPLETED (PR #23, merged; 8/17 sources pass the technical gate; audit `Docs/Reports/AUDIT_T-PIPE-06_Pipeline.md`) |
+| T-PIPE-05 | P0 | Claude Code | TD-012 budgets in `Config/asset_budgets.json` (LOD fractions, collision) + checks | T-PIPE-06 | COMPLETED (PR #23, merged) |
+| T-LOOK-01 | P0 | Claude Code | Look-dev calibration scene (Forward Plus), measured golden-hour/midday presets, single look source for level + look-dev, GI decision TD-024 | T-ENV-01 | COMPLETED (PR #24, merged; owner look sign-off open) |
+| T-ANIM-01 | P0 | Claude Code | Animation pipeline (part 1): real shared humanoid library restored (was a committed 208-byte placeholder), NPCs borrow missing clips at runtime, placeholder scan in run_all | E-3 (anim source) | IN PROGRESS (part 1 READY FOR REVIEW; sit clips / foot IK open) |
 
 > **Next work order:** `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md` (§8 = ordered task list to release).
 

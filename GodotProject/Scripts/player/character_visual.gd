@@ -177,6 +177,10 @@ func _clip(slot: String, ap: AnimationPlayer) -> String:
 	var name := resolve_clip(slot, ap)
 	if ap.has_animation(name):
 		return name
+	# T-ANIM-01: the clip is not baked into this model - take it from the shared humanoid
+	# library (same 53-bone contract), re-addressed to this model's skeleton path.
+	if _borrow_shared_clip(name, ap):
+		return name
 	if not missing_clips.has(slot):
 		missing_clips.append(slot)
 	var idle := resolve_clip("idle", ap)
@@ -473,3 +477,63 @@ func update_from_player(p: PlayerController, delta: float) -> void:
 		animation_tree.set("parameters/land/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	_jump_requested = false
 	_was_air = in_air
+
+
+# --- shared animation library (T-ANIM-01) -----------------------------------------
+
+## Every character shares the 53-bone SkeletonProfileHumanoid contract, so a clip authored once in
+## Assets/Characters/Shared/A_Humanoid_Locomotion.glb can drive any of them. NPC models used to
+## bake only 16 of the 21 library clips (no Carry_*), hence the "missing clips" warnings.
+const SHARED_LIBRARY := "res://Assets/Characters/Shared/A_Humanoid_Locomotion.glb"
+## Returns a duplicate of `clip` from the shared library and the library's scene-root name, or
+## [null, ""]. The PackedScene is cached by ResourceLoader; the instance is freed right away (a
+## static node cache leaked 22 resources at exit).
+static func _shared_clip(clip: String) -> Array:
+	if not ResourceLoader.exists(SHARED_LIBRARY):
+		return [null, ""]
+	var ps := load(SHARED_LIBRARY) as PackedScene
+	if ps == null:
+		return [null, ""]
+	var inst := ps.instantiate()
+	var out: Array = [null, String(inst.name)]
+	var found := inst.find_children("*", "AnimationPlayer", true, false)
+	if not found.is_empty() and (found[0] as AnimationPlayer).has_animation(clip):
+		out[0] = ((found[0] as AnimationPlayer).get_animation(clip) as Animation).duplicate(true)
+	inst.free()
+	return out
+
+## Copies `clip` (e.g. "A_Humanoid_Carry_Walk") from the shared library into `ap`, rewriting the
+## first track-path component (the source scene root) to this model's root. False if unavailable.
+func _borrow_shared_clip(clip: String, ap: AnimationPlayer) -> bool:
+	if OS.is_debug_build() and OS.get_environment("UW_ANIM_SABOTAGE").strip_edges() == "noshared":
+		return false
+	if model == null:
+		return false
+	var got := CharacterVisual._shared_clip(clip)
+	var anim := got[0] as Animation
+	if anim == null:
+		return false
+	var model_root := String(model.get_child(0).name) if model.get_child_count() > 0 and model.get_child(0) is Node3D else ""
+	# Track paths look like "<SceneRoot>/Armature/Skeleton3D:Hips". Find this model's own prefix
+	# from one of its baked clips, so the copy addresses the same skeleton node.
+	var own_prefix := ""
+	for n in ap.get_animation_list():
+		var a := ap.get_animation(n)
+		if a.get_track_count() > 0:
+			var tp := String(a.track_get_path(0))
+			own_prefix = tp.substr(0, tp.find("/"))
+			break
+	if own_prefix == "":
+		own_prefix = model_root
+	for t in anim.get_track_count():
+		var path := String(anim.track_get_path(t))
+		var slash := path.find("/")
+		if slash > 0 and own_prefix != "":
+			anim.track_set_path(t, NodePath(own_prefix + path.substr(slash)))
+	var lib := ap.get_animation_library("") if ap.has_animation_library("") else null
+	if lib == null:
+		lib = AnimationLibrary.new()
+		ap.add_animation_library("", lib)
+	lib.add_animation(clip, anim)
+	return true
+

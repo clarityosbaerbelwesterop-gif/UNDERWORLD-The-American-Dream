@@ -1,5 +1,10 @@
 # Development Log
 
+## 2026-11-23 · Claude Code · T-PROP-01 (P2/P3/P5: prop generator + 27 assets)
+- `Tools/uwp build-props` (`Tools/underworld_pipeline/props/`): primitives (bevelled box, cylinder, lathe, swept tube with parallel-transport frames, arc shells, labels), CC0 material library (17 Poly Haven sets), world-space UV0 + lightmap UV1, label atlas per asset, authored UCX collision. TD-026 PROPOSED.
+- 27 assets built and exported with `uwp --profile gate` (all PASS): road intersection + crosswalk tiles, traffic light, hydrant, trash can, bus stop, chain-link fence, dumpster, payphone, newspaper box, parking meter, street sign, billboard, bush, power pole; cash bundle, phone, gold bar, contraband brick, duffel, barrel, pallet, toolbox, workbench; light vest, plate carrier, tactical helmet. Catalogue: 44 WIP / 57 PLANNED.
+- Verified: Godot import 0 errors/warnings; `test_assets.gd` catalogue check (collision, LOD ranges, textured surfaces) PASS, negative `UW_ASSET_SABOTAGE=nocollision` → FAIL; uwp tool test [9] (synthetic texture cache → build → gate; no cache → loud failure); Forward Plus captures `Docs/Reports/renders_props/`.
+
 ## 2026-11-23 · Claude Code · T-DATA-01 (P1: combat database + content catalogue)
 - `Docs/PRODUCTION_PLAN.md`: 10 content-first milestones P1–P10 to the finished game, studio tool → our equivalent mapping, owner decisions E-3/E-4/E-5/E-8.
 - `GodotProject/Data/Content/combat.json` + `CombatDB`: 10 weapons (pistol, revolver, SMG, shotgun, rifle, sniper, knife, bat, grenade, molotov) with armor penetration; armor (light/heavy vest, helmet); 8 archetypes incl. boss with 2 phases; 7 factions with rosters. Armor in `DamageReceiver` (zone, absorb, penetration, depletion, reset). TD-025 PROPOSED.

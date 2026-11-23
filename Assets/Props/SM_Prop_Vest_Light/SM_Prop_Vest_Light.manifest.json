@@ -1,0 +1,141 @@
+{
+  "asset": "SM_Prop_Vest_Light",
+  "status": "READY FOR REVIEW",
+  "category": "Props",
+  "budget_key": "Props",
+  "source_blend": "Blender/Source/Props/SM_Prop_Vest_Light/SM_Prop_Vest_Light.blend",
+  "export_glb": "Assets/Props/SM_Prop_Vest_Light/SM_Prop_Vest_Light.glb",
+  "preview_png": "Assets/Props/SM_Prop_Vest_Light/SM_Prop_Vest_Light_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.2088,
+      0.0,
+      -0.1433
+    ],
+    "max": [
+      0.2088,
+      0.585,
+      0.152
+    ],
+    "size": [
+      0.4176,
+      0.585,
+      0.2953
+    ]
+  },
+  "triangles": {
+    "lod0": 418,
+    "budget": 5000,
+    "per_lod_total": {
+      "LOD0": 418,
+      "LOD1": 208,
+      "LOD2": 104
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_Prop_Vest_Light_Mesh",
+      "levels": [
+        {
+          "name": "SM_Prop_Vest_Light_Mesh",
+          "level": 0,
+          "triangles": 418
+        },
+        {
+          "name": "SM_Prop_Vest_Light_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 208
+        },
+        {
+          "name": "SM_Prop_Vest_Light_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 104
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_Prop_Vest_Light_00-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_Prop_Ballistic",
+    "M_Prop_Prop_Vest_Light_Labels"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Ballistic_D",
+      "material": "M_Prop_Ballistic",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_xj21jcf_/T_Prop_Ballistic_D.jpg"
+    },
+    {
+      "image": "T_Prop_Ballistic_ORM",
+      "material": "M_Prop_Ballistic",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_k_ducsli/T_Prop_Ballistic_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Ballistic_N",
+      "material": "M_Prop_Ballistic",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_cwomgc7l/T_Prop_Ballistic_N.jpg"
+    },
+    {
+      "image": "T_Prop_Prop_Vest_Light_Labels_D",
+      "material": "M_Prop_Prop_Vest_Light_Labels",
+      "size": [
+        512,
+        128
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex__o4uuzbt/T_Prop_Prop_Vest_Light_Labels_D.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_Prop_Vest_Light_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 1417.8,
+      "p10_px_per_m": 559.2,
+      "p90_px_per_m": 2047.9
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_Prop_Vest_Light_Mesh_LOD1",
+    "SM_Prop_Vest_Light_Mesh_LOD2",
+    "SM_Prop_Vest_Light_Mesh",
+    "UCX_SM_Prop_Vest_Light_00-convcolonly",
+    "SM_Prop_Vest_Light"
+  ],
+  "glb_bytes": 245884
+}

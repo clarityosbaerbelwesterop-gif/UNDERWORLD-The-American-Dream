@@ -1,0 +1,130 @@
+{
+  "asset": "SM_Prop_Pallet",
+  "status": "READY FOR REVIEW",
+  "category": "Props",
+  "budget_key": "Props",
+  "source_blend": "Blender/Source/Props/SM_Prop_Pallet/SM_Prop_Pallet.blend",
+  "export_glb": "Assets/Props/SM_Prop_Pallet/SM_Prop_Pallet.glb",
+  "preview_png": "Assets/Props/SM_Prop_Pallet/SM_Prop_Pallet_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.61,
+      0.0,
+      -0.4
+    ],
+    "max": [
+      0.61,
+      0.144,
+      0.4
+    ],
+    "size": [
+      1.22,
+      0.144,
+      0.8
+    ]
+  },
+  "triangles": {
+    "lod0": 880,
+    "budget": 5000,
+    "per_lod_total": {
+      "LOD0": 880,
+      "LOD1": 440,
+      "LOD2": 220
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_Prop_Pallet_Mesh",
+      "levels": [
+        {
+          "name": "SM_Prop_Pallet_Mesh",
+          "level": 0,
+          "triangles": 880
+        },
+        {
+          "name": "SM_Prop_Pallet_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 440
+        },
+        {
+          "name": "SM_Prop_Pallet_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 220
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_Prop_Pallet_00-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_Prop_WoodWorn"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_WoodWorn_D",
+      "material": "M_Prop_WoodWorn",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_1ymdogoy/T_Prop_WoodWorn_D.jpg"
+    },
+    {
+      "image": "T_Prop_WoodWorn_ORM",
+      "material": "M_Prop_WoodWorn",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_aimcfb61/T_Prop_WoodWorn_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_WoodWorn_N",
+      "material": "M_Prop_WoodWorn",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_8hp86718/T_Prop_WoodWorn_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_Prop_Pallet_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 358.8,
+      "p10_px_per_m": 324.2,
+      "p90_px_per_m": 426.7
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_Prop_Pallet_Mesh_LOD1",
+    "SM_Prop_Pallet_Mesh_LOD2",
+    "SM_Prop_Pallet_Mesh",
+    "UCX_SM_Prop_Pallet_00-convcolonly",
+    "SM_Prop_Pallet"
+  ],
+  "glb_bytes": 434120
+}

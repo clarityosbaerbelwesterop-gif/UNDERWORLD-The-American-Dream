@@ -4,17 +4,17 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 
 | Status | Anzahl |
 |---|---|
-| PLANNED | 84 |
-| WIP | 17 |
+| PLANNED | 57 |
+| WIP | 44 |
 | PRODUCTION-READY | 0 |
 | **gesamt** | **101** |
 
 | Meilenstein | gesamt | PLANNED | WIP | PRODUCTION-READY | Generator vorhanden |
 |---|---|---|---|---|---|
 | P2 | 2 | 2 | 0 | 0 | 0/2 |
-| P3 | 30 | 24 | 6 | 0 | 6/30 |
+| P3 | 30 | 9 | 21 | 0 | 21/30 |
 | P4 | 20 | 13 | 7 | 0 | 20/20 |
-| P5 | 31 | 28 | 3 | 0 | 19/31 |
+| P5 | 31 | 16 | 15 | 0 | 31/31 |
 | P6 | 18 | 17 | 1 | 0 | 1/12 |
 
 ## P2
@@ -28,7 +28,7 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 
 | ID | Typ | Status | Ziel | Generator | Datei |
 |---|---|---|---|---|---|
-| SM_LA_Billboard | environment | PLANNED | blockout+ | `build-props --only SM_LA_Billboard` (fehlt) | – |
+| SM_LA_Billboard | environment | WIP | blockout+ | `build-props --only SM_LA_Billboard` | ✓ |
 | SM_LA_Bldg_Apartment4F | environment | PLANNED | blockout+ | `build-buildings --only SM_LA_Bldg_Apartment4F` (fehlt) | – |
 | SM_LA_Bldg_GarageM01 | environment | WIP | blockout+ | `build-env --only SM_LA_Bldg_GarageM01` | ✓ |
 | SM_LA_Bldg_GasStation | environment | PLANNED | blockout+ | `build-buildings --only SM_LA_Bldg_GasStation` (fehlt) | – |
@@ -39,24 +39,24 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | SM_LA_Bldg_ShopStucco | environment | WIP | blockout+ | `build-env --only SM_LA_Bldg_ShopStucco` | ✓ |
 | SM_LA_Bldg_VillaCrestmont | environment | PLANNED | blockout+ | `build-buildings --only SM_LA_Bldg_VillaCrestmont` (fehlt) | – |
 | SM_LA_Bldg_Warehouse | environment | PLANNED | blockout+ | `build-buildings --only SM_LA_Bldg_Warehouse` (fehlt) | – |
-| SM_LA_BusStop | environment | PLANNED | blockout+ | `build-props --only SM_LA_BusStop` (fehlt) | – |
-| SM_LA_Bush | environment | PLANNED | blockout+ | `build-props --only SM_LA_Bush` (fehlt) | – |
-| SM_LA_Dumpster | environment | PLANNED | blockout+ | `build-props --only SM_LA_Dumpster` (fehlt) | – |
-| SM_LA_Fence_Chainlink | environment | PLANNED | blockout+ | `build-props --only SM_LA_Fence_Chainlink` (fehlt) | – |
-| SM_LA_Hydrant | environment | PLANNED | blockout+ | `build-props --only SM_LA_Hydrant` (fehlt) | – |
-| SM_LA_NewspaperBox | environment | PLANNED | blockout+ | `build-props --only SM_LA_NewspaperBox` (fehlt) | – |
+| SM_LA_BusStop | environment | WIP | blockout+ | `build-props --only SM_LA_BusStop` | ✓ |
+| SM_LA_Bush | environment | WIP | blockout+ | `build-props --only SM_LA_Bush` | ✓ |
+| SM_LA_Dumpster | environment | WIP | blockout+ | `build-props --only SM_LA_Dumpster` | ✓ |
+| SM_LA_Fence_Chainlink | environment | WIP | blockout+ | `build-props --only SM_LA_Fence_Chainlink` | ✓ |
+| SM_LA_Hydrant | environment | WIP | blockout+ | `build-props --only SM_LA_Hydrant` | ✓ |
+| SM_LA_NewspaperBox | environment | WIP | blockout+ | `build-props --only SM_LA_NewspaperBox` | ✓ |
 | SM_LA_PalmTree | environment | WIP | blockout+ | `build-env --only SM_LA_PalmTree` | ✓ |
-| SM_LA_ParkingMeter | environment | PLANNED | blockout+ | `build-props --only SM_LA_ParkingMeter` (fehlt) | – |
-| SM_LA_PhoneBooth | environment | PLANNED | blockout+ | `build-props --only SM_LA_PhoneBooth` (fehlt) | – |
-| SM_LA_PowerPole | environment | PLANNED | blockout+ | `build-props --only SM_LA_PowerPole` (fehlt) | – |
-| SM_LA_Road_Crosswalk | environment | PLANNED | blockout+ | `build-props --only SM_LA_Road_Crosswalk` (fehlt) | – |
-| SM_LA_Road_Intersection | environment | PLANNED | blockout+ | `build-props --only SM_LA_Road_Intersection` (fehlt) | – |
+| SM_LA_ParkingMeter | environment | WIP | blockout+ | `build-props --only SM_LA_ParkingMeter` | ✓ |
+| SM_LA_PhoneBooth | environment | WIP | blockout+ | `build-props --only SM_LA_PhoneBooth` | ✓ |
+| SM_LA_PowerPole | environment | WIP | blockout+ | `build-props --only SM_LA_PowerPole` | ✓ |
+| SM_LA_Road_Crosswalk | environment | WIP | blockout+ | `build-props --only SM_LA_Road_Crosswalk` | ✓ |
+| SM_LA_Road_Intersection | environment | WIP | blockout+ | `build-props --only SM_LA_Road_Intersection` | ✓ |
 | SM_LA_Road_Straight | environment | WIP | blockout+ | `build-env --only SM_LA_Road_Straight` | ✓ |
 | SM_LA_Sidewalk_Curb | environment | WIP | blockout+ | `build-env --only SM_LA_Sidewalk_Curb` | ✓ |
-| SM_LA_StreetSign | environment | PLANNED | blockout+ | `build-props --only SM_LA_StreetSign` (fehlt) | – |
+| SM_LA_StreetSign | environment | WIP | blockout+ | `build-props --only SM_LA_StreetSign` | ✓ |
 | SM_LA_Streetlight | environment | WIP | blockout+ | `build-env --only SM_LA_Streetlight` | ✓ |
-| SM_LA_TrafficLight | environment | PLANNED | blockout+ | `build-props --only SM_LA_TrafficLight` (fehlt) | – |
-| SM_LA_TrashCan | environment | PLANNED | blockout+ | `build-props --only SM_LA_TrashCan` (fehlt) | – |
+| SM_LA_TrafficLight | environment | WIP | blockout+ | `build-props --only SM_LA_TrafficLight` | ✓ |
+| SM_LA_TrashCan | environment | WIP | blockout+ | `build-props --only SM_LA_TrashCan` | ✓ |
 | TR_LA_SanArdo | terrain | PLANNED | blockout+ | `build-terrain` (fehlt) | – |
 
 ## P4
@@ -88,19 +88,19 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 
 | ID | Typ | Status | Ziel | Generator | Datei |
 |---|---|---|---|---|---|
-| SM_Prop_Helmet_Tactical | armor | PLANNED | blockout+ | `build-props --only SM_Prop_Helmet_Tactical` (fehlt) | – |
-| SM_Prop_Vest_Heavy | armor | PLANNED | blockout+ | `build-props --only SM_Prop_Vest_Heavy` (fehlt) | – |
-| SM_Prop_Vest_Light | armor | PLANNED | blockout+ | `build-props --only SM_Prop_Vest_Light` (fehlt) | – |
-| SM_Prop_Barrel | prop | PLANNED | blockout+ | `build-props --only SM_Prop_Barrel` (fehlt) | – |
-| SM_Prop_CashBundle | prop | PLANNED | blockout+ | `build-props --only SM_Prop_CashBundle` (fehlt) | – |
-| SM_Prop_DrugBrick | prop | PLANNED | blockout+ | `build-props --only SM_Prop_DrugBrick` (fehlt) | – |
-| SM_Prop_Duffel | prop | PLANNED | blockout+ | `build-props --only SM_Prop_Duffel` (fehlt) | – |
-| SM_Prop_GoldBar | prop | PLANNED | blockout+ | `build-props --only SM_Prop_GoldBar` (fehlt) | – |
+| SM_Prop_Helmet_Tactical | armor | WIP | blockout+ | `build-props --only SM_Prop_Helmet_Tactical` | ✓ |
+| SM_Prop_Vest_Heavy | armor | WIP | blockout+ | `build-props --only SM_Prop_Vest_Heavy` | ✓ |
+| SM_Prop_Vest_Light | armor | WIP | blockout+ | `build-props --only SM_Prop_Vest_Light` | ✓ |
+| SM_Prop_Barrel | prop | WIP | blockout+ | `build-props --only SM_Prop_Barrel` | ✓ |
+| SM_Prop_CashBundle | prop | WIP | blockout+ | `build-props --only SM_Prop_CashBundle` | ✓ |
+| SM_Prop_DrugBrick | prop | WIP | blockout+ | `build-props --only SM_Prop_DrugBrick` | ✓ |
+| SM_Prop_Duffel | prop | WIP | blockout+ | `build-props --only SM_Prop_Duffel` | ✓ |
+| SM_Prop_GoldBar | prop | WIP | blockout+ | `build-props --only SM_Prop_GoldBar` | ✓ |
 | SM_Prop_PackageCrate | prop | WIP | blockout+ | `build-env --only SM_Prop_PackageCrate` | ✓ |
-| SM_Prop_Pallet | prop | PLANNED | blockout+ | `build-props --only SM_Prop_Pallet` (fehlt) | – |
-| SM_Prop_Phone | prop | PLANNED | blockout+ | `build-props --only SM_Prop_Phone` (fehlt) | – |
-| SM_Prop_Toolbox | prop | PLANNED | blockout+ | `build-props --only SM_Prop_Toolbox` (fehlt) | – |
-| SM_Prop_Workbench | prop | PLANNED | blockout+ | `build-props --only SM_Prop_Workbench` (fehlt) | – |
+| SM_Prop_Pallet | prop | WIP | blockout+ | `build-props --only SM_Prop_Pallet` | ✓ |
+| SM_Prop_Phone | prop | WIP | blockout+ | `build-props --only SM_Prop_Phone` | ✓ |
+| SM_Prop_Toolbox | prop | WIP | blockout+ | `build-props --only SM_Prop_Toolbox` | ✓ |
+| SM_Prop_Workbench | prop | WIP | blockout+ | `build-props --only SM_Prop_Workbench` | ✓ |
 | VH_Motorcycle_01 | vehicle | PLANNED | blockout+ | `build-vehicle Config/Vehicles/VH_Motorcycle_01.json` | – |
 | VH_Muscle_01 | vehicle | PLANNED | blockout+ | `build-vehicle Config/Vehicles/VH_Muscle_01.json` | – |
 | VH_Pickup_01 | vehicle | PLANNED | blockout+ | `build-vehicle Config/Vehicles/VH_Pickup_01.json` | – |

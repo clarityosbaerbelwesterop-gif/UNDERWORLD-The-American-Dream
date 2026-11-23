@@ -1,0 +1,301 @@
+{
+  "asset": "SM_LA_BusStop",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_BusStop/SM_LA_BusStop.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_BusStop/SM_LA_BusStop.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_BusStop/SM_LA_BusStop_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -1.85,
+      0.0,
+      -0.825
+    ],
+    "max": [
+      2.31,
+      3.0,
+      0.725
+    ],
+    "size": [
+      4.16,
+      3.0,
+      1.55
+    ]
+  },
+  "triangles": {
+    "lod0": 496,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 496,
+      "LOD1": 248,
+      "LOD2": 124
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_LA_BusStop_Mesh",
+      "levels": [
+        {
+          "name": "SM_LA_BusStop_Mesh",
+          "level": 0,
+          "triangles": 496
+        },
+        {
+          "name": "SM_LA_BusStop_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 248
+        },
+        {
+          "name": "SM_LA_BusStop_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 124
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_LA_BusStop_00-convcolonly",
+      "UCX_SM_LA_BusStop_01-convcolonly",
+      "UCX_SM_LA_BusStop_02-convcolonly"
+    ],
+    "micro_lips": 0
+  },
+  "materials": [
+    "M_Prop_Corrugated",
+    "M_Prop_Glass",
+    "M_Prop_LA_BusStop_Labels",
+    "M_Prop_MetalDark",
+    "M_Prop_MetalGalv",
+    "M_Prop_PaintWhite",
+    "M_Prop_Wood"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Corrugated_D",
+      "material": "M_Prop_Corrugated",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_h8lq8dqc/T_Prop_Corrugated_D.jpg"
+    },
+    {
+      "image": "T_Prop_Corrugated_ORM",
+      "material": "M_Prop_Corrugated",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_abaert5c/T_Prop_Corrugated_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Corrugated_N",
+      "material": "M_Prop_Corrugated",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_btrvwbhd/T_Prop_Corrugated_N.jpg"
+    },
+    {
+      "image": "T_Prop_Glass_D",
+      "material": "M_Prop_Glass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_rgxl065y/T_Prop_Glass_D.jpg"
+    },
+    {
+      "image": "T_Prop_Glass_ORM",
+      "material": "M_Prop_Glass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_r_tyfj6p/T_Prop_Glass_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Glass_N",
+      "material": "M_Prop_Glass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_995620ow/T_Prop_Glass_N.jpg"
+    },
+    {
+      "image": "T_Prop_LA_BusStop_Labels_D",
+      "material": "M_Prop_LA_BusStop_Labels",
+      "size": [
+        512,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_d3n1lmrt/T_Prop_LA_BusStop_Labels_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_D",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_agf5fjgp/T_Prop_MetalDark_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_ORM",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_e89rmio0/T_Prop_MetalDark_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_N",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_u1un2eag/T_Prop_MetalDark_N.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGalv_D",
+      "material": "M_Prop_MetalGalv",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_cf1jsgdc/T_Prop_MetalGalv_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGalv_ORM",
+      "material": "M_Prop_MetalGalv",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_l13daokx/T_Prop_MetalGalv_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGalv_N",
+      "material": "M_Prop_MetalGalv",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_3ypyc3rr/T_Prop_MetalGalv_N.jpg"
+    },
+    {
+      "image": "T_Prop_PaintWhite_D",
+      "material": "M_Prop_PaintWhite",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_8v_gcg5x/T_Prop_PaintWhite_D.jpg"
+    },
+    {
+      "image": "T_Prop_PaintWhite_ORM",
+      "material": "M_Prop_PaintWhite",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_qfpsi_06/T_Prop_PaintWhite_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_PaintWhite_N",
+      "material": "M_Prop_PaintWhite",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_8qradod5/T_Prop_PaintWhite_N.jpg"
+    },
+    {
+      "image": "T_Prop_Wood_D",
+      "material": "M_Prop_Wood",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_c5q6pylv/T_Prop_Wood_D.jpg"
+    },
+    {
+      "image": "T_Prop_Wood_ORM",
+      "material": "M_Prop_Wood",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_mgd4lct6/T_Prop_Wood_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Wood_N",
+      "material": "M_Prop_Wood",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_6nkskr_h/T_Prop_Wood_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_LA_BusStop_Mesh": {
+      "texture_px": 1024,
+      "median_px_per_m": 861.1,
+      "p10_px_per_m": 717.6,
+      "p90_px_per_m": 1024.0
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_BusStop_Mesh_LOD1",
+    "SM_LA_BusStop_Mesh_LOD2",
+    "SM_LA_BusStop_Mesh",
+    "UCX_SM_LA_BusStop_00-convcolonly",
+    "UCX_SM_LA_BusStop_01-convcolonly",
+    "UCX_SM_LA_BusStop_02-convcolonly",
+    "SM_LA_BusStop"
+  ],
+  "glb_bytes": 1201080
+}

@@ -1,0 +1,235 @@
+{
+  "asset": "SM_LA_PhoneBooth",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_PhoneBooth/SM_LA_PhoneBooth.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_PhoneBooth/SM_LA_PhoneBooth.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_PhoneBooth/SM_LA_PhoneBooth_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.45,
+      0.0,
+      -0.325
+    ],
+    "max": [
+      0.45,
+      2.1,
+      0.226
+    ],
+    "size": [
+      0.9,
+      2.1,
+      0.551
+    ]
+  },
+  "triangles": {
+    "lod0": 230,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 230,
+      "LOD1": 114,
+      "LOD2": 56
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_LA_PhoneBooth_Mesh",
+      "levels": [
+        {
+          "name": "SM_LA_PhoneBooth_Mesh",
+          "level": 0,
+          "triangles": 230
+        },
+        {
+          "name": "SM_LA_PhoneBooth_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 114
+        },
+        {
+          "name": "SM_LA_PhoneBooth_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 56
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_LA_PhoneBooth_00-convcolonly"
+    ],
+    "micro_lips": 0
+  },
+  "materials": [
+    "M_Prop_Chrome",
+    "M_Prop_LA_PhoneBooth_Labels",
+    "M_Prop_MetalDark",
+    "M_Prop_MetalGalv",
+    "M_Prop_PlasticBlack"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Chrome_D",
+      "material": "M_Prop_Chrome",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_h4v50_oh/T_Prop_Chrome_D.jpg"
+    },
+    {
+      "image": "T_Prop_Chrome_ORM",
+      "material": "M_Prop_Chrome",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_tvlhollo/T_Prop_Chrome_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Chrome_N",
+      "material": "M_Prop_Chrome",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_7i8vu9fj/T_Prop_Chrome_N.jpg"
+    },
+    {
+      "image": "T_Prop_LA_PhoneBooth_Labels_D",
+      "material": "M_Prop_LA_PhoneBooth_Labels",
+      "size": [
+        512,
+        128
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_487h51ca/T_Prop_LA_PhoneBooth_Labels_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_D",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_qdg24_xb/T_Prop_MetalDark_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_ORM",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_7kwayjl9/T_Prop_MetalDark_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_N",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_fintq80m/T_Prop_MetalDark_N.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGalv_D",
+      "material": "M_Prop_MetalGalv",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_e5vpczgb/T_Prop_MetalGalv_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGalv_ORM",
+      "material": "M_Prop_MetalGalv",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_09c6ax6v/T_Prop_MetalGalv_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGalv_N",
+      "material": "M_Prop_MetalGalv",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_5z4zip12/T_Prop_MetalGalv_N.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticBlack_D",
+      "material": "M_Prop_PlasticBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_k6wvptt4/T_Prop_PlasticBlack_D.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticBlack_ORM",
+      "material": "M_Prop_PlasticBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_kxx265lp/T_Prop_PlasticBlack_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticBlack_N",
+      "material": "M_Prop_PlasticBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_cz2fv29s/T_Prop_PlasticBlack_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_LA_PhoneBooth_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 430.5,
+      "p10_px_per_m": 389.0,
+      "p90_px_per_m": 512.0
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_PhoneBooth_Mesh_LOD1",
+    "SM_LA_PhoneBooth_Mesh_LOD2",
+    "SM_LA_PhoneBooth_Mesh",
+    "UCX_SM_LA_PhoneBooth_00-convcolonly",
+    "SM_LA_PhoneBooth"
+  ],
+  "glb_bytes": 631028
+}

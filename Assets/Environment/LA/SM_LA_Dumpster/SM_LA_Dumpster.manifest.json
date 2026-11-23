@@ -1,0 +1,235 @@
+{
+  "asset": "SM_LA_Dumpster",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_Dumpster/SM_LA_Dumpster.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_Dumpster/SM_LA_Dumpster.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_Dumpster/SM_LA_Dumpster_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -1.01,
+      0.0,
+      -0.6099
+    ],
+    "max": [
+      1.01,
+      1.3055,
+      0.6899
+    ],
+    "size": [
+      2.02,
+      1.3055,
+      1.2998
+    ]
+  },
+  "triangles": {
+    "lod0": 442,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 442,
+      "LOD1": 220,
+      "LOD2": 110
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_LA_Dumpster_Mesh",
+      "levels": [
+        {
+          "name": "SM_LA_Dumpster_Mesh",
+          "level": 0,
+          "triangles": 442
+        },
+        {
+          "name": "SM_LA_Dumpster_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 220
+        },
+        {
+          "name": "SM_LA_Dumpster_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 110
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_LA_Dumpster_00-convcolonly"
+    ],
+    "micro_lips": 0
+  },
+  "materials": [
+    "M_Prop_LA_Dumpster_Labels",
+    "M_Prop_MetalDark",
+    "M_Prop_MetalGreen",
+    "M_Prop_PlasticBlack",
+    "M_Prop_Rubber"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_LA_Dumpster_Labels_D",
+      "material": "M_Prop_LA_Dumpster_Labels",
+      "size": [
+        512,
+        128
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_8hu1nzgi/T_Prop_LA_Dumpster_Labels_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_D",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_qbbzlu38/T_Prop_MetalDark_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_ORM",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_6dr0vy9o/T_Prop_MetalDark_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_N",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_br0tzib_/T_Prop_MetalDark_N.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGreen_D",
+      "material": "M_Prop_MetalGreen",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_hw_ro80y/T_Prop_MetalGreen_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGreen_ORM",
+      "material": "M_Prop_MetalGreen",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_vth7u_ra/T_Prop_MetalGreen_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGreen_N",
+      "material": "M_Prop_MetalGreen",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ft6ltob7/T_Prop_MetalGreen_N.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticBlack_D",
+      "material": "M_Prop_PlasticBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_v_ogdwch/T_Prop_PlasticBlack_D.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticBlack_ORM",
+      "material": "M_Prop_PlasticBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_0ysba5wd/T_Prop_PlasticBlack_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticBlack_N",
+      "material": "M_Prop_PlasticBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_b2yi8qv9/T_Prop_PlasticBlack_N.jpg"
+    },
+    {
+      "image": "T_Prop_Rubber_D",
+      "material": "M_Prop_Rubber",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_7o164h2_/T_Prop_Rubber_D.jpg"
+    },
+    {
+      "image": "T_Prop_Rubber_ORM",
+      "material": "M_Prop_Rubber",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_5wz7j0_w/T_Prop_Rubber_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Rubber_N",
+      "material": "M_Prop_Rubber",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_nxgldo5q/T_Prop_Rubber_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_LA_Dumpster_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 511.5,
+      "p10_px_per_m": 287.0,
+      "p90_px_per_m": 853.3
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_Dumpster_Mesh_LOD1",
+    "SM_LA_Dumpster_Mesh_LOD2",
+    "SM_LA_Dumpster_Mesh",
+    "UCX_SM_LA_Dumpster_00-convcolonly",
+    "SM_LA_Dumpster"
+  ],
+  "glb_bytes": 556576
+}

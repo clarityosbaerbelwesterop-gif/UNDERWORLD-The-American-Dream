@@ -56,6 +56,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-LOOK-01 | P0 | Claude Code | Look-dev calibration scene (Forward Plus), measured golden-hour/midday presets, single look source for level + look-dev, GI decision TD-024 | T-ENV-01 | COMPLETED (PR #24, merged; owner look sign-off open) |
 | T-ANIM-01 | P0 | Claude Code | Animation pipeline (part 1): real shared humanoid library restored (was a committed 208-byte placeholder), NPCs borrow missing clips at runtime, placeholder scan in run_all | E-3 (anim source) | IN PROGRESS (part 1 COMPLETED: PR #25, merged; part 2 sit clips / foot IK waits for E-3) |
 | T-DATA-01 | P0 | Claude Code | P1: combat database (`combat.json`, `CombatDB`, armor system, enemy tiers light/medium/heavy/boss, factions) + content catalogue (`catalog.json`, `uwp catalog`) + production plan P1–P10 | – | READY FOR REVIEW (TD-025 PROPOSED) |
+| T-PROP-01 | P0 | Claude Code | P2/P3/P5: `uwp build-props` generator (CC0 material library, world-space texel density, lightmap UVs, label atlases, authored collision) + 27 assets (15 LA street furniture/road tiles, 9 items, 3 armor) through the release gate | T-DATA-01 | READY FOR REVIEW (TD-026 PROPOSED; art review pending, all WIP) |
 
 > **Next work order:** `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md` (§8 = ordered task list to release).
 

@@ -1,0 +1,266 @@
+{
+  "asset": "SM_LA_PowerPole",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_PowerPole/SM_LA_PowerPole.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_PowerPole/SM_LA_PowerPole.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_PowerPole/SM_LA_PowerPole_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -1.2,
+      0.0,
+      -1.5016
+    ],
+    "max": [
+      1.2,
+      10.5,
+      1.5016
+    ],
+    "size": [
+      2.4,
+      10.5,
+      3.0032
+    ]
+  },
+  "triangles": {
+    "lod0": 442,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 442,
+      "LOD1": 220,
+      "LOD2": 110
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_LA_PowerPole_Mesh",
+      "levels": [
+        {
+          "name": "SM_LA_PowerPole_Mesh",
+          "level": 0,
+          "triangles": 442
+        },
+        {
+          "name": "SM_LA_PowerPole_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 220
+        },
+        {
+          "name": "SM_LA_PowerPole_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 110
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_LA_PowerPole_00-convcolonly"
+    ],
+    "micro_lips": 0
+  },
+  "materials": [
+    "M_Prop_LA_PowerPole_Labels",
+    "M_Prop_MetalGalv",
+    "M_Prop_PaintYellow",
+    "M_Prop_PlasticBlack",
+    "M_Prop_PlasticGrey",
+    "M_Prop_WoodCreosote"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_LA_PowerPole_Labels_D",
+      "material": "M_Prop_LA_PowerPole_Labels",
+      "size": [
+        512,
+        256
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_pz63qjpp/T_Prop_LA_PowerPole_Labels_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGalv_D",
+      "material": "M_Prop_MetalGalv",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_dwioadq2/T_Prop_MetalGalv_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGalv_ORM",
+      "material": "M_Prop_MetalGalv",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_vnwulscw/T_Prop_MetalGalv_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGalv_N",
+      "material": "M_Prop_MetalGalv",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_mo0fsgba/T_Prop_MetalGalv_N.jpg"
+    },
+    {
+      "image": "T_Prop_PaintYellow_D",
+      "material": "M_Prop_PaintYellow",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_epdv5afp/T_Prop_PaintYellow_D.jpg"
+    },
+    {
+      "image": "T_Prop_PaintYellow_ORM",
+      "material": "M_Prop_PaintYellow",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_k12injr3/T_Prop_PaintYellow_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_PaintYellow_N",
+      "material": "M_Prop_PaintYellow",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_skypa2c2/T_Prop_PaintYellow_N.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticBlack_D",
+      "material": "M_Prop_PlasticBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_6xjh8sbf/T_Prop_PlasticBlack_D.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticBlack_ORM",
+      "material": "M_Prop_PlasticBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_nxy0y4a9/T_Prop_PlasticBlack_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticBlack_N",
+      "material": "M_Prop_PlasticBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_e7clrhuy/T_Prop_PlasticBlack_N.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticGrey_D",
+      "material": "M_Prop_PlasticGrey",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_0opgm14b/T_Prop_PlasticGrey_D.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticGrey_ORM",
+      "material": "M_Prop_PlasticGrey",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_pv37plck/T_Prop_PlasticGrey_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticGrey_N",
+      "material": "M_Prop_PlasticGrey",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_vegziyu0/T_Prop_PlasticGrey_N.jpg"
+    },
+    {
+      "image": "T_Prop_WoodCreosote_D",
+      "material": "M_Prop_WoodCreosote",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_j4hxrhb1/T_Prop_WoodCreosote_D.jpg"
+    },
+    {
+      "image": "T_Prop_WoodCreosote_ORM",
+      "material": "M_Prop_WoodCreosote",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_52n8nqwd/T_Prop_WoodCreosote_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_WoodCreosote_N",
+      "material": "M_Prop_WoodCreosote",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_une3ytpa/T_Prop_WoodCreosote_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_LA_PowerPole_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 486.0,
+      "p10_px_per_m": 335.5,
+      "p90_px_per_m": 512.0
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_PowerPole_Mesh_LOD1",
+    "SM_LA_PowerPole_Mesh_LOD2",
+    "SM_LA_PowerPole_Mesh",
+    "UCX_SM_LA_PowerPole_00-convcolonly",
+    "SM_LA_PowerPole"
+  ],
+  "glb_bytes": 1030452
+}

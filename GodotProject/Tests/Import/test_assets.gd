@@ -38,6 +38,7 @@ func _run() -> void:
 	test_loops(rig)
 	test_humanoid(human)
 	test_all_assets()
+	test_catalog_assets()
 	if failures.is_empty():
 		print("[ASSETTEST] RESULT: PASS")
 		quit(0)
@@ -239,3 +240,59 @@ func test_all_assets() -> void:
 		check(not first and box.position.distance_to(want_min) < 0.02 and box.size.distance_to(want_size) < 0.02,
 			"%s AABB %s == manifest min %s size %s" % [glb.get_file(), box, want_min, want_size])
 		inst.queue_free()
+
+## P1/P2 (T-DATA-01, T-PROP-01): every built catalogue entry imports as a usable game asset.
+## Environment/props: real collision (a StaticBody shape), LOD chain wired (visibility ranges),
+## textured PBR materials. Negative control: UW_ASSET_SABOTAGE=nocollision drops the collision
+## count to zero for every entry (debug builds only).
+func test_catalog_assets() -> void:
+	print("[ASSETTEST] == content catalogue: built entries import as game assets")
+	var path := ProjectSettings.globalize_path("res://").path_join("../Config/Content/catalog.json").simplify_path()
+	var f := FileAccess.open(path, FileAccess.READ)
+	check(f != null, "catalogue readable (%s)" % path)
+	if f == null:
+		return
+	var cat = JSON.parse_string(f.get_as_text())
+	var sabotage := OS.is_debug_build() and OS.get_environment("UW_ASSET_SABOTAGE") == "nocollision"
+	var n := 0
+	for e in (cat as Dictionary).get("entries", []):
+		var typ := String(e.get("type", ""))
+		if String(e.get("status", "")) == "PLANNED" or not e.has("asset") or typ not in ["environment", "prop", "armor"]:
+			continue
+		var glb := "res://" + String(e["asset"])
+		var inst := _instance(glb)
+		check(inst != null, "%s loads" % e["id"])
+		if inst == null:
+			continue
+		n += 1
+		var shapes: Array = []
+		_collect(inst, "CollisionShape3D", shapes)
+		if sabotage:
+			shapes.clear()
+		check(shapes.size() > 0, "%s has collision (%d shapes)" % [e["id"], shapes.size()])
+		var meshes: Array = []
+		_collect(inst, "MeshInstance3D", meshes)
+		var lods := 0
+		var ranged := 0
+		var textured := 0
+		var surfaces := 0
+		for mi: MeshInstance3D in meshes:
+			if mi.get_parent() is CollisionObject3D:
+				continue
+			if String(mi.name).contains("_LOD"):
+				lods += 1
+				if mi.visibility_range_begin > 0.0:
+					ranged += 1
+			if mi.mesh == null:
+				continue
+			for si in mi.mesh.get_surface_count():
+				var mat := mi.get_active_material(si) as BaseMaterial3D
+				surfaces += 1
+				if mat and (mat.albedo_texture != null or mat.emission_enabled):
+					textured += 1
+		check(lods == 0 or ranged == lods, "%s: %d LOD meshes, %d with visibility ranges" % [e["id"], lods, ranged])
+		# generated props (T-PROP-01) must be fully textured; the older kit may have flat parts
+		if String(e.get("generator", "")).begins_with("build-props"):
+			check(surfaces > 0 and textured == surfaces, "%s: %d/%d surfaces textured or emissive" % [e["id"], textured, surfaces])
+		inst.queue_free()
+	check(n >= 30, "catalogue: %d built environment/prop/armor entries imported (>= 30)" % n)

@@ -1,0 +1,110 @@
+{
+  "asset": "SM_Prop_CashBundle",
+  "status": "READY FOR REVIEW",
+  "category": "Props",
+  "budget_key": "Props",
+  "source_blend": "Blender/Source/Props/SM_Prop_CashBundle/SM_Prop_CashBundle.blend",
+  "export_glb": "Assets/Props/SM_Prop_CashBundle/SM_Prop_CashBundle.glb",
+  "preview_png": "Assets/Props/SM_Prop_CashBundle/SM_Prop_CashBundle_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.078,
+      0.0,
+      -0.034
+    ],
+    "max": [
+      0.078,
+      0.032,
+      0.034
+    ],
+    "size": [
+      0.156,
+      0.032,
+      0.068
+    ]
+  },
+  "triangles": {
+    "lod0": 88,
+    "budget": 5000,
+    "per_lod_total": {
+      "LOD0": 88,
+      "LOD1": 44,
+      "LOD2": 22
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_Prop_CashBundle_Mesh",
+      "levels": [
+        {
+          "name": "SM_Prop_CashBundle_Mesh",
+          "level": 0,
+          "triangles": 88
+        },
+        {
+          "name": "SM_Prop_CashBundle_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 44
+        },
+        {
+          "name": "SM_Prop_CashBundle_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 22
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_Prop_CashBundle_00-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_Prop_Prop_CashBundle_Labels"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Prop_CashBundle_Labels_D",
+      "material": "M_Prop_Prop_CashBundle_Labels",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_wda2nfup/T_Prop_Prop_CashBundle_Labels_D.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_Prop_CashBundle_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 28846.3,
+      "p10_px_per_m": 4005.4,
+      "p90_px_per_m": 170923.5
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_Prop_CashBundle_Mesh_LOD1",
+    "SM_Prop_CashBundle_Mesh_LOD2",
+    "SM_Prop_CashBundle_Mesh",
+    "UCX_SM_Prop_CashBundle_00-convcolonly",
+    "SM_Prop_CashBundle"
+  ],
+  "glb_bytes": 56428
+}

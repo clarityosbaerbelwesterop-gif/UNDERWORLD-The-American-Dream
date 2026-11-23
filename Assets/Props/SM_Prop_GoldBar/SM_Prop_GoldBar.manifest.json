@@ -1,0 +1,141 @@
+{
+  "asset": "SM_Prop_GoldBar",
+  "status": "READY FOR REVIEW",
+  "category": "Props",
+  "budget_key": "Props",
+  "source_blend": "Blender/Source/Props/SM_Prop_GoldBar/SM_Prop_GoldBar.blend",
+  "export_glb": "Assets/Props/SM_Prop_GoldBar/SM_Prop_GoldBar.glb",
+  "preview_png": "Assets/Props/SM_Prop_GoldBar/SM_Prop_GoldBar_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.1241,
+      0.0,
+      -0.0343
+    ],
+    "max": [
+      0.1241,
+      0.0456,
+      0.0343
+    ],
+    "size": [
+      0.2482,
+      0.0456,
+      0.0686
+    ]
+  },
+  "triangles": {
+    "lod0": 120,
+    "budget": 5000,
+    "per_lod_total": {
+      "LOD0": 120,
+      "LOD1": 60,
+      "LOD2": 30
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_Prop_GoldBar_Mesh",
+      "levels": [
+        {
+          "name": "SM_Prop_GoldBar_Mesh",
+          "level": 0,
+          "triangles": 120
+        },
+        {
+          "name": "SM_Prop_GoldBar_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 60
+        },
+        {
+          "name": "SM_Prop_GoldBar_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 30
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_Prop_GoldBar_00-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_Prop_Gold",
+    "M_Prop_Prop_GoldBar_Labels"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Gold_D",
+      "material": "M_Prop_Gold",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_7dso_7hy/T_Prop_Gold_D.jpg"
+    },
+    {
+      "image": "T_Prop_Gold_ORM",
+      "material": "M_Prop_Gold",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_a53euwij/T_Prop_Gold_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Gold_N",
+      "material": "M_Prop_Gold",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex__k5gj1pe/T_Prop_Gold_N.jpg"
+    },
+    {
+      "image": "T_Prop_Prop_GoldBar_Labels_D",
+      "material": "M_Prop_Prop_GoldBar_Labels",
+      "size": [
+        512,
+        64
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_7aeqoxpp/T_Prop_Prop_GoldBar_Labels_D.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_Prop_GoldBar_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 498.7,
+      "p10_px_per_m": 387.3,
+      "p90_px_per_m": 1058.3
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_Prop_GoldBar_Mesh_LOD1",
+    "SM_Prop_GoldBar_Mesh_LOD2",
+    "SM_Prop_GoldBar_Mesh",
+    "UCX_SM_Prop_GoldBar_00-convcolonly",
+    "SM_Prop_GoldBar"
+  ],
+  "glb_bytes": 69908
+}

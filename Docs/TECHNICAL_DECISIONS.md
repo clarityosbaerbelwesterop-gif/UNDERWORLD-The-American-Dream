@@ -103,7 +103,7 @@ Jason ≤ 40k tris, NPC ≤ 25k, car ≤ 60k (LOD0), pistol ≤ 8k, street-kit m
 - **Consequences:** the sedan needs no PT_ stand-in; enter/exit timing (`enter_time` 0.6 s, `exit_time` 0.5 s) is a placeholder until `A_Humanoid_Car_Enter_L/Exit_L` drive it (Jason swap task). NPCs don't see the player as "in a car" yet (AI targets the hidden player at the seat) – **resolved by TD-015** (T-AI-03).
 
 ## TD-015 – Enemies vs. a player who is inside a car (proposed Bot 3, 2026-11-22, T-AI-03)
-**Status: PROPOSED for Bot 1** (the damage rule below is the part that needs a design decision).
+**Status: ACCEPTED (Bot 1, 2026-11-23, review of PR #17)** – the 25 % driver-window rule stays the M1 default; tune per weapon later.
 - **The bug:** `NPCController` aimed at the player's capsule unconditionally. While Jason sat in the sedan the two visibility points were still head/chest height *inside* the bodywork, so gunmen shot through the roof at a body they could not see and the damage landed on the player's `DamageReceiver` instead of the car. Fixed by one module, `Scripts/ai/vehicle_targeting.gd` (`class_name VehicleTargeting`), that every AI rule goes through.
 - **R1 – substitution:** a seated target is replaced by its `Vehicle` for perception, aim and cover (`VehicleTargeting.resolve()`), re-evaluated every physics frame, so entering/leaving changes the target class on the next frame. The player node itself is remembered (`NPCController._person`); a gunman who loses the car falls back to the human instead of staring at an empty seat.
 - **R2 – car damage:** a hit on the car goes to `Vehicle.health` through `Vehicle.apply_hit_damage(amount, hit_position, source)`; `crashed`/`wrecked` fire exactly as in the existing crash path, so there is one health pool, not two.
@@ -114,7 +114,7 @@ Jason ≤ 40k tris, NPC ≤ 25k, car ≤ 60k (LOD0), pistol ≤ 8k, street-kit m
 - **Consequences:** the "NPCs don't see the player as in a car yet" line in TD-014 is now obsolete. `Weapon.trigger()` additionally reports `hit_body`/`hit_position`/`hit_normal` in its shot dictionary; `WeaponData.damage_at(distance)` is the public damage-at-range helper the AI uses for non-hitbox targets.
 
 ## TD-016 – Character animation wiring (clips, upper-body layer, bone hitboxes) – T-GP-04
-**Status: IMPLEMENTED (recorded by Bot 3, 2026-11-22).**
+**Status: IMPLEMENTED (recorded by Bot 3, 2026-11-22) · ACCEPTED by Bot 1 2026-11-23.**
 - **One clip per event:** `Shoot` on every shot the weapon actually fires (`Weapon.fired`, so the weapon's own fire rate is the limiter), `Reload` on `Weapon.reload_started`, `Death` as the last pose, `Carry_Idle/Carry_Walk` blended in while `CarriedItem` is carried, `Car_Enter_L/Car_Exit_L` on the vehicle sequences. All of them are one-shots on a dedicated `oneshot` node chain (`AnimationNodeOneShot`), never a name-suffixed loop clip (TD-005).
 - **The vehicle timing comes from the clip:** `Vehicle.enter_duration()` / `exit_duration()` return the driver's `A_Jason_Car_Enter_L` / `A_Jason_Car_Exit_L` length (both 1.5 s) and fall back to `VehicleData.enter_time`/`exit_time` only when the driver has no character model. `VehicleData` values stay as the documented fallbacks; the 0.6/0.5 s constants no longer drive gameplay. Tests must wait for these functions, not for a literal second.
 - **Upper-body aim layer = `SkeletonModifier3D`, not an `AnimationTree` filter.** `AimSpineModifier` sits on the Skeleton3D (the only parent type Godot accepts for a modifier) and adds pitch/yaw to `Spine`/`Chest`/`UpperChest` *after* the tree has posed the skeleton; the legs (and the hips) are simply not in its chain, which is the blend mask from the spine up. Weight ramps with the aim state, pitch comes from the camera, softened to 75 %.
@@ -124,7 +124,7 @@ Jason ≤ 40k tris, NPC ≤ 25k, car ≤ 60k (LOD0), pistol ≤ 8k, street-kit m
 - **Negative control `UW_ANIM_SABOTAGE=1`:** no aim modifier, hitboxes pinned to the Hips bone, one-shot slots mapped to idle → 9 checks FAIL.
 
 ## TD-017 – HUD is a pure listener, bound deferred – T-UI-01
-**Status: IMPLEMENTED (Bot 3, 2026-11-22).**
+**Status: IMPLEMENTED (2026-11-22) · ACCEPTED by Bot 1 2026-11-23.**
 - **No polling, no timers:** every HUD element is a signal sink (`health_changed`, `ammo_changed`, `reload_started/finished`, `objective_text_changed`, `subtitle`, `mission_completed`, `mission_failed`). The only per-frame work is projecting the GPS marker and sizing the crosshair from the weapon's bloom.
 - **Binding must be deferred.** `HUD` is the first node of `LA_CallowayAve.tscn`, so during its `_ready()` the `MissionManager` has not joined the `mission_manager` group yet and every later connection would silently go to nothing (that is what the first test run showed: 0 connections, empty objective label). `_bind.call_deferred()` after `_build()` fixes the order; the tests wait one **idle** frame (`process_frame`) because a headless `SceneTree` does not flush the message queue on physics frames alone.
 - **Camera path:** the chase camera hangs at `CameraRig/Pitch/SpringArm3D/Camera3D`; the HUD resolves it from there (and still honours an explicit `camera_path`).
@@ -133,7 +133,7 @@ Jason ≤ 40k tris, NPC ≤ 25k, car ≤ 60k (LOD0), pistol ≤ 8k, street-kit m
 - **Tests:** `Tests/test_hud.gd` against the real level (40 checks): health from real damage, ammo from a real shot + reload, every objective text, the intro subtitle lines, projected marker position (±2 px), PASSED card with $2.500, fail reason. **Negative control `UW_HUD_SABOTAGE=1`** freezes the ammo counter and the objective label → 3 checks FAIL.
 
 ## TD-018 – Greybox readability in the generator (T-LVL-01a)
-**Status: IMPLEMENTED (Bot 3, 2026-11-22).**
+**Status: IMPLEMENTED (2026-11-22) · ACCEPTED by Bot 1 2026-11-23.**
 - **Everything happens in `Scripts/tools/build_level_calloway.gd`**, the scene is regenerated. Nothing is hand-edited in the `.tscn`.
 - **Found bugs while doing it** (all were silently shipping):
   1. `_building()` returned the kit piece, not the block → the piece was re-parented and **every building was missing from the saved scene** (Godot: "Can't add child ... already has a parent"). The level has been a street without houses.
@@ -147,7 +147,7 @@ Jason ≤ 40k tris, NPC ≤ 25k, car ≤ 60k (LOD0), pistol ≤ 8k, street-kit m
 - **Honest limit:** this is still a blockout. The fix makes road/kerb/sidewalk distinguishable and the block walkable/drivable; it does not add art. In-engine Phase-8 captures are **not possible on this box** (no X server/Xvfb, no GPU); the report states that instead of faking a screenshot.
 
 ## TD-019 – Linux export (T-BUILD-01)
-**Status: IMPLEMENTED (Bot 3, 2026-11-22).**
+**Status: IMPLEMENTED (2026-11-22) · ACCEPTED by Bot 1 2026-11-23.**
 - **Preset** `GodotProject/export_presets.cfg` (platform `Linux`, x86_64, PCK beside the binary, text→binary), **script** `Tools/build/build_linux.sh` → `Builds/linux/Underworld.x86_64`; `Builds/` stays gitignored, no binary is ever committed.
 - **Excluded from the export:** `Tests/*` and `Scripts/import/*` (the import post-processors are editor-only). Verified by parsing the PCK directory instead of trusting the log: 657 files, 0 hits for either prefix.
 - **Export templates are version-locked** to the engine build. The official `.tpz` (~1 GB) is unreachable from this sandbox, so the template was **compiled from the same `4.7.2-stable` source tree** and installed as `~/.local/share/godot/export_templates/4.7.2.stable/linux_release.x86_64` (47 min, 2 vCPU). `Docs/BUILD.md` has the exact scons line.
@@ -169,3 +169,11 @@ view drawn from the scene's real AABBs.
   the first road segment at (-24, 0, -79) – read before `free()`, because a freed Object compares
   equal to `null` and returns zero vectors (a second silent trap that made two draft assertions
   always pass/fail for the wrong reason).
+
+## TD-020 – Shipping entry scene and debug-only sabotage switches (Bot 1, 2026-11-23, review of PR #17)
+**Status: ACCEPTED.**
+- `application/run/main_scene` = `res://Scenes/Game_M01.tscn` (`Scripts/game/game_boot.gd`, `class_name GameBoot`). It instances `LA_CallowayAve.tscn`, waits 3 physics frames and calls `MissionManager.start()`; it prints `UNDERWORLD: GameBoot -> M01 Dead Drop`, which `Tools/build/build_linux.sh` now requires in the smoke log (exit 8 otherwise). Before, the export booted the pipeline smoke scene (PT crate) and nothing outside the tests started the mission.
+- `Scenes/Main.tscn` stays the pipeline smoke scene (loaded by path in `smoke_test.gd` and `test_player_controller.gd`).
+- Every `UW_*_SABOTAGE` switch is only honoured when `OS.is_debug_build()` – a release export can never be sabotaged through the environment. Tests run the editor binary (debug), so all negative controls still bite.
+- Test: `Tests/test_boot.gd` (7 checks) instances whatever `main_scene` points at; `UW_BOOT_SABOTAGE=1` skips `start()` → 2 FAIL.
+- When a front-end/main menu exists (M7), it replaces `Game_M01.tscn` as `main_scene`; keep `test_boot.gd` pointing at the real entry.

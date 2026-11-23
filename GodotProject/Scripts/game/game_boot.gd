@@ -20,6 +20,7 @@ static func sabotage() -> bool:
 	return OS.is_debug_build() and OS.get_environment("UW_BOOT_SABOTAGE").strip_edges() == "1"
 
 func _ready() -> void:
+	print("UNDERWORLD: GameBoot -> M01 Dead Drop")
 	if level_scene == null:
 		push_error("GameBoot: no level_scene")
 		return

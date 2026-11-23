@@ -39,11 +39,18 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-AI-01 | P1 | Bot 3 | Enemy AI (cartel gunmen) | T-GP-02 | COMPLETED |
 | T-AI-02 | P2 | Bot 3 | Civilian NPC behaviour | T-GP-01 | IN PROGRESS (3 civilians placed on Calloway Ave, PR #14) |
 | T-LVL-01 | P1 | Bot 3 | Assemble LA street level | T-ART-03 | IN PROGRESS (T-LVL-01a readability done; blockout, no art pass) |
-| T-MIS-01 | P1 | Claude Code | Mission system + M01 implementation | T-DES-01, T-GP-02, T-GP-03, T-AI-01 | IN PROGRESS (framework + M01 core merged #14/#15/#16; open: Marco ally, wave sequencing – see note) |
+| T-MIS-01 | P1 | Claude Code | Mission system + M01 implementation | T-DES-01, T-GP-02, T-GP-03, T-AI-01 | COMPLETED (gameplay, headless; #14–#17 + Bot 1 review fix; art still blockout; chase car = stretch, not built) |
 | T-UI-01 | P2 | Bot 3 | HUD (health, ammo, objective text) | T-GP-02 | COMPLETED (40 checks, sabotage-verified) |
-| T-BUILD-01 | P1 | Bot 3 | Playable Linux build + export script | T-PIPE-02 | COMPLETED (build + boot check, Docs/BUILD.md) |
+| T-BUILD-01 | P1 | Bot 3 / Claude Code | Playable Linux build + export script | T-PIPE-02 | COMPLETED (official 4.7.2 template; boots into M01 via Game_M01.tscn – Bot 1 fix; never played on a GPU) |
 | T-QA-01 | P1 | Bot 3 | Headless gameplay regression tests | T-GP-01 | BACKLOG |
 | T-QA-02 | P0 | Bot 1 | Binding AAA Quality Gate + first honest asset reviews | T-PIPE-04 | COMPLETED |
+| T-AI-03 | P0 | Claude Code | Enemies vs. player in a car (TD-015) | T-AI-01, T-GP-03 | COMPLETED (PR #17) |
+| T-GP-04 | P0 | Claude Code | Jason clips wired, upper-body aim layer, bone hitboxes (TD-016) | T-GP-01c-J | COMPLETED (PR #17) |
+| T-LVL-01a | P1 | Claude Code | Greybox readable, speaking names, baked navmesh (TD-018) | T-LVL-01 | COMPLETED (PR #17; nav-sync flake fixed by Bot 1) |
+| T-BOOT-04 | P0 | Bot 1 | Shipping entry scene Game_M01 + test_boot (TD-020) | T-MIS-01 | COMPLETED (Bot 1 review fix of PR #17) |
+| T-DOC-01 | P2 | Claude Code | GDD §2: Jason early 30s + grey crew T-shirt (art direction wins) | – | BACKLOG |
+
+> **Next work order:** `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md` (§8 = ordered task list to release).
 
 Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box car) so code is not blocked by art, but those are marked `PT_` and replaced before the milestone closes. Final slice must use Bot 2's original Blender assets.
 
@@ -234,14 +241,15 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Acceptance:** player can walk whole street; navmesh covers sidewalks/road; no missing references.
 
 ### T-MIS-01 – Mission system + M01 implementation
-- **Agent:** Claude Code (external, PR #14) · **Deps:** T-DES-01, T-GP-02, T-GP-03, T-AI-01 · **Status:** IN PROGRESS
+- **Agent:** Claude Code (external, PR #14, PR #17) · **Deps:** T-DES-01, T-GP-02, T-GP-03, T-AI-01 · **Status:** COMPLETED (gameplay, headless)
+- **Review Bot 1 of PR #17 (2026-11-23):** Marco seated + invulnerable, waves sequenced 3 → 2, real input drive (26.2 s / 97.2 m / 0.00 m off-road), `test_mission.gd` 105 → 109 checks; sabotage 1/2/3 → 5/2/2 FAIL. Defect fixed forward: Marco was drawn standing through the car roof (no sit clip) → hidden while seated + test. Defect fixed forward: nothing started the mission outside tests and the export booted the PT crate scene → `Game_M01.tscn` + `test_boot.gd` (TD-020). Not done: optional chase car (step 6 stretch), audio, Marco sit clip.
 - **Review Bot 1 (2026-11-23):** framework (`Scripts/mission/*`, `Data/Missions/M01_DeadDrop.tres`, 8 objectives, 2 checkpoints, fail/restart for Jason dead / package destroyed / package left > 60 m / sedan destroyed) is real and tested: `test_mission.gd` 75 checks PASS on a fresh worktree. PR #14 was self-merged by the agent and committed 106 binaries without LFS → fixed forward in PR #15. Its negative control was tautological (it only failed its own self-check) → replaced in PR #16 by real sabotage (checkpoint removed + stray distance disabled → 5 real checks FAIL).
 - **Still open (not done, do not claim):** Marco ally (only a `Marco_Seat` marker exists – design wants him in the passenger seat and fighting, invulnerable); ambush waves are not sequenced (all 5 enemies are in the level from the start, one SURVIVE objective; design: 3, then 2 from the van); the test teleports the car into the trigger areas instead of driving the ~300 m loop; no HUD assertions; no Phase 8 capture of the mission.
 - **Description:** data-driven mission framework (objectives, triggers/areas, markers, fail/retry, checkpoints) and M01 per `Docs/Missions/M01_DeadDrop.md`.
 - **Acceptance:** M01 playable start→finish; fail states (Jason dies, package destroyed, car destroyed) restart from checkpoint; headless test steps through objectives via debug API.
 
 ### T-UI-01 – HUD
-- **Agent:** Bot 3 · **Status:** BACKLOG · health, ammo, crosshair, objective text, mission-passed screen.
+- **Agent:** Bot 3 → Claude Code (PR #17) · **Status:** COMPLETED · health, ammo, crosshair, objective text, subtitles, GPS marker, mission passed/failed card; `test_hud.gd` 40 checks, `UW_HUD_SABOTAGE=1` → 3 FAIL. Verified by Bot 1 on a fresh worktree 2026-11-23.
 
 ### T-BUILD-01 – Playable Linux build
 - **Agent:** Bot 3 · **Deps:** T-PIPE-02 · **Status:** COMPLETED (2026-11-22)

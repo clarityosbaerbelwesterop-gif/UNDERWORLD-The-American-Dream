@@ -1,5 +1,9 @@
 # Development Log
 
+## 2026-11-23 · Claude Code · T-QA-01 (CI)
+- `.github/workflows/ci.yml`: every PR + push to main runs `Tools/sandbox/bootstrap_cloud.sh` (Blender 5.2.4 bpy, Godot 4.7.2, templates; cached), `Tests/run_all.sh`, `Tools/build/build_linux.sh` and Forward Plus review shots on Mesa lavapipe; logs + shots as artifact. LFS objects come from the Actions cache keyed by the pointer list (B-005 bandwidth). Manual `workflow_dispatch` input `sabotage` (validated `UW_<AREA>_SABOTAGE=<v>`) = negative control.
+- `Tests/run_all.sh` now fails if the run modified tracked files (the smoke export rewrote `Assets/Test/PT_PipelineTest_Crate.*` on every run with a newer Blender). Crate re-exported with Blender 5.2.4 (byte-identical on re-run).
+
 ## 2026-11-23 · Claude Code · T-BUILD-02 (M01 acceptance, input-only)
 - **New gate:** `Tests/test_playthrough.gd` + `Tests/tools/m01_autopilot.gd` play M01 through the shipping entry scene with input actions only (TD-021 PROPOSED, deterministic seed 2, QA cheat invulnerable stated). Result: MISSION COMPLETED in 221.9 s game time, 23 hits.
 - **20 blockers found and fixed** (pipeline: COLLISION_MICRO_LIP rule, trimesh from LOD0; level: kerb lines, garage rotated 180°, wave spawns per layout §5, 6 cover anchors, rooftop spawn; mission: interact input, package load, outro, revive, restart placement, carried-item collision, stale area overlap, enemy reset; AI: wave briefing, NPC step-up, ambush pressure; HUD: subtitles never cleared, duplicated HUD widgets). Details + tests: `Docs/Reports/BERICHT_T-BUILD-02.md`.

@@ -1,0 +1,117 @@
+# UNDERWORLD - CI merge gate (T-QA-01, TD-010): Tests/run_all.sh + Linux export + Forward Plus
+# review shots on every PR and push to main. Same toolchain as the studio/cloud boxes
+# (Tools/sandbox/bootstrap_cloud.sh): Blender 5.2.4 LTS (bpy wheel), Godot 4.7.2 official.
+#
+# LFS budget (B-005): LFS objects are restored from the Actions cache keyed by the LFS
+# pointer list, so a run without new binaries costs ~0 LFS bandwidth.
+#
+# Negative control: run the workflow manually with `sabotage` = e.g. UW_HUD_SABOTAGE=1 ->
+# the gate must go red (T-QA-01 acceptance).
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      sabotage:
+        description: "Negative control, e.g. UW_HUD_SABOTAGE=1 (empty = normal run)"
+        required: false
+        default: ""
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    env:
+      UWP_PREFIX: /home/runner/uwtools
+    steps:
+      - name: Checkout (pointers only)
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: LFS object id list
+        run: git lfs ls-files --long | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v4
+        with:
+          path: .git/lfs
+          key: lfs-v1-${{ hashFiles('.lfs-assets-id') }}
+          restore-keys: lfs-v1-
+
+      - name: LFS pull (only what the cache misses)
+        run: git lfs pull && git lfs fsck --pointers
+
+      - name: Python 3.13 (bpy 5.2.4 wheels are cp313)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: System packages (Xvfb, Mesa lavapipe for Forward Plus shots, ffmpeg)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb xauth mesa-vulkan-drivers libvulkan1 ffmpeg libxi6 libxkbcommon0 libsm6 libxrender1 libxfixes3 libgl1 >/dev/null
+
+      - name: Restore toolchain cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            /home/runner/uwtools
+            ~/.local/share/godot/export_templates/4.7.2.stable
+          key: uwtools-v1-godot4.7.2-bpy5.2.4-${{ hashFiles('Tools/sandbox/bootstrap_cloud.sh') }}
+
+      - name: Toolchain (Blender 5.2.4 LTS + Godot 4.7.2 + templates)
+        run: |
+          sudo mkdir -p /workspace && sudo chown -R "$USER" /workspace
+          Tools/sandbox/bootstrap_cloud.sh --templates --prefix "$UWP_PREFIX"
+
+      - name: Sabotage switch (manual negative control only)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.sabotage != '' }}
+        env:
+          SAB: ${{ inputs.sabotage }}
+        run: |
+          # Only UW_<AREA>_SABOTAGE=<value> is accepted - nothing else may reach $GITHUB_ENV.
+          if [[ "$SAB" =~ ^UW_[A-Z]+_SABOTAGE=[A-Za-z0-9]+$ ]]; then
+            echo "$SAB" >> "$GITHUB_ENV"
+            echo "negative control active: $SAB"
+          else
+            echo "rejected sabotage value"; exit 2
+          fi
+
+      - name: Merge gate - Tests/run_all.sh
+        run: |
+          set -o pipefail
+          ./Tests/run_all.sh 2>&1 | tee run_all.log
+          grep -q "RUN_ALL: PASS" run_all.log
+
+      - name: Linux export + boot check
+        run: Tools/build/build_linux.sh
+
+      - name: Forward Plus review shots (lavapipe, CPU - look only, never FPS)
+        if: ${{ always() }}
+        run: |
+          mkdir -p ci_shots
+          UW_CAPTURE_DIR="$PWD/ci_shots" Tools/godot_phase8_capture.sh --renderer fwdplus \
+            --script res://Tests/tools/capture_m01_review.gd || echo "capture failed (non-blocking)"
+
+      - name: Upload logs + shots
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-${{ github.run_number }}
+          path: |
+            run_all.log
+            Tests/logs/
+            Builds/linux/smoke.log
+            ci_shots/
+          retention-days: 14

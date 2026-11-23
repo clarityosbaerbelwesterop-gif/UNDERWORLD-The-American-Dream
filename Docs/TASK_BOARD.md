@@ -42,7 +42,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-MIS-01 | P1 | Claude Code | Mission system + M01 implementation | T-DES-01, T-GP-02, T-GP-03, T-AI-01 | COMPLETED (gameplay, headless; #14–#17 + Bot 1 review fix; art still blockout; chase car = stretch, not built) |
 | T-UI-01 | P2 | Bot 3 | HUD (health, ammo, objective text) | T-GP-02 | COMPLETED (40 checks, sabotage-verified) |
 | T-BUILD-01 | P1 | Bot 3 / Claude Code | Playable Linux build + export script | T-PIPE-02 | COMPLETED (official 4.7.2 template; boots into M01 via Game_M01.tscn – Bot 1 fix; never played on a GPU) |
-| T-QA-01 | P1 | Bot 3 | Headless gameplay regression tests | T-GP-01 | BACKLOG |
+| T-QA-01 | P1 | Bot 3 → Claude Code | CI: GitHub Actions merge gate (run_all + Linux export + Forward Plus shots), LFS cache, hygiene check | T-GP-01 | READY FOR REVIEW (branch protection = Bot 1) |
 | T-QA-02 | P0 | Bot 1 | Binding AAA Quality Gate + first honest asset reviews | T-PIPE-04 | COMPLETED |
 | T-AI-03 | P0 | Claude Code | Enemies vs. player in a car (TD-015) | T-AI-01, T-GP-03 | COMPLETED (PR #17) |
 | T-GP-04 | P0 | Claude Code | Jason clips wired, upper-body aim layer, bone hitboxes (TD-016) | T-GP-01c-J | COMPLETED (PR #17) |

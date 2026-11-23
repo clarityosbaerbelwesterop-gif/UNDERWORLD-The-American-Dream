@@ -256,135 +256,180 @@
    "type": "environment",
    "milestone": "P3",
    "generator": "build-props --only SM_LA_Road_Intersection",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "4-way intersection tile with crosswalks"
+   "description": "4-way intersection tile with crosswalks",
+   "source": "Blender/Source/Environment/LA/SM_LA_Road_Intersection/SM_LA_Road_Intersection.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Road_Intersection/SM_LA_Road_Intersection.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_Road_Crosswalk",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-props --only SM_LA_Road_Crosswalk",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "crosswalk tile"
+   "description": "crosswalk tile",
+   "source": "Blender/Source/Environment/LA/SM_LA_Road_Crosswalk/SM_LA_Road_Crosswalk.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Road_Crosswalk/SM_LA_Road_Crosswalk.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_TrafficLight",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-props --only SM_LA_TrafficLight",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "traffic light pole with signal heads"
+   "description": "traffic light pole with signal heads",
+   "source": "Blender/Source/Environment/LA/SM_LA_TrafficLight/SM_LA_TrafficLight.blend",
+   "asset": "Assets/Environment/LA/SM_LA_TrafficLight/SM_LA_TrafficLight.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_Hydrant",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-props --only SM_LA_Hydrant",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "fire hydrant"
+   "description": "fire hydrant",
+   "source": "Blender/Source/Environment/LA/SM_LA_Hydrant/SM_LA_Hydrant.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Hydrant/SM_LA_Hydrant.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_TrashCan",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-props --only SM_LA_TrashCan",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "street trash can"
+   "description": "street trash can",
+   "source": "Blender/Source/Environment/LA/SM_LA_TrashCan/SM_LA_TrashCan.blend",
+   "asset": "Assets/Environment/LA/SM_LA_TrashCan/SM_LA_TrashCan.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_BusStop",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-props --only SM_LA_BusStop",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "bus stop shelter + bench"
+   "description": "bus stop shelter + bench",
+   "source": "Blender/Source/Environment/LA/SM_LA_BusStop/SM_LA_BusStop.blend",
+   "asset": "Assets/Environment/LA/SM_LA_BusStop/SM_LA_BusStop.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_Fence_Chainlink",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-props --only SM_LA_Fence_Chainlink",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "chain-link fence 3 m module"
+   "description": "chain-link fence 3 m module",
+   "source": "Blender/Source/Environment/LA/SM_LA_Fence_Chainlink/SM_LA_Fence_Chainlink.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Fence_Chainlink/SM_LA_Fence_Chainlink.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_Dumpster",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-props --only SM_LA_Dumpster",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "commercial dumpster"
+   "description": "commercial dumpster",
+   "source": "Blender/Source/Environment/LA/SM_LA_Dumpster/SM_LA_Dumpster.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Dumpster/SM_LA_Dumpster.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_PhoneBooth",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-props --only SM_LA_PhoneBooth",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "payphone"
+   "description": "payphone",
+   "source": "Blender/Source/Environment/LA/SM_LA_PhoneBooth/SM_LA_PhoneBooth.blend",
+   "asset": "Assets/Environment/LA/SM_LA_PhoneBooth/SM_LA_PhoneBooth.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_NewspaperBox",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-props --only SM_LA_NewspaperBox",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "newspaper vending box"
+   "description": "newspaper vending box",
+   "source": "Blender/Source/Environment/LA/SM_LA_NewspaperBox/SM_LA_NewspaperBox.blend",
+   "asset": "Assets/Environment/LA/SM_LA_NewspaperBox/SM_LA_NewspaperBox.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_ParkingMeter",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-props --only SM_LA_ParkingMeter",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "parking meter"
+   "description": "parking meter",
+   "source": "Blender/Source/Environment/LA/SM_LA_ParkingMeter/SM_LA_ParkingMeter.blend",
+   "asset": "Assets/Environment/LA/SM_LA_ParkingMeter/SM_LA_ParkingMeter.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_StreetSign",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-props --only SM_LA_StreetSign",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "street name sign (fictional names)"
+   "description": "street name sign (fictional names)",
+   "source": "Blender/Source/Environment/LA/SM_LA_StreetSign/SM_LA_StreetSign.blend",
+   "asset": "Assets/Environment/LA/SM_LA_StreetSign/SM_LA_StreetSign.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_Billboard",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-props --only SM_LA_Billboard",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "billboard with invented brands"
+   "description": "billboard with invented brands",
+   "source": "Blender/Source/Environment/LA/SM_LA_Billboard/SM_LA_Billboard.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Billboard/SM_LA_Billboard.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_Bush",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-props --only SM_LA_Bush",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "shrub cluster"
+   "description": "shrub cluster",
+   "source": "Blender/Source/Environment/LA/SM_LA_Bush/SM_LA_Bush.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Bush/SM_LA_Bush.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_PowerPole",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-props --only SM_LA_PowerPole",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "wooden power pole + cables"
+   "description": "wooden power pole + cables",
+   "source": "Blender/Source/Environment/LA/SM_LA_PowerPole/SM_LA_PowerPole.blend",
+   "asset": "Assets/Environment/LA/SM_LA_PowerPole/SM_LA_PowerPole.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "TS_LA_Trims",
@@ -616,24 +661,33 @@
    "type": "armor",
    "milestone": "P5",
    "generator": "build-props --only SM_Prop_Vest_Light",
-   "status": "PLANNED",
-   "quality_target": "blockout+"
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "source": "Blender/Source/Props/SM_Prop_Vest_Light/SM_Prop_Vest_Light.blend",
+   "asset": "Assets/Props/SM_Prop_Vest_Light/SM_Prop_Vest_Light.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_Prop_Vest_Heavy",
    "type": "armor",
    "milestone": "P5",
    "generator": "build-props --only SM_Prop_Vest_Heavy",
-   "status": "PLANNED",
-   "quality_target": "blockout+"
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "source": "Blender/Source/Props/SM_Prop_Vest_Heavy/SM_Prop_Vest_Heavy.blend",
+   "asset": "Assets/Props/SM_Prop_Vest_Heavy/SM_Prop_Vest_Heavy.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_Prop_Helmet_Tactical",
    "type": "armor",
    "milestone": "P5",
    "generator": "build-props --only SM_Prop_Helmet_Tactical",
-   "status": "PLANNED",
-   "quality_target": "blockout+"
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "source": "Blender/Source/Props/SM_Prop_Helmet_Tactical/SM_Prop_Helmet_Tactical.blend",
+   "asset": "Assets/Props/SM_Prop_Helmet_Tactical/SM_Prop_Helmet_Tactical.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "VH_Pickup_01",
@@ -703,81 +757,108 @@
    "type": "prop",
    "milestone": "P5",
    "generator": "build-props --only SM_Prop_CashBundle",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "cash bundle"
+   "description": "cash bundle",
+   "source": "Blender/Source/Props/SM_Prop_CashBundle/SM_Prop_CashBundle.blend",
+   "asset": "Assets/Props/SM_Prop_CashBundle/SM_Prop_CashBundle.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_Prop_Phone",
    "type": "prop",
    "milestone": "P5",
    "generator": "build-props --only SM_Prop_Phone",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "mobile phone"
+   "description": "mobile phone",
+   "source": "Blender/Source/Props/SM_Prop_Phone/SM_Prop_Phone.blend",
+   "asset": "Assets/Props/SM_Prop_Phone/SM_Prop_Phone.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_Prop_GoldBar",
    "type": "prop",
    "milestone": "P5",
    "generator": "build-props --only SM_Prop_GoldBar",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "gold bar"
+   "description": "gold bar",
+   "source": "Blender/Source/Props/SM_Prop_GoldBar/SM_Prop_GoldBar.blend",
+   "asset": "Assets/Props/SM_Prop_GoldBar/SM_Prop_GoldBar.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_Prop_DrugBrick",
    "type": "prop",
    "milestone": "P5",
    "generator": "build-props --only SM_Prop_DrugBrick",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "stylised contraband brick"
+   "description": "stylised contraband brick",
+   "source": "Blender/Source/Props/SM_Prop_DrugBrick/SM_Prop_DrugBrick.blend",
+   "asset": "Assets/Props/SM_Prop_DrugBrick/SM_Prop_DrugBrick.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_Prop_Duffel",
    "type": "prop",
    "milestone": "P5",
    "generator": "build-props --only SM_Prop_Duffel",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "duffel bag"
+   "description": "duffel bag",
+   "source": "Blender/Source/Props/SM_Prop_Duffel/SM_Prop_Duffel.blend",
+   "asset": "Assets/Props/SM_Prop_Duffel/SM_Prop_Duffel.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_Prop_Barrel",
    "type": "prop",
    "milestone": "P5",
    "generator": "build-props --only SM_Prop_Barrel",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "oil barrel"
+   "description": "oil barrel",
+   "source": "Blender/Source/Props/SM_Prop_Barrel/SM_Prop_Barrel.blend",
+   "asset": "Assets/Props/SM_Prop_Barrel/SM_Prop_Barrel.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_Prop_Pallet",
    "type": "prop",
    "milestone": "P5",
    "generator": "build-props --only SM_Prop_Pallet",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "wooden pallet"
+   "description": "wooden pallet",
+   "source": "Blender/Source/Props/SM_Prop_Pallet/SM_Prop_Pallet.blend",
+   "asset": "Assets/Props/SM_Prop_Pallet/SM_Prop_Pallet.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_Prop_Toolbox",
    "type": "prop",
    "milestone": "P5",
    "generator": "build-props --only SM_Prop_Toolbox",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "toolbox"
+   "description": "toolbox",
+   "source": "Blender/Source/Props/SM_Prop_Toolbox/SM_Prop_Toolbox.blend",
+   "asset": "Assets/Props/SM_Prop_Toolbox/SM_Prop_Toolbox.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_Prop_Workbench",
    "type": "prop",
    "milestone": "P5",
    "generator": "build-props --only SM_Prop_Workbench",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "workbench"
+   "description": "workbench",
+   "source": "Blender/Source/Props/SM_Prop_Workbench/SM_Prop_Workbench.blend",
+   "asset": "Assets/Props/SM_Prop_Workbench/SM_Prop_Workbench.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "A_Humanoid_Sit_Driver",

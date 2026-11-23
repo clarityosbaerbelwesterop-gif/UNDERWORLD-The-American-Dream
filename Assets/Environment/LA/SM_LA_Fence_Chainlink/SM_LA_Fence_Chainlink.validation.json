@@ -1,0 +1,133 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-23T19:29:47+00:00",
+  "command": "export",
+  "profile": "gate",
+  "input": "Blender/Source/Environment/LA/SM_LA_Fence_Chainlink/SM_LA_Fence_Chainlink.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "lods": [
+      {
+        "object": "SM_LA_Fence_Chainlink_Mesh",
+        "levels": [
+          {
+            "name": "SM_LA_Fence_Chainlink_Mesh",
+            "level": 0,
+            "triangles": 328
+          },
+          {
+            "name": "SM_LA_Fence_Chainlink_Mesh_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 164
+          },
+          {
+            "name": "SM_LA_Fence_Chainlink_Mesh_LOD2",
+            "level": 2,
+            "ratio": 0.25,
+            "triangles": 82
+          }
+        ]
+      }
+    ],
+    "collision": {
+      "mode": "authored",
+      "generated": [],
+      "existing": [
+        "UCX_SM_LA_Fence_Chainlink_00-convcolonly"
+      ],
+      "micro_lips": 0
+    },
+    "foot_slide": null,
+    "export": {
+      "glb": "Assets/Environment/LA/SM_LA_Fence_Chainlink/SM_LA_Fence_Chainlink.glb",
+      "bytes": 307748
+    },
+    "preview": "Assets/Environment/LA/SM_LA_Fence_Chainlink/SM_LA_Fence_Chainlink_preview.png",
+    "manifest": "Assets/Environment/LA/SM_LA_Fence_Chainlink/SM_LA_Fence_Chainlink.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "SM_LA_Fence_Chainlink_Mesh_LOD1",
+          "SM_LA_Fence_Chainlink_Mesh_LOD2",
+          "SM_LA_Fence_Chainlink_Mesh",
+          "UCX_SM_LA_Fence_Chainlink_00-convcolonly",
+          "SM_LA_Fence_Chainlink"
+        ],
+        "node_extras": {
+          "SM_LA_Fence_Chainlink_Mesh_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              40.0,
+              100.0
+            ]
+          },
+          "SM_LA_Fence_Chainlink_Mesh_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              100.0,
+              300.0
+            ]
+          },
+          "SM_LA_Fence_Chainlink_Mesh": {
+            "uw_allow_uv_overlap": 1,
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              40.0
+            ]
+          }
+        },
+        "meshes": 4,
+        "materials": [
+          "M_Prop_MetalGalv"
+        ],
+        "images": 3,
+        "skins": [],
+        "joint_names": [],
+        "animations": [],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 307748
+      },
+      "reimport_objects": [
+        "SM_LA_Fence_Chainlink",
+        "SM_LA_Fence_Chainlink_Mesh",
+        "SM_LA_Fence_Chainlink_Mesh_LOD1",
+        "SM_LA_Fence_Chainlink_Mesh_LOD2",
+        "UCX_SM_LA_Fence_Chainlink_00-convcolonly"
+      ],
+      "reimport_actions": [],
+      "problems": []
+    }
+  },
+  "asset": "SM_LA_Fence_Chainlink",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SM_LA_Fence_Chainlink_Mesh",
+      "message": "144 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "COLLISION_AUTHORED",
+      "object": null,
+      "message": "authored collision kept, nothing generated: ['UCX_SM_LA_Fence_Chainlink_00-convcolonly']"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "infos": 2
+  },
+  "seconds": 0.57,
+  "exit_code": 0,
+  "result": "PASS"
+}

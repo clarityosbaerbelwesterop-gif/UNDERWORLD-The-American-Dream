@@ -352,5 +352,32 @@ rc=$(run_uwp "$T/logs/catalog_stray.log" catalog --repo "$T/catrepo" check)
 expect_rc "uwp catalog check with an uncatalogued .glb (must fail)" 1 "$rc" "$T/logs/catalog_stray.log"
 grep -qF "uncatalogued asset on disk: Assets/Props/SM_Stray/SM_Stray.glb" "$T/logs/catalog_stray.log" && ok "uncatalogued .glb reported" || bad "uncatalogued .glb not reported"
 
+echo "== [9] prop generator (P2, T-PROP-01): build -> release gate, without network"
+# Synthetic 16 px texture cache for every library set, so CI needs no Poly Haven download.
+"$PIL_PY" - "$REPO/Tools/underworld_pipeline/props/kit.py" "$T/propcache/textures" <<'PYEOF'
+import re, sys, os
+ids = sorted(set(re.findall(r'\(\s*"([a-z0-9_]+)",\s*\(', open(sys.argv[1]).read())))
+from PIL import Image
+for i in ids:
+    d = os.path.join(sys.argv[2], i); os.makedirs(d, exist_ok=True)
+    for ch, col in (("diff", (128, 120, 110)), ("nor_gl", (128, 128, 255)), ("rough", (180, 180, 180)), ("ao", (230, 230, 230))):
+        Image.new("RGB", (16, 16), col).save(os.path.join(d, f"{i}_{ch}_1k.png"))
+print(len(ids), "sets")
+PYEOF
+mkdir -p "$T/proprepo"
+UWP_CACHE="$T/propcache" "$UWP" build-props --repo "$T/proprepo" --only SM_LA_Hydrant,SM_LA_StreetSign,SM_Prop_Vest_Heavy > "$T/logs/props_build.log" 2>&1
+expect_rc "uwp build-props (hydrant, street sign with label atlas, plate carrier)" 0 $? "$T/logs/props_build.log"
+for a in Environment/LA/SM_LA_Hydrant Environment/LA/SM_LA_StreetSign Props/SM_Prop_Vest_Heavy; do
+  n="$(basename "$a")"
+  rc=$(run_uwp "$T/logs/props_gate_$n.log" export "$T/proprepo/Blender/Source/$a/$n.blend" --category "${a%/*}" --profile gate --no-preview --out "$T/out/props/$n/$n.glb")
+  expect_rc "generated $n passes the release gate (LODs, collision, POT textures)" 0 "$rc" "$T/logs/props_gate_$n.log"
+done
+grep -q "T_Prop_LA_StreetSign_Labels_D" "$T/out/props/SM_LA_StreetSign/SM_LA_StreetSign.manifest.json" 2>/dev/null \
+  && ok "street sign labels packed into one atlas texture" || bad "label atlas missing in SM_LA_StreetSign manifest"
+# Negative: no texture cache -> loud failure, never silent grey materials.
+UWP_CACHE="$T/propcache_empty" "$UWP" build-props --repo "$T/proprepo" --only SM_LA_Hydrant > "$T/logs/props_nocache.log" 2>&1
+rc=$?
+[ $rc -ne 0 ] && grep -q "CC0 texture sets missing" "$T/logs/props_nocache.log" && ok "build-props without texture cache fails loudly" || bad "build-props without cache did not fail (rc $rc)"
+
 echo "logs: $T/logs"
 if [ $FAILS -eq 0 ]; then echo "UWP TESTS: PASS"; exit 0; else echo "UWP TESTS: FAIL ($FAILS)"; exit 1; fi

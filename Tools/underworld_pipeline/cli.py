@@ -100,6 +100,10 @@ def build_parser():
     sp_be.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
     sp_be.add_argument("--only", default=None)
 
+    sp_bp = sub.add_parser("build-props", help="Build prop/street-furniture/armor .blend sources (props/recipes.py, P2 T-PROP-01)")
+    sp_bp.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
+    sp_bp.add_argument("--only", default=None, help="comma list of prop ids (default: all)")
+
     sp_rt = sub.add_parser("retarget", help="Retarget a CC0 BVH clip onto a character .blend")
     sp_rt.add_argument("blend")
     sp_rt.add_argument("bvh")
@@ -357,6 +361,10 @@ def main(argv):
     if args.command == "build-env":
         from underworld_pipeline.environment import build_la_kit as BLA
         BLA.build_all(repo_root=args.repo, only=args.only)
+        return C.EXIT_OK
+    if args.command == "build-props":
+        from underworld_pipeline.props import build_props as BP
+        BP.build_all(repo_root=args.repo, only=args.only)
         return C.EXIT_OK
     if args.command == "retarget":
         from underworld_pipeline.characters import retarget as RT

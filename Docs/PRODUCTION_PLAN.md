@@ -54,6 +54,7 @@ Jeder Meilenstein endet mit gemergten PRs, grüner CI, einem deutschen Bericht i
 - **Stand 2026-11-23: erledigt** (T-DATA-01, `Docs/Reports/BERICHT_T-DATA-01.md`).
 
 ### P2 – Werkzeuge auf Studio-Niveau
+- **Stand 2026-11-23:** Requisiten-Generator `uwp build-props` mit Materialbibliothek, Texeldichte-Regel, Lightmap-UVs und Schilder-Atlas fertig (T-PROP-01, TD-026). Offen: Gebäude-Grammatik, Decals, Trim-Sheets für Fassaden, Vegetation, HLOD/Impostor, Terrain.
 Trim-Sheet-Bibliothek, Texel-Density-Validator, Decal-Bibliothek, High→Low-Bake-Strecke mit Curvature-Wear, Gebäude-Generator (Fassaden-Grammatik: Erdgeschoss, Etagen, Gesims, Fenster, Türen, Markisen, Schilder), Vegetations-Generator, HLOD/Impostor-Bake, Terrain-Erosion.
 - **Exit:** Jedes Werkzeug ist getestet (uwp-Tests) und mit Vorher/Nachher dokumentiert.
 

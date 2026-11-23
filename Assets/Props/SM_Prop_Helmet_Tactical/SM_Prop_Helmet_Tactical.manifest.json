@@ -1,0 +1,223 @@
+{
+  "asset": "SM_Prop_Helmet_Tactical",
+  "status": "READY FOR REVIEW",
+  "category": "Props",
+  "budget_key": "Props",
+  "source_blend": "Blender/Source/Props/SM_Prop_Helmet_Tactical/SM_Prop_Helmet_Tactical.blend",
+  "export_glb": "Assets/Props/SM_Prop_Helmet_Tactical/SM_Prop_Helmet_Tactical.glb",
+  "preview_png": "Assets/Props/SM_Prop_Helmet_Tactical/SM_Prop_Helmet_Tactical_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.13,
+      0.0,
+      -0.1456
+    ],
+    "max": [
+      0.13,
+      0.2407,
+      0.1456
+    ],
+    "size": [
+      0.26,
+      0.2407,
+      0.2912
+    ]
+  },
+  "triangles": {
+    "lod0": 508,
+    "budget": 5000,
+    "per_lod_total": {
+      "LOD0": 508,
+      "LOD1": 254,
+      "LOD2": 127
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_Prop_Helmet_Tactical_Mesh",
+      "levels": [
+        {
+          "name": "SM_Prop_Helmet_Tactical_Mesh",
+          "level": 0,
+          "triangles": 508
+        },
+        {
+          "name": "SM_Prop_Helmet_Tactical_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 254
+        },
+        {
+          "name": "SM_Prop_Helmet_Tactical_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 127
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_Prop_Helmet_Tactical_00-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_Prop_Ballistic",
+    "M_Prop_PlasticBlack",
+    "M_Prop_PlasticOlive",
+    "M_Prop_Rubber"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Ballistic_D",
+      "material": "M_Prop_Ballistic",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_f86j30oq/T_Prop_Ballistic_D.jpg"
+    },
+    {
+      "image": "T_Prop_Ballistic_ORM",
+      "material": "M_Prop_Ballistic",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_ss70082c/T_Prop_Ballistic_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Ballistic_N",
+      "material": "M_Prop_Ballistic",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_f6g5ez09/T_Prop_Ballistic_N.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticBlack_D",
+      "material": "M_Prop_PlasticBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_p8gplzt5/T_Prop_PlasticBlack_D.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticBlack_ORM",
+      "material": "M_Prop_PlasticBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_vt3i8wrk/T_Prop_PlasticBlack_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticBlack_N",
+      "material": "M_Prop_PlasticBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_91j4sn6u/T_Prop_PlasticBlack_N.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticOlive_D",
+      "material": "M_Prop_PlasticOlive",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_s0dw8qzz/T_Prop_PlasticOlive_D.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticOlive_ORM",
+      "material": "M_Prop_PlasticOlive",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_zljdpg6w/T_Prop_PlasticOlive_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticOlive_N",
+      "material": "M_Prop_PlasticOlive",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_8jqofy_1/T_Prop_PlasticOlive_N.jpg"
+    },
+    {
+      "image": "T_Prop_Rubber_D",
+      "material": "M_Prop_Rubber",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex__h0n99b_/T_Prop_Rubber_D.jpg"
+    },
+    {
+      "image": "T_Prop_Rubber_ORM",
+      "material": "M_Prop_Rubber",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_mgtw46kb/T_Prop_Rubber_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Rubber_N",
+      "material": "M_Prop_Rubber",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_qxlskpbe/T_Prop_Rubber_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_Prop_Helmet_Tactical_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 505.8,
+      "p10_px_per_m": 430.5,
+      "p90_px_per_m": 846.7
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_Prop_Helmet_Tactical_Mesh_LOD1",
+    "SM_Prop_Helmet_Tactical_Mesh_LOD2",
+    "SM_Prop_Helmet_Tactical_Mesh",
+    "UCX_SM_Prop_Helmet_Tactical_00-convcolonly",
+    "SM_Prop_Helmet_Tactical"
+  ],
+  "glb_bytes": 398148
+}

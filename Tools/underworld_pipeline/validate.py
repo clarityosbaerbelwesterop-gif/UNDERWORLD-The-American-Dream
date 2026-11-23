@@ -22,6 +22,11 @@ def _unit_scale(v):
     return all(abs(x - 1.0) < EPS for x in v)
 
 
+import re as _re
+_FUNCTIONAL_PART = _re.compile(r"^(Body|Cabin|Frame|Hood|Trunk|Bumper_[FR]|Door_(FL|FR|RL|RR)|"
+                               r"Wheel_(FL|FR|RL|RR)|Slide|Magazine|Trigger|Barrel|Hammer)(_LOD\d+)?$")
+
+
 def validate(ctx):
     """Runs all checks, fills ctx.issues, returns a stats dict for the manifest/report."""
     cfg, iss, name, cat = ctx.cfg, ctx.issues, ctx.asset_name, ctx.category
@@ -69,7 +74,9 @@ def validate(ctx):
                 iss.error("UCX_NO_HINT", "UCX_ collision proxy needs a Godot hint (-colonly/-convcolonly/-col)", ob.name)
             if hint in S.COLLISION_ONLY_HINTS and not base.startswith("UCX_"):
                 iss.warn("COLLISION_PREFIX", "collision-only mesh should start with UCX_", ob.name)
-            if not base.startswith(("SM_", "SK_", "UCX_", "PT_")):
+            # Functional part names are a CONTRACT with the Godot runtime (Vehicle assembles
+            # Wheel_FL/Door_FL by name, the weapon animates Slide/Magazine) - not a naming slip.
+            if not base.startswith(("SM_", "SK_", "UCX_", "PT_")) and not _FUNCTIONAL_PART.match(base):
                 iss.warn("NAME_MESH_PREFIX", "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL", ob.name)
         if ob.type == "EMPTY" and ob is not root and not base.startswith("SOCKET_"):
             iss.warn("NAME_EMPTY", "empties other than the root should be sockets named SOCKET_<Name>", ob.name)
@@ -190,8 +197,17 @@ def validate(ctx):
         with S.rest_pose(sc):
             dg_clip = bpy.context.evaluated_depsgraph_get()
             clipping = S.check_layered_clipping(sc, dg_clip)
+        gate = getattr(ctx.opts, "profile", "dev") == "gate"
+        gate_max = int((cfg.get("gate_profile") or {}).get("clipping_max_vertices", 0))
         for c in clipping:
-            if c["tested_vertices"] >= 20 and c["clipped_vertices"] >= 8 and c["clipped_fraction"] > clip_err:
+            # Dev profile (WIP assets): error only above 3 % AND >= 8 vertices - the loosened
+            # T-PIPE-03 rule, kept so WIP exports stay possible. Release gate (T-PIPE-06): ANY
+            # clipped vertex above gate_profile.clipping_max_vertices fails.
+            if gate and c["clipped_vertices"] > gate_max:
+                iss.error("MESH_CLIPPING",
+                          f"release gate: {c['inner']} clips through {c['outer']}: {c['clipped_vertices']} verts (max {gate_max})",
+                          c["inner"], **c)
+            elif c["tested_vertices"] >= 20 and c["clipped_vertices"] >= 8 and c["clipped_fraction"] > clip_err:
                 iss.error("MESH_CLIPPING",
                           f"{c['inner']} clips through {c['outer']}: {c['clipped_vertices']}/{c['tested_vertices']} verts ({c['clipped_fraction']*100:.1f}% > {clip_err*100:.1f}%)",
                           c["inner"], **c)

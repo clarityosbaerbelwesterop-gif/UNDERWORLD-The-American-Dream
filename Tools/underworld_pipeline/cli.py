@@ -50,6 +50,8 @@ def build_parser():
         sp.add_argument("--category", help="budget category, e.g. Props, Environment/LA (default: from path)")
         sp.add_argument("--budget-key", help="explicit max_triangles key, e.g. Characters/SK_NPC")
         sp.add_argument("--strict", action="store_true", help="treat warnings as errors")
+        sp.add_argument("--profile", choices=["dev", "gate"], default="dev",
+                        help="dev = everyday checks; gate = PRODUCTION-READY release gate (strict + LODs, collision, budgets, zero clipping)")
         sp.add_argument("--report", help="JSON report path (single asset) / summary path (*-all)")
 
     def export_opts(sp):
@@ -117,10 +119,11 @@ def _rel(cfg, path):
 def process(blend, args, cfg, do_export, out=None):
     """One asset. Returns (exit_code, report dict)."""
     t0 = time.time()
-    iss = Issues(strict=args.strict)
+    iss = Issues(strict=args.strict or getattr(args, "profile", "dev") == "gate")
     report = {"tool": "underworld_pipeline", "version": VERSION, "blender": bpy.app.version_string,
               "timestamp": datetime.datetime.now().astimezone().isoformat(timespec="seconds"),
-              "command": args.command, "input": _rel(cfg, os.path.abspath(blend)), "steps": {}}
+              "command": args.command, "profile": getattr(args, "profile", "dev"),
+        "input": _rel(cfg, os.path.abspath(blend)), "steps": {}}
     code = C.EXIT_OK
     try:
         if not os.path.isfile(blend):
@@ -169,6 +172,10 @@ def process(blend, args, cfg, do_export, out=None):
             mode = cfg.per_category("collision", cat) if args.collision == "auto" else args.collision
             col = G.generate_collision(ctx, mode)
         report["steps"]["collision"] = col
+        G.check_lod_and_collision_budgets(ctx, lods, col, args.no_lod)
+        report["steps"]["foot_slide"] = G.check_anim_report(ctx, out_dir)
+        if iss.has_errors:          # budget / release-gate errors stop the export (T-PIPE-06)
+            return C.EXIT_VALIDATION, report
         # Walkable-collision rule (B-PT-01): only for categories people walk/drive on.
         lip_cfg = cfg.get("collision_walkability") or {}
         if C.Config.top(cat) in lip_cfg.get("categories", ["Environment"]):

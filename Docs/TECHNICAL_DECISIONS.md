@@ -178,7 +178,8 @@ view drawn from the scene's real AABBs.
 - Test: `Tests/test_boot.gd` (7 checks) instances whatever `main_scene` points at; `UW_BOOT_SABOTAGE=1` skips `start()` → 2 FAIL.
 - When a front-end/main menu exists (M7), it replaces `Game_M01.tscn` as `main_scene`; keep `test_boot.gd` pointing at the real entry.
 
-## TD-021 – Input-only playthrough as a merge gate; deterministic replays (Claude Code, 2026-11-23, T-BUILD-02)
+## TD-023 – Input-only playthrough as a merge gate; deterministic replays (Claude Code, 2026-11-23, T-BUILD-02)
+*(Numbered TD-021 in PR #21; renumbered in T-PIPE-06 because the master prompt §5.4 reserves TD-021 for the hybrid pipeline.)*
 **Status: PROPOSED** (Bot 1 / owner to accept).
 - Every earlier M01 test drove the mission through APIs (`try_interact`, `load_into`, `debug_complete_current`, teleports). They proved the logic, not that a person can play it. `GodotProject/Tests/test_playthrough.gd` boots the shipping entry scene and `Tests/tools/m01_autopilot.gd` plays M01 using **only input actions and camera turns** (it reads the world, it never calls a state-changing game API). Its runs found 20 blockers (bug list in `Docs/Reports/BERICHT_T-BUILD-02.md`).
 - **Deterministic replay:** `UW_RNG_SEED=<n>` seeds every NPC/weapon RNG without an explicit seed from `seed + hash(node path)` (`Weapon.replay_seed()`, debug builds only). The test pins seed 2.
@@ -191,3 +192,13 @@ view drawn from the scene's real AABBs.
 - `Scripts/game/difficulty.gd` (`Difficulty`) + `Data/Game/Difficulty_Normal.tres`: `ai_damage_to_player` multiplies damage an `NPCController` deals to the player (`DamageReceiver.scale_npc_damage`, set on `Player/Health`). Weapon data stays physical (a pistol does 25 to anyone). `UW_AI_DAMAGE_SCALE` overrides it in debug builds for balancing runs.
 - Measured with the mortal autopilot over seeds 1–3 (15 min cap each, before the later bot-tactics fixes, so these are upper bounds of difficulty): scale 1.0 → 8–14 deaths and no completion; scale 0.5 → 5–6 deaths. The bot is weaker than a skilled human (no strafing, no headshot preference), so these numbers do **not** settle the value.
 - Recommendation: decide after a human GPU playtest of M01 (T-BUILD-02 GPU part). Industry reference for a first combat mission is clearly below raw weapon damage; 0.5 is the candidate to test first.
+
+## TD-021 – Hybrid asset pipeline: hand-authored sources, uwp as the mandatory gate (Claude Code, 2026-11-23, T-PIPE-06)
+**Status: PROPOSED** (Bot 1 / owner to accept). Master prompt §5.2–§5.4, audit `Docs/Reports/AUDIT_T-PIPE-06_Pipeline.md`.
+- **Hero assets are authored**, not generated: sculpt → retopo → bake → painted PBR, real hair cards, simulated or sculpted cloth, mocap-based animation. Sources live as `.blend` under `Art/Source/<Asset>/` (LFS, budget §9.4). Generators (`Tools/uwp build-*`) stay for blockouts, modular kits, variants and test fixtures.
+- **`Tools/uwp` is the mandatory route for every asset**: `validate → export → Godot import test → review-sheet`. An asset may only be marked PRODUCTION-READY in `ASSET_REGISTRY.md` after `uwp export --profile gate` PASS (new release gate, T-PIPE-06) **and** the art review ≥ 4 (QUALITY_GATE). The dev profile stays permissive so WIP can be exported and played.
+- Release gate = strict (warnings are errors) + LODs required (≥ `lod_min_triangles`) + collision required (non-characters) + TD-012 LOD/collision budgets + zero layered-clothing clipping. Values in `Config/asset_budgets.json` (`gate_profile`, `lod_triangle_fraction_max`, `collision_budget`).
+- Consequence today: 8/17 sources pass the technical gate (all kit pieces, crate, pistol); all 7 characters and the sedan fail it (audit table). Technical PASS is **not** production-ready - every asset is still REJECT in art review.
+
+## TD-012 – LOD, collision and material budgets → applied (Claude Code, 2026-11-23, T-PIPE-05)
+**Status: APPLIED, acceptance by Bot 1.** Values now live in `Config/asset_budgets.json`: `lod_triangle_fraction_max` (LOD1 50 %, LOD2 20 %, LOD3 8 % of the category LOD0 budget → characters 40k/20k/8k as in master prompt §5.5), `collision_budget` (convex ≤ 64 vertices - the generator now really meets it, it produced 65 before -, trimesh ≤ 5,000 tris for Environment, 1,500 for Props), `max_materials` unchanged. Checked after generation as `LOD_BUDGET` / `COLLISION_BUDGET` (warning in dev, error in the gate).

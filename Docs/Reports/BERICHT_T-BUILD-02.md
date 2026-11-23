@@ -14,7 +14,7 @@
 |---|---|
 | Forward Plus ohne GPU | `Tools/godot_phase8_capture.sh --renderer fwdplus` (T-ENV-01). Release-Build und Editor rendern auf Mesa lavapipe. |
 | Autopilot | `GodotProject/Tests/tools/m01_autopilot.gd`. Er drückt nur Aktionen und dreht die Kamera. Er nutzt Navmesh, Deckung (peek/hide), taktische Feuerpunkte und läuft um geparkte Autos herum. Staatsändernde Spiel-APIs ruft er nie auf. |
-| Merge-Gate | `GodotProject/Tests/test_playthrough.gd`: Shipping-Szene `Game_M01.tscn`, deterministischer Replay mit Seed 2 (TD-021). |
+| Merge-Gate | `GodotProject/Tests/test_playthrough.gd`: Shipping-Szene `Game_M01.tscn`, deterministischer Replay mit Seed 2 (TD-023). |
 | Video | `Tests/tools/record_m01_playthrough.gd` mit Movie Maker → `Docs/Reports/renders_fwdplus_m01/M01_playthrough_fwdplus.mp4` |
 
 **Offen benannter QA-Cheat:** Im Gate ist Jason unverwundbar. Der Test prüft den **Spielfluss**, nicht die Balance. Alle 5 Schützen müssen trotzdem über Zielen und Schießen getroffen werden: 23 Treffer bei 82 Abzügen.
@@ -92,5 +92,5 @@ Der Bot ist schwächer als ein geübter Mensch: kein Seitwärtslaufen, keine Kop
 1. **GPU-Spieltest von M01 durch einen Menschen** (Rest von T-BUILD-02): FPS, Fahrgefühl, Kamera, Balance (B-008 / TD-022).
 2. Dach-Schütze: Position, Brüstung und Peek-Punkt neu designen (B-007).
 2b. **B-VEH-01** (offen): Die Limousine kippt an einem 16-cm-Bordstein bei etwa 14 m/s (Video 0:22) → Schwerpunkt und Wankstabilität beim GPU-Fahrtest. **B-CAM-01** (offen): Die Kamera clippt beim Zielen nah an Wänden in Jason.
-3. TD-021 (Playthrough-Gate) und TD-022 (Difficulty-Schicht) annehmen oder ablehnen.
+3. TD-023 (Playthrough-Gate) und TD-022 (Difficulty-Schicht) annehmen oder ablehnen.
 4. Nächster Task laut §8: T-QA-01 (CI). Der Playthrough läuft headless in etwa 60 s und eignet sich als CI-Pflichtcheck.

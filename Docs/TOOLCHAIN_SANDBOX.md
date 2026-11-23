@@ -1,4 +1,45 @@
-# Toolchain on a locked-down sandbox (2026-11-22, Arena agent session)
+# Toolchain – Claude Code cloud container (2026-11-23, T-ENV-01) – CURRENT
+
+**One command:** `Tools/sandbox/bootstrap_cloud.sh --templates` (idempotent, no root package manager).
+
+| Tool | Version | How | Verified |
+|---|---|---|---|
+| Blender | **5.2.4 LTS** (exact studio version) | official `bpy==5.2.4` wheel (PyPI, cp313) in `/opt/uwtools/venv` + `blender` CLI shim `/opt/uwtools/bin/blender` | `blender -b --version` → `Blender 5.2.4 LTS`; no X/GL stubs needed (the image ships libX11/libGL) |
+| Godot | **4.7.2.stable.official.ed1daf0bf** | official binary from GitHub Releases, SHA512 checked | `godot --headless --version` |
+| Export templates | 4.7.2.stable, Linux + Windows x86_64 only | `.tpz` from GitHub Releases, 5 files extracted to `~/.local/share/godot/export_templates/4.7.2.stable/` | `Tools/build/build_linux.sh` → exit 0 (71 MB + 95 MB PCK), `UW_BUILD_SABOTAGE=1` → exit 6 |
+| git-lfs | 3.4.1 | preinstalled | `git lfs pull` OK (LFS host reachable here) |
+| Xvfb, ffmpeg | system | preinstalled | – |
+| **Vulkan on CPU** | Mesa **lavapipe** (`/opt/lavapipe/lvp_icd.json`, LLVM 20, 256-bit) | preinstalled | Godot prints `Vulkan 1.4.335 - Forward+ - Using Device #0: llvmpipe` |
+| Machine | 4 vCPU, 15 GB RAM, no GPU | – | – |
+
+Repo defaults work unchanged: the script links `/workspace/tools/godot` and `/workspace/tools/blender/blender`.
+
+**Network here:** `github.com` + release assets, PyPI, LFS: yes. `download.blender.org` and its mirrors: **blocked** (hence the bpy wheel).
+
+### What is new compared with every earlier box
+1. **The shipping renderer Forward Plus runs** (Vulkan via lavapipe under Xvfb):
+   `Tools/godot_phase8_capture.sh --renderer fwdplus --script res://Tests/tools/capture_m01_review.gd`
+   (`--renderer auto` picks it whenever a lavapipe ICD exists). Same shader/GI/fog/tonemap path as a GPU,
+   **CPU speed** – an image proves the look, never the frame rate.
+2. **Deterministic video** with Godot's Movie Maker: `--write-movie out.avi --fixed-fps 30`. The exported
+   **release binary** recorded 240 frames of M01 at 1920×1080 in Forward Plus in 53 s (15 % of real time),
+   so a full 10–15 min mission video takes about 1–1.5 h of wall clock – feasible in the background.
+3. Exact Blender 5.2.4 LTS (earlier sandboxes had 5.0.1 via the Python-3.11 wheel).
+
+### Baseline on this container (2026-11-23, `main` = `e34ebc6`)
+`./Tests/run_all.sh` → **RUN_ALL: PASS**, 749 checks (smoke 12, uwp 58, import 71, AI 102, boot 7, HUD 40,
+level 23, mission 109, player 171, vehicle 88, weapon 68), 1 min 24 s wall clock.
+One toolchain fix was needed: `Tools/underworld_pipeline/tests/run_tests.sh` looked for a numpy interpreter only
+in fixed paths; it now also takes the shebang interpreter of a bpy-wheel `blender` shim (FAIL before: "no python
+with numpy found"; the check itself is unchanged).
+
+### Still not possible here
+- GPU frame times / 1 % lows, driver bugs, real-time feel (camera, driving) – needs real hardware (T-BUILD-02 GPU part).
+- Cycles on GPU: Cycles runs on the CPU (fine for review renders, slow for heavy bakes).
+
+---
+
+# (historic) Toolchain on a locked-down sandbox (2026-11-22, Arena agent session)
 
 The docs assume the original studio box: `/workspace/tools/blender/blender` (Blender 5.2.4 LTS
 binary) and `/workspace/tools/godot` (Godot 4.7.2 release binary), plus `git-lfs` and Mesa

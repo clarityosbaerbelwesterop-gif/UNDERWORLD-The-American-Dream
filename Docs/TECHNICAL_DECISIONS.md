@@ -202,3 +202,8 @@ view drawn from the scene's real AABBs.
 
 ## TD-012 – LOD, collision and material budgets → applied (Claude Code, 2026-11-23, T-PIPE-05)
 **Status: APPLIED, acceptance by Bot 1.** Values now live in `Config/asset_budgets.json`: `lod_triangle_fraction_max` (LOD1 50 %, LOD2 20 %, LOD3 8 % of the category LOD0 budget → characters 40k/20k/8k as in master prompt §5.5), `collision_budget` (convex ≤ 64 vertices - the generator now really meets it, it produced 65 before -, trimesh ≤ 5,000 tris for Environment, 1,500 for Props), `max_materials` unchanged. Checked after generation as `LOD_BUDGET` / `COLLISION_BUDGET` (warning in dev, error in the gate).
+## TD-024 – Global illumination and the single look source (Claude Code, 2026-11-23, T-LOOK-01)
+**Status: PROPOSED** (owner sign-off). Evidence: `Docs/Reports/BERICHT_T-LOOK-01.md`.
+- **One look source:** `Scripts/game/sun_preset.gd` (key light per preset) + `Assets/Environments/ENV_LA_<Preset>.tres` are used by BOTH the look-dev scene and the level generator. No inline environments in generators.
+- **GI now:** sky ambient (colour + sky contribution) + SSAO + reflection probes for exteriors; **LightmapGI** for interiors (garage, warehouse) when they get art. **No SDFGI by default:** with the current presets it collapsed the measured fill to near black (9/4/10) and its cost/convergence cannot be measured without a GPU (B-003). Re-evaluate SDFGI on a GPU for the open world with time of day (M4).
+- **Calibration targets (proposed):** lit 18 % card sRGB 130–160 by day, 90 % white ≤ 250, day key:fill 4:1–9:1 (linear), cool fill (B ≥ R). Measured by `Tests/tools/capture_lookdev.gd` → `lookdev_metrics.json`.

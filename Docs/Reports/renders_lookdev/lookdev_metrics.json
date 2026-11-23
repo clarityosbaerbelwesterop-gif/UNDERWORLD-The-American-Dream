@@ -1,0 +1,68 @@
+{
+  "golden_hour": {
+    "Card_Black04": [
+      63,
+      47,
+      42
+    ],
+    "Card_Grey18": [
+      155,
+      132,
+      127
+    ],
+    "Card_Grey18_Shade": [
+      45,
+      54,
+      87
+    ],
+    "Card_White90": [
+      242,
+      232,
+      230
+    ]
+  },
+  "midday": {
+    "Card_Black04": [
+      57,
+      59,
+      66
+    ],
+    "Card_Grey18": [
+      143,
+      146,
+      157
+    ],
+    "Card_Grey18_Shade": [
+      43,
+      61,
+      94
+    ],
+    "Card_White90": [
+      235,
+      236,
+      241
+    ]
+  },
+  "night": {
+    "Card_Black04": [
+      0,
+      6,
+      30
+    ],
+    "Card_Grey18": [
+      37,
+      54,
+      105
+    ],
+    "Card_Grey18_Shade": [
+      0,
+      0,
+      20
+    ],
+    "Card_White90": [
+      30,
+      50,
+      108
+    ]
+  }
+}

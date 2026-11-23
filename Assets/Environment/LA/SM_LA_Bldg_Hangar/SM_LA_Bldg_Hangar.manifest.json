@@ -1,0 +1,266 @@
+{
+  "asset": "SM_LA_Bldg_Hangar",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_Bldg_Hangar/SM_LA_Bldg_Hangar.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_Bldg_Hangar/SM_LA_Bldg_Hangar.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_Bldg_Hangar/SM_LA_Bldg_Hangar_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -15.0,
+      0.0,
+      -13.0
+    ],
+    "max": [
+      15.0,
+      11.0,
+      13.225
+    ],
+    "size": [
+      30.0,
+      11.0,
+      26.225
+    ]
+  },
+  "triangles": {
+    "lod0": 492,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 492,
+      "LOD1": 246,
+      "LOD2": 123
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_LA_Bldg_Hangar_Mesh",
+      "levels": [
+        {
+          "name": "SM_LA_Bldg_Hangar_Mesh",
+          "level": 0,
+          "triangles": 492
+        },
+        {
+          "name": "SM_LA_Bldg_Hangar_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 246
+        },
+        {
+          "name": "SM_LA_Bldg_Hangar_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 123
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_LA_Bldg_Hangar_00-convcolonly"
+    ],
+    "micro_lips": 0
+  },
+  "materials": [
+    "M_Prop_Corrugated",
+    "M_Prop_LA_Bldg_Hangar_Labels",
+    "M_Prop_MetalDark",
+    "M_Prop_PaintBlack",
+    "M_Prop_RollupDoor",
+    "M_Prop_WindowGlass"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Corrugated_D",
+      "material": "M_Prop_Corrugated",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_zkbdmkbo/T_Prop_Corrugated_D.jpg"
+    },
+    {
+      "image": "T_Prop_Corrugated_ORM",
+      "material": "M_Prop_Corrugated",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_hbrnyghv/T_Prop_Corrugated_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Corrugated_N",
+      "material": "M_Prop_Corrugated",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_7qsbjxf_/T_Prop_Corrugated_N.jpg"
+    },
+    {
+      "image": "T_Prop_LA_Bldg_Hangar_Labels_D",
+      "material": "M_Prop_LA_Bldg_Hangar_Labels",
+      "size": [
+        1024,
+        128
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_od_suoio/T_Prop_LA_Bldg_Hangar_Labels_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_D",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_3988xhu_/T_Prop_MetalDark_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_ORM",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_me5dctdk/T_Prop_MetalDark_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_N",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_djxvr7ge/T_Prop_MetalDark_N.jpg"
+    },
+    {
+      "image": "T_Prop_PaintBlack_D",
+      "material": "M_Prop_PaintBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_fnxugksb/T_Prop_PaintBlack_D.jpg"
+    },
+    {
+      "image": "T_Prop_PaintBlack_ORM",
+      "material": "M_Prop_PaintBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ez_z3e2k/T_Prop_PaintBlack_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_PaintBlack_N",
+      "material": "M_Prop_PaintBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_wqyyh8px/T_Prop_PaintBlack_N.jpg"
+    },
+    {
+      "image": "T_Prop_RollupDoor_D",
+      "material": "M_Prop_RollupDoor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_zqq1xcbn/T_Prop_RollupDoor_D.jpg"
+    },
+    {
+      "image": "T_Prop_RollupDoor_ORM",
+      "material": "M_Prop_RollupDoor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_g8ju5541/T_Prop_RollupDoor_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_RollupDoor_N",
+      "material": "M_Prop_RollupDoor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_iw3he_h1/T_Prop_RollupDoor_N.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_D",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_dfaw7uww/T_Prop_WindowGlass_D.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_ORM",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_tuwad_id/T_Prop_WindowGlass_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_N",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_uc6fs4z3/T_Prop_WindowGlass_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_LA_Bldg_Hangar_Mesh": {
+      "texture_px": 1024,
+      "median_px_per_m": 1024.0,
+      "p10_px_per_m": 512.0,
+      "p90_px_per_m": 1024.0
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_Bldg_Hangar_Mesh_LOD1",
+    "SM_LA_Bldg_Hangar_Mesh_LOD2",
+    "SM_LA_Bldg_Hangar_Mesh",
+    "UCX_SM_LA_Bldg_Hangar_00-convcolonly",
+    "SM_LA_Bldg_Hangar"
+  ],
+  "glb_bytes": 890084
+}

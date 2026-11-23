@@ -111,6 +111,8 @@ func _run() -> void:
 func _place(stage: Node3D, id: String, pos: Vector3, yaw_deg := 0.0) -> void:
 	var dir := "res://Assets/Environment/LA/%s/%s.glb" % [id, id]
 	if not ResourceLoader.exists(dir):
+		print("[CATALOG_SHOT] not built yet: ", id)
+	if not ResourceLoader.exists(dir):
 		dir = "res://Assets/Props/%s/%s.glb" % [id, id]
 	var ps := load(dir) as PackedScene
 	if ps == null:
@@ -152,6 +154,13 @@ func _street_corner(stage: Node3D, cam: Camera3D) -> void:
 	_place(stage, "SM_LA_Billboard", Vector3(-12.0, 0, -12.0), 45.0)
 	_place(stage, "SM_Prop_Barrel", Vector3(-8.2, k, 13.0))
 	_place(stage, "SM_Prop_Pallet", Vector3(-8.0, k, 14.6), 10.0)
+	# buildings (T-BLDG-01): set back behind the kerb tiles, fronts (+Z) turned to the street
+	_place(stage, "SM_LA_Bldg_LiquorStore", Vector3(14.2, k, 3.0), -90.0)
+	_place(stage, "SM_LA_Bldg_Apartment4F", Vector3(15.2, k, 18.0), -90.0)
+	_place(stage, "SM_LA_Bldg_Motel", Vector3(-14.0, k, 26.0), 90.0)
+	_place(stage, "SM_LA_Bldg_OfficeDowntown", Vector3(-20.0, 0.0, -26.0), 90.0)
+	_place(stage, "SM_LA_Bldg_GasStation", Vector3(22.0, 0.0, -26.0), -90.0)
+	_place(stage, "SM_LA_Bldg_Warehouse", Vector3(-26.0, 0.0, 4.0), 90.0)
 	await frames(4)
 	cam.fov = 50.0
 	cam.near = 0.05

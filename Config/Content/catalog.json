@@ -184,72 +184,96 @@
    "type": "environment",
    "milestone": "P3",
    "generator": "build-buildings --only SM_LA_Bldg_Apartment4F",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "4-storey brick apartment, fire escapes"
+   "description": "4-storey brick apartment, fire escapes",
+   "source": "Blender/Source/Environment/LA/SM_LA_Bldg_Apartment4F/SM_LA_Bldg_Apartment4F.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Bldg_Apartment4F/SM_LA_Bldg_Apartment4F.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_Bldg_Motel",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-buildings --only SM_LA_Bldg_Motel",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "mid-century motel, 2 floors, neon sign 'Sunny Days Motel'"
+   "description": "mid-century motel, 2 floors, neon sign 'Sunny Days Motel'",
+   "source": "Blender/Source/Environment/LA/SM_LA_Bldg_Motel/SM_LA_Bldg_Motel.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Bldg_Motel/SM_LA_Bldg_Motel.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_Bldg_GasStation",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-buildings --only SM_LA_Bldg_GasStation",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "gas station with canopy and pumps"
+   "description": "gas station with canopy and pumps",
+   "source": "Blender/Source/Environment/LA/SM_LA_Bldg_GasStation/SM_LA_Bldg_GasStation.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Bldg_GasStation/SM_LA_Bldg_GasStation.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_Bldg_Warehouse",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-buildings --only SM_LA_Bldg_Warehouse",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "M01 delivery warehouse, roll-up doors, loading dock"
+   "description": "M01 delivery warehouse, roll-up doors, loading dock",
+   "source": "Blender/Source/Environment/LA/SM_LA_Bldg_Warehouse/SM_LA_Bldg_Warehouse.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Bldg_Warehouse/SM_LA_Bldg_Warehouse.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_Bldg_Hangar",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-buildings --only SM_LA_Bldg_Hangar",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "private airfield hangar (Arrival)"
+   "description": "private airfield hangar (Arrival)",
+   "source": "Blender/Source/Environment/LA/SM_LA_Bldg_Hangar/SM_LA_Bldg_Hangar.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Bldg_Hangar/SM_LA_Bldg_Hangar.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_Bldg_OfficeDowntown",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-buildings --only SM_LA_Bldg_OfficeDowntown",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "8-storey office block, curtain wall"
+   "description": "8-storey office block, curtain wall",
+   "source": "Blender/Source/Environment/LA/SM_LA_Bldg_OfficeDowntown/SM_LA_Bldg_OfficeDowntown.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Bldg_OfficeDowntown/SM_LA_Bldg_OfficeDowntown.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_Bldg_VillaCrestmont",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-buildings --only SM_LA_Bldg_VillaCrestmont",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "Crestmont Hills villa (Sam)"
+   "description": "Crestmont Hills villa (Sam)",
+   "source": "Blender/Source/Environment/LA/SM_LA_Bldg_VillaCrestmont/SM_LA_Bldg_VillaCrestmont.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Bldg_VillaCrestmont/SM_LA_Bldg_VillaCrestmont.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_Bldg_LiquorStore",
    "type": "environment",
    "milestone": "P3",
    "generator": "build-buildings --only SM_LA_Bldg_LiquorStore",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "'Vega Liquor' corner store"
+   "description": "'Vega Liquor' corner store",
+   "source": "Blender/Source/Environment/LA/SM_LA_Bldg_LiquorStore/SM_LA_Bldg_LiquorStore.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Bldg_LiquorStore/SM_LA_Bldg_LiquorStore.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_LA_Road_Intersection",

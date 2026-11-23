@@ -158,53 +158,23 @@ PR #15 replaced them with LFS pointers afterwards. 106 of the 114 pointers in `H
 restored **byte-identically** from that history:
 
 ```bash
-git fetch --unshallow origin            # the arena clone is shallow (1 commit) by default
-python3 - <<'PY'
-import subprocess, hashlib, os, re
-REPO = os.getcwd()
-ptrs = {}
-for f in subprocess.run(["git", "ls-files"], capture_output=True, text=True).stdout.split():
-    with open(os.path.join(REPO, f), "rb") as fh:
-        head = fh.read(200)
-    if head.startswith(b"version https://git-lfs.github.com/spec/v1"):
-        m = re.search(rb"oid sha256:([0-9a-f]{64})", head)
-        s = re.search(rb"size (\d+)", head)
-        if m:
-            ptrs[f] = (m.group(1).decode(), int(s.group(1)) if s else -1)
-ok, lost = 0, []
-for f, (oid, size) in ptrs.items():
-    for c in subprocess.run(["git", "log", "--all", "--format=%H", "--", f],
-                            capture_output=True, text=True).stdout.split():
-        r = subprocess.run(["git", "rev-parse", f"{c}:{f}"], capture_output=True, text=True)
-        if r.returncode:
-            continue
-        raw = subprocess.run(["git", "cat-file", "-p", r.stdout.strip()], capture_output=True).stdout
-        if raw.startswith(b"version https://git-lfs") or len(raw) != size:
-            continue
-        if hashlib.sha256(raw).hexdigest() == oid:
-            with open(f, "wb") as fh:
-                fh.write(raw)
-            ok += 1
-            break
-    else:
-        lost.append(f)
-subprocess.run(["git", "update-index", "--skip-worktree"] + sorted(ptrs), check=True)
-print("restored", ok, "of", len(ptrs), "- not in history:", lost)
-PY
+git fetch --unshallow origin        # the arena clone is shallow (1 commit) by default
+python3 Tools/sandbox/restore_lfs_from_history.py
 ```
 
-The loop reads every `version https://git-lfs.github.com/spec/v1` pointer in `HEAD`, walks all
-revisions of that path, and writes back the first blob whose **SHA-256 matches the pointer's
-`oid`** and whose size matches — so a wrong file can never be restored. It then flags **all 114**
-pointer paths with `git update-index --skip-worktree` (not just the restored ones) so the binaries
-can never be committed back as plain blobs by accident: `git status` stays clean and `git add -A`
-will not pick them up.
+The tool (in the repo, so it survives a sandbox reset) reads every
+`version https://git-lfs.github.com/spec/v1` pointer in the working tree, walks all revisions of
+that exact path and restores the first blob whose **SHA-256 matches the pointer's `oid`** and
+whose size matches — a wrong or corrupt file can therefore never be restored. It then marks all
+114 pointer paths `git update-index --skip-worktree`, so the binaries can never be committed back
+as plain blobs: `git status` stays clean and `git add -A` ignores them.
 
 > Undo with `git update-index --no-skip-worktree <path>` and `git checkout -- <path>`; that brings
 > the LFS pointer back.
 
 Still missing after the restore (8 files, never in history as blobs): the three
-`Docs/ArtDirection/Concepts/CA_Jason_*.jpg` and the five `Docs/Reviews/sheets/*_ref_compare.png`.
+`Docs/ArtDirection/Concepts/CA_Jason_*.jpg`, the five `Docs/Reviews/sheets/*_ref_compare.png`
+and the six `Docs/Reports/renders_m01/*.png` from PR #14's report.
 None of them is needed by `Tests/run_all.sh`; the silhouette check reports them as
 `WARN CONCEPT_UNAVAILABLE`, exactly as in session 1.
 

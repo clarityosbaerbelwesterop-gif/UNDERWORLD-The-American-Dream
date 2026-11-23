@@ -62,9 +62,20 @@ var level: Node
 
 func load_level() -> void:
 	level = (load(LEVEL) as PackedScene).instantiate()
+	var map: RID = root.get_world_3d().navigation_map
+	var iter0 := NavigationServer3D.map_get_iteration_id(map)
 	root.add_child(level)
 	await process_frame
 	await frames(3)
+	# Bot 1 review of PR #17: the navigation map syncs asynchronously (map iterations run on a
+	# worker), so after 3 frames the baked region was sometimes not in the map yet and
+	# map_get_path() returned 0 points (1 of 3 runs on a fresh worktree). Wait - bounded - until
+	# the map has iterated with the region in it. This only waits; every check stays as strict.
+	for i in 240:
+		if NavigationServer3D.map_get_iteration_id(map) > iter0 and not NavigationServer3D.map_get_regions(map).is_empty():
+			break
+		await physics_frame
+	await frames(2)
 
 func unload() -> void:
 	level.queue_free()

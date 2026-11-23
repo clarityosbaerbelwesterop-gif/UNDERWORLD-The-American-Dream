@@ -89,7 +89,9 @@ if [[ $RUN_CHECK -eq 1 ]]; then
     exit 6
   fi
   grep -q "Godot Engine v" "$LOG" || { echo "error: no engine banner in $LOG" >&2; exit 7; }
-  grep -q "UNDERWORLD" "$LOG" || echo "build_linux: note: main scene printed no 'UNDERWORLD' banner (ok for the current Main.tscn)"
+  # Bot 1 review of PR #17: the main scene is Scenes/Game_M01.tscn (GameBoot), which prints this
+  # banner. Without it the export booted something else (it used to be the PT crate scene).
+  grep -q "UNDERWORLD: GameBoot" "$LOG" || { echo "error: the build did not boot through GameBoot (no 'UNDERWORLD: GameBoot' line in $LOG)" >&2; exit 8; }
   echo "build_linux: smoke run clean ($LOG)"
 fi
 

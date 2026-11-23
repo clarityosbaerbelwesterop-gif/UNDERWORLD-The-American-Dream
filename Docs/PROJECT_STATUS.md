@@ -1,12 +1,14 @@
 # Project Status
 
-_Last update: 2026-11-22 (Europe/Berlin) by Claude Code (Auftrag 02, all six tasks)_
+_Last update: 2026-11-23 (Europe/Berlin) by Bot 1 (review of PR #17)_
+
+**2026-11-23 – Bot 1 review of PR #17 (Auftrag 02, merge `d3809d0`):** verified on a fresh worktree with `git lfs pull`: `RUN_ALL: PASS`, **738 checks** as claimed; after the review fixes **749** (+7 `test_boot`, +4 mission). All 12 sabotage modes fail as they must (player 3/9, vehicle 9/22, mission 5/2/2, AI 4, HUD 3, level 1, boot 2; build exit 6). LFS clean (0 raw binaries). Defects fixed forward in the review PR: (1) the export booted the PT crate scene and nothing outside tests started M01 → `Scenes/Game_M01.tscn` + `test_boot.gd` (TD-020), build smoke now requires the GameBoot banner; (2) Marco drawn standing through the car roof → hidden while seated + test; (3) `test_level` navmesh flake (1 of 3 runs red) → bounded wait for the async nav-map sync; (4) sabotage env switches now debug-build only. Linux export with the **official** 4.7.2 template: 71 MB + 95 MB PCK, boots into M01 with HUD under Xvfb/llvmpipe (`Docs/Reports/renders_review_pr17/08_export_build_boot_llvmpipe.png`) – still never played on a GPU. Art: blockout everywhere (helmet-like hair, empty box buildings, overexposed sidewalks in gl_compatibility). Report: `Docs/Reports/REVIEW_PR17_BOT1.md`. Next work order: `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md`.
 
 **2026-11-22 – Auftrag 02 (Claude Code), six tasks:** report `Docs/Reports/BERICHT_AUFTRAG-02.md`.
 `RUN_ALL: PASS`, **738 checks** (from 589), nine sabotage modes all fail with exit 1, thirteen real
 bugs fixed (two of them made the whole street invisible / the buildings absent). Level is a **blockout**;
 the Linux build boots headless but was never played, and no Phase-8 capture exists (no X, no GPU).
-PRs are open, not merged (`MERGE-FREIGABE: NEIN` in the work order).
+PR #17 was not self-merged by Claude Code; it was merged on 2026-11-23 14:07 (Berlin) from the owner account.
 
 **2026-11-23 – review of Claude Code's first PR:** PR #14 (T-MIS-01, merge `c63198a`, self-merged by the agent) verified on a fresh worktree: `RUN_ALL: PASS`, **588 checks** (smoke 12, uwp tool 58, import 71, AI 80, mission 74, player 137, vehicle 88, weapon 68). Defects fixed forward: 106 binaries committed without LFS → PR #15 (`6f149e5`); tautological mission sabotage → PR #16. M01 core runs headless; Marco ally, wave sequencing, a real drive and a Phase 8 capture are still open. Next prompt for Claude Code: `Docs/Prompts/CLAUDE_CODE_PROMPT_02.md`.
 
@@ -26,7 +28,7 @@ PRs are open, not merged (`MERGE-FREIGABE: NEIN` in the work order).
 | Build | ✅ Linux export + boot check (`Docs/BUILD.md`, T-BUILD-01); **not played on a GPU box**, the local template has no renderer |
 
 **What actually exists and is tested:** pipeline + Godot project; Jason v2 and recovered kit glbs; gameplay tests for player, weapons and AI (`Tests/run_all.sh`).
-**What does not exist yet:** any production-ready art, a dressed LA street (the level is a greybox), a complete M01 (Marco/waves), a playable build.
+**What does not exist yet:** any production-ready art, a dressed LA street (the level is a greybox), audio, save/load, menus, any mission besides M01, a GPU look/FPS check, a build played by a human.
 
 ## Next actions
 - **Bot 2:** quality passes in gate order (pistol materials/model, Jason hair/jacket/boots, sedan, street, remaining NPCs). Reference boards first. Creator is never the sole reviewer.

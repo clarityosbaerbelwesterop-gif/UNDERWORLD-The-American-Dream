@@ -47,7 +47,7 @@ static var _sabotage_incar: int = -1
 
 static func sabotage_incar() -> bool:
 	if _sabotage_incar < 0:
-		_sabotage_incar = 1 if OS.get_environment("UW_AI_SABOTAGE").strip_edges() == "incar" else 0
+		_sabotage_incar = 1 if OS.is_debug_build() and OS.get_environment("UW_AI_SABOTAGE").strip_edges() == "incar" else 0
 	return _sabotage_incar == 1
 
 

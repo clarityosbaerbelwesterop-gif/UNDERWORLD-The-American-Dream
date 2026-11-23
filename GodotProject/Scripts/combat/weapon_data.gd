@@ -24,6 +24,9 @@ enum FireMode { SEMI, AUTO }
 @export var damage := 25.0
 @export var headshot_multiplier := 2.0
 @export var limb_multiplier := 0.75
+## Share of the target's armor absorption this weapon ignores (0 = armor works fully, 1 = ignores
+## armor). From Data/Content/combat.json (P1, T-DATA-01).
+@export_range(0.0, 1.0) var armor_penetration := 0.0
 ## Full damage up to falloff_start; linear down to falloff_min_multiplier at falloff_end.
 @export var falloff_start := 15.0
 @export var falloff_end := 40.0

@@ -269,6 +269,7 @@ func _resolve_hit(hit: Dictionary, origin: Vector3, dir: Vector3, shooter: Node)
 	info.direction = dir
 	info.source = shooter
 	info.weapon_id = data.id
+	info.armor_penetration = data.armor_penetration
 	recv.apply_damage(info)
 	hit_confirmed.emit(info)
 	return info

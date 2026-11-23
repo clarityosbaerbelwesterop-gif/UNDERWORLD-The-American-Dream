@@ -1,0 +1,936 @@
+{
+ "_doc": "UNDERWORLD content catalog (P1, T-DATA-01): every asset of chapter 1+2 with milestone, generator and status. `Tools/uwp catalog status|plan|check|build` reads it; PRODUCTION-READY only after the release gate + art review. Status: PLANNED (not built) | WIP (built, not passed) | PRODUCTION-READY.",
+ "version": 1,
+ "entries": [
+  {
+   "id": "SK_Jason",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_Jason.json",
+   "status": "WIP",
+   "quality_target": "hero-authored",
+   "source": "Blender/Source/Characters/SK_Jason/SK_Jason.blend",
+   "asset": "Assets/Characters/SK_Jason/SK_Jason.glb",
+   "role": "player"
+  },
+  {
+   "id": "SK_NPC_Sam",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Sam.json",
+   "status": "WIP",
+   "quality_target": "hero-authored",
+   "source": "Blender/Source/Characters/SK_NPC_Sam/SK_NPC_Sam.blend",
+   "asset": "Assets/Characters/SK_NPC_Sam/SK_NPC_Sam.glb",
+   "role": "crew"
+  },
+  {
+   "id": "SK_NPC_Marco",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Marco.json",
+   "status": "WIP",
+   "quality_target": "hero-authored",
+   "source": "Blender/Source/Characters/SK_NPC_Marco/SK_NPC_Marco.blend",
+   "asset": "Assets/Characters/SK_NPC_Marco/SK_NPC_Marco.glb",
+   "role": "crew"
+  },
+  {
+   "id": "SK_NPC_Cartel_A",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Cartel_A.json",
+   "status": "WIP",
+   "quality_target": "authored",
+   "source": "Blender/Source/Characters/SK_NPC_Cartel_A/SK_NPC_Cartel_A.blend",
+   "asset": "Assets/Characters/SK_NPC_Cartel_A/SK_NPC_Cartel_A.glb",
+   "role": "los_cuervos/enemy_light"
+  },
+  {
+   "id": "SK_NPC_Cartel_B",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Cartel_B.json",
+   "status": "WIP",
+   "quality_target": "authored",
+   "source": "Blender/Source/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B.blend",
+   "asset": "Assets/Characters/SK_NPC_Cartel_B/SK_NPC_Cartel_B.glb",
+   "role": "los_cuervos/enemy_light"
+  },
+  {
+   "id": "SK_NPC_Civilian_Female",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Civilian_Female.json",
+   "status": "WIP",
+   "quality_target": "authored",
+   "source": "Blender/Source/Characters/SK_NPC_Civilian_Female/SK_NPC_Civilian_Female.blend",
+   "asset": "Assets/Characters/SK_NPC_Civilian_Female/SK_NPC_Civilian_Female.glb",
+   "role": "civilians/civilian"
+  },
+  {
+   "id": "SK_NPC_Cop_LA",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Cop_LA.json",
+   "status": "WIP",
+   "quality_target": "authored",
+   "source": "Blender/Source/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA.blend",
+   "asset": "Assets/Characters/SK_NPC_Cop_LA/SK_NPC_Cop_LA.glb",
+   "role": "lapd/police_patrol"
+  },
+  {
+   "id": "A_Humanoid_Locomotion",
+   "type": "animation",
+   "milestone": "P6",
+   "generator": "build-shared-anims",
+   "status": "WIP",
+   "quality_target": "mocap",
+   "asset": "Assets/Characters/Shared/A_Humanoid_Locomotion.glb"
+  },
+  {
+   "id": "SM_LA_Road_Straight",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-env --only SM_LA_Road_Straight",
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "source": "Blender/Source/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb"
+  },
+  {
+   "id": "SM_LA_Sidewalk_Curb",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-env --only SM_LA_Sidewalk_Curb",
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "source": "Blender/Source/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb"
+  },
+  {
+   "id": "SM_LA_Bldg_ShopStucco",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-env --only SM_LA_Bldg_ShopStucco",
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "source": "Blender/Source/Environment/LA/SM_LA_Bldg_ShopStucco/SM_LA_Bldg_ShopStucco.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Bldg_ShopStucco/SM_LA_Bldg_ShopStucco.glb"
+  },
+  {
+   "id": "SM_LA_Bldg_GarageM01",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-env --only SM_LA_Bldg_GarageM01",
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "source": "Blender/Source/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Bldg_GarageM01/SM_LA_Bldg_GarageM01.glb"
+  },
+  {
+   "id": "SM_LA_Streetlight",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-env --only SM_LA_Streetlight",
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "source": "Blender/Source/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.blend",
+   "asset": "Assets/Environment/LA/SM_LA_Streetlight/SM_LA_Streetlight.glb"
+  },
+  {
+   "id": "SM_LA_PalmTree",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-env --only SM_LA_PalmTree",
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "source": "Blender/Source/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.blend",
+   "asset": "Assets/Environment/LA/SM_LA_PalmTree/SM_LA_PalmTree.glb"
+  },
+  {
+   "id": "SM_Prop_PackageCrate",
+   "type": "prop",
+   "milestone": "P5",
+   "generator": "build-env --only SM_Prop_PackageCrate",
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "source": "Blender/Source/Props/SM_Prop_PackageCrate/SM_Prop_PackageCrate.blend",
+   "asset": "Assets/Props/SM_Prop_PackageCrate/SM_Prop_PackageCrate.glb"
+  },
+  {
+   "id": "VH_Sedan_01",
+   "type": "vehicle",
+   "milestone": "P5",
+   "generator": "build-vehicle Config/Vehicles/VH_Sedan_01.json",
+   "status": "WIP",
+   "quality_target": "hero-authored",
+   "source": "Blender/Source/Vehicles/VH_Sedan_01/VH_Sedan_01.blend",
+   "asset": "Assets/Vehicles/VH_Sedan_01/VH_Sedan_01.glb"
+  },
+  {
+   "id": "WPN_Pistol_01",
+   "type": "weapon",
+   "milestone": "P5",
+   "generator": "build-weapon Config/Weapons/WPN_Pistol_01.json",
+   "status": "WIP",
+   "quality_target": "hero-authored",
+   "source": "Blender/Source/Weapons/WPN_Pistol_01/WPN_Pistol_01.blend",
+   "asset": "Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01.glb",
+   "combat": "WPN_Pistol_01"
+  },
+  {
+   "id": "SM_LA_Bldg_Apartment4F",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-buildings --only SM_LA_Bldg_Apartment4F",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "4-storey brick apartment, fire escapes"
+  },
+  {
+   "id": "SM_LA_Bldg_Motel",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-buildings --only SM_LA_Bldg_Motel",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "mid-century motel, 2 floors, neon sign 'Sunny Days Motel'"
+  },
+  {
+   "id": "SM_LA_Bldg_GasStation",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-buildings --only SM_LA_Bldg_GasStation",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "gas station with canopy and pumps"
+  },
+  {
+   "id": "SM_LA_Bldg_Warehouse",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-buildings --only SM_LA_Bldg_Warehouse",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "M01 delivery warehouse, roll-up doors, loading dock"
+  },
+  {
+   "id": "SM_LA_Bldg_Hangar",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-buildings --only SM_LA_Bldg_Hangar",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "private airfield hangar (Arrival)"
+  },
+  {
+   "id": "SM_LA_Bldg_OfficeDowntown",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-buildings --only SM_LA_Bldg_OfficeDowntown",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "8-storey office block, curtain wall"
+  },
+  {
+   "id": "SM_LA_Bldg_VillaCrestmont",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-buildings --only SM_LA_Bldg_VillaCrestmont",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "Crestmont Hills villa (Sam)"
+  },
+  {
+   "id": "SM_LA_Bldg_LiquorStore",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-buildings --only SM_LA_Bldg_LiquorStore",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "'Vega Liquor' corner store"
+  },
+  {
+   "id": "SM_LA_Road_Intersection",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-props --only SM_LA_Road_Intersection",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "4-way intersection tile with crosswalks"
+  },
+  {
+   "id": "SM_LA_Road_Crosswalk",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-props --only SM_LA_Road_Crosswalk",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "crosswalk tile"
+  },
+  {
+   "id": "SM_LA_TrafficLight",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-props --only SM_LA_TrafficLight",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "traffic light pole with signal heads"
+  },
+  {
+   "id": "SM_LA_Hydrant",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-props --only SM_LA_Hydrant",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "fire hydrant"
+  },
+  {
+   "id": "SM_LA_TrashCan",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-props --only SM_LA_TrashCan",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "street trash can"
+  },
+  {
+   "id": "SM_LA_BusStop",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-props --only SM_LA_BusStop",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "bus stop shelter + bench"
+  },
+  {
+   "id": "SM_LA_Fence_Chainlink",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-props --only SM_LA_Fence_Chainlink",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "chain-link fence 3 m module"
+  },
+  {
+   "id": "SM_LA_Dumpster",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-props --only SM_LA_Dumpster",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "commercial dumpster"
+  },
+  {
+   "id": "SM_LA_PhoneBooth",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-props --only SM_LA_PhoneBooth",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "payphone"
+  },
+  {
+   "id": "SM_LA_NewspaperBox",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-props --only SM_LA_NewspaperBox",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "newspaper vending box"
+  },
+  {
+   "id": "SM_LA_ParkingMeter",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-props --only SM_LA_ParkingMeter",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "parking meter"
+  },
+  {
+   "id": "SM_LA_StreetSign",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-props --only SM_LA_StreetSign",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "street name sign (fictional names)"
+  },
+  {
+   "id": "SM_LA_Billboard",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-props --only SM_LA_Billboard",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "billboard with invented brands"
+  },
+  {
+   "id": "SM_LA_Bush",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-props --only SM_LA_Bush",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "shrub cluster"
+  },
+  {
+   "id": "SM_LA_PowerPole",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-props --only SM_LA_PowerPole",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "wooden power pole + cables"
+  },
+  {
+   "id": "TS_LA_Trims",
+   "type": "trim_sheet",
+   "milestone": "P2",
+   "generator": "build-trims",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "trim sheet library: stucco, brick, metal, concrete, asphalt"
+  },
+  {
+   "id": "DC_LA_Decals",
+   "type": "decal_set",
+   "milestone": "P2",
+   "generator": "build-decals",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "cracks, oil stains, graffiti of invented gangs, manholes, signage"
+  },
+  {
+   "id": "TR_LA_SanArdo",
+   "type": "terrain",
+   "milestone": "P3",
+   "generator": "build-terrain",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "San Ardo hills heightmap (numpy erosion)"
+  },
+  {
+   "id": "SK_NPC_Dana_Whitlock",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Dana_Whitlock.json",
+   "status": "PLANNED",
+   "quality_target": "authored",
+   "role": "fbi/boss"
+  },
+  {
+   "id": "SK_NPC_Cuervos_Soldier",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Cuervos_Soldier.json",
+   "status": "PLANNED",
+   "quality_target": "authored",
+   "role": "los_cuervos/enemy_medium"
+  },
+  {
+   "id": "SK_NPC_Cuervos_Heavy",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Cuervos_Heavy.json",
+   "status": "PLANNED",
+   "quality_target": "authored",
+   "role": "los_cuervos/enemy_heavy"
+  },
+  {
+   "id": "SK_Boss_Cuervos_Jefe",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_Boss_Cuervos_Jefe.json",
+   "status": "PLANNED",
+   "quality_target": "authored",
+   "role": "los_cuervos/boss"
+  },
+  {
+   "id": "SK_NPC_Hermandad_A",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Hermandad_A.json",
+   "status": "PLANNED",
+   "quality_target": "authored",
+   "role": "la_hermandad/enemy_light"
+  },
+  {
+   "id": "SK_NPC_Hermandad_Soldier",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Hermandad_Soldier.json",
+   "status": "PLANNED",
+   "quality_target": "authored",
+   "role": "la_hermandad/enemy_medium"
+  },
+  {
+   "id": "SK_NPC_Hermandad_Heavy",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Hermandad_Heavy.json",
+   "status": "PLANNED",
+   "quality_target": "authored",
+   "role": "la_hermandad/enemy_heavy"
+  },
+  {
+   "id": "SK_Boss_Hermandad_Patron",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_Boss_Hermandad_Patron.json",
+   "status": "PLANNED",
+   "quality_target": "authored",
+   "role": "la_hermandad/boss"
+  },
+  {
+   "id": "SK_NPC_Kings_A",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Kings_A.json",
+   "status": "PLANNED",
+   "quality_target": "authored",
+   "role": "kings_of_flatbush/enemy_light"
+  },
+  {
+   "id": "SK_NPC_Kings_B",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Kings_B.json",
+   "status": "PLANNED",
+   "quality_target": "authored",
+   "role": "kings_of_flatbush/enemy_light"
+  },
+  {
+   "id": "SK_NPC_Kings_Lieutenant",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Kings_Lieutenant.json",
+   "status": "PLANNED",
+   "quality_target": "authored",
+   "role": "kings_of_flatbush/enemy_medium"
+  },
+  {
+   "id": "SK_NPC_FBI_Tactical",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_FBI_Tactical.json",
+   "status": "PLANNED",
+   "quality_target": "authored",
+   "role": "fbi/fbi_tactical"
+  },
+  {
+   "id": "SK_NPC_Civ_Kit",
+   "type": "character",
+   "milestone": "P4",
+   "generator": "build-character Config/Characters/SK_NPC_Civ_Kit.json",
+   "status": "PLANNED",
+   "quality_target": "authored",
+   "role": "civilians/civilian"
+  },
+  {
+   "id": "WPN_Revolver_01",
+   "type": "weapon",
+   "milestone": "P5",
+   "generator": "build-weapon Config/Weapons/WPN_Revolver_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "combat": "WPN_Revolver_01"
+  },
+  {
+   "id": "WPN_SMG_01",
+   "type": "weapon",
+   "milestone": "P5",
+   "generator": "build-weapon Config/Weapons/WPN_SMG_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "combat": "WPN_SMG_01"
+  },
+  {
+   "id": "WPN_Shotgun_01",
+   "type": "weapon",
+   "milestone": "P5",
+   "generator": "build-weapon Config/Weapons/WPN_Shotgun_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "combat": "WPN_Shotgun_01"
+  },
+  {
+   "id": "WPN_Rifle_01",
+   "type": "weapon",
+   "milestone": "P5",
+   "generator": "build-weapon Config/Weapons/WPN_Rifle_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "combat": "WPN_Rifle_01"
+  },
+  {
+   "id": "WPN_Sniper_01",
+   "type": "weapon",
+   "milestone": "P5",
+   "generator": "build-weapon Config/Weapons/WPN_Sniper_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "combat": "WPN_Sniper_01"
+  },
+  {
+   "id": "WPN_Knife_01",
+   "type": "weapon",
+   "milestone": "P5",
+   "generator": "build-weapon Config/Weapons/WPN_Knife_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "combat": "WPN_Knife_01"
+  },
+  {
+   "id": "WPN_Bat_01",
+   "type": "weapon",
+   "milestone": "P5",
+   "generator": "build-weapon Config/Weapons/WPN_Bat_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "combat": "WPN_Bat_01"
+  },
+  {
+   "id": "WPN_Grenade_01",
+   "type": "weapon",
+   "milestone": "P5",
+   "generator": "build-weapon Config/Weapons/WPN_Grenade_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "combat": "WPN_Grenade_01"
+  },
+  {
+   "id": "WPN_Molotov_01",
+   "type": "weapon",
+   "milestone": "P5",
+   "generator": "build-weapon Config/Weapons/WPN_Molotov_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "combat": "WPN_Molotov_01"
+  },
+  {
+   "id": "SM_Prop_Vest_Light",
+   "type": "armor",
+   "milestone": "P5",
+   "generator": "build-props --only SM_Prop_Vest_Light",
+   "status": "PLANNED",
+   "quality_target": "blockout+"
+  },
+  {
+   "id": "SM_Prop_Vest_Heavy",
+   "type": "armor",
+   "milestone": "P5",
+   "generator": "build-props --only SM_Prop_Vest_Heavy",
+   "status": "PLANNED",
+   "quality_target": "blockout+"
+  },
+  {
+   "id": "SM_Prop_Helmet_Tactical",
+   "type": "armor",
+   "milestone": "P5",
+   "generator": "build-props --only SM_Prop_Helmet_Tactical",
+   "status": "PLANNED",
+   "quality_target": "blockout+"
+  },
+  {
+   "id": "VH_Pickup_01",
+   "type": "vehicle",
+   "milestone": "P5",
+   "generator": "build-vehicle Config/Vehicles/VH_Pickup_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "late-90s pickup"
+  },
+  {
+   "id": "VH_Van_01",
+   "type": "vehicle",
+   "milestone": "P5",
+   "generator": "build-vehicle Config/Vehicles/VH_Van_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "delivery van (wave 2)"
+  },
+  {
+   "id": "VH_Police_01",
+   "type": "vehicle",
+   "milestone": "P5",
+   "generator": "build-vehicle Config/Vehicles/VH_Police_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "police cruiser (fictional livery)"
+  },
+  {
+   "id": "VH_Muscle_01",
+   "type": "vehicle",
+   "milestone": "P5",
+   "generator": "build-vehicle Config/Vehicles/VH_Muscle_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "muscle car"
+  },
+  {
+   "id": "VH_Taxi_NY_01",
+   "type": "vehicle",
+   "milestone": "P5",
+   "generator": "build-vehicle Config/Vehicles/VH_Taxi_NY_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "NY taxi"
+  },
+  {
+   "id": "VH_Motorcycle_01",
+   "type": "vehicle",
+   "milestone": "P5",
+   "generator": "build-vehicle Config/Vehicles/VH_Motorcycle_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "motorcycle"
+  },
+  {
+   "id": "VH_Plane_Small_01",
+   "type": "vehicle",
+   "milestone": "P5",
+   "generator": "build-vehicle Config/Vehicles/VH_Plane_Small_01.json",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "small plane (Wings)"
+  },
+  {
+   "id": "SM_Prop_CashBundle",
+   "type": "prop",
+   "milestone": "P5",
+   "generator": "build-props --only SM_Prop_CashBundle",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "cash bundle"
+  },
+  {
+   "id": "SM_Prop_Phone",
+   "type": "prop",
+   "milestone": "P5",
+   "generator": "build-props --only SM_Prop_Phone",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "mobile phone"
+  },
+  {
+   "id": "SM_Prop_GoldBar",
+   "type": "prop",
+   "milestone": "P5",
+   "generator": "build-props --only SM_Prop_GoldBar",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "gold bar"
+  },
+  {
+   "id": "SM_Prop_DrugBrick",
+   "type": "prop",
+   "milestone": "P5",
+   "generator": "build-props --only SM_Prop_DrugBrick",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "stylised contraband brick"
+  },
+  {
+   "id": "SM_Prop_Duffel",
+   "type": "prop",
+   "milestone": "P5",
+   "generator": "build-props --only SM_Prop_Duffel",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "duffel bag"
+  },
+  {
+   "id": "SM_Prop_Barrel",
+   "type": "prop",
+   "milestone": "P5",
+   "generator": "build-props --only SM_Prop_Barrel",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "oil barrel"
+  },
+  {
+   "id": "SM_Prop_Pallet",
+   "type": "prop",
+   "milestone": "P5",
+   "generator": "build-props --only SM_Prop_Pallet",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "wooden pallet"
+  },
+  {
+   "id": "SM_Prop_Toolbox",
+   "type": "prop",
+   "milestone": "P5",
+   "generator": "build-props --only SM_Prop_Toolbox",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "toolbox"
+  },
+  {
+   "id": "SM_Prop_Workbench",
+   "type": "prop",
+   "milestone": "P5",
+   "generator": "build-props --only SM_Prop_Workbench",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "workbench"
+  },
+  {
+   "id": "A_Humanoid_Sit_Driver",
+   "type": "animation",
+   "milestone": "P6",
+   "generator": "authored (mocap/keyframe)",
+   "status": "PLANNED",
+   "quality_target": "mocap",
+   "description": "seated driver (B-011)"
+  },
+  {
+   "id": "A_Humanoid_Sit_Passenger",
+   "type": "animation",
+   "milestone": "P6",
+   "generator": "authored (mocap/keyframe)",
+   "status": "PLANNED",
+   "quality_target": "mocap",
+   "description": "seated passenger (B-011)"
+  },
+  {
+   "id": "A_Humanoid_Cover_Set",
+   "type": "animation",
+   "milestone": "P6",
+   "generator": "authored (mocap/keyframe)",
+   "status": "PLANNED",
+   "quality_target": "mocap",
+   "description": "cover enter/idle/peek/blind-fire"
+  },
+  {
+   "id": "A_Humanoid_Melee_Set",
+   "type": "animation",
+   "milestone": "P6",
+   "generator": "authored (mocap/keyframe)",
+   "status": "PLANNED",
+   "quality_target": "mocap",
+   "description": "punch/kick/knife/bat"
+  },
+  {
+   "id": "A_Humanoid_Locomotion_Mocap",
+   "type": "animation",
+   "milestone": "P6",
+   "generator": "authored (mocap/keyframe)",
+   "status": "PLANNED",
+   "quality_target": "mocap",
+   "description": "mocap locomotion with start/stop/pivot (E-3)"
+  },
+  {
+   "id": "A_Boss_Specials",
+   "type": "animation",
+   "milestone": "P6",
+   "generator": "authored (mocap/keyframe)",
+   "status": "PLANNED",
+   "quality_target": "mocap",
+   "description": "boss attacks: grenade barrage, charge"
+  },
+  {
+   "id": "FX_MuzzleFlash_Set",
+   "type": "fx",
+   "milestone": "P6",
+   "generator": "build-fx --only FX_MuzzleFlash_Set",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "muzzle flash per weapon class"
+  },
+  {
+   "id": "FX_Impact_Set",
+   "type": "fx",
+   "milestone": "P6",
+   "generator": "build-fx --only FX_Impact_Set",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "impacts per surface: concrete, metal, glass, wood, flesh"
+  },
+  {
+   "id": "FX_Blood_Set",
+   "type": "fx",
+   "milestone": "P6",
+   "generator": "build-fx --only FX_Blood_Set",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "blood (rating E-8)"
+  },
+  {
+   "id": "FX_Smoke",
+   "type": "fx",
+   "milestone": "P6",
+   "generator": "build-fx --only FX_Smoke",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "smoke"
+  },
+  {
+   "id": "FX_Fire",
+   "type": "fx",
+   "milestone": "P6",
+   "generator": "build-fx --only FX_Fire",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "fire + Molotov"
+  },
+  {
+   "id": "FX_Explosion",
+   "type": "fx",
+   "milestone": "P6",
+   "generator": "build-fx --only FX_Explosion",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "grenade/car explosion"
+  },
+  {
+   "id": "FX_Sparks",
+   "type": "fx",
+   "milestone": "P6",
+   "generator": "build-fx --only FX_Sparks",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "sparks"
+  },
+  {
+   "id": "FX_GlassShatter",
+   "type": "fx",
+   "milestone": "P6",
+   "generator": "build-fx --only FX_GlassShatter",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "glass shatter"
+  },
+  {
+   "id": "FX_Rain",
+   "type": "fx",
+   "milestone": "P6",
+   "generator": "build-fx --only FX_Rain",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "rain"
+  },
+  {
+   "id": "FX_Steam_NY",
+   "type": "fx",
+   "milestone": "P6",
+   "generator": "build-fx --only FX_Steam_NY",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "street steam (NY)"
+  },
+  {
+   "id": "FX_TireSmoke",
+   "type": "fx",
+   "milestone": "P6",
+   "generator": "build-fx --only FX_TireSmoke",
+   "status": "PLANNED",
+   "quality_target": "blockout+",
+   "description": "tire smoke"
+  }
+ ]
+}

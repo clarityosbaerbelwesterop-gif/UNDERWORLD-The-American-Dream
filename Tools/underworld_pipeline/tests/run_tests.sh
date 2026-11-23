@@ -315,5 +315,42 @@ rc=$?
 expect_rc "uwp review-sheet PT_UWP_Sheet" 0 "$rc" "$T/logs/review_sheet.log"
 if [ -f "$T/out/review_sheet.png" ]; then ok "review-sheet PNG written"; else bad "review-sheet PNG missing"; fi
 
+echo "== [8] content catalogue (P1, T-DATA-01; plain Python, no Blender)"
+rc=$(run_uwp "$T/logs/catalog_check.log" catalog check)
+expect_rc "uwp catalog check (repo catalogue <-> combat.json <-> Assets/)" 0 "$rc" "$T/logs/catalog_check.log"
+rc=$(run_uwp "$T/logs/catalog_status.log" catalog status --out "$T/out/CATALOG_STATUS.md")
+expect_rc "uwp catalog status" 0 "$rc" "$T/logs/catalog_status.log"
+grep -q "| WPN_Pistol_01 | weapon | WIP |" "$T/out/CATALOG_STATUS.md" 2>/dev/null && ok "status report lists the pistol as WIP" || bad "status report incomplete ($T/out/CATALOG_STATUS.md)"
+rc=$(run_uwp "$T/logs/catalog_build.log" catalog build --milestone P5 --dry-run)
+expect_rc "uwp catalog build --milestone P5 --dry-run" 0 "$rc" "$T/logs/catalog_build.log"
+grep -q "RUN\] build-weapon Config/Weapons/WPN_Pistol_01.json" "$T/logs/catalog_build.log" && grep -q "SKIP\] WPN_SMG_01: spec" "$T/logs/catalog_build.log" \
+  && ok "build plans the pistol and skips weapons without a spec" || bad "catalog build plan wrong ($T/logs/catalog_build.log)"
+# Negative: a sabotaged catalogue must fail with the right reasons.
+python3 - "$REPO/Config/Content/catalog.json" "$T/out/catalog_bad.json" <<'PYEOF'
+import json, sys
+c = json.load(open(sys.argv[1]))
+c["entries"] = [e for e in c["entries"] if e["id"] not in ("WPN_SMG_01", "SK_NPC_Kings_B")]  # combat refs dangle
+c["entries"].append(dict(c["entries"][0]))                                                     # duplicate id
+for e in c["entries"]:
+    if e["id"] == "VH_Van_01":
+        e["status"] = "WIP"; e["asset"] = "Assets/Vehicles/VH_Van_01/VH_Van_01.glb"              # claims a file that is not there
+    if e["id"] == "SM_LA_Hydrant":
+        e["status"] = "PRODUCTION-READY"                                                        # no review record
+json.dump(c, open(sys.argv[2], "w"))
+PYEOF
+rc=$(run_uwp "$T/logs/catalog_bad.log" catalog --catalog "$T/out/catalog_bad.json" check)
+expect_rc "uwp catalog check on a sabotaged catalogue (must fail)" 1 "$rc" "$T/logs/catalog_bad.log"
+for pat in "asset WPN_SMG_01 not in catalogue" "model SK_NPC_Kings_B not in catalogue" "duplicate id SK_Jason" "VH_Van_01: asset Assets/Vehicles/VH_Van_01/VH_Van_01.glb does not exist" "SM_LA_Hydrant: PRODUCTION-READY without a review record"; do
+  grep -qF "$pat" "$T/logs/catalog_bad.log" && ok "catalogue error reported: $pat" || bad "catalogue error missing: $pat"
+done
+# Negative: a .glb on disk that nobody catalogued.
+mkdir -p "$T/catrepo/Assets/Props/SM_Stray" "$T/catrepo/Config/Content" "$T/catrepo/GodotProject/Data/Content"
+: > "$T/catrepo/Assets/Props/SM_Stray/SM_Stray.glb"
+echo '{"entries": []}' > "$T/catrepo/Config/Content/catalog.json"
+echo '{"weapons": {}, "armor": {}, "factions": {}}' > "$T/catrepo/GodotProject/Data/Content/combat.json"
+rc=$(run_uwp "$T/logs/catalog_stray.log" catalog --repo "$T/catrepo" check)
+expect_rc "uwp catalog check with an uncatalogued .glb (must fail)" 1 "$rc" "$T/logs/catalog_stray.log"
+grep -qF "uncatalogued asset on disk: Assets/Props/SM_Stray/SM_Stray.glb" "$T/logs/catalog_stray.log" && ok "uncatalogued .glb reported" || bad "uncatalogued .glb not reported"
+
 echo "logs: $T/logs"
 if [ $FAILS -eq 0 ]; then echo "UWP TESTS: PASS"; exit 0; else echo "UWP TESTS: FAIL ($FAILS)"; exit 1; fi

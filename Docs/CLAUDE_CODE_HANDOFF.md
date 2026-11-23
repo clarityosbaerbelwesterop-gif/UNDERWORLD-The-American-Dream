@@ -10,6 +10,7 @@
 - Repo: https://github.com/clarityosbaerbelwesterop-gif/UNDERWORLD-The-American-Dream (private)
 - Written by: Bot 1 (Project Director), branch `bot1/claude-handoff`
 - Snapshot: `main` = `b2acced` (PR #12 merge) before this PR; merge gate `Tests/run_all.sh` = **RUN_ALL: PASS** on fresh worktrees (PR #12 head `a28331c` and this branch).
+- **Status update 2026-11-23 (Bot 1):** PR #14 (T-MIS-01, Claude Code) merged as `c63198a`; fixes PR #15 (LFS, `6f149e5`) and PR #16 (real mission sabotage). Gate now **589 checks** (smoke 12, uwp tool 58, import 71, AI 80, mission 75, player 137, vehicle 88, weapon 68). M01 core + greybox level + HUD v0 exist; Marco ally, wave sequencing and a real drive are open (TASK_BOARD T-MIS-01). Next work order: `Docs/Prompts/CLAUDE_CODE_PROMPT_02.md`. Where §0/§4/§8 below say "mission/level/HUD not started", this line wins.
 
 ---
 
@@ -21,7 +22,7 @@
 | Engine | **Godot 4.7.2** (GDScript, Forward Plus project) – not Unreal (TD-001). |
 | Art | **Blender 5.2.4 LTS headless `bpy`** → `Tools/uwp` → glTF `.glb` → Godot. Git LFS for binaries. |
 | State | Milestone 1 "LA Vertical Slice" **in progress**. Gameplay systems (controller with Jason v2 as the visible player, pistol + bloom, enemy/civilian AI, vehicle physics) are in `main` and tested headless. Art exists as first passes/blockouts. **No asset is PRODUCTION-READY**: all 5 reviewed hero assets were **REJECT**ed by the quality gate. No mission logic, no HUD, no audio, no build yet. |
-| Tests | `Tests/run_all.sh` → 12 smoke + 48 uwp tool + 61 asset-import + 80 AI + 137 player + 88 vehicle + 68 weapon checks = **494 checks, all PASS**. |
+| Tests | `Tests/run_all.sh` → 12 smoke + 58 uwp tool + 71 asset-import + 80 AI + 75 mission + 137 player + 88 vehicle + 68 weapon checks = **589 checks, all PASS** (2026-11-23, after PR #16). |
 | Open at handoff | Draft PR **#11** (Bot 2, pistol quality pass, WIP, untested – do not merge as is). Everything else is merged; both bots stopped. |
 | Owner | **Bärbel Westerop** (ClarityCompassAI). Report to her **in German**, honestly. |
 
@@ -403,7 +404,7 @@ Known defects:
 - **AI:** no flank-lite, no NPC-vs-NPC targeting, no RVO avoidance; **BUG: enemies target the hidden player while he sits in the car** (they aim at the seat); NPC scenes still PT capsules → switch to `SK_NPC_*` + `A_Humanoid_*`; **T-AI-02** civilian behaviour on the street not started (baseline flee/calm exists in `AI_Civilian.tres`).
 - **Vehicle:** enter/exit uses fixed timers (0.6 / 0.5 s) – drive them from the clips; missing passenger seat, carjacking, NPC drivers, ram damage to characters, engine sound, lit headlights; driving feel untuned (`VH_Sedan_01.tres` all `[DEFAULT]`, B-003); CR-1..4; TD-014 workarounds: **re-check the static-sag constant `4.0 / suspension_stiffness` and the wheel-draw offset on any Godot upgrade**; player collision returns 2 physics frames after exit (keep the test).
 - **QA:** `run_all.sh` is the merge gate and sabotage modes must keep failing; no visual/FPS checks without GPU – Phase 8 capture script exists, wire it into T-QA-01 (visual regression shots); keep the `uw_lod_post_import.gd` mirror identical.
-- **Missions/level:** **T-MIS-01** (mission system + M01) and **T-LVL-01** (playable `LA_CallowayAve.tscn` from the greybox block) **not started**. Layout brief `Docs/LevelDesign/LA_CallowayAve_Layout.md` (T-DES-02) does not exist yet.
+- **Missions/level (updated 2026-11-23):** T-MIS-01 framework + M01 core merged (PR #14/#15/#16), open: Marco ally, wave sequencing, real drive loop. T-LVL-01: generated greybox `LA_CallowayAve.tscn` (not dressed). Layout brief `Docs/LevelDesign/LA_CallowayAve_Layout.md` v1 exists.
 
 ### 8.4 Blockers (`Docs/BLOCKERS.md`)
 - **B-003 OPEN – no GPU.** Workaround: software-GL Phase 8 captures (gl_compatibility). Real fix: a GPU machine or GPU CI runner for Forward Plus look, FPS and feel. EuroHPC/HPC compute is not set up and would be batch, not interactive – do not plan on it; ask the owner for a GPU box/runner when M1 needs perf/look sign-off.

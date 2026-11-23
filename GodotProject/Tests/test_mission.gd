@@ -7,8 +7,11 @@
 # the design allows it. MissionManager.debug_complete_current() is used for the intro/outro
 # beats only, exactly as the design contract specifies.
 #
-# Negative control: UW_MISSION_SABOTAGE=1 removes the checkpoint flag from objective 2 and
-# breaks the package stray-distance fail -> the suite must FAIL (exit 1).
+# Negative control: UW_MISSION_SABOTAGE=1 breaks the mission *under test* before the real checks
+# run: it removes the checkpoint flag from objective 2 (garage arrival) and disables the
+# "package left behind" distance (package_stray_distance = 1e9). The ordinary checks (checkpoint
+# index, checkpoint count, left-behind fail) must then FAIL -> exit 1. There is deliberately no
+# self-referential "sabotage check": the negative control proves that the real assertions bite.
 extends SceneTree
 
 const LEVEL := "res://Scenes/Levels/LA_CallowayAve.tscn"
@@ -60,6 +63,9 @@ func load_level() -> void:
 	player = level.get_node("Player") as PlayerController
 	car = level.get_node("VH_Sedan_01") as Vehicle
 	pkg = level.get_node("Mission/Pickup_Package") as CarriedItem
+	if sabotage and mm != null:
+		_sabotage_data(mm.mission)
+		mm.package_stray_distance = 1.0e9
 
 func unload() -> void:
 	level.queue_free()
@@ -76,8 +82,6 @@ func _run() -> void:
 	await test_package_failures()
 	await test_car_destroyed()
 	await test_mission_data_matches_design()
-	if sabotage:
-		await test_sabotage_detected()
 	_done = true
 	if failures.is_empty():
 		print("[GPTEST] RESULT: PASS")
@@ -198,6 +202,8 @@ func test_player_death_fail_and_checkpoint() -> void:
 	await frames(8)
 	check(mm.current_index == 3, "reached step 3 before dying")
 	var cp := mm.checkpoint_index
+	# Pin the expected checkpoint: otherwise "restart at cp + 1" is true for any cp, including -1.
+	check(cp == 2, "checkpoint before dying is the garage arrival (2), got %d" % cp)
 	var hp: DamageReceiver = player.get_node("Health") as DamageReceiver
 	hp.apply_damage(_damage(999.0))
 	await frames(4)
@@ -230,17 +236,16 @@ func test_package_failures() -> void:
 	mm.try_interact(player)
 	await frames(4)
 	check(pkg.is_carried(), "package picked up for the fail tests")
-	if not sabotage:
-		# "Left > 60 m behind": the crate stays on the bench while Jason walks away. (While it is
-		# carried it is parented to the carrier, so it cannot be moved out of his hands.)
-		pkg.drop()
-		await frames(2)
-		player.global_position = pkg.global_position + Vector3(80.0, 0.2, 0.0)
-		await frames(6)
-		check(mm.state == MissionManager.State.FAILED, "package left > 60 m fails the mission")
-		check(mm.fail_reason.contains("left behind"), "fail reason: left behind (%s)" % mm.fail_reason)
-		await seconds(2.0)
-		check(mm.state == MissionManager.State.RUNNING and pkg.is_inside_tree(), "restart rebuilt the package")
+	# "Left > 60 m behind": the crate stays on the bench while Jason walks away. (While it is
+	# carried it is parented to the carrier, so it cannot be moved out of his hands.)
+	pkg.drop()
+	await frames(2)
+	player.global_position = pkg.global_position + Vector3(80.0, 0.2, 0.0)
+	await frames(6)
+	check(mm.state == MissionManager.State.FAILED, "package left > 60 m fails the mission")
+	check(mm.fail_reason.contains("left behind"), "fail reason: left behind (%s)" % mm.fail_reason)
+	await seconds(2.0)
+	check(mm.state == MissionManager.State.RUNNING and pkg.is_inside_tree(), "restart rebuilt the package")
 	pkg.health.apply_damage(_damage(500.0))
 	await frames(4)
 	check(mm.state == MissionManager.State.FAILED, "package destroyed fails the mission")
@@ -262,6 +267,8 @@ func test_mission_data_matches_design() -> void:
 	print("[GPTEST] == M01 data contract")
 	var data := load("res://Data/Missions/M01_DeadDrop.tres") as MissionData
 	check(data != null, "M01_DeadDrop.tres loads as MissionData")
+	if sabotage and data != null:
+		_sabotage_data(data)
 	check(data.objectives.size() == 8, "8 objectives (intro + 6 steps + outro), got %d" % data.objectives.size())
 	var texts := ["", "Get in the car.", "Drive to the garage on Calloway Ave.", "Check the garage.",
 		"Survive the ambush.", "Grab the package.", "Deliver the package to the warehouse.", "MISSION PASSED"]
@@ -276,11 +283,12 @@ func test_mission_data_matches_design() -> void:
 	check(data.objectives[6].kind == ObjectiveData.Kind.DELIVER and data.objectives[6].requires_package,
 		"delivery requires the package")
 
-func test_sabotage_detected() -> void:
-	print("[GPTEST] == sabotage control")
-	var data := load("res://Data/Missions/M01_DeadDrop.tres") as MissionData
+## Negative control (UW_MISSION_SABOTAGE): corrupt the mission data the real checks look at.
+func _sabotage_data(data: MissionData) -> void:
+	if data == null or data.objectives.size() < 3:
+		return
+	print("[GPTEST] SABOTAGE: objective 2 checkpoint removed, package stray distance disabled")
 	data.objectives[2].checkpoint = false
-	check(data.objectives[2].checkpoint, "SABOTAGE: checkpoint flag was removed -> test suite failed as designed")
 
 # --- helpers ------------------------------------------------------------------
 

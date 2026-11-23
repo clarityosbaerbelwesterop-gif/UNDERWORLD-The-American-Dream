@@ -22,6 +22,8 @@ Binaries: `/workspace/tools/blender/blender`, `/workspace/tools/godot` (override
 - One task per branch/PR (`[T-XXX-NN]` in commits); update TASK_BOARD + logs in the same PR.
 - Run `Tests/run_all.sh` before and after changes; merge only green with `gh pr merge N --merge --match-head-commit SHA`.
 - No force-push, no history rewrite; update branches by merging `origin/main`.
+- **Git LFS is mandatory:** `git lfs install` before the first commit; never commit .glb/.png/.blend/.jpg/.wav/... as raw blobs; check `git lfs ls-files` and that staged binaries are pointers.
+- **Do not self-merge.** Open a PR and stop; Bot 1 reviews and merges. Exception only if the work order contains an explicit merge line *and* every gate is green.
 - **Quality gate:** no asset is PRODUCTION-READY/"AAA" without reference board, Cycles renders, independent 0–5 review (≥ 4 in all categories), `uwp` validation and a Godot Phase 8 capture. All current hero assets are REJECT/WIP.
 - TD-004 axes (Blender −Y = Godot +Z, 1 u = 1 m), TD-005 naming (no `_Loop` action names), TD-010 physics layers + input map only via `Scripts/tools/setup_input_map.gd`, budgets `Config/asset_budgets.json`.
 - Third-party assets: CC0 / CC-BY only, logged in `Docs/ASSET_LICENSES.md`. LFS budget ~1 GB (≈73 MB used).

@@ -1,5 +1,11 @@
 # Development Log
 
+## 2026-11-22 · Claude Code (Auftrag 02)
+- **T-BUILD-01** `export_presets.cfg` + `Tools/build/build_linux.sh` → `Builds/linux/Underworld.x86_64` (79 MB) + `.pck` (189 MB), 657 Dateien, `Tests/`/`Scripts/import/` ausgeschlossen (PCK-Verzeichnis geparst). Export exit 0, Smoke `--headless --quit-after 300` ohne ERROR; `UW_BUILD_SABOTAGE=1` → exit 6. Templates aus dem 4.7.2-Quellbaum gebaut (`vulkan=no opengl3=no` → Boot-Nachweis, keine Darstellung). `Docs/BUILD.md`, TD-019.
+- **T-LVL-01a, zweiter Durchgang** `Tests/tools/capture_level_plan.gd` (Planansicht aus echten AABBs) zeigte: alle gemalten Straßen-/Bordstein-Kopien lagen bei (0,0,0) – im Generator ist das Level in `_initialize()` noch nicht im Baum, `global_transform` liest Identity. Fix: Transform aus der Kette zusammensetzen. `test_level.gd` 20 → 23 Checks (118 Kopien, 0 im Ursprung, erste Straße bei -24/0/-79). Besagte Kopien waren zuvor *komplett unsichtbar* – der Luminanztest blieb grün, weil er nur Material prüft.
+- **T-LVL-01a** Buergerroute kreuzte die Fahrbahn und blockierte den Sedan bei z≈37 (M01-Fahrt 26 s → Abbruch). Route bleibt auf dem äußeren Gehweg. Level neu erzeugt: 1652 Nodes, Navmesh 428 Polygone.
+- Messung: 9 Sabotage-Modi einzeln → alle Exit 1 (bzw. 6 beim Build), echte FAILs 1–22. `RUN_ALL: PASS`, 738 Checks.
+
 Append-only, newest on top. `YYYY-MM-DD HH:MM (Europe/Berlin) · Bot N · Task ID · what was done · how it was verified`.
 
 ## 2026-11-23 · Bot 1 · T-MIS-01 review + fixes (PR #15, #16)

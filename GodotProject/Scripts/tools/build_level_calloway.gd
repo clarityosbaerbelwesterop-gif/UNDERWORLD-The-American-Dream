@@ -788,6 +788,7 @@ func _build_mission_anchors() -> void:
 	var hud := CanvasLayer.new()
 	hud.name = "HUD"
 	hud.set_script(load("res://Scripts/ui/hud.gd"))
+	hud.set_meta(&"uw_runtime_children", true)
 	level.add_child(hud)
 	# Mission manager with M01 data
 	var mm := Node.new()
@@ -897,7 +898,10 @@ func _own_all(n: Node, owner_node: Node) -> void:
 		c.owner = owner_node
 		# Do not descend into an instanced sub-scene: owning its internal nodes makes Godot
 		# write a full copy of that scene into the level instead of an instance reference.
-		if c.scene_file_path == "":
+		# Nodes that build their children at runtime (the HUD's Control tree) must not have those
+		# children saved: HUD._ready() builds them again and the level showed two ammo counters,
+		# one frozen at "12 / 60" (B-UI-03, T-BUILD-02).
+		if c.scene_file_path == "" and not c.has_meta(&"uw_runtime_children"):
 			_own_all(c, owner_node)
 
 

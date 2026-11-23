@@ -2,7 +2,7 @@
 
 ## 2026-11-23 · Claude Code · T-BUILD-02 (M01 acceptance, input-only)
 - **New gate:** `Tests/test_playthrough.gd` + `Tests/tools/m01_autopilot.gd` play M01 through the shipping entry scene with input actions only (TD-021 PROPOSED, deterministic seed 2, QA cheat invulnerable stated). Result: MISSION COMPLETED in 221.9 s game time, 23 hits.
-- **19 blockers found and fixed** (pipeline: COLLISION_MICRO_LIP rule, trimesh from LOD0; level: kerb lines, garage rotated 180°, wave spawns per layout §5, 6 cover anchors, rooftop spawn; mission: interact input, package load, outro, revive, restart placement, carried-item collision, stale area overlap, enemy reset; AI: wave briefing, NPC step-up, ambush pressure; HUD: subtitles never cleared). Details + tests: `Docs/Reports/BERICHT_T-BUILD-02.md`.
+- **20 blockers found and fixed** (pipeline: COLLISION_MICRO_LIP rule, trimesh from LOD0; level: kerb lines, garage rotated 180°, wave spawns per layout §5, 6 cover anchors, rooftop spawn; mission: interact input, package load, outro, revive, restart placement, carried-item collision, stale area overlap, enemy reset; AI: wave briefing, NPC step-up, ambush pressure; HUD: subtitles never cleared, duplicated HUD widgets). Details + tests: `Docs/Reports/BERICHT_T-BUILD-02.md`.
 - **Balance** measured, not changed: TD-022 PROPOSED difficulty layer (value 1.0), B-007/B-008 OPEN.
 - Forward Plus video (Movie Maker, lavapipe): `Docs/Reports/renders_fwdplus_m01/`.
 

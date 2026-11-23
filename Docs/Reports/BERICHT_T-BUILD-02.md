@@ -4,7 +4,7 @@
 
 ## 1. Kurzfassung
 - **M01 „Dead Drop“ war für einen Menschen nicht spielbar.** Die alten Tests haben die Missions-APIs direkt aufgerufen und das deshalb nicht gemerkt. Schon den ersten Gehversuch per Eingabe stoppte eine 4 mm hohe Fahrbahnmarkierung.
-- Neu ist ein **Autopilot, der nur Eingaben nutzt** (Tasten/Achsen und Kameradrehung, wie ein Mensch). Er läuft als Merge-Gate in `run_all.sh` (`test_playthrough.gd`). Gefunden hat er **19 echte Fehler** in Pipeline, Level-Generator, Mission und KI. Alle 19 sind behoben, jeder hat einen Test oder Sabotage-Modus.
+- Neu ist ein **Autopilot, der nur Eingaben nutzt** (Tasten/Achsen und Kameradrehung, wie ein Mensch). Er läuft als Merge-Gate in `run_all.sh` (`test_playthrough.gd`). Gefunden hat er **20 echte Fehler** in Pipeline, Level-Generator, Mission und KI. Alle 20 sind behoben, jeder hat einen Test oder Sabotage-Modus.
 - **Heute ist M01 per Eingabe von Anfang bis Ende schaffbar:** einsteigen → 300 m fahren → Garage → Hinterhalt mit 5 Schützen per Pistole → Paket per `E` → einladen → Lagerhaus → „MISSION PASSED“, 2.500 $ (Seed 2, 221,9 s Spielzeit).
 - **Video in Forward Plus**, dem Shipping-Renderer, aufgenommen mit Godot Movie Maker auf lavapipe (Vulkan auf der CPU). Es zeigt den Look, aber **keine GPU-Leistung**.
 - Offen: der Dach-Schütze (B-007) und die Kampf-Balance (B-008, TD-022). Dazu braucht es einen menschlichen Spieltest auf einer GPU.
@@ -40,6 +40,7 @@
 | B-AI-05 | Hinterhalt kann ewig hängen | Freigegebene Wellen starteten „idle“ ohne Wissen über Jason | Briefing beim Freigeben (Wissensstand wie nach einem Schuss) | `=3` → hängt bei Ziel 4 |
 | B-AI-06 | Alle Gegner kleben an der Bordsteinkante | NPCs hatten **keine Stufenlogik**: 16 cm Bordstein = Wand (betrifft die ganze offene Welt) | NPC-Step-up (≤ 0,3 m, wie beim Spieler) | test_level: Gunman steigt auf den Gehweg + `UW_AI_SABOTAGE=nostep` |
 | B-UI-02 | Untertitel „Sam: Go look. Quietly.“ bleibt die ganze Mission über stehen (im Forward-Plus-Video gesehen) | Nach der letzten Zeile eines Anrufs hat niemand die Zeile geleert | `MissionManager` sendet am Ende ein leeres Untertitel-Signal | test_hud (vorher FAIL gesehen) + `UW_MISSION_SABOTAGE=5` |
+| B-UI-03 | Munitionsanzeige zeigt „122/60“ (im Video gesehen) | Der Level-Generator speicherte die zur Laufzeit gebauten HUD-Widgets in die `.tscn`, `HUD._ready()` baute ein zweites Set; das gespeicherte blieb bei „12 / 60“ stehen | Generator speichert keine Laufzeit-Kinder (`uw_runtime_children`), HUD verwirft alte Widgets | test_hud: 0 gespeicherte HUD-Kinder, genau 1 AmmoLabel (vorher 15 / 2, FAIL gesehen) |
 | B-AI-07 | Gegner geben auf und warten | Hinterhalt-Gegner fielen nach Zielverlust dauerhaft auf „idle“ zurück | Nach 3 s Leerlauf erneutes Briefing, nur für von der Mission freigegebene Gegner | Playthrough |
 
 ## 4. Testzahlen (`Tests/run_all.sh`, frischer Worktree)
@@ -89,5 +90,6 @@ Der Bot ist schwächer als ein geübter Mensch: kein Seitwärtslaufen, keine Kop
 ## 8. Offene Punkte und Entscheidungen der Eigentümerin
 1. **GPU-Spieltest von M01 durch einen Menschen** (Rest von T-BUILD-02): FPS, Fahrgefühl, Kamera, Balance (B-008 / TD-022).
 2. Dach-Schütze: Position, Brüstung und Peek-Punkt neu designen (B-007).
+2b. **B-VEH-01** (offen): Die Limousine kippt an einem 16-cm-Bordstein bei etwa 14 m/s (Video 0:22) → Schwerpunkt und Wankstabilität beim GPU-Fahrtest. **B-CAM-01** (offen): Die Kamera clippt beim Zielen nah an Wänden in Jason.
 3. TD-021 (Playthrough-Gate) und TD-022 (Difficulty-Schicht) annehmen oder ablehnen.
 4. Nächster Task laut §8: T-QA-01 (CI). Der Playthrough läuft headless in etwa 60 s und eignet sich als CI-Pflichtcheck.

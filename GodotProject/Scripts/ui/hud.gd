@@ -74,6 +74,11 @@ func _ready() -> void:
 # --- construction -------------------------------------------------------------
 
 func _build() -> void:
+	# A stale widget tree saved into a scene file (B-UI-03) would sit under the live one.
+	var stale := get_node_or_null("Root")
+	if stale != null:
+		remove_child(stale)
+		stale.queue_free()
 	root_control = Control.new()
 	root_control.name = "Root"
 	root_control.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

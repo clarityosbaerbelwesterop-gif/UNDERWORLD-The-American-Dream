@@ -53,6 +53,7 @@ func _run_all() -> void:
 	await test_subtitles()
 	await test_marker()
 	await test_passed_card()
+	await test_single_hud()
 	_done = true
 	if failures.is_empty():
 		print("[GPTEST] RESULT: PASS")
@@ -252,3 +253,24 @@ func test_passed_card() -> void:
 	check(hud.fail_label.text.contains("MISSION FAILED") and hud.fail_label.text.contains("package left behind"),
 		"fail reason is shown verbatim (%s)" % hud.fail_label.text)
 	await unload()
+
+
+# --- 7. exactly one HUD widget set (B-UI-03, T-BUILD-02) -------------------------
+
+## The Forward Plus video showed "122/60": two ammo labels on top of each other. The level
+## generator had saved the HUD's RUNTIME-built widgets into LA_CallowayAve.tscn, and HUD._ready()
+## built a second set - the baked one never updated ("12 / 60" forever).
+func test_single_hud() -> void:
+	print("[GPTEST] == one HUD widget set, nothing baked into the level file")
+	var packed := load(LEVEL) as PackedScene
+	var st := packed.get_state()
+	var baked := 0
+	for i in st.get_node_count():
+		if str(st.get_node_path(i, true)).begins_with("./HUD/"):
+			baked += 1
+	check(baked == 0, "the level .tscn stores no HUD child widgets (found %d)" % baked)
+	await load_level()
+	var ammo_labels := hud.find_children("AmmoLabel", "", true, false)
+	check(ammo_labels.size() == 1, "exactly one AmmoLabel at runtime (found %d)" % ammo_labels.size())
+	await unload()
+

@@ -55,6 +55,7 @@ var last_aim_error := 0.0
 var _rng := RandomNumberGenerator.new()
 var _self_rids: Array[RID] = []
 var _events: Array[String] = []
+var _person: Node3D = null   # remembered player (T-AI-03: target may be his car instead)
 var _moving := false
 var _move_target := Vector3.ZERO
 var _move_speed := 0.0
@@ -161,7 +162,32 @@ func has_los(from: Vector3, to: Vector3) -> bool:
 	var q := PhysicsRayQueryParameters3D.create(from, to, LOS_MASK, _self_rids)
 	return get_world_3d().direct_space_state.intersect_ray(q).is_empty()
 
+
+func player_node() -> Node3D:
+	if _person == null or not is_instance_valid(_person):
+		_person = get_tree().get_first_node_in_group("player") as Node3D
+	return _person
+
+
+## Line of sight to a *target node*. Same as has_los(), except that a ray which stops on the
+## target itself counts as "seen" - which is the only sane definition for a car: its own
+## bodywork would otherwise occlude the point the AI aims at, and every gunman would be blind
+## to a parked vehicle (T-AI-03).
+func has_los_to(from: Vector3, to: Vector3, target: Node) -> bool:
+	var q := PhysicsRayQueryParameters3D.create(from, to, LOS_MASK, _self_rids)
+	var hit := get_world_3d().direct_space_state.intersect_ray(q)
+	if hit.is_empty():
+		return true
+	var collider := hit.get("collider") as Node
+	if collider == null or target == null:
+		return false
+	return collider == target or target.is_ancestor_of(collider) or collider.is_ancestor_of(target)
+
+## Points the AI perceives/shoots at. A seated player is replaced by his car (T-AI-03), so
+## gunmen aim at bodywork and glass - never at the hidden body through the roof.
 func target_points(t: Node3D) -> Array:
+	if t is Vehicle:
+		return VehicleTargeting.car_points(t as Vehicle)
 	if t.has_method("get_visibility_points"):
 		return t.get_visibility_points()
 	return [t.global_position + Vector3(0, 1.65, 0), t.global_position + Vector3(0, 1.15, 0)]
@@ -244,8 +270,16 @@ func _physics_process(delta: float) -> void:
 	if is_dead():
 		_apply_motion(delta, Vector3.ZERO)
 		return
-	if target == null:
-		target = get_tree().get_first_node_in_group("player") as Node3D
+	# T-AI-03 / TD-015 R1+R4: a seated player is represented by his CAR, and that is re-checked
+	# every frame - so getting in/out changes the target class immediately. The player is kept
+	# as the remembered person: a gunman who loses his target must fall back to the human, not
+	# stare at an empty seat.
+	var person := player_node()
+	if person == null:
+		target = null
+	else:
+		_person = person
+		target = VehicleTargeting.resolve(person)
 	_update_perception(delta)
 	fsm.tick(delta)
 	_process_events()
@@ -287,7 +321,7 @@ func _update_perception(delta: float) -> void:
 			or dist <= profile.near_awareness_radius
 		if noticeable:
 			for p in pts:
-				if has_los(eye, p):
+				if has_los_to(eye, p, target):
 					target_visible = true
 					break
 	if target_visible:
@@ -494,6 +528,11 @@ func _start_phase(ph: String) -> void:
 		_burst_left = _rng.randi_range(profile.burst_min, profile.burst_max)
 		_shot_timer = 0.0
 
+## Aim error (deg) for one shot. Overridden by AllyCompanion to add the ally penalty.
+func aim_error_deg_for(distance: float, target_speed: float) -> float:
+	return AIPerception.aim_error_deg(profile, distance, target_speed, visible_time)
+
+
 ## Bursts at the target with AI aim error on top of the weapon's hip spread.
 func _combat_fire(delta: float) -> void:
 	if weapon == null or weapon.data == null or target == null:
@@ -509,15 +548,23 @@ func _combat_fire(delta: float) -> void:
 		return
 	var eye := get_eye_pos()
 	var pts := target_points(target)
-	var aim_pt: Vector3 = pts[1] if has_los(eye, pts[1]) else pts[0]
+	var aim_pt: Vector3 = pts[1] if has_los_to(eye, pts[1], target) else pts[0]
 	var dir := (aim_pt - eye).normalized()
 	var tv := Vector3.ZERO
 	if target is CharacterBody3D:
 		tv = (target as CharacterBody3D).velocity
-	var err := AIPerception.aim_error_deg(profile, eye.distance_to(aim_pt), Vector2(tv.x, tv.z).length(), visible_time)
+	var err := aim_error_deg_for(eye.distance_to(aim_pt), Vector2(tv.x, tv.z).length())
 	var shot := weapon.trigger(true, true, eye, AIPerception.apply_cone(dir, err, _rng), {}, self, _self_rids)
 	if shot.is_empty():
 		return
+	# TD-015 R2: a hit on the car is car damage, not player damage. The weapon itself is
+	# unaware of vehicles (it reports what its ray hit); the mission layer decides.
+	var car_hit := shot.get("hit_body") as Node
+	if car_hit is Vehicle:
+		var hit_pos: Vector3 = shot.get("hit_position", aim_pt)
+		(car_hit as Vehicle).apply_hit_damage(weapon.data.damage_at(eye.distance_to(aim_pt)),
+			hit_pos, self)
+		shot["ai_target_is_vehicle"] = true
 	shots_fired += 1
 	last_aim_error = err
 	shot["ai_aim_error_deg"] = err

@@ -308,6 +308,34 @@ func _update_wheel_visuals() -> void:
 			centre = w.get_contact_point() + up * w.wheel_radius
 		(wheel_meshes[wn] as Node3D).global_transform = Transform3D(w.global_basis, centre)
 
+## Damage entry point for gunfire (T-AI-03). Applies TD-015: the car always takes the hit, the
+## driver only takes `driver_window_fraction` of a hit that comes through his window.
+## Returns the DamageInfo that was applied to the CAR so callers can report a hit.
+func apply_hit_damage(amount: float, hit_position: Vector3, source: Node = null) -> DamageInfo:
+	var split := VehicleTargeting.split_damage(self, hit_position, amount)
+	var info := DamageInfo.new()
+	info.amount = float(split["car"])
+	info.base_damage = amount
+	info.position = hit_position
+	info.source = source
+	info.weapon_id = &"vehicle_hit"
+	if info.amount > 0.0:
+		var was := is_wrecked()
+		health = maxf(health - info.amount, 0.0)
+		crashed.emit(0.0, info.amount)
+		if not was and is_wrecked():
+			wrecked.emit()
+	var drv: float = split["driver"]
+	if drv > 0.0 and driver != null and driver.has_method("get") and driver.get("health") is DamageReceiver:
+		var dinfo := DamageInfo.new()
+		dinfo.amount = drv
+		dinfo.base_damage = amount
+		dinfo.position = hit_position
+		dinfo.source = source
+		dinfo.weapon_id = &"driver_window"
+		(driver.get("health") as DamageReceiver).apply_damage(dinfo)
+	return info
+
 ## World-space centre of the drawn wheel (tests).
 func get_wheel_visual_centre(wn: StringName) -> Vector3:
 	return (wheel_meshes[wn] as Node3D).global_position

@@ -212,7 +212,9 @@ func _fire(origin: Vector3, aim_dir: Vector3, stance: Dictionary, shooter: Node,
 	bloom = minf(bloom + data.bloom_per_shot, data.bloom_max)
 	bloom_delay_left = data.bloom_recovery_delay
 	var shot := {"origin": origin, "direction": dir, "end": end, "spread_deg": spread, "kick_deg": kick,
-		"hit": not hit.is_empty(), "collider": hit.get("collider"), "damage": null}
+		"hit": not hit.is_empty(), "collider": hit.get("collider"), "damage": null,
+		# T-AI-03: callers need to know WHAT and WHERE it hit (vehicle damage is separate).
+		"hit_body": hit.get("collider"), "hit_position": end, "hit_normal": hit.get("normal")}
 	if not hit.is_empty():
 		var info := _resolve_hit(hit, origin, dir, shooter)
 		shot["damage"] = info

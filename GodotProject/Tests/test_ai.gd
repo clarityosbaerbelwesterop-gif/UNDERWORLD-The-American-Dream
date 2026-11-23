@@ -1,5 +1,8 @@
 # UNDERWORLD - headless AI tests (T-AI-01 enemies, T-AI-02 baseline civilians).
 # Layers (ForgeSkills gamedev-game-testing): 1 pure perception/accuracy math, 2 state machine +
+# T-AI-03 in-car targeting: a seated player is represented by his car (TD-015), so gunmen aim
+# at the vehicle and hits go to Vehicle.health. Negative control UW_AI_SABOTAGE=incar restores
+# the old behaviour (aim at the player's capsule) -> the ordinary in-car checks FAIL.
 # profile tables, 3 integration in res://Scenes/Test/PT_AITestRange.tscn (navmesh, LOS, hearing,
 # cover, shooting, damage, death, civilians). Run via Tests/run_gameplay_tests.sh (fixed 60 fps).
 # Arena: gunmen at (-3,0,36) (3,0,36) (0,0,37.5) facing -Z; CoverWall_A/B at z 24 (x -5 / 5),
@@ -51,6 +54,90 @@ func wait_until(cond: Callable, timeout: float) -> float:
 			return i / HZ
 		await physics_frame
 	return -1.0
+
+
+# --- T-AI-03: enemies vs. the player in a car -------------------------------------
+
+## Layer 1: the TD-015 rules as pure functions (no scene needed).
+func test_vehicle_targeting_rules() -> void:
+	print("[GPTEST] == T-AI-03 targeting rules (TD-015)")
+	var fake := Node3D.new()
+	check(VehicleTargeting.resolve(fake) == fake, "a target without a vehicle resolves to itself")
+	check(VehicleTargeting.vehicle_of(fake) == null, "no vehicle for a target on foot")
+	fake.free()
+
+
+## Layer 3: real gunmen vs. a real car. The car is placed in the range, Jason is seated, and we
+## count what the gunmen actually shoot at and how the damage is booked.
+func test_incar_targeting() -> void:
+	print("[GPTEST] == T-AI-03 enemies target the car, not the hidden player")
+	await setup(["Gunman_1"], false)
+	var g := gunmen()[0] as NPCController
+	var car_scene := load("res://Scenes/Vehicles/VH_Sedan_01.tscn") as PackedScene
+	var car := car_scene.instantiate() as Vehicle
+	root.add_child(car)
+	# Put the car where the gunmen can actually see it: OPEN_SPOT is the spot the detection
+	# test uses, so line of sight is guaranteed by an existing passing test.
+	car.global_position = OPEN_SPOT + Vector3(0, 0.1, 0)
+	await frames(6)
+	# Seat Jason: the real enter path (car.enter) needs him next to an exit socket.
+	player.global_position = car.get_socket(&"SOCKET_Exit_Left").global_position
+	await frames(2)
+	check(car.enter(player), "Jason entered the car for the in-car targeting test")
+	await seconds(1.0)
+	check(player.vehicle == car and car.driver == player, "Jason is seated and the car knows him")
+	# Perception now resolves Jason -> the car.
+	check(VehicleTargeting.resolve(player) == car, "a seated player resolves to his vehicle")
+	var pts := g.target_points(player)
+	check(pts.size() >= 2 and pts[1].distance_to(car.global_position) < 4.0,
+		"gunman aim points are on the car (%.2f m from its centre)" % pts[1].distance_to(car.global_position))
+	check(pts[1].distance_to(player.global_position) > 0.8,
+		"aim points are NOT the player's hidden capsule (%.2f m away)" % pts[1].distance_to(player.global_position))
+	# Let him see and shoot.
+	g.rng_seed = 4242
+	g.awareness = 1.0
+	g.send_event("target_spotted")
+	var health_before := car.health
+	var player_hp_before := player.health.health
+	var shots := 0
+	var car_shots := 0
+	var t := 0.0
+	while t < 8.0 and car.health >= health_before:
+		await frames(1)
+		t += 1.0 / HZ
+		shots = g.shots_fired
+		if g.target is Vehicle:
+			car_shots += 1
+	check(g.target is Vehicle, "the gunman's target IS the vehicle (not PlayerController)")
+	check(car.health < health_before, "gunfire damaged the VEHICLE (%.0f -> %.0f HP)" % [health_before, car.health])
+	check(shots > 0, "the gunman fired at the car (%d shots)" % shots)
+	check(is_equal_approx(player.health.health, player_hp_before),
+		"the hidden driver took NO damage through the bodywork (%.0f HP)" % player.health.health)
+	# TD-015 R3: a hit on the driver's window DOES hurt him, by the configured fraction.
+	var split := VehicleTargeting.split_damage(car, VehicleTargeting.car_points(car)[0], 100.0)
+	check(is_equal_approx(float(split["driver"]), 100.0 * car.data.driver_window_fraction),
+		"a driver-window hit transfers %.0f%% to the driver" % (car.data.driver_window_fraction * 100.0))
+	check(split["channel"] == VehicleTargeting.CHANNEL_DRIVER, "window hits are reported as 'driver'")
+	var body_split := VehicleTargeting.split_damage(car, car.global_position + Vector3(0, 0.2, -4.0), 100.0)
+	check(is_equal_approx(float(body_split["driver"]), 0.0), "a body hit transfers nothing to the driver")
+	# A wrecked car no longer shields its driver: the window channel closes with the car.
+	car.health = 0.0
+	var dead_split := VehicleTargeting.split_damage(car, VehicleTargeting.car_points(car)[0], 100.0)
+	check(is_equal_approx(float(dead_split["driver"]), 0.0), "a wrecked car transfers nothing to the driver")
+	car.health = health_before
+	# R4: getting out makes him a person again.
+	check(car.request_exit(), "exit accepted")
+	await seconds(1.0)
+	check(player.vehicle == null, "Jason left the seat")
+	var resolved_after := VehicleTargeting.resolve(player)
+	check(resolved_after == player, "on foot the target is the player again (R4)")
+	g.awareness = 1.0
+	await frames(10)
+	await wait_until(func(): return g.target == player, 3.0)
+	check(g.target == player, "the gunman re-targets the player after he got out")
+	car.queue_free()
+	await teardown()
+
 
 # --- fixture -------------------------------------------------------------------
 var scene: Node
@@ -122,6 +209,8 @@ func _run_all() -> void:
 	await test_shared_resources_independent()
 	await test_civilians_route_and_flee()
 	await test_data_driven_table()
+	test_vehicle_targeting_rules()
+	await test_incar_targeting()
 	if failures.is_empty():
 		print("[GPTEST] RESULT: PASS")
 		quit(0)

@@ -133,6 +133,11 @@ func ally_aim_error(distance: float, target_speed: float, focus_time: float) -> 
 	return AIPerception.aim_error_deg(profile, distance, target_speed, focus_time) + accuracy_penalty_deg
 
 
+## NPCController calls this for every shot; the ally adds its penalty on top.
+func aim_error_deg_for(distance: float, target_speed: float) -> float:
+	return super.aim_error_deg_for(distance, target_speed) + accuracy_penalty_deg
+
+
 func _physics_process(delta: float) -> void:
 	if is_seated():
 		return

@@ -593,3 +593,14 @@ No install scripts were executed. Findings:
 
 Keep UNDERWORLD’s own pipeline and technical decisions as the source of truth when
 advice conflicts.
+
+---
+
+## Donchitos/Claude-Code-Game-Studios — **PARTLY** (selective, not as template) · vetted 2026-11-23 by Bot 1
+
+- URL: https://github.com/Donchitos/Claude-Code-Game-Studios · MIT · ~40.7k stars · v1.3.0 (2026-11-09), HEAD `abc0de7` · 49 agents, 75 skills, 15 hooks, 14 rules, 62 templates. Shallow clone read-only at `/workspace/tools/skills-vendor/Donchitos__Claude-Code-Game-Studios` (not in git). Nothing was executed.
+- It is a **project template** (own `CLAUDE.md`, `.claude/settings.json`, `project.yaml`, `src/`) – copying it over this repo would replace our rules.
+- `.claude/settings.json` registers bash hooks on SessionStart, PreToolUse (Bash/Write/Edit/Read), PostToolUse, Stop, PreCompact, Notification. `session-start.sh` sources `update-check.sh` (curl/wget to api.github.com on every session; opt-out `updates.check=false`). `validate-commit.sh`/`validate-push.sh` are useful (force-push guard, LFS pointer check). `vendor-three.sh`/`test-scaffold.sh` use npm/npx/curl (web path only) – never run.
+- Use: copy selected agent markdown files (godot-specialist, godot-gdscript-specialist, godot-shader-specialist, technical-artist, level-designer, qa-lead, performance-analyst, release-manager) into the **user** scope `~/.claude/agents/` after reading and adapting paths to `GodotProject/` and our docs. No hooks by default; any hook only after review + TD. Agents' frontmatter pins models (Opus/Sonnet) – choose deliberately.
+- Alternatives checked: bgrenat/godot-game-dev-studio (LGPL-3.0, 28★, read only), HunLuanZhiZhu/Game-Studios-Plugin (MIT, 3★, bundles MCP servers → no), Swih/godot-foundry (no clear license → skip), Mosberg/godot-game-studio (no license, MCP, self-declared untested → skip).
+- Full install steps: `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md` §10.2.

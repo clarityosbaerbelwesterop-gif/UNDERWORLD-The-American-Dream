@@ -1,0 +1,84 @@
+[gd_resource type="Resource" script_class="AIProfile" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Scripts/ai/ai_profile.gd" id="1_prof"]
+[ext_resource type="Resource" path="res://Data/Weapons/WPN_Pistol_01.tres" id="2_wpn"]
+
+; AI_Ally_Marco - Marco Ruiz, Jason's ally in M01 "Dead Drop" (T-MIS-01b).
+; [DOC]  Docs/Missions/M01_DeadDrop.md: "Marco fights (invulnerable ally, low accuracy)".
+;        He is not killable in M1 (ally death is out of scope) and must never aim at Jason.
+; [DATA] The low accuracy is expressed here, not in code: aim_error_deg 9 (vs. the cartel's 4),
+;        a long reaction time and short bursts. AIPerception.aim_error_deg() adds the
+;        moving-target and distance terms on top; AllyCompanion adds accuracy_penalty_deg.
+;        The invulnerability flag lives on the DamageReceiver (AllyCompanion sets it on _ready)
+;        because a profile is shared data and must not decide who can die.
+[resource]
+script = ExtResource("1_prof")
+id = "AI_Ally_Marco"
+max_health = 150.0
+initial_state = "idle"
+transitions = {
+"alert": {
+"damaged": "engage",
+"heard_gunshot": "alert",
+"target_spotted": "engage",
+"timeout": "investigate"
+},
+"engage": {
+"cover_found": "take_cover",
+"target_dead": "idle",
+"target_lost": "search"
+},
+"idle": {
+"damaged": "engage",
+"heard_gunshot": "alert",
+"suspicious": "alert",
+"target_spotted": "engage"
+},
+"in_cover": {
+"cover_compromised": "engage",
+"target_dead": "idle",
+"target_lost": "search"
+},
+"investigate": {
+"damaged": "engage",
+"heard_gunshot": "alert",
+"suspicious": "alert",
+"target_spotted": "engage",
+"timeout": "idle"
+},
+"search": {
+"damaged": "engage",
+"heard_gunshot": "alert",
+"target_spotted": "engage",
+"timeout": "idle"
+},
+"take_cover": {
+"arrived": "in_cover",
+"cover_lost": "engage",
+"target_dead": "idle",
+"target_lost": "search"
+}
+}
+state_timeouts = {
+"alert": 1.5,
+"investigate": 8.0,
+"search": 8.0
+}
+walk_speed = 1.4
+run_speed = 3.8
+weapon = ExtResource("2_wpn")
+reaction_time = 0.8
+burst_min = 1
+burst_max = 2
+burst_shot_interval = 0.5
+burst_pause_min = 1.4
+burst_pause_max = 2.2
+aim_error_deg = 9.0
+aim_error_moving_target = 4.0
+aim_error_per_10m = 1.2
+focus_time = 3.0
+focus_min_factor = 0.7
+max_engage_distance = 24.0
+preferred_distance = 12.0
+use_cover = true
+cover_search_radius = 12.0

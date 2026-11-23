@@ -62,6 +62,7 @@ func pick_up(by: Node3D) -> bool:
 	top_level = true
 	# Dropping the parent keeps the world transform stable across the reparent.
 	picked_up.emit(by)
+	_set_carrier_carrying(by, true)
 	_snap_to_carrier()
 	return true
 
@@ -69,6 +70,7 @@ func drop() -> bool:
 	if state != State.CARRIED:
 		return false
 	var pos := global_position
+	_set_carrier_carrying(carrier, false)
 	state = State.ON_GROUND
 	carrier = null
 	top_level = false
@@ -80,6 +82,7 @@ func load_into(car: Node3D) -> bool:
 		return false
 	if state == State.LOADED:
 		return false
+	_set_carrier_carrying(carrier, false)
 	state = State.LOADED
 	vehicle = car
 	carrier = null
@@ -113,6 +116,16 @@ func distance_from_holder(player: Node3D = null) -> float:
 	var p := (holder as Node3D).global_position
 	return Vector2(p.x - global_position.x, p.z - global_position.z).length()
 
+## T-GP-04: the two-handed Carry clips replace locomotion while the carrier holds the item.
+## Set on pickup/drop, so the visual never has to poll the mission state.
+func _set_carrier_carrying(by: Node3D, on: bool) -> void:
+	if by == null or not is_instance_valid(by):
+		return
+	var vis = by.get("visual")
+	if vis is CharacterVisual:
+		(vis as CharacterVisual).carrying = on
+
+
 func _physics_process(_delta: float) -> void:
 	if state == State.CARRIED and is_instance_valid(carrier):
 		_snap_to_carrier()
@@ -131,6 +144,7 @@ func _snap_to_vehicle(car: Node3D) -> void:
 
 func _on_health_died(_info: DamageInfo) -> void:
 	_destroyed = true
+	_set_carrier_carrying(carrier, false)
 	state = State.ON_GROUND
 	destroyed.emit()
 

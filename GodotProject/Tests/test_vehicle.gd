@@ -230,7 +230,7 @@ func test_enter() -> void:
 	check(player.collision_layer == 0 and player.collision_mask == 0, "player collision off while in the car")
 	check(car.chase_camera.current, "chase camera active")
 	check(opened.size() >= 1 and opened[0] == [&"Door_FL", true], "driver door Door_FL opens on enter")
-	await seconds(car.data.enter_time + 0.05)
+	await seconds(car.enter_duration() + 0.05)
 	check(car.state == Vehicle.State.DRIVING, "enter sequence done -> DRIVING")
 	check(opened.size() >= 2 and opened[1] == [&"Door_FL", false], "driver door closes after getting in")
 	var seat := car.get_socket(&"SOCKET_Seat_Driver")
@@ -305,7 +305,7 @@ func test_exit_too_fast_and_exit() -> void:
 	car.exited.connect(func(p): exited.append(p), CONNECT_ONE_SHOT)
 	await tap("enter_vehicle")
 	check(car.state == Vehicle.State.EXITING and car.get_door_open(&"Door_FL") > 0.0, "F/Y while stopped starts the exit, driver door opens")
-	await seconds(car.data.exit_time + 0.05)
+	await seconds(car.exit_duration() + 0.05)
 	var sock := car.get_socket(&"SOCKET_Exit_Left").global_position
 	check(exited.size() == 1 and player.vehicle == null and car.driver == null, "exit finished, car empty")
 	check(player.global_position.distance_to(sock) < 0.05, "[ACCEPTANCE] player placed at SOCKET_Exit_Left (%.3f m off)" % player.global_position.distance_to(sock))
@@ -340,13 +340,13 @@ func test_exit_blocked_sides() -> void:
 	player.global_position = car.get_socket(&"SOCKET_Exit_Left").global_position + car.global_basis.x * 0.6
 	await frames(2)
 	await tap("enter_vehicle")
-	await seconds(car.data.enter_time + 0.3)
+	await seconds(car.enter_duration() + 0.3)
 	check(car.state == Vehicle.State.DRIVING, "re-enter works")
 	var wall_l := _block(car.get_socket(&"SOCKET_Exit_Left").global_position)
 	await frames(2)
 	check(not car.is_exit_free(&"SOCKET_Exit_Left") and car.is_exit_free(&"SOCKET_Exit_Right"), "free-space check sees the blocked left exit")
 	await tap("enter_vehicle")
-	await seconds(car.data.exit_time + 0.1)
+	await seconds(car.exit_duration() + 0.1)
 	var r := car.get_socket(&"SOCKET_Exit_Right").global_position
 	check(player.vehicle == null and player.global_position.distance_to(r) < 0.05, "left blocked -> player exits at SOCKET_Exit_Right")
 	# Both blocked -> stays in.
@@ -354,14 +354,14 @@ func test_exit_blocked_sides() -> void:
 	player.global_position = r + (-car.global_basis.x) * 0.6
 	await frames(2)
 	await tap("enter_vehicle")
-	await seconds(car.data.enter_time + 0.3)
+	await seconds(car.enter_duration() + 0.3)
 	check(car.state == Vehicle.State.DRIVING, "re-enter from the right side works")
 	var wall_r := _block(r)
 	var blocked := [false]
 	car.exit_blocked.connect(func(): blocked[0] = true, CONNECT_ONE_SHOT)
 	await frames(2)
 	await tap("enter_vehicle")
-	await seconds(car.data.exit_time + 0.1)
+	await seconds(car.exit_duration() + 0.1)
 	check(blocked[0] and player.vehicle == car and car.state == Vehicle.State.DRIVING, "both exits blocked -> exit_blocked, player stays in")
 	wall_l.queue_free()
 	wall_r.queue_free()

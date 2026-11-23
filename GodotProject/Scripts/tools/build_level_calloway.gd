@@ -22,14 +22,27 @@ const ROAD_W := 10.0
 const ROAD_LEN := 14.0
 const SIDEWALK_W := 4.0
 const SIDEWALK_LEN := 10.0
-const WEST_X := -24.0      # centre of the west street road
-const EAST_X := 24.0       # centre of the east service lane road
-const WSIDE_W := -17.0     # inner sidewalk centre (west street, east side)
-const WSIDE_E := -31.0     # outer sidewalk centre (west street, west side)
+## Kerb lines (layout §3.1): WEST road x = -29 .. -19, EAST road x = +19 .. +29,
+## NORTH/SOUTH roads z = +72 .. +86 and -86 .. -72. Road centres:
+const WEST_X := -24.0
+const EAST_X := 24.0
+## Sidewalk centre lines: -33 .. -29 and -19 .. -15 (west), +15 .. +19 and +29 .. +33 (east).
+const WSIDE_W := -31.0
+const WSIDE_E := -17.0
 const ESIDE_W := 17.0
 const ESIDE_E := 31.0
 const NORTH_Z := 79.0
 const SOUTH_Z := -79.0
+## Building frontage lines (gaps.cfg raises this if the building is deeper than 2 m).
+## A building sits on the lot side of this line, never on a sidewalk or the roadway:
+##   west block  -> front face at x = X_WEST_FRONT, body extends west (deeper x)
+##   east block  -> front face at x = X_EAST_FRONT, body extends east
+##   north strip -> front face at z = Z_NORTH_FRONT, body extends north
+##   south strip -> front face at z = Z_SOUTH_FRONT, body extends south
+const X_WEST_FRONT := -33.0
+const X_EAST_FRONT := 33.0
+const Z_NORTH_FRONT := 86.0
+const Z_SOUTH_FRONT := -86.0
 
 var level: Node3D
 var kit: Dictionary = {}       # name -> PackedScene or null
@@ -39,14 +52,24 @@ var rng := RandomNumberGenerator.new()
 func _initialize() -> void:
 	rng.seed = 20261122
 	level = Node3D.new()
+	level.name = "LA_CallowayAve"
 	root.name = "LA_CallowayAve"
+	# The level has to be IN the tree before the navmesh is baked: parse_source_geometry_data()
+	# only sees geometry with a global transform, so baking from a detached node silently
+	# produced an empty navmesh (0 polygons).
+	root.add_child(level)
 	_load_kit()
 	_build_ground()
 	_build_streets()
 	_build_buildings()
 	_build_props()
 	_build_lighting()
-	_build_navmesh()
+	_build_navmesh()      # region + settings (no geometry)
+	# The parser reads global transforms, so the tree must have run at least one frame before the
+	# geometry is there (baking right after add_child() yields 0 polygons).
+	await process_frame
+	await physics_frame
+	_bake_navmesh()       # ... and bake it from the collision geometry above
 	_build_spawns_and_ai()
 	_build_mission_anchors()
 	_save()
@@ -118,18 +141,89 @@ func _mat(color: Color, rough := 0.85, metal := 0.0) -> StandardMaterial3D:
 	return m
 
 
+## Running counter per piece name, so a level greps like a level: Road_Straight_01 .. _26.
+var _name_counter: Dictionary = {}
+
+
 ## Instance a kit piece if available, else its greybox fallback (same footprint + collision).
-func _kit_piece(name: String, pos: Vector3, rot_y: float, fallback_size: Vector3, fallback_mat: StandardMaterial3D, parent: Node) -> Node3D:
+## Names are ALWAYS speaking (piece + running index): Godot's automatic "@Node3D@NN" names are a
+## debugging trap and the level review (T-LVL-01a) rejects them.
+func _kit_piece(name: String, pos: Vector3, rot_y: float, fallback_size: Vector3, fallback_mat: StandardMaterial3D, parent: Node, paint: Array = []) -> Node3D:
+	var short := name.trim_prefix("SM_LA_").trim_prefix("SM_Prop_")
+	_name_counter[short] = int(_name_counter.get(short, 0)) + 1
+	var piece_name := "%s_%02d" % [short, int(_name_counter[short])]
 	var scene = kit.get(name)
 	if scene != null and scene is PackedScene:
 		var inst := (scene as PackedScene).instantiate()
-		inst.name = name + "_" + str(level.get_child_count())
+		inst.name = piece_name
 		parent.add_child(inst)
 		inst.position = pos
 		inst.rotation.y = rot_y
+		# T-LVL-01a: until now the fallback material was ONLY used for the greybox, so the real
+		# kit pieces kept their near-black asphalt / light concrete textures and the capture showed
+		# three greys that nobody could tell apart. `paint` overrides selected SURFACES by their
+		# material name, so the lane markings of the road piece survive.
+		#
+		# The override cannot live on the instanced meshes: PackedScene only serialises the
+		# instance root, so per-surface overrides inside a sub-scene are silently dropped when the
+		# level is saved (measured: 0 "surface_override_material" entries in the .tscn). So the
+		# painted surfaces become LEVEL-OWNED mesh instances; the kit instance stays hidden and
+		# keeps its exported hull, which is what the physics and the navmesh parse.
+		if not paint.is_empty():
+			_own_painted_meshes(inst, parent, piece_name, paint)
+			inst.visible = false
 		return inst
-	var body := _static_box(name, fallback_size, pos, fallback_mat, parent, rot_y)
+	var body := _static_box(piece_name, fallback_size, pos, fallback_mat, parent, rot_y)
 	return body
+
+
+## Copies every MeshInstance of `inst` that carries a painted surface into `parent` as a
+## level-owned node (so it survives packing) and overrides only the named materials.
+func _own_painted_meshes(inst: Node3D, parent: Node, piece_name: String, paint: Array) -> void:
+	for mi in inst.find_children("*", "MeshInstance3D", true, false):
+		var src := mi as MeshInstance3D
+		if src.mesh == null:
+			continue
+		var wanted := {}
+		for entry in paint:
+			for i in src.mesh.get_surface_count():
+				var m = src.mesh.surface_get_material(i)
+				if m is BaseMaterial3D and String((m as BaseMaterial3D).resource_name).contains(String(entry[0])):
+					wanted[i] = entry[1]
+		if wanted.is_empty():
+			continue
+		var copy := MeshInstance3D.new()
+		copy.name = "%s_%s" % [piece_name, String(src.name).trim_suffix("_Mesh")]
+		copy.mesh = src.mesh
+		# Compose the chain from the kit instance down to this mesh BY HAND.
+		# global_transform is useless here: `_initialize()` of a --script SceneTree runs before
+		# SceneTree::initialize() sets the tree, so `root.add_child(level)` does NOT make the level
+		# "inside tree", and every global_transform still reads identity. (Measured: all 26 road
+		# copies were stored at (0,0,0) and the whole street was invisible in-game - the plan
+		# capture found it, the luminance test did not.)
+		var chain := Transform3D.IDENTITY
+		var walk: Node = src
+		while walk != null and walk != inst:
+			if walk is Node3D:
+				chain = (walk as Node3D).transform * chain
+			walk = walk.get_parent()
+		copy.transform = inst.transform * chain
+		parent.add_child(copy)
+		for i in wanted:
+			copy.set_surface_override_material(i, wanted[i])
+
+
+## Override every surface of `n` whose material name contains `needle` (keeps the others).
+func _paint_surfaces(n: Node, needle: String, mat: StandardMaterial3D) -> void:
+	if n is MeshInstance3D:
+		var mi := n as MeshInstance3D
+		if mi.mesh != null:
+			for i in mi.mesh.get_surface_count():
+				var m = mi.mesh.surface_get_material(i)
+				if m is BaseMaterial3D and String((m as BaseMaterial3D).resource_name).contains(needle):
+					mi.set_surface_override_material(i, mat)
+	for c in n.get_children():
+		_paint_surfaces(c, needle, mat)
 
 
 # --- geometry -----------------------------------------------------------------
@@ -148,6 +242,7 @@ func _build_ground() -> void:
 	body.collision_mask = 0
 	g.add_child(body)
 	var cs := CollisionShape3D.new()
+	cs.name = "Collision"
 	var sh := BoxShape3D.new()
 	sh.size = Vector3(240, 0.2, 240)
 	cs.shape = sh
@@ -159,90 +254,203 @@ func _build_streets() -> void:
 	var s := Node3D.new()
 	s.name = "Streets"
 	level.add_child(s)
-	var asphalt := _mat(Color(0.20, 0.20, 0.21), 0.92)
-	var concrete := _mat(Color(0.55, 0.53, 0.50), 0.88)
+	# T-LVL-01a: the kit textures are near-black asphalt and light concrete and the ambient sky
+	# washed both out to the same grey in the capture. Explicit override materials give road,
+	# kerb and sidewalk three clearly different values (measured in check_level.gd / test_level).
+	var asphalt := _mat(Color(0.15, 0.15, 0.16), 0.95)
+	var concrete := _mat(Color(0.62, 0.60, 0.56), 0.90)
 
 	# West street: road strip along Z from -86..+86, modules of 14 m
 	var z := -86.0 + ROAD_LEN * 0.5
 	while z <= 86.0:
 		_kit_piece("SM_LA_Road_Straight", Vector3(WEST_X, 0, z), 0.0,
-			Vector3(ROAD_W, 0.04, ROAD_LEN), asphalt, s)
+			Vector3(ROAD_W, 0.04, ROAD_LEN), asphalt, s, [["Asphalt", asphalt]])
 		_kit_piece("SM_LA_Road_Straight", Vector3(EAST_X, 0, z), 0.0,
-			Vector3(ROAD_W, 0.04, ROAD_LEN), asphalt, s)
+			Vector3(ROAD_W, 0.04, ROAD_LEN), asphalt, s, [["Asphalt", asphalt]])
 		z += ROAD_LEN
-	# Sidewalks (west street both sides, east lane both sides)
+	# Sidewalks: 4 m wide, on both sides of both N-S lanes (layout §3.1):
+	# west lane kerbs at -29 / -19 -> sidewalk centres -31 / -17; east lane -> +17 / +31.
 	var zz := -85.0 + SIDEWALK_LEN * 0.5
 	while zz <= 85.0:
 		for x in [WSIDE_E, WSIDE_W, ESIDE_W, ESIDE_E]:
 			_kit_piece("SM_LA_Sidewalk_Curb", Vector3(x, 0, zz), 0.0,
-				Vector3(SIDEWALK_W, 0.16, SIDEWALK_LEN), concrete, s)
+				Vector3(SIDEWALK_W, 0.16, SIDEWALK_LEN), concrete, s, [["Concrete", concrete]])
 		zz += SIDEWALK_LEN
+	# A bright kerb line on the street side of every sidewalk: 0.18 m wide, 0.02 m above the
+	# sidewalk, so the edge reads even when the sun is flat (glyph, not decoration).
+	var kerb_mat := _mat(Color(0.80, 0.78, 0.72), 0.85)
+	# Street-side edge of each N-S sidewalk: 0.18 m wide, 2 cm proud of the slab.
+	for kx in [WSIDE_E + SIDEWALK_W * 0.5 - 0.09, WSIDE_W - SIDEWALK_W * 0.5 + 0.09,
+			ESIDE_W - SIDEWALK_W * 0.5 + 0.09, ESIDE_E + SIDEWALK_W * 0.5 - 0.09]:
+		_static_box("Kerb_Line_%+.1f" % kx, Vector3(0.18, 0.02, 170.0),
+			Vector3(kx, 0.17, 0.0), kerb_mat, s)
+	# Same line along the two closing segments (south/north).
+	for kz in [Z_SOUTH_FRONT + 4.0 - 0.09, Z_NORTH_FRONT - 4.0 + 0.09]:
+		_static_box("Kerb_Line_z%+.1f" % kz, Vector3(66.0, 0.02, 0.18),
+			Vector3(0.0, 0.17, kz), kerb_mat, s)
+	# Sidewalks along the south and north segments too, so pedestrians never walk on the
+	# roadway and the block edge is readable (z = -86 / +86 kerb, 4 m deep).
+	var xx := -33.0
+	while xx <= 33.0:
+		_kit_piece("SM_LA_Sidewalk_Curb", Vector3(xx, 0, Z_SOUTH_FRONT + 2.0), PI * 0.5,
+			Vector3(SIDEWALK_W, 0.16, SIDEWALK_LEN), concrete, s, [["Concrete", concrete]])
+		_kit_piece("SM_LA_Sidewalk_Curb", Vector3(xx, 0, Z_NORTH_FRONT - 2.0), PI * 0.5,
+			Vector3(SIDEWALK_W, 0.16, SIDEWALK_LEN), concrete, s, [["Concrete", concrete]])
+		xx += SIDEWALK_LEN
 	# North and south closing roads (X from -33..+33, 8 m deep)
 	for x in [-30.0, -16.0, -2.0, 12.0, 26.0]:
 		for zc in [NORTH_Z, SOUTH_Z]:
 			_kit_piece("SM_LA_Road_Straight", Vector3(x + 2.0, 0, zc), PI * 0.5,
-				Vector3(14.0, 0.04, ROAD_W), asphalt, s)
+				Vector3(14.0, 0.04, ROAD_W), asphalt, s, [["Asphalt", asphalt]])
 	# Kerb-gap alley on the west side (never a dead end, layout §3.1)
 	for zc in [-4.0, 4.0]:
 		_kit_piece("SM_LA_Road_Straight", Vector3(-42.0, 0, zc), PI * 0.5,
-			Vector3(14.0, 0.04, 8.0), concrete, s)
+			Vector3(14.0, 0.04, 8.0), concrete, s, [["Asphalt", _mat(Color(0.42, 0.40, 0.37), 0.93)]])
+
+
+## Footprint of a kit piece as the ART actually ships it (manifest aabb_godot), not the
+## nominal grid size. Falls back to `fallback` when the manifest is missing.
+func _kit_size(name: String, axis: int, fallback: float) -> float:
+	var path := KIT_DIR + name + "/" + name + ".manifest.json"
+	if not FileAccess.file_exists(path):
+		return fallback
+	var f := FileAccess.open(path, FileAccess.READ)
+	if f == null:
+		return fallback
+	var parsed = JSON.parse_string(f.get_as_text())
+	f.close()
+	if typeof(parsed) != TYPE_DICTIONARY or not parsed.has("aabb_godot"):
+		return fallback
+	var size: Array = parsed["aabb_godot"]["size"]
+	return float(size[axis]) if size.size() > axis else fallback
+
+
+## Place a building so that its FRONT FACE sits on `front`, with the body on the lot side:
+##   "west"  -> body at -X, front face at +X (faces east onto the west street)
+##   "east"  -> body at +X, front face at -X (faces west onto the east service lane)
+##   "north" -> body at +Z, front face at -Z (faces south onto the north segment)
+##   "south" -> body at -Z, front face at +Z (faces north onto the south segment)
+## `along` is the coordinate on the other axis. Never overlaps a sidewalk or the roadway,
+## which is what makes the M01 drive loop drivable.
+## Returns the placed block; the caller attaches it to the scene (it is created detached here,
+## because a Node can only have one parent - attaching it twice renames it to "@Node3D@NN").
+func _building(name: String, front: float, along: float, facing: String, size: Vector3, mat: StandardMaterial3D) -> Node3D:
+	var b := Node3D.new()
+	b.name = name + "_Block"
+	var body := _kit_piece(name, Vector3.ZERO, 0.0, size, mat, b)
+	# kit pieces carry their manifest footprint; the greybox fallback uses `size`
+	var depth_x := size.x
+	var depth_z := size.z
+	if kit.get(name) is PackedScene:
+		depth_x = _kit_size(name, 0, size.x)
+		depth_z = _kit_size(name, 2, size.z)
+	match facing:
+		"west":
+			body.position = Vector3(front - depth_x * 0.5, 0.0, along)
+			body.rotation.y = -PI * 0.5          # front face (+Z of the piece) -> +X
+		"east":
+			body.position = Vector3(front + depth_x * 0.5, 0.0, along)
+			body.rotation.y = PI * 0.5           # front face -> -X
+		"north":
+			body.position = Vector3(along, 0.0, front + depth_z * 0.5)
+			body.rotation.y = PI                 # front face -> -Z
+		"south":
+			body.position = Vector3(along, 0.0, front - depth_z * 0.5)
+			body.rotation.y = 0.0                # front face -> +Z
+		_:
+			push_error("unknown facing %s" % facing)
+	# Return the BLOCK, not the piece: the piece is already parented to it, and re-parenting the
+	# piece is what made every building silently disappear from the saved scene (T-LVL-01a).
+	return b
 
 
 func _build_buildings() -> void:
 	var b := Node3D.new()
-	b.name = "Buildings"
+	b.name = "BlockBuildings"
 	level.add_child(b)
 	var stucco_a := _mat(Color(0.72, 0.62, 0.48), 0.9)
 	var stucco_b := _mat(Color(0.62, 0.52, 0.44), 0.9)
 	var brick := _mat(Color(0.45, 0.28, 0.24), 0.95)
 	var industrial := _mat(Color(0.52, 0.53, 0.50), 0.85)
-	var shop_size := Vector3(10, 7.2, 8)
-	# West block: shop row facing +X (east street)
-	var shops := [
-		["Bldg_Shop_01", Vector3(-22.0, 0, -60.0), -PI * 0.5, stucco_a],
-		["Bldg_Shop_02", Vector3(-22.0, 0, -38.0), -PI * 0.5, stucco_b],
-		["Bldg_Shop_03", Vector3(-22.0, 0, 20.0), -PI * 0.5, stucco_a],
-		["Bldg_Apartment_A", Vector3(-22.0, 0, 52.0), -PI * 0.5, brick],
-		["Bldg_Shop_04", Vector3(-4.0, 0, -80.0), PI, stucco_b],
-		# East block: garage + industrial
-		["Bldg_Industrial_01", Vector3(22.0, 0, -50.0), PI * 0.5, industrial],
-		["Bldg_Warehouse", Vector3(24.0, 0, 78.0), PI, industrial],
-	]
-	for entry in shops:
-		_kit_piece(entry[0], entry[1] + Vector3(0, shop_size.y * 0.5, 0), entry[2],
-			shop_size, entry[3], b)
-	# 4-storey apartment: stacked masses (placeholder until the brick block exists)
-	_static_box("Bldg_Apartment_A_Upper", Vector3(10, 6.0, 8),
-		Vector3(-22.0, 10.2, 52.0), brick, b, -PI * 0.5)
-	# Big warehouse roll-up door (visual + cover)
-	_static_box("Warehouse_Door", Vector3(6, 4.2, 0.3), Vector3(24.0, 2.1, 73.6),
+	var shop_size := Vector3(10.0, 7.2, 8.0)
+	# West block: shop row behind the west sidewalk (front face on the kerb line x = -33)
+	# The drive loop runs east of these, on x = -29 .. -19.
+	for entry in [
+			["Bldg_Shop_01", -60.0, stucco_a],
+			["Bldg_Shop_02", -38.0, stucco_b],
+			["Bldg_Shop_03", 20.0, stucco_a],
+			["Bldg_Apartment_A", 52.0, brick],
+			]:
+		var n: String = entry[0]
+		var node := _building(n, X_WEST_FRONT, entry[1], "west", shop_size, entry[2])
+		b.add_child(node)
+	# East block: garage + industrial behind the east sidewalk (front face x = +33).
+	# Their entrances face west onto the east service lane.
+	for entry in [
+			["Bldg_Industrial_01", -50.0, industrial],
+			["Bldg_Warehouse", 78.0, industrial],
+			]:
+		b.add_child(_building(entry[0], X_EAST_FRONT, entry[1], "east", shop_size, entry[2]))
+	# 4-storey apartment over Shop03/Apartment_A: stacked mass, same lot
+	_static_box("Bldg_Apartment_A_Upper", Vector3(10.0, 6.0, 8.0),
+		Vector3(X_WEST_FRONT - 5.0, 10.2, 52.0), brick, b)
+	# Shop 04 faces north onto the south segment, behind the south sidewalk (z = -86)
+	b.add_child(_building("Bldg_Shop_04", Z_SOUTH_FRONT, -4.0, "south", shop_size, stucco_b))
+	# Warehouse roll-up door on the west face of the warehouse (facing the east lane)
+	_static_box("Warehouse_Door", Vector3(0.3, 4.2, 6.0), Vector3(X_EAST_FRONT - 0.15, 2.1, 78.0),
 		_mat(Color(0.35, 0.37, 0.40), 0.5, 0.6), b)
-	# The M01 garage: hollow interior, roll-up door facing west (layout §3.2)
-	var garage_pos := Vector3(24.0, 0, 6.0)
-	var garage := _kit_piece("SM_LA_Bldg_GarageM01", garage_pos, PI * 0.5,
-		Vector3(12.2, 4.9, 10.2), _mat(Color(0.58, 0.55, 0.50), 0.9), b)
-	garage.name = "Bldg_GarageM01"
-	# Garage interior walls with collision (the kit shell is visual; keep physics explicit)
+	_build_garage(b)
+
+
+## The M01 garage: 10 x 8 m interior, hollow, roll-up door facing WEST onto the east service
+## lane. Sits in the east block behind the east sidewalk, exactly where the kit shell is.
+## Areas/markers keep their documented world positions (layout §3.3); moving the building
+## instead of the anchors means no mission / HUD code has to change.
+func _build_garage(b: Node3D) -> void:
+	var garage_pos := Vector3(X_EAST_FRONT + 5.0, 0.0, 6.0)
+	# The kit shell is HOLLOW (roll-up door facing west) - never replace it with a solid box,
+	# or the player can never walk in to the ambush / package. Its own collision comes from the
+	# exported UCX_-colonly hull; the interior walls below add the explicit physics we need.
+	if kit.get("SM_LA_Bldg_GarageM01") is PackedScene:
+		var shell := _kit_piece("SM_LA_Bldg_GarageM01", garage_pos, PI * 0.5,
+			Vector3(10.0, 4.9, 8.0), _mat(Color(0.58, 0.55, 0.50), 0.9), b)
+		shell.name = "Bldg_GarageM01"
+	else:
+		# Greybox fallback: four walls + a roof, no solid interior.
+		var shell_mat := _mat(Color(0.58, 0.55, 0.50), 0.9)
+		_static_box("Bldg_GarageM01_W", Vector3(0.3, 4.9, 8.0), garage_pos + Vector3(-5.0, 2.45, 0), shell_mat, b)
+		_static_box("Bldg_GarageM01_E", Vector3(0.3, 4.9, 8.0), garage_pos + Vector3(5.0, 2.45, 0), shell_mat, b)
+		_static_box("Bldg_GarageM01_N", Vector3(10.0, 4.9, 0.3), garage_pos + Vector3(0, 2.45, 4.0), shell_mat, b)
+		_static_box("Bldg_GarageM01_S", Vector3(10.0, 4.9, 0.3), garage_pos + Vector3(0, 2.45, -4.0), shell_mat, b)
+		_static_box("Bldg_GarageM01_Roof", Vector3(10.0, 0.3, 8.0), garage_pos + Vector3(0, 4.9, 0), shell_mat, b)
+	# Hollow it out visually: the interior box is drawn, the shell stays collision only.
 	var walls := _mat(Color(0.52, 0.50, 0.47), 0.92)
-	_static_box("Garage_Floor", Vector3(10.0, 0.2, 8.0), garage_pos + Vector3(0, -0.1, 0), walls, b)
-	_static_box("Garage_Wall_N_W", Vector3(4.0, 4.6, 0.3), garage_pos + Vector3(-3.5, 2.3, 4.0), walls, b)
-	_static_box("Garage_Wall_N_E", Vector3(5.0, 4.6, 0.3), garage_pos + Vector3(2.5, 2.3, 4.0), walls, b)
-	_static_box("Garage_Wall_N_Lintel", Vector3(1.0, 2.4, 0.3), garage_pos + Vector3(-1.0, 3.4, 4.0), walls, b)
-	_static_box("Garage_Wall_S", Vector3(10.0, 4.6, 0.3), garage_pos + Vector3(0, 2.3, -4.0), walls, b)
-	_static_box("Garage_Wall_E", Vector3(0.3, 4.6, 8.0), garage_pos + Vector3(5.0, 2.3, 0), walls, b)
-	# West wall is split by the roll-up door (3 m opening at z = +6, i.e. centre of the north half)
-	_static_box("Garage_Wall_W_N", Vector3(0.3, 4.6, 7.4), garage_pos + Vector3(-5.0, 2.3, 2.3), walls, b)
-	_static_box("Garage_Wall_W_S", Vector3(0.3, 4.6, 1.2), garage_pos + Vector3(-5.0, 2.3, -3.0), walls, b)
-	_static_box("Garage_Wall_W_Lintel", Vector3(0.3, 1.6, 3.0), garage_pos + Vector3(-5.0, 3.8, 0.9), walls, b)
-	# North wall is split by a 1.0 m personnel door at x = -2.0 (flank route, layout §5)
-	# Interior props: bench + wrecked car + crate stack (cover, layout §5)
-	_static_box("Garage_Bench", Vector3(2.4, 0.95, 0.9), garage_pos + Vector3(2.5, 0.48, 2.5), _mat(Color(0.34, 0.24, 0.16), 0.8), b)
-	_static_box("Garage_WreckCar", Vector3(1.8, 1.1, 4.2), garage_pos + Vector3(-1.0, 0.55, -2.0), _mat(Color(0.30, 0.32, 0.34), 0.6, 0.4), b)
-	_static_box("Garage_Crate_A", Vector3(1.2, 1.2, 1.2), garage_pos + Vector3(3.5, 0.6, -1.0), _mat(Color(0.42, 0.34, 0.24), 0.9), b)
-	_static_box("Garage_Crate_B", Vector3(1.0, 1.0, 1.0), garage_pos + Vector3(3.5, 1.7, -1.0), _mat(Color(0.42, 0.34, 0.24), 0.9), b)
-	_static_box("Garage_Pillar_N", Vector3(0.4, 4.6, 0.4), garage_pos + Vector3(-3.0, 2.3, 3.5), walls, b)
-	_static_box("Garage_Pillar_S", Vector3(0.4, 4.6, 0.4), garage_pos + Vector3(-3.0, 2.3, -1.5), walls, b)
-	_static_box("Forecourt_Dumpster", Vector3(2.0, 1.3, 1.2), Vector3(15.5, 0.65, -2.0), _mat(Color(0.18, 0.32, 0.24), 0.8), b)
+	var g := garage_pos
+	_static_box("Garage_Floor", Vector3(10.0, 0.2, 8.0), g + Vector3(0, -0.1, 0), walls, b)
+	_static_box("Garage_Wall_N", Vector3(10.0, 4.6, 0.3), g + Vector3(0, 2.3, 4.0), walls, b)
+	_static_box("Garage_Wall_S", Vector3(10.0, 4.6, 0.3), g + Vector3(0, 2.3, -4.0), walls, b)
+	_static_box("Garage_Wall_E", Vector3(0.3, 4.6, 8.0), g + Vector3(5.0, 2.3, 0), walls, b)
+	# West wall split by the 3 m roll-up door (opening at the centre of the west face)
+	_static_box("Garage_Wall_W_N", Vector3(0.3, 4.6, 2.5), g + Vector3(-5.0, 2.3, 2.75), walls, b)
+	_static_box("Garage_Wall_W_S", Vector3(0.3, 4.6, 2.5), g + Vector3(-5.0, 2.3, -2.75), walls, b)
+	_static_box("Garage_Wall_W_Lintel", Vector3(0.3, 1.6, 3.0), g + Vector3(-5.0, 3.8, 0), walls, b)
+	# North wall split by a 1.0 m personnel door at x = g.x - 2.0 (flank route, layout §5)
+	_static_box("Garage_Wall_N_W", Vector3(4.0, 4.6, 0.3), g + Vector3(-3.0, 2.3, 4.0), walls, b)
+	_static_box("Garage_Wall_N_E", Vector3(5.0, 4.6, 0.3), g + Vector3(2.5, 2.3, 4.0), walls, b)
+	_static_box("Garage_Wall_N_Lintel", Vector3(1.0, 2.4, 0.3), g + Vector3(-2.0, 3.4, 4.0), walls, b)
+	# Interior cover (layout §5)
+	_static_box("Garage_Bench", Vector3(2.4, 0.95, 0.9), g + Vector3(2.5, 0.48, 2.5),
+		_mat(Color(0.34, 0.24, 0.16), 0.8), b)
+	_static_box("Garage_WreckCar", Vector3(1.8, 1.1, 4.2), g + Vector3(-1.0, 0.55, -2.0),
+		_mat(Color(0.30, 0.32, 0.34), 0.6, 0.4), b)
+	_static_box("Garage_Crate_A", Vector3(1.2, 1.2, 1.2), g + Vector3(3.5, 0.6, -1.0),
+		_mat(Color(0.42, 0.34, 0.24), 0.9), b)
+	_static_box("Garage_Crate_B", Vector3(1.0, 1.0, 1.0), g + Vector3(3.5, 1.7, -1.0),
+		_mat(Color(0.42, 0.34, 0.24), 0.9), b)
+	_static_box("Garage_Pillar_N", Vector3(0.4, 4.6, 0.4), g + Vector3(-3.0, 2.3, 3.5), walls, b)
+	_static_box("Garage_Pillar_S", Vector3(0.4, 4.6, 0.4), g + Vector3(-3.0, 2.3, -1.5), walls, b)
+	_static_box("Forecourt_Dumpster", Vector3(2.0, 1.3, 1.2), Vector3(X_EAST_FRONT - 2.0, 0.65, -2.0),
+		_mat(Color(0.18, 0.32, 0.24), 0.8), b)
 
 
 func _build_props() -> void:
@@ -305,18 +513,31 @@ func _build_lighting() -> void:
 	env.fog_density = 0.006
 	we.environment = env
 	l.add_child(we)
-	# Garage sodium practicals
+	# Garage sodium practicals - positioned from the garage that is actually built (it sits in
+	# the east block since T-MIS-01b), not from the old hard-coded numbers.
+	var gpos := Vector3(X_EAST_FRONT + 5.0, 0.0, 6.0)
 	for i in 2:
 		var lamp := OmniLight3D.new()
 		lamp.name = "GarageLamp_%d" % i
 		lamp.light_color = Color(1.0, 0.72, 0.36)
-		lamp.light_energy = 2.2
-		lamp.omni_range = 9.0
-		lamp.position = Vector3(24.0 + (2.5 if i == 0 else -2.5), 4.0, 6.0 + (2.0 if i == 0 else -2.0))
+		lamp.light_energy = 2.6
+		lamp.omni_range = 11.0
+		lamp.position = gpos + Vector3(-2.2 if i == 0 else 2.2, 4.1, -2.0 if i == 0 else 2.0)
 		l.add_child(lamp)
+	# One street practical per lane end, so the road reads at night-ish exposure too.
+	for zi in [-70.0, 0.0, 70.0]:
+		var sl := OmniLight3D.new()
+		sl.name = "StreetLamp_E_%+.0f" % zi
+		sl.light_color = Color(1.0, 0.86, 0.62)
+		sl.light_energy = 1.6
+		sl.omni_range = 14.0
+		sl.position = Vector3(WEST_X + 6.5, 5.2, zi)
+		l.add_child(sl)
 
 
 func _build_navmesh() -> void:
+	# The block navmesh is baked at runtime from the collision geometry (T-AI-01). It is NOT a
+	# flat carpet: a 150 x 190 m box would bury the 0.16 m sidewalk in the road surface.
 	var nav := NavigationRegion3D.new()
 	nav.name = "NavRegion_Block"
 	level.add_child(nav)
@@ -329,37 +550,49 @@ func _build_navmesh() -> void:
 	nm.geometry_parsed_geometry_type = NavigationMesh.PARSED_GEOMETRY_MESH_INSTANCES
 	nm.geometry_source_geometry_mode = NavigationMesh.SOURCE_GEOMETRY_ROOT_NODE_CHILDREN
 	nm.geometry_collision_mask = 1
-	var box := BoxMesh.new()
-	box.size = Vector3(150, 0.1, 190)
-	var mi := MeshInstance3D.new()
-	mi.name = "NavFloor"
-	mi.mesh = box
-	mi.position = Vector3(0, 0.16, 0)
-	nav.add_child(mi)
 	nav.navigation_mesh = nm
 
 
+## Bakes the level navmesh from the real collision geometry (walkable = road AND sidewalk), so
+## the polygon set ships in the scene instead of being baked by whoever opens the level.
+## NavigationServer3D works headless; the region is created first, then baked into it.
+func _bake_navmesh() -> void:
+	var nav := level.get_node_or_null("NavRegion_Block") as NavigationRegion3D
+	if nav == null:
+		return
+	var nm := nav.navigation_mesh
+	nav.navigation_mesh = null     # do not parse the (stale) baked mesh as geometry
+	var src := NavigationMeshSourceGeometryData3D.new()
+	NavigationServer3D.parse_source_geometry_data(nm, src, level)
+	NavigationServer3D.bake_from_source_geometry_data(nm, src)
+	nav.navigation_mesh = nm
+	print("[LVL] navmesh: %d polygons, %d vertices" % [nm.get_polygon_count(), nm.get_vertices().size()])
+
+
+## Ambush anchors. Wave 1 activates when the player walks into Area_GarageInside, wave 2 comes
+## from a van parked on the east service lane (docs/Missions/M01_DeadDrop.md beat 4).
+## Positions are inside the garage / on the lane, i.e. on navmesh, never inside a wall.
 func _build_spawns_and_ai() -> void:
 	var ai := Node3D.new()
 	ai.name = "AI"
 	level.add_child(ai)
 	var gunman := load("res://Scenes/NPC/PT_NPC_Gunman.tscn") as PackedScene
 	var civilian := load("res://Scenes/NPC/PT_NPC_Civilian.tscn") as PackedScene
-	# Ambush spawn markers (wave 1: street, wave 2: van + rooftop), layout §3.3
+	var garage := Vector3(X_EAST_FRONT + 5.0, 0.16, 6.0)
 	var markers := {
-		"Spawn_Wave1_A": Vector3(-14.0, 0.16, 22.0),
-		"Spawn_Wave1_B": Vector3(-14.0, 0.16, 2.0),
-		"Spawn_Wave1_C": Vector3(2.0, 0.16, 20.0),
-		"Spawn_Wave2_Van": Vector3(31.0, 0.16, -8.0),
-		"Spawn_Wave2_Roof": Vector3(29.6, 4.9, 6.0),
+		"Spawn_Wave1_A": garage + Vector3(-3.0, 0.0, -2.0),
+		"Spawn_Wave1_B": garage + Vector3(1.5, 0.0, -3.0),
+		"Spawn_Wave1_C": garage + Vector3(4.0, 0.0, 1.5),
+		"Spawn_Wave2_Van": Vector3(EAST_X, 0.16, -8.0),
+		"Spawn_Wave2_Roof": Vector3(EAST_X + 1.0, 4.9, 2.0),
 	}
 	for k in markers:
 		var m := Marker3D.new()
 		m.name = k
 		m.position = markers[k]
 		ai.add_child(m)
-	# Enemies are spawned at runtime by M01Mission so the objective/group bookkeeping is clean.
-	# Civilian routes down the west sidewalks (T-AI-02)
+	# Civilian routes down the west sidewalks (T-AI-02). The outer sidewalk is x = -31,
+	# the inner one x = -17; both are clear of the new building line at x = -33.
 	var routes := Node3D.new()
 	routes.name = "Routes"
 	ai.add_child(routes)
@@ -367,22 +600,30 @@ func _build_spawns_and_ai() -> void:
 	route_a.name = "Route_WestSidewalk"
 	route_a.set_script(load("res://Scripts/ai/npc_route.gd"))
 	routes.add_child(route_a)
-	var pts := [Vector3(-17.0, 0.16, -60.0), Vector3(-17.0, 0.16, -10.0),
-		Vector3(-17.0, 0.16, 40.0), Vector3(-31.0, 0.16, 40.0), Vector3(-31.0, 0.16, -20.0)]
+	# T-LVL-01a: the route stays on the OUTER west sidewalk. The old route crossed the road at
+	# z = 40 - a pedestrian standing in the lane is a solid 0.56 m obstacle that stops the player's
+	# sedan dead with no feedback, and there is no traffic logic that would justify the crossing.
+	var pts := [Vector3(-31.0, 0.16, -60.0), Vector3(-31.0, 0.16, -20.0),
+		Vector3(-31.0, 0.16, 20.0), Vector3(-31.0, 0.16, 60.0)]
 	for i in pts.size():
 		var p := Marker3D.new()
 		p.name = "P%d" % i
 		p.position = pts[i]
 		route_a.add_child(p)
 	if civilian != null:
+		# Spawn them 6 m off the road: a pedestrian standing on the kerb line is a 0.56 m
+		# obstacle that stops the sedan dead (measured in the T-LVL-01a drive test).
 		for i in 3:
 			var c := civilian.instantiate()
 			c.name = "Civilian_%d" % (i + 1)
-			c.position = pts[i % pts.size()]
+			var spawn: Vector3 = pts[i % pts.size()]
+			var lane_x := -17.0 if absf(spawn.x - (-17.0)) < absf(spawn.x - (-31.0)) else -31.0
+			c.position = Vector3(spawn.x + (1.4 if spawn.x > lane_x else -1.4), spawn.y, spawn.z)
 			c.set("route_path", NodePath("../Routes/Route_WestSidewalk"))
 			c.set("route_start_index", i % pts.size())
 			ai.add_child(c)
-	# Enemies: 5 gunmen for M01 wave bookkeeping (group mission_enemies is set by M01Mission)
+	# Five gunmen for M01. Wave 2 is built but starts inactive (see MissionEnemy): before the
+	# ambush nobody perceives, shoots or is drawn.
 	if gunman != null:
 		var wave1 := [markers["Spawn_Wave1_A"], markers["Spawn_Wave1_B"], markers["Spawn_Wave1_C"]]
 		for i in wave1.size():
@@ -391,6 +632,8 @@ func _build_spawns_and_ai() -> void:
 			g.position = wave1[i]
 			# persistent=true: only persistent groups are written into the .tscn by
 			# PackedScene.pack(), otherwise the saved level has no mission_enemies group.
+			g.set("wave", 1)
+			g.set("active", false)
 			g.add_to_group("mission_enemies", true)
 			g.add_to_group("wave1", true)
 			ai.add_child(g)
@@ -399,41 +642,49 @@ func _build_spawns_and_ai() -> void:
 			var g2 := gunman.instantiate()
 			g2.name = "Enemy_Wave2_%d" % (i + 1)
 			g2.position = wave2[i]
+			g2.set("wave", 2)
+			g2.set("active", false)
 			g2.add_to_group("mission_enemies", true)
 			g2.add_to_group("wave2", true)
 			ai.add_child(g2)
 
 
+## Mission anchors. NAMES are binding (Docs/Missions/M01_DeadDrop.md, test_mission.gd);
+## the world positions follow the geometry: the garage now sits at x = +38 (east block
+## behind the east sidewalk), so the forecourt Area_GarageArrival moved from x = +16 to the
+## lane in front of the roll-up door, and the package moved onto the garage bench.
 func _build_mission_anchors() -> void:
 	var m := Node3D.new()
 	m.name = "Mission"
 	level.add_child(m)
-	# Player spawn + start car (layout §3.3)
+	var garage_door := Vector3(X_EAST_FRONT - 0.2, 0.16, 6.0)
+	# Player spawn + start car: on the west lane, facing north along the drive loop.
 	var spawn := Marker3D.new()
 	spawn.name = "PlayerSpawn"
-	spawn.position = Vector3(-24.5, 0.2, -78.0)
+	spawn.position = Vector3(WEST_X, 0.2, -78.0)
 	m.add_child(spawn)
 	var car := Marker3D.new()
 	car.name = "CarSpawn"
-	car.position = Vector3(-24.5, 0.1, -74.0)
+	car.position = Vector3(WEST_X, 0.1, -72.0)
 	m.add_child(car)
+	# Marco's seat marker: next to the car's passenger side, BEFORE he boards (test reads it).
 	var seat := Marker3D.new()
 	seat.name = "Marco_Seat"
-	seat.position = Vector3(-24.0, 0.6, -74.0)
+	seat.position = Vector3(WEST_X - 1.6, 0.2, -72.0)
 	m.add_child(seat)
 	# Trigger areas with the exact M01 names
-	_area("Area_GarageArrival", Vector3(16.0, 0.0, 6.0), 8.0, true)
-	_area_box("Area_GarageInside", Vector3(24.0, 1.5, 6.0), Vector3(10.0, 3.0, 8.0))
-	_area_box("Area_Warehouse", Vector3(24.0, 3.0, 78.0), Vector3(12.0, 6.0, 10.0))
+	_area("Area_GarageArrival", garage_door + Vector3(-6.0, 0.0, 0.0), 8.0, true)
+	_area_box("Area_GarageInside", Vector3(X_EAST_FRONT + 5.0, 1.5, 6.0), Vector3(10.0, 3.0, 8.0))
+	_area_box("Area_Warehouse", Vector3(X_EAST_FRONT - 3.0, 3.0, 78.0), Vector3(12.0, 6.0, 10.0))
 	var door := Marker3D.new()
 	door.name = "Marker_GarageDoor"
-	door.position = Vector3(18.5, 0.5, 6.0)
+	door.position = garage_door
 	m.add_child(door)
-	# Package: crate + interactable + 200 HP (M01 step 5)
+	# Package: crate + interactable + 200 HP (M01 step 5), on the garage bench
 	var pkg := Node3D.new()
 	pkg.name = "Pickup_Package"
 	pkg.set_script(load("res://Scripts/mission/carried_item.gd"))
-	pkg.position = Vector3(26.5, 1.0, 8.5)
+	pkg.position = Vector3(X_EAST_FRONT + 7.5, 1.35, 8.5)
 	pkg.add_to_group("interactables", true)
 	m.add_child(pkg)
 	var crate: Node3D = null
@@ -476,6 +727,14 @@ func _build_mission_anchors() -> void:
 		c.name = "VH_Sedan_01"
 		c.position = car.position
 		level.add_child(c)
+	# Marco, the ally (T-MIS-01b): stands next to the car at mission start and is put on the
+	# passenger seat by MissionManager.start(). He is an AllyCompanion, not a mission enemy.
+	var marco_scene := load("res://Scenes/NPC/Ally_Marco.tscn") as PackedScene
+	if marco_scene != null:
+		var marco := marco_scene.instantiate()
+		marco.name = "Ally_Marco"
+		marco.position = seat.position
+		ai_root().add_child(marco)
 	# HUD (T-UI-01) - CanvasLayer, builds its Control tree in code
 	var hud := CanvasLayer.new()
 	hud.name = "HUD"
@@ -529,6 +788,15 @@ func _area_box(name: String, pos: Vector3, size: Vector3) -> Area3D:
 	return a
 
 
+func ai_root() -> Node3D:
+	var n := level.get_node_or_null("AI") as Node3D
+	if n == null:
+		n = Node3D.new()
+		n.name = "AI"
+		level.add_child(n)
+	return n
+
+
 func _mission_root() -> Node3D:
 	var n := level.get_node_or_null("Mission") as Node3D
 	if n == null:
@@ -543,6 +811,7 @@ func _save() -> void:
 	# must already carry its final name (set in _initialize). Without this every child is
 	# dropped and the .tscn saves as a single empty node.
 	level.name = "LA_CallowayAve"
+	_name_children(level)
 	_own_all(level, level)
 	var packed := PackedScene.new()
 	var err := packed.pack(level)
@@ -554,6 +823,16 @@ func _save() -> void:
 	print("[LVL] saved %s (%d nodes) err=%d" % [OUT, _count(level), err])
 	if err != OK:
 		quit(1)
+
+
+## Every node we create gets a speaking name from its role - a "Props" child that comes out of
+## the scene as "@StaticBody3D@3" is exactly the debugging trap T-LVL-01a is about.
+func _name_children(n: Node) -> void:
+	for c in n.get_children():
+		if String(c.name).begins_with("@"):
+			var base := String(c.name).trim_prefix("@").split("@")[0]
+			c.name = {"StaticBody3D": "Prop", "CollisionShape3D": "Collision", "Node3D": "Node"}.get(base, base)
+		_name_children(c)
 
 
 ## Give every node of *our own* hierarchy an owner so PackedScene.pack() keeps it.

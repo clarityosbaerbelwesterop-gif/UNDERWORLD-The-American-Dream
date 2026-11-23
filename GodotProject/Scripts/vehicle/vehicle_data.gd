@@ -72,6 +72,10 @@ extends Resource
 @export var crash_damage_per_mps := 40.0
 ## Engine dies (no drive force) at this health fraction or below.
 @export_range(0.0, 1.0) var wreck_health_fraction := 0.0
+## T-AI-03 / TD-015 R3: share of a hit that arrives through the DRIVER-SIDE WINDOW which is
+## transferred to the driver. Every other hit on the car hurts only the car. 0 = the driver is
+## fully protected while seated (that is what the current design implies: he is "hidden").
+@export_range(0.0, 1.0) var driver_window_fraction := 0.25
 
 @export_group("Enter / exit")
 ## Player must be within this distance of a door/exit socket to get in (m).

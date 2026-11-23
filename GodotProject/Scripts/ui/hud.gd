@@ -20,6 +20,8 @@ const C_BAD := Color(0.80, 0.24, 0.20)
 
 @export var player_path: NodePath
 @export var mission_path: NodePath
+## Camera used to project the GPS marker. Empty = the player's chase camera
+## (CameraRig/Pitch/SpringArm3D/Camera3D - see CameraRig).
 @export var camera_path: NodePath
 
 var root_control: Control
@@ -34,6 +36,23 @@ var center_label: Label
 var fail_label: Label
 ## 0..1 spread factor used to size the crosshair (set from the weapon's bloom).
 var crosshair_spread := 0.0
+## Cash shown on the PASSED card (from MissionData.reward_cash, M01 = 2500).
+var passed_cash := 0
+## Text of the objective currently shown, kept separately from the label so tests and the capture
+## tool can read the state without parsing the UI.
+var objective_name := ""
+
+
+## Negative control (UW_HUD_SABOTAGE=1): the HUD stops following the game state - the ammo
+## counter is frozen and the objective label keeps the first text it ever got. Real production
+## code is corrupted, no self-referential check.
+static var _sabotage_hud: int = -1
+
+
+static func sabotage_hud() -> bool:
+	if _sabotage_hud < 0:
+		_sabotage_hud = 1 if OS.get_environment("UW_HUD_SABOTAGE").strip_edges() == "1" else 0
+	return _sabotage_hud == 1
 
 var player: PlayerController
 var weapon: Weapon
@@ -47,7 +66,10 @@ var _fail_timer := 0.0
 func _ready() -> void:
 	layer = 10
 	_build()
-	_bind()
+	# The HUD is the FIRST node of the level scene, so at this point the MissionManager has not
+	# run _ready() yet (it joins its group there). Binding deferred - not per frame - keeps the
+	# HUD a pure listener: no polling, no timers.
+	_bind.call_deferred()
 
 # --- construction -------------------------------------------------------------
 
@@ -105,6 +127,7 @@ func _build() -> void:
 	crosshair.name = "Crosshair"
 	crosshair.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	crosshair.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	crosshair.custom_minimum_size = Vector2.ZERO
 	root_control.add_child(crosshair)
 	for spec in [["Dot", Vector2(2, 2), Vector2(-1, -1)], ["L", Vector2(8, 1), Vector2(-22, 0)],
 			["R", Vector2(8, 1), Vector2(14, 0)], ["T", Vector2(1, 8), Vector2(0, -22)],
@@ -154,12 +177,16 @@ func _label(name: String, text: String, size: int, color: Color) -> Label:
 # --- binding ------------------------------------------------------------------
 
 func _bind() -> void:
+	if not is_inside_tree():
+		return
 	player = _resolve(player_path, &"player") as PlayerController
 	if player != null:
 		health = player.get_node_or_null("Health") as DamageReceiver
-		camera = player.get_node_or_null("CameraRig/SpringArm3D/Camera3D") as Camera3D
+		camera = _resolve(camera_path, &"__none__") as Camera3D
+		if camera == null:
+			camera = player.get_node_or_null("CameraRig/Pitch/SpringArm3D/Camera3D") as Camera3D
 		if camera == null and player.camera_rig != null:
-			camera = player.camera_rig.get_node_or_null("SpringArm3D/Camera3D") as Camera3D
+			camera = player.camera_rig.get_node_or_null("Pitch/SpringArm3D/Camera3D") as Camera3D
 		var wc := player.get_node_or_null("WeaponController")
 		if wc != null:
 			weapon = wc.get("weapon") as Weapon
@@ -202,6 +229,8 @@ func _on_health_changed(hp: float, max_hp: float) -> void:
 
 
 func _on_ammo_changed(mag: int, reserve: int) -> void:
+	if sabotage_hud():
+		return	# corrupted: the counter never moves again
 	ammo_label.text = "%d / %d" % [mag, reserve]
 
 
@@ -215,6 +244,9 @@ func _on_reload_finished() -> void:
 
 
 func _on_objective_text(text: String) -> void:
+	objective_name = text
+	if sabotage_hud():
+		return	# corrupted: the label keeps whatever it showed first
 	objective_label.text = text
 	_marker_target = null
 
@@ -233,6 +265,7 @@ func _on_subtitle(speaker: String, text: String) -> void:
 
 
 func _on_mission_completed(_mission: MissionData, cash: int) -> void:
+	passed_cash = cash
 	center_label.text = "MISSION PASSED"
 	fail_label.text = "+$%d" % cash
 	fail_label.add_theme_color_override("font_color", C_ACCENT)
@@ -262,6 +295,9 @@ func _process(delta: float) -> void:
 func _update_crosshair() -> void:
 	if crosshair == null:
 		return
+	# Children are positioned relative to this Control, so it has to sit ON the screen centre.
+	var vp_size := get_viewport().get_visible_rect().size if get_viewport() != null else Vector2(1920, 1080)
+	crosshair.position = (vp_size * 0.5).round()
 	var gap := 6.0 + crosshair_spread * 18.0
 	(crosshair.get_node("L") as ColorRect).position = Vector2(-gap - 8.0, 0)
 	(crosshair.get_node("R") as ColorRect).position = Vector2(gap, 0)

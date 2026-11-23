@@ -70,6 +70,12 @@ func get_fire_interval() -> float:
 	return 60.0 / maxf(rpm, 1.0)
 
 ## Damage multiplier for a hit at distance d (metres).
+## Damage this weapon deals at distance `d` (base damage scaled by falloff). Used by the AI for
+## non-hitbox targets such as a vehicle body (T-AI-03 / TD-015).
+func damage_at(d: float) -> float:
+	return damage * falloff_multiplier(d)
+
+
 func falloff_multiplier(d: float) -> float:
 	if d <= falloff_start:
 		return 1.0

@@ -45,11 +45,20 @@ kind = 1
 text = "Check the garage."
 target_path = NodePath("Mission/Area_GarageInside")
 
+; T-MIS-01b wave ordering, expressed as data: the ambush objective holds wave 2 back and the
+; previous objective releases wave 1. "Survive" can only complete when mission_enemies (all
+; five gunmen) are dead AND wave 1 is dead - so wave 2 can never be skipped or run in parallel.
+[sub_resource type="Resource" id="Obj_3b"]
+script = ExtResource("2_od")
+
 [sub_resource type="Resource" id="Obj_4"]
 script = ExtResource("2_od")
 kind = 2
 text = "Survive the ambush."
 target_group = &"mission_enemies"
+hold_group = &"wave2"
+release_group = &"wave1"
+requires_group_cleared = &"wave1"
 
 [sub_resource type="Resource" id="Obj_5"]
 script = ExtResource("2_od")

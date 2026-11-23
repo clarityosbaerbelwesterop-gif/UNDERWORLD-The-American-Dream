@@ -35,5 +35,13 @@ enum Kind { NONE, ENTER_AREA, SURVIVE, INTERACT, DELIVER, REACH }
 @export var auto_seconds := 0.0
 ## Requires the package to be carried (DELIVER / ENTER_AREA).
 @export var requires_package := false
+## Group that must NOT be activated before this objective starts (T-MIS-01b wave gating).
+## Empty = no gate. For "Survive the ambush." this is the wave that is held back, e.g. "wave2".
+@export var hold_group: StringName = &""
+## Group activated by this objective's completion ("" = none). Used to spawn wave 2.
+@export var release_group: StringName = &""
+## Group that must be empty of living members before this objective can complete.
+## Empty = use `target_group`. M01 wave 2 hangs off wave 1 this way (data, not code).
+@export var requires_group_cleared: StringName = &""
 ## Optional subtitle lines played when the objective starts: [seconds, speaker, text].
 @export var subtitles: Array[Dictionary] = []

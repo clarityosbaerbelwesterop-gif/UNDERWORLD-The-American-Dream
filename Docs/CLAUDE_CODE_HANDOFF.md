@@ -21,8 +21,8 @@
 | Game | Original open-world third-person crime shooter (GTA IV/V/VI quality bar, 100 % original IP). Protagonist **Jason**. Ch.1 Los Angeles (linear, cinematic), Ch.2 New York (open world). |
 | Engine | **Godot 4.7.2** (GDScript, Forward Plus project) – not Unreal (TD-001). |
 | Art | **Blender 5.2.4 LTS headless `bpy`** → `Tools/uwp` → glTF `.glb` → Godot. Git LFS for binaries. |
-| State | Milestone 1 "LA Vertical Slice" **in progress**. Gameplay systems (controller with Jason v2 as the visible player, pistol + bloom, enemy/civilian AI, vehicle physics) are in `main` and tested headless. Art exists as first passes/blockouts. **No asset is PRODUCTION-READY**: all 5 reviewed hero assets were **REJECT**ed by the quality gate. No mission logic, no HUD, no audio, no build yet. |
-| Tests | `Tests/run_all.sh` → 12 smoke + 58 uwp tool + 71 asset-import + 80 AI + 75 mission + 137 player + 88 vehicle + 68 weapon checks = **589 checks, all PASS** (2026-11-23, after PR #16). |
+| State | Milestone 1 "LA Vertical Slice" **in progress**. Gameplay systems (controller with Jason v2 as the visible player, pistol + bloom, enemy/civilian AI, vehicle physics) are in `main` and tested headless. Art exists as first passes/blockouts. **No asset is PRODUCTION-READY**: all 5 reviewed hero assets were **REJECT**ed by the quality gate. Mission logic (M01) and the HUD exist and are tested headless; a Linux build exports and boots headless (`Docs/BUILD.md`), but it was never played on a GPU box; no audio. |
+| Tests | `Tests/run_all.sh` → 12 smoke + 58 uwp tool + 71 asset-import + 102 AI + 40 HUD + 23 level + 105 mission + 171 player + 88 vehicle + 68 weapon checks = **738 checks, all PASS** (2026-11-22). |
 | Open at handoff | Draft PR **#11** (Bot 2, pistol quality pass, WIP, untested – do not merge as is). Everything else is merged; both bots stopped. |
 | Owner | **Bärbel Westerop** (ClarityCompassAI). Report to her **in German**, honestly. |
 

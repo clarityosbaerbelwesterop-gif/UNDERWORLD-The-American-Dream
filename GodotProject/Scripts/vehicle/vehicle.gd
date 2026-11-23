@@ -28,6 +28,7 @@ const DOOR_NAMES: Array[StringName] = [&"Door_FL", &"Door_FR", &"Door_RL", &"Doo
 ## Exit socket -> door used on that side (driver = left = +X, the car faces +Z).
 const EXIT_DOORS := {&"SOCKET_Exit_Left": &"Door_FL", &"SOCKET_Exit_Right": &"Door_FR"}
 const SEAT_SOCKET := &"SOCKET_Seat_Driver"
+const PASSENGER_SOCKET := &"SOCKET_Seat_Passenger"
 ## World | Player | Characters | Vehicles
 const BODY_MASK := 1 | 2 | 4 | 8
 
@@ -37,6 +38,8 @@ const BODY_MASK := 1 | 2 | 4 | 8
 
 var state: State = State.IDLE
 var driver: Node3D = null
+## Marco's seat in M01 (T-MIS-01b). A passenger does not drive and does not block enter/exit.
+var passenger: Node3D = null
 var model: Node3D
 ## Wheel name -> generated VehicleWheel3D (asset mesh is its child).
 var wheels: Dictionary = {}
@@ -65,6 +68,7 @@ var assembly_errors: PackedStringArray = []
 
 var _ext := Vector4.ZERO   # throttle, brake, steer, handbrake from set_controls()
 var _state_time := 0.0
+
 var _exit_socket: StringName = &""
 var _door_open: Dictionary = {}     # name -> 0..1 current
 var _door_target: Dictionary = {}   # name -> 0..1
@@ -179,7 +183,7 @@ func _assemble() -> void:
 	_find_prefix(model, "SOCKET_", found)
 	for s in found:
 		sockets[StringName(s.name)] = s
-	for need in [SEAT_SOCKET, &"SOCKET_Exit_Left", &"SOCKET_Exit_Right"]:
+	for need in [SEAT_SOCKET, PASSENGER_SOCKET, &"SOCKET_Exit_Left", &"SOCKET_Exit_Right"]:
 		if not sockets.has(need):
 			assembly_errors.append("socket %s missing" % need)
 	for e in assembly_errors:
@@ -247,6 +251,8 @@ func _physics_process(delta: float) -> void:
 	_update_wheel_visuals()
 	if driver != null:
 		_attach_driver()
+	if passenger != null:
+		_attach_passenger()
 	if state == State.DRIVING or state == State.ENTERING:
 		_update_camera(delta)
 	_update_audio()
@@ -302,6 +308,68 @@ func _update_wheel_visuals() -> void:
 		if w.is_in_contact():
 			centre = w.get_contact_point() + up * w.wheel_radius
 		(wheel_meshes[wn] as Node3D).global_transform = Transform3D(w.global_basis, centre)
+
+## How long the enter/exit sequence takes (T-GP-04). The CLIP drives it: SK_Jason's
+## A_Jason_Car_Enter_L / A_Jason_Car_Exit_L lengths are the real timings, and VehicleData only
+## supplies a fallback for a driver without a character model. Both are pure lookups (a clip
+## length does not change while the car is in use), so there is no cached value to go stale.
+func enter_duration() -> float:
+	return _driver_clip_length("car_enter", data.enter_time)
+
+
+func exit_duration() -> float:
+	return _driver_clip_length("car_exit", data.exit_time)
+
+
+func _driver_clip_length(slot: String, fallback: float) -> float:
+	var vis := _driver_visual()
+	if vis != null:
+		var l := vis.clip_length(slot)
+		if l > 0.0:
+			return l
+	return fallback
+
+
+func _driver_visual() -> CharacterVisual:
+	if driver == null:
+		return null
+	return driver.get("visual") as CharacterVisual
+
+
+## Plays the driver's enter/exit clip (no-op for drivers without a character model).
+func _play_driver_clip(slot: String) -> void:
+	var vis := _driver_visual()
+	if vis != null:
+		vis.play_one_shot(slot)
+
+
+## Damage entry point for gunfire (T-AI-03). Applies TD-015: the car always takes the hit, the
+## driver only takes `driver_window_fraction` of a hit that comes through his window.
+## Returns the DamageInfo that was applied to the CAR so callers can report a hit.
+func apply_hit_damage(amount: float, hit_position: Vector3, source: Node = null) -> DamageInfo:
+	var split := VehicleTargeting.split_damage(self, hit_position, amount)
+	var info := DamageInfo.new()
+	info.amount = float(split["car"])
+	info.base_damage = amount
+	info.position = hit_position
+	info.source = source
+	info.weapon_id = &"vehicle_hit"
+	if info.amount > 0.0:
+		var was := is_wrecked()
+		health = maxf(health - info.amount, 0.0)
+		crashed.emit(0.0, info.amount)
+		if not was and is_wrecked():
+			wrecked.emit()
+	var drv: float = split["driver"]
+	if drv > 0.0 and driver != null and driver.has_method("get") and driver.get("health") is DamageReceiver:
+		var dinfo := DamageInfo.new()
+		dinfo.amount = drv
+		dinfo.base_damage = amount
+		dinfo.position = hit_position
+		dinfo.source = source
+		dinfo.weapon_id = &"driver_window"
+		(driver.get("health") as DamageReceiver).apply_damage(dinfo)
+	return info
 
 ## World-space centre of the drawn wheel (tests).
 func get_wheel_visual_centre(wn: StringName) -> Vector3:
@@ -373,6 +441,7 @@ func enter(p: Node3D) -> bool:
 	driver = p
 	if p.has_method("set_in_vehicle"):
 		p.set_in_vehicle(self)
+	_play_driver_clip("car_enter")
 	_exit_socket = side
 	open_door(EXIT_DOORS[side])
 	_set_state(State.ENTERING)
@@ -381,6 +450,31 @@ func enter(p: Node3D) -> bool:
 	chase_camera.current = true
 	entered.emit(p)
 	return true
+
+## Seats an ally on the passenger side (Marco in M01). Unlike enter() this does not change the
+## vehicle state, takes no input and never opens a door sequence: the passenger is simply
+## parented to the seat socket. False if the seat is taken or the node is not a Node3D.
+func enter_passenger(p: Node3D) -> bool:
+	if p == null or passenger != null or p == driver:
+		return false
+	var seat := get_socket(PASSENGER_SOCKET)
+	if seat == null:
+		push_error("%s: no %s socket" % [name, PASSENGER_SOCKET])
+		return false
+	passenger = p
+	_attach_passenger()
+	return true
+
+## Frees the passenger seat. The caller decides where the body goes (see AllyCompanion.unboard).
+func leave_passenger() -> Node3D:
+	var p := passenger
+	passenger = null
+	return p
+
+func _attach_passenger() -> void:
+	var seat := get_socket(PASSENGER_SOCKET)
+	if seat != null and passenger != null and is_instance_valid(passenger):
+		passenger.global_transform = seat.global_transform
 
 ## Starts the exit sequence; false if too fast or both exits are blocked.
 func request_exit() -> bool:
@@ -430,18 +524,20 @@ func _nearest_exit_socket(pos: Vector3) -> StringName:
 func _set_state(s: State) -> void:
 	state = s
 	_state_time = 0.0
+	if s == State.EXITING:
+		_play_driver_clip("car_exit")
 
 func _update_state() -> void:
 	match state:
 		State.ENTERING:
-			if _state_time >= data.enter_time:
+			if _state_time >= enter_duration():
 				close_door(EXIT_DOORS[_exit_socket])
 				_set_state(State.DRIVING)
 		State.DRIVING:
 			if not control_override and _state_time > 0.2 and Input.is_action_just_pressed("enter_vehicle"):
 				request_exit()
 		State.EXITING:
-			if _state_time >= data.exit_time:
+			if _state_time >= exit_duration():
 				_finish_exit()
 
 func _finish_exit() -> void:

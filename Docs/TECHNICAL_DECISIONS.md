@@ -145,3 +145,11 @@ Jason ≤ 40k tris, NPC ≤ 25k, car ≤ 60k (LOD0), pistol ≤ 8k, street-kit m
 - **Materials:** asphalt `0.15` luminance, sidewalk `0.60`, kerb line `0.78` (bright edge strips along every sidewalk) — a 0.45 luminance step where the first capture had 0.00.
 - **Tests:** `Tests/test_level.gd` (20 checks): no `@` names, no unused `ext_resource`, building/garage/navmesh really in the file, luminance differences, navmesh reachability probes on road + sidewalk + both closing segments, and a walk from one end of the block to the other with real movement input (44 waypoints). **`UW_LEVEL_SABOTAGE=1`** makes the contrast audit lie (0.02) → FAIL.
 - **Honest limit:** this is still a blockout. The fix makes road/kerb/sidewalk distinguishable and the block walkable/drivable; it does not add art. In-engine Phase-8 captures are **not possible on this box** (no X server/Xvfb, no GPU); the report states that instead of faking a screenshot.
+
+## TD-019 – Linux export (T-BUILD-01)
+**Status: IMPLEMENTED (Bot 3, 2026-11-22).**
+- **Preset** `GodotProject/export_presets.cfg` (platform `Linux`, x86_64, PCK beside the binary, text→binary), **script** `Tools/build/build_linux.sh` → `Builds/linux/Underworld.x86_64`; `Builds/` stays gitignored, no binary is ever committed.
+- **Excluded from the export:** `Tests/*` and `Scripts/import/*` (the import post-processors are editor-only). Verified by parsing the PCK directory instead of trusting the log: 657 files, 0 hits for either prefix.
+- **Export templates are version-locked** to the engine build. The official `.tpz` (~1 GB) is unreachable from this sandbox, so the template was **compiled from the same `4.7.2-stable` source tree** and installed as `~/.local/share/godot/export_templates/4.7.2.stable/linux_release.x86_64` (47 min, 2 vCPU). `Docs/BUILD.md` has the exact scons line.
+- **The template has no renderer** (`vulkan=no opengl3=no`, like the sandboxed editor). It boots `Main.tscn` from the PCK, runs the scene tree and exits cleanly — that is the acceptance criterion — but it cannot present a frame. **A desktop-playable build therefore still requires a Forward+/Vulkan template**, built or downloaded on a machine that has the Vulkan loader.
+- **Negative control:** `UW_BUILD_SABOTAGE=1` plants an `ERROR:` line in the smoke log; the script must fail with exit 6 (checked).

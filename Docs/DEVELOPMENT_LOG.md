@@ -1,5 +1,10 @@
 # Development Log
 
+## 2026-11-24 · Claude Code · T-LOOK-02 (graphics pass)
+- AgX + SSIL in ENV_LA_* (exposure golden 0.58 -> 0.76, midday 0.74 -> 0.84; cards in target), new ENV_NY_Night (volumetric fog, SSR) / ENV_NY_Overcast; SunPreset presets ny_night / ny_overcast + CHAPTER map + graded_environment().
+- `Grading` (17^3 LUT per chapter, pure grade()), `GradedWorld` on the M01 WorldEnvironment (2-line scene change; builder updated), `MaterialPass` in Vehicle._assemble + CharacterVisual.set_model, `set_wetness()`.
+- `test_look.gd`; capture tools `capture_look_presets.gd`, `capture_lookdev.gd` (UW_LOOKDEV_CAMS=calibration, UW_LOOKDEV_GRADE=0). Report `Docs/Reports/BERICHT_T-LOOK-02.md`.
+
 ## 2026-11-24 · Claude Code · T-VEH-02 (interiors + see-through glass)
 - `vehicles/interior.py` (TD-031): front seats + headrests, rear bench (clamped under the rear glass; none in pickup/van), dash + instrument hood, steering wheel (torus rim, hub, 3 spokes, column) placed through the driver's grips, centre console, floor pan; `check_fit()` per car (head / soles / wheel vs windscreen).
 - Body loft without the belt-height lid over the cabin, double-sided paint, alpha glass. Sedan collision hull: hull faces only (was NON_MANIFOLD). Muscle profile: roof +4 cm, sills -6 cm, seat 6 cm back. `validate.py`: `Interior` is a functional part name. Budget vehicles 12 -> 14 materials.

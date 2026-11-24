@@ -50,6 +50,7 @@ var rng := RandomNumberGenerator.new()
 
 
 func _initialize() -> void:
+	GradedWorld.suspended = true  # T-LOOK-02: save the plain ENV_*.tres, grade at runtime
 	rng.seed = 20261122
 	level = Node3D.new()
 	level.name = "LA_CallowayAve"
@@ -581,8 +582,10 @@ func _build_lighting() -> void:
 	# look that was signed off, and the M01 video came out beige and washed out.
 	var sun := SunPreset.make_sun("golden_hour")
 	l.add_child(sun)
-	var we := WorldEnvironment.new()
+	# T-LOOK-02: GradedWorld swaps in the LA chapter grade at runtime (the LUT is never saved).
+	var we := GradedWorld.new()
 	we.name = "WorldEnvironment"
+	we.preset = "golden_hour"
 	we.environment = SunPreset.environment("golden_hour")
 	l.add_child(we)
 	# Garage sodium practicals - positioned from the garage that is actually built (it sits in

@@ -1,0 +1,167 @@
+{
+  "_doc": "Kings of Flatbush lieutenant (enemy_medium): black suit jacket over mustard shirt, goatee.",
+  "asset_name": "SK_NPC_Kings_Lieutenant",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "height_m": 1.85,
+  "boot_sole_extra_m": 0.022,
+  "npc_decimate_body": 0.62,
+  "macro": {
+    "gender": 1.0,
+    "age": 0.48,
+    "muscle": 0.74,
+    "weight": 0.55,
+    "proportions": 0.6,
+    "height_morph": 0.7,
+    "ethnicity": {
+      "caucasian": 0.15,
+      "asian": 0.05,
+      "african": 0.8
+    }
+  },
+  "morphs": {
+    "head-rectangular": 0.3,
+    "chin-bones-decr-incr": 0.3
+  },
+  "skin": {
+    "texture_size": 1024,
+    "base_diffuse": "skins02/skins/toigo_light_skin_male_bronze/young_lightskinned_male_diffuse_Bronze.png",
+    "base_normal": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_NRM.png",
+    "base_spec": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_SPEC.png",
+    "tint_rgb": [
+      0.5,
+      0.36,
+      0.26
+    ],
+    "gamma": 1.04,
+    "sss_weight": 0.15,
+    "hair_color_rgb": [
+      0.015,
+      0.012,
+      0.012
+    ],
+    "skin_fade": {
+      "enabled": true
+    },
+    "beard_stubble": {
+      "density": 0.5
+    },
+    "seed": 2001,
+    "lip_rgb": [
+      0.34,
+      0.17,
+      0.15
+    ]
+  },
+  "eyes": {
+    "mhclo": "mh_eyes/low-poly.mhclo",
+    "iris_texture": "makehuman_system_assets/eyes/materials/grey_eye.png",
+    "iris_tint": [
+      0.78,
+      0.82,
+      0.86
+    ]
+  },
+  "eyebrows": {
+    "mhclo": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.mhclo",
+    "texture": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.png",
+    "scar_notch": false
+  },
+  "eyelashes": {
+    "mhclo": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.mhclo",
+    "texture": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.png"
+  },
+  "teeth": {
+    "enabled": false
+  },
+  "hair": {
+    "style": "buzz_cut",
+    "color_rgb": [
+      0.015,
+      0.012,
+      0.012
+    ],
+    "seed": 2002
+  },
+  "beard": {
+    "style": "goatee",
+    "seed": 2003
+  },
+  "outfit": {
+    "tshirt": {
+      "enabled": true,
+      "style": "under_jacket_tshirt",
+      "polyhaven_id": "cotton_jersey",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 4.0,
+      "desaturate": 0.95,
+      "tint_rgb": [
+        0.62,
+        0.46,
+        0.08
+      ],
+      "roughness_scale": 1.0,
+      "roughness_bias": 0.15
+    },
+    "jacket": {
+      "enabled": true,
+      "style": "suit_jacket",
+      "polyhaven_id": "knitted_fleece",
+      "texture_size": 1024,
+      "bake_size": 512,
+      "normal_size": 512,
+      "tile": 5.0,
+      "desaturate": 0.85,
+      "gamma": 0.85,
+      "tint_rgb": [
+        0.035,
+        0.035,
+        0.04
+      ],
+      "roughness_scale": 1.05,
+      "roughness_bias": 0.12
+    },
+    "jeans": {
+      "enabled": true,
+      "style": "straight_jeans",
+      "polyhaven_id": "knitted_fleece",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 5.0,
+      "desaturate": 0.85,
+      "tint_rgb": [
+        0.04,
+        0.04,
+        0.045
+      ],
+      "roughness_scale": 1.05,
+      "roughness_bias": 0.12
+    },
+    "boots": {
+      "enabled": true,
+      "polyhaven_id": "brown_leather",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 3.0,
+      "desaturate": 0.85,
+      "tint_rgb": [
+        0.12,
+        0.12,
+        0.13
+      ],
+      "roughness_scale": 0.65,
+      "roughness_bias": 0.0,
+      "zone_mode": "boot_sole"
+    },
+    "watch": {
+      "enabled": false
+    }
+  },
+  "animations": {
+    "clip_prefix": "A_Humanoid_",
+    "mocap_walk_bvh": "mocap/makehuman_walk1.bvh",
+    "include_p2": false,
+    "minimal_npc_set": true
+  }
+}

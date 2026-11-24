@@ -59,6 +59,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-PROP-01 | P0 | Claude Code | P2/P3/P5: `uwp build-props` generator (CC0 material library, world-space texel density, lightmap UVs, label atlases, authored collision) + 27 assets (15 LA street furniture/road tiles, 9 items, 3 armor) through the release gate | T-DATA-01 | READY FOR REVIEW (TD-026 PROPOSED; art review pending, all WIP) |
 | T-BLDG-01 | P0 | Claude Code | P3: `uwp build-buildings` facade grammar (openings + reveals, bands, roofs flat/hip/vault, fire escapes, galleries, awnings, signs) + 8 LA buildings (apartment, motel, gas station, warehouse M01, hangar, office tower, Crestmont villa, liquor store) through the release gate | T-PROP-01 | READY FOR REVIEW (TD-027 PROPOSED; all WIP) |
 | T-WPN-01 | P0 | Claude Code | P5: `uwp build-weapons` weapon grammar + 9 rigged weapons (revolver, SMG, pump shotgun, carbine, bolt sniper, knife, bat, grenade, molotov) linked from combat.json; Reload clip length == reload_time (tested) | T-DATA-01 | READY FOR REVIEW (TD-028 PROPOSED; all WIP) |
+| T-CHAR-01 | P0 | Claude Code | P4: NPC visuals - fix: enemies rendered as PT capsules over their models (M01); visible tier armor (vest/helmet on the skeleton via CombatDB.apply); 13 faction/boss specs; archetype line-up capture | T-WPN-01 | IN PROGRESS (part 1 READY FOR REVIEW; part 2 = build the 13 figures) |
 
 > **Next work order:** `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md` (§8 = ordered task list to release).
 

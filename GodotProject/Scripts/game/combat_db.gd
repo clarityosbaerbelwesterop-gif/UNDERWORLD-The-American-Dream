@@ -105,7 +105,61 @@ static func apply(npc: NPCController, arch_id: String) -> bool:
 		hp.reset()
 		hp.set_armor(armor_for(arch_id))
 	npc.set_meta(&"archetype", arch_id)
+	# Visible armor (T-CHAR-01): the archetype's vest/helmet props ride on the skeleton, so the
+	# player reads the tier before the first shot. Needs the visual -> after the NPC's _ready.
+	if not armor_for(arch_id).is_empty():
+		if npc.is_node_ready():
+			attach_armor_visuals(npc, arch_id)
+		else:
+			npc.ready.connect(attach_armor_visuals.bind(npc, arch_id), CONNECT_ONE_SHOT)
 	return true
+
+## Attaches the archetype's armor props (combat.json armor.<id>.asset) to the NPC skeleton:
+## vests on Chest (bottom at the hips, scaled to the shoulder width), helmets on Head. The props'
+## pickup collision is stripped - only the hitboxes take shots. Returns the attachments made.
+static func attach_armor_visuals(npc: NPCController, arch_id: String) -> Array:
+	var made: Array = []
+	if npc.visual == null:
+		return made
+	var skel := npc.visual.find_skeleton()
+	if skel == null:
+		return made
+	var hips := skel.find_bone("Hips")
+	var head := skel.find_bone("Head")
+	var lua := skel.find_bone("LeftUpperArm")
+	var rua := skel.find_bone("RightUpperArm")
+	for aid in archetype(arch_id).get("armor", []):
+		var a := armor_def(String(aid))
+		var asset := String(a.get("asset", ""))
+		var path := "res://Assets/Props/%s/%s.glb" % [asset, asset]
+		if asset == "" or not ResourceLoader.exists(path):
+			continue
+		var is_head := int(a.get("zone", 0)) == 1
+		var bone_name := "Head" if is_head else "Chest"
+		var bone := skel.find_bone(bone_name)
+		if bone < 0 or hips < 0:
+			continue
+		var att := BoneAttachment3D.new()
+		att.name = "Armor_%s" % aid
+		att.bone_name = bone_name
+		skel.add_child(att)
+		var m := (load(path) as PackedScene).instantiate() as Node3D
+		for body in m.find_children("*", "CollisionObject3D", true, false):
+			body.get_parent().remove_child(body)
+			body.free()
+		var want := Transform3D.IDENTITY                      # in skeleton space, front +Z
+		if is_head:
+			want.origin = skel.get_bone_global_rest(head).origin + Vector3(0, -0.02, 0.0)
+		else:
+			var sc := 1.0
+			if lua >= 0 and rua >= 0:
+				var w := skel.get_bone_global_rest(lua).origin.distance_to(skel.get_bone_global_rest(rua).origin)
+				sc = clampf(w / 0.30, 0.9, 1.3)
+			want = Transform3D(Basis.IDENTITY.scaled(Vector3(sc, 1.0, sc)), skel.get_bone_global_rest(hips).origin + Vector3(0, 0.04, 0.0))
+		m.transform = skel.get_bone_global_rest(bone).affine_inverse() * want
+		att.add_child(m)
+		made.append(att)
+	return made
 
 ## Pistol body hits needed to kill an archetype (<= falloff_start, no headshots) - the TTK the
 ## design_targets bands are written in. Simulates the real DamageReceiver, armor included.

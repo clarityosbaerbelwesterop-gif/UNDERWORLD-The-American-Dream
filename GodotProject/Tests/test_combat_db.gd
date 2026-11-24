@@ -133,6 +133,19 @@ func test_apply_to_npc() -> void:
 	check(is_equal_approx(hp.max_health, 150.0) and is_equal_approx(hp.health, 150.0), "heavy gunman has 150 HP (%.0f)" % hp.health)
 	check(hp.armor_pieces.size() == 2 and hp.armor_points() > 150.0, "heavy gunman wears vest + helmet (%.0f armor)" % hp.armor_points())
 	check(npc.profile.weapon != null and npc.profile.weapon.id == "WPN_Rifle_01", "heavy gunman carries the rifle")
+	var capsule := npc.get_node_or_null("Pose/Visual/PT_Capsule") as MeshInstance3D
+	var marker := npc.get_node_or_null("Pose/Visual/PT_FrontMarker") as MeshInstance3D
+	var wsock := npc.get_node_or_null("Pose/Visual/PT_SOCKET_RightHand_Weapon") as Node3D
+	check(npc.visual != null and npc.visual.model != null and capsule != null and not capsule.visible and not marker.visible,
+		"NPC with a real model hides the PT capsule + front marker (was: red capsule over every enemy)")
+	check(wsock != null and wsock.visible, "the weapon socket stays visible")
+	var arm_nodes := npc.find_children("Armor_*", "BoneAttachment3D", true, false)
+	var meshes := 0
+	var bodies := 0
+	for an in arm_nodes:
+		meshes += an.find_children("*", "MeshInstance3D", true, false).size()
+		bodies += an.find_children("*", "CollisionObject3D", true, false).size()
+	check(arm_nodes.size() == 2 and meshes > 0 and bodies == 0, "heavy gunman shows vest + helmet on the skeleton (%d attachments, %d meshes, %d stray bodies)" % [arm_nodes.size(), meshes, bodies])
 	var i := DamageInfo.new()
 	i.amount = 25.0
 	i.zone = 0

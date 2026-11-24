@@ -1,5 +1,9 @@
 # Development Log
 
+## 2026-11-24 · Claude Code · T-LVL-02 (M01 dressed with the kit; B-007 resolved)
+- `build_level_calloway.gd`: west block = kit liquor store / office tower / stucco shop / Apartment4F (greybox only as fallback), kit traffic light + street sign, 14 street-furniture pieces out of the walking line, parked cars drawn as real P5 cars over the unchanged cover boxes (`VisualOnly` strips the car hulls at load).
+- B-007: roof gunman = post at the roof edge; autopilot requires a clear shot line from gun height. M01 by input: seeds 1/2/3/4/5 PASS (190-200 s; seed 2: 47 shots instead of 82).
+
 ## 2026-11-24 · Claude Code · T-FX-01 (P6: effect library)
 - `Tools/uwp build-fx` -> 14 `Scenes/FX/FX_*.tscn` (GPU particles, procedural textures, light flashes), `FXEffect` (spawn, self-free, impact choice by surface). `weapon.gd`: muzzle flash per shot, surface impact per hit. TD-030 PROPOSED.
 - `test_fx.gd` (scene contract, lifetimes, catalogue, real shots: wall -> concrete, car -> metal, NPC -> blood; negative `UW_FX_SABOTAGE=1`). Capture tool: `--fixed-fps` + warm-up (60 ms flashes on a CPU renderer). Found: PROCESS_MODE_DISABLED removes hitboxes from physics.

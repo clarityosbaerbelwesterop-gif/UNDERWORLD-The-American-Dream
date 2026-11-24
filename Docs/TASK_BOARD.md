@@ -62,7 +62,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-CHAR-01 | P0 | Claude Code | P4: NPC visuals - fix: enemies rendered as PT capsules over their models (M01); visible tier armor (vest/helmet on the skeleton via CombatDB.apply); 13 faction/boss specs; archetype line-up capture | T-WPN-01 | READY FOR REVIEW (part 1 PR #30 merged; part 2: 13 figures built, bosses wear concealed armor) |
 | T-VEH-01 | P0 | Claude Code | P5: `uwp build-vehicles` body profiles + 5 cars (police, NY taxi, muscle, pickup, van) on the sedan contract; fleet test in the real vehicle.gd (assemble, park, drive) | T-WPN-01 | READY FOR REVIEW (TD-029 PROPOSED; motorcycle + plane open -> P7) |
 | T-FX-01 | P0 | Claude Code | P6: `uwp build-fx` effect library (14 GPU-particle scenes: muzzle flash, impacts concrete/metal/glass/wood, blood, sparks, glass shatter, smoke, fire, explosion, rain, steam, tire smoke) + weapon integration (muzzle + surface impact per shot) | T-WPN-01 | READY FOR REVIEW (TD-030 PROPOSED) |
-| T-LVL-02 | P1 | Claude Code | P8: dress M01 (Calloway Ave) with the kit buildings/props/cars | B-007 | BLOCKED (dressing done, but it flips the deterministic autopilot into the B-007 roof-gunman stand-off; parked as `Docs/Handoffs/T-LVL-02_level_dressing.patch`) |
+| T-LVL-02 | P1 | Claude Code | P8: dress M01 (Calloway Ave) with the kit: liquor store, office tower, stucco shop, brick walk-up, traffic light + street sign, hydrants, trash cans, newspaper boxes, payphone, parking meters, real parked cars (visual only on the cover boxes); B-007 fixed | T-BLDG-01 | READY FOR REVIEW (M01 autopilot seeds 1-5 PASS) |
 
 > **Next work order:** `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md` (§8 = ordered task list to release).
 

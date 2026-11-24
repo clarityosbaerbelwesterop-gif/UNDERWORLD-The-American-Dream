@@ -487,117 +487,156 @@
    "type": "character",
    "milestone": "P4",
    "generator": "build-character Config/Characters/SK_NPC_Dana_Whitlock.json",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "authored",
-   "role": "fbi/boss"
+   "role": "fbi/boss",
+   "source": "Blender/Source/Characters/SK_NPC_Dana_Whitlock/SK_NPC_Dana_Whitlock.blend",
+   "asset": "Assets/Characters/SK_NPC_Dana_Whitlock/SK_NPC_Dana_Whitlock.glb",
+   "gate": "uwp export (dev) PASS 2026-11-24; release gate pending (character gate: clipping/foot-slide)"
   },
   {
    "id": "SK_NPC_Cuervos_Soldier",
    "type": "character",
    "milestone": "P4",
    "generator": "build-character Config/Characters/SK_NPC_Cuervos_Soldier.json",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "authored",
-   "role": "los_cuervos/enemy_medium"
+   "role": "los_cuervos/enemy_medium",
+   "source": "Blender/Source/Characters/SK_NPC_Cuervos_Soldier/SK_NPC_Cuervos_Soldier.blend",
+   "asset": "Assets/Characters/SK_NPC_Cuervos_Soldier/SK_NPC_Cuervos_Soldier.glb",
+   "gate": "uwp export (dev) PASS 2026-11-24; release gate pending (character gate: clipping/foot-slide)"
   },
   {
    "id": "SK_NPC_Cuervos_Heavy",
    "type": "character",
    "milestone": "P4",
    "generator": "build-character Config/Characters/SK_NPC_Cuervos_Heavy.json",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "authored",
-   "role": "los_cuervos/enemy_heavy"
+   "role": "los_cuervos/enemy_heavy",
+   "source": "Blender/Source/Characters/SK_NPC_Cuervos_Heavy/SK_NPC_Cuervos_Heavy.blend",
+   "asset": "Assets/Characters/SK_NPC_Cuervos_Heavy/SK_NPC_Cuervos_Heavy.glb",
+   "gate": "uwp export (dev) PASS 2026-11-24; release gate pending (character gate: clipping/foot-slide)"
   },
   {
    "id": "SK_Boss_Cuervos_Jefe",
    "type": "character",
    "milestone": "P4",
    "generator": "build-character Config/Characters/SK_Boss_Cuervos_Jefe.json",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "authored",
-   "role": "los_cuervos/boss"
+   "role": "los_cuervos/boss",
+   "source": "Blender/Source/Characters/SK_Boss_Cuervos_Jefe/SK_Boss_Cuervos_Jefe.blend",
+   "asset": "Assets/Characters/SK_Boss_Cuervos_Jefe/SK_Boss_Cuervos_Jefe.glb",
+   "gate": "uwp export (dev) PASS 2026-11-24; release gate pending (character gate: clipping/foot-slide)"
   },
   {
    "id": "SK_NPC_Hermandad_A",
    "type": "character",
    "milestone": "P4",
    "generator": "build-character Config/Characters/SK_NPC_Hermandad_A.json",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "authored",
-   "role": "la_hermandad/enemy_light"
+   "role": "la_hermandad/enemy_light",
+   "source": "Blender/Source/Characters/SK_NPC_Hermandad_A/SK_NPC_Hermandad_A.blend",
+   "asset": "Assets/Characters/SK_NPC_Hermandad_A/SK_NPC_Hermandad_A.glb",
+   "gate": "uwp export (dev) PASS 2026-11-24; release gate pending (character gate: clipping/foot-slide)"
   },
   {
    "id": "SK_NPC_Hermandad_Soldier",
    "type": "character",
    "milestone": "P4",
    "generator": "build-character Config/Characters/SK_NPC_Hermandad_Soldier.json",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "authored",
-   "role": "la_hermandad/enemy_medium"
+   "role": "la_hermandad/enemy_medium",
+   "source": "Blender/Source/Characters/SK_NPC_Hermandad_Soldier/SK_NPC_Hermandad_Soldier.blend",
+   "asset": "Assets/Characters/SK_NPC_Hermandad_Soldier/SK_NPC_Hermandad_Soldier.glb",
+   "gate": "uwp export (dev) PASS 2026-11-24; release gate pending (character gate: clipping/foot-slide)"
   },
   {
    "id": "SK_NPC_Hermandad_Heavy",
    "type": "character",
    "milestone": "P4",
    "generator": "build-character Config/Characters/SK_NPC_Hermandad_Heavy.json",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "authored",
-   "role": "la_hermandad/enemy_heavy"
+   "role": "la_hermandad/enemy_heavy",
+   "source": "Blender/Source/Characters/SK_NPC_Hermandad_Heavy/SK_NPC_Hermandad_Heavy.blend",
+   "asset": "Assets/Characters/SK_NPC_Hermandad_Heavy/SK_NPC_Hermandad_Heavy.glb",
+   "gate": "uwp export (dev) PASS 2026-11-24; release gate pending (character gate: clipping/foot-slide)"
   },
   {
    "id": "SK_Boss_Hermandad_Patron",
    "type": "character",
    "milestone": "P4",
    "generator": "build-character Config/Characters/SK_Boss_Hermandad_Patron.json",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "authored",
-   "role": "la_hermandad/boss"
+   "role": "la_hermandad/boss",
+   "source": "Blender/Source/Characters/SK_Boss_Hermandad_Patron/SK_Boss_Hermandad_Patron.blend",
+   "asset": "Assets/Characters/SK_Boss_Hermandad_Patron/SK_Boss_Hermandad_Patron.glb",
+   "gate": "uwp export (dev) PASS 2026-11-24; release gate pending (character gate: clipping/foot-slide)"
   },
   {
    "id": "SK_NPC_Kings_A",
    "type": "character",
    "milestone": "P4",
    "generator": "build-character Config/Characters/SK_NPC_Kings_A.json",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "authored",
-   "role": "kings_of_flatbush/enemy_light"
+   "role": "kings_of_flatbush/enemy_light",
+   "source": "Blender/Source/Characters/SK_NPC_Kings_A/SK_NPC_Kings_A.blend",
+   "asset": "Assets/Characters/SK_NPC_Kings_A/SK_NPC_Kings_A.glb",
+   "gate": "uwp export (dev) PASS 2026-11-24; release gate pending (character gate: clipping/foot-slide)"
   },
   {
    "id": "SK_NPC_Kings_B",
    "type": "character",
    "milestone": "P4",
    "generator": "build-character Config/Characters/SK_NPC_Kings_B.json",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "authored",
-   "role": "kings_of_flatbush/enemy_light"
+   "role": "kings_of_flatbush/enemy_light",
+   "source": "Blender/Source/Characters/SK_NPC_Kings_B/SK_NPC_Kings_B.blend",
+   "asset": "Assets/Characters/SK_NPC_Kings_B/SK_NPC_Kings_B.glb",
+   "gate": "uwp export (dev) PASS 2026-11-24; release gate pending (character gate: clipping/foot-slide)"
   },
   {
    "id": "SK_NPC_Kings_Lieutenant",
    "type": "character",
    "milestone": "P4",
    "generator": "build-character Config/Characters/SK_NPC_Kings_Lieutenant.json",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "authored",
-   "role": "kings_of_flatbush/enemy_medium"
+   "role": "kings_of_flatbush/enemy_medium",
+   "source": "Blender/Source/Characters/SK_NPC_Kings_Lieutenant/SK_NPC_Kings_Lieutenant.blend",
+   "asset": "Assets/Characters/SK_NPC_Kings_Lieutenant/SK_NPC_Kings_Lieutenant.glb",
+   "gate": "uwp export (dev) PASS 2026-11-24; release gate pending (character gate: clipping/foot-slide)"
   },
   {
    "id": "SK_NPC_FBI_Tactical",
    "type": "character",
    "milestone": "P4",
    "generator": "build-character Config/Characters/SK_NPC_FBI_Tactical.json",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "authored",
-   "role": "fbi/fbi_tactical"
+   "role": "fbi/fbi_tactical",
+   "source": "Blender/Source/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical.blend",
+   "asset": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical.glb",
+   "gate": "uwp export (dev) PASS 2026-11-24; release gate pending (character gate: clipping/foot-slide)"
   },
   {
    "id": "SK_NPC_Civ_Kit",
    "type": "character",
    "milestone": "P4",
    "generator": "build-character Config/Characters/SK_NPC_Civ_Kit.json",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "authored",
-   "role": "civilians/civilian"
+   "role": "civilians/civilian",
+   "source": "Blender/Source/Characters/SK_NPC_Civ_Kit/SK_NPC_Civ_Kit.blend",
+   "asset": "Assets/Characters/SK_NPC_Civ_Kit/SK_NPC_Civ_Kit.glb",
+   "gate": "uwp export (dev) PASS 2026-11-24; release gate pending (character gate: clipping/foot-slide)"
   },
   {
    "id": "WPN_Revolver_01",

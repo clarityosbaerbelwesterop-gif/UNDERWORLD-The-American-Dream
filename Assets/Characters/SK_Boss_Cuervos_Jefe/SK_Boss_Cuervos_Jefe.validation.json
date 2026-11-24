@@ -1,0 +1,414 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-24T06:01:12+00:00",
+  "command": "export",
+  "profile": "dev",
+  "input": "Blender/Source/Characters/SK_Boss_Cuervos_Jefe/SK_Boss_Cuervos_Jefe.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "lods": [],
+    "collision": {
+      "mode": "none",
+      "generated": [],
+      "existing": []
+    },
+    "foot_slide": {
+      "report": "/tmp/claude-0/wt_props/Assets/Characters/SK_Boss_Cuervos_Jefe/SK_Boss_Cuervos_Jefe.anim_report.json",
+      "limit_m": 0.01,
+      "over_budget": {
+        "A_Humanoid_Walk": 0.034,
+        "A_Humanoid_Sprint": 0.0199,
+        "A_Humanoid_Crouch_Walk": 0.0363,
+        "A_Humanoid_Aim_Pistol_Walk_F": 0.0451,
+        "A_Humanoid_Aim_Pistol_Walk_B": 0.0406,
+        "A_Humanoid_Aim_Pistol_Walk_L": 0.0498,
+        "A_Humanoid_Aim_Pistol_Walk_R": 0.0498
+      }
+    },
+    "export": {
+      "glb": "Assets/Characters/SK_Boss_Cuervos_Jefe/SK_Boss_Cuervos_Jefe.glb",
+      "bytes": 7356124
+    },
+    "preview": {
+      "front": "Assets/Characters/SK_Boss_Cuervos_Jefe/SK_Boss_Cuervos_Jefe_preview_front.png",
+      "3q": "Assets/Characters/SK_Boss_Cuervos_Jefe/SK_Boss_Cuervos_Jefe_preview_3q.png",
+      "side": "Assets/Characters/SK_Boss_Cuervos_Jefe/SK_Boss_Cuervos_Jefe_preview_side.png",
+      "back": "Assets/Characters/SK_Boss_Cuervos_Jefe/SK_Boss_Cuervos_Jefe_preview_back.png",
+      "face": "Assets/Characters/SK_Boss_Cuervos_Jefe/SK_Boss_Cuervos_Jefe_preview_face.png",
+      "face_side": "Assets/Characters/SK_Boss_Cuervos_Jefe/SK_Boss_Cuervos_Jefe_preview_face_side.png",
+      "default": "Assets/Characters/SK_Boss_Cuervos_Jefe/SK_Boss_Cuervos_Jefe_preview.png",
+      "aim": "Assets/Characters/SK_Boss_Cuervos_Jefe/SK_Boss_Cuervos_Jefe_preview_aim.png"
+    },
+    "manifest": "Assets/Characters/SK_Boss_Cuervos_Jefe/SK_Boss_Cuervos_Jefe.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "LeftToes",
+          "LeftFoot",
+          "LeftLowerLeg",
+          "LeftUpperLeg",
+          "RightToes",
+          "RightFoot",
+          "RightLowerLeg",
+          "RightUpperLeg",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftThumbDistal",
+          "LeftThumbProximal",
+          "LeftThumbMetacarpal",
+          "LeftHand",
+          "LeftLowerArm",
+          "LeftUpperArm",
+          "LeftShoulder",
+          "Head",
+          "Neck",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightThumbDistal",
+          "RightThumbProximal",
+          "RightThumbMetacarpal",
+          "SOCKET_RightHand_Weapon",
+          "RightHand",
+          "RightLowerArm",
+          "RightUpperArm",
+          "RightShoulder",
+          "UpperChest",
+          "Chest",
+          "Spine",
+          "Hips",
+          "Root",
+          "SK_Boss_Cuervos_Jefe_Beard",
+          "SK_Boss_Cuervos_Jefe_Body",
+          "SK_Boss_Cuervos_Jefe_Boots",
+          "SK_Boss_Cuervos_Jefe_Eyebrows",
+          "SK_Boss_Cuervos_Jefe_Eyelashes",
+          "SK_Boss_Cuervos_Jefe_Eyes",
+          "SK_Boss_Cuervos_Jefe_Hair",
+          "SK_Boss_Cuervos_Jefe_Jacket",
+          "SK_Boss_Cuervos_Jefe_Jeans",
+          "SK_Boss_Cuervos_Jefe_TShirt",
+          "Armature",
+          "SK_Boss_Cuervos_Jefe"
+        ],
+        "node_extras": {
+          "SK_Boss_Cuervos_Jefe_Beard": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_Boss_Cuervos_Jefe_Hair": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_Boss_Cuervos_Jefe": {
+            "uw_character_spec": "Config/Characters/SK_Boss_Cuervos_Jefe.json"
+          }
+        },
+        "meshes": 10,
+        "materials": [
+          "M_Boss_Cuervos_Jefe_Hair",
+          "M_Boss_Cuervos_Jefe_Skin",
+          "M_Boss_Cuervos_Jefe_Boots",
+          "M_Boss_Cuervos_Jefe_BrowsLashes",
+          "M_Boss_Cuervos_Jefe_Eyes",
+          "M_Boss_Cuervos_Jefe_Jacket",
+          "M_Boss_Cuervos_Jefe_Jeans",
+          "M_Boss_Cuervos_Jefe_TShirt"
+        ],
+        "images": 19,
+        "skins": [
+          {
+            "name": "Armature",
+            "joints": 53
+          }
+        ],
+        "joint_names": [
+          "Chest",
+          "Head",
+          "Hips",
+          "LeftFoot",
+          "LeftHand",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftLowerArm",
+          "LeftLowerLeg",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftShoulder",
+          "LeftThumbDistal",
+          "LeftThumbMetacarpal",
+          "LeftThumbProximal",
+          "LeftToes",
+          "LeftUpperArm",
+          "LeftUpperLeg",
+          "Neck",
+          "RightFoot",
+          "RightHand",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "RightLowerArm",
+          "RightLowerLeg",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightShoulder",
+          "RightThumbDistal",
+          "RightThumbMetacarpal",
+          "RightThumbProximal",
+          "RightToes",
+          "RightUpperArm",
+          "RightUpperLeg",
+          "Root",
+          "Spine",
+          "UpperChest"
+        ],
+        "animations": [
+          "A_Humanoid_Aim_Pistol_Idle",
+          "A_Humanoid_Aim_Pistol_Walk_B",
+          "A_Humanoid_Aim_Pistol_Walk_F",
+          "A_Humanoid_Aim_Pistol_Walk_L",
+          "A_Humanoid_Aim_Pistol_Walk_R",
+          "A_Humanoid_Crouch_Idle",
+          "A_Humanoid_Crouch_Walk",
+          "A_Humanoid_Idle",
+          "A_Humanoid_Jump_Air",
+          "A_Humanoid_Jump_Start",
+          "A_Humanoid_Land",
+          "A_Humanoid_Reload_Pistol",
+          "A_Humanoid_Run",
+          "A_Humanoid_Shoot_Pistol",
+          "A_Humanoid_Sprint",
+          "A_Humanoid_Walk"
+        ],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 7356124
+      },
+      "reimport_objects": [
+        "Armature",
+        "Icosphere",
+        "SK_Boss_Cuervos_Jefe",
+        "SK_Boss_Cuervos_Jefe_Beard",
+        "SK_Boss_Cuervos_Jefe_Body",
+        "SK_Boss_Cuervos_Jefe_Boots",
+        "SK_Boss_Cuervos_Jefe_Eyebrows",
+        "SK_Boss_Cuervos_Jefe_Eyelashes",
+        "SK_Boss_Cuervos_Jefe_Eyes",
+        "SK_Boss_Cuervos_Jefe_Hair",
+        "SK_Boss_Cuervos_Jefe_Jacket",
+        "SK_Boss_Cuervos_Jefe_Jeans",
+        "SK_Boss_Cuervos_Jefe_TShirt",
+        "SOCKET_RightHand_Weapon"
+      ],
+      "reimport_actions": [
+        "A_Humanoid_Aim_Pistol_Idle",
+        "A_Humanoid_Aim_Pistol_Walk_B",
+        "A_Humanoid_Aim_Pistol_Walk_F",
+        "A_Humanoid_Aim_Pistol_Walk_L",
+        "A_Humanoid_Aim_Pistol_Walk_R",
+        "A_Humanoid_Crouch_Idle",
+        "A_Humanoid_Crouch_Walk",
+        "A_Humanoid_Idle",
+        "A_Humanoid_Jump_Air",
+        "A_Humanoid_Jump_Start",
+        "A_Humanoid_Land",
+        "A_Humanoid_Reload_Pistol",
+        "A_Humanoid_Run",
+        "A_Humanoid_Shoot_Pistol",
+        "A_Humanoid_Sprint",
+        "A_Humanoid_Walk"
+      ],
+      "problems": []
+    }
+  },
+  "asset": "SK_Boss_Cuervos_Jefe",
+  "category": "Characters",
+  "budget_key": "Characters/SK_Boss",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Boss_Cuervos_Jefe_Body",
+      "message": "158 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Boss_Cuervos_Jefe_Eyes",
+      "message": "32 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Boss_Cuervos_Jefe_Eyebrows",
+      "message": "52 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Boss_Cuervos_Jefe_Eyelashes",
+      "message": "124 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Boss_Cuervos_Jefe_TShirt",
+      "message": "176 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Boss_Cuervos_Jefe_Jeans",
+      "message": "96 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Boss_Cuervos_Jefe_Jacket",
+      "message": "192 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Boss_Cuervos_Jefe_Hair",
+      "message": "842 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_Boss_Cuervos_Jefe_Beard",
+      "message": "234 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_Boss_Cuervos_Jefe_Body",
+      "message": "SK_Boss_Cuervos_Jefe_Body vs SK_Boss_Cuervos_Jefe_TShirt: 2/645 verts (0.31%)",
+      "data": {
+        "inner": "SK_Boss_Cuervos_Jefe_Body",
+        "outer": "SK_Boss_Cuervos_Jefe_TShirt",
+        "tested_vertices": 645,
+        "clipped_vertices": 2,
+        "clipped_fraction": 0.0031
+      }
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_Boss_Cuervos_Jefe_Body",
+      "message": "SK_Boss_Cuervos_Jefe_Body vs SK_Boss_Cuervos_Jefe_Jacket: 5/21 verts (23.81%)",
+      "data": {
+        "inner": "SK_Boss_Cuervos_Jefe_Body",
+        "outer": "SK_Boss_Cuervos_Jefe_Jacket",
+        "tested_vertices": 21,
+        "clipped_vertices": 5,
+        "clipped_fraction": 0.2381
+      }
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_Boss_Cuervos_Jefe_TShirt",
+      "message": "SK_Boss_Cuervos_Jefe_TShirt vs SK_Boss_Cuervos_Jefe_Jacket: 1/153 verts (0.65%)",
+      "data": {
+        "inner": "SK_Boss_Cuervos_Jefe_TShirt",
+        "outer": "SK_Boss_Cuervos_Jefe_Jacket",
+        "tested_vertices": 153,
+        "clipped_vertices": 1,
+        "clipped_fraction": 0.0065
+      }
+    },
+    {
+      "severity": "info",
+      "code": "HUMANOID_OPTIONAL",
+      "object": "Armature",
+      "message": "optional humanoid bones absent: ['LeftEye', 'RightEye', 'Jaw']"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_NONE",
+      "object": null,
+      "message": "no LOD ratios configured for Characters"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Aim_Pistol_Walk_L",
+      "message": "A_Humanoid_Aim_Pistol_Walk_L: foot sliding 4.98 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Aim_Pistol_Walk_R",
+      "message": "A_Humanoid_Aim_Pistol_Walk_R: foot sliding 4.98 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Aim_Pistol_Walk_F",
+      "message": "A_Humanoid_Aim_Pistol_Walk_F: foot sliding 4.51 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Aim_Pistol_Walk_B",
+      "message": "A_Humanoid_Aim_Pistol_Walk_B: foot sliding 4.06 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Crouch_Walk",
+      "message": "A_Humanoid_Crouch_Walk: foot sliding 3.63 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Walk",
+      "message": "A_Humanoid_Walk: foot sliding 3.40 cm > 1.0 cm"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 6,
+    "infos": 14
+  },
+  "seconds": 29.4,
+  "exit_code": 0,
+  "result": "PASS"
+}

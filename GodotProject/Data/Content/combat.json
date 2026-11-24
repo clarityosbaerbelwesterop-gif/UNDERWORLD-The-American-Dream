@@ -350,8 +350,7 @@
    "base_profile": "AI_Gunman_Cartel",
    "max_health": 650,
    "armor": [
-    "vest_heavy",
-    "helmet"
+    "vest_heavy"
    ],
    "weapons": [
     "WPN_Rifle_01",
@@ -378,7 +377,9 @@
       "enemy_medium"
      ]
     }
-   ]
+   ],
+   "armor_concealed": true,
+   "_armor_note": "bosses wear a concealed heavy vest under the suit and no helmet: they read as bosses, and headshots are the counterplay (T-CHAR-01)"
   },
   "police_patrol": {
    "tier": 2,

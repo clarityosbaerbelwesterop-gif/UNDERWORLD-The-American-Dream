@@ -1,0 +1,385 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-24T05:46:56+00:00",
+  "command": "export",
+  "profile": "dev",
+  "input": "Blender/Source/Characters/SK_NPC_Cuervos_Soldier/SK_NPC_Cuervos_Soldier.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 1
+    },
+    "lods": [],
+    "collision": {
+      "mode": "none",
+      "generated": [],
+      "existing": []
+    },
+    "foot_slide": {
+      "report": "/tmp/claude-0/wt_props/Assets/Characters/SK_NPC_Cuervos_Soldier/SK_NPC_Cuervos_Soldier.anim_report.json",
+      "limit_m": 0.01,
+      "over_budget": {
+        "A_Humanoid_Walk": 0.0334,
+        "A_Humanoid_Sprint": 0.02,
+        "A_Humanoid_Crouch_Walk": 0.0362,
+        "A_Humanoid_Aim_Pistol_Walk_F": 0.0452,
+        "A_Humanoid_Aim_Pistol_Walk_B": 0.0406,
+        "A_Humanoid_Aim_Pistol_Walk_L": 0.0511,
+        "A_Humanoid_Aim_Pistol_Walk_R": 0.0511
+      }
+    },
+    "export": {
+      "glb": "Assets/Characters/SK_NPC_Cuervos_Soldier/SK_NPC_Cuervos_Soldier.glb",
+      "bytes": 5317948
+    },
+    "preview": {
+      "front": "Assets/Characters/SK_NPC_Cuervos_Soldier/SK_NPC_Cuervos_Soldier_preview_front.png",
+      "3q": "Assets/Characters/SK_NPC_Cuervos_Soldier/SK_NPC_Cuervos_Soldier_preview_3q.png",
+      "side": "Assets/Characters/SK_NPC_Cuervos_Soldier/SK_NPC_Cuervos_Soldier_preview_side.png",
+      "back": "Assets/Characters/SK_NPC_Cuervos_Soldier/SK_NPC_Cuervos_Soldier_preview_back.png",
+      "face": "Assets/Characters/SK_NPC_Cuervos_Soldier/SK_NPC_Cuervos_Soldier_preview_face.png",
+      "face_side": "Assets/Characters/SK_NPC_Cuervos_Soldier/SK_NPC_Cuervos_Soldier_preview_face_side.png",
+      "default": "Assets/Characters/SK_NPC_Cuervos_Soldier/SK_NPC_Cuervos_Soldier_preview.png",
+      "aim": "Assets/Characters/SK_NPC_Cuervos_Soldier/SK_NPC_Cuervos_Soldier_preview_aim.png"
+    },
+    "manifest": "Assets/Characters/SK_NPC_Cuervos_Soldier/SK_NPC_Cuervos_Soldier.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "LeftToes",
+          "LeftFoot",
+          "LeftLowerLeg",
+          "LeftUpperLeg",
+          "RightToes",
+          "RightFoot",
+          "RightLowerLeg",
+          "RightUpperLeg",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftThumbDistal",
+          "LeftThumbProximal",
+          "LeftThumbMetacarpal",
+          "LeftHand",
+          "LeftLowerArm",
+          "LeftUpperArm",
+          "LeftShoulder",
+          "Head",
+          "Neck",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightThumbDistal",
+          "RightThumbProximal",
+          "RightThumbMetacarpal",
+          "SOCKET_RightHand_Weapon",
+          "RightHand",
+          "RightLowerArm",
+          "RightUpperArm",
+          "RightShoulder",
+          "UpperChest",
+          "Chest",
+          "Spine",
+          "Hips",
+          "Root",
+          "SK_NPC_Cuervos_Soldier_Beard",
+          "SK_NPC_Cuervos_Soldier_Body",
+          "SK_NPC_Cuervos_Soldier_Boots",
+          "SK_NPC_Cuervos_Soldier_Eyebrows",
+          "SK_NPC_Cuervos_Soldier_Eyelashes",
+          "SK_NPC_Cuervos_Soldier_Eyes",
+          "SK_NPC_Cuervos_Soldier_Hair",
+          "SK_NPC_Cuervos_Soldier_Jeans",
+          "SK_NPC_Cuervos_Soldier_TShirt",
+          "Armature",
+          "SK_NPC_Cuervos_Soldier"
+        ],
+        "node_extras": {
+          "SK_NPC_Cuervos_Soldier_Beard": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Cuervos_Soldier_Hair": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Cuervos_Soldier": {
+            "uw_character_spec": "Config/Characters/SK_NPC_Cuervos_Soldier.json"
+          }
+        },
+        "meshes": 9,
+        "materials": [
+          "M_NPC_Cuervos_Soldier_Hair",
+          "M_NPC_Cuervos_Soldier_Skin",
+          "M_NPC_Cuervos_Soldier_Boots",
+          "M_NPC_Cuervos_Soldier_BrowsLashes",
+          "M_NPC_Cuervos_Soldier_Eyes",
+          "M_NPC_Cuervos_Soldier_Jeans",
+          "M_NPC_Cuervos_Soldier_TShirt"
+        ],
+        "images": 16,
+        "skins": [
+          {
+            "name": "Armature",
+            "joints": 53
+          }
+        ],
+        "joint_names": [
+          "Chest",
+          "Head",
+          "Hips",
+          "LeftFoot",
+          "LeftHand",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftLowerArm",
+          "LeftLowerLeg",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftShoulder",
+          "LeftThumbDistal",
+          "LeftThumbMetacarpal",
+          "LeftThumbProximal",
+          "LeftToes",
+          "LeftUpperArm",
+          "LeftUpperLeg",
+          "Neck",
+          "RightFoot",
+          "RightHand",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "RightLowerArm",
+          "RightLowerLeg",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightShoulder",
+          "RightThumbDistal",
+          "RightThumbMetacarpal",
+          "RightThumbProximal",
+          "RightToes",
+          "RightUpperArm",
+          "RightUpperLeg",
+          "Root",
+          "Spine",
+          "UpperChest"
+        ],
+        "animations": [
+          "A_Humanoid_Aim_Pistol_Idle",
+          "A_Humanoid_Aim_Pistol_Walk_B",
+          "A_Humanoid_Aim_Pistol_Walk_F",
+          "A_Humanoid_Aim_Pistol_Walk_L",
+          "A_Humanoid_Aim_Pistol_Walk_R",
+          "A_Humanoid_Crouch_Idle",
+          "A_Humanoid_Crouch_Walk",
+          "A_Humanoid_Idle",
+          "A_Humanoid_Jump_Air",
+          "A_Humanoid_Jump_Start",
+          "A_Humanoid_Land",
+          "A_Humanoid_Reload_Pistol",
+          "A_Humanoid_Run",
+          "A_Humanoid_Shoot_Pistol",
+          "A_Humanoid_Sprint",
+          "A_Humanoid_Walk"
+        ],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 5317948
+      },
+      "reimport_objects": [
+        "Armature",
+        "Icosphere",
+        "SK_NPC_Cuervos_Soldier",
+        "SK_NPC_Cuervos_Soldier_Beard",
+        "SK_NPC_Cuervos_Soldier_Body",
+        "SK_NPC_Cuervos_Soldier_Boots",
+        "SK_NPC_Cuervos_Soldier_Eyebrows",
+        "SK_NPC_Cuervos_Soldier_Eyelashes",
+        "SK_NPC_Cuervos_Soldier_Eyes",
+        "SK_NPC_Cuervos_Soldier_Hair",
+        "SK_NPC_Cuervos_Soldier_Jeans",
+        "SK_NPC_Cuervos_Soldier_TShirt",
+        "SOCKET_RightHand_Weapon"
+      ],
+      "reimport_actions": [
+        "A_Humanoid_Aim_Pistol_Idle",
+        "A_Humanoid_Aim_Pistol_Walk_B",
+        "A_Humanoid_Aim_Pistol_Walk_F",
+        "A_Humanoid_Aim_Pistol_Walk_L",
+        "A_Humanoid_Aim_Pistol_Walk_R",
+        "A_Humanoid_Crouch_Idle",
+        "A_Humanoid_Crouch_Walk",
+        "A_Humanoid_Idle",
+        "A_Humanoid_Jump_Air",
+        "A_Humanoid_Jump_Start",
+        "A_Humanoid_Land",
+        "A_Humanoid_Reload_Pistol",
+        "A_Humanoid_Run",
+        "A_Humanoid_Shoot_Pistol",
+        "A_Humanoid_Sprint",
+        "A_Humanoid_Walk"
+      ],
+      "problems": []
+    }
+  },
+  "asset": "SK_NPC_Cuervos_Soldier",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cuervos_Soldier_Body",
+      "message": "178 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cuervos_Soldier_Eyes",
+      "message": "32 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cuervos_Soldier_Eyebrows",
+      "message": "52 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cuervos_Soldier_Eyelashes",
+      "message": "124 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cuervos_Soldier_TShirt",
+      "message": "133 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cuervos_Soldier_Jeans",
+      "message": "93 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cuervos_Soldier_Hair",
+      "message": "136 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Cuervos_Soldier_Beard",
+      "message": "294 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_NPC_Cuervos_Soldier_Body",
+      "message": "SK_NPC_Cuervos_Soldier_Body vs SK_NPC_Cuervos_Soldier_TShirt: 26/1234 verts (2.11%)",
+      "data": {
+        "inner": "SK_NPC_Cuervos_Soldier_Body",
+        "outer": "SK_NPC_Cuervos_Soldier_TShirt",
+        "tested_vertices": 1234,
+        "clipped_vertices": 26,
+        "clipped_fraction": 0.0211
+      }
+    },
+    {
+      "severity": "warning",
+      "code": "ORIGIN_CENTRE",
+      "object": null,
+      "message": "bbox centre Y=-0.072 m; origin should be centred for Characters"
+    },
+    {
+      "severity": "info",
+      "code": "HUMANOID_OPTIONAL",
+      "object": "Armature",
+      "message": "optional humanoid bones absent: ['LeftEye', 'RightEye', 'Jaw']"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_NONE",
+      "object": null,
+      "message": "no LOD ratios configured for Characters"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Aim_Pistol_Walk_L",
+      "message": "A_Humanoid_Aim_Pistol_Walk_L: foot sliding 5.11 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Aim_Pistol_Walk_R",
+      "message": "A_Humanoid_Aim_Pistol_Walk_R: foot sliding 5.11 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Aim_Pistol_Walk_F",
+      "message": "A_Humanoid_Aim_Pistol_Walk_F: foot sliding 4.52 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Aim_Pistol_Walk_B",
+      "message": "A_Humanoid_Aim_Pistol_Walk_B: foot sliding 4.06 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Crouch_Walk",
+      "message": "A_Humanoid_Crouch_Walk: foot sliding 3.62 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Walk",
+      "message": "A_Humanoid_Walk: foot sliding 3.34 cm > 1.0 cm"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 7,
+    "infos": 11
+  },
+  "seconds": 28.57,
+  "exit_code": 0,
+  "result": "PASS"
+}

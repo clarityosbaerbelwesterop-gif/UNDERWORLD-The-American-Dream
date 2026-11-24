@@ -59,9 +59,14 @@ func _run() -> void:
 	fcs.position.y = -0.5
 	floor_body.add_child(fcs)
 	stage.add_child(floor_body)
-	var x := -4.0
+	var roster: Dictionary = ((CombatDB.data()["factions"] as Dictionary).get(faction, {}) as Dictionary).get("roster", {})
+	var tiers: Array = ["civilian"]
+	for t in ["enemy_light", "enemy_medium", "enemy_heavy", "police_patrol", "fbi_tactical", "ally", "boss"]:
+		if roster.has(t):
+			tiers.append(t)
+	var x := -(tiers.size() - 1)
 	var npcs: Array = []
-	for arch in TIERS:
+	for arch in tiers:
 		var npc := (load(NPC) as PackedScene).instantiate() as NPCController
 		CombatDB.apply(npc, arch)
 		var model := _model_for(faction, arch)
@@ -74,18 +79,19 @@ func _run() -> void:
 		l.text = "%s\n%.0f HP  %s" % [arch, npc.profile.max_health, npc.profile.weapon.id if npc.profile.weapon else "-"]
 		l.font_size = 40
 		l.position = Vector3(x, 2.25, 0)
+		l.rotation = Vector3(0, PI, 0)
 		stage.add_child(l)
 		x += 2.0
 	await frames(30)                                       # idle clips settle, visuals swap in
 	for pair in npcs:                                      # then freeze: pose only, no AI wandering
 		var n := pair[0] as NPCController
 		n.global_position = pair[1]
-		n.rotation = Vector3.ZERO
+		n.rotation = Vector3(0, PI, 0)                     # face the camera on the sun side (-Z)
 		n.process_mode = Node.PROCESS_MODE_DISABLED
 	var cam := Camera3D.new()
 	stage.add_child(cam)
 	cam.fov = 40
-	cam.position = Vector3(1.2, 1.7, 8.5)
+	cam.position = Vector3(-1.0, 1.6, -7.5)
 	cam.look_at(Vector3(0, 1.05, 0), Vector3.UP)
 	cam.make_current()
 	await frames(12)

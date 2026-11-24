@@ -4,8 +4,8 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 
 | Status | Anzahl |
 |---|---|
-| PLANNED | 35 |
-| WIP | 66 |
+| PLANNED | 22 |
+| WIP | 79 |
 | PRODUCTION-READY | 0 |
 | **gesamt** | **101** |
 
@@ -13,7 +13,7 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 |---|---|---|---|---|---|
 | P2 | 2 | 2 | 0 | 0 | 0/2 |
 | P3 | 30 | 1 | 29 | 0 | 29/30 |
-| P4 | 20 | 13 | 7 | 0 | 20/20 |
+| P4 | 20 | 0 | 20 | 0 | 20/20 |
 | P5 | 31 | 2 | 29 | 0 | 31/31 |
 | P6 | 18 | 17 | 1 | 0 | 1/12 |
 
@@ -63,24 +63,24 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 
 | ID | Typ | Status | Ziel | Generator | Datei |
 |---|---|---|---|---|---|
-| SK_Boss_Cuervos_Jefe | character | PLANNED | authored | `build-character Config/Characters/SK_Boss_Cuervos_Jefe.json` | – |
-| SK_Boss_Hermandad_Patron | character | PLANNED | authored | `build-character Config/Characters/SK_Boss_Hermandad_Patron.json` | – |
+| SK_Boss_Cuervos_Jefe | character | WIP | authored | `build-character Config/Characters/SK_Boss_Cuervos_Jefe.json` | ✓ |
+| SK_Boss_Hermandad_Patron | character | WIP | authored | `build-character Config/Characters/SK_Boss_Hermandad_Patron.json` | ✓ |
 | SK_Jason | character | WIP | hero-authored | `build-character Config/Characters/SK_Jason.json` | ✓ |
 | SK_NPC_Cartel_A | character | WIP | authored | `build-character Config/Characters/SK_NPC_Cartel_A.json` | ✓ |
 | SK_NPC_Cartel_B | character | WIP | authored | `build-character Config/Characters/SK_NPC_Cartel_B.json` | ✓ |
-| SK_NPC_Civ_Kit | character | PLANNED | authored | `build-character Config/Characters/SK_NPC_Civ_Kit.json` | – |
+| SK_NPC_Civ_Kit | character | WIP | authored | `build-character Config/Characters/SK_NPC_Civ_Kit.json` | ✓ |
 | SK_NPC_Civilian_Female | character | WIP | authored | `build-character Config/Characters/SK_NPC_Civilian_Female.json` | ✓ |
 | SK_NPC_Cop_LA | character | WIP | authored | `build-character Config/Characters/SK_NPC_Cop_LA.json` | ✓ |
-| SK_NPC_Cuervos_Heavy | character | PLANNED | authored | `build-character Config/Characters/SK_NPC_Cuervos_Heavy.json` | – |
-| SK_NPC_Cuervos_Soldier | character | PLANNED | authored | `build-character Config/Characters/SK_NPC_Cuervos_Soldier.json` | – |
-| SK_NPC_Dana_Whitlock | character | PLANNED | authored | `build-character Config/Characters/SK_NPC_Dana_Whitlock.json` | – |
-| SK_NPC_FBI_Tactical | character | PLANNED | authored | `build-character Config/Characters/SK_NPC_FBI_Tactical.json` | – |
-| SK_NPC_Hermandad_A | character | PLANNED | authored | `build-character Config/Characters/SK_NPC_Hermandad_A.json` | – |
-| SK_NPC_Hermandad_Heavy | character | PLANNED | authored | `build-character Config/Characters/SK_NPC_Hermandad_Heavy.json` | – |
-| SK_NPC_Hermandad_Soldier | character | PLANNED | authored | `build-character Config/Characters/SK_NPC_Hermandad_Soldier.json` | – |
-| SK_NPC_Kings_A | character | PLANNED | authored | `build-character Config/Characters/SK_NPC_Kings_A.json` | – |
-| SK_NPC_Kings_B | character | PLANNED | authored | `build-character Config/Characters/SK_NPC_Kings_B.json` | – |
-| SK_NPC_Kings_Lieutenant | character | PLANNED | authored | `build-character Config/Characters/SK_NPC_Kings_Lieutenant.json` | – |
+| SK_NPC_Cuervos_Heavy | character | WIP | authored | `build-character Config/Characters/SK_NPC_Cuervos_Heavy.json` | ✓ |
+| SK_NPC_Cuervos_Soldier | character | WIP | authored | `build-character Config/Characters/SK_NPC_Cuervos_Soldier.json` | ✓ |
+| SK_NPC_Dana_Whitlock | character | WIP | authored | `build-character Config/Characters/SK_NPC_Dana_Whitlock.json` | ✓ |
+| SK_NPC_FBI_Tactical | character | WIP | authored | `build-character Config/Characters/SK_NPC_FBI_Tactical.json` | ✓ |
+| SK_NPC_Hermandad_A | character | WIP | authored | `build-character Config/Characters/SK_NPC_Hermandad_A.json` | ✓ |
+| SK_NPC_Hermandad_Heavy | character | WIP | authored | `build-character Config/Characters/SK_NPC_Hermandad_Heavy.json` | ✓ |
+| SK_NPC_Hermandad_Soldier | character | WIP | authored | `build-character Config/Characters/SK_NPC_Hermandad_Soldier.json` | ✓ |
+| SK_NPC_Kings_A | character | WIP | authored | `build-character Config/Characters/SK_NPC_Kings_A.json` | ✓ |
+| SK_NPC_Kings_B | character | WIP | authored | `build-character Config/Characters/SK_NPC_Kings_B.json` | ✓ |
+| SK_NPC_Kings_Lieutenant | character | WIP | authored | `build-character Config/Characters/SK_NPC_Kings_Lieutenant.json` | ✓ |
 | SK_NPC_Marco | character | WIP | hero-authored | `build-character Config/Characters/SK_NPC_Marco.json` | ✓ |
 | SK_NPC_Sam | character | WIP | hero-authored | `build-character Config/Characters/SK_NPC_Sam.json` | ✓ |
 

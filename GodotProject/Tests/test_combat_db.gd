@@ -154,6 +154,17 @@ func test_apply_to_npc() -> void:
 	check(hp.health > 125.0 and hp.health < 140.0, "a 25-damage pistol body hit costs the heavy %.1f HP, not 25" % (150.0 - hp.health))
 	npc.queue_free()
 	await physics_frame
+	# bosses: concealed vest (armor counts, nothing drawn) and no helmet -> the suit stays visible
+	var boss := ps.instantiate() as NPCController
+	CombatDB.apply(boss, "boss")
+	root.add_child(boss)
+	for k in 3:
+		await physics_frame
+	var bhp := boss.get_node("Health") as DamageReceiver
+	check(bhp.armor_pieces.size() == 1 and boss.find_children("Armor_*", "BoneAttachment3D", true, false).is_empty(),
+		"boss: concealed heavy vest counts (%d piece), nothing drawn over the suit" % bhp.armor_pieces.size())
+	boss.queue_free()
+	await physics_frame
 
 ## T-WPN-01: every combat.json weapon with a `scene` resolves to its weapon-grammar asset and keeps
 ## the REQ-GP02 contract: SOCKET_Muzzle in front (+Z) of the grip origin, firearms have a

@@ -1,0 +1,733 @@
+{
+  "asset": "SK_Boss_Hermandad_Patron",
+  "status": "READY FOR REVIEW",
+  "category": "Characters",
+  "budget_key": "Characters/SK_Boss",
+  "source_blend": "Blender/Source/Characters/SK_Boss_Hermandad_Patron/SK_Boss_Hermandad_Patron.blend",
+  "export_glb": "Assets/Characters/SK_Boss_Hermandad_Patron/SK_Boss_Hermandad_Patron.glb",
+  "preview_png": "Assets/Characters/SK_Boss_Hermandad_Patron/SK_Boss_Hermandad_Patron_preview.png",
+  "previews": {
+    "front": "Assets/Characters/SK_Boss_Hermandad_Patron/SK_Boss_Hermandad_Patron_preview_front.png",
+    "3q": "Assets/Characters/SK_Boss_Hermandad_Patron/SK_Boss_Hermandad_Patron_preview_3q.png",
+    "side": "Assets/Characters/SK_Boss_Hermandad_Patron/SK_Boss_Hermandad_Patron_preview_side.png",
+    "back": "Assets/Characters/SK_Boss_Hermandad_Patron/SK_Boss_Hermandad_Patron_preview_back.png",
+    "face": "Assets/Characters/SK_Boss_Hermandad_Patron/SK_Boss_Hermandad_Patron_preview_face.png",
+    "face_side": "Assets/Characters/SK_Boss_Hermandad_Patron/SK_Boss_Hermandad_Patron_preview_face_side.png",
+    "default": "Assets/Characters/SK_Boss_Hermandad_Patron/SK_Boss_Hermandad_Patron_preview.png",
+    "aim": "Assets/Characters/SK_Boss_Hermandad_Patron/SK_Boss_Hermandad_Patron_preview_aim.png"
+  },
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.9248,
+      -0.0,
+      -0.1288
+    ],
+    "max": [
+      0.9248,
+      1.8422,
+      0.245
+    ],
+    "size": [
+      1.8496,
+      1.8422,
+      0.3738
+    ]
+  },
+  "triangles": {
+    "lod0": 24854,
+    "budget": 30000,
+    "per_lod_total": {}
+  },
+  "lods": [],
+  "collision": {
+    "mode": "none",
+    "generated": [],
+    "existing": []
+  },
+  "materials": [
+    "M_Boss_Hermandad_Patron_Boots",
+    "M_Boss_Hermandad_Patron_BrowsLashes",
+    "M_Boss_Hermandad_Patron_Eyes",
+    "M_Boss_Hermandad_Patron_Hair",
+    "M_Boss_Hermandad_Patron_Jacket",
+    "M_Boss_Hermandad_Patron_Jeans",
+    "M_Boss_Hermandad_Patron_Skin",
+    "M_Boss_Hermandad_Patron_TShirt"
+  ],
+  "textures": [
+    {
+      "image": "T_Boss_Hermandad_Patron_Boots_D",
+      "material": "M_Boss_Hermandad_Patron_Boots",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_r44ri0k3/T_Boss_Hermandad_Patron_Boots_D.jpg"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_Boots_ORM",
+      "material": "M_Boss_Hermandad_Patron_Boots",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_efjnx69q/T_Boss_Hermandad_Patron_Boots_ORM.jpg"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_Boots_N",
+      "material": "M_Boss_Hermandad_Patron_Boots",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_g665hglo/T_Boss_Hermandad_Patron_Boots_N.png"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_BrowsLashes_D",
+      "material": "M_Boss_Hermandad_Patron_BrowsLashes",
+      "size": [
+        512,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_lesfwdd4/T_Boss_Hermandad_Patron_BrowsLashes_D.png"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_Eyes_D",
+      "material": "M_Boss_Hermandad_Patron_Eyes",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_0sq2mg1v/T_Boss_Hermandad_Patron_Eyes_D.jpg"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_Hair_D",
+      "material": "M_Boss_Hermandad_Patron_Hair",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_eregu1qh/T_Boss_Hermandad_Patron_Hair_D.png"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_Hair_N",
+      "material": "M_Boss_Hermandad_Patron_Hair",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_ary7j1y_/T_Boss_Hermandad_Patron_Hair_N.png"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_Jacket_D",
+      "material": "M_Boss_Hermandad_Patron_Jacket",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_rmjz_0en/T_Boss_Hermandad_Patron_Jacket_D.jpg"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_Jacket_ORM",
+      "material": "M_Boss_Hermandad_Patron_Jacket",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_zm5bvm9i/T_Boss_Hermandad_Patron_Jacket_ORM.jpg"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_Jacket_N",
+      "material": "M_Boss_Hermandad_Patron_Jacket",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_q8rmhnp0/T_Boss_Hermandad_Patron_Jacket_N.png"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_Jeans_D",
+      "material": "M_Boss_Hermandad_Patron_Jeans",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_5ywza1cp/T_Boss_Hermandad_Patron_Jeans_D.jpg"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_Jeans_ORM",
+      "material": "M_Boss_Hermandad_Patron_Jeans",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_isn6va49/T_Boss_Hermandad_Patron_Jeans_ORM.jpg"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_Jeans_N",
+      "material": "M_Boss_Hermandad_Patron_Jeans",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_ox42bbv1/T_Boss_Hermandad_Patron_Jeans_N.png"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_Skin_D",
+      "material": "M_Boss_Hermandad_Patron_Skin",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_5uss2pie/T_Boss_Hermandad_Patron_Skin_D.jpg"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_Skin_ORM",
+      "material": "M_Boss_Hermandad_Patron_Skin",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex__gkjk0ym/T_Boss_Hermandad_Patron_Skin_ORM.jpg"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_Skin_N",
+      "material": "M_Boss_Hermandad_Patron_Skin",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex__df0b6k2/T_Boss_Hermandad_Patron_Skin_N.png"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_TShirt_D",
+      "material": "M_Boss_Hermandad_Patron_TShirt",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_uzdbdqkx/T_Boss_Hermandad_Patron_TShirt_D.jpg"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_TShirt_ORM",
+      "material": "M_Boss_Hermandad_Patron_TShirt",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_vngolc3f/T_Boss_Hermandad_Patron_TShirt_ORM.jpg"
+    },
+    {
+      "image": "T_Boss_Hermandad_Patron_TShirt_N",
+      "material": "M_Boss_Hermandad_Patron_TShirt",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_f747mjbv/T_Boss_Hermandad_Patron_TShirt_N.png"
+    }
+  ],
+  "uv_overlap": {
+    "SK_Boss_Hermandad_Patron_Body": {
+      "overlap_fraction": 0.0001,
+      "uv_coverage": 0.3348
+    },
+    "SK_Boss_Hermandad_Patron_Eyes": {
+      "overlap_fraction": 0.0001,
+      "uv_coverage": 0.8705
+    },
+    "SK_Boss_Hermandad_Patron_Eyebrows": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.234
+    },
+    "SK_Boss_Hermandad_Patron_Eyelashes": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.1407
+    },
+    "SK_Boss_Hermandad_Patron_TShirt": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.4092
+    },
+    "SK_Boss_Hermandad_Patron_Jeans": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.3926
+    },
+    "SK_Boss_Hermandad_Patron_Boots": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.3798
+    },
+    "SK_Boss_Hermandad_Patron_Jacket": {
+      "overlap_fraction": 0.0059,
+      "uv_coverage": 0.4083
+    }
+  },
+  "texel_density": {
+    "SK_Boss_Hermandad_Patron_Body": {
+      "texture_px": 1024,
+      "median_px_per_m": 647.1,
+      "p10_px_per_m": 424.4,
+      "p90_px_per_m": 1204.2
+    },
+    "SK_Boss_Hermandad_Patron_Eyes": {
+      "texture_px": 512,
+      "median_px_per_m": 17329.4,
+      "p10_px_per_m": 7765.2,
+      "p90_px_per_m": 18904.9
+    },
+    "SK_Boss_Hermandad_Patron_Eyebrows": {
+      "texture_px": 1024,
+      "median_px_per_m": 11499.0,
+      "p10_px_per_m": 7335.6,
+      "p90_px_per_m": 15878.1
+    },
+    "SK_Boss_Hermandad_Patron_Eyelashes": {
+      "texture_px": 1024,
+      "median_px_per_m": 14225.3,
+      "p10_px_per_m": 12682.9,
+      "p90_px_per_m": 15433.4
+    },
+    "SK_Boss_Hermandad_Patron_TShirt": {
+      "texture_px": 512,
+      "median_px_per_m": 440.6,
+      "p10_px_per_m": 326.3,
+      "p90_px_per_m": 513.7
+    },
+    "SK_Boss_Hermandad_Patron_Jeans": {
+      "texture_px": 512,
+      "median_px_per_m": 325.4,
+      "p10_px_per_m": 294.0,
+      "p90_px_per_m": 343.0
+    },
+    "SK_Boss_Hermandad_Patron_Boots": {
+      "texture_px": 512,
+      "median_px_per_m": 604.8,
+      "p10_px_per_m": 509.4,
+      "p90_px_per_m": 649.6
+    },
+    "SK_Boss_Hermandad_Patron_Jacket": {
+      "texture_px": 1024,
+      "median_px_per_m": 663.1,
+      "p10_px_per_m": 545.2,
+      "p90_px_per_m": 783.3
+    },
+    "SK_Boss_Hermandad_Patron_Hair": {
+      "texture_px": 512,
+      "median_px_per_m": 851.9,
+      "p10_px_per_m": 424.3,
+      "p90_px_per_m": 18019.9
+    }
+  },
+  "clipping": [
+    {
+      "inner": "SK_Boss_Hermandad_Patron_Body",
+      "outer": "SK_Boss_Hermandad_Patron_TShirt",
+      "tested_vertices": 607,
+      "clipped_vertices": 0,
+      "clipped_fraction": 0.0
+    },
+    {
+      "inner": "SK_Boss_Hermandad_Patron_Body",
+      "outer": "SK_Boss_Hermandad_Patron_Jeans",
+      "tested_vertices": 0,
+      "clipped_vertices": 0,
+      "clipped_fraction": 0.0
+    },
+    {
+      "inner": "SK_Boss_Hermandad_Patron_Body",
+      "outer": "SK_Boss_Hermandad_Patron_Boots",
+      "tested_vertices": 0,
+      "clipped_vertices": 0,
+      "clipped_fraction": 0.0
+    },
+    {
+      "inner": "SK_Boss_Hermandad_Patron_Body",
+      "outer": "SK_Boss_Hermandad_Patron_Jacket",
+      "tested_vertices": 75,
+      "clipped_vertices": 7,
+      "clipped_fraction": 0.0933
+    },
+    {
+      "inner": "SK_Boss_Hermandad_Patron_TShirt",
+      "outer": "SK_Boss_Hermandad_Patron_Jacket",
+      "tested_vertices": 340,
+      "clipped_vertices": 6,
+      "clipped_fraction": 0.0176
+    }
+  ],
+  "armatures": {
+    "Armature": {
+      "bones": [
+        "Root",
+        "Hips",
+        "Spine",
+        "Chest",
+        "UpperChest",
+        "Neck",
+        "Head",
+        "LeftShoulder",
+        "LeftUpperArm",
+        "LeftLowerArm",
+        "LeftHand",
+        "LeftThumbMetacarpal",
+        "LeftThumbProximal",
+        "LeftThumbDistal",
+        "LeftIndexProximal",
+        "LeftIndexIntermediate",
+        "LeftIndexDistal",
+        "LeftMiddleProximal",
+        "LeftMiddleIntermediate",
+        "LeftMiddleDistal",
+        "LeftRingProximal",
+        "LeftRingIntermediate",
+        "LeftRingDistal",
+        "LeftLittleProximal",
+        "LeftLittleIntermediate",
+        "LeftLittleDistal",
+        "RightShoulder",
+        "RightUpperArm",
+        "RightLowerArm",
+        "RightHand",
+        "RightThumbMetacarpal",
+        "RightThumbProximal",
+        "RightThumbDistal",
+        "RightIndexProximal",
+        "RightIndexIntermediate",
+        "RightIndexDistal",
+        "RightMiddleProximal",
+        "RightMiddleIntermediate",
+        "RightMiddleDistal",
+        "RightRingProximal",
+        "RightRingIntermediate",
+        "RightRingDistal",
+        "RightLittleProximal",
+        "RightLittleIntermediate",
+        "RightLittleDistal",
+        "LeftUpperLeg",
+        "LeftLowerLeg",
+        "LeftFoot",
+        "LeftToes",
+        "RightUpperLeg",
+        "RightLowerLeg",
+        "RightFoot",
+        "RightToes"
+      ],
+      "deform_bones": 53
+    }
+  },
+  "blendshapes": [],
+  "animations": [
+    {
+      "name": "A_Humanoid_Aim_Pistol_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_B",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_F",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_L",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_R",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Crouch_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Crouch_Walk",
+      "frame_start": 0.0,
+      "frame_end": 36.0,
+      "fps": 30.0,
+      "duration_s": 1.2,
+      "frames": 36,
+      "loop": true,
+      "speed_mps": 1.2,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Jump_Air",
+      "frame_start": 0.0,
+      "frame_end": 20.0,
+      "fps": 30.0,
+      "duration_s": 0.6667,
+      "frames": 20,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Jump_Start",
+      "frame_start": 0.0,
+      "frame_end": 8.0,
+      "fps": 30.0,
+      "duration_s": 0.2667,
+      "frames": 8,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Land",
+      "frame_start": 0.0,
+      "frame_end": 9.0,
+      "fps": 30.0,
+      "duration_s": 0.3,
+      "frames": 9,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Reload_Pistol",
+      "frame_start": 0.0,
+      "frame_end": 48.0,
+      "fps": 30.0,
+      "duration_s": 1.6,
+      "frames": 48,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Run",
+      "frame_start": 0.0,
+      "frame_end": 20.0,
+      "fps": 30.0,
+      "duration_s": 0.6667,
+      "frames": 20,
+      "loop": true,
+      "speed_mps": 3.5,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Shoot_Pistol",
+      "frame_start": 0.0,
+      "frame_end": 8.0,
+      "fps": 30.0,
+      "duration_s": 0.2667,
+      "frames": 8,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Sprint",
+      "frame_start": 0.0,
+      "frame_end": 16.0,
+      "fps": 30.0,
+      "duration_s": 0.5333,
+      "frames": 16,
+      "loop": true,
+      "speed_mps": 6.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Walk",
+      "frame_start": 0.0,
+      "frame_end": 32.0,
+      "fps": 30.0,
+      "duration_s": 1.0667,
+      "frames": 32,
+      "loop": true,
+      "speed_mps": 1.4,
+      "slots": [
+        "OBArmature"
+      ]
+    }
+  ],
+  "sockets": {
+    "SOCKET_RightHand_Weapon": {
+      "parent": "Armature",
+      "parent_bone": "RightHand",
+      "position_godot": [
+        -0.2885,
+        0.884,
+        0.0909
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "LeftToes",
+    "LeftFoot",
+    "LeftLowerLeg",
+    "LeftUpperLeg",
+    "RightToes",
+    "RightFoot",
+    "RightLowerLeg",
+    "RightUpperLeg",
+    "LeftIndexDistal",
+    "LeftIndexIntermediate",
+    "LeftIndexProximal",
+    "LeftLittleDistal",
+    "LeftLittleIntermediate",
+    "LeftLittleProximal",
+    "LeftMiddleDistal",
+    "LeftMiddleIntermediate",
+    "LeftMiddleProximal",
+    "LeftRingDistal",
+    "LeftRingIntermediate",
+    "LeftRingProximal",
+    "LeftThumbDistal",
+    "LeftThumbProximal",
+    "LeftThumbMetacarpal",
+    "LeftHand",
+    "LeftLowerArm",
+    "LeftUpperArm",
+    "LeftShoulder",
+    "Head",
+    "Neck",
+    "RightIndexDistal",
+    "RightIndexIntermediate",
+    "RightIndexProximal",
+    "RightLittleDistal",
+    "RightLittleIntermediate",
+    "RightLittleProximal",
+    "RightMiddleDistal",
+    "RightMiddleIntermediate",
+    "RightMiddleProximal",
+    "RightRingDistal",
+    "RightRingIntermediate",
+    "RightRingProximal",
+    "RightThumbDistal",
+    "RightThumbProximal",
+    "RightThumbMetacarpal",
+    "SOCKET_RightHand_Weapon",
+    "RightHand",
+    "RightLowerArm",
+    "RightUpperArm",
+    "RightShoulder",
+    "UpperChest",
+    "Chest",
+    "Spine",
+    "Hips",
+    "Root",
+    "SK_Boss_Hermandad_Patron_Beard",
+    "SK_Boss_Hermandad_Patron_Body",
+    "SK_Boss_Hermandad_Patron_Boots",
+    "SK_Boss_Hermandad_Patron_Eyebrows",
+    "SK_Boss_Hermandad_Patron_Eyelashes",
+    "SK_Boss_Hermandad_Patron_Eyes",
+    "SK_Boss_Hermandad_Patron_Hair",
+    "SK_Boss_Hermandad_Patron_Jacket",
+    "SK_Boss_Hermandad_Patron_Jeans",
+    "SK_Boss_Hermandad_Patron_TShirt",
+    "Armature",
+    "SK_Boss_Hermandad_Patron"
+  ],
+  "glb_bytes": 7011832
+}

@@ -66,6 +66,7 @@ Trim-Sheet-Bibliothek, Texel-Density-Validator, Decal-Bibliothek, High→Low-Bak
 - **Exit:** Alle Kit-Teile Gate-PASS, Level-Shots Forward Plus.
 
 ### P4 – Figuren und NPCs
+- **Stand 2026-11-24:** 13 Fraktions-, Boss- und NPC-Figuren gebaut (T-CHAR-01), Rüstung je Stufe sichtbar, Kapsel-Bug behoben. Offen: Hair Cards, helle Stoffe, Fußrutschen (T-ANIM-01 Teil 2), Varianten-Kit für Zivilisten.
 - **Jason final:** Hair Cards, Skin-Fade, Bart, Bomberjacke mit Rippbündchen, Stiefel, LOD0–2.
 - **Story-Figuren:** Marco, Sam, Dana Whitlock.
 - **Gegner nach Stufe:**

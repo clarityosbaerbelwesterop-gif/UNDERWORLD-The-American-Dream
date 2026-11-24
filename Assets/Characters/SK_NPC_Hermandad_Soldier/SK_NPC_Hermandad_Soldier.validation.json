@@ -1,0 +1,400 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-24T05:49:53+00:00",
+  "command": "export",
+  "profile": "dev",
+  "input": "Blender/Source/Characters/SK_NPC_Hermandad_Soldier/SK_NPC_Hermandad_Soldier.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "lods": [],
+    "collision": {
+      "mode": "none",
+      "generated": [],
+      "existing": []
+    },
+    "foot_slide": {
+      "report": "/tmp/claude-0/wt_props/Assets/Characters/SK_NPC_Hermandad_Soldier/SK_NPC_Hermandad_Soldier.anim_report.json",
+      "limit_m": 0.01,
+      "over_budget": {
+        "A_Humanoid_Walk": 0.0333,
+        "A_Humanoid_Sprint": 0.02,
+        "A_Humanoid_Crouch_Walk": 0.0362,
+        "A_Humanoid_Aim_Pistol_Walk_F": 0.0452,
+        "A_Humanoid_Aim_Pistol_Walk_L": 0.0484,
+        "A_Humanoid_Aim_Pistol_Walk_R": 0.0484
+      }
+    },
+    "export": {
+      "glb": "Assets/Characters/SK_NPC_Hermandad_Soldier/SK_NPC_Hermandad_Soldier.glb",
+      "bytes": 6661720
+    },
+    "preview": {
+      "front": "Assets/Characters/SK_NPC_Hermandad_Soldier/SK_NPC_Hermandad_Soldier_preview_front.png",
+      "3q": "Assets/Characters/SK_NPC_Hermandad_Soldier/SK_NPC_Hermandad_Soldier_preview_3q.png",
+      "side": "Assets/Characters/SK_NPC_Hermandad_Soldier/SK_NPC_Hermandad_Soldier_preview_side.png",
+      "back": "Assets/Characters/SK_NPC_Hermandad_Soldier/SK_NPC_Hermandad_Soldier_preview_back.png",
+      "face": "Assets/Characters/SK_NPC_Hermandad_Soldier/SK_NPC_Hermandad_Soldier_preview_face.png",
+      "face_side": "Assets/Characters/SK_NPC_Hermandad_Soldier/SK_NPC_Hermandad_Soldier_preview_face_side.png",
+      "default": "Assets/Characters/SK_NPC_Hermandad_Soldier/SK_NPC_Hermandad_Soldier_preview.png",
+      "aim": "Assets/Characters/SK_NPC_Hermandad_Soldier/SK_NPC_Hermandad_Soldier_preview_aim.png"
+    },
+    "manifest": "Assets/Characters/SK_NPC_Hermandad_Soldier/SK_NPC_Hermandad_Soldier.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "LeftToes",
+          "LeftFoot",
+          "LeftLowerLeg",
+          "LeftUpperLeg",
+          "RightToes",
+          "RightFoot",
+          "RightLowerLeg",
+          "RightUpperLeg",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftThumbDistal",
+          "LeftThumbProximal",
+          "LeftThumbMetacarpal",
+          "LeftHand",
+          "LeftLowerArm",
+          "LeftUpperArm",
+          "LeftShoulder",
+          "Head",
+          "Neck",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightThumbDistal",
+          "RightThumbProximal",
+          "RightThumbMetacarpal",
+          "SOCKET_RightHand_Weapon",
+          "RightHand",
+          "RightLowerArm",
+          "RightUpperArm",
+          "RightShoulder",
+          "UpperChest",
+          "Chest",
+          "Spine",
+          "Hips",
+          "Root",
+          "SK_NPC_Hermandad_Soldier_Beard",
+          "SK_NPC_Hermandad_Soldier_Body",
+          "SK_NPC_Hermandad_Soldier_Boots",
+          "SK_NPC_Hermandad_Soldier_Eyebrows",
+          "SK_NPC_Hermandad_Soldier_Eyelashes",
+          "SK_NPC_Hermandad_Soldier_Eyes",
+          "SK_NPC_Hermandad_Soldier_Hair",
+          "SK_NPC_Hermandad_Soldier_Jacket",
+          "SK_NPC_Hermandad_Soldier_Jeans",
+          "SK_NPC_Hermandad_Soldier_TShirt",
+          "Armature",
+          "SK_NPC_Hermandad_Soldier"
+        ],
+        "node_extras": {
+          "SK_NPC_Hermandad_Soldier_Beard": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Hermandad_Soldier_Hair": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Hermandad_Soldier": {
+            "uw_character_spec": "Config/Characters/SK_NPC_Hermandad_Soldier.json"
+          }
+        },
+        "meshes": 10,
+        "materials": [
+          "M_NPC_Hermandad_Soldier_Hair",
+          "M_NPC_Hermandad_Soldier_Skin",
+          "M_NPC_Hermandad_Soldier_Boots",
+          "M_NPC_Hermandad_Soldier_BrowsLashes",
+          "M_NPC_Hermandad_Soldier_Eyes",
+          "M_NPC_Hermandad_Soldier_Jacket",
+          "M_NPC_Hermandad_Soldier_Jeans",
+          "M_NPC_Hermandad_Soldier_TShirt"
+        ],
+        "images": 19,
+        "skins": [
+          {
+            "name": "Armature",
+            "joints": 53
+          }
+        ],
+        "joint_names": [
+          "Chest",
+          "Head",
+          "Hips",
+          "LeftFoot",
+          "LeftHand",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftLowerArm",
+          "LeftLowerLeg",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftShoulder",
+          "LeftThumbDistal",
+          "LeftThumbMetacarpal",
+          "LeftThumbProximal",
+          "LeftToes",
+          "LeftUpperArm",
+          "LeftUpperLeg",
+          "Neck",
+          "RightFoot",
+          "RightHand",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "RightLowerArm",
+          "RightLowerLeg",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightShoulder",
+          "RightThumbDistal",
+          "RightThumbMetacarpal",
+          "RightThumbProximal",
+          "RightToes",
+          "RightUpperArm",
+          "RightUpperLeg",
+          "Root",
+          "Spine",
+          "UpperChest"
+        ],
+        "animations": [
+          "A_Humanoid_Aim_Pistol_Idle",
+          "A_Humanoid_Aim_Pistol_Walk_B",
+          "A_Humanoid_Aim_Pistol_Walk_F",
+          "A_Humanoid_Aim_Pistol_Walk_L",
+          "A_Humanoid_Aim_Pistol_Walk_R",
+          "A_Humanoid_Crouch_Idle",
+          "A_Humanoid_Crouch_Walk",
+          "A_Humanoid_Idle",
+          "A_Humanoid_Jump_Air",
+          "A_Humanoid_Jump_Start",
+          "A_Humanoid_Land",
+          "A_Humanoid_Reload_Pistol",
+          "A_Humanoid_Run",
+          "A_Humanoid_Shoot_Pistol",
+          "A_Humanoid_Sprint",
+          "A_Humanoid_Walk"
+        ],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 6661720
+      },
+      "reimport_objects": [
+        "Armature",
+        "Icosphere",
+        "SK_NPC_Hermandad_Soldier",
+        "SK_NPC_Hermandad_Soldier_Beard",
+        "SK_NPC_Hermandad_Soldier_Body",
+        "SK_NPC_Hermandad_Soldier_Boots",
+        "SK_NPC_Hermandad_Soldier_Eyebrows",
+        "SK_NPC_Hermandad_Soldier_Eyelashes",
+        "SK_NPC_Hermandad_Soldier_Eyes",
+        "SK_NPC_Hermandad_Soldier_Hair",
+        "SK_NPC_Hermandad_Soldier_Jacket",
+        "SK_NPC_Hermandad_Soldier_Jeans",
+        "SK_NPC_Hermandad_Soldier_TShirt",
+        "SOCKET_RightHand_Weapon"
+      ],
+      "reimport_actions": [
+        "A_Humanoid_Aim_Pistol_Idle",
+        "A_Humanoid_Aim_Pistol_Walk_B",
+        "A_Humanoid_Aim_Pistol_Walk_F",
+        "A_Humanoid_Aim_Pistol_Walk_L",
+        "A_Humanoid_Aim_Pistol_Walk_R",
+        "A_Humanoid_Crouch_Idle",
+        "A_Humanoid_Crouch_Walk",
+        "A_Humanoid_Idle",
+        "A_Humanoid_Jump_Air",
+        "A_Humanoid_Jump_Start",
+        "A_Humanoid_Land",
+        "A_Humanoid_Reload_Pistol",
+        "A_Humanoid_Run",
+        "A_Humanoid_Shoot_Pistol",
+        "A_Humanoid_Sprint",
+        "A_Humanoid_Walk"
+      ],
+      "problems": []
+    }
+  },
+  "asset": "SK_NPC_Hermandad_Soldier",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Hermandad_Soldier_Body",
+      "message": "283 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Hermandad_Soldier_Eyes",
+      "message": "32 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Hermandad_Soldier_Eyebrows",
+      "message": "52 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Hermandad_Soldier_Eyelashes",
+      "message": "124 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Hermandad_Soldier_TShirt",
+      "message": "167 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Hermandad_Soldier_Jeans",
+      "message": "90 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Hermandad_Soldier_Jacket",
+      "message": "187 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Hermandad_Soldier_Hair",
+      "message": "838 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Hermandad_Soldier_Beard",
+      "message": "242 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_NPC_Hermandad_Soldier_Body",
+      "message": "SK_NPC_Hermandad_Soldier_Body vs SK_NPC_Hermandad_Soldier_Jacket: 2/5 verts (40.00%)",
+      "data": {
+        "inner": "SK_NPC_Hermandad_Soldier_Body",
+        "outer": "SK_NPC_Hermandad_Soldier_Jacket",
+        "tested_vertices": 5,
+        "clipped_vertices": 2,
+        "clipped_fraction": 0.4
+      }
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_NPC_Hermandad_Soldier_TShirt",
+      "message": "SK_NPC_Hermandad_Soldier_TShirt vs SK_NPC_Hermandad_Soldier_Jacket: 1/109 verts (0.92%)",
+      "data": {
+        "inner": "SK_NPC_Hermandad_Soldier_TShirt",
+        "outer": "SK_NPC_Hermandad_Soldier_Jacket",
+        "tested_vertices": 109,
+        "clipped_vertices": 1,
+        "clipped_fraction": 0.0092
+      }
+    },
+    {
+      "severity": "info",
+      "code": "HUMANOID_OPTIONAL",
+      "object": "Armature",
+      "message": "optional humanoid bones absent: ['LeftEye', 'RightEye', 'Jaw']"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_NONE",
+      "object": null,
+      "message": "no LOD ratios configured for Characters"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Aim_Pistol_Walk_L",
+      "message": "A_Humanoid_Aim_Pistol_Walk_L: foot sliding 4.84 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Aim_Pistol_Walk_R",
+      "message": "A_Humanoid_Aim_Pistol_Walk_R: foot sliding 4.84 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Aim_Pistol_Walk_F",
+      "message": "A_Humanoid_Aim_Pistol_Walk_F: foot sliding 4.52 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Crouch_Walk",
+      "message": "A_Humanoid_Crouch_Walk: foot sliding 3.62 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Walk",
+      "message": "A_Humanoid_Walk: foot sliding 3.33 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Sprint",
+      "message": "A_Humanoid_Sprint: foot sliding 2.00 cm > 1.0 cm"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 6,
+    "infos": 13
+  },
+  "seconds": 54.08,
+  "exit_code": 0,
+  "result": "PASS"
+}

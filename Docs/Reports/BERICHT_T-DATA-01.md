@@ -21,7 +21,7 @@ Alles, was im Kampf zählt, steht jetzt in **einer** Datei. Alles, was gebaut we
 | Gegner leicht | 80 | – | Pistole | 5,0° | 4 | 3–4 |
 | Gegner mittel | 100 | leichte Weste | SMG | 4,0° | 6 | 5–7 |
 | Gegner schwer | 150 | schwere Weste + Helm | Gewehr | 3,0° | 11 | 9–14 |
-| Boss | 650 | schwere Weste + Helm | Gewehr, Revolver (Phase: Granaten) | 2,5° | 31 | 30–45 |
+| Boss | 650 | schwere Weste (verdeckt, kein Helm – seit T-CHAR-01) | Gewehr, Revolver (Phase: Granaten) | 2,5° | 31 | 30–45 |
 
 - **Boss-Phasen:** bei 66 % Granatenhagel, bei 33 % Verstärkung rufen.
 - **Weitere Archetypen:** Polizei (100), FBI taktisch (130), Verbündete (150).

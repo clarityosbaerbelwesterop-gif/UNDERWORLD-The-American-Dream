@@ -57,7 +57,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../../tmp/uwp_tex_azhkzd5p/T_LA_Asphalt_D.jpg"
+      "filepath": "//../../../../../../../uwp_tex_5p0mt5m1/T_LA_Asphalt_D.jpg"
     },
     {
       "image": "T_LA_Asphalt_ORM",
@@ -67,7 +67,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../../tmp/uwp_tex_ka_hqy4s/T_LA_Asphalt_ORM.jpg"
+      "filepath": "//../../../../../../../uwp_tex_y6t4e076/T_LA_Asphalt_ORM.jpg"
     },
     {
       "image": "T_LA_Asphalt_N",
@@ -77,7 +77,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../../tmp/uwp_tex_jocxchu_/T_LA_Asphalt_N.png"
+      "filepath": "//../../../../../../../uwp_tex__zu7w7lk/T_LA_Asphalt_N.png"
     }
   ],
   "uv_overlap": {
@@ -105,5 +105,5 @@
     "UCX_SM_LA_Road_Straight-colonly",
     "SM_LA_Road_Straight"
   ],
-  "glb_bytes": 28384
+  "glb_bytes": 937848
 }

@@ -282,3 +282,9 @@ view drawn from the scene's real AABBs.
 
   It is applied wherever a model is instanced (`Vehicle._assemble`, `CharacterVisual.set_model`). Weather goes through `set_wetness()`.
 - **Why runtime and not the import script:** `uw_lod_post_import.gd` must stay byte-identical in two places and re-import is slow. The rules are tested in the gate (`test_look.gd`) with a sabotage switch.
+
+## TD-033 – Generated decal layer + textured streets (Claude Code, 2026-11-24, T-DECAL-01)
+- **Decals** are generated (`Tools/uwp build-decals`, numpy + Pillow, seeded per id). Each one gets a Godot `Decal` scene with shallow projection: ground 0.12 m, walls 0.3 m.
+- **Placement** in levels is generated too (`build_decals_calloway.gd`, ray-based). It is saved as its own scene that the level instances, so regenerating the decals never touches the level file.
+- **Streets** use the kit's PBR maps (asphalt 2.5× finer tiling) instead of flat override colours. Kit scans can be calibrated to a target mean (`_ph_mat(mean_srgb=...)`). `LevelAudit` compares effective albedo (colour × texture mean).
+- **Golden hour** for M01: sun at 18°, ambient 3.2 (the 12° sun put the whole street canyon in deep shade). The TD-024 card targets still hold.

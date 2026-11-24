@@ -160,6 +160,30 @@ func _mat(color: Color, rough := 0.85, metal := 0.0) -> StandardMaterial3D:
 	return m
 
 
+## T-DECAL-01: textured street override (the kit's PBR maps, extracted by the glTF import) instead
+## of a flat colour - asphalt grain and pavement joints are what the decals sit on. `tint` sets the
+## final value (LevelAudit multiplies it by the texture average). Flat colour if the maps are missing.
+func _tex_mat(base: String, tint: Color, fallback: Color, uv_scale := 1.0) -> StandardMaterial3D:
+	if not ResourceLoader.exists(base + "_D.jpg"):
+		return _mat(fallback, 0.95)
+	var m := StandardMaterial3D.new()
+	m.resource_name = "M_Street_" + base.get_file()
+	m.albedo_texture = load(base + "_D.jpg") as Texture2D
+	m.albedo_color = tint
+	m.uv1_scale = Vector3(uv_scale, uv_scale, 1.0)     # the kit texture tiles seamlessly
+	if ResourceLoader.exists(base + "_N.png"):
+		m.normal_enabled = true
+		m.normal_texture = load(base + "_N.png") as Texture2D
+		m.normal_scale = 0.9
+	if ResourceLoader.exists(base + "_ORM.jpg"):
+		var orm := load(base + "_ORM.jpg") as Texture2D
+		m.roughness_texture = orm
+		m.roughness_texture_channel = BaseMaterial3D.TEXTURE_CHANNEL_GREEN
+		m.ao_enabled = true
+		m.ao_texture = orm
+	return m
+
+
 ## Running counter per piece name, so a level greps like a level: Road_Straight_01 .. _26.
 var _name_counter: Dictionary = {}
 
@@ -276,8 +300,9 @@ func _build_streets() -> void:
 	# T-LVL-01a: the kit textures are near-black asphalt and light concrete and the ambient sky
 	# washed both out to the same grey in the capture. Explicit override materials give road,
 	# kerb and sidewalk three clearly different values (measured in check_level.gd / test_level).
-	var asphalt := _mat(Color(0.15, 0.15, 0.16), 0.95)
-	var concrete := _mat(Color(0.62, 0.60, 0.56), 0.90)
+	# T-DECAL-01: textured (kit PBR maps calibrated to sun-bleached LA values) instead of flat greys.
+	var asphalt := _tex_mat(KIT_DIR + "SM_LA_Road_Straight/SM_LA_Road_Straight_T_LA_Asphalt", Color(0.85, 0.85, 0.85), Color(0.15, 0.15, 0.16), 2.5)
+	var concrete := _tex_mat(KIT_DIR + "SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb_T_LA_Concrete", Color(1.05, 1.05, 1.05), Color(0.62, 0.60, 0.56))
 
 	# West street: road strip along Z from -86..+86, modules of 14 m
 	var z := -86.0 + ROAD_LEN * 0.5
@@ -906,6 +931,12 @@ func _save() -> void:
 	# must already carry its final name (set in _initialize). Without this every child is
 	# dropped and the .tscn saves as a single empty node.
 	level.name = "LA_CallowayAve"
+	# T-DECAL-01: the decal layer is its own generated scene (build_decals_calloway.gd), instanced
+	const DECAL_LAYER := "res://Scenes/Levels/LA_CallowayAve_Decals.tscn"
+	if ResourceLoader.exists(DECAL_LAYER) and level.get_node_or_null("Decals") == null:
+		var dl := (load(DECAL_LAYER) as PackedScene).instantiate()
+		dl.name = "Decals"
+		level.add_child(dl)
 	_name_children(level)
 	_own_all(level, level)
 	var packed := PackedScene.new()

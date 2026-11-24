@@ -66,6 +66,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-ANIM-02 | P1 | Claude Code | B-011: seated loops `A_Humanoid_Sit_Driver` / `_Sit_Passenger` (root = seat socket / H-point), `CharacterVisual.set_seated()`; Jason drawn in the driver seat while DRIVING, Marco in the passenger seat (rifle stowed); Jason borrows library clips by suffix | T-ANIM-01 | READY FOR REVIEW (test_vehicle + test_mission PASS) |
 | T-VEH-02 | P1 | Claude Code | Vehicle interiors (seats, rear bench, dash, instrument hood, steering wheel + column, console, floor) built against the sit contract with a fit check; open cabin, see-through tinted glass; all 6 cars rebuilt (gate 6/6); sit pose: soles -0.22, wrists 0.34 | T-ANIM-02 | READY FOR REVIEW (test_vehicle, test_vehicle_fleet, test_mission PASS) |
 | T-LOOK-02 | P1 | Claude Code | Graphics pass: AgX + SSIL on all presets (recalibrated), LA/NY chapter grade LUTs (code-generated), ENV_NY_Night/Overcast, MaterialPass (paint clear coat, skin SSS, eyes, hair, cloth sheen), set_wetness() for rain; M01 graded at runtime (GradedWorld) | T-LOOK-01 | READY FOR REVIEW (test_look PASS, negative control FAIL x4) |
+| T-DECAL-01 | P1 | Claude Code | P2 decal set (13 generated decals, `uwp build-decals`) + M01 decal layer (137, ray-placed, own scene) + textured sun-bleached streets instead of flat greys + golden hour 18 deg | T-LOOK-02 | READY FOR REVIEW (test_decals, test_level PASS) |
 
 > **Next work order:** `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md` (§8 = ordered task list to release).
 

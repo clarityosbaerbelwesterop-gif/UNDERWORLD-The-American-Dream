@@ -84,7 +84,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../uwp_tex_m5s7xfrz/T_Prop_Asphalt_D.jpg"
+      "filepath": "//../../../../../../../uwp_tex_b_kjqc94/T_Prop_Asphalt_D.jpg"
     },
     {
       "image": "T_Prop_Asphalt_ORM",
@@ -94,7 +94,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../uwp_tex_pcixi4_d/T_Prop_Asphalt_ORM.jpg"
+      "filepath": "//../../../../../../../uwp_tex_zze2uleb/T_Prop_Asphalt_ORM.jpg"
     },
     {
       "image": "T_Prop_Asphalt_N",
@@ -104,7 +104,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../uwp_tex_gdsm9_ws/T_Prop_Asphalt_N.jpg"
+      "filepath": "//../../../../../../../uwp_tex_xgta9xsq/T_Prop_Asphalt_N.jpg"
     },
     {
       "image": "T_Prop_PaintRoadWhite_D",
@@ -114,7 +114,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../uwp_tex_waylxcbi/T_Prop_PaintRoadWhite_D.jpg"
+      "filepath": "//../../../../../../../uwp_tex_bjrbz8o6/T_Prop_PaintRoadWhite_D.jpg"
     },
     {
       "image": "T_Prop_PaintRoadWhite_ORM",
@@ -124,7 +124,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../uwp_tex_sv0ecau6/T_Prop_PaintRoadWhite_ORM.jpg"
+      "filepath": "//../../../../../../../uwp_tex_cu91hghy/T_Prop_PaintRoadWhite_ORM.jpg"
     },
     {
       "image": "T_Prop_PaintRoadWhite_N",
@@ -134,7 +134,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../uwp_tex__efkz292/T_Prop_PaintRoadWhite_N.jpg"
+      "filepath": "//../../../../../../../uwp_tex_61lfxjh6/T_Prop_PaintRoadWhite_N.jpg"
     },
     {
       "image": "T_Prop_PaintRoadYellow_D",
@@ -144,7 +144,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../uwp_tex_z745gd4s/T_Prop_PaintRoadYellow_D.jpg"
+      "filepath": "//../../../../../../../uwp_tex_w9g9oalo/T_Prop_PaintRoadYellow_D.jpg"
     },
     {
       "image": "T_Prop_PaintRoadYellow_ORM",
@@ -154,7 +154,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../uwp_tex_ohb30722/T_Prop_PaintRoadYellow_ORM.jpg"
+      "filepath": "//../../../../../../../uwp_tex_m5dmybiu/T_Prop_PaintRoadYellow_ORM.jpg"
     },
     {
       "image": "T_Prop_PaintRoadYellow_N",
@@ -164,7 +164,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../uwp_tex__v0nm0e3/T_Prop_PaintRoadYellow_N.jpg"
+      "filepath": "//../../../../../../../uwp_tex_8aj_8t2x/T_Prop_PaintRoadYellow_N.jpg"
     }
   ],
   "uv_overlap": {},
@@ -189,5 +189,5 @@
     "UCX_SM_LA_Road_Crosswalk_00-colonly",
     "SM_LA_Road_Crosswalk"
   ],
-  "glb_bytes": 500084
+  "glb_bytes": 534472
 }

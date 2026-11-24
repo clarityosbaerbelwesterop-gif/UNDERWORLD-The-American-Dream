@@ -9,7 +9,7 @@ extends RefCounted
 ## Azimuth: 0 = sun in the -Z (north in level space), 90 = +X ... matches rotation_degrees.y.
 const PRESETS := {
 	# LA golden hour: low western sun ~12 deg, ~3500 K warm key, long shadows.
-	"golden_hour": [12.0, 250.0, Color(1.0, 0.80, 0.58), 1.6, 150.0],
+	"golden_hour": [18.0, 250.0, Color(1.0, 0.80, 0.58), 1.6, 150.0],
 	# LA midday: high, near-neutral (~5600 K) key.
 	"midday": [62.0, 200.0, Color(1.0, 0.97, 0.93), 2.2, 120.0],
 	# Night: cold moon key, very low; street practicals carry the scene.

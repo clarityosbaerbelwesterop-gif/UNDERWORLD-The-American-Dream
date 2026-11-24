@@ -28,7 +28,7 @@ TEX_SIZE = 512          # per material; 512 px over 1-2 m = 256-512 px/m (budget
 
 # name: (poly haven id | None, tint/colour rgb, tile metres, metallic, roughness bias / value, normal strength)
 MATERIALS = {
-    "asphalt":        ("asphalt_02",        (0.62, 0.62, 0.64), 3.0, 0.0, 0.0, 0.9),
+    "asphalt":        ("asphalt_02",        (1.20, 1.18, 1.15), 3.0, 0.0, 0.0, 0.9),   # T-DECAL-01: sun-bleached
     "concrete":       ("concrete_pavement", (0.84, 0.82, 0.78), 2.0, 0.0, 0.0, 0.9),
     "concrete_dirty": ("dirty_concrete",    (0.86, 0.84, 0.80), 2.0, 0.0, 0.0, 0.9),
     "metal_dark":     ("metal_plate",       (0.30, 0.32, 0.34), 1.0, 0.85, 0.0, 0.7),

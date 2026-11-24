@@ -469,9 +469,11 @@
    "type": "decal_set",
    "milestone": "P2",
    "generator": "build-decals",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "cracks, oil stains, graffiti of invented gangs, manholes, signage"
+   "asset": "Assets/Decals/decals.manifest.json",
+   "members": ["DC_LA_Crack_01", "DC_LA_Crack_02", "DC_LA_Drain_01", "DC_LA_Graffiti_01", "DC_LA_Graffiti_02", "DC_LA_Grime_01", "DC_LA_Manhole_01", "DC_LA_OilStain_01", "DC_LA_OilStain_02", "DC_LA_Puddle_01", "DC_LA_TireMarks_01", "DC_LA_Trash_01", "DC_NY_Graffiti_01"],
+   "description": "cracks, oil stains, puddle, manhole, drain, skid marks, litter, wall grime, graffiti of invented crews (East Hollow, Los Cuervos, Kings of Flatbush)"
   },
   {
    "id": "TR_LA_SanArdo",
@@ -969,19 +971,21 @@
    "id": "A_Humanoid_Sit_Driver",
    "type": "animation",
    "milestone": "P6",
-   "generator": "authored (mocap/keyframe)",
-   "status": "PLANNED",
+   "generator": "build-shared-anims",
+   "status": "WIP",
    "quality_target": "mocap",
-   "description": "seated driver (B-011)"
+   "asset": "Assets/Characters/Shared/A_Humanoid_Locomotion.glb",
+   "description": "seated driver (B-011): keyframed loop in the shared library, root = seat socket (T-ANIM-02)"
   },
   {
    "id": "A_Humanoid_Sit_Passenger",
    "type": "animation",
    "milestone": "P6",
-   "generator": "authored (mocap/keyframe)",
-   "status": "PLANNED",
+   "generator": "build-shared-anims",
+   "status": "WIP",
    "quality_target": "mocap",
-   "description": "seated passenger (B-011)"
+   "asset": "Assets/Characters/Shared/A_Humanoid_Locomotion.glb",
+   "description": "seated passenger (B-011): keyframed loop in the shared library, root = seat socket (T-ANIM-02)"
   },
   {
    "id": "A_Humanoid_Cover_Set",

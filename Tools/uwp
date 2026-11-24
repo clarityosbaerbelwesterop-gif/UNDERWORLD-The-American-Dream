@@ -16,6 +16,15 @@ fi
 if [[ "${1:-}" == "build-fx" ]]; then
   exec "${GODOT:-/workspace/tools/godot}" --headless --path "$HERE/../GodotProject" --script res://Scripts/tools/build_fx.gd
 fi
+# build-decals is plain Python (numpy + Pillow): decal textures + Godot Decal scenes (P2, T-DECAL-01).
+if [[ "${1:-}" == "build-decals" ]]; then
+  shift
+  for PYC in "${UWP_PYTHON:-}" python3 "$(head -1 "$(readlink -f "${BLENDER:-/workspace/tools/blender/blender}")" 2>/dev/null | sed -n 's/^#!//p' | awk '{print $1}')"; do
+    [[ -n "$PYC" ]] && "$PYC" -c "import PIL, numpy" 2>/dev/null && exec "$PYC" "$HERE/underworld_pipeline/decals/build_decals.py" "$@"
+  done
+  echo "uwp build-decals: no python with Pillow + numpy found (set UWP_PYTHON)" >&2
+  exit 4
+fi
 # review-sheet is plain Python/Pillow and must not boot Blender.
 if [[ "${1:-}" == "review-sheet" ]]; then
   shift

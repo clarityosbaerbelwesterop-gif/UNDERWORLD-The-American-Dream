@@ -2,7 +2,7 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.2.4 LTS",
-  "timestamp": "2026-11-23T19:31:16+00:00",
+  "timestamp": "2026-11-24T11:42:16+00:00",
   "command": "export",
   "profile": "gate",
   "input": "Blender/Source/Environment/LA/SM_LA_Road_Intersection/SM_LA_Road_Intersection.blend",
@@ -46,7 +46,7 @@
     "foot_slide": null,
     "export": {
       "glb": "Assets/Environment/LA/SM_LA_Road_Intersection/SM_LA_Road_Intersection.glb",
-      "bytes": 541384
+      "bytes": 575772
     },
     "preview": "Assets/Environment/LA/SM_LA_Road_Intersection/SM_LA_Road_Intersection_preview.png",
     "manifest": "Assets/Environment/LA/SM_LA_Road_Intersection/SM_LA_Road_Intersection.manifest.json",
@@ -93,7 +93,7 @@
         "joint_names": [],
         "animations": [],
         "asset_generator": "Khronos glTF Blender I/O v5.2.41",
-        "bytes": 541384
+        "bytes": 575772
       },
       "reimport_objects": [
         "SM_LA_Road_Intersection",
@@ -122,7 +122,7 @@
     "warnings": 0,
     "infos": 1
   },
-  "seconds": 0.6,
+  "seconds": 1.05,
   "exit_code": 0,
   "result": "PASS"
 }

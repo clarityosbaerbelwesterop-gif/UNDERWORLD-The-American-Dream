@@ -4,24 +4,24 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 
 | Status | Anzahl |
 |---|---|
-| PLANNED | 11 |
-| WIP | 90 |
+| PLANNED | 8 |
+| WIP | 93 |
 | PRODUCTION-READY | 0 |
 | **gesamt** | **101** |
 
 | Meilenstein | gesamt | PLANNED | WIP | PRODUCTION-READY | Generator vorhanden |
 |---|---|---|---|---|---|
-| P2 | 2 | 2 | 0 | 0 | 0/2 |
+| P2 | 2 | 1 | 1 | 0 | 1/2 |
 | P3 | 30 | 1 | 29 | 0 | 29/30 |
 | P4 | 20 | 0 | 20 | 0 | 20/20 |
 | P5 | 31 | 2 | 29 | 0 | 31/31 |
-| P6 | 18 | 6 | 12 | 0 | 12/12 |
+| P6 | 18 | 4 | 14 | 0 | 14/14 |
 
 ## P2
 
 | ID | Typ | Status | Ziel | Generator | Datei |
 |---|---|---|---|---|---|
-| DC_LA_Decals | decal_set | PLANNED | blockout+ | `build-decals` (fehlt) | – |
+| DC_LA_Decals | decal_set | WIP | blockout+ | `build-decals` | ✓ |
 | TS_LA_Trims | trim_sheet | PLANNED | blockout+ | `build-trims` (fehlt) | – |
 
 ## P3
@@ -129,8 +129,8 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | A_Humanoid_Locomotion | animation | WIP | mocap | `build-shared-anims` | ✓ |
 | A_Humanoid_Locomotion_Mocap | animation | PLANNED | mocap | `authored (mocap/keyframe)` | – |
 | A_Humanoid_Melee_Set | animation | PLANNED | mocap | `authored (mocap/keyframe)` | – |
-| A_Humanoid_Sit_Driver | animation | PLANNED | mocap | `authored (mocap/keyframe)` | – |
-| A_Humanoid_Sit_Passenger | animation | PLANNED | mocap | `authored (mocap/keyframe)` | – |
+| A_Humanoid_Sit_Driver | animation | WIP | mocap | `build-shared-anims` | ✓ |
+| A_Humanoid_Sit_Passenger | animation | WIP | mocap | `build-shared-anims` | ✓ |
 | FX_Blood_Set | fx | WIP | blockout+ | `build-fx` | ✓ |
 | FX_Explosion | fx | WIP | blockout+ | `build-fx` | ✓ |
 | FX_Fire | fx | WIP | blockout+ | `build-fx` | ✓ |

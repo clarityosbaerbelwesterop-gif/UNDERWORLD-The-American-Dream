@@ -80,7 +80,11 @@ func _initialize() -> void:
 
 func _load_kit() -> void:
 	for n in ["SM_LA_Road_Straight", "SM_LA_Sidewalk_Curb", "SM_LA_Bldg_ShopStucco",
-			"SM_LA_Bldg_GarageM01", "SM_LA_Streetlight", "SM_LA_PalmTree"]:
+			"SM_LA_Bldg_GarageM01", "SM_LA_Streetlight", "SM_LA_PalmTree",
+			# T-LVL-02: P3/P5 kit (buildings, street furniture) replaces the greybox dressing
+			"SM_LA_Bldg_LiquorStore", "SM_LA_Bldg_Apartment4F", "SM_LA_Bldg_OfficeDowntown",
+			"SM_LA_TrafficLight", "SM_LA_Hydrant", "SM_LA_TrashCan", "SM_LA_NewspaperBox",
+			"SM_LA_PhoneBooth", "SM_LA_ParkingMeter", "SM_LA_StreetSign"]:
 		var res_path: String = KIT_DIR + n + "/" + n + ".glb"
 		kit[n] = load(res_path) if ResourceLoader.exists(res_path) else null
 		if kit[n] == null:
@@ -393,14 +397,19 @@ func _build_buildings() -> void:
 	var shop_size := Vector3(10.0, 7.2, 8.0)
 	# West block: shop row behind the west sidewalk (front face on the kerb line x = -33)
 	# The drive loop runs east of these, on x = -29 .. -19.
+	# T-LVL-02: the west block uses the P3 building grammar (liquor store, office tower, stucco
+	# shop, brick walk-up with fire escape) instead of greybox boxes. Block names stay the same
+	# (tests and docs refer to Bldg_Shop_01 ...); greybox is the fallback if a kit piece is missing.
 	for entry in [
-			["Bldg_Shop_01", -60.0, stucco_a],
-			["Bldg_Shop_02", -38.0, stucco_b],
-			["Bldg_Shop_03", 20.0, stucco_a],
-			["Bldg_Apartment_A", 52.0, brick],
+			["Bldg_Shop_01", -60.0, stucco_a, "SM_LA_Bldg_LiquorStore"],
+			["Bldg_Shop_02", -38.0, stucco_b, "SM_LA_Bldg_OfficeDowntown"],
+			["Bldg_Shop_03", 20.0, stucco_a, "SM_LA_Bldg_ShopStucco"],
+			["Bldg_Apartment_A", 52.0, brick, "SM_LA_Bldg_Apartment4F"],
 			]:
 		var n: String = entry[0]
-		var node := _building(n, X_WEST_FRONT, entry[1], "west", shop_size, entry[2])
+		var piece: String = entry[3] if kit.get(entry[3]) is PackedScene else n
+		var node := _building(piece, X_WEST_FRONT, entry[1], "west", shop_size, entry[2])
+		node.name = n + "_Block"
 		b.add_child(node)
 	# East block: garage + industrial behind the east sidewalk (front face x = +33).
 	# Their entrances face west onto the east service lane.
@@ -409,9 +418,10 @@ func _build_buildings() -> void:
 			["Bldg_Warehouse", 78.0, industrial],
 			]:
 		b.add_child(_building(entry[0], X_EAST_FRONT, entry[1], "east", shop_size, entry[2]))
-	# 4-storey apartment over Shop03/Apartment_A: stacked mass, same lot
-	_static_box("Bldg_Apartment_A_Upper", Vector3(10.0, 6.0, 8.0),
-		Vector3(X_WEST_FRONT - 5.0, 10.2, 52.0), brick, b)
+	# 4-storey apartment: the kit Apartment4F is already 12.4 m tall; the greybox needs the stacked mass
+	if not kit.get("SM_LA_Bldg_Apartment4F") is PackedScene:
+		_static_box("Bldg_Apartment_A_Upper", Vector3(10.0, 6.0, 8.0),
+			Vector3(X_WEST_FRONT - 5.0, 10.2, 52.0), brick, b)
 	# Shop 04 faces north onto the south segment, behind the south sidewalk (z = -86)
 	b.add_child(_building("Bldg_Shop_04", Z_SOUTH_FRONT, -4.0, "south", shop_size, stucco_b))
 	# Warehouse roll-up door on the west face of the warehouse (facing the east lane)
@@ -509,17 +519,56 @@ func _build_props() -> void:
 			Vector3(0.5, 11.5, 0.5), bark, p)
 		z += 20.0
 	# Parked cars (cover, layer 4 is for vehicles; these are static world props)
-	for entry in [[Vector3(-18.9, 0.05, -30.0), 0.0], [Vector3(-18.9, 0.05, 34.0), 0.0],
-			[Vector3(19.0, 0.05, -22.0), PI]]:
-		_static_box("Prop_ParkedCar", Vector3(1.9, 1.45, 4.8), entry[0] + Vector3(0, 0.72, 0),
+	# T-LVL-02: the cover boxes stay (AI cover + collision unchanged); a real P5 car is drawn in
+	# their place and the greybox mesh is hidden.
+	for entry in [[Vector3(-18.9, 0.05, -30.0), 0.0, "VH_Muscle_01"], [Vector3(-18.9, 0.05, 34.0), 0.0, "VH_Taxi_NY_01"],
+			[Vector3(19.0, 0.05, -22.0), PI, "VH_Police_01"]]:
+		var car_box := _static_box("Prop_ParkedCar", Vector3(1.9, 1.45, 4.8), entry[0] + Vector3(0, 0.72, 0),
 			_mat(Color(0.35, 0.12, 0.12), 0.45, 0.5), p, entry[1])
-	# Traffic light + crosswalk (north-west corner)
-	_static_box("Prop_TrafficLight", Vector3(0.3, 5.6, 0.3), Vector3(-17.5, 2.8, 70.0),
-		_mat(Color(0.15, 0.15, 0.16), 0.6, 0.5), p)
+		var vp := "res://Assets/Vehicles/%s/%s.glb" % [entry[2], entry[2]]
+		if ResourceLoader.exists(vp):
+			for mi in car_box.find_children("*", "MeshInstance3D", true, false):
+				(mi as MeshInstance3D).visible = false
+			_visual_copy(load(vp) as PackedScene, car_box, Transform3D(Basis.IDENTITY, Vector3(0, -0.73, 0)), "Visual_" + String(entry[2]))
+	# Traffic light + crosswalk (north-west corner); kit mast arm reaches over the west road (-X)
+	if kit.get("SM_LA_TrafficLight") is PackedScene:
+		_kit_piece("SM_LA_TrafficLight", Vector3(-17.5, 0.16, 70.0), -PI * 0.5, Vector3(0.3, 5.6, 0.3), metal, p)
+		_kit_piece("SM_LA_StreetSign", Vector3(-17.4, 0.16, 66.8), 0.0, Vector3(0.1, 3.2, 0.1), metal, p)
+	else:
+		_static_box("Prop_TrafficLight", Vector3(0.3, 5.6, 0.3), Vector3(-17.5, 2.8, 70.0),
+			_mat(Color(0.15, 0.15, 0.16), 0.6, 0.5), p)
+	# T-LVL-02 street furniture: against the west shop fronts (x -32.3, out of the walking line on
+	# the sidewalk centre x -31) and on the kerb edges between the streetlights. All have convex
+	# UCX collision, so the navmesh bake routes NPCs around them.
+	for entry in [["SM_LA_TrashCan", Vector3(-32.3, 0.16, -66.0), 0.0], ["SM_LA_NewspaperBox", Vector3(-32.3, 0.16, -55.0), PI * 0.5],
+			["SM_LA_PhoneBooth", Vector3(-32.2, 0.16, -44.0), PI * 0.5], ["SM_LA_TrashCan", Vector3(-32.3, 0.16, -30.0), 0.0],
+			["SM_LA_TrashCan", Vector3(-32.3, 0.16, 13.0), 0.0], ["SM_LA_NewspaperBox", Vector3(-32.3, 0.16, 27.0), PI * 0.5],
+			["SM_LA_TrashCan", Vector3(-32.3, 0.16, 40.0), 0.0],
+			["SM_LA_Hydrant", Vector3(-29.7, 0.16, -45.0), PI * 0.5], ["SM_LA_Hydrant", Vector3(-29.7, 0.16, 5.0), PI * 0.5],
+			["SM_LA_Hydrant", Vector3(-29.7, 0.16, 45.0), PI * 0.5],
+			["SM_LA_ParkingMeter", Vector3(-18.6, 0.16, -33.0), -PI * 0.5], ["SM_LA_ParkingMeter", Vector3(-18.6, 0.16, -27.0), -PI * 0.5],
+			["SM_LA_ParkingMeter", Vector3(-18.6, 0.16, 31.0), -PI * 0.5], ["SM_LA_ParkingMeter", Vector3(-18.6, 0.16, 37.0), -PI * 0.5]]:
+		if kit.get(entry[0]) is PackedScene:
+			_kit_piece(entry[0], entry[1], entry[2], Vector3(0.5, 1.0, 0.5), metal, p)
 	for i in 4:
 		# Paint, not a 2 cm kerb across the road (B-PT-01 class: micro-lips snag the player).
 		_visual_box("Prop_CrosswalkStripe_%d" % i, Vector3(0.6, 0.004, 4.0),
 			Vector3(WEST_X - 3.6 + i * 2.4, 0.042, 68.0), _mat(Color(0.85, 0.85, 0.83), 0.9), p)
+
+
+## A purely visual instance (T-LVL-02): the instance sits under a level-owned VisualOnly node
+## that removes the asset's physics bodies whenever the level loads (and here, before the
+## navmesh bake). Copying meshes instead would embed every mesh in the .tscn (1.7 MB text).
+func _visual_copy(scene: PackedScene, parent: Node3D, xform: Transform3D, vname: String) -> Node3D:
+	var holder := Node3D.new()
+	holder.name = vname
+	holder.set_script(load("res://Scripts/game/visual_only.gd"))
+	parent.add_child(holder)
+	holder.transform = xform
+	var inst := scene.instantiate() as Node3D
+	holder.add_child(inst)
+	VisualOnly.strip(inst)
+	return holder
 
 
 func _build_lighting() -> void:
@@ -614,7 +663,10 @@ func _build_spawns_and_ai() -> void:
 		# On the garage ROOF above the door (layout §3.3 "rooftop"). It was (EAST_X + 1, 4.9, 2):
 		# in mid-air over the service lane - the gunman dropped onto Jason's parked car roof
 		# (B-LVL-05, T-BUILD-02).
-		"Spawn_Wave2_Roof": garage + Vector3(-3.5, 4.95, -1.5),
+		# B-007 (T-LVL-02): at the roof EDGE (0.6 m from the front at x = 33). 1.5 m further back
+		# he could neither be seen nor see the street - a stand-off the autopilot hit whenever the
+		# deterministic replay shifted (seeds 1/3/4, and seed 2 after the level dressing).
+		"Spawn_Wave2_Roof": garage + Vector3(-4.4, 4.95, -1.5),
 	}
 	for k in markers:
 		var m := Marker3D.new()
@@ -676,6 +728,15 @@ func _build_spawns_and_ai() -> void:
 			g2.set("active", false)
 			g2.add_to_group("mission_enemies", true)
 			g2.add_to_group("wave2", true)
+			if i == 1:
+				# B-007: the roof gunman is a POST at the roof edge - no walking, no cover search.
+				# Walking toward the player's last known position took him to the roof navmesh
+				# border 2 m behind the edge, where nobody could see him or he anyone (stand-off).
+				var post := (g2.get("profile") as AIProfile).duplicate() as AIProfile
+				post.walk_speed = 0.0
+				post.run_speed = 0.0
+				post.use_cover = false
+				g2.set("profile", post)
 			ai.add_child(g2)
 
 

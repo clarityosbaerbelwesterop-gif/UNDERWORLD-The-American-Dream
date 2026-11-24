@@ -122,6 +122,10 @@ func _physics_process(delta: float) -> void:
 		_finish(true, "MISSION COMPLETED (reward $%d)" % mm.mission.reward_cash)
 		return
 	if t > time_limit_s:
+		var left := []
+		for e in _living_enemies():
+			left.append("%s@%s" % [e.name, (e as Node3D).global_position.snapped(Vector3(0.1, 0.1, 0.1))])
+		print("[AUTOPILOT] living enemies at the time limit: ", left, " player at ", player.global_position.snapped(Vector3(0.1, 0.1, 0.1)))
 		_finish(false, "time limit %.0f s at objective %d '%s'" % [time_limit_s, mm.current_index, mm.objective_text()])
 		return
 	if mm.state != _last_state:
@@ -326,6 +330,14 @@ func _step_fight() -> void:
 		var q := PhysicsRayQueryParameters3D.create(cam.global_position, aim_at, rig.aim_ray_mask, player.get_self_rids())
 		var hit := space.intersect_ray(q)
 		var sees := hit.is_empty() or _is_part_of(hit.get("collider"), e)
+		# B-007: the camera sits higher than the gun. Under a roof gunman the camera sees him while
+		# every bullet hits the roof edge - a player notices and moves; so must the autopilot. The
+		# shot line from gun height has to be clear as well.
+		if sees:
+			var gun := player.global_position + Vector3(0, 1.4, 0)
+			var q2 := PhysicsRayQueryParameters3D.create(gun, aim_at, rig.aim_ray_mask, player.get_self_rids())
+			var hit2 := space.intersect_ray(q2)
+			sees = hit2.is_empty() or _is_part_of(hit2.get("collider"), e)
 		var d := player.global_position.distance_to((e as Node3D).global_position)
 		if sees and d < best_d:
 			best = e
@@ -368,7 +380,11 @@ func _step_fight() -> void:
 				away.y = 0.0
 				if away.length() < 0.1:
 					away = Vector3.RIGHT
-				_walk_to(ep + away.normalized() * 12.0)
+				# A gunman on a roof (B-007) hides behind the roof edge from anyone closer than
+				# ~20 m (eye 1.6 m, roof 4.9 m, 2 m behind the edge): step back far enough to open
+				# the angle, as a person would. Ground threats: 12 m.
+				var back := 22.0 if ep.y > player.global_position.y + 2.5 else 12.0
+				_walk_to(ep + away.normalized() * back)
 				_eye_aim_t = 0.0
 		return
 	_no_los_t = 0.0

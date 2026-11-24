@@ -109,6 +109,7 @@ func _assemble() -> void:
 	model = data.model_scene.instantiate() as Node3D
 	model.name = "Model"
 	add_child(model)
+	MaterialPass.apply(model)  # T-LOOK-02: clear-coat paint (glTF drops Blender's coat layer)
 	var to_body := global_transform.affine_inverse()
 	# Collision from the authored convex hull(s).
 	var ucx: Array[Node] = []

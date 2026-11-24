@@ -52,6 +52,7 @@
 [ext_resource type="Script" path="res://Scripts/ui/hud.gd" id="50_nnxfn"]
 [ext_resource type="Script" path="res://Scripts/mission/mission_manager.gd" id="51_mp0mg"]
 [ext_resource type="Resource" path="res://Data/Missions/M01_DeadDrop.tres" id="52_86uix"]
+[ext_resource type="Script" path="res://Scripts/game/graded_world.gd" id="53_grade"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r8ma2"]
 albedo_color = Color(0.24, 0.22, 0.2, 1)
@@ -3406,6 +3407,7 @@ directional_shadow_max_distance = 150.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Lighting" unique_id=1718188244]
 environment = ExtResource("28_wvaaw")
+script = ExtResource("53_grade")
 
 [node name="GarageLamp_0" type="OmniLight3D" parent="Lighting" unique_id=806978533]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.8, 4.1, 4)

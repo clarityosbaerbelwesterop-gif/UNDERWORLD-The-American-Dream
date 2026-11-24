@@ -6,6 +6,7 @@ extends SceneTree
 ##       --script res://Tests/tools/capture_lookdev.gd
 ##
 ## Optional: UW_LOOKDEV_PRESETS=golden_hour,midday  UW_LOOKDEV_GI=sdfgi  (adds SDFGI on top).
+## UW_LOOKDEV_CAMS=calibration (cards only, fast)  UW_LOOKDEV_GRADE=0 (without the chapter grade).
 ## Writes <preset>[_sdfgi]_<camera>.png and lookdev_metrics.json. Forward Plus on lavapipe = the
 ## shipping renderer on the CPU: valid for look, never for performance.
 
@@ -43,7 +44,9 @@ func _run() -> void:
 		lighting.add_child(sun)
 		# Calibration rig faces the sun (local +Z = toward the sun, horizontally).
 		(scene.get_node("References") as Node3D).rotation.y = deg_to_rad(sun.rotation_degrees.y)
-		var env := (SUN.environment(preset) as Environment).duplicate() as Environment
+		# T-LOOK-02: measure what the player sees - the chapter grade on top (UW_LOOKDEV_GRADE=0: off)
+		var env: Environment = SUN.graded_environment(preset) if OS.get_environment("UW_LOOKDEV_GRADE") != "0" \
+			else (SUN.environment(preset) as Environment).duplicate() as Environment
 		if gi == "sdfgi":
 			env.sdfgi_enabled = true
 			env.sdfgi_use_occlusion = true
@@ -51,7 +54,8 @@ func _run() -> void:
 		we.environment = env
 		var tag := preset + ("_sdfgi" if gi == "sdfgi" else "")
 		var cams: Array = [scene.get_node("References/Cam_Calibration")]
-		cams.append_array(scene.get_node("Cameras").get_children())
+		if OS.get_environment("UW_LOOKDEV_CAMS") != "calibration":
+			cams.append_array(scene.get_node("Cameras").get_children())
 		for cam in cams:
 			(cam as Camera3D).make_current()
 			await frames(40 if gi == "sdfgi" else 10)

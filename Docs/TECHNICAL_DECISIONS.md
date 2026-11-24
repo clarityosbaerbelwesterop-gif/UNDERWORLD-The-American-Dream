@@ -269,3 +269,16 @@ view drawn from the scene's real AABBs.
 - **Body:** the loft no longer closes over the cabin (no lid at belt height). Paint is double-sided so the shell's inside reads as painted metal. Glass is alpha-blended (0.34), double-sided, with clear coat.
 - **Budget:** `max_materials.Vehicles` goes from 12 to 14 for the one extra interior fabric material (police: 13).
 - **Open:** door cards are still paint on the inside, the wheel does not turn with steering, there are no instruments or decals, and enter/exit are not door-aligned.
+
+## TD-032 – AgX, chapter grades as generated LUTs, name-based material pass (Claude Code, 2026-11-24, T-LOOK-02)
+- **Tonemapper:** AgX for every look preset. Exposure is recalibrated to the TD-024 card targets (`capture_lookdev.gd`, now measured with the grade on). SSIL is on next to SSAO. SDFGI stays off (TD-024).
+- **Grades:** `Grading` builds a 17³ LUT per chapter in code: LA "golden", NY "steel" (saturated accents kept). It is applied at runtime (`SunPreset.graded_environment`, `GradedWorld`), so no LUT is ever saved into a `.tres` or `.tscn`. Level generators set `GradedWorld.suspended` while saving.
+- **Material pass:** imported materials are upgraded by role suffix (TD-005 names) where glTF cannot carry the look:
+  - paint → clear coat
+  - skin → SSS skin mode + rim
+  - eyes → clear coat
+  - hair → anisotropy
+  - cloth → sheen
+
+  It is applied wherever a model is instanced (`Vehicle._assemble`, `CharacterVisual.set_model`). Weather goes through `set_wetness()`.
+- **Why runtime and not the import script:** `uw_lod_post_import.gd` must stay byte-identical in two places and re-import is slow. The rules are tested in the gate (`test_look.gd`) with a sabotage switch.

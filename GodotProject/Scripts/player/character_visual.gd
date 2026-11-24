@@ -115,6 +115,7 @@ func set_model(scene: PackedScene) -> void:
 	model = scene.instantiate() as Node3D
 	model.name = "Model"
 	add_child(model)
+	MaterialPass.apply(model)  # T-LOOK-02: skin SSS, cloth sheen, wet eyes, hair anisotropy
 	for c in get_children():
 		if String(c.name).begins_with("PT_"):
 			(c as Node3D).visible = false

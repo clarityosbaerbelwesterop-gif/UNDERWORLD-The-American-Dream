@@ -169,6 +169,9 @@ def build_sedan_from_spec(spec_path, repo_root=REPO_ROOT):
     if spec.get("kind") == "aircraft":                      # T-VEH-03: same command, other body plan
         from underworld_pipeline.vehicles import aircraft as AC
         return AC.build_plane(spec, repo_root)
+    if spec.get("kind") == "motorcycle":                    # T-VEH-04
+        from underworld_pipeline.vehicles import motorcycle as MC
+        return MC.build_motorcycle(spec, repo_root)
     name = spec["asset_name"]
     paint_rgba = tuple(spec.get("paint_rgba", [0.09, 0.14, 0.21, 1.0]))
 

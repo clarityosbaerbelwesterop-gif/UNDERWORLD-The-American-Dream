@@ -4,8 +4,8 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 
 | Status | Anzahl |
 |---|---|
-| PLANNED | 7 |
-| WIP | 99 |
+| PLANNED | 6 |
+| WIP | 100 |
 | PRODUCTION-READY | 0 |
 | **gesamt** | **106** |
 
@@ -14,7 +14,7 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | P2 | 2 | 1 | 1 | 0 | 1/2 |
 | P3 | 35 | 1 | 34 | 0 | 34/35 |
 | P4 | 20 | 0 | 20 | 0 | 20/20 |
-| P5 | 31 | 1 | 30 | 0 | 31/31 |
+| P5 | 31 | 0 | 31 | 0 | 31/31 |
 | P6 | 18 | 4 | 14 | 0 | 14/14 |
 
 ## P2
@@ -106,7 +106,7 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | SM_Prop_Phone | prop | WIP | blockout+ | `build-props --only SM_Prop_Phone` | ✓ |
 | SM_Prop_Toolbox | prop | WIP | blockout+ | `build-props --only SM_Prop_Toolbox` | ✓ |
 | SM_Prop_Workbench | prop | WIP | blockout+ | `build-props --only SM_Prop_Workbench` | ✓ |
-| VH_Motorcycle_01 | vehicle | PLANNED | blockout+ | `build-vehicle Config/Vehicles/VH_Motorcycle_01.json` | – |
+| VH_Motorcycle_01 | vehicle | WIP | blockout+ | `build-vehicle Config/Vehicles/VH_Motorcycle_01.json` | ✓ |
 | VH_Muscle_01 | vehicle | WIP | blockout+ | `build-vehicles --only VH_Muscle_01` | ✓ |
 | VH_Pickup_01 | vehicle | WIP | blockout+ | `build-vehicles --only VH_Pickup_01` | ✓ |
 | VH_Plane_Small_01 | vehicle | WIP | blockout+ | `build-vehicle Config/Vehicles/VH_Plane_Small_01.json` | ✓ |

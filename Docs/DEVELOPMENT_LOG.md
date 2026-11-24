@@ -1,6 +1,7 @@
 # Development Log
 
-## 2026-11-24 · Claude Code · T-VEH-03 (light aircraft)
+## 2026-11-24 · Claude Code · T-VEH-03 (light aircraft + motorcycle)
+- `vehicles/motorcycle.py` + `Config/Vehicles/VH_Motorcycle_01.json` (kind motorcycle): Body, Fork (origin on the steering head), Wheel_F/R, rider sockets; validator knows Fork, Wheel_F/R. Gate PASS; first capture showed the forks with the emissive headlight slot -> slot order fixed. Catalogue: all P5 vehicles WIP.
 - `vehicles/aircraft.py` + `Config/Vehicles/VH_Plane_Small_01.json` (kind aircraft, fictional marking UW-HOLLOW); `build_vehicle.build_sedan_from_spec` dispatches; validator: `Propeller`, `Wheel_NG/ML/MR` are functional names, aircraft FRONT_AXIS = SOCKET_Prop at -Y (span > length is correct). Gate PASS, catalogue WIP (P5). Render `Docs/Reports/renders_veh03/`. Not done: flight model (P7), control-surface animation.
 
 ## 2026-11-24 · Claude Code · T-NY-01 (New York set, wave 1)

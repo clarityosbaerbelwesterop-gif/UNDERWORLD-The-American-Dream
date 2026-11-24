@@ -24,7 +24,7 @@ def _unit_scale(v):
 
 import re as _re
 _FUNCTIONAL_PART = _re.compile(r"^(Body|Cabin|Frame|Interior|Hood|Trunk|Bumper_[FR]|Door_(FL|FR|RL|RR)|"
-                               r"Wheel_(FL|FR|RL|RR|NG|ML|MR)|Propeller|Slide|Magazine|Trigger|Barrel|Hammer)(_LOD\d+)?$")
+                               r"Wheel_(FL|FR|RL|RR|NG|ML|MR|F|R)|Propeller|Fork|Slide|Magazine|Trigger|Barrel|Hammer)(_LOD\d+)?$")
 
 
 def validate(ctx):

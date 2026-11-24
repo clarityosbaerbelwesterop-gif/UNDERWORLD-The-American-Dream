@@ -23,7 +23,8 @@
    "recoil_pitch": 2.2,
    "recoil_yaw": 0.6,
    "armor_penetration": 0.1,
-   "asset": "WPN_Pistol_01"
+   "asset": "WPN_Pistol_01",
+   "_scene_note": "the shipped WPN_Pistol_01.tres keeps PT_Pistol.tscn until the pistol .glb meets the gameplay node contract (Magazine as a direct child); see BERICHT_T-WPN-01"
   },
   "WPN_Revolver_01": {
    "class": "pistol",
@@ -46,7 +47,8 @@
    "recoil_pitch": 4.5,
    "recoil_yaw": 1.0,
    "armor_penetration": 0.3,
-   "asset": "WPN_Revolver_01"
+   "asset": "WPN_Revolver_01",
+   "scene": "res://Assets/Weapons/WPN_Revolver_01/WPN_Revolver_01.glb"
   },
   "WPN_SMG_01": {
    "class": "smg",
@@ -69,7 +71,8 @@
    "recoil_pitch": 1.1,
    "recoil_yaw": 0.7,
    "armor_penetration": 0.05,
-   "asset": "WPN_SMG_01"
+   "asset": "WPN_SMG_01",
+   "scene": "res://Assets/Weapons/WPN_SMG_01/WPN_SMG_01.glb"
   },
   "WPN_Shotgun_01": {
    "class": "shotgun",
@@ -93,7 +96,8 @@
    "recoil_pitch": 6.0,
    "recoil_yaw": 1.5,
    "armor_penetration": 0.0,
-   "asset": "WPN_Shotgun_01"
+   "asset": "WPN_Shotgun_01",
+   "scene": "res://Assets/Weapons/WPN_Shotgun_01/WPN_Shotgun_01.glb"
   },
   "WPN_Rifle_01": {
    "class": "rifle",
@@ -116,7 +120,8 @@
    "recoil_pitch": 1.6,
    "recoil_yaw": 0.8,
    "armor_penetration": 0.4,
-   "asset": "WPN_Rifle_01"
+   "asset": "WPN_Rifle_01",
+   "scene": "res://Assets/Weapons/WPN_Rifle_01/WPN_Rifle_01.glb"
   },
   "WPN_Sniper_01": {
    "class": "sniper",
@@ -139,7 +144,8 @@
    "recoil_pitch": 8.0,
    "recoil_yaw": 1.2,
    "armor_penetration": 0.7,
-   "asset": "WPN_Sniper_01"
+   "asset": "WPN_Sniper_01",
+   "scene": "res://Assets/Weapons/WPN_Sniper_01/WPN_Sniper_01.glb"
   },
   "WPN_Knife_01": {
    "class": "melee",
@@ -162,7 +168,8 @@
    "recoil_pitch": 0,
    "recoil_yaw": 0,
    "armor_penetration": 0.2,
-   "asset": "WPN_Knife_01"
+   "asset": "WPN_Knife_01",
+   "scene": "res://Assets/Weapons/WPN_Knife_01/WPN_Knife_01.glb"
   },
   "WPN_Bat_01": {
    "class": "melee",
@@ -185,7 +192,8 @@
    "recoil_pitch": 0,
    "recoil_yaw": 0,
    "armor_penetration": 0.0,
-   "asset": "WPN_Bat_01"
+   "asset": "WPN_Bat_01",
+   "scene": "res://Assets/Weapons/WPN_Bat_01/WPN_Bat_01.glb"
   },
   "WPN_Grenade_01": {
    "class": "explosive",
@@ -209,7 +217,8 @@
    "recoil_pitch": 0,
    "recoil_yaw": 0,
    "armor_penetration": 0.5,
-   "asset": "WPN_Grenade_01"
+   "asset": "WPN_Grenade_01",
+   "scene": "res://Assets/Weapons/WPN_Grenade_01/WPN_Grenade_01.glb"
   },
   "WPN_Molotov_01": {
    "class": "explosive",
@@ -234,7 +243,8 @@
    "recoil_pitch": 0,
    "recoil_yaw": 0,
    "armor_penetration": 0.0,
-   "asset": "WPN_Molotov_01"
+   "asset": "WPN_Molotov_01",
+   "scene": "res://Assets/Weapons/WPN_Molotov_01/WPN_Molotov_01.glb"
   }
  },
  "armor": {

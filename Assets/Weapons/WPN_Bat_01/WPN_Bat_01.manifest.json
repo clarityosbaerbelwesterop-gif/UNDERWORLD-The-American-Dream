@@ -1,0 +1,182 @@
+{
+  "asset": "WPN_Bat_01",
+  "status": "READY FOR REVIEW",
+  "category": "Weapons",
+  "budget_key": "Weapons",
+  "source_blend": "Blender/Source/Weapons/WPN_Bat_01/WPN_Bat_01.blend",
+  "export_glb": "Assets/Weapons/WPN_Bat_01/WPN_Bat_01.glb",
+  "preview_png": "Assets/Weapons/WPN_Bat_01/WPN_Bat_01_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.033,
+      -0.033,
+      -0.1
+    ],
+    "max": [
+      0.033,
+      0.033,
+      0.74
+    ],
+    "size": [
+      0.066,
+      0.066,
+      0.84
+    ]
+  },
+  "triangles": {
+    "lod0": 288,
+    "budget": 8000,
+    "per_lod_total": {
+      "LOD0": 288,
+      "LOD1": 144,
+      "LOD2": 72
+    }
+  },
+  "lods": [
+    {
+      "object": "Frame",
+      "levels": [
+        {
+          "name": "Frame",
+          "level": 0,
+          "triangles": 288
+        },
+        {
+          "name": "Frame_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 144
+        },
+        {
+          "name": "Frame_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 72
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_WPN_Bat_01_00-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_Prop_GripTape",
+    "M_Prop_WoodStock"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_GripTape_D",
+      "material": "M_Prop_GripTape",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_b424j8xw/T_Prop_GripTape_D.jpg"
+    },
+    {
+      "image": "T_Prop_GripTape_ORM",
+      "material": "M_Prop_GripTape",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_d7w660kc/T_Prop_GripTape_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_GripTape_N",
+      "material": "M_Prop_GripTape",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_xmm6hfyh/T_Prop_GripTape_N.jpg"
+    },
+    {
+      "image": "T_Prop_WoodStock_D",
+      "material": "M_Prop_WoodStock",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_0jh4b9wu/T_Prop_WoodStock_D.jpg"
+    },
+    {
+      "image": "T_Prop_WoodStock_ORM",
+      "material": "M_Prop_WoodStock",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_il7yb22g/T_Prop_WoodStock_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_WoodStock_N",
+      "material": "M_Prop_WoodStock",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_yufd0uts/T_Prop_WoodStock_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "Frame": {
+      "texture_px": 512,
+      "median_px_per_m": 1090.3,
+      "p10_px_per_m": 513.7,
+      "p90_px_per_m": 2826.8
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {
+    "SOCKET_Grip": {
+      "parent": "WPN_Bat_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.0,
+        -0.0
+      ]
+    },
+    "SOCKET_Muzzle": {
+      "parent": "WPN_Bat_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.0,
+        0.74
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "Frame_LOD1",
+    "Frame_LOD2",
+    "Frame",
+    "SOCKET_Grip",
+    "SOCKET_Muzzle",
+    "UCX_WPN_Bat_01_00-convcolonly",
+    "WPN_Bat_01"
+  ],
+  "glb_bytes": 310412
+}

@@ -1,0 +1,242 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-23T19:53:01+00:00",
+  "command": "export",
+  "profile": "gate",
+  "input": "Blender/Source/Weapons/WPN_Revolver_01/WPN_Revolver_01.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "lods": [
+      {
+        "object": "Frame",
+        "levels": [
+          {
+            "name": "Frame",
+            "level": 0,
+            "triangles": 224
+          },
+          {
+            "name": "Frame_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 112
+          },
+          {
+            "name": "Frame_LOD2",
+            "level": 2,
+            "ratio": 0.25,
+            "triangles": 56
+          }
+        ]
+      },
+      {
+        "object": "Barrel",
+        "levels": [
+          {
+            "name": "Barrel",
+            "level": 0,
+            "triangles": 96
+          },
+          {
+            "name": "Barrel_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 48
+          },
+          {
+            "name": "Barrel_LOD2",
+            "level": 2,
+            "ratio": 0.25,
+            "triangles": 24
+          }
+        ]
+      }
+    ],
+    "collision": {
+      "mode": "authored",
+      "generated": [],
+      "existing": [
+        "UCX_WPN_Revolver_01_00-convcolonly"
+      ]
+    },
+    "foot_slide": null,
+    "export": {
+      "glb": "Assets/Weapons/WPN_Revolver_01/WPN_Revolver_01.glb",
+      "bytes": 771932
+    },
+    "preview": "Assets/Weapons/WPN_Revolver_01/WPN_Revolver_01_preview.png",
+    "manifest": "Assets/Weapons/WPN_Revolver_01/WPN_Revolver_01.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "Barrel_LOD1",
+          "Barrel_LOD2",
+          "Barrel",
+          "Frame_LOD1",
+          "Frame_LOD2",
+          "Frame",
+          "SOCKET_Eject",
+          "SOCKET_Grip",
+          "SOCKET_Muzzle",
+          "UCX_WPN_Revolver_01_00-convcolonly",
+          "HammerBone",
+          "MagBone",
+          "TrigBone",
+          "WpnRoot",
+          "Hammer",
+          "Magazine",
+          "Trigger",
+          "WeaponRig",
+          "WPN_Revolver_01"
+        ],
+        "node_extras": {
+          "Barrel_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              10.0,
+              30.0
+            ]
+          },
+          "Barrel_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              30.0,
+              80.0
+            ]
+          },
+          "Barrel": {
+            "uw_allow_uv_overlap": 1,
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              10.0
+            ]
+          },
+          "Frame_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              10.0,
+              30.0
+            ]
+          },
+          "Frame_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              30.0,
+              80.0
+            ]
+          },
+          "Frame": {
+            "uw_allow_uv_overlap": 1,
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              10.0
+            ]
+          },
+          "Hammer": {
+            "uw_allow_uv_overlap": 1
+          },
+          "Magazine": {
+            "uw_allow_uv_overlap": 1
+          },
+          "Trigger": {
+            "uw_allow_uv_overlap": 1
+          }
+        },
+        "meshes": 10,
+        "materials": [
+          "M_Prop_SteelBright",
+          "M_Prop_WoodStock",
+          "M_Prop_Gunmetal"
+        ],
+        "images": 9,
+        "skins": [
+          {
+            "name": "WeaponRig",
+            "joints": 4
+          }
+        ],
+        "joint_names": [
+          "HammerBone",
+          "MagBone",
+          "TrigBone",
+          "WpnRoot"
+        ],
+        "animations": [
+          "A_WPN_Revolver_01_Empty",
+          "A_WPN_Revolver_01_Fire",
+          "A_WPN_Revolver_01_Reload"
+        ],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 771932
+      },
+      "reimport_objects": [
+        "Barrel",
+        "Barrel_LOD1",
+        "Barrel_LOD2",
+        "Frame",
+        "Frame_LOD1",
+        "Frame_LOD2",
+        "Hammer",
+        "Icosphere",
+        "Magazine",
+        "SOCKET_Eject",
+        "SOCKET_Grip",
+        "SOCKET_Muzzle",
+        "Trigger",
+        "UCX_WPN_Revolver_01_00-convcolonly",
+        "WPN_Revolver_01",
+        "WeaponRig"
+      ],
+      "reimport_actions": [
+        "A_WPN_Revolver_01_Empty",
+        "A_WPN_Revolver_01_Fire",
+        "A_WPN_Revolver_01_Reload"
+      ],
+      "problems": []
+    }
+  },
+  "asset": "WPN_Revolver_01",
+  "category": "Weapons",
+  "budget_key": "Weapons",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SKINNED",
+      "object": "Magazine",
+      "message": "skinned mesh: no baked LODs (Godot generates mesh LODs on import)"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SKINNED",
+      "object": "Hammer",
+      "message": "skinned mesh: no baked LODs (Godot generates mesh LODs on import)"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SKINNED",
+      "object": "Trigger",
+      "message": "skinned mesh: no baked LODs (Godot generates mesh LODs on import)"
+    },
+    {
+      "severity": "info",
+      "code": "COLLISION_AUTHORED",
+      "object": null,
+      "message": "authored collision kept, nothing generated: ['UCX_WPN_Revolver_01_00-convcolonly']"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "infos": 4
+  },
+  "seconds": 0.64,
+  "exit_code": 0,
+  "result": "PASS"
+}

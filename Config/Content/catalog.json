@@ -603,82 +603,109 @@
    "id": "WPN_Revolver_01",
    "type": "weapon",
    "milestone": "P5",
-   "generator": "build-weapon Config/Weapons/WPN_Revolver_01.json",
-   "status": "PLANNED",
+   "generator": "build-weapons --only WPN_Revolver_01",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "combat": "WPN_Revolver_01"
+   "combat": "WPN_Revolver_01",
+   "source": "Blender/Source/Weapons/WPN_Revolver_01/WPN_Revolver_01.blend",
+   "asset": "Assets/Weapons/WPN_Revolver_01/WPN_Revolver_01.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "WPN_SMG_01",
    "type": "weapon",
    "milestone": "P5",
-   "generator": "build-weapon Config/Weapons/WPN_SMG_01.json",
-   "status": "PLANNED",
+   "generator": "build-weapons --only WPN_SMG_01",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "combat": "WPN_SMG_01"
+   "combat": "WPN_SMG_01",
+   "source": "Blender/Source/Weapons/WPN_SMG_01/WPN_SMG_01.blend",
+   "asset": "Assets/Weapons/WPN_SMG_01/WPN_SMG_01.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "WPN_Shotgun_01",
    "type": "weapon",
    "milestone": "P5",
-   "generator": "build-weapon Config/Weapons/WPN_Shotgun_01.json",
-   "status": "PLANNED",
+   "generator": "build-weapons --only WPN_Shotgun_01",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "combat": "WPN_Shotgun_01"
+   "combat": "WPN_Shotgun_01",
+   "source": "Blender/Source/Weapons/WPN_Shotgun_01/WPN_Shotgun_01.blend",
+   "asset": "Assets/Weapons/WPN_Shotgun_01/WPN_Shotgun_01.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "WPN_Rifle_01",
    "type": "weapon",
    "milestone": "P5",
-   "generator": "build-weapon Config/Weapons/WPN_Rifle_01.json",
-   "status": "PLANNED",
+   "generator": "build-weapons --only WPN_Rifle_01",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "combat": "WPN_Rifle_01"
+   "combat": "WPN_Rifle_01",
+   "source": "Blender/Source/Weapons/WPN_Rifle_01/WPN_Rifle_01.blend",
+   "asset": "Assets/Weapons/WPN_Rifle_01/WPN_Rifle_01.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "WPN_Sniper_01",
    "type": "weapon",
    "milestone": "P5",
-   "generator": "build-weapon Config/Weapons/WPN_Sniper_01.json",
-   "status": "PLANNED",
+   "generator": "build-weapons --only WPN_Sniper_01",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "combat": "WPN_Sniper_01"
+   "combat": "WPN_Sniper_01",
+   "source": "Blender/Source/Weapons/WPN_Sniper_01/WPN_Sniper_01.blend",
+   "asset": "Assets/Weapons/WPN_Sniper_01/WPN_Sniper_01.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "WPN_Knife_01",
    "type": "weapon",
    "milestone": "P5",
-   "generator": "build-weapon Config/Weapons/WPN_Knife_01.json",
-   "status": "PLANNED",
+   "generator": "build-weapons --only WPN_Knife_01",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "combat": "WPN_Knife_01"
+   "combat": "WPN_Knife_01",
+   "source": "Blender/Source/Weapons/WPN_Knife_01/WPN_Knife_01.blend",
+   "asset": "Assets/Weapons/WPN_Knife_01/WPN_Knife_01.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "WPN_Bat_01",
    "type": "weapon",
    "milestone": "P5",
-   "generator": "build-weapon Config/Weapons/WPN_Bat_01.json",
-   "status": "PLANNED",
+   "generator": "build-weapons --only WPN_Bat_01",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "combat": "WPN_Bat_01"
+   "combat": "WPN_Bat_01",
+   "source": "Blender/Source/Weapons/WPN_Bat_01/WPN_Bat_01.blend",
+   "asset": "Assets/Weapons/WPN_Bat_01/WPN_Bat_01.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "WPN_Grenade_01",
    "type": "weapon",
    "milestone": "P5",
-   "generator": "build-weapon Config/Weapons/WPN_Grenade_01.json",
-   "status": "PLANNED",
+   "generator": "build-weapons --only WPN_Grenade_01",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "combat": "WPN_Grenade_01"
+   "combat": "WPN_Grenade_01",
+   "source": "Blender/Source/Weapons/WPN_Grenade_01/WPN_Grenade_01.blend",
+   "asset": "Assets/Weapons/WPN_Grenade_01/WPN_Grenade_01.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "WPN_Molotov_01",
    "type": "weapon",
    "milestone": "P5",
-   "generator": "build-weapon Config/Weapons/WPN_Molotov_01.json",
-   "status": "PLANNED",
+   "generator": "build-weapons --only WPN_Molotov_01",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "combat": "WPN_Molotov_01"
+   "combat": "WPN_Molotov_01",
+   "source": "Blender/Source/Weapons/WPN_Molotov_01/WPN_Molotov_01.blend",
+   "asset": "Assets/Weapons/WPN_Molotov_01/WPN_Molotov_01.glb",
+   "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
    "id": "SM_Prop_Vest_Light",

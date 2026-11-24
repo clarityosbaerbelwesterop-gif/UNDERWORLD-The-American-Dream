@@ -1,0 +1,213 @@
+{
+  "asset": "WPN_Knife_01",
+  "status": "READY FOR REVIEW",
+  "category": "Weapons",
+  "budget_key": "Weapons",
+  "source_blend": "Blender/Source/Weapons/WPN_Knife_01/WPN_Knife_01.blend",
+  "export_glb": "Assets/Weapons/WPN_Knife_01/WPN_Knife_01.glb",
+  "preview_png": "Assets/Weapons/WPN_Knife_01/WPN_Knife_01_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.015,
+      -0.025,
+      -0.064
+    ],
+    "max": [
+      0.015,
+      0.025,
+      0.235
+    ],
+    "size": [
+      0.03,
+      0.05,
+      0.299
+    ]
+  },
+  "triangles": {
+    "lod0": 152,
+    "budget": 8000,
+    "per_lod_total": {
+      "LOD0": 152,
+      "LOD1": 76,
+      "LOD2": 38
+    }
+  },
+  "lods": [
+    {
+      "object": "Frame",
+      "levels": [
+        {
+          "name": "Frame",
+          "level": 0,
+          "triangles": 152
+        },
+        {
+          "name": "Frame_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 76
+        },
+        {
+          "name": "Frame_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 38
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_WPN_Knife_01_00-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_Prop_GripTape",
+    "M_Prop_Gunmetal",
+    "M_Prop_SteelBright"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_GripTape_D",
+      "material": "M_Prop_GripTape",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_5k8xnkik/T_Prop_GripTape_D.jpg"
+    },
+    {
+      "image": "T_Prop_GripTape_ORM",
+      "material": "M_Prop_GripTape",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_9b8lq_8b/T_Prop_GripTape_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_GripTape_N",
+      "material": "M_Prop_GripTape",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_veu42kok/T_Prop_GripTape_N.jpg"
+    },
+    {
+      "image": "T_Prop_Gunmetal_D",
+      "material": "M_Prop_Gunmetal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_jd_0n3jz/T_Prop_Gunmetal_D.jpg"
+    },
+    {
+      "image": "T_Prop_Gunmetal_ORM",
+      "material": "M_Prop_Gunmetal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_s08m2kbi/T_Prop_Gunmetal_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Gunmetal_N",
+      "material": "M_Prop_Gunmetal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_ssxtt7ok/T_Prop_Gunmetal_N.jpg"
+    },
+    {
+      "image": "T_Prop_SteelBright_D",
+      "material": "M_Prop_SteelBright",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_763wwg6b/T_Prop_SteelBright_D.jpg"
+    },
+    {
+      "image": "T_Prop_SteelBright_ORM",
+      "material": "M_Prop_SteelBright",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_qr9w8vyt/T_Prop_SteelBright_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_SteelBright_N",
+      "material": "M_Prop_SteelBright",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_6zc0kn69/T_Prop_SteelBright_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "Frame": {
+      "texture_px": 512,
+      "median_px_per_m": 2048.0,
+      "p10_px_per_m": 1556.1,
+      "p90_px_per_m": 5381.7
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {
+    "SOCKET_Grip": {
+      "parent": "WPN_Knife_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.0,
+        -0.0
+      ]
+    },
+    "SOCKET_Muzzle": {
+      "parent": "WPN_Knife_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.0,
+        0.235
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "Frame_LOD1",
+    "Frame_LOD2",
+    "Frame",
+    "SOCKET_Grip",
+    "SOCKET_Muzzle",
+    "UCX_WPN_Knife_01_00-convcolonly",
+    "WPN_Knife_01"
+  ],
+  "glb_bytes": 616836
+}

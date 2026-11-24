@@ -29,6 +29,7 @@ func _run() -> void:
 	test_ttk(db)
 	test_armor()
 	test_pistol_matches_shipped()
+	test_weapon_assets(db)
 	await test_apply_to_npc()
 	if failures.is_empty():
 		print("[GPTEST] RESULT: PASS")
@@ -140,3 +141,60 @@ func test_apply_to_npc() -> void:
 	check(hp.health > 125.0 and hp.health < 140.0, "a 25-damage pistol body hit costs the heavy %.1f HP, not 25" % (150.0 - hp.health))
 	npc.queue_free()
 	await physics_frame
+
+## T-WPN-01: every combat.json weapon with a `scene` resolves to its weapon-grammar asset and keeps
+## the REQ-GP02 contract: SOCKET_Muzzle in front (+Z) of the grip origin, firearms have a
+## Magazine node and Fire/Reload/Empty clips, and the Reload clip is exactly as long as the
+## gameplay reload_time (animation and gameplay cannot drift apart).
+func test_weapon_assets(db: Dictionary) -> void:
+	var firearms := ["pistol", "smg", "shotgun", "rifle", "sniper"]
+	var n := 0
+	for wid in (db.get("weapons", {}) as Dictionary):
+		var w: Dictionary = db["weapons"][wid]
+		if not w.has("scene"):
+			continue
+		n += 1
+		var wd := CombatDB.weapon(wid)
+		check(wd.scene != null, "%s: WeaponData.scene loaded from %s" % [wid, w["scene"]])
+		if wd.scene == null:
+			continue
+		var inst := wd.scene.instantiate() as Node3D
+		var muzzle := _find(inst, "SOCKET_Muzzle") as Node3D
+		var fwd := muzzle.position.z if muzzle else -1.0
+		var is_gun := String(w.get("class", "")) in firearms
+		check(muzzle != null and fwd >= (0.15 if is_gun else 0.0), "%s: SOCKET_Muzzle %.3f m in front of the grip" % [wid, fwd])
+		if is_gun:
+			check(_find(inst, "Magazine") != null, "%s: Magazine node present" % wid)
+			var ap := _find_class(inst, "AnimationPlayer") as AnimationPlayer
+			var ok := ap != null
+			for clip in ["Fire", "Reload", "Empty"]:
+				ok = ok and ap.has_animation("A_%s_%s" % [wid, clip])
+			check(ok, "%s: clips A_%s_Fire/Reload/Empty" % [wid, wid])
+			if ok:
+				var rl := ap.get_animation("A_%s_Reload" % wid).length
+				var want := float(w.get("reload_time", 0.0))
+				check(not _reload_mismatch(rl, want), "%s: Reload clip %.2f s == reload_time %.2f s" % [wid, rl, want])
+				check(_reload_mismatch(rl, want + 0.5), "%s: the reload check bites (+0.5 s would fail)" % wid)
+		inst.free()
+	check(n >= 9, "combat.json links %d weapons to built assets (>= 9)" % n)
+
+func _reload_mismatch(clip_len: float, reload_time: float) -> bool:
+	return absf(clip_len - reload_time) > 1.0 / 30.0 + 0.001
+
+func _find(n: Node, nm: String) -> Node:
+	if String(n.name) == nm:
+		return n
+	for c in n.get_children():
+		var r := _find(c, nm)
+		if r != null:
+			return r
+	return null
+
+func _find_class(n: Node, cls: String) -> Node:
+	if n.is_class(cls):
+		return n
+	for c in n.get_children():
+		var r := _find_class(c, cls)
+		if r != null:
+			return r
+	return null

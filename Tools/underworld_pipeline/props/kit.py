@@ -76,6 +76,16 @@ MATERIALS = {
     "window_glass":   (None, (0.045, 0.06, 0.07), 1.0, 0.0, 0.06, 0.0),
     "curtain_glass":  ("gen:curtain",       (0.06, 0.09, 0.12), 3.0, 0.0, 0.08, 0.0),
     "rollup_door":    ("gen:rollup",        (0.62, 0.64, 0.66), 2.0, 0.70, 0.35, 1.0),
+    # weapon library (T-WPN-01): small tiles -> ~2000 px/m on hand-held objects
+    "gunmetal":       ("metal_plate",       (0.17, 0.18, 0.20), 0.25, 0.85, -0.05, 0.6),
+    "steel_bright":   ("metal_plate",       (0.62, 0.64, 0.67), 0.20, 1.00, -0.20, 0.4),
+    "polymer":        ("rubber_tiles",      (0.055, 0.055, 0.06), 0.12, 0.0, 0.05, 0.4),
+    "wood_stock":     ("worn_planks",       (0.62, 0.40, 0.24), 0.35, 0.0, -0.15, 0.6),
+    "olive_paint":    ("metal_plate",       (0.20, 0.23, 0.14), 0.20, 0.30, 0.10, 0.5),
+    "grip_tape":      ("rubber_tiles",      (0.08, 0.08, 0.085), 0.08, 0.0, 0.10, 0.8),
+    "rag":            ("fabric_pattern_07", (0.62, 0.56, 0.46), 0.15, 0.0, 0.05, 0.9),
+    "glass_bottle":   (None, (0.08, 0.20, 0.10), 1.0, 0.0, 0.06, 0.0),
+    "lens":           (None, (0.04, 0.06, 0.10), 1.0, 0.3, 0.04, 0.0),
 }
 
 # Procedural (trim-style) maps: name -> fn(size) -> (diffuse rgb multiplier, roughness, normal rgb)
@@ -150,6 +160,17 @@ class Prop:
         self.mats, self.mat_index = [], {}
         self.cols = []
         self.missing_textures = []
+
+    # ---------------------------------------------------------------- parts (weapons, vehicles)
+    def part(self, name):
+        """Switch the active mesh to part `name` (separate object at finish, e.g. Slide/Magazine)."""
+        if not hasattr(self, "_parts"):
+            self._parts = {"__main__": (self.bm, self.uvmode, self.label_id)}
+        if name not in self._parts:
+            bm = bmesh.new()
+            self._parts[name] = (bm, bm.faces.layers.int.new("uvmode"), bm.faces.layers.int.new("label_id"))
+        self.bm, self.uvmode, self.label_id = self._parts[name]
+        return self
 
     # ---------------------------------------------------------------- materials
     def mat(self, key):
@@ -488,32 +509,44 @@ class Prop:
         return rects
 
     # ---------------------------------------------------------------- finish
-    def finish(self, repo_root, ground=True):
-        bm = self.bm
+    def finish(self, repo_root, ground=True, before_save=None):
+        """Build the mesh object(s) + collision and save Blender/Source/<cat>/<name>/<name>.blend.
+        Parts (P.part(...)) become separate objects named after the part (Frame, Slide, ...).
+        before_save(P, objects) may add sockets/rigs before the file is written."""
+        parts = getattr(self, "_parts", {"__main__": (self.bm, self.uvmode, self.label_id)})
+        all_verts = [v for (bm, _u, _l) in parts.values() for v in bm.verts]
         # No global recalc_face_normals: primitives are built with outward winding, and a recalc
         # flips isolated label quads / two-sided cards (they would vanish under back-face culling).
-        zmin = min(v.co.z for v in bm.verts) if ground else 0.0
+        zmin = min(v.co.z for v in all_verts) if ground else 0.0
         if ground and abs(zmin) > 1e-6:
-            for v in bm.verts:
+            for v in all_verts:
                 v.co.z -= zmin
         rects = self._build_label_atlas() if self.labels else []
-        uv0 = bm.loops.layers.uv.new("UVMap")
-        for f in bm.faces:
-            if f[self.uvmode] == 1:
-                _fit_uv(f, uv0, rects[f[self.label_id]] if f[self.label_id] >= 0 else None)
-            else:
-                tile = _tile_for(self.mats[f.material_index])
-                _world_uv(f, uv0, tile)
-        me = bpy.data.meshes.new(f"{self.name}_Mesh")
-        bm.to_mesh(me)
-        bm.free()
-        ob = bpy.data.objects.new(f"{self.name}_Mesh", me)
-        bpy.context.scene.collection.objects.link(ob)
-        ob.parent = self.root
-        for m in self.mats:
-            me.materials.append(m)
-        ob["uw_allow_uv_overlap"] = 1        # UV0 tiles on purpose (world-space texel density)
-        _lightmap_uv(ob)
+        objects = {}
+        tris = 0
+        for pname, (bm, uvl, lid) in parts.items():
+            if not bm.faces:
+                bm.free()
+                continue
+            uv0 = bm.loops.layers.uv.new("UVMap")
+            for f in bm.faces:
+                if f[uvl] == 1:
+                    _fit_uv(f, uv0, rects[f[lid]] if f[lid] >= 0 else None)
+                else:
+                    _world_uv(f, uv0, _tile_for(self.mats[f.material_index]))
+            oname = f"{self.name}_Mesh" if pname == "__main__" else pname
+            me = bpy.data.meshes.new(oname)
+            bm.to_mesh(me)
+            bm.free()
+            ob = bpy.data.objects.new(oname, me)
+            bpy.context.scene.collection.objects.link(ob)
+            ob.parent = self.root
+            for m in self.mats:
+                me.materials.append(m)
+            ob["uw_allow_uv_overlap"] = 1        # UV0 tiles on purpose (world-space texel density)
+            _lightmap_uv(ob)
+            objects[pname] = ob
+            tris += sum(len(pg.vertices) - 2 for pg in me.polygons)
         for i, (kind, c, s, r) in enumerate(self.cols):
             cz = c[2] - (zmin if ground and kind != "slab" else 0.0)
             hint = "-colonly" if kind == "slab" else "-convcolonly"
@@ -529,11 +562,13 @@ class Prop:
         if self.missing_textures:
             raise RuntimeError(f"{self.name}: CC0 texture sets missing in cache: {sorted(set(self.missing_textures))} "
                                f"(run Tools/underworld_pipeline/fetch_sources.py --groups props)")
+        if before_save:
+            before_save(self, objects)
         p = os.path.join(repo_root, "Blender", "Source", self.category, self.name, f"{self.name}.blend")
         os.makedirs(os.path.dirname(p), exist_ok=True)
         bpy.ops.wm.save_as_mainfile(filepath=p, compress=True)
-        tris = sum(len(pg.vertices) - 2 for pg in me.polygons)
-        print(f"[PROPS] saved {os.path.relpath(p, repo_root)} ({tris} tris, {len(self.mats)} materials, {len(self.cols)} collision)")
+        print(f"[PROPS] saved {os.path.relpath(p, repo_root)} ({tris} tris, {len(self.mats)} materials, "
+              f"{len(objects)} part(s), {len(self.cols)} collision)")
         return p
 
 

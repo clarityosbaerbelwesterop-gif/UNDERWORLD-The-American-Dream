@@ -1,0 +1,330 @@
+{
+  "asset": "WPN_Rifle_01",
+  "status": "READY FOR REVIEW",
+  "category": "Weapons",
+  "budget_key": "Weapons",
+  "source_blend": "Blender/Source/Weapons/WPN_Rifle_01/WPN_Rifle_01.blend",
+  "export_glb": "Assets/Weapons/WPN_Rifle_01/WPN_Rifle_01.glb",
+  "preview_png": "Assets/Weapons/WPN_Rifle_01/WPN_Rifle_01_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.025,
+      -0.182,
+      -0.2997
+    ],
+    "max": [
+      0.025,
+      0.151,
+      0.56
+    ],
+    "size": [
+      0.05,
+      0.333,
+      0.8597
+    ]
+  },
+  "triangles": {
+    "lod0": 720,
+    "budget": 8000,
+    "per_lod_total": {
+      "LOD0": 564,
+      "LOD1": 282,
+      "LOD2": 140
+    }
+  },
+  "lods": [
+    {
+      "object": "Frame",
+      "levels": [
+        {
+          "name": "Frame",
+          "level": 0,
+          "triangles": 492
+        },
+        {
+          "name": "Frame_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 246
+        },
+        {
+          "name": "Frame_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 122
+        }
+      ]
+    },
+    {
+      "object": "Barrel",
+      "levels": [
+        {
+          "name": "Barrel",
+          "level": 0,
+          "triangles": 72
+        },
+        {
+          "name": "Barrel_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 36
+        },
+        {
+          "name": "Barrel_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 18
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_WPN_Rifle_01_00-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_Prop_Gunmetal",
+    "M_Prop_Lens",
+    "M_Prop_Polymer"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Gunmetal_D",
+      "material": "M_Prop_Gunmetal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_59mq_brn/T_Prop_Gunmetal_D.jpg"
+    },
+    {
+      "image": "T_Prop_Gunmetal_ORM",
+      "material": "M_Prop_Gunmetal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_ytf8wk9c/T_Prop_Gunmetal_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Gunmetal_N",
+      "material": "M_Prop_Gunmetal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_bxwwtvuw/T_Prop_Gunmetal_N.jpg"
+    },
+    {
+      "image": "T_Prop_Lens_D",
+      "material": "M_Prop_Lens",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_quvl61ta/T_Prop_Lens_D.jpg"
+    },
+    {
+      "image": "T_Prop_Lens_ORM",
+      "material": "M_Prop_Lens",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_r29a618n/T_Prop_Lens_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Lens_N",
+      "material": "M_Prop_Lens",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_olrmkp58/T_Prop_Lens_N.jpg"
+    },
+    {
+      "image": "T_Prop_Polymer_D",
+      "material": "M_Prop_Polymer",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_3g082tpi/T_Prop_Polymer_D.jpg"
+    },
+    {
+      "image": "T_Prop_Polymer_ORM",
+      "material": "M_Prop_Polymer",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_imq48ixs/T_Prop_Polymer_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Polymer_N",
+      "material": "M_Prop_Polymer",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_2a6phy7v/T_Prop_Polymer_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "Frame": {
+      "texture_px": 512,
+      "median_px_per_m": 2048.0,
+      "p10_px_per_m": 1556.1,
+      "p90_px_per_m": 3935.2
+    },
+    "Barrel": {
+      "texture_px": 512,
+      "median_px_per_m": 2012.8,
+      "p10_px_per_m": 1746.8,
+      "p90_px_per_m": 2048.0
+    },
+    "Magazine": {
+      "texture_px": 512,
+      "median_px_per_m": 1722.2,
+      "p10_px_per_m": 1643.2,
+      "p90_px_per_m": 2048.0
+    },
+    "Slide": {
+      "texture_px": 512,
+      "median_px_per_m": 2048.0,
+      "p10_px_per_m": 2048.0,
+      "p90_px_per_m": 2048.0
+    },
+    "Trigger": {
+      "texture_px": 512,
+      "median_px_per_m": 2048.0,
+      "p10_px_per_m": 2048.0,
+      "p90_px_per_m": 2048.0
+    }
+  },
+  "clipping": [],
+  "armatures": {
+    "WeaponRig": {
+      "bones": [
+        "WpnRoot",
+        "SlideBone",
+        "MagBone",
+        "TrigBone"
+      ],
+      "deform_bones": 4
+    }
+  },
+  "blendshapes": [],
+  "animations": [
+    {
+      "name": "A_WPN_Rifle_01_Empty",
+      "frame_start": 0.0,
+      "frame_end": 2.0,
+      "fps": 30.0,
+      "duration_s": 0.0667,
+      "frames": 2,
+      "loop": false,
+      "speed_mps": null,
+      "slots": [
+        "OBWeaponRig"
+      ]
+    },
+    {
+      "name": "A_WPN_Rifle_01_Fire",
+      "frame_start": 0.0,
+      "frame_end": 3.0,
+      "fps": 30.0,
+      "duration_s": 0.1,
+      "frames": 3,
+      "loop": false,
+      "speed_mps": null,
+      "slots": [
+        "OBWeaponRig"
+      ]
+    },
+    {
+      "name": "A_WPN_Rifle_01_Reload",
+      "frame_start": 0.0,
+      "frame_end": 72.0,
+      "fps": 30.0,
+      "duration_s": 2.4,
+      "frames": 72,
+      "loop": false,
+      "speed_mps": null,
+      "slots": [
+        "OBWeaponRig"
+      ]
+    }
+  ],
+  "sockets": {
+    "SOCKET_Grip": {
+      "parent": "WPN_Rifle_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.0,
+        -0.0
+      ]
+    },
+    "SOCKET_Muzzle": {
+      "parent": "WPN_Rifle_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.075,
+        0.56
+      ]
+    },
+    "SOCKET_Eject": {
+      "parent": "WPN_Rifle_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.02,
+        0.08,
+        0.04
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "Barrel_LOD1",
+    "Barrel_LOD2",
+    "Barrel",
+    "Frame_LOD1",
+    "Frame_LOD2",
+    "Frame",
+    "SOCKET_Eject",
+    "SOCKET_Grip",
+    "SOCKET_Muzzle",
+    "UCX_WPN_Rifle_01_00-convcolonly",
+    "MagBone",
+    "SlideBone",
+    "TrigBone",
+    "WpnRoot",
+    "Magazine",
+    "Slide",
+    "Trigger",
+    "WeaponRig",
+    "WPN_Rifle_01"
+  ],
+  "glb_bytes": 509616
+}

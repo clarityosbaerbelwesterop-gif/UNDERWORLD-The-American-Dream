@@ -108,6 +108,10 @@ def build_parser():
     sp_bb.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
     sp_bb.add_argument("--only", default=None, help="comma list of building ids (default: all)")
 
+    sp_bwp = sub.add_parser("build-weapons", help="Build the combat.json weapons from the weapon grammar (props/weapons.py, T-WPN-01)")
+    sp_bwp.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
+    sp_bwp.add_argument("--only", default=None, help="comma list of weapon ids (default: all)")
+
     sp_rt = sub.add_parser("retarget", help="Retarget a CC0 BVH clip onto a character .blend")
     sp_rt.add_argument("blend")
     sp_rt.add_argument("bvh")
@@ -373,6 +377,10 @@ def main(argv):
     if args.command == "build-buildings":
         from underworld_pipeline.props import build_props as BP
         BP.build_buildings(repo_root=args.repo, only=args.only)
+        return C.EXIT_OK
+    if args.command == "build-weapons":
+        from underworld_pipeline.props import weapons as WG
+        WG.build_weapons(repo_root=args.repo, only=args.only)
         return C.EXIT_OK
     if args.command == "retarget":
         from underworld_pipeline.characters import retarget as RT

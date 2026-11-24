@@ -1,0 +1,70 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/fx/fx_effect.gd" id="1_1b8vk"]
+
+[sub_resource type="Gradient" id="Gradient_77lq6"]
+offsets = PackedFloat32Array(0, 1, 0.4)
+colors = PackedColorArray(1, 0.95, 0.75, 1, 1, 0.3, 0.05, 0, 1, 0.6, 0.2, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3y43t"]
+gradient = SubResource("Gradient_77lq6")
+
+[sub_resource type="Curve" id="Curve_ygqeq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.39999998), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_f5tw1"]
+curve = SubResource("Curve_ygqeq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mwyn1"]
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, 0, 1)
+spread = 60.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+angular_velocity_min = -40.0
+angular_velocity_max = 40.0
+damping_max = 0.2
+scale_min = 0.025
+scale_max = 0.03125
+scale_curve = SubResource("CurveTexture_f5tw1")
+color_ramp = SubResource("GradientTexture1D_3y43t")
+
+[sub_resource type="Gradient" id="Gradient_2rxs1"]
+offsets = PackedFloat32Array(0, 1, 0.55)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s5c6j"]
+gradient = SubResource("Gradient_2rxs1")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c7hul"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_s5c6j")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_7ikst"]
+material = SubResource("StandardMaterial3D_c7hul")
+
+[node name="FX_Sparks" type="Node3D" unique_id=58815686]
+script = ExtResource("1_1b8vk")
+one_shot = false
+
+[node name="Sparks" type="GPUParticles3D" parent="." unique_id=80940198]
+emitting = false
+amount = 24
+lifetime = 0.45
+explosiveness = 0.2
+visibility_aabb = AABB(-6, -6, -6, 12, 12, 12)
+process_material = SubResource("ParticleProcessMaterial_mwyn1")
+draw_pass_1 = SubResource("QuadMesh_7ikst")

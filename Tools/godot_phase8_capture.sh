@@ -14,6 +14,7 @@
 #        [--scene res://Scenes/Main.tscn | --script res://Tests/tools/x.gd] [--out file.png]
 #        [--movie out.avi|out.png --fps 30 --frames N]   (Godot Movie Maker: deterministic video)
 #        [--res 1280x720]   window/movie size (default: project viewport 1920x1080)
+#        [--fixed-fps 30]   deterministic frame time for --script shots (no movie)
 # The scene (or a helper script in it) must write the PNG itself, or pass a
 # --script that calls Viewport.get_texture().get_image().save_png().
 set -euo pipefail
@@ -29,6 +30,7 @@ MOVIE=""
 FPS=30
 FRAMES=300
 RES=""
+FIXED=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --path) PROJECT="$2"; shift 2 ;;
@@ -38,6 +40,7 @@ while [[ $# -gt 0 ]]; do
     --renderer) RENDERER="$2"; shift 2 ;;
     --movie) MOVIE="$2"; shift 2 ;;
     --fps) FPS="$2"; shift 2 ;;
+    --fixed-fps) FIXED="$2"; shift 2 ;;
     --frames) FRAMES="$2"; shift 2 ;;
     --res) RES="$2"; shift 2 ;;
     -h|--help) sed -n '2,20p' "$0"; exit 0 ;;
@@ -67,6 +70,9 @@ case "$RENDERER" in
 esac
 if [[ -n "$MOVIE" ]]; then
   args+=( --write-movie "$MOVIE" --fixed-fps "$FPS" )
+elif [[ -n "$FIXED" ]]; then
+  # deterministic frame time for scripted shots (e.g. 60 ms muzzle flashes on a slow CPU renderer)
+  args+=( --fixed-fps "$FIXED" )
 fi
 if [[ -n "$RES" ]]; then
   args+=( --windowed --resolution "$RES" )

@@ -1,0 +1,79 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/fx/fx_effect.gd" id="1_egkc3"]
+
+[sub_resource type="Gradient" id="Gradient_fgwhf"]
+offsets = PackedFloat32Array(0, 1, 0.4)
+colors = PackedColorArray(1, 0.95, 0.7, 1, 1, 0.3, 0.05, 0, 1, 0.6, 0.2, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_p8bk3"]
+gradient = SubResource("Gradient_fgwhf")
+
+[sub_resource type="Curve" id="Curve_1g0rn"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.33333334), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ep23t"]
+curve = SubResource("Curve_1g0rn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t2k8n"]
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, 0, 1)
+spread = 50.0
+initial_velocity_min = 3.0
+initial_velocity_max = 7.0
+angular_velocity_min = -40.0
+angular_velocity_max = 40.0
+damping_max = 0.2
+scale_min = 0.03
+scale_max = 0.037499998
+scale_curve = SubResource("CurveTexture_ep23t")
+color_ramp = SubResource("GradientTexture1D_p8bk3")
+
+[sub_resource type="Gradient" id="Gradient_nh7ew"]
+offsets = PackedFloat32Array(0, 1, 0.55)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_msr6f"]
+gradient = SubResource("Gradient_nh7ew")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjw6u"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_msr6f")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_0doui"]
+material = SubResource("StandardMaterial3D_fjw6u")
+
+[node name="FX_Impact_Metal" type="Node3D" unique_id=1866105100]
+script = ExtResource("1_egkc3")
+lifetime = 0.6
+light_energy = 2.0
+light_fade = 0.05
+
+[node name="Sparks" type="GPUParticles3D" parent="." unique_id=1775228740]
+emitting = false
+amount = 22
+lifetime = 0.35
+one_shot = true
+explosiveness = 1.0
+visibility_aabb = AABB(-6, -6, -6, 12, 12, 12)
+process_material = SubResource("ParticleProcessMaterial_t2k8n")
+draw_pass_1 = SubResource("QuadMesh_0doui")
+
+[node name="Flash" type="OmniLight3D" parent="." unique_id=2054765833]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.15)
+light_color = Color(1, 0.75, 0.4, 1)
+light_energy = 2.0
+omni_range = 2.0

@@ -4,8 +4,8 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 
 | Status | Anzahl |
 |---|---|
-| PLANNED | 22 |
-| WIP | 79 |
+| PLANNED | 11 |
+| WIP | 90 |
 | PRODUCTION-READY | 0 |
 | **gesamt** | **101** |
 
@@ -15,7 +15,7 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | P3 | 30 | 1 | 29 | 0 | 29/30 |
 | P4 | 20 | 0 | 20 | 0 | 20/20 |
 | P5 | 31 | 2 | 29 | 0 | 31/31 |
-| P6 | 18 | 17 | 1 | 0 | 1/12 |
+| P6 | 18 | 6 | 12 | 0 | 12/12 |
 
 ## P2
 
@@ -131,14 +131,14 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | A_Humanoid_Melee_Set | animation | PLANNED | mocap | `authored (mocap/keyframe)` | – |
 | A_Humanoid_Sit_Driver | animation | PLANNED | mocap | `authored (mocap/keyframe)` | – |
 | A_Humanoid_Sit_Passenger | animation | PLANNED | mocap | `authored (mocap/keyframe)` | – |
-| FX_Blood_Set | fx | PLANNED | blockout+ | `build-fx --only FX_Blood_Set` (fehlt) | – |
-| FX_Explosion | fx | PLANNED | blockout+ | `build-fx --only FX_Explosion` (fehlt) | – |
-| FX_Fire | fx | PLANNED | blockout+ | `build-fx --only FX_Fire` (fehlt) | – |
-| FX_GlassShatter | fx | PLANNED | blockout+ | `build-fx --only FX_GlassShatter` (fehlt) | – |
-| FX_Impact_Set | fx | PLANNED | blockout+ | `build-fx --only FX_Impact_Set` (fehlt) | – |
-| FX_MuzzleFlash_Set | fx | PLANNED | blockout+ | `build-fx --only FX_MuzzleFlash_Set` (fehlt) | – |
-| FX_Rain | fx | PLANNED | blockout+ | `build-fx --only FX_Rain` (fehlt) | – |
-| FX_Smoke | fx | PLANNED | blockout+ | `build-fx --only FX_Smoke` (fehlt) | – |
-| FX_Sparks | fx | PLANNED | blockout+ | `build-fx --only FX_Sparks` (fehlt) | – |
-| FX_Steam_NY | fx | PLANNED | blockout+ | `build-fx --only FX_Steam_NY` (fehlt) | – |
-| FX_TireSmoke | fx | PLANNED | blockout+ | `build-fx --only FX_TireSmoke` (fehlt) | – |
+| FX_Blood_Set | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_Explosion | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_Fire | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_GlassShatter | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_Impact_Set | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_MuzzleFlash_Set | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_Rain | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_Smoke | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_Sparks | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_Steam_NY | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_TireSmoke | fx | WIP | blockout+ | `build-fx` | ✓ |

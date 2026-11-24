@@ -40,7 +40,7 @@ def _reset():
     return sc
 
 
-def _ph_mat(cache_dir, name, ph_id, tint=(1, 1, 1), tile=2.0, tex_sz=512, rough_bias=0.0, metallic=0.0):
+def _ph_mat(cache_dir, name, ph_id, tint=(1, 1, 1), tile=2.0, tex_sz=512, rough_bias=0.0, metallic=0.0, mean_srgb=None):
     maps = PBR.find_polyhaven_maps(cache_dir, ph_id)
     if "diff" in maps:
         diff = PBR.tile_array(PBR.load_image_np(maps["diff"], None, False)[:, :, :3], tile, tile, tex_sz)
@@ -52,6 +52,11 @@ def _ph_mat(cache_dir, name, ph_id, tint=(1, 1, 1), tile=2.0, tex_sz=512, rough_
         nrm = np.full((tex_sz, tex_sz, 3), [0.5, 0.5, 1.0], dtype=np.float32)
         rough = np.full((tex_sz, tex_sz), 0.8, dtype=np.float32)
         ao = np.ones((tex_sz, tex_sz), dtype=np.float32)
+    if mean_srgb is not None:
+        # T-DECAL-01: calibrate the scan to a target average colour (sRGB 0..1) but keep its
+        # relative detail - Poly Haven's concrete is a brown, dark photo; LA pavement is pale grey.
+        luma = diff @ np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
+        diff = np.repeat((luma / max(float(luma.mean()), 1e-4))[:, :, None], 3, axis=2) * np.array(mean_srgb, dtype=np.float32)[None, None, :]
     diff = np.clip(diff * np.array(tint, dtype=np.float32)[None, None, :], 0.0, 1.0)
     rough = np.clip(rough + rough_bias, 0.15, 0.96)
     orm = np.stack([ao, rough, np.full_like(rough, metallic)], axis=2)
@@ -126,7 +131,7 @@ def build_road_straight(repo_root, cache_dir):
     name = "SM_LA_Road_Straight"
     root = bpy.data.objects.new(name, None)
     sc.collection.objects.link(root)
-    m_asp = _ph_mat(cache_dir, "LA_Asphalt", "asphalt_02", tint=(0.62, 0.62, 0.64), tile=3.0)
+    m_asp = _ph_mat(cache_dir, "LA_Asphalt", "asphalt_02", tile=3.0, mean_srgb=(0.42, 0.41, 0.39))  # T-DECAL-01: sun-bleached LA asphalt (stains must read)
     m_yel = _flat_mat("LA_RoadLineYellow", (0.85, 0.64, 0.14, 1.0), rough=0.72)
     m_wht = _flat_mat("LA_RoadLineWhite", (0.82, 0.82, 0.80, 1.0), rough=0.75)
 
@@ -165,7 +170,7 @@ def build_sidewalk_curb(repo_root, cache_dir):
     name = "SM_LA_Sidewalk_Curb"
     root = bpy.data.objects.new(name, None)
     sc.collection.objects.link(root)
-    m_con = _ph_mat(cache_dir, "LA_Concrete", "concrete_pavement", tint=(0.82, 0.80, 0.76), tile=3.0)
+    m_con = _ph_mat(cache_dir, "LA_Concrete", "concrete_pavement", tile=3.0, mean_srgb=(0.66, 0.65, 0.62))  # T-DECAL-01: sun-bleached LA sidewalk (sRGB ~165)
     bm = bmesh.new()
     # 10 m along street (Y) x 4 m deep (X), 0.16 m high curb + sidewalk slab
     _box(bm, (0, 0, 0.08), (4.0, 10.0, 0.16), mat_idx=0, bevel=0.018)

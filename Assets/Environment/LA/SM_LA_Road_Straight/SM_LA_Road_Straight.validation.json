@@ -2,8 +2,9 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.2.4 LTS",
-  "timestamp": "2026-11-23T14:28:44+00:00",
+  "timestamp": "2026-11-24T11:49:20+00:00",
   "command": "export",
+  "profile": "gate",
   "input": "Blender/Source/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.blend",
   "steps": {
     "validate": {
@@ -19,9 +20,10 @@
       ],
       "micro_lips": 0
     },
+    "foot_slide": null,
     "export": {
       "glb": "Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
-      "bytes": 28384
+      "bytes": 937848
     },
     "preview": "Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight_preview.png",
     "manifest": "Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
@@ -44,7 +46,7 @@
         "joint_names": [],
         "animations": [],
         "asset_generator": "Khronos glTF Blender I/O v5.2.41",
-        "bytes": 28384
+        "bytes": 937848
       },
       "reimport_objects": [
         "SM_LA_Road_Straight",
@@ -89,7 +91,7 @@
     "warnings": 0,
     "infos": 3
   },
-  "seconds": 0.46,
+  "seconds": 0.98,
   "exit_code": 0,
   "result": "PASS"
 }

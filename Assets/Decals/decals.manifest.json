@@ -1,0 +1,249 @@
+{
+  "generator": "Tools/uwp build-decals",
+  "decals": [
+    {
+      "id": "DC_LA_Crack_01",
+      "size_m": [
+        2.0,
+        2.0
+      ],
+      "depth_m": 0.12,
+      "px": [
+        512,
+        512
+      ],
+      "kind": "ground",
+      "maps": [
+        "albedo",
+        "normal"
+      ],
+      "coverage": 0.028,
+      "px_per_m": 256.0
+    },
+    {
+      "id": "DC_LA_Crack_02",
+      "size_m": [
+        3.0,
+        1.0
+      ],
+      "depth_m": 0.12,
+      "px": [
+        768,
+        256
+      ],
+      "kind": "ground",
+      "maps": [
+        "albedo",
+        "normal"
+      ],
+      "coverage": 0.09,
+      "px_per_m": 256.0
+    },
+    {
+      "id": "DC_LA_Drain_01",
+      "size_m": [
+        0.9,
+        0.36
+      ],
+      "depth_m": 0.12,
+      "px": [
+        512,
+        192
+      ],
+      "kind": "ground",
+      "maps": [
+        "albedo",
+        "normal",
+        "orm"
+      ],
+      "coverage": 0.827,
+      "px_per_m": 568.9
+    },
+    {
+      "id": "DC_LA_Graffiti_01",
+      "size_m": [
+        3.2,
+        1.3
+      ],
+      "depth_m": 0.3,
+      "px": [
+        1024,
+        416
+      ],
+      "kind": "wall",
+      "maps": [
+        "albedo"
+      ],
+      "coverage": 0.36,
+      "px_per_m": 320.0
+    },
+    {
+      "id": "DC_LA_Graffiti_02",
+      "size_m": [
+        2.4,
+        1.0
+      ],
+      "depth_m": 0.3,
+      "px": [
+        1024,
+        426
+      ],
+      "kind": "wall",
+      "maps": [
+        "albedo"
+      ],
+      "coverage": 0.396,
+      "px_per_m": 426.7
+    },
+    {
+      "id": "DC_LA_Grime_01",
+      "size_m": [
+        4.0,
+        3.0
+      ],
+      "depth_m": 0.3,
+      "px": [
+        512,
+        384
+      ],
+      "kind": "wall",
+      "maps": [
+        "albedo",
+        "orm"
+      ],
+      "coverage": 0.807,
+      "px_per_m": 128.0
+    },
+    {
+      "id": "DC_LA_Manhole_01",
+      "size_m": [
+        0.9,
+        0.9
+      ],
+      "depth_m": 0.12,
+      "px": [
+        512,
+        512
+      ],
+      "kind": "ground",
+      "maps": [
+        "albedo",
+        "normal",
+        "orm"
+      ],
+      "coverage": 0.739,
+      "px_per_m": 568.9
+    },
+    {
+      "id": "DC_LA_OilStain_01",
+      "size_m": [
+        1.6,
+        1.6
+      ],
+      "depth_m": 0.12,
+      "px": [
+        512,
+        512
+      ],
+      "kind": "ground",
+      "maps": [
+        "albedo",
+        "orm"
+      ],
+      "coverage": 0.381,
+      "px_per_m": 320.0
+    },
+    {
+      "id": "DC_LA_OilStain_02",
+      "size_m": [
+        2.6,
+        1.3
+      ],
+      "depth_m": 0.12,
+      "px": [
+        512,
+        256
+      ],
+      "kind": "ground",
+      "maps": [
+        "albedo",
+        "orm"
+      ],
+      "coverage": 0.424,
+      "px_per_m": 196.9
+    },
+    {
+      "id": "DC_LA_Puddle_01",
+      "size_m": [
+        2.6,
+        1.8
+      ],
+      "depth_m": 0.12,
+      "px": [
+        512,
+        384
+      ],
+      "kind": "ground",
+      "maps": [
+        "albedo",
+        "orm"
+      ],
+      "coverage": 0.311,
+      "px_per_m": 196.9
+    },
+    {
+      "id": "DC_LA_TireMarks_01",
+      "size_m": [
+        6.0,
+        2.0
+      ],
+      "depth_m": 0.12,
+      "px": [
+        1024,
+        340
+      ],
+      "kind": "ground",
+      "maps": [
+        "albedo"
+      ],
+      "coverage": 0.179,
+      "px_per_m": 170.7
+    },
+    {
+      "id": "DC_LA_Trash_01",
+      "size_m": [
+        2.0,
+        2.0
+      ],
+      "depth_m": 0.12,
+      "px": [
+        512,
+        512
+      ],
+      "kind": "ground",
+      "maps": [
+        "albedo"
+      ],
+      "coverage": 0.08,
+      "px_per_m": 256.0
+    },
+    {
+      "id": "DC_NY_Graffiti_01",
+      "size_m": [
+        3.0,
+        1.4
+      ],
+      "depth_m": 0.3,
+      "px": [
+        1024,
+        478
+      ],
+      "kind": "wall",
+      "maps": [
+        "albedo"
+      ],
+      "coverage": 0.493,
+      "px_per_m": 341.3
+    }
+  ]
+}

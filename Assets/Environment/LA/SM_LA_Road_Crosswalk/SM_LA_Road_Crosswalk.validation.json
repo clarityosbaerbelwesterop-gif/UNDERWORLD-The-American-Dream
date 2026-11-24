@@ -2,7 +2,7 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.2.4 LTS",
-  "timestamp": "2026-11-23T19:28:08+00:00",
+  "timestamp": "2026-11-24T11:42:18+00:00",
   "command": "export",
   "profile": "gate",
   "input": "Blender/Source/Environment/LA/SM_LA_Road_Crosswalk/SM_LA_Road_Crosswalk.blend",
@@ -46,7 +46,7 @@
     "foot_slide": null,
     "export": {
       "glb": "Assets/Environment/LA/SM_LA_Road_Crosswalk/SM_LA_Road_Crosswalk.glb",
-      "bytes": 500084
+      "bytes": 534472
     },
     "preview": "Assets/Environment/LA/SM_LA_Road_Crosswalk/SM_LA_Road_Crosswalk_preview.png",
     "manifest": "Assets/Environment/LA/SM_LA_Road_Crosswalk/SM_LA_Road_Crosswalk.manifest.json",
@@ -94,7 +94,7 @@
         "joint_names": [],
         "animations": [],
         "asset_generator": "Khronos glTF Blender I/O v5.2.41",
-        "bytes": 500084
+        "bytes": 534472
       },
       "reimport_objects": [
         "SM_LA_Road_Crosswalk",
@@ -123,7 +123,7 @@
     "warnings": 0,
     "infos": 1
   },
-  "seconds": 0.5,
+  "seconds": 1.02,
   "exit_code": 0,
   "result": "PASS"
 }

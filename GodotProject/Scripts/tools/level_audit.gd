@@ -60,22 +60,43 @@ static func luminance(c: Color) -> float:
 	return 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b
 
 
+## Effective albedo of a material: albedo_color x the average of its albedo texture (T-DECAL-01:
+## the streets are textured now, so the colour alone says nothing about the value on screen).
+static func effective_albedo(m: StandardMaterial3D) -> Color:
+	var c := m.albedo_color
+	if m.albedo_texture == null:
+		return c
+	var img := m.albedo_texture.get_image()
+	if img == null:
+		return c
+	if img.is_compressed():
+		img.decompress()
+	var acc := Color(0, 0, 0)
+	var n := 0
+	for y in range(0, img.get_height(), maxi(1, img.get_height() / 16)):
+		for x in range(0, img.get_width(), maxi(1, img.get_width() / 16)):
+			acc += img.get_pixel(x, y)
+			n += 1
+	acc /= float(maxi(n, 1))
+	return Color(c.r * acc.r, c.g * acc.g, c.b * acc.b, c.a)
+
+
 ## Albedo of the first MeshInstance3D under `n`, in the order the renderer uses it:
 ## material_override -> per-surface override -> the mesh's surface material.
 static func albedo_of(n: Node) -> Color:
 	if n is MeshInstance3D:
 		var mi := n as MeshInstance3D
 		if mi.material_override is StandardMaterial3D:
-			return (mi.material_override as StandardMaterial3D).albedo_color
+			return effective_albedo(mi.material_override as StandardMaterial3D)
 		if mi.mesh != null:
 			for i in mi.mesh.get_surface_count():
 				var ov = mi.get_surface_override_material(i)
 				if ov is StandardMaterial3D:
-					return (ov as StandardMaterial3D).albedo_color
+					return effective_albedo(ov as StandardMaterial3D)
 			if mi.mesh.get_surface_count() > 0:
 				var m = mi.mesh.surface_get_material(0)
 				if m is StandardMaterial3D:
-					return (m as StandardMaterial3D).albedo_color
+					return effective_albedo(m as StandardMaterial3D)
 	for c in n.get_children():
 		var got := albedo_of(c)
 		if got.a > 0.0:

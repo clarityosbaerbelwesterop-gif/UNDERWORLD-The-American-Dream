@@ -1,5 +1,10 @@
 # Development Log
 
+## 2026-11-24 · Claude Code · T-DECAL-01 (decals + textured streets)
+- `Tools/uwp build-decals` (13 decals, numpy/Pillow, Decal scenes + manifest); `build_decals_calloway.gd` -> `LA_CallowayAve_Decals.tscn` (137), instanced by the level (builder updated).
+- Streets: textured overrides from the kit maps (`_tex_mat`), kit asphalt/concrete calibrated (`mean_srgb`), road + sidewalk rebuilt (gate PASS); `LevelAudit.effective_albedo`. Golden hour sun 12 -> 18 deg, ambient 2.6 -> 3.2 (street was in deep shade).
+- `test_decals.gd` (+ negative control), catalog: DC_LA_Decals + both sit clips WIP (93 WIP / 8 PLANNED). Report `Docs/Reports/BERICHT_T-DECAL-01.md`.
+
 ## 2026-11-24 · Claude Code · T-LOOK-02 (graphics pass)
 - AgX + SSIL in ENV_LA_* (exposure golden 0.58 -> 0.76, midday 0.74 -> 0.84; cards in target), new ENV_NY_Night (volumetric fog, SSR) / ENV_NY_Overcast; SunPreset presets ny_night / ny_overcast + CHAPTER map + graded_environment().
 - `Grading` (17^3 LUT per chapter, pure grade()), `GradedWorld` on the M01 WorldEnvironment (2-line scene change; builder updated), `MaterialPass` in Vehicle._assemble + CharacterVisual.set_model, `set_wetness()`.

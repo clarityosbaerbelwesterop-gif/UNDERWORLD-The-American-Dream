@@ -105,15 +105,14 @@
     "jeans": {
       "enabled": true,
       "style": "straight_jeans",
-      "polyhaven_id": "denim_fabric_06",
+      "polyhaven_id": "denim_fabric_04",
       "texture_size": 512,
       "bake_high_to_low": false,
       "tile": 5.0,
-      "desaturate": 0.7,
       "tint_rgb": [
-        0.24,
         0.3,
-        0.42
+        0.42,
+        0.6
       ],
       "zone_mode": "denim_wash"
     },

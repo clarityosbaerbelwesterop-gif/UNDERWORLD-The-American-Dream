@@ -107,7 +107,7 @@ static func apply(npc: NPCController, arch_id: String) -> bool:
 	npc.set_meta(&"archetype", arch_id)
 	# Visible armor (T-CHAR-01): the archetype's vest/helmet props ride on the skeleton, so the
 	# player reads the tier before the first shot. Needs the visual -> after the NPC's _ready.
-	if not armor_for(arch_id).is_empty():
+	if not armor_for(arch_id).is_empty() and not bool(archetype(arch_id).get("armor_concealed", false)):
 		if npc.is_node_ready():
 			attach_armor_visuals(npc, arch_id)
 		else:

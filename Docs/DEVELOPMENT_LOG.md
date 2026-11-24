@@ -1,5 +1,9 @@
 # Development Log
 
+## 2026-11-24 · Claude Code · T-CHAR-01 part 2 (13 figures)
+- MakeHuman/MPFB2 CC0 sources reachable after the owner-approved environment change (files2.makehumancommunity.org, github.com); slow server (25 KB/s per connection) -> parallel ranged download, zip-verified.
+- 13 figures built with `uwp build-character` + exported (dev 13/13; bosses needed a `Characters/SK_Boss` budget (30k) and Sam-level muscle against jacket clipping). Bosses: concealed heavy vest, no helmet (combat.json `armor_concealed`; test). Blue-jeans calibration (light denim set). Line-ups per faction in engine.
+
 ## 2026-11-24 · Claude Code · T-VEH-01 (P5: vehicle body profiles + 5 cars)
 - `Tools/uwp build-vehicles` (`vehicles/profiles.py`): police cruiser, NY taxi, muscle coupe, crew-cab pickup, delivery van (3.3–3.7k tris), clean hull-only UCX (gate PASS 5/5; the sedan's hull still fails the gate), invented liveries. TD-029 PROPOSED.
 - `test_vehicle_fleet.gd`: each car assembles in vehicle.gd, parks (±2 mm), drives (7.7 m/s after 2 s); negative `UW_VEH_SABOTAGE=radius`. vehicle.gd: rear doors optional. Motorcycle + plane stay PLANNED (P7 mechanics).

@@ -4,6 +4,7 @@
   "max_triangles": {
     "Characters/SK_Jason": 40000,
     "Characters/SK_NPC": 25000,
+    "Characters/SK_Boss": 30000,
     "Vehicles": 60000,
     "Weapons": 8000,
     "Environment": 10000,

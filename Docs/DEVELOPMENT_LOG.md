@@ -1,5 +1,8 @@
 # Development Log
 
+## 2026-11-24 · Claude Code · T-QA-02 (CI robustness)
+- `.github/workflows/ci.yml`: the apt step stalled 20+ min twice (mirror); now `timeout-minutes: 15`, `timeout` on update/install, 3 attempts.
+
 ## 2026-11-24 · Claude Code · T-LVL-02 (M01 dressed with the kit; B-007 resolved)
 - `build_level_calloway.gd`: west block = kit liquor store / office tower / stucco shop / Apartment4F (greybox only as fallback), kit traffic light + street sign, 14 street-furniture pieces out of the walking line, parked cars drawn as real P5 cars over the unchanged cover boxes (`VisualOnly` strips the car hulls at load).
 - B-007: roof gunman = post at the roof edge; autopilot requires a clear shot line from gun height. M01 by input: seeds 1/2/3/4/5 PASS (190-200 s; seed 2: 47 shots instead of 82).

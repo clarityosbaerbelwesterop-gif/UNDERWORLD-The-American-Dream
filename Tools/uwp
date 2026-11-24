@@ -12,6 +12,10 @@ if [[ "${1:-}" == "catalog" ]]; then
   shift
   exec "${UWP_PYTHON:-python3}" "$HERE/underworld_pipeline/catalog.py" "$@"
 fi
+# build-fx generates Godot particle scenes (P6, T-FX-01): runs in Godot, not Blender.
+if [[ "${1:-}" == "build-fx" ]]; then
+  exec "${GODOT:-/workspace/tools/godot}" --headless --path "$HERE/../GodotProject" --script res://Scripts/tools/build_fx.gd
+fi
 # review-sheet is plain Python/Pillow and must not boot Blender.
 if [[ "${1:-}" == "review-sheet" ]]; then
   shift

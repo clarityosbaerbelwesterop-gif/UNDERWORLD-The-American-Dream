@@ -39,6 +39,9 @@ var model: Node3D
 var muzzle: Node3D
 var _rng := RandomNumberGenerator.new()
 var _impacts: Node3D
+## Last spawned effects (P6) - for tests and tools; the effects free themselves.
+var last_fx: FXEffect
+var last_muzzle_fx: FXEffect
 var _flash: Node3D
 var _flash_left := 0.0
 var _pattern_index := 0
@@ -196,6 +199,7 @@ func trigger(just_pressed: bool, held: bool, aim_origin: Vector3, aim_dir: Vecto
 	return _fire(aim_origin, aim_dir.normalized(), stance, shooter, exclude)
 
 func _fire(origin: Vector3, aim_dir: Vector3, stance: Dictionary, shooter: Node, exclude: Array[RID]) -> Dictionary:
+	last_fx = null
 	ammo -= 1
 	shots_fired += 1
 	cooldown = data.get_fire_interval()
@@ -231,9 +235,16 @@ func _fire(origin: Vector3, aim_dir: Vector3, stance: Dictionary, shooter: Node,
 		shot["damage"] = info
 		impact.emit(hit.position, hit.normal, hit.collider)
 		_spawn_impact(hit.position, hit.normal)
+		# P6 (T-FX-01): surface-dependent impact effect (blood / metal sparks / concrete dust ...);
+		# emitters point along +Z = the surface normal.
+		var n := hit.normal as Vector3
+		var up := Vector3.UP if absf(n.y) < 0.99 else Vector3.FORWARD
+		last_fx = FXEffect.spawn(FXEffect.impact_id_for(hit.collider), self, Transform3D(Basis.looking_at(-n, up), hit.position + n * 0.02))
 	if _flash != null:
 		_flash.visible = true
 		_flash_left = 0.05
+	if muzzle != null and muzzle.is_inside_tree():
+		last_muzzle_fx = FXEffect.spawn("FX_MuzzleFlash", self, muzzle.global_transform)
 	ammo_changed.emit(ammo, reserve)
 	AIPerception.emit_noise(get_tree(), origin, data.noise_radius, shooter, "gunshot")
 	fired.emit(shot)

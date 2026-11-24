@@ -253,3 +253,12 @@ view drawn from the scene's real AABBs.
 - **Collision = hull only:** the source boxes are removed after `convex_hull`, so the release gate passes. VH_Sedan_01 keeps its old hull until it is re-gated together with its `test_vehicle.gd` calibration.
 - **Rear doors are optional** in `vehicle.gd` (coupes).
 - **Acceptance:** `test_vehicle_fleet.gd` assembles every profile car in the real Vehicle and checks parking and driving.
+
+## TD-030 – Effects as generated particle scenes, spawned by gameplay (Claude Code, 2026-11-24, T-FX-01)
+**Status: PROPOSED.** Evidence: `Docs/Reports/BERICHT_T-FX-01.md`.
+- **`Tools/uwp build-fx`** (`Scripts/tools/build_fx.gd`, a data table) writes `Scenes/FX/FX_*.tscn`:
+  - GPUParticles3D layers with procedural textures, so no LFS binaries.
+  - An optional OmniLight flash.
+  - Root `FXEffect`: one-shots free themselves after `lifetime`; loops stay.
+- **Spawning:** gameplay spawns effects through `FXEffect.spawn(id, parent, xform)`. Impact choice: `FXEffect.impact_id_for(collider)` (Hitbox → blood, vehicles/`surface_metal` → metal, `surface_glass`, `surface_wood`, default concrete). Level geometry declares its surface by node group.
+- **Capture:** effect shots run with `godot_phase8_capture.sh --fixed-fps 30`.

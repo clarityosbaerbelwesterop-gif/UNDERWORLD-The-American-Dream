@@ -1023,100 +1023,147 @@
    "id": "FX_MuzzleFlash_Set",
    "type": "fx",
    "milestone": "P6",
-   "generator": "build-fx --only FX_MuzzleFlash_Set",
-   "status": "PLANNED",
+   "generator": "build-fx",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "muzzle flash per weapon class"
+   "description": "muzzle flash per weapon class",
+   "members": [
+    "FX_MuzzleFlash"
+   ],
+   "asset": "GodotProject/Scenes/FX/FX_MuzzleFlash.tscn"
   },
   {
    "id": "FX_Impact_Set",
    "type": "fx",
    "milestone": "P6",
-   "generator": "build-fx --only FX_Impact_Set",
-   "status": "PLANNED",
+   "generator": "build-fx",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "impacts per surface: concrete, metal, glass, wood, flesh"
+   "description": "impacts per surface: concrete, metal, glass, wood, flesh",
+   "members": [
+    "FX_Impact_Concrete",
+    "FX_Impact_Metal",
+    "FX_Impact_Glass",
+    "FX_Impact_Wood"
+   ],
+   "asset": "GodotProject/Scenes/FX/FX_Impact_Concrete.tscn"
   },
   {
    "id": "FX_Blood_Set",
    "type": "fx",
    "milestone": "P6",
-   "generator": "build-fx --only FX_Blood_Set",
-   "status": "PLANNED",
+   "generator": "build-fx",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "blood (rating E-8)"
+   "description": "blood (rating E-8)",
+   "members": [
+    "FX_Blood"
+   ],
+   "asset": "GodotProject/Scenes/FX/FX_Blood.tscn"
   },
   {
    "id": "FX_Smoke",
    "type": "fx",
    "milestone": "P6",
-   "generator": "build-fx --only FX_Smoke",
-   "status": "PLANNED",
+   "generator": "build-fx",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "smoke"
+   "description": "smoke",
+   "members": [
+    "FX_Smoke"
+   ],
+   "asset": "GodotProject/Scenes/FX/FX_Smoke.tscn"
   },
   {
    "id": "FX_Fire",
    "type": "fx",
    "milestone": "P6",
-   "generator": "build-fx --only FX_Fire",
-   "status": "PLANNED",
+   "generator": "build-fx",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "fire + Molotov"
+   "description": "fire + Molotov",
+   "members": [
+    "FX_Fire"
+   ],
+   "asset": "GodotProject/Scenes/FX/FX_Fire.tscn"
   },
   {
    "id": "FX_Explosion",
    "type": "fx",
    "milestone": "P6",
-   "generator": "build-fx --only FX_Explosion",
-   "status": "PLANNED",
+   "generator": "build-fx",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "grenade/car explosion"
+   "description": "grenade/car explosion",
+   "members": [
+    "FX_Explosion"
+   ],
+   "asset": "GodotProject/Scenes/FX/FX_Explosion.tscn"
   },
   {
    "id": "FX_Sparks",
    "type": "fx",
    "milestone": "P6",
-   "generator": "build-fx --only FX_Sparks",
-   "status": "PLANNED",
+   "generator": "build-fx",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "sparks"
+   "description": "sparks",
+   "members": [
+    "FX_Sparks"
+   ],
+   "asset": "GodotProject/Scenes/FX/FX_Sparks.tscn"
   },
   {
    "id": "FX_GlassShatter",
    "type": "fx",
    "milestone": "P6",
-   "generator": "build-fx --only FX_GlassShatter",
-   "status": "PLANNED",
+   "generator": "build-fx",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "glass shatter"
+   "description": "glass shatter",
+   "members": [
+    "FX_GlassShatter"
+   ],
+   "asset": "GodotProject/Scenes/FX/FX_GlassShatter.tscn"
   },
   {
    "id": "FX_Rain",
    "type": "fx",
    "milestone": "P6",
-   "generator": "build-fx --only FX_Rain",
-   "status": "PLANNED",
+   "generator": "build-fx",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "rain"
+   "description": "rain",
+   "members": [
+    "FX_Rain"
+   ],
+   "asset": "GodotProject/Scenes/FX/FX_Rain.tscn"
   },
   {
    "id": "FX_Steam_NY",
    "type": "fx",
    "milestone": "P6",
-   "generator": "build-fx --only FX_Steam_NY",
-   "status": "PLANNED",
+   "generator": "build-fx",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "street steam (NY)"
+   "description": "street steam (NY)",
+   "members": [
+    "FX_Steam_NY"
+   ],
+   "asset": "GodotProject/Scenes/FX/FX_Steam_NY.tscn"
   },
   {
    "id": "FX_TireSmoke",
    "type": "fx",
    "milestone": "P6",
-   "generator": "build-fx --only FX_TireSmoke",
-   "status": "PLANNED",
+   "generator": "build-fx",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "tire smoke"
+   "description": "tire smoke",
+   "members": [
+    "FX_TireSmoke"
+   ],
+   "asset": "GodotProject/Scenes/FX/FX_TireSmoke.tscn"
   }
  ]
 }

@@ -1,5 +1,9 @@
 # Development Log
 
+## 2026-11-24 · Claude Code · T-FX-01 (P6: effect library)
+- `Tools/uwp build-fx` -> 14 `Scenes/FX/FX_*.tscn` (GPU particles, procedural textures, light flashes), `FXEffect` (spawn, self-free, impact choice by surface). `weapon.gd`: muzzle flash per shot, surface impact per hit. TD-030 PROPOSED.
+- `test_fx.gd` (scene contract, lifetimes, catalogue, real shots: wall -> concrete, car -> metal, NPC -> blood; negative `UW_FX_SABOTAGE=1`). Capture tool: `--fixed-fps` + warm-up (60 ms flashes on a CPU renderer). Found: PROCESS_MODE_DISABLED removes hitboxes from physics.
+
 ## 2026-11-24 · Claude Code · T-CHAR-01 part 2 (13 figures)
 - MakeHuman/MPFB2 CC0 sources reachable after the owner-approved environment change (files2.makehumancommunity.org, github.com); slow server (25 KB/s per connection) -> parallel ranged download, zip-verified.
 - 13 figures built with `uwp build-character` + exported (dev 13/13; bosses needed a `Characters/SK_Boss` budget (30k) and Sam-level muscle against jacket clipping). Bosses: concealed heavy vest, no helmet (combat.json `armor_concealed`; test). Blue-jeans calibration (light denim set). Line-ups per faction in engine.

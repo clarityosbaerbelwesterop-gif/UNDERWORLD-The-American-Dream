@@ -61,6 +61,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-WPN-01 | P0 | Claude Code | P5: `uwp build-weapons` weapon grammar + 9 rigged weapons (revolver, SMG, pump shotgun, carbine, bolt sniper, knife, bat, grenade, molotov) linked from combat.json; Reload clip length == reload_time (tested) | T-DATA-01 | READY FOR REVIEW (TD-028 PROPOSED; all WIP) |
 | T-CHAR-01 | P0 | Claude Code | P4: NPC visuals - fix: enemies rendered as PT capsules over their models (M01); visible tier armor (vest/helmet on the skeleton via CombatDB.apply); 13 faction/boss specs; archetype line-up capture | T-WPN-01 | READY FOR REVIEW (part 1 PR #30 merged; part 2: 13 figures built, bosses wear concealed armor) |
 | T-VEH-01 | P0 | Claude Code | P5: `uwp build-vehicles` body profiles + 5 cars (police, NY taxi, muscle, pickup, van) on the sedan contract; fleet test in the real vehicle.gd (assemble, park, drive) | T-WPN-01 | READY FOR REVIEW (TD-029 PROPOSED; motorcycle + plane open -> P7) |
+| T-FX-01 | P0 | Claude Code | P6: `uwp build-fx` effect library (14 GPU-particle scenes: muzzle flash, impacts concrete/metal/glass/wood, blood, sparks, glass shatter, smoke, fire, explosion, rain, steam, tire smoke) + weapon integration (muzzle + surface impact per shot) | T-WPN-01 | READY FOR REVIEW (TD-030 PROPOSED) |
 
 > **Next work order:** `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md` (§8 = ordered task list to release).
 

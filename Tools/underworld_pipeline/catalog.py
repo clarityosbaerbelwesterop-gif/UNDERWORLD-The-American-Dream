@@ -39,7 +39,14 @@ def implemented_generators(repo):
         src = open(os.path.join(repo, "Tools", "underworld_pipeline", "cli.py"), encoding="utf-8").read()
     except OSError:
         return set()
-    return set(re.findall(r'add_parser\(\s*"([a-z0-9-]+)"', src)) | {"export", "validate"}
+    wrapper = ""
+    try:
+        wrapper = open(os.path.join(repo, "Tools", "uwp"), encoding="utf-8").read()
+    except OSError:
+        pass
+    # wrapper-level commands (catalog, review-sheet, build-fx) run outside Blender
+    return (set(re.findall(r'add_parser\(\s*"([a-z0-9-]+)"', src)) | {"export", "validate"}
+            | set(re.findall(r'"\$\{1:-\}" == "([a-z0-9-]+)"', wrapper)))
 
 
 def generator_cmd(entry):

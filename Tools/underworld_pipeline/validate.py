@@ -24,7 +24,7 @@ def _unit_scale(v):
 
 import re as _re
 _FUNCTIONAL_PART = _re.compile(r"^(Body|Cabin|Frame|Interior|Hood|Trunk|Bumper_[FR]|Door_(FL|FR|RL|RR)|"
-                               r"Wheel_(FL|FR|RL|RR)|Slide|Magazine|Trigger|Barrel|Hammer)(_LOD\d+)?$")
+                               r"Wheel_(FL|FR|RL|RR|NG|ML|MR)|Propeller|Slide|Magazine|Trigger|Barrel|Hammer)(_LOD\d+)?$")
 
 
 def validate(ctx):
@@ -242,7 +242,13 @@ def validate(ctx):
                 cy = (st["bbox"][0][1] + st["bbox"][1][1]) / 2
                 if cy >= 0:
                     iss.error("FRONT_AXIS", f"front marker centre y={cy:.3f} >= 0: asset front must be Blender -Y (Godot +Z)", ob.name)
-    if top == "Vehicles" and bb:
+    aircraft = any(o.get("uw_kind") == "aircraft" for o in sc.objects)
+    if top == "Vehicles" and bb and aircraft:
+        # T-VEH-03: a plane's span exceeds its length; the nose (SOCKET_Prop) must still be -Y.
+        prop = sc.objects.get("SOCKET_Prop")
+        if prop is None or prop.matrix_world.translation.y >= 0:
+            iss.error("FRONT_AXIS", "aircraft needs SOCKET_Prop on the nose at Blender -Y (Godot +Z)")
+    elif top == "Vehicles" and bb:
         if (bb[1][0] - bb[0][0]) > (bb[1][1] - bb[0][1]):
             iss.warn("FRONT_AXIS", "vehicle is longer in X than Y: long axis must be Blender Y (front -Y -> Godot +Z)")
 

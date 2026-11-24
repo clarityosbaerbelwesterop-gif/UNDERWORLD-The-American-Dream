@@ -166,6 +166,9 @@ GH = [(-0.82, 0.86, 0.89), (-0.34, 0.67, 1.41), (0.76, 0.66, 1.43), (1.36, 0.85,
 def build_sedan_from_spec(spec_path, repo_root=REPO_ROOT):
     t0 = time.time()
     spec = json.load(open(spec_path))
+    if spec.get("kind") == "aircraft":                      # T-VEH-03: same command, other body plan
+        from underworld_pipeline.vehicles import aircraft as AC
+        return AC.build_plane(spec, repo_root)
     name = spec["asset_name"]
     paint_rgba = tuple(spec.get("paint_rgba", [0.09, 0.14, 0.21, 1.0]))
 

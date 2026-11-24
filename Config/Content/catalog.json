@@ -915,9 +915,12 @@
    "type": "vehicle",
    "milestone": "P5",
    "generator": "build-vehicle Config/Vehicles/VH_Plane_Small_01.json",
-   "status": "PLANNED",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "small plane (Wings)"
+   "description": "original 4-seat high-wing light plane (M1 Arrival hangar, M5 Wings): spinning Propeller, nose + main wheels, cabin glass + interior, fictional marking UW-HOLLOW",
+   "source": "Blender/Source/Vehicles/VH_Plane_Small_01/VH_Plane_Small_01.blend",
+   "asset": "Assets/Vehicles/VH_Plane_Small_01/VH_Plane_Small_01.glb",
+   "gate": "uwp --profile gate PASS 2026-11-24"
   },
   {
    "id": "SM_Prop_CashBundle",

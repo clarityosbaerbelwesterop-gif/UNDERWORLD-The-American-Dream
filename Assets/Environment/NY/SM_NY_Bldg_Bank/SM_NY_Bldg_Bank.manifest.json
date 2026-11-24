@@ -1,0 +1,268 @@
+{
+  "asset": "SM_NY_Bldg_Bank",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/NY",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/NY/SM_NY_Bldg_Bank/SM_NY_Bldg_Bank.blend",
+  "export_glb": "Assets/Environment/NY/SM_NY_Bldg_Bank/SM_NY_Bldg_Bank.glb",
+  "preview_png": "Assets/Environment/NY/SM_NY_Bldg_Bank/SM_NY_Bldg_Bank_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -10.25,
+      0.0,
+      -9.25
+    ],
+    "max": [
+      10.25,
+      13.6189,
+      13.8
+    ],
+    "size": [
+      20.5,
+      13.6189,
+      23.05
+    ]
+  },
+  "triangles": {
+    "lod0": 1676,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 1676,
+      "LOD1": 838,
+      "LOD2": 418
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_NY_Bldg_Bank_Mesh",
+      "levels": [
+        {
+          "name": "SM_NY_Bldg_Bank_Mesh",
+          "level": 0,
+          "triangles": 1676
+        },
+        {
+          "name": "SM_NY_Bldg_Bank_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 838
+        },
+        {
+          "name": "SM_NY_Bldg_Bank_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 418
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_NY_Bldg_Bank_00-convcolonly",
+      "UCX_SM_NY_Bldg_Bank_01-convcolonly"
+    ],
+    "micro_lips": 0
+  },
+  "materials": [
+    "M_Prop_Concrete",
+    "M_Prop_Limestone",
+    "M_Prop_MetalDark",
+    "M_Prop_NY_Bldg_Bank_Labels",
+    "M_Prop_RoofGravel",
+    "M_Prop_WindowGlass"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Concrete_D",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_tfo1dnm3/T_Prop_Concrete_D.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_ORM",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_4vco9y0y/T_Prop_Concrete_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_N",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_0x4hmduz/T_Prop_Concrete_N.jpg"
+    },
+    {
+      "image": "T_Prop_Limestone_D",
+      "material": "M_Prop_Limestone",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_yaxk2s6c/T_Prop_Limestone_D.jpg"
+    },
+    {
+      "image": "T_Prop_Limestone_ORM",
+      "material": "M_Prop_Limestone",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_w6hvo6tj/T_Prop_Limestone_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Limestone_N",
+      "material": "M_Prop_Limestone",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_j11l2x52/T_Prop_Limestone_N.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_D",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_krqyv78u/T_Prop_MetalDark_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_ORM",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_8aac5os2/T_Prop_MetalDark_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_N",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_g8d4jybh/T_Prop_MetalDark_N.jpg"
+    },
+    {
+      "image": "T_Prop_NY_Bldg_Bank_Labels_D",
+      "material": "M_Prop_NY_Bldg_Bank_Labels",
+      "size": [
+        1024,
+        64
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_e0pzhpqn/T_Prop_NY_Bldg_Bank_Labels_D.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_D",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ng87mf44/T_Prop_RoofGravel_D.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_ORM",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_gbso_x0k/T_Prop_RoofGravel_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_N",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_2u6mqpv7/T_Prop_RoofGravel_N.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_D",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_sbnoiqo8/T_Prop_WindowGlass_D.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_ORM",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_bqbzz_sd/T_Prop_WindowGlass_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_N",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_pyaojmtz/T_Prop_WindowGlass_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_NY_Bldg_Bank_Mesh": {
+      "texture_px": 1024,
+      "median_px_per_m": 341.3,
+      "p10_px_per_m": 338.0,
+      "p90_px_per_m": 1024.0
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_NY_Bldg_Bank_Mesh_LOD1",
+    "SM_NY_Bldg_Bank_Mesh_LOD2",
+    "SM_NY_Bldg_Bank_Mesh",
+    "UCX_SM_NY_Bldg_Bank_00-convcolonly",
+    "UCX_SM_NY_Bldg_Bank_01-convcolonly",
+    "SM_NY_Bldg_Bank"
+  ],
+  "glb_bytes": 1473548
+}

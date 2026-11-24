@@ -448,3 +448,193 @@ BUILDINGS = {
     "SM_LA_Bldg_VillaCrestmont": (villa_crestmont, "Environment/LA"),
     "SM_LA_Bldg_LiquorStore": (liquor_store, "Environment/LA"),
 }
+
+
+# ------------------------------------------------------------------ New York (chapter 2, T-NY-01)
+def _lintels(Pb, P, u, ops, mat, proud=0.07):
+    for (u0, u1, v0, v1, kind) in ops:
+        if kind == "glass":
+            Pb.box(tuple(P((u0 + u1) / 2, v1 + 0.11, -proud / 2)), (u1 - u0 + 0.30, proud + 0.06, 0.20), mat, rot=(0, 0, _yaw(u)))
+
+
+def _cornice(Pb, P, u, length, z, mat, proud=0.42, h=0.5, bracket_every=1.1):
+    Pb.box(tuple(P(length / 2, z, -proud / 2)), (length + 0.2, proud, h), mat, rot=(0, 0, _yaw(u)))
+    Pb.box(tuple(P(length / 2, z + h / 2 + 0.05, -proud / 2 - 0.04)), (length + 0.3, proud + 0.08, 0.10), mat, rot=(0, 0, _yaw(u)))
+    k = 0.3
+    while k < length - 0.2:
+        Pb.box(tuple(P(k, z - h / 2 - 0.16, -proud * 0.4)), (0.16, proud * 0.8, 0.32), mat, rot=(0, 0, _yaw(u)))
+        k += bracket_every
+
+
+def brownstone(Pb):
+    """Brooklyn brownstone row house, 6.5 x 13 m, 4 levels: garden level, raised parlour floor
+    reached by a 9-step stoop with iron railings, lintels, bracketed cornice. Party walls are
+    plain brick (row houses abut); the back has windows."""
+    w, d = 6.5, 13.0
+    zp, fh = 1.6, 3.0                      # parlour floor level, upper floor height
+    h = zp + 3.2 + 2 * fh                  # 10.8
+    ud = w * 0.72                          # parlour door (stoop side)
+    ops = [(w * 0.25 - 0.55, w * 0.25 + 0.55, 0.35, 1.35, "glass")]                 # garden window
+    ops.append((ud - 0.6, ud + 0.6, zp, zp + 2.75, "wood_door"))
+    ops.append((w * 0.28 - 0.6, w * 0.28 + 0.6, zp + 0.45, zp + 2.85, "glass"))      # tall parlour window
+    for f in range(2):
+        z = zp + 3.2 + f * fh
+        for uc in (w * 0.22, w * 0.5, w * 0.78):
+            ops.append((uc - 0.5, uc + 0.5, z + 0.7, z + 2.45, "glass"))
+    P, u, n, L = facade(Pb, "front", w, d, h, "brownstone", ops, depth=0.28, reveal="brownstone")
+    _lintels(Pb, P, u, ops, "brownstone")
+    _cornice(Pb, P, u, w, h - 0.3, "brownstone")
+    band(Pb, w, d, zp + 3.2, "brownstone", proud=0.05, h=0.14, sides=("front",))
+    for side in ("left", "right"):
+        facade(Pb, side, w, d, h, "brick_ny", [])
+    back = [(uc - 0.5, uc + 0.5, z + 0.8, z + 2.3, "glass") for z in (0.0, zp + 0.4, zp + 3.2, zp + 3.2 + fh) for uc in (w * 0.3, w * 0.7)]
+    facade(Pb, "back", w, d, h, "brick_ny", back)
+    # stoop: landing at the parlour door + 8 steps down to the sidewalk, iron railings
+    yaw = _yaw(u)
+    land = 1.2
+    Pb.box(tuple(P(ud, zp / 2, -land / 2)), (1.6, land, zp), "brownstone", rot=(0, 0, yaw))
+    steps = 8
+    rise, tread = zp / (steps + 1), 0.28
+    for i in range(steps):
+        top = (i + 1) * rise
+        run = (steps - i) * tread
+        Pb.box(tuple(P(ud, top / 2, -(land + run / 2))), (1.6, run, top), "brownstone", rot=(0, 0, yaw))
+    for s in (-0.8, 0.8):
+        foot = land + steps * tread
+        railing(Pb, [tuple(P(ud + s, zp, -0.05)), tuple(P(ud + s, zp, -land)), tuple(P(ud + s, rise, -foot))], h=0.95, post_every=0.9)
+        Pb.box(tuple(P(ud + s, 0.55, -foot + 0.05)), (0.22, 0.22, 1.1), "brownstone", rot=(0, 0, yaw))      # newel
+    # areaway railing in front of the garden window
+    railing(Pb, [tuple(P(0.15, 0.0, -1.5)), tuple(P(ud - 1.0, 0.0, -1.5))], h=0.9, post_every=0.8)
+    flat_roof(Pb, w, d, h, parapet=0.5, wall_mat="brick_ny")
+    rooftop_unit(Pb, 0.8, 2.5, h, 0.7)
+    Pb.col_box((0, 0, h / 2 + 0.25), (w, d, h + 0.5))
+    Pb.col_box(tuple(P(ud, zp / 2, -(land + steps * tread) / 2)), (1.6, land + steps * tread, zp), rot=(0, 0, yaw))
+
+
+def tenement(Pb):
+    """Six-storey New York tenement, 15 x 18 m: two storefronts with signs, central door, two fire
+    escapes, bracketed cornice, wooden water tank."""
+    w, d, fh, nf = 15.0, 18.0, 3.1, 6
+    h = fh * nf
+    ops = [(0.8, 6.0, 0.45, 2.75, "store"), (6.9, 8.1, 0.1, 2.6, "door"), (9.0, 14.2, 0.45, 2.75, "store")]
+    for f in range(1, nf):
+        z = f * fh
+        for uc in bays(w, 5, 1.0):
+            ops.append((uc - 0.5, uc + 0.5, z + 0.85, z + 2.45, "glass"))
+    P, u, n, L = facade(Pb, "front", w, d, h, "brick_ny", ops)
+    _lintels(Pb, P, u, ops, "concrete")
+    band(Pb, w, d, fh - 0.05, "concrete", proud=0.10, h=0.30, sides=("front",))
+    sign(Pb, P, u, 3.4, 3.35, 4.6, 0.55, "label:Store1:SPIN CITY LAUNDROMAT|f4f0e6|1d4e89|768x96")
+    sign(Pb, P, u, 11.6, 3.35, 4.6, 0.55, "label:Store2:CHECKS CASHED - MONEY ORDERS|1a1a1a|f2c230|768x96")
+    awning(Pb, P, u, 6.9, 8.1, 2.9, depth=1.0, drop=0.25, mat="canvas")
+    fire_escape(Pb, P, u, 2.6, nf, fh, width=3.0)
+    fire_escape(Pb, P, u, 12.4, nf, fh, width=3.0)
+    _cornice(Pb, P, u, w, h - 0.35, "concrete", proud=0.5, h=0.55, bracket_every=1.3)
+    for side, ln in (("right", d), ("left", d), ("back", w)):
+        o2 = [(uc - 0.5, uc + 0.5, f * fh + 0.85, f * fh + 2.45, "glass") for f in range(1, nf) for uc in bays(ln, 4 if ln > 16 else 3, 1.0)]
+        facade(Pb, side, w, d, h, "brick_ny", o2)
+    flat_roof(Pb, w, d, h, parapet=0.9, wall_mat="brick_ny")
+    water_tank(Pb, 3.5, 3.0, h)
+    rooftop_unit(Pb, -4.0, 0.0, h)
+    Pb.col_box((0, 0, h / 2 + 0.45), (w, d, h + 0.9))
+
+
+def bodega(Pb):
+    """Corner bodega, 9 x 9 m, two storeys: glass shop front on both street sides, door on the
+    corner side, awnings, signs, a half-down roll shutter, one apartment floor above."""
+    w, d, fh = 9.0, 9.0, 3.3
+    h = 2 * fh
+    front = [(0.6, 5.4, 0.5, 2.7, "store"), (6.0, 7.4, 0.1, 2.6, "door"), (7.8, 8.6, 0.5, 2.7, "store")]
+    front += [(uc - 0.55, uc + 0.55, fh + 0.85, fh + 2.45, "glass") for uc in bays(w, 3, 1.1)]
+    P, u, n, L = facade(Pb, "front", w, d, h, "brick_ny", front)
+    right = [(0.6, 4.2, 0.5, 2.7, "store"), (4.8, 8.4, 0.5, 2.7, "rollup")]
+    right += [(uc - 0.55, uc + 0.55, fh + 0.85, fh + 2.45, "glass") for uc in bays(d, 3, 1.1)]
+    P2, u2, n2, L2 = facade(Pb, "right", w, d, h, "brick_ny", right)
+    for side in ("left", "back"):
+        facade(Pb, side, w, d, h, "brick_ny", [(uc - 0.55, uc + 0.55, fh + 0.85, fh + 2.45, "glass") for uc in bays(9.0, 3, 1.1)])
+    awning(Pb, P, u, 0.4, 8.7, 3.0, depth=1.3, drop=0.35, mat="canvas")
+    awning(Pb, P2, u2, 0.4, 8.7, 3.0, depth=1.3, drop=0.35, mat="canvas")
+    sign(Pb, P, u, 4.5, 3.25, 7.6, 0.6, "label:Bodega:HOLLOW DELI & GROCERY|fff3d6|b3261e|1024x96")
+    sign(Pb, P2, u2, 4.5, 3.25, 6.4, 0.6, "label:Bodega24:OPEN 24 HRS - COLD BEER - ATM|111111|f5d33b|1024x96")
+    band(Pb, w, d, fh, "concrete", proud=0.08, h=0.22)
+    flat_roof(Pb, w, d, h, parapet=0.8, wall_mat="brick_ny")
+    Pb.col_box((0, 0, h / 2 + 0.4), (w, d, h + 0.8))
+
+
+def bank_ny(Pb):
+    """Neoclassical savings bank (heist mission), 20 x 18 m limestone: stepped plinth, four-column
+    portico with entablature + pediment, bronze doors, tall windows. Name is invented."""
+    w, d, h = 20.0, 18.0, 12.5
+    base = 1.2
+    ops = [(8.6, 11.4, base, base + 5.2, "door")]
+    for uc in (3.0, 6.0, 14.0, 17.0):
+        ops.append((uc - 0.8, uc + 0.8, base + 1.0, base + 7.0, "glass"))
+    P, u, n, L = facade(Pb, "front", w, d, h, "limestone", ops, depth=0.35, reveal="limestone")
+    yaw = _yaw(u)
+    # plinth + steps across the portico
+    port = 3.2
+    Pb.box(tuple(P(w / 2, base / 2, -port / 2)), (13.0, port, base), "limestone", rot=(0, 0, yaw))
+    for i in range(5):
+        top = base * (i + 1) / 6
+        Pb.box(tuple(P(w / 2, top / 2, -(port + (5 - i) * 0.32 / 2) - 0.0)), (13.0 + (5 - i) * 0.3, (5 - i) * 0.32, top), "limestone", rot=(0, 0, yaw))
+    # columns, capitals, entablature, pediment
+    for uc in (5.6, 8.6, 11.4, 14.4):
+        c = P(uc, 0.0, -port + 0.7)
+        Pb.cyl((c.x, c.y, base + 0.25), 0.62, 0.5, "limestone", segs=16)                  # base
+        Pb.cyl((c.x, c.y, base + 0.5 + 3.95), 0.52, 7.9, "limestone", segs=16, radius2=0.46)
+        Pb.box((c.x, c.y, base + 8.6), (1.3, 1.3, 0.4), "limestone")                          # capital
+    ent_z = base + 8.8
+    Pb.box(tuple(P(w / 2, ent_z + 0.6, -port / 2)), (13.6, port + 0.4, 1.2), "limestone", rot=(0, 0, yaw))
+    Pb.label(tuple(P(w / 2, ent_z + 0.6, -port - 0.21)), (11.5, 0.7), "label:BankName:HOLLOWAY & STERN SAVINGS BANK|3a3530|d9d2c2|1024x64", rot=(0, 0, yaw))
+    pz = ent_z + 1.2
+    a, b, c3 = P(w / 2 - 6.8, pz, -port - 0.2), P(w / 2 + 6.8, pz, -port - 0.2), P(w / 2, pz + 2.2, -port - 0.2)
+    _tri(Pb, tuple(a), tuple(b), tuple(c3), "limestone")
+    _tri(Pb, tuple(P(w / 2 + 6.8, pz, 0.0)), tuple(P(w / 2 - 6.8, pz, 0.0)), tuple(P(w / 2, pz + 2.2, 0.0)), "limestone")
+    for (p0, p1) in ((P(w / 2 - 6.8, pz, -port / 2), P(w / 2, pz + 2.2, -port / 2)), (P(w / 2, pz + 2.2, -port / 2), P(w / 2 + 6.8, pz, -port / 2))):
+        ln = (p1 - p0).length
+        ang = math.atan2(p1.z - p0.z, (p1 - p0).dot(u))                     # rake pitch along the facade
+        Pb.box(tuple((p0 + p1) / 2 + Vector((0, 0, 0.1))), (ln, port + 0.45, 0.25), "limestone", rot=(0, -ang, yaw))
+    band(Pb, w, d, h - 0.6, "limestone", proud=0.25, h=0.5)
+    for side, ln in (("right", d), ("left", d), ("back", w)):
+        facade(Pb, side, w, d, h, "limestone", [(uc - 0.8, uc + 0.8, base + 1.0, base + 7.0, "glass") for uc in bays(ln, 4, 1.6)], depth=0.35, reveal="limestone")
+    flat_roof(Pb, w, d, h, parapet=0.9, wall_mat="limestone", cap="limestone")
+    Pb.col_box((0, 0, h / 2 + 0.45), (w, d, h + 0.9))
+    Pb.col_box(tuple(P(w / 2, base / 2, -port / 2 - 0.8)), (13.0, port + 1.6, base), rot=(0, 0, yaw))
+
+
+def subway_entrance(Pb):
+    """Sidewalk subway entrance: 2.2 x 5 m stairwell going 3.6 m down, green-painted railings on
+    three sides, two lamp posts with green globes, station plate (invented stop). Origin = sidewalk
+    level (the stairwell is below z = 0, so the asset is NOT re-grounded)."""
+    Pb.keep_origin = True
+    wi, ln, depth = 2.2, 5.0, 3.6
+    steps = 18
+    rise, run = depth / steps, (ln - 0.6) / steps
+    for i in range(steps):
+        top = -(i + 1) * rise
+        y = -ln / 2 + 0.3 + (i + 0.5) * run
+        Pb.box((0, y, top - 0.1), (wi - 0.1, run + 0.02, 0.2), "concrete")
+    for sx in (-1, 1):                                     # stairwell walls
+        Pb.box((sx * (wi / 2 + 0.1), 0, -depth / 2), (0.2, ln + 0.2, depth), "concrete")
+    Pb.box((0, ln / 2 + 0.1, -depth / 2), (wi + 0.4, 0.2, depth), "concrete")
+    Pb.box((0, ln / 2 - 0.3, -depth - 0.1), (wi, 0.8, 0.2), "concrete")       # bottom landing
+    pts = [(-wi / 2 - 0.1, -ln / 2, 0.0), (-wi / 2 - 0.1, ln / 2 + 0.1, 0.0), (wi / 2 + 0.1, ln / 2 + 0.1, 0.0), (wi / 2 + 0.1, -ln / 2, 0.0)]
+    railing(Pb, pts, h=1.05, mat="metal_green", post_every=1.0)
+    for sx in (-1, 1):
+        x, y = sx * (wi / 2 + 0.1), -ln / 2
+        Pb.cyl((x, y, 1.35), 0.05, 2.7, "metal_green", segs=10)
+        Pb.sphere((x, y, 2.85), 0.2, "lamp_globe_green", segs=14, rings=10)
+    Pb.box((0, ln / 2 + 0.1, 1.35), (wi + 0.2, 0.06, 0.55), "metal_dark")
+    Pb.label((0, ln / 2 + 0.06, 1.35), (wi * 0.95, 0.5), "label:Subway:SUBWAY  -  HOLLOW AV|ffffff|1a1a1a|768x160", rot=(0, 0, math.pi))
+    Pb.label((0, ln / 2 + 0.14, 1.35), (wi * 0.95, 0.5), "label:Subway2:SUBWAY  -  HOLLOW AV|ffffff|1a1a1a|768x160")
+    for (cx, cy, sx, sy) in ((-wi / 2 - 0.1, 0.05, 0.12, ln + 0.1), (wi / 2 + 0.1, 0.05, 0.12, ln + 0.1), (0, ln / 2 + 0.1, wi + 0.3, 0.12)):
+        Pb.col_box((cx, cy, 0.5), (sx, sy, 1.0))
+
+
+BUILDINGS.update({
+    "SM_NY_Bldg_Brownstone": (brownstone, "Environment/NY"),
+    "SM_NY_Bldg_Tenement": (tenement, "Environment/NY"),
+    "SM_NY_Bldg_Bodega": (bodega, "Environment/NY"),
+    "SM_NY_Bldg_Bank": (bank_ny, "Environment/NY"),
+    "SM_NY_SubwayEntrance": (subway_entrance, "Environment/NY"),
+})

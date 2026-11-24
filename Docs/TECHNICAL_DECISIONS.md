@@ -288,3 +288,4 @@ view drawn from the scene's real AABBs.
 - **Placement** in levels is generated too (`build_decals_calloway.gd`, ray-based). It is saved as its own scene that the level instances, so regenerating the decals never touches the level file.
 - **Streets** use the kit's PBR maps (asphalt 2.5× finer tiling) instead of flat override colours. Kit scans can be calibrated to a target mean (`_ph_mat(mean_srgb=...)`). `LevelAudit` compares effective albedo (colour × texture mean).
 - **Golden hour** for M01: sun at 18°, ambient 3.2 (the 12° sun put the whole street canyon in deep shade). The TD-024 card targets still hold.
+- **Addendum T-NY-01 (TD-027):** assets that reach below grade (stairwells) keep their origin at grade; the prop kit writes `uw_below_grade_m` and the validator accepts exactly that depth. Without it `ORIGIN_GROUND` stays an error.

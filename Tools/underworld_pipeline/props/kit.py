@@ -73,6 +73,10 @@ MATERIALS = {
     "concrete_wall":  ("concrete_wall_008", (0.90, 0.89, 0.86), 3.0, 0.0, 0.0, 0.8),
     "roof_tiles":     ("clay_roof_tiles_02", (1.00, 0.95, 0.90), 2.0, 0.0, 0.0, 1.0),
     "roof_gravel":    ("gravel_concrete",   (0.80, 0.79, 0.77), 3.0, 0.0, 0.0, 0.8),
+    # New York set (T-NY-01): brownstone = plaster scan tinted to Triassic sandstone, darker NY brick, limestone
+    "brownstone":     ("plastered_wall",    (0.52, 0.36, 0.28), 2.5, 0.0, 0.05, 0.9),
+    "brick_ny":       ("red_brick_03",      (0.70, 0.56, 0.50), 2.0, 0.0, 0.0, 1.0),
+    "limestone":      ("white_plaster_02",  (0.86, 0.83, 0.75), 3.0, 0.0, 0.0, 0.7),
     "window_glass":   (None, (0.045, 0.06, 0.07), 1.0, 0.0, 0.06, 0.0),
     "curtain_glass":  ("gen:curtain",       (0.06, 0.09, 0.12), 3.0, 0.0, 0.08, 0.0),
     "rollup_door":    ("gen:rollup",        (0.62, 0.64, 0.66), 2.0, 0.70, 0.35, 1.0),
@@ -124,6 +128,7 @@ EMISSIVE = {
     "signal_green": ((0.10, 1.0, 0.55), 0.4),
     "screen": ((0.20, 0.32, 0.45), 0.6),
     "light_panel": ((0.95, 0.95, 0.90), 1.5),
+    "lamp_globe_green": ((0.25, 1.0, 0.45), 2.5),
 }
 FONT_DIRS = ("/usr/share/fonts/truetype/dejavu", "/usr/share/fonts/truetype/liberation", "/usr/share/fonts/truetype/freefont")
 
@@ -521,6 +526,9 @@ class Prop:
         if ground and abs(zmin) > 1e-6:
             for v in all_verts:
                 v.co.z -= zmin
+        # T-NY-01: an asset that deliberately reaches below grade (stairwell) keeps its origin at
+        # grade and declares how deep it goes - the validator allows exactly that much.
+        below = 0.0 if ground else max(0.0, -min(v.co.z for v in all_verts))
         rects = self._build_label_atlas() if self.labels else []
         objects = {}
         tris = 0
@@ -546,6 +554,8 @@ class Prop:
             ob["uw_allow_uv_overlap"] = 1        # UV0 tiles on purpose (world-space texel density)
             _lightmap_uv(ob)
             objects[pname] = ob
+            if below > 0.0:
+                ob["uw_below_grade_m"] = round(below + 0.01, 3)
             tris += sum(len(pg.vertices) - 2 for pg in me.polygons)
         for i, (kind, c, s, r) in enumerate(self.cols):
             cz = c[2] - (zmin if ground and kind != "slab" else 0.0)

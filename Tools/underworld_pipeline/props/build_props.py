@@ -23,7 +23,7 @@ def build_all(repo_root, only=None, cache_dir=None, registry=None):
         fn, cat = reg[n]
         P = kit.Prop(n, cat, cache_dir)
         fn(P)
-        out.append(P.finish(repo_root))
+        out.append(P.finish(repo_root, ground=not getattr(P, "keep_origin", False)))  # stairwells reach below z=0
     return out
 
 

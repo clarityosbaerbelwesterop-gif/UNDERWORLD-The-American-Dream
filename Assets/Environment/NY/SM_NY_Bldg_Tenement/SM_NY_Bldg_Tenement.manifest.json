@@ -1,0 +1,328 @@
+{
+  "asset": "SM_NY_Bldg_Tenement",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/NY",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/NY/SM_NY_Bldg_Tenement/SM_NY_Bldg_Tenement.blend",
+  "export_glb": "Assets/Environment/NY/SM_NY_Bldg_Tenement/SM_NY_Bldg_Tenement.glb",
+  "preview_png": "Assets/Environment/NY/SM_NY_Bldg_Tenement/SM_NY_Bldg_Tenement_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -7.65,
+      0.0,
+      -9.09
+    ],
+    "max": [
+      7.65,
+      22.9,
+      10.1207
+    ],
+    "size": [
+      15.3,
+      22.9,
+      19.2107
+    ]
+  },
+  "triangles": {
+    "lod0": 6556,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 6556,
+      "LOD1": 3278,
+      "LOD2": 1639
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_NY_Bldg_Tenement_Mesh",
+      "levels": [
+        {
+          "name": "SM_NY_Bldg_Tenement_Mesh",
+          "level": 0,
+          "triangles": 6556
+        },
+        {
+          "name": "SM_NY_Bldg_Tenement_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 3278
+        },
+        {
+          "name": "SM_NY_Bldg_Tenement_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 1639
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_NY_Bldg_Tenement_00-convcolonly"
+    ],
+    "micro_lips": 0
+  },
+  "materials": [
+    "M_Prop_BrickNy",
+    "M_Prop_Canvas",
+    "M_Prop_Concrete",
+    "M_Prop_MetalDark",
+    "M_Prop_NY_Bldg_Tenement_Labels",
+    "M_Prop_RoofGravel",
+    "M_Prop_WindowGlass",
+    "M_Prop_Wood"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_BrickNy_D",
+      "material": "M_Prop_BrickNy",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_xrg_spct/T_Prop_BrickNy_D.jpg"
+    },
+    {
+      "image": "T_Prop_BrickNy_ORM",
+      "material": "M_Prop_BrickNy",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_7u4ph1nm/T_Prop_BrickNy_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_BrickNy_N",
+      "material": "M_Prop_BrickNy",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_huf0bswo/T_Prop_BrickNy_N.jpg"
+    },
+    {
+      "image": "T_Prop_Canvas_D",
+      "material": "M_Prop_Canvas",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_d36v9_6_/T_Prop_Canvas_D.jpg"
+    },
+    {
+      "image": "T_Prop_Canvas_ORM",
+      "material": "M_Prop_Canvas",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_tb7rlayz/T_Prop_Canvas_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Canvas_N",
+      "material": "M_Prop_Canvas",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_m7jaz4zc/T_Prop_Canvas_N.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_D",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_6h7pwaa5/T_Prop_Concrete_D.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_ORM",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_r0gnksu9/T_Prop_Concrete_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_N",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_qzzcu11w/T_Prop_Concrete_N.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_D",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_2jt6tyc2/T_Prop_MetalDark_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_ORM",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_5zheg1ht/T_Prop_MetalDark_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_N",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_nj81757r/T_Prop_MetalDark_N.jpg"
+    },
+    {
+      "image": "T_Prop_NY_Bldg_Tenement_Labels_D",
+      "material": "M_Prop_NY_Bldg_Tenement_Labels",
+      "size": [
+        1024,
+        256
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_jnpch7al/T_Prop_NY_Bldg_Tenement_Labels_D.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_D",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_5u2n8a7u/T_Prop_RoofGravel_D.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_ORM",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_rki98dk0/T_Prop_RoofGravel_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_N",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_1iwduj_8/T_Prop_RoofGravel_N.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_D",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_tdbcnnw_/T_Prop_WindowGlass_D.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_ORM",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_w1vhggfu/T_Prop_WindowGlass_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_N",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_lic9z0ql/T_Prop_WindowGlass_N.jpg"
+    },
+    {
+      "image": "T_Prop_Wood_D",
+      "material": "M_Prop_Wood",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_v7vm7fwa/T_Prop_Wood_D.jpg"
+    },
+    {
+      "image": "T_Prop_Wood_ORM",
+      "material": "M_Prop_Wood",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_5w1h6k_e/T_Prop_Wood_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Wood_N",
+      "material": "M_Prop_Wood",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_g6ikmrju/T_Prop_Wood_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_NY_Bldg_Tenement_Mesh": {
+      "texture_px": 1024,
+      "median_px_per_m": 874.3,
+      "p10_px_per_m": 512.0,
+      "p90_px_per_m": 1024.0
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_NY_Bldg_Tenement_Mesh_LOD1",
+    "SM_NY_Bldg_Tenement_Mesh_LOD2",
+    "SM_NY_Bldg_Tenement_Mesh",
+    "UCX_SM_NY_Bldg_Tenement_00-convcolonly",
+    "SM_NY_Bldg_Tenement"
+  ],
+  "glb_bytes": 2900844
+}

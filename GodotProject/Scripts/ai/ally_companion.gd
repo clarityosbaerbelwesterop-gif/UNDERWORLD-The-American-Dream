@@ -59,11 +59,15 @@ func board(v: Vehicle) -> bool:
 	set_physics_process(false)
 	collision_layer = 0
 	collision_mask = 0
-	# No sit clip exists yet: drawing the standing pose on the seat put Marco's torso through
-	# the roof (Phase 8 capture, Bot 1 review of PR #17). Hide him while seated, exactly like
-	# PlayerController hides Jason in the driver's seat; unboard() shows him again.
+	# B-011: drawn in the seat with the passenger sit clip (root = SOCKET_Seat_Passenger), so
+	# the torso no longer goes through the roof (Bot 1 review of PR #17). His rifle is stowed:
+	# the weapon socket is a fixed standing-height offset, not the hand. Without a model that
+	# can sit he stays hidden as before.
+	var sat := visual != null and visual.set_seated("sit_passenger", v.get_socket(Vehicle.PASSENGER_SOCKET))
 	if pose != null:
-		pose.visible = false
+		pose.visible = sat
+	if weapon != null:
+		weapon.visible = false
 	seated.emit(v)
 	return true
 
@@ -78,8 +82,12 @@ func unboard(v: Vehicle, at: Transform3D) -> void:
 	collision_layer = 1 << 2
 	collision_mask = 1 | 2 | 4 | 8
 	set_physics_process(true)
+	if visual != null:
+		visual.set_seated("")
 	if pose != null:
 		pose.visible = true
+	if weapon != null:
+		weapon.visible = true
 	unseated.emit(v)
 
 

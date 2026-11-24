@@ -33,6 +33,9 @@ const CLIP_NAMES := {
 	"death": "A_Jason_Death",
 	"car_enter": "A_Jason_Car_Enter_L",
 	"car_exit": "A_Jason_Car_Exit_L",
+	# B-011: seated loops. Their root is the seat socket (H-point), see set_seated().
+	"sit_driver": "A_Jason_Sit_Driver",
+	"sit_passenger": "A_Jason_Sit_Passenger",
 }
 ## Speeds (m/s) at which the in-place clips were authored; must match the controller
 ## and the SK_Jason manifest "speed_mps" (checked in test_player_controller.gd).
@@ -487,12 +490,89 @@ func update_from_player(p: PlayerController, delta: float) -> void:
 	_was_air = in_air
 
 
+# --- seated in a vehicle (B-011) -------------------------------------------------
+
+## Slot of the sit clip while seated ("sit_driver" / "sit_passenger"), "" on foot.
+var seated_slot := ""
+var _seat: Node3D
+var _seat_scale := Vector3.ONE
+var _saved_xform := Transform3D.IDENTITY
+var _saved_top_level := false
+
+## Seats the character: the AnimationTree pauses, the looping sit clip plays on the
+## AnimationPlayer and this node is pinned to `seat` (SOCKET_Seat_*) - the clip's root IS the
+## seat's H-point, so no per-car offset exists. `slot` "" stands the character up again (the
+## transform and the tree come back). False if the model cannot serve the sit clip.
+func set_seated(slot: String, seat: Node3D = null) -> bool:
+	if slot == "":
+		if seated_slot == "":
+			return true
+		seated_slot = ""
+		_seat = null
+		top_level = _saved_top_level
+		transform = _saved_xform
+		if animation_player != null:
+			animation_player.stop()
+		if animation_tree != null:
+			animation_tree.active = true
+		return true
+	if animation_player == null or seat == null:
+		return false
+	var clip := _clip(slot, animation_player)
+	if missing_clips.has(slot) or not animation_player.has_animation(clip):
+		return false
+	if seated_slot == "":
+		_saved_xform = transform
+		_saved_top_level = top_level
+		_seat_scale = global_basis.get_scale()
+	seated_slot = slot
+	_seat = seat
+	if animation_tree != null:
+		animation_tree.active = false
+	if aim_modifier != null:
+		aim_modifier.weight = 0.0
+	var anim := animation_player.get_animation(clip)
+	if anim != null:
+		anim.loop_mode = Animation.LOOP_LINEAR
+	animation_player.play(clip)
+	top_level = true
+	_pin_to_seat()
+	return true
+
+
+func is_seated() -> bool:
+	return seated_slot != ""
+
+
+## World position of a skeleton bone of the current model (Vector3.INF without one). Used by the
+## seat checks (head under the roof, pelvis on the seat) and handy for attachments.
+func bone_global_position(bone: String) -> Vector3:
+	var sk := find_skeleton()
+	if sk == null:
+		return Vector3.INF
+	var i := sk.find_bone(bone)
+	if i < 0:
+		return Vector3.INF
+	return (sk.global_transform * sk.get_bone_global_pose(i)).origin
+
+
+func _pin_to_seat() -> void:
+	if _seat != null and is_instance_valid(_seat) and _seat.is_inside_tree():
+		global_transform = Transform3D(_seat.global_basis.orthonormalized() * Basis.from_scale(_seat_scale), _seat.global_position)
+
+
+func _process(_delta: float) -> void:
+	if seated_slot != "":
+		_pin_to_seat()
+
+
 # --- shared animation library (T-ANIM-01) -----------------------------------------
 
 ## Every character shares the 53-bone SkeletonProfileHumanoid contract, so a clip authored once in
 ## Assets/Characters/Shared/A_Humanoid_Locomotion.glb can drive any of them. NPC models used to
 ## bake only 16 of the 21 library clips (no Carry_*), hence the "missing clips" warnings.
 const SHARED_LIBRARY := "res://Assets/Characters/Shared/A_Humanoid_Locomotion.glb"
+const SHARED_PREFIX := "A_Humanoid_"
 ## Returns a duplicate of `clip` from the shared library and the library's scene-root name, or
 ## [null, ""]. The PackedScene is cached by ResourceLoader; the instance is freed right away (a
 ## static node cache leaked 22 resources at exit).
@@ -518,6 +598,10 @@ func _borrow_shared_clip(clip: String, ap: AnimationPlayer) -> bool:
 	if model == null:
 		return false
 	var got := CharacterVisual._shared_clip(clip)
+	# A model with its own prefix (SK_Jason: A_Jason_*) borrows a clip it does not bake (e.g.
+	# A_Jason_Sit_Driver) from the library by suffix (A_Humanoid_Sit_Driver), under its own name.
+	if got[0] == null and clip_prefix != "" and clip.begins_with(clip_prefix) and clip_prefix != SHARED_PREFIX:
+		got = CharacterVisual._shared_clip(SHARED_PREFIX + clip.substr(clip_prefix.length()))
 	var anim := got[0] as Animation
 	if anim == null:
 		return false

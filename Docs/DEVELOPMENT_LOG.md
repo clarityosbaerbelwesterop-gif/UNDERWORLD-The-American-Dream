@@ -1,5 +1,9 @@
 # Development Log
 
+## 2026-11-23 · Claude Code · T-BLDG-01 (P3: building grammar + 8 LA buildings)
+- `Tools/uwp build-buildings` (`props/buildings.py`, kit `wall()` with real openings): apartment 4F (fire escape, water tank), motel (gallery, 16 rooms, pole sign), gas station (kiosk, canopy, pumps, price sign), warehouse M01 (dock, 3 roll-up doors), hangar (barrel vault), office tower (8 floors, curtain-glass ribbons, penthouse), Crestmont villa (hip roof, balcony, garage), liquor store (security bars, awning, mural). 492–3,864 tris, ≤ 8 materials each. TD-027 PROPOSED.
+- Verified: `uwp --profile gate` 8/8 PASS; Godot import 0 errors/warnings; catalogue import test; uwp tool test builds liquor store + hangar from a synthetic cache through the gate; Forward Plus captures `Docs/Reports/renders_buildings/`.
+
 ## 2026-11-23 · Claude Code · T-PROP-01 (P2/P3/P5: prop generator + 27 assets)
 - `Tools/uwp build-props` (`Tools/underworld_pipeline/props/`): primitives (bevelled box, cylinder, lathe, swept tube with parallel-transport frames, arc shells, labels), CC0 material library (17 Poly Haven sets), world-space UV0 + lightmap UV1, label atlas per asset, authored UCX collision. TD-026 PROPOSED.
 - 27 assets built and exported with `uwp --profile gate` (all PASS): road intersection + crosswalk tiles, traffic light, hydrant, trash can, bus stop, chain-link fence, dumpster, payphone, newspaper box, parking meter, street sign, billboard, bush, power pole; cash bundle, phone, gold bar, contraband brick, duffel, barrel, pallet, toolbox, workbench; light vest, plate carrier, tactical helmet. Catalogue: 44 WIP / 57 PLANNED.

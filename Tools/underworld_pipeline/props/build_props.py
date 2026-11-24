@@ -8,18 +8,25 @@ import os
 
 from . import kit
 from .recipes import RECIPES
+from .buildings import BUILDINGS
 
 
-def build_all(repo_root, only=None, cache_dir=None):
+def build_all(repo_root, only=None, cache_dir=None, registry=None):
     cache_dir = cache_dir or os.environ.get("UWP_CACHE") or os.path.join(repo_root, ".cache", "uwp_sources")
-    names = list(RECIPES) if not only else [n.strip() for n in only.split(",")]
-    unknown = [n for n in names if n not in RECIPES]
+    reg = RECIPES if registry is None else registry
+    names = list(reg) if not only else [n.strip() for n in only.split(",")]
+    unknown = [n for n in names if n not in reg]
     if unknown:
-        raise SystemExit(f"[PROPS] unknown prop id(s): {unknown}; known: {sorted(RECIPES)}")
+        raise SystemExit(f"[PROPS] unknown id(s): {unknown}; known: {sorted(reg)}")
     out = []
     for n in names:
-        fn, cat = RECIPES[n]
+        fn, cat = reg[n]
         P = kit.Prop(n, cat, cache_dir)
         fn(P)
         out.append(P.finish(repo_root))
     return out
+
+
+def build_buildings(repo_root, only=None, cache_dir=None):
+    """`Tools/uwp build-buildings [--only ID]` - building grammar (props/buildings.py, T-BLDG-01)."""
+    return build_all(repo_root, only=only, cache_dir=cache_dir, registry=BUILDINGS)

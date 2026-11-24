@@ -133,6 +133,19 @@ POLYHAVEN_TEXTURES = {
         "forest_leaves_02",
         "bark_brown_02",
     ],
+    # P3/T-BLDG-01 building grammar (props/buildings.py), all CC0.
+    "buildings": [
+        "plastered_wall",
+        "red_brick_03",
+        "concrete_wall_008",
+        "white_plaster_02",
+        "clay_roof_tiles_02",
+        "gravel_concrete",
+        "corrugated_iron",
+        "metal_plate",
+        "concrete_pavement",
+        "wood_planks",
+    ],
 }
 
 

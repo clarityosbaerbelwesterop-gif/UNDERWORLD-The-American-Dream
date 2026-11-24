@@ -222,3 +222,17 @@ view drawn from the scene's real AABBs.
 - **Signage** (invented names only) is rasterised into **one label atlas per asset** (power-of-two, a single material), with text-correct orientation on every face.
 - **Collision:** authored convex boxes (`UCX_*-convcolonly`) per asset; walkable tiles use one flat `-colonly` slab with its top at the asphalt height (B-PT-01 rule). LOD1/LOD2 come from the exporter.
 - **Hero quality is not claimed:** this is a production-quality blockout+ kit (gate-clean, textured, lit). Hero props (sculpt/bake detail, decals, wear masks) follow TD-021.
+
+## TD-027 – Building grammar for city blocks (Claude Code, 2026-11-23, T-BLDG-01)
+**Status: PROPOSED.** Evidence: `Docs/Reports/BERICHT_T-BLDG-01.md`.
+- **`Tools/uwp build-buildings`** (`props/buildings.py`) builds buildings from rules instead of hand-placed boxes:
+  - footprint × floors × bays
+  - walls with real openings and reveals, plus set-back glass, door and roll-up fills, sills and mullions
+  - string courses and cornices
+  - roofs: flat with parapet, hip with clay tiles, or barrel vault
+  - extras: awnings, fire escapes, galleries, railings, signs from the label atlas, rooftop units
+- Same material library and UV policy as TD-026.
+- **≤ 8 materials per building:** the gate's `MATERIAL_COUNT` is an error in `--profile gate`, so draw calls are bounded.
+- **Closed shells, no interiors:** glass is dark, and walls have no back faces, which roughly halves the triangles. Enterable interiors (garage, warehouse M01, safehouses) are separate interior kits with LightmapGI (TD-024).
+- **Collision:** one convex box per volume, plus canopies, docks and posts.
+- A new building type is a new rule set of ~30–60 lines, not a modelling session. Bespoke hero facades (landmarks) stay hand-authored (TD-021).

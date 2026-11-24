@@ -4,15 +4,15 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 
 | Status | Anzahl |
 |---|---|
-| PLANNED | 57 |
-| WIP | 44 |
+| PLANNED | 49 |
+| WIP | 52 |
 | PRODUCTION-READY | 0 |
 | **gesamt** | **101** |
 
 | Meilenstein | gesamt | PLANNED | WIP | PRODUCTION-READY | Generator vorhanden |
 |---|---|---|---|---|---|
 | P2 | 2 | 2 | 0 | 0 | 0/2 |
-| P3 | 30 | 9 | 21 | 0 | 21/30 |
+| P3 | 30 | 1 | 29 | 0 | 29/30 |
 | P4 | 20 | 13 | 7 | 0 | 20/20 |
 | P5 | 31 | 16 | 15 | 0 | 31/31 |
 | P6 | 18 | 17 | 1 | 0 | 1/12 |
@@ -29,16 +29,16 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | ID | Typ | Status | Ziel | Generator | Datei |
 |---|---|---|---|---|---|
 | SM_LA_Billboard | environment | WIP | blockout+ | `build-props --only SM_LA_Billboard` | ✓ |
-| SM_LA_Bldg_Apartment4F | environment | PLANNED | blockout+ | `build-buildings --only SM_LA_Bldg_Apartment4F` (fehlt) | – |
+| SM_LA_Bldg_Apartment4F | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_Apartment4F` | ✓ |
 | SM_LA_Bldg_GarageM01 | environment | WIP | blockout+ | `build-env --only SM_LA_Bldg_GarageM01` | ✓ |
-| SM_LA_Bldg_GasStation | environment | PLANNED | blockout+ | `build-buildings --only SM_LA_Bldg_GasStation` (fehlt) | – |
-| SM_LA_Bldg_Hangar | environment | PLANNED | blockout+ | `build-buildings --only SM_LA_Bldg_Hangar` (fehlt) | – |
-| SM_LA_Bldg_LiquorStore | environment | PLANNED | blockout+ | `build-buildings --only SM_LA_Bldg_LiquorStore` (fehlt) | – |
-| SM_LA_Bldg_Motel | environment | PLANNED | blockout+ | `build-buildings --only SM_LA_Bldg_Motel` (fehlt) | – |
-| SM_LA_Bldg_OfficeDowntown | environment | PLANNED | blockout+ | `build-buildings --only SM_LA_Bldg_OfficeDowntown` (fehlt) | – |
+| SM_LA_Bldg_GasStation | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_GasStation` | ✓ |
+| SM_LA_Bldg_Hangar | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_Hangar` | ✓ |
+| SM_LA_Bldg_LiquorStore | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_LiquorStore` | ✓ |
+| SM_LA_Bldg_Motel | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_Motel` | ✓ |
+| SM_LA_Bldg_OfficeDowntown | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_OfficeDowntown` | ✓ |
 | SM_LA_Bldg_ShopStucco | environment | WIP | blockout+ | `build-env --only SM_LA_Bldg_ShopStucco` | ✓ |
-| SM_LA_Bldg_VillaCrestmont | environment | PLANNED | blockout+ | `build-buildings --only SM_LA_Bldg_VillaCrestmont` (fehlt) | – |
-| SM_LA_Bldg_Warehouse | environment | PLANNED | blockout+ | `build-buildings --only SM_LA_Bldg_Warehouse` (fehlt) | – |
+| SM_LA_Bldg_VillaCrestmont | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_VillaCrestmont` | ✓ |
+| SM_LA_Bldg_Warehouse | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_Warehouse` | ✓ |
 | SM_LA_BusStop | environment | WIP | blockout+ | `build-props --only SM_LA_BusStop` | ✓ |
 | SM_LA_Bush | environment | WIP | blockout+ | `build-props --only SM_LA_Bush` | ✓ |
 | SM_LA_Dumpster | environment | WIP | blockout+ | `build-props --only SM_LA_Dumpster` | ✓ |

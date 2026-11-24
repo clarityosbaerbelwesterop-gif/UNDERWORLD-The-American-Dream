@@ -63,7 +63,49 @@ MATERIALS = {
     "tape_tan":       (None, (0.58, 0.47, 0.30), 1.0, 0.0, 0.40, 0.0),
     "paint_road_white": (None, (0.80, 0.80, 0.78), 1.0, 0.0, 0.75, 0.0),
     "paint_road_yellow": (None, (0.85, 0.64, 0.14), 1.0, 0.0, 0.72, 0.0),
+    # building library (T-BLDG-01)
+    "stucco_cream":   ("plastered_wall",    (0.92, 0.86, 0.74), 3.0, 0.0, 0.0, 0.8),
+    "stucco_peach":   ("plastered_wall",    (0.95, 0.74, 0.60), 3.0, 0.0, 0.0, 0.8),
+    "stucco_mint":    ("plastered_wall",    (0.70, 0.86, 0.78), 3.0, 0.0, 0.0, 0.8),
+    "stucco_sand":    ("plastered_wall",    (0.86, 0.78, 0.62), 3.0, 0.0, 0.0, 0.8),
+    "plaster_white":  ("white_plaster_02",  (0.96, 0.95, 0.92), 3.0, 0.0, 0.0, 0.7),
+    "brick":          ("red_brick_03",      (0.95, 0.88, 0.84), 2.0, 0.0, 0.0, 1.0),
+    "concrete_wall":  ("concrete_wall_008", (0.90, 0.89, 0.86), 3.0, 0.0, 0.0, 0.8),
+    "roof_tiles":     ("clay_roof_tiles_02", (1.00, 0.95, 0.90), 2.0, 0.0, 0.0, 1.0),
+    "roof_gravel":    ("gravel_concrete",   (0.80, 0.79, 0.77), 3.0, 0.0, 0.0, 0.8),
+    "window_glass":   (None, (0.045, 0.06, 0.07), 1.0, 0.0, 0.06, 0.0),
+    "curtain_glass":  ("gen:curtain",       (0.06, 0.09, 0.12), 3.0, 0.0, 0.08, 0.0),
+    "rollup_door":    ("gen:rollup",        (0.62, 0.64, 0.66), 2.0, 0.70, 0.35, 1.0),
 }
+
+# Procedural (trim-style) maps: name -> fn(size) -> (diffuse rgb multiplier, roughness, normal rgb)
+def _gen_curtain(s):
+    """Curtain wall: dark glass with aluminium mullions every 1.5 m and a spandrel band per 3 m."""
+    d = np.ones((s, s, 3), np.float32)
+    r = np.full((s, s), 0.06, np.float32)
+    px = s // 2                                    # 1.5 m at tile 3 m
+    w = max(2, s // 96)
+    for x in range(0, s, px):
+        d[:, x:x + w, :] = (6.0, 6.0, 6.2)         # x tint ~0.06 -> ~0.36 aluminium
+        r[:, x:x + w] = 0.35
+    d[:s // 10, :, :] = (3.0, 3.0, 3.0)            # spandrel/floor band
+    r[:s // 10, :] = 0.5
+    d[s // 10:s // 10 + w, :, :] = (6.0, 6.0, 6.2)
+    n = np.tile(np.array([0.5, 0.5, 1.0], np.float32), (s, s, 1))
+    return d, r, n
+
+
+def _gen_rollup(s):
+    """Roll-up door: horizontal slats every ~8 cm (normal map from a sine profile)."""
+    v = np.linspace(0, 2 * np.pi * 24, s, dtype=np.float32)
+    slope = np.cos(v)[:, None] * np.ones((1, s), np.float32)
+    n = np.stack([np.full((s, s), 0.5, np.float32), 0.5 + 0.35 * slope, np.full((s, s), 0.9, np.float32)], axis=2)
+    d = (0.85 + 0.15 * np.sin(v))[:, None, None] * np.ones((1, s, 3), np.float32)
+    r = np.full((s, s), 0.4, np.float32)
+    return d, r, n
+
+
+GENERATED = {"curtain": _gen_curtain, "rollup": _gen_rollup}
 # name: (rgb, strength)
 EMISSIVE = {
     "lamp_sodium": ((1.0, 0.78, 0.42), 4.0),
@@ -140,6 +182,16 @@ class Prop:
     def _pbr_material(self, key):
         ph, rgb, _tile, metallic, rough, nstr = MATERIALS[key]
         name = f"Prop_{_pascal(key)}"
+        if ph and ph.startswith("gen:"):
+            s_ = TEX_SIZE
+            dm, r, nrm = GENERATED[ph[4:]](s_)
+            diff = np.clip(dm * np.array(rgb, np.float32), 0, 1)
+            r = np.clip(r + (float(rough) if not isinstance(rough, str) else 0.0) * 0.0, 0.05, 0.97)
+            orm = np.stack([np.ones((s_, s_), np.float32), r, np.full((s_, s_), metallic, np.float32)], axis=2)
+            img_d = PBR.pack_np_image(f"T_{name}_D", diff, False, "JPEG", 88)
+            img_n = PBR.pack_np_image(f"T_{name}_N", nrm, True, "JPEG", 92)
+            img_o = PBR.pack_np_image(f"T_{name}_ORM", orm, True, "JPEG", 88)
+            return PBR.make_pbr_material(f"M_{name}", img_d, img_n, img_o, normal_strength=max(nstr, 0.01))
         maps = find_maps(self.cache_dir, ph)
         if ph and not maps:
             self.missing_textures.append(ph)
@@ -252,6 +304,44 @@ class Prop:
         for f in new:
             if len(f.verts) > 4:
                 f.smooth = False
+
+    def wall(self, origin, normal, length, height, mat, openings=(), reveal_mat=None, depth=0.25):
+        """Outer face of a wall with rectangular openings (no back faces: buildings are closed).
+        origin = outer bottom-left corner seen from outside; normal = outward unit vector in XY.
+        openings: [(u0, u1, v0, v1), ...] in wall metres. Each opening gets 4 reveal faces of
+        `depth` (window/door reveal) - the opening itself stays open for glass/doors behind it."""
+        n = Vector(normal).normalized()
+        up = Vector((0, 0, 1))
+        u = up.cross(n).normalized()                 # u x up = n  -> outward winding
+        o = Vector(origin)
+        us = sorted({0.0, length, *[c for op in openings for c in op[:2]]})
+        vs = sorted({0.0, height, *[c for op in openings for c in op[2:]]})
+        P = lambda uu, vv, dd=0.0: o + u * uu + up * vv - n * dd
+        before = set(self.bm.faces)
+        for a, b in zip(us, us[1:]):
+            for c, d in zip(vs, vs[1:]):
+                cu, cv = (a + b) / 2, (c + d) / 2
+                if any(op[0] < cu < op[1] and op[2] < cv < op[3] for op in openings):
+                    continue
+                vv_ = [self.bm.verts.new(P(a, c)), self.bm.verts.new(P(b, c)), self.bm.verts.new(P(b, d)), self.bm.verts.new(P(a, d))]
+                self.bm.faces.new(vv_)
+        self._tag(self._new_faces(before), mat)
+        before = set(self.bm.faces)
+        for (u0, u1, v0, v1) in openings:
+            corners = [(u0, v0), (u1, v0), (u1, v1), (u0, v1)]
+            for k in range(4):
+                (a1, b1), (a2, b2) = corners[k], corners[(k + 1) % 4]
+                # reveal faces point into the opening
+                q = [self.bm.verts.new(P(a2, b2)), self.bm.verts.new(P(a1, b1)),
+                     self.bm.verts.new(P(a1, b1, depth)), self.bm.verts.new(P(a2, b2, depth))]
+                self.bm.faces.new(q)
+        self._tag(self._new_faces(before), reveal_mat or mat)
+
+    def quad(self, p0, p1, p2, p3, mat, uvmode=0):
+        """Single quad, winding p0->p1->p2->p3 (CCW seen from the visible side)."""
+        before = set(self.bm.faces)
+        self.bm.faces.new([self.bm.verts.new(Vector(p)) for p in (p0, p1, p2, p3)])
+        self._tag(self._new_faces(before), mat, uvmode=uvmode)
 
     def shell_arc(self, a0, a1, rx, ry, z0, z1, thick, mat, segs=10, top_dip=0.0, ry_front=None):
         """Curved armour/clothing panel: elliptical arc a0..a1 (radians, 0 = +X, -pi/2 = front -Y),

@@ -372,6 +372,12 @@ for a in Environment/LA/SM_LA_Hydrant Environment/LA/SM_LA_StreetSign Props/SM_P
   rc=$(run_uwp "$T/logs/props_gate_$n.log" export "$T/proprepo/Blender/Source/$a/$n.blend" --category "${a%/*}" --profile gate --no-preview --out "$T/out/props/$n/$n.glb")
   expect_rc "generated $n passes the release gate (LODs, collision, POT textures)" 0 "$rc" "$T/logs/props_gate_$n.log"
 done
+UWP_CACHE="$T/propcache" "$UWP" build-buildings --repo "$T/proprepo" --only SM_LA_Bldg_LiquorStore,SM_LA_Bldg_Hangar > "$T/logs/bldg_build.log" 2>&1
+expect_rc "uwp build-buildings (liquor store: openings, bars, awning; hangar: barrel vault)" 0 $? "$T/logs/bldg_build.log"
+for n in SM_LA_Bldg_LiquorStore SM_LA_Bldg_Hangar; do
+  rc=$(run_uwp "$T/logs/bldg_gate_$n.log" export "$T/proprepo/Blender/Source/Environment/LA/$n/$n.blend" --category Environment/LA --profile gate --no-preview --out "$T/out/props/$n/$n.glb")
+  expect_rc "generated $n passes the release gate (<= 8 materials, LODs, collision)" 0 "$rc" "$T/logs/bldg_gate_$n.log"
+done
 grep -q "T_Prop_LA_StreetSign_Labels_D" "$T/out/props/SM_LA_StreetSign/SM_LA_StreetSign.manifest.json" 2>/dev/null \
   && ok "street sign labels packed into one atlas texture" || bad "label atlas missing in SM_LA_StreetSign manifest"
 # Negative: no texture cache -> loud failure, never silent grey materials.

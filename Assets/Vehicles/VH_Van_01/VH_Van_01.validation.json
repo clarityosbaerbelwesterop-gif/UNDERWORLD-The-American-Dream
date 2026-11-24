@@ -2,7 +2,7 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.2.4 LTS",
-  "timestamp": "2026-11-24T05:41:31+00:00",
+  "timestamp": "2026-11-24T11:10:00+00:00",
   "command": "export",
   "profile": "gate",
   "input": "Blender/Source/Vehicles/VH_Van_01/VH_Van_01.blend",
@@ -18,19 +18,19 @@
           {
             "name": "Body",
             "level": 0,
-            "triangles": 480
+            "triangles": 440
           },
           {
             "name": "Body_LOD1",
             "level": 1,
             "ratio": 0.5,
-            "triangles": 240
+            "triangles": 220
           },
           {
             "name": "Body_LOD2",
             "level": 2,
             "ratio": 0.2,
-            "triangles": 96
+            "triangles": 87
           }
         ]
       },
@@ -53,6 +53,28 @@
             "level": 2,
             "ratio": 0.2,
             "triangles": 30
+          }
+        ]
+      },
+      {
+        "object": "Interior",
+        "levels": [
+          {
+            "name": "Interior",
+            "level": 0,
+            "triangles": 1208
+          },
+          {
+            "name": "Interior_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 604
+          },
+          {
+            "name": "Interior_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 240
           }
         ]
       },
@@ -265,7 +287,7 @@
     "foot_slide": null,
     "export": {
       "glb": "Assets/Vehicles/VH_Van_01/VH_Van_01.glb",
-      "bytes": 478228
+      "bytes": 628452
     },
     "preview": "Assets/Vehicles/VH_Van_01/VH_Van_01_preview.png",
     "manifest": "Assets/Vehicles/VH_Van_01/VH_Van_01.manifest.json",
@@ -296,6 +318,9 @@
           "Frame_LOD2",
           "Frame",
           "Hood",
+          "Interior_LOD1",
+          "Interior_LOD2",
+          "Interior",
           "SOCKET_Exit_Left",
           "SOCKET_Exit_Right",
           "SOCKET_Headlight_L",
@@ -471,6 +496,27 @@
               25.0
             ]
           },
+          "Interior_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Interior_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Interior": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
           "Wheel_FL_LOD1": {
             "uw_lod": 1,
             "uw_visibility_range": [
@@ -556,12 +602,13 @@
             ]
           },
           "VH_Van_01": {
+            "uw_interior_fit": "{'head_clear_m': 0.62, 'sole_above_floor_m': 0.18, 'wheel_windscreen_clear_m': 0.258, 'rear_bench': False, 'wheel_centre': [0.46, -1.504, 1.207]}",
             "uw_wheel_radius_m": 0.36,
             "uw_wheelbase_m": 3.3,
             "uw_track_width_m": 1.72
           }
         },
-        "meshes": 37,
+        "meshes": 40,
         "materials": [
           "M_VH_Van_01_Paint",
           "M_VH_Van_01_Chrome",
@@ -570,6 +617,7 @@
           "M_VH_Van_01_Trim",
           "M_VH_Van_01_Glass",
           "M_VH_Van_01_Livery",
+          "M_VH_Van_01_Interior",
           "M_VH_Van_01_Tire",
           "M_VH_Van_01_Rim"
         ],
@@ -578,7 +626,7 @@
         "joint_names": [],
         "animations": [],
         "asset_generator": "Khronos glTF Blender I/O v5.2.41",
-        "bytes": 478228
+        "bytes": 628452
       },
       "reimport_objects": [
         "Body",
@@ -605,6 +653,9 @@
         "Frame_LOD1",
         "Frame_LOD2",
         "Hood",
+        "Interior",
+        "Interior_LOD1",
+        "Interior_LOD2",
         "SOCKET_Exit_Left",
         "SOCKET_Exit_Right",
         "SOCKET_Headlight_L",
@@ -636,6 +687,12 @@
   "category": "Vehicles",
   "budget_key": "Vehicles",
   "issues": [
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "Body",
+      "message": "24 open boundary edges (mesh not closed)"
+    },
     {
       "severity": "info",
       "code": "OPEN_BOUNDARY",
@@ -694,9 +751,9 @@
   "summary": {
     "errors": 0,
     "warnings": 0,
-    "infos": 9
+    "infos": 10
   },
-  "seconds": 0.88,
+  "seconds": 1.97,
   "exit_code": 0,
   "result": "PASS"
 }

@@ -15,6 +15,7 @@ import bpy
 import numpy as np
 
 from . import build_vehicle as BV
+from . import interior as INT
 from ..characters import pbr_textures as PBR
 
 SEDAN_STATIONS = [
@@ -51,13 +52,14 @@ PROFILES = {
     "VH_Muscle_01": dict(
         doc="Late-60s style muscle coupe (original): long hood, low roof, 2 long doors, hood scoop, ducktail.",
         paint=(0.42, 0.04, 0.03, 1.0),
-        stations=_scaled(SEDAN_STATIONS, ys=0.98, dz_belt=-0.04, dw=0.02),
-        gh=[(-0.50, 0.86, 0.86), (-0.02, 0.66, 1.29), (0.66, 0.64, 1.30), (1.42, 0.84, 0.88)],
+        stations=_scaled(SEDAN_STATIONS, ys=0.98, dz_bot=-0.06, dz_belt=-0.04, dw=0.02),
+        # T-VEH-02: roof +4 cm, sills -6 cm, seat 6 cm back -> a 1.82 m driver fits (interior.check_fit)
+        gh=[(-0.50, 0.86, 0.86), (-0.02, 0.66, 1.33), (0.66, 0.64, 1.34), (1.42, 0.84, 0.88)],
         doors=[("Door_FL", 1.0, -0.52, 0.06, 1.16), ("Door_FR", -1.0, -0.52, 0.06, 1.16)],
         wheel_r=0.34, wheel_w=0.27, wheelbase=2.80, track=1.60, y_front=-1.40,
         hood=((0.0, -1.48, 0.80), (1.44, 1.86, 0.045), 3.0), trunk=((0.0, 1.88, 0.84), (1.40, 0.76, 0.045), -2.0),
         extras=["scoop", "ducktail", "stripes"], livery=None,
-        seat=(0.42, 0.20, 0.46), col=((1.86, 4.84, 0.60, 0.62), (1.40, 1.90, 0.42, 1.10, 0.30))),
+        seat=(0.42, 0.26, 0.46), col=((1.86, 4.84, 0.60, 0.62), (1.40, 1.90, 0.42, 1.13, 0.30))),
     "VH_Pickup_01": dict(
         doc="Late-90s full-size crew-cab pickup (original): tall body, flat bed with tonneau cover, 4 doors.",
         paint=(0.26, 0.29, 0.30, 1.0),
@@ -85,7 +87,7 @@ PROFILES = {
         wheel_r=0.36, wheel_w=0.25, wheelbase=3.30, track=1.72, y_front=-1.80,
         hood=((0.0, -2.20, 1.10), (1.70, 0.70, 0.045), 12.0), trunk=None,
         extras=["roofrack", "reardoors"], livery=("HOLLOW FREIGHT", "1f3d5c", "e8e8e4", "Calloway Ave  -  Since 1971"),
-        seat=(0.46, -1.10, 0.80), col=((1.96, 5.36, 0.92, 0.82), (1.80, 3.90, 1.00, 1.70, 0.40))),
+        rear_bench=False, seat=(0.46, -1.10, 0.80), col=((1.96, 5.36, 0.92, 0.82), (1.80, 3.90, 1.00, 1.70, 0.40))),
 }
 
 
@@ -130,7 +132,8 @@ def build_from_profile(name, repo_root):
     sc.collection.objects.link(root)
     paint = tuple(P["paint"])
     m_paint = BV._mat(f"M_{name}_Paint", paint, roughness=0.24, metallic=0.5, coat=1.0, coat_rough=0.05)
-    m_glass = BV._mat(f"M_{name}_Glass", (0.04, 0.06, 0.08, 1.0), roughness=0.06, metallic=0.10, coat=1.0, coat_rough=0.02)
+    m_glass = INT.glass_material(f"M_{name}_Glass")                     # T-VEH-02: see-through, tinted
+    m_paint.use_backface_culling = False                                 # the open cabin shows the shell's inside
     m_chrome = BV._mat(f"M_{name}_Chrome", (0.82, 0.84, 0.86, 1.0), roughness=0.12, metallic=0.96)
     m_trim = BV._mat(f"M_{name}_Trim", (0.06, 0.06, 0.07, 1.0), roughness=0.62, metallic=0.05)
     m_tire = BV._mat(f"M_{name}_Tire", (0.045, 0.045, 0.048, 1.0), roughness=0.82, metallic=0.0)
@@ -149,8 +152,11 @@ def build_from_profile(name, repo_root):
         pts = [(-wb * 0.85, y, zb), (-wb, y, zb + 0.08), (-wt, y, zm + 0.05), (-wt * 0.96, y, zt),
                (wt * 0.96, y, zt), (wt, y, zm + 0.05), (wb, y, zb + 0.08), (wb * 0.85, y, zb)]
         rings.append([bm.verts.new(p) for p in pts])
-    for r0, r1 in zip(rings, rings[1:]):
+    gh = P["gh"]
+    for k, (r0, r1) in enumerate(zip(rings, rings[1:])):
         for i in range(8):
+            if i == 3 and INT.open_cabin_faces(gh[0][0], gh[-1][0], st[k][0], st[k + 1][0]):
+                continue                                          # T-VEH-02: no lid over the cabin
             j = (i + 1) % 8
             bm.faces.new((r0[i], r0[j], r1[j], r1[i]))
     bm.faces.new(rings[0][::-1])
@@ -178,6 +184,9 @@ def build_from_profile(name, repo_root):
     for sx in (-1.0, 1.0):
         BV._add_box(bm, (sx * (st[3][2] + 0.01), gh[0][0] + 0.25, zb0 + 0.07), (0.14, 0.09, 0.07), bevel=0.015, segs=2)
     cabin = BV._make_obj(bm, "Cabin", root, m_paint, subsurf=0)
+    _interior, fit = INT.build_interior(name, root, P["seat"], st, gh, INT.fabric_material(f"M_{name}_Interior"), m_trim,
+                                        rear_bench=P.get("rear_bench"))
+    root["uw_interior_fit"] = str(fit)
     for m in (m_glass, m_chrome, m_trim, m_head, m_tail):
         body.data.materials.append(m)
         cabin.data.materials.append(m)

@@ -80,6 +80,24 @@ func _run() -> void:
 		check(car.wheels.size() == 4 and car.sockets.has(&"SOCKET_Seat_Driver") and car.sockets.has(&"SOCKET_Exit_Left"),
 			"%s: 4 wheels + seat/exit sockets" % id)
 		check(car.doors.has(&"Door_FL") and car.doors.has(&"Door_FR"), "%s: front doors hinged (%d doors)" % [id, car.doors.size()])
+		# T-VEH-02: an interior under see-through glass (the seated driver / passenger are visible)
+		var interior := false
+		var glass_ok := 0
+		var glass_all := 0
+		for c in car.find_children("*", "MeshInstance3D", true, false):
+			var mi := c as MeshInstance3D
+			if String(mi.name).begins_with("Interior") and mi.mesh != null and mi.mesh.get_surface_count() >= 2:
+				interior = true
+			if mi.mesh == null:
+				continue
+			for si in mi.mesh.get_surface_count():
+				var m := mi.get_active_material(si) as BaseMaterial3D
+				if m != null and m.resource_name.ends_with("_Glass"):
+					glass_all += 1
+					if m.transparency != BaseMaterial3D.TRANSPARENCY_DISABLED and m.albedo_color.a < 0.6:
+						glass_ok += 1
+		check(interior, "%s: Interior mesh (seats, dash, wheel) present" % id)
+		check(glass_all > 0 and glass_ok == glass_all, "%s: glass is see-through (%d/%d surfaces alpha-blended)" % [id, glass_ok, glass_all])
 		await seconds(2.0)
 		check(absf(car.global_position.y) < 0.03, "%s parks on the floor (body y %.3f m)" % [id, car.global_position.y])
 		var z0 := car.global_position.z

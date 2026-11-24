@@ -19,7 +19,7 @@
   "max_materials": {
     "default": 8,
     "Characters": 10,
-    "Vehicles": 12
+    "Vehicles": 14
   },
   "texel_density_px_per_m": {
     "hero_min": 256,

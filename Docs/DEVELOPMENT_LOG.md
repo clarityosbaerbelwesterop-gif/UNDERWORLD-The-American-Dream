@@ -1,5 +1,11 @@
 # Development Log
 
+## 2026-11-24 · Claude Code · T-VEH-02 (interiors + see-through glass)
+- `vehicles/interior.py` (TD-031): front seats + headrests, rear bench (clamped under the rear glass; none in pickup/van), dash + instrument hood, steering wheel (torus rim, hub, 3 spokes, column) placed through the driver's grips, centre console, floor pan; `check_fit()` per car (head / soles / wheel vs windscreen).
+- Body loft without the belt-height lid over the cabin, double-sided paint, alpha glass. Sedan collision hull: hull faces only (was NON_MANIFOLD). Muscle profile: roof +4 cm, sills -6 cm, seat 6 cm back. `validate.py`: `Interior` is a functional part name. Budget vehicles 12 -> 14 materials.
+- Sit contract: soles -0.30 -> -0.22 (feet poked through the floor of the low cars), wrists 0.38 -> 0.34 (wheel rim under the windscreen), passenger palms on top of the thighs.
+- Gate 6/6 cars; tests: fleet interior + glass on every car, seated pose checks; renders `Docs/Reports/renders_veh_interior/` (Jason driving, Marco beside him, visible through the glass).
+
 ## 2026-11-24 · Claude Code · T-ANIM-02 (B-011 seated poses)
 - `animations.py` `sit_pose()`: 2 looping clips in the shared library (23 clips now). Contract: root = `SOCKET_Seat_*` (H-point), pelvis +3 cm, seat back 21 deg, head top 0.83 m above the seat, driver hands at 9-and-3 (wheel 0.36 m ahead / 0.38 m up), passenger hands on the thighs; arm reach 86-87 %, no IK clamp.
 - `CharacterVisual.set_seated(slot, seat)` (tree paused, sit clip on the AnimationPlayer, visual pinned to the socket), `bone_global_position()`; Jason borrows `A_Jason_Sit_*` from `A_Humanoid_Sit_*`. `Vehicle`: driver seated while DRIVING, hidden during ENTERING/EXITING (enter/exit clips not door-aligned yet). `AllyCompanion`: Marco seated + rifle stowed.

@@ -1,5 +1,11 @@
 # Development Log
 
+## 2026-11-24 · Claude Code · T-ANIM-02 (B-011 seated poses)
+- `animations.py` `sit_pose()`: 2 looping clips in the shared library (23 clips now). Contract: root = `SOCKET_Seat_*` (H-point), pelvis +3 cm, seat back 21 deg, head top 0.83 m above the seat, driver hands at 9-and-3 (wheel 0.36 m ahead / 0.38 m up), passenger hands on the thighs; arm reach 86-87 %, no IK clamp.
+- `CharacterVisual.set_seated(slot, seat)` (tree paused, sit clip on the AnimationPlayer, visual pinned to the socket), `bone_global_position()`; Jason borrows `A_Jason_Sit_*` from `A_Humanoid_Sit_*`. `Vehicle`: driver seated while DRIVING, hidden during ENTERING/EXITING (enter/exit clips not door-aligned yet). `AllyCompanion`: Marco seated + rifle stowed.
+- Tests: pelvis on the seat (0.03 / 0.04 m), head top under the roof, hands forward, left elbow inside the door (first capture showed it through the door: pole fixed), standing again after exit. Capture `Tests/tools/capture_seated.gd`.
+- Honest: the sedan's glass is opaque and the car has no interior yet, so the occupants are not visible from outside -> T-VEH-02 (interior kit + tinted glass).
+
 ## 2026-11-24 · Claude Code · T-QA-02 (CI robustness)
 - `.github/workflows/ci.yml`: the apt step stalled 20+ min twice (mirror); now `timeout-minutes: 15`, `timeout` on update/install, 3 attempts.
 

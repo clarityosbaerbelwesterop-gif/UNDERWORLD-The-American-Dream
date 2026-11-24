@@ -122,22 +122,47 @@ func test_level_contents() -> void:
 	check(nav != null, "navmesh region present")
 	await unload()
 
-## Bot 1 review of PR #17: with no sit clip, the standing Marco was drawn through the car roof.
-## While seated he must be hidden (like Jason in the driver's seat) and visible again on foot.
+## Bot 1 review of PR #17: the standing Marco was drawn through the car roof. B-011: he is now
+## drawn SEATED (A_Humanoid_Sit_Passenger, root = SOCKET_Seat_Passenger): pelvis on the seat,
+## head under the roof, rifle stowed - and standing + armed again on foot.
 func test_marco_seat_visual() -> void:
-	print("[GPTEST] == Marco seat visual (no standing pose through the roof)")
+	print("[GPTEST] == Marco seat visual (sit clip, head under the roof)")
 	await load_level()
 	var marco := level.get_node_or_null("AI/Ally_Marco") as AllyCompanion
 	check(marco != null and mm.start(), "mission starts with Marco for the seat-visual check")
 	if marco == null:
 		await unload()
 		return
-	await frames(3)
-	check(marco.is_seated() and not marco.pose.visible, "seated Marco is not drawn (pose hidden)")
+	await frames(6)
+	var v := marco.visual
+	var seat := car.get_socket(Vehicle.PASSENGER_SOCKET)
+	check(marco.is_seated() and marco.pose.visible and v.is_seated() and v.seated_slot == "sit_passenger",
+		"seated Marco is drawn with the passenger sit clip")
+	check(v.animation_player != null and v.animation_player.is_playing() and String(v.animation_player.current_animation).ends_with("Sit_Passenger"),
+		"sit clip plays (%s)" % (v.animation_player.current_animation if v.animation_player != null else "-"))
+	var hips := v.bone_global_position("Hips")
+	var head := v.bone_global_position("Head")
+	var roof := _visual_top(car)
+	check(hips.distance_to(seat.global_position) < 0.15, "pelvis on the passenger seat (%.2f m off)" % hips.distance_to(seat.global_position))
+	check(head.y + 0.22 < roof, "head top under the roof (%.2f + 0.22 < %.2f)" % [head.y, roof])
+	check(marco.weapon == null or not marco.weapon.visible, "rifle stowed while seated")
 	check(mm.unseat_ally(), "Marco gets out through the mission API")
 	await frames(3)
-	check(not marco.is_seated() and marco.pose.visible, "Marco on foot is drawn again")
+	check(not marco.is_seated() and marco.pose.visible and not v.is_seated() and not v.top_level, "Marco on foot is drawn standing again")
+	check(v.bone_global_position("Head").y - marco.global_position.y > 1.4, "standing head height back (%.2f m)" % (v.bone_global_position("Head").y - marco.global_position.y))
+	check(marco.weapon == null or marco.weapon.visible, "rifle back in hand on foot")
 	await unload()
+
+## Highest point of a node's visible meshes (world Y).
+func _visual_top(n: Node3D) -> float:
+	var top := -INF
+	for c in n.find_children("*", "MeshInstance3D", true, false):
+		var mi := c as MeshInstance3D
+		if mi.mesh == null or not mi.is_visible_in_tree():
+			continue
+		var bb := mi.global_transform * mi.get_aabb()
+		top = maxf(top, bb.end.y)
+	return top
 
 ## T-MIS-01b: Marco is an ally on the passenger seat, invulnerable in M1, and the two waves
 ## are bookkept separately. No teleporting, no timers: the mission start does the seating.

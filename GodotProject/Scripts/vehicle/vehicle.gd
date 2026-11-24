@@ -526,8 +526,25 @@ func _nearest_exit_socket(pos: Vector3) -> StringName:
 func _set_state(s: State) -> void:
 	state = s
 	_state_time = 0.0
-	if s == State.EXITING:
+	# B-011: the driver is drawn in the seat (sit clip) while DRIVING. The enter/exit clips are
+	# not yet aligned to the door, so the body stays hidden during ENTERING / EXITING.
+	if s == State.DRIVING:
+		_seat_driver_visual(true)
+	elif s == State.EXITING:
+		_seat_driver_visual(false)
 		_play_driver_clip("car_exit")
+
+
+## Shows the driver on SOCKET_Seat_Driver with the sit clip (on) or hides him again (off).
+func _seat_driver_visual(on: bool) -> void:
+	var vis := _driver_visual()
+	if vis == null:
+		return
+	if on:
+		vis.visible = vis.set_seated("sit_driver", get_socket(SEAT_SOCKET))
+	else:
+		vis.set_seated("")
+		vis.visible = false
 
 func _update_state() -> void:
 	match state:
@@ -555,6 +572,7 @@ func _finish_exit() -> void:
 	var p := driver
 	var s := get_socket(_exit_socket)
 	close_door(EXIT_DOORS[_exit_socket])
+	_seat_driver_visual(false)  # eject_driver() comes straight from DRIVING
 	driver = null
 	_set_state(State.IDLE)
 	chase_camera.current = false

@@ -235,6 +235,26 @@ func test_enter() -> void:
 	check(opened.size() >= 2 and opened[1] == [&"Door_FL", false], "driver door closes after getting in")
 	var seat := car.get_socket(&"SOCKET_Seat_Driver")
 	check(player.global_position.distance_to(seat.global_position) < 0.05, "player attached to SOCKET_Seat_Driver")
+	# B-011: drawn in the seat with the driver sit clip - pelvis on the seat, head under the roof.
+	await frames(3)
+	var v := player.visual
+	check(v.visible and v.is_seated() and v.seated_slot == "sit_driver", "driver drawn seated (sit_driver) while DRIVING")
+	var hips := v.bone_global_position("Hips")
+	var head := v.bone_global_position("Head")
+	var roof := -INF
+	for c in car.find_children("*", "MeshInstance3D", true, false):
+		var mi := c as MeshInstance3D
+		if mi.mesh != null and mi.is_visible_in_tree():
+			roof = maxf(roof, (mi.global_transform * mi.get_aabb()).end.y)
+	check(hips.distance_to(seat.global_position) < 0.15, "driver pelvis on the seat (%.2f m off)" % hips.distance_to(seat.global_position))
+	check(head.y + 0.22 < roof, "driver head top under the roof (%.2f + 0.22 < %.2f)" % [head.y, roof])
+	var lh := v.bone_global_position("LeftHand")
+	var rh := v.bone_global_position("RightHand")
+	var fwd := car.global_basis.z
+	check((lh - seat.global_position).dot(fwd) > 0.2 and (rh - seat.global_position).dot(fwd) > 0.2, "both hands forward on the wheel")
+	# capture of the first sit clip: the left elbow stuck out through the driver door
+	var side := absf((v.bone_global_position("LeftLowerArm") - seat.global_position).dot(car.global_basis.x))
+	check(side < 0.30, "left elbow inside the door card (%.2f m from the seat centre, < 0.30)" % side)
 
 # --- 5. drive --------------------------------------------------------------------
 
@@ -311,6 +331,7 @@ func test_exit_too_fast_and_exit() -> void:
 	check(player.global_position.distance_to(sock) < 0.05, "[ACCEPTANCE] player placed at SOCKET_Exit_Left (%.3f m off)" % player.global_position.distance_to(sock))
 	await frames(3)
 	check(player.input_enabled and player.visual.visible and player.collision_layer == 2 and player.collision_mask == 13 and player.is_physics_processing(), "player visible, collision + input back on")
+	check(not player.visual.is_seated() and not player.visual.top_level, "player stands again (sit clip released, visual back under the body)")
 	check(player.camera_rig.camera.current and not car.chase_camera.current, "player camera active again")
 	var face := player.get_facing_direction().dot(car.global_basis.z)
 	check(face > 0.95, "player faces the car's heading after exit")

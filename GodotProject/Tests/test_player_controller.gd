@@ -595,14 +595,28 @@ func test_animation_tree_contract() -> void:
 	check(bool(tree.get("parameters/jump/active")), "jump_start OneShot fired on jump")
 	await seconds(1.2)
 	check(p.is_on_floor() and float(tree.get("parameters/air/blend_amount")) < 0.05, "air blend back to 0 after landing")
-	# A model with only idle reports the missing slots instead of failing
-	# (the WARNING "model is missing clips" printed here is expected).
+	# T-ANIM-02: a model with only idle borrows every other slot from the shared humanoid
+	# library by suffix (A_Jason_Run <- A_Humanoid_Run) - nothing is missing, every slot plays.
 	p.visual.animation_tree.queue_free()
 	p.visual.animation_tree = null
 	p.visual.missing_clips.clear()
 	p.visual.set_model(_dummy_model(["A_Jason_Idle"]))
 	await frames(2)
-	check(p.visual.missing_clips.size() == CharacterVisual.CLIP_NAMES.size() - 1, "missing clips reported (%d)" % p.visual.missing_clips.size())
+	var unresolved := 0
+	for slot in CharacterVisual.CLIP_NAMES:
+		if not p.visual.animation_player.has_animation(p.visual.resolve_clip(slot, p.visual.animation_player)):
+			unresolved += 1
+	check(p.visual.missing_clips.is_empty() and unresolved == 0, "idle-only model: every slot borrowed from the shared library (missing %d, unresolved %d)" % [p.visual.missing_clips.size(), unresolved])
+	# Without the library the missing slots are REPORTED instead of failing
+	# (the WARNING "model is missing clips" printed here is expected).
+	OS.set_environment("UW_ANIM_SABOTAGE", "noshared")
+	p.visual.animation_tree.queue_free()
+	p.visual.animation_tree = null
+	p.visual.missing_clips.clear()
+	p.visual.set_model(_dummy_model(["A_Jason_Idle"]))
+	await frames(2)
+	OS.unset_environment("UW_ANIM_SABOTAGE")
+	check(p.visual.missing_clips.size() == CharacterVisual.CLIP_NAMES.size() - 1, "no library: missing clips reported (%d)" % p.visual.missing_clips.size())
 	await despawn(scene)
 
 

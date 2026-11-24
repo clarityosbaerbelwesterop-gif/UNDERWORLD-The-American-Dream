@@ -1,0 +1,146 @@
+{
+  "_doc": "Kings of Flatbush B (enemy_light): burgundy bomber over mustard tee.",
+  "asset_name": "SK_NPC_Kings_B",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "height_m": 1.83,
+  "boot_sole_extra_m": 0.024,
+  "npc_decimate_body": 0.62,
+  "macro": {
+    "gender": 1.0,
+    "age": 0.38,
+    "muscle": 0.7,
+    "weight": 0.5,
+    "proportions": 0.6,
+    "height_morph": 0.65,
+    "ethnicity": {
+      "caucasian": 0.2,
+      "asian": 0.1,
+      "african": 0.7
+    }
+  },
+  "morphs": {
+    "head-rectangular": 0.2
+  },
+  "skin": {
+    "texture_size": 1024,
+    "base_diffuse": "skins02/skins/toigo_light_skin_male_bronze/young_lightskinned_male_diffuse_Bronze.png",
+    "base_normal": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_NRM.png",
+    "tint_rgb": [
+      0.58,
+      0.42,
+      0.31
+    ],
+    "hair_color_rgb": [
+      0.03,
+      0.026,
+      0.024
+    ],
+    "skin_fade": {
+      "enabled": true
+    },
+    "beard_stubble": {
+      "density": 0.55
+    },
+    "seed": 1901
+  },
+  "eyes": {
+    "mhclo": "mh_eyes/low-poly.mhclo",
+    "iris_texture": "makehuman_system_assets/eyes/materials/brown_eye.png"
+  },
+  "eyebrows": {
+    "mhclo": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.mhclo",
+    "texture": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.png",
+    "scar_notch": false
+  },
+  "eyelashes": {
+    "mhclo": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.mhclo",
+    "texture": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.png"
+  },
+  "teeth": {
+    "enabled": false
+  },
+  "hair": {
+    "style": "skin_fade_crop",
+    "color_rgb": [
+      0.015,
+      0.012,
+      0.012
+    ],
+    "seed": 1902
+  },
+  "beard": {
+    "style": "short_boxed_beard",
+    "seed": 1903
+  },
+  "outfit": {
+    "tshirt": {
+      "enabled": true,
+      "style": "under_jacket_tshirt",
+      "polyhaven_id": "cotton_jersey",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 4.0,
+      "desaturate": 0.9,
+      "tint_rgb": [
+        0.62,
+        0.46,
+        0.08
+      ]
+    },
+    "jacket": {
+      "enabled": true,
+      "style": "bomber_jacket",
+      "polyhaven_id": "fabric_leather_02",
+      "texture_size": 1024,
+      "bake_size": 512,
+      "normal_size": 512,
+      "tile": 4.0,
+      "desaturate": 0.85,
+      "tint_rgb": [
+        0.26,
+        0.05,
+        0.08
+      ],
+      "zone_mode": "bomber_trim"
+    },
+    "jeans": {
+      "enabled": true,
+      "style": "straight_jeans",
+      "polyhaven_id": "denim_fabric_06",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 5.0,
+      "desaturate": 0.7,
+      "tint_rgb": [
+        0.14,
+        0.16,
+        0.22
+      ],
+      "zone_mode": "denim_wash"
+    },
+    "boots": {
+      "enabled": true,
+      "polyhaven_id": "fabric_leather_02",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 3.0,
+      "desaturate": 0.9,
+      "tint_rgb": [
+        0.11,
+        0.11,
+        0.12
+      ],
+      "zone_mode": "boot_sole"
+    },
+    "watch": {
+      "enabled": false
+    }
+  },
+  "animations": {
+    "clip_prefix": "A_Humanoid_",
+    "mocap_walk_bvh": "mocap/makehuman_walk1.bvh",
+    "include_p2": false,
+    "minimal_npc_set": true
+  }
+}

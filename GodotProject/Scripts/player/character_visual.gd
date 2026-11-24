@@ -115,6 +115,14 @@ func set_model(scene: PackedScene) -> void:
 	for c in get_children():
 		if String(c.name).begins_with("PT_"):
 			(c as Node3D).visible = false
+	# NPC scenes (build_npc_scenes.gd) keep the PT_ capsule + front marker as SIBLINGS of this
+	# node (Pose/Visual/PT_Capsule). Hide those stand-in meshes too - otherwise every enemy in
+	# M01 rendered as a red capsule over its real model (T-CHAR-01). Only meshes: the sibling
+	# PT_SOCKET_RightHand_Weapon carries the live weapon and must stay visible.
+	if get_parent() != null and not _sabotage_capsule():
+		for c in get_parent().get_children():
+			if c != self and c is MeshInstance3D and String(c.name).begins_with("PT_"):
+				(c as MeshInstance3D).visible = false
 	animation_player = _find_animation_player(model)
 	if animation_player != null and animation_tree == null:
 		animation_tree = build_default_tree(animation_player)
@@ -537,3 +545,6 @@ func _borrow_shared_clip(clip: String, ap: AnimationPlayer) -> bool:
 	lib.add_animation(clip, anim)
 	return true
 
+## Negative control for the capsule fix: UW_ANIM_SABOTAGE=capsule keeps the stand-in visible.
+static func _sabotage_capsule() -> bool:
+	return OS.is_debug_build() and OS.get_environment("UW_ANIM_SABOTAGE").strip_edges() == "capsule"

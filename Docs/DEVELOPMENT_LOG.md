@@ -1,5 +1,9 @@
 # Development Log
 
+## 2026-11-24 · Claude Code · T-CHAR-01 part 1 (NPC visuals)
+- **Bug fixed:** every NPC in M01 rendered as its PT capsule over the real model. CharacterVisual hid only its own PT_ children, while NPC scenes keep PT_Capsule/PT_FrontMarker as siblings. Test + negative control `UW_ANIM_SABOTAGE=capsule`.
+- `CombatDB.apply()` attaches the archetype's armor props to the skeleton (vest on Chest, helmet on Head, pickup collision stripped); test. `Tests/tools/capture_archetypes.gd` renders the tier line-up per faction. 13 faction/boss character specs in `Config/Characters/` (built in part 2).
+
 ## 2026-11-23 · Claude Code · T-WPN-01 (P5: weapon grammar + 9 weapons)
 - `Tools/uwp build-weapons` (`props/weapons.py`; kit gains multi-part assets): revolver, SMG, pump shotgun, carbine, bolt-action sniper, knife, bat, grenade, molotov. Parts Frame/Slide/Magazine/Barrel/Trigger/Hammer, sockets Grip/Muzzle/Eject, rigid rig with Fire/Reload/Empty. Reload length read from combat.json. 152–932 tris. TD-028 PROPOSED.
 - `combat.json` `scene` links + `CombatDB.weapon()` loads them; `test_combat_db.gd` checks muzzle in front, Magazine node, 15 clips, Reload clip == reload_time (with a self-check that +0.5 s fails). uwp test [9] builds rifle + revolver through the gate. Capture: weapons in side profile, objects lifted onto the ground.

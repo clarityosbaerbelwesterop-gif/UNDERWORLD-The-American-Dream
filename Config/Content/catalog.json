@@ -744,46 +744,61 @@
    "id": "VH_Pickup_01",
    "type": "vehicle",
    "milestone": "P5",
-   "generator": "build-vehicle Config/Vehicles/VH_Pickup_01.json",
-   "status": "PLANNED",
+   "generator": "build-vehicles --only VH_Pickup_01",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "late-90s pickup"
+   "description": "late-90s pickup",
+   "source": "Blender/Source/Vehicles/VH_Pickup_01/VH_Pickup_01.blend",
+   "asset": "Assets/Vehicles/VH_Pickup_01/VH_Pickup_01.glb",
+   "gate": "uwp --profile gate PASS 2026-11-24"
   },
   {
    "id": "VH_Van_01",
    "type": "vehicle",
    "milestone": "P5",
-   "generator": "build-vehicle Config/Vehicles/VH_Van_01.json",
-   "status": "PLANNED",
+   "generator": "build-vehicles --only VH_Van_01",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "delivery van (wave 2)"
+   "description": "delivery van (wave 2)",
+   "source": "Blender/Source/Vehicles/VH_Van_01/VH_Van_01.blend",
+   "asset": "Assets/Vehicles/VH_Van_01/VH_Van_01.glb",
+   "gate": "uwp --profile gate PASS 2026-11-24"
   },
   {
    "id": "VH_Police_01",
    "type": "vehicle",
    "milestone": "P5",
-   "generator": "build-vehicle Config/Vehicles/VH_Police_01.json",
-   "status": "PLANNED",
+   "generator": "build-vehicles --only VH_Police_01",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "police cruiser (fictional livery)"
+   "description": "police cruiser (fictional livery)",
+   "source": "Blender/Source/Vehicles/VH_Police_01/VH_Police_01.blend",
+   "asset": "Assets/Vehicles/VH_Police_01/VH_Police_01.glb",
+   "gate": "uwp --profile gate PASS 2026-11-24"
   },
   {
    "id": "VH_Muscle_01",
    "type": "vehicle",
    "milestone": "P5",
-   "generator": "build-vehicle Config/Vehicles/VH_Muscle_01.json",
-   "status": "PLANNED",
+   "generator": "build-vehicles --only VH_Muscle_01",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "muscle car"
+   "description": "muscle car",
+   "source": "Blender/Source/Vehicles/VH_Muscle_01/VH_Muscle_01.blend",
+   "asset": "Assets/Vehicles/VH_Muscle_01/VH_Muscle_01.glb",
+   "gate": "uwp --profile gate PASS 2026-11-24"
   },
   {
    "id": "VH_Taxi_NY_01",
    "type": "vehicle",
    "milestone": "P5",
-   "generator": "build-vehicle Config/Vehicles/VH_Taxi_NY_01.json",
-   "status": "PLANNED",
+   "generator": "build-vehicles --only VH_Taxi_NY_01",
+   "status": "WIP",
    "quality_target": "blockout+",
-   "description": "NY taxi"
+   "description": "NY taxi",
+   "source": "Blender/Source/Vehicles/VH_Taxi_NY_01/VH_Taxi_NY_01.blend",
+   "asset": "Assets/Vehicles/VH_Taxi_NY_01/VH_Taxi_NY_01.glb",
+   "gate": "uwp --profile gate PASS 2026-11-24"
   },
   {
    "id": "VH_Motorcycle_01",

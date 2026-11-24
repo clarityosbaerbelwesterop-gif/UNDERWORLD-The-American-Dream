@@ -246,3 +246,10 @@ view drawn from the scene's real AABBs.
   - a rigid rig with A_<id>_Fire, A_<id>_Reload and A_<id>_Empty
 - **Coupling:** the generator reads the Reload clip length from `combat.json` `reload_time`. `test_combat_db.gd` fails if clip and data drift apart (tolerance 1 frame).
 - **Linking:** `combat.json` `weapons.<id>.scene` points at the asset, and `CombatDB.weapon()` loads it.
+
+## TD-029 – Vehicle body profiles on the sedan contract (Claude Code, 2026-11-24, T-VEH-01)
+**Status: PROPOSED.** Evidence: `Docs/Reports/BERICHT_T-VEH-01.md`.
+- **`Tools/uwp build-vehicles`** (`vehicles/profiles.py`): cars are profiles (dimensions, stations, greenhouse, doors, extras, livery) on the VH_Sedan_01 contract. A new car is a profile, not a modelling session.
+- **Collision = hull only:** the source boxes are removed after `convex_hull`, so the release gate passes. VH_Sedan_01 keeps its old hull until it is re-gated together with its `test_vehicle.gd` calibration.
+- **Rear doors are optional** in `vehicle.gd` (coupes).
+- **Acceptance:** `test_vehicle_fleet.gd` assembles every profile car in the real Vehicle and checks parking and driving.

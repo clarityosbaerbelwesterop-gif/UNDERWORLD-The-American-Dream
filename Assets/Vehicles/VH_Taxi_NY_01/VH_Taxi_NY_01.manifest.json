@@ -1,0 +1,505 @@
+{
+  "asset": "VH_Taxi_NY_01",
+  "status": "READY FOR REVIEW",
+  "category": "Vehicles",
+  "budget_key": "Vehicles",
+  "source_blend": "Blender/Source/Vehicles/VH_Taxi_NY_01/VH_Taxi_NY_01.blend",
+  "export_glb": "Assets/Vehicles/VH_Taxi_NY_01/VH_Taxi_NY_01.glb",
+  "preview_png": "Assets/Vehicles/VH_Taxi_NY_01/VH_Taxi_NY_01_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -1.01,
+      0.0,
+      -2.43
+    ],
+    "max": [
+      1.01,
+      1.72,
+      2.43
+    ],
+    "size": [
+      2.02,
+      1.72,
+      4.86
+    ]
+  },
+  "triangles": {
+    "lod0": 3434,
+    "budget": 60000,
+    "per_lod_total": {
+      "LOD0": 3150,
+      "LOD1": 1570,
+      "LOD2": 618
+    }
+  },
+  "lods": [
+    {
+      "object": "Body",
+      "levels": [
+        {
+          "name": "Body",
+          "level": 0,
+          "triangles": 544
+        },
+        {
+          "name": "Body_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 272
+        },
+        {
+          "name": "Body_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 108
+        }
+      ]
+    },
+    {
+      "object": "Cabin",
+      "levels": [
+        {
+          "name": "Cabin",
+          "level": 0,
+          "triangles": 150
+        },
+        {
+          "name": "Cabin_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 74
+        },
+        {
+          "name": "Cabin_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 30
+        }
+      ]
+    },
+    {
+      "object": "Door_FL",
+      "levels": [
+        {
+          "name": "Door_FL",
+          "level": 0,
+          "triangles": 106
+        },
+        {
+          "name": "Door_FL_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 52
+        },
+        {
+          "name": "Door_FL_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 20
+        }
+      ]
+    },
+    {
+      "object": "Door_FR",
+      "levels": [
+        {
+          "name": "Door_FR",
+          "level": 0,
+          "triangles": 106
+        },
+        {
+          "name": "Door_FR_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 52
+        },
+        {
+          "name": "Door_FR_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 20
+        }
+      ]
+    },
+    {
+      "object": "Door_RL",
+      "levels": [
+        {
+          "name": "Door_RL",
+          "level": 0,
+          "triangles": 106
+        },
+        {
+          "name": "Door_RL_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 52
+        },
+        {
+          "name": "Door_RL_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 20
+        }
+      ]
+    },
+    {
+      "object": "Door_RR",
+      "levels": [
+        {
+          "name": "Door_RR",
+          "level": 0,
+          "triangles": 106
+        },
+        {
+          "name": "Door_RR_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 52
+        },
+        {
+          "name": "Door_RR_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 20
+        }
+      ]
+    },
+    {
+      "object": "Wheel_FL",
+      "levels": [
+        {
+          "name": "Wheel_FL",
+          "level": 0,
+          "triangles": 508
+        },
+        {
+          "name": "Wheel_FL_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 254
+        },
+        {
+          "name": "Wheel_FL_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 100
+        }
+      ]
+    },
+    {
+      "object": "Wheel_FR",
+      "levels": [
+        {
+          "name": "Wheel_FR",
+          "level": 0,
+          "triangles": 508
+        },
+        {
+          "name": "Wheel_FR_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 254
+        },
+        {
+          "name": "Wheel_FR_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 100
+        }
+      ]
+    },
+    {
+      "object": "Wheel_RL",
+      "levels": [
+        {
+          "name": "Wheel_RL",
+          "level": 0,
+          "triangles": 508
+        },
+        {
+          "name": "Wheel_RL_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 254
+        },
+        {
+          "name": "Wheel_RL_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 100
+        }
+      ]
+    },
+    {
+      "object": "Wheel_RR",
+      "levels": [
+        {
+          "name": "Wheel_RR",
+          "level": 0,
+          "triangles": 508
+        },
+        {
+          "name": "Wheel_RR_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 254
+        },
+        {
+          "name": "Wheel_RR_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 100
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_VH_Taxi_NY_01-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_VH_Taxi_NY_01_Chrome",
+    "M_VH_Taxi_NY_01_Glass",
+    "M_VH_Taxi_NY_01_Headlight",
+    "M_VH_Taxi_NY_01_Livery",
+    "M_VH_Taxi_NY_01_Paint",
+    "M_VH_Taxi_NY_01_Rim",
+    "M_VH_Taxi_NY_01_RoofSign",
+    "M_VH_Taxi_NY_01_Taillight",
+    "M_VH_Taxi_NY_01_Tire",
+    "M_VH_Taxi_NY_01_Trim"
+  ],
+  "textures": [
+    {
+      "image": "T_VH_Taxi_NY_01_Livery_D",
+      "material": "M_VH_Taxi_NY_01_Livery",
+      "size": [
+        512,
+        128
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_m637ekln/T_VH_Taxi_NY_01_Livery_D.jpg"
+    },
+    {
+      "image": "T_VH_Taxi_NY_01_RoofSign_D",
+      "material": "M_VH_Taxi_NY_01_RoofSign",
+      "size": [
+        256,
+        128
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_gfo5s3jp/T_VH_Taxi_NY_01_RoofSign_D.jpg"
+    }
+  ],
+  "uv_overlap": {
+    "Body": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.8392
+    },
+    "Cabin": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.5925
+    },
+    "Hood": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.4859
+    },
+    "Trunk": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.7116
+    },
+    "Bumper_F": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.7103
+    },
+    "Bumper_R": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.7103
+    },
+    "Wheel_FL": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.6965
+    },
+    "Wheel_FR": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.6965
+    },
+    "Wheel_RL": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.6965
+    },
+    "Wheel_RR": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.6965
+    }
+  },
+  "texel_density": {
+    "Door_FL": {
+      "texture_px": 512,
+      "median_px_per_m": 317.7,
+      "p10_px_per_m": 317.7,
+      "p90_px_per_m": 377.8
+    },
+    "Door_FR": {
+      "texture_px": 512,
+      "median_px_per_m": 317.7,
+      "p10_px_per_m": 317.7,
+      "p90_px_per_m": 377.8
+    },
+    "Door_RL": {
+      "texture_px": 512,
+      "median_px_per_m": 366.8,
+      "p10_px_per_m": 308.4,
+      "p90_px_per_m": 366.8
+    },
+    "Door_RR": {
+      "texture_px": 512,
+      "median_px_per_m": 366.8,
+      "p10_px_per_m": 308.4,
+      "p90_px_per_m": 366.8
+    },
+    "Frame": {
+      "texture_px": 256,
+      "median_px_per_m": 271.4,
+      "p10_px_per_m": 271.4,
+      "p90_px_per_m": 322.8
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {
+    "SOCKET_Seat_Driver": {
+      "parent": "VH_Taxi_NY_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.42,
+        0.52,
+        0.1
+      ]
+    },
+    "SOCKET_Seat_Passenger": {
+      "parent": "VH_Taxi_NY_01",
+      "parent_bone": null,
+      "position_godot": [
+        -0.42,
+        0.52,
+        0.1
+      ]
+    },
+    "SOCKET_Exit_Left": {
+      "parent": "VH_Taxi_NY_01",
+      "parent_bone": null,
+      "position_godot": [
+        1.38,
+        0.0,
+        0.18
+      ]
+    },
+    "SOCKET_Exit_Right": {
+      "parent": "VH_Taxi_NY_01",
+      "parent_bone": null,
+      "position_godot": [
+        -1.38,
+        0.0,
+        0.18
+      ]
+    },
+    "SOCKET_Headlight_L": {
+      "parent": "VH_Taxi_NY_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.68,
+        0.65,
+        2.44
+      ]
+    },
+    "SOCKET_Headlight_R": {
+      "parent": "VH_Taxi_NY_01",
+      "parent_bone": null,
+      "position_godot": [
+        -0.68,
+        0.65,
+        2.44
+      ]
+    },
+    "SOCKET_Taillight_L": {
+      "parent": "VH_Taxi_NY_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.68,
+        0.72,
+        -2.44
+      ]
+    },
+    "SOCKET_Taillight_R": {
+      "parent": "VH_Taxi_NY_01",
+      "parent_bone": null,
+      "position_godot": [
+        -0.68,
+        0.72,
+        -2.44
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "Body_LOD1",
+    "Body_LOD2",
+    "Body",
+    "Bumper_F",
+    "Bumper_R",
+    "Cabin_LOD1",
+    "Cabin_LOD2",
+    "Cabin",
+    "Door_FL_LOD1",
+    "Door_FL_LOD2",
+    "Door_FL",
+    "Door_FR_LOD1",
+    "Door_FR_LOD2",
+    "Door_FR",
+    "Door_RL_LOD1",
+    "Door_RL_LOD2",
+    "Door_RL",
+    "Door_RR_LOD1",
+    "Door_RR_LOD2",
+    "Door_RR",
+    "Frame",
+    "Hood",
+    "SOCKET_Exit_Left",
+    "SOCKET_Exit_Right",
+    "SOCKET_Headlight_L",
+    "SOCKET_Headlight_R",
+    "SOCKET_Seat_Driver",
+    "SOCKET_Seat_Passenger",
+    "SOCKET_Taillight_L",
+    "SOCKET_Taillight_R",
+    "Trunk",
+    "UCX_VH_Taxi_NY_01-convcolonly",
+    "Wheel_FL_LOD1",
+    "Wheel_FL_LOD2",
+    "Wheel_FL",
+    "Wheel_FR_LOD1",
+    "Wheel_FR_LOD2",
+    "Wheel_FR",
+    "Wheel_RL_LOD1",
+    "Wheel_RL_LOD2",
+    "Wheel_RL",
+    "Wheel_RR_LOD1",
+    "Wheel_RR_LOD2",
+    "Wheel_RR",
+    "VH_Taxi_NY_01"
+  ],
+  "glb_bytes": 474208
+}

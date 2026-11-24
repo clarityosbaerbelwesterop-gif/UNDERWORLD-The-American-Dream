@@ -112,6 +112,10 @@ def build_parser():
     sp_bwp.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
     sp_bwp.add_argument("--only", default=None, help="comma list of weapon ids (default: all)")
 
+    sp_bvs = sub.add_parser("build-vehicles", help="Build cars from body profiles (vehicles/profiles.py, T-VEH-01)")
+    sp_bvs.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
+    sp_bvs.add_argument("--only", default=None, help="comma list of vehicle ids (default: all)")
+
     sp_rt = sub.add_parser("retarget", help="Retarget a CC0 BVH clip onto a character .blend")
     sp_rt.add_argument("blend")
     sp_rt.add_argument("bvh")
@@ -381,6 +385,10 @@ def main(argv):
     if args.command == "build-weapons":
         from underworld_pipeline.props import weapons as WG
         WG.build_weapons(repo_root=args.repo, only=args.only)
+        return C.EXIT_OK
+    if args.command == "build-vehicles":
+        from underworld_pipeline.vehicles import profiles as VP
+        VP.build_vehicles(repo_root=args.repo, only=args.only)
         return C.EXIT_OK
     if args.command == "retarget":
         from underworld_pipeline.characters import retarget as RT

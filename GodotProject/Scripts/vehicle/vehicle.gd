@@ -170,7 +170,9 @@ func _assemble() -> void:
 	for dn in DOOR_NAMES:
 		var d := model.find_child(String(dn), true, false) as Node3D
 		if d == null:
-			assembly_errors.append("door node %s missing" % dn)
+			# Rear doors are optional: coupes and muscle cars have two (T-VEH-01).
+			if dn != &"Door_RL" and dn != &"Door_RR":
+				assembly_errors.append("door node %s missing" % dn)
 			continue
 		doors[dn] = d
 		_door_closed[dn] = d.transform

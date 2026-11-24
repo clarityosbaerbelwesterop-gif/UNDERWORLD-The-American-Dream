@@ -1,5 +1,9 @@
 # Development Log
 
+## 2026-11-24 · Claude Code · T-VEH-01 (P5: vehicle body profiles + 5 cars)
+- `Tools/uwp build-vehicles` (`vehicles/profiles.py`): police cruiser, NY taxi, muscle coupe, crew-cab pickup, delivery van (3.3–3.7k tris), clean hull-only UCX (gate PASS 5/5; the sedan's hull still fails the gate), invented liveries. TD-029 PROPOSED.
+- `test_vehicle_fleet.gd`: each car assembles in vehicle.gd, parks (±2 mm), drives (7.7 m/s after 2 s); negative `UW_VEH_SABOTAGE=radius`. vehicle.gd: rear doors optional. Motorcycle + plane stay PLANNED (P7 mechanics).
+
 ## 2026-11-24 · Claude Code · T-CHAR-01 part 1 (NPC visuals)
 - **Bug fixed:** every NPC in M01 rendered as its PT capsule over the real model. CharacterVisual hid only its own PT_ children, while NPC scenes keep PT_Capsule/PT_FrontMarker as siblings. Test + negative control `UW_ANIM_SABOTAGE=capsule`.
 - `CombatDB.apply()` attaches the archetype's armor props to the skeleton (vest on Chest, helmet on Head, pickup collision stripped); test. `Tests/tools/capture_archetypes.gd` renders the tier line-up per faction. 13 faction/boss character specs in `Config/Characters/` (built in part 2).

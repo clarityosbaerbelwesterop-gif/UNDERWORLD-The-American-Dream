@@ -32,7 +32,7 @@ func _entries() -> Array:
 	for e in (cat as Dictionary).get("entries", []):
 		if String(e.get("status", "")) == "PLANNED" or not e.has("asset"):
 			continue
-		if String(e.get("type", "")) not in ["environment", "prop", "armor", "weapon"]:
+		if String(e.get("type", "")) not in ["environment", "prop", "armor", "weapon", "vehicle"]:
 			continue
 		if not only.is_empty() and not only.has(String(e["id"])):
 			continue

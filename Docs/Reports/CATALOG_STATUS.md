@@ -4,8 +4,8 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 
 | Status | Anzahl |
 |---|---|
-| PLANNED | 40 |
-| WIP | 61 |
+| PLANNED | 35 |
+| WIP | 66 |
 | PRODUCTION-READY | 0 |
 | **gesamt** | **101** |
 
@@ -14,7 +14,7 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | P2 | 2 | 2 | 0 | 0 | 0/2 |
 | P3 | 30 | 1 | 29 | 0 | 29/30 |
 | P4 | 20 | 13 | 7 | 0 | 20/20 |
-| P5 | 31 | 7 | 24 | 0 | 31/31 |
+| P5 | 31 | 2 | 29 | 0 | 31/31 |
 | P6 | 18 | 17 | 1 | 0 | 1/12 |
 
 ## P2
@@ -102,13 +102,13 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | SM_Prop_Toolbox | prop | WIP | blockout+ | `build-props --only SM_Prop_Toolbox` | ✓ |
 | SM_Prop_Workbench | prop | WIP | blockout+ | `build-props --only SM_Prop_Workbench` | ✓ |
 | VH_Motorcycle_01 | vehicle | PLANNED | blockout+ | `build-vehicle Config/Vehicles/VH_Motorcycle_01.json` | – |
-| VH_Muscle_01 | vehicle | PLANNED | blockout+ | `build-vehicle Config/Vehicles/VH_Muscle_01.json` | – |
-| VH_Pickup_01 | vehicle | PLANNED | blockout+ | `build-vehicle Config/Vehicles/VH_Pickup_01.json` | – |
+| VH_Muscle_01 | vehicle | WIP | blockout+ | `build-vehicles --only VH_Muscle_01` | ✓ |
+| VH_Pickup_01 | vehicle | WIP | blockout+ | `build-vehicles --only VH_Pickup_01` | ✓ |
 | VH_Plane_Small_01 | vehicle | PLANNED | blockout+ | `build-vehicle Config/Vehicles/VH_Plane_Small_01.json` | – |
-| VH_Police_01 | vehicle | PLANNED | blockout+ | `build-vehicle Config/Vehicles/VH_Police_01.json` | – |
+| VH_Police_01 | vehicle | WIP | blockout+ | `build-vehicles --only VH_Police_01` | ✓ |
 | VH_Sedan_01 | vehicle | WIP | hero-authored | `build-vehicle Config/Vehicles/VH_Sedan_01.json` | ✓ |
-| VH_Taxi_NY_01 | vehicle | PLANNED | blockout+ | `build-vehicle Config/Vehicles/VH_Taxi_NY_01.json` | – |
-| VH_Van_01 | vehicle | PLANNED | blockout+ | `build-vehicle Config/Vehicles/VH_Van_01.json` | – |
+| VH_Taxi_NY_01 | vehicle | WIP | blockout+ | `build-vehicles --only VH_Taxi_NY_01` | ✓ |
+| VH_Van_01 | vehicle | WIP | blockout+ | `build-vehicles --only VH_Van_01` | ✓ |
 | WPN_Bat_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Bat_01` | ✓ |
 | WPN_Grenade_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Grenade_01` | ✓ |
 | WPN_Knife_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Knife_01` | ✓ |

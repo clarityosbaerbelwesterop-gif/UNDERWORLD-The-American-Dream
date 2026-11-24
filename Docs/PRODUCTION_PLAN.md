@@ -76,7 +76,7 @@ Trim-Sheet-Bibliothek, Texel-Density-Validator, Decal-Bibliothek, High→Low-Bak
 - **Exit:** Eigene Gesichter (Vergleichs-Sheet), Gate-PASS, Clipping 0.
 
 ### P5 – Waffen, Fahrzeuge, Gegenstände
-- **Stand 2026-11-23:** Gegenstände und Schutz fertig (T-PROP-01). Alle 10 Waffen gebaut (T-WPN-01, Waffen-Grammatik, Reload an `combat.json` gekoppelt). Offen: 7 Fahrzeuge.
+- **Stand 2026-11-23:** Gegenstände und Schutz fertig (T-PROP-01). Alle 10 Waffen gebaut (T-WPN-01, Waffen-Grammatik, Reload an `combat.json` gekoppelt). Fahrzeuge: 5 von 7 gebaut (T-VEH-01); Motorrad und Flugzeug folgen mit ihrer Mechanik in P7.
 - **Waffen:** Pistole, Revolver, Maschinenpistole, Schrotflinte, Sturmgewehr, Scharfschützengewehr, Messer, Schlagstock, Granate, Molotow.
 - **Fahrzeuge:** Limousine, Pickup, Lieferwagen, Polizeiwagen, Muscle-Car, NY-Taxi, Motorrad, Kleinflugzeug („Wings“). Jeweils Glas, Chrom, Innenraum und Schadensstufen.
 - **Gegenstände:** Paket, Geldbündel, Handy, Goldbarren, Kokainpaket (stilisiert), Taschen, Kisten, Werkzeuge.

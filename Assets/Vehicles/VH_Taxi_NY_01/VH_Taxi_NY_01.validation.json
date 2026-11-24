@@ -2,7 +2,7 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.2.4 LTS",
-  "timestamp": "2026-11-24T05:41:27+00:00",
+  "timestamp": "2026-11-24T11:09:51+00:00",
   "command": "export",
   "profile": "gate",
   "input": "Blender/Source/Vehicles/VH_Taxi_NY_01/VH_Taxi_NY_01.blend",
@@ -18,19 +18,19 @@
           {
             "name": "Body",
             "level": 0,
-            "triangles": 544
+            "triangles": 528
           },
           {
             "name": "Body_LOD1",
             "level": 1,
             "ratio": 0.5,
-            "triangles": 272
+            "triangles": 264
           },
           {
             "name": "Body_LOD2",
             "level": 2,
             "ratio": 0.2,
-            "triangles": 108
+            "triangles": 105
           }
         ]
       },
@@ -53,6 +53,28 @@
             "level": 2,
             "ratio": 0.2,
             "triangles": 30
+          }
+        ]
+      },
+      {
+        "object": "Interior",
+        "levels": [
+          {
+            "name": "Interior",
+            "level": 0,
+            "triangles": 1328
+          },
+          {
+            "name": "Interior_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 664
+          },
+          {
+            "name": "Interior_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 264
           }
         ]
       },
@@ -243,7 +265,7 @@
     "foot_slide": null,
     "export": {
       "glb": "Assets/Vehicles/VH_Taxi_NY_01/VH_Taxi_NY_01.glb",
-      "bytes": 474208
+      "bytes": 648008
     },
     "preview": "Assets/Vehicles/VH_Taxi_NY_01/VH_Taxi_NY_01_preview.png",
     "manifest": "Assets/Vehicles/VH_Taxi_NY_01/VH_Taxi_NY_01.manifest.json",
@@ -272,6 +294,9 @@
           "Door_RR",
           "Frame",
           "Hood",
+          "Interior_LOD1",
+          "Interior_LOD2",
+          "Interior",
           "SOCKET_Exit_Left",
           "SOCKET_Exit_Right",
           "SOCKET_Headlight_L",
@@ -430,6 +455,27 @@
           "Frame": {
             "uw_allow_uv_overlap": 1
           },
+          "Interior_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Interior_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Interior": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
           "Wheel_FL_LOD1": {
             "uw_lod": 1,
             "uw_visibility_range": [
@@ -515,12 +561,13 @@
             ]
           },
           "VH_Taxi_NY_01": {
+            "uw_interior_fit": "{'head_clear_m': 0.05, 'sole_above_floor_m': 0.0, 'wheel_windscreen_clear_m': 0.033, 'rear_bench': True, 'wheel_centre': [0.42, -0.504, 0.927]}",
             "uw_wheel_radius_m": 0.34,
             "uw_wheelbase_m": 2.86,
             "uw_track_width_m": 1.58
           }
         },
-        "meshes": 36,
+        "meshes": 39,
         "materials": [
           "M_VH_Taxi_NY_01_Paint",
           "M_VH_Taxi_NY_01_Chrome",
@@ -530,6 +577,7 @@
           "M_VH_Taxi_NY_01_Glass",
           "M_VH_Taxi_NY_01_Livery",
           "M_VH_Taxi_NY_01_RoofSign",
+          "M_VH_Taxi_NY_01_Interior",
           "M_VH_Taxi_NY_01_Tire",
           "M_VH_Taxi_NY_01_Rim"
         ],
@@ -538,7 +586,7 @@
         "joint_names": [],
         "animations": [],
         "asset_generator": "Khronos glTF Blender I/O v5.2.41",
-        "bytes": 474208
+        "bytes": 648008
       },
       "reimport_objects": [
         "Body",
@@ -563,6 +611,9 @@
         "Door_RR_LOD2",
         "Frame",
         "Hood",
+        "Interior",
+        "Interior_LOD1",
+        "Interior_LOD2",
         "SOCKET_Exit_Left",
         "SOCKET_Exit_Right",
         "SOCKET_Headlight_L",
@@ -595,6 +646,12 @@
   "category": "Vehicles",
   "budget_key": "Vehicles",
   "issues": [
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "Body",
+      "message": "12 open boundary edges (mesh not closed)"
+    },
     {
       "severity": "info",
       "code": "OPEN_BOUNDARY",
@@ -665,9 +722,9 @@
   "summary": {
     "errors": 0,
     "warnings": 0,
-    "infos": 11
+    "infos": 12
   },
-  "seconds": 0.79,
+  "seconds": 2.33,
   "exit_code": 0,
   "result": "PASS"
 }

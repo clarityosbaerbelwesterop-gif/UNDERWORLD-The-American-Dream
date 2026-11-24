@@ -612,11 +612,19 @@ def clip_car(rig, k, t, enter=True):
     return {"hips": Vector((0.25 * k * u, 0.20 * k * u, hz)), "rot": r, "ik": ik}
 
 
+# Sit contract (B-011 / T-VEH-02), metres relative to the seat socket (H-point), Blender axes.
+SIT_SOLE_Z = -0.22      # soles of the feet below the H-point
+SIT_HAND_Y = -0.36      # driver wrists ahead of the H-point (-Y = forward)
+SIT_HAND_Z = 0.34       # driver wrists above the H-point
+SIT_HEAD_TOP = 0.83     # crown above the H-point (measured, rig k = 1)
+
+
 def sit_pose(rig, k, t, driver=True):
     """Seated in a car (B-011, T-ANIM-02). Contract: the ROOT is the seat's H-point
     (SOCKET_Seat_Driver / SOCKET_Seat_Passenger): pelvis 3 cm above it, seat back reclined ~21 deg,
-    thighs forward, feet in the footwell 0.30 m below and ~0.66 m ahead, head upright.
-    Driver: both hands on the wheel (9-and-3, wheel centre ~0.36 m ahead of / 0.38 m above the H-point).
+    thighs forward, soles SIT_SOLE_Z below and ~0.66 m ahead, head top ~0.83 m above it.
+    Vehicle interiors are built against these numbers (vehicles/interior.py).
+    Driver: wrists at 9-and-3 (SIT_HAND_Y / SIT_HAND_Z), the wheel rim runs through the grips.
     Passenger: hands resting on the thighs. 60-frame breathing loop, nothing else moves."""
     w = 2 * math.pi * t
     br = math.sin(w)
@@ -624,7 +632,7 @@ def sit_pose(rig, k, t, driver=True):
     hz = 0.03 * k - rig.pelvis_z
     for s, sx in (("Left", 1), ("Right", -1)):
         fwd = (0.66 if driver else 0.60) * k + (0.03 * k if (driver and s == "Right") else 0.0)
-        a = Vector((sx * (rig.hip_x + (0.03 if driver else 0.06) * k), -fwd, -0.30 * k + rig.ankle_h))
+        a = Vector((sx * (rig.hip_x + (0.03 if driver else 0.06) * k), -fwd, SIT_SOLE_Z * k + rig.ankle_h))
         ik[s + "UpperLeg"] = (a, Vector((sx * 0.12, -0.45, 1.0)), qmul(q(Z, sx * -6), q(X, -16 if driver else -8)))
     r["Hips"] = q(X, -21)
     r["Spine"] = q(X, 5 + 0.6 * br)
@@ -634,13 +642,13 @@ def sit_pose(rig, k, t, driver=True):
     r["Head"] = qmul(q(Z, (3.0 if driver else 6.0) * math.sin(w * 0.5 + 0.4)), q(X, 7))
     if driver:
         for s, sx in (("Left", 1), ("Right", -1)):
-            tgt = Vector((sx * 0.20 * k, -0.36 * k, 0.38 * k + 0.002 * k * br))
+            tgt = Vector((sx * 0.20 * k, SIT_HAND_Y * k, SIT_HAND_Z * k + 0.002 * k * br))
             hq = hand_world_q(rig, s, Vector((-sx * 0.10, -0.55, 0.83)), Vector((-sx, -0.25, 0.0)))
             ik[s + "UpperArm"] = (tgt, Vector((sx * 0.30, 0.25, -1.0)), hq)  # elbows down, inside the door card
             fist_grip(r, s, 62)
     else:
         for s, sx in (("Left", 1), ("Right", -1)):
-            tgt = Vector((sx * 0.15 * k, -0.27 * k, 0.20 * k + 0.002 * k * br))
+            tgt = Vector((sx * 0.15 * k, -0.27 * k, 0.27 * k + 0.002 * k * br))  # palms on top of the thighs
             hq = hand_world_q(rig, s, Vector((sx * 0.05, -1.0, -0.12)), Vector((0, 0, -1.0)))
             ik[s + "UpperArm"] = (tgt, Vector((sx * 0.35, 0.6, -0.8)), hq)
         relaxed_fingers(r, 28)

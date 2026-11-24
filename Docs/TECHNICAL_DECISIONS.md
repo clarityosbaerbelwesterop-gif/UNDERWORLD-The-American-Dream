@@ -262,3 +262,10 @@ view drawn from the scene's real AABBs.
   - Root `FXEffect`: one-shots free themselves after `lifetime`; loops stay.
 - **Spawning:** gameplay spawns effects through `FXEffect.spawn(id, parent, xform)`. Impact choice: `FXEffect.impact_id_for(collider)` (Hitbox → blood, vehicles/`surface_metal` → metal, `surface_glass`, `surface_wood`, default concrete). Level geometry declares its surface by node group.
 - **Capture:** effect shots run with `godot_phase8_capture.sh --fixed-fps 30`.
+
+## TD-031 – Vehicle interiors are built against the sit contract (Claude Code, 2026-11-24, T-VEH-02)
+- **Contract:** the seat sockets are the H-points of the shared sit clips (`animations.py` `SIT_*`: soles −0.22 m, wrists 0.36 m ahead / 0.34 m up, crown +0.83 m). `vehicles/interior.py` builds seats, dash, wheel, console and floor around those numbers.
+- **Fit check:** `check_fit()` stops the build when a cabin cannot hold the pose (head through the roof, soles under the floor, wheel through the windscreen). The profile must change, not the character. Example: the muscle coupe got a roof +4 cm, sills −6 cm and the seat 6 cm back.
+- **Body:** the loft no longer closes over the cabin (no lid at belt height). Paint is double-sided so the shell's inside reads as painted metal. Glass is alpha-blended (0.34), double-sided, with clear coat.
+- **Budget:** `max_materials.Vehicles` goes from 12 to 14 for the one extra interior fabric material (police: 13).
+- **Open:** door cards are still paint on the inside, the wheel does not turn with steering, there are no instruments or decals, and enter/exit are not door-aligned.

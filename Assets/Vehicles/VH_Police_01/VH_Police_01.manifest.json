@@ -30,12 +30,12 @@
     ]
   },
   "triangles": {
-    "lod0": 3654,
+    "lod0": 4966,
     "budget": 60000,
     "per_lod_total": {
-      "LOD0": 3414,
-      "LOD1": 1702,
-      "LOD2": 670
+      "LOD0": 4726,
+      "LOD1": 2358,
+      "LOD2": 931
     }
   },
   "lods": [
@@ -45,19 +45,19 @@
         {
           "name": "Body",
           "level": 0,
-          "triangles": 544
+          "triangles": 528
         },
         {
           "name": "Body_LOD1",
           "level": 1,
           "ratio": 0.5,
-          "triangles": 272
+          "triangles": 264
         },
         {
           "name": "Body_LOD2",
           "level": 2,
           "ratio": 0.2,
-          "triangles": 108
+          "triangles": 105
         }
       ]
     },
@@ -80,6 +80,28 @@
           "level": 2,
           "ratio": 0.2,
           "triangles": 30
+        }
+      ]
+    },
+    {
+      "object": "Interior",
+      "levels": [
+        {
+          "name": "Interior",
+          "level": 0,
+          "triangles": 1328
+        },
+        {
+          "name": "Interior_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 664
+        },
+        {
+          "name": "Interior_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 264
         }
       ]
     },
@@ -294,6 +316,7 @@
     "M_VH_Police_01_DoorPaint",
     "M_VH_Police_01_Glass",
     "M_VH_Police_01_Headlight",
+    "M_VH_Police_01_Interior",
     "M_VH_Police_01_LightBlue",
     "M_VH_Police_01_LightRed",
     "M_VH_Police_01_Livery",
@@ -312,17 +335,21 @@
         128
       ],
       "packed": true,
-      "filepath": "//../../../../../../uwp_tex_l5inmxm0/T_VH_Police_01_Livery_D.jpg"
+      "filepath": "//../../../../../../uwp_tex_z4ki63pz/T_VH_Police_01_Livery_D.jpg"
     }
   ],
   "uv_overlap": {
     "Body": {
       "overlap_fraction": 0.0,
-      "uv_coverage": 0.8392
+      "uv_coverage": 0.6974
     },
     "Cabin": {
       "overlap_fraction": 0.0,
       "uv_coverage": 0.5925
+    },
+    "Interior": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.2949
     },
     "Hood": {
       "overlap_fraction": 0.0,
@@ -491,6 +518,9 @@
     "Frame_LOD2",
     "Frame",
     "Hood",
+    "Interior_LOD1",
+    "Interior_LOD2",
+    "Interior",
     "SOCKET_Exit_Left",
     "SOCKET_Exit_Right",
     "SOCKET_Headlight_L",
@@ -515,5 +545,5 @@
     "Wheel_RR",
     "VH_Police_01"
   ],
-  "glb_bytes": 491368
+  "glb_bytes": 665640
 }

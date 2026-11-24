@@ -20,22 +20,22 @@
     ],
     "max": [
       1.03,
-      1.325,
+      1.365,
       2.4092
     ],
     "size": [
       2.06,
-      1.325,
+      1.365,
       4.7908
     ]
   },
   "triangles": {
-    "lod0": 3302,
+    "lod0": 4614,
     "budget": 60000,
     "per_lod_total": {
-      "LOD0": 3062,
-      "LOD1": 1531,
-      "LOD2": 602
+      "LOD0": 4374,
+      "LOD1": 2187,
+      "LOD2": 863
     }
   },
   "lods": [
@@ -45,19 +45,19 @@
         {
           "name": "Body",
           "level": 0,
-          "triangles": 544
+          "triangles": 528
         },
         {
           "name": "Body_LOD1",
           "level": 1,
           "ratio": 0.5,
-          "triangles": 272
+          "triangles": 264
         },
         {
           "name": "Body_LOD2",
           "level": 2,
           "ratio": 0.2,
-          "triangles": 108
+          "triangles": 105
         }
       ]
     },
@@ -80,6 +80,28 @@
           "level": 2,
           "ratio": 0.2,
           "triangles": 30
+        }
+      ]
+    },
+    {
+      "object": "Interior",
+      "levels": [
+        {
+          "name": "Interior",
+          "level": 0,
+          "triangles": 1328
+        },
+        {
+          "name": "Interior_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 664
+        },
+        {
+          "name": "Interior_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 264
         }
       ]
     },
@@ -249,6 +271,7 @@
     "M_VH_Muscle_01_Chrome",
     "M_VH_Muscle_01_Glass",
     "M_VH_Muscle_01_Headlight",
+    "M_VH_Muscle_01_Interior",
     "M_VH_Muscle_01_Paint",
     "M_VH_Muscle_01_Rim",
     "M_VH_Muscle_01_Stripe",
@@ -260,11 +283,15 @@
   "uv_overlap": {
     "Body": {
       "overlap_fraction": 0.0,
-      "uv_coverage": 0.8395
+      "uv_coverage": 0.7057
     },
     "Cabin": {
       "overlap_fraction": 0.0,
-      "uv_coverage": 0.6509
+      "uv_coverage": 0.6385
+    },
+    "Interior": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.3043
     },
     "Hood": {
       "overlap_fraction": 0.0,
@@ -284,11 +311,11 @@
     },
     "Door_FL": {
       "overlap_fraction": 0.0,
-      "uv_coverage": 0.7637
+      "uv_coverage": 0.7113
     },
     "Door_FR": {
       "overlap_fraction": 0.0,
-      "uv_coverage": 0.7637
+      "uv_coverage": 0.7113
     },
     "Wheel_FL": {
       "overlap_fraction": 0.0,
@@ -323,7 +350,7 @@
       "position_godot": [
         0.42,
         0.46,
-        -0.2
+        -0.26
       ]
     },
     "SOCKET_Seat_Passenger": {
@@ -332,7 +359,7 @@
       "position_godot": [
         -0.42,
         0.46,
-        -0.2
+        -0.26
       ]
     },
     "SOCKET_Exit_Left": {
@@ -341,7 +368,7 @@
       "position_godot": [
         1.4,
         0.0,
-        -0.12
+        -0.18
       ]
     },
     "SOCKET_Exit_Right": {
@@ -350,7 +377,7 @@
       "position_godot": [
         -1.4,
         0.0,
-        -0.12
+        -0.18
       ]
     },
     "SOCKET_Headlight_L": {
@@ -410,6 +437,9 @@
     "Frame_LOD2",
     "Frame",
     "Hood",
+    "Interior_LOD1",
+    "Interior_LOD2",
+    "Interior",
     "SOCKET_Exit_Left",
     "SOCKET_Exit_Right",
     "SOCKET_Headlight_L",
@@ -434,5 +464,5 @@
     "Wheel_RR",
     "VH_Muscle_01"
   ],
-  "glb_bytes": 415080
+  "glb_bytes": 585640
 }

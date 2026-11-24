@@ -23,7 +23,7 @@ def _unit_scale(v):
 
 
 import re as _re
-_FUNCTIONAL_PART = _re.compile(r"^(Body|Cabin|Frame|Hood|Trunk|Bumper_[FR]|Door_(FL|FR|RL|RR)|"
+_FUNCTIONAL_PART = _re.compile(r"^(Body|Cabin|Frame|Interior|Hood|Trunk|Bumper_[FR]|Door_(FL|FR|RL|RR)|"
                                r"Wheel_(FL|FR|RL|RR)|Slide|Magazine|Trigger|Barrel|Hammer)(_LOD\d+)?$")
 
 

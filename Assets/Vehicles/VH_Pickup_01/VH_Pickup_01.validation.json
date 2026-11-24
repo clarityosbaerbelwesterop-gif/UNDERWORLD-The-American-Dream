@@ -2,7 +2,7 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.2.4 LTS",
-  "timestamp": "2026-11-24T05:41:30+00:00",
+  "timestamp": "2026-11-24T11:09:57+00:00",
   "command": "export",
   "profile": "gate",
   "input": "Blender/Source/Vehicles/VH_Pickup_01/VH_Pickup_01.blend",
@@ -18,19 +18,19 @@
           {
             "name": "Body",
             "level": 0,
-            "triangles": 544
+            "triangles": 536
           },
           {
             "name": "Body_LOD1",
             "level": 1,
             "ratio": 0.5,
-            "triangles": 272
+            "triangles": 268
           },
           {
             "name": "Body_LOD2",
             "level": 2,
             "ratio": 0.2,
-            "triangles": 108
+            "triangles": 106
           }
         ]
       },
@@ -53,6 +53,28 @@
             "level": 2,
             "ratio": 0.2,
             "triangles": 30
+          }
+        ]
+      },
+      {
+        "object": "Interior",
+        "levels": [
+          {
+            "name": "Interior",
+            "level": 0,
+            "triangles": 1208
+          },
+          {
+            "name": "Interior_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 604
+          },
+          {
+            "name": "Interior_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 240
           }
         ]
       },
@@ -265,7 +287,7 @@
     "foot_slide": null,
     "export": {
       "glb": "Assets/Vehicles/VH_Pickup_01/VH_Pickup_01.glb",
-      "bytes": 436604
+      "bytes": 590500
     },
     "preview": "Assets/Vehicles/VH_Pickup_01/VH_Pickup_01_preview.png",
     "manifest": "Assets/Vehicles/VH_Pickup_01/VH_Pickup_01.manifest.json",
@@ -296,6 +318,9 @@
           "Frame_LOD2",
           "Frame",
           "Hood",
+          "Interior_LOD1",
+          "Interior_LOD2",
+          "Interior",
           "SOCKET_Exit_Left",
           "SOCKET_Exit_Right",
           "SOCKET_Headlight_L",
@@ -467,6 +492,27 @@
               25.0
             ]
           },
+          "Interior_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Interior_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Interior": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
           "Wheel_FL_LOD1": {
             "uw_lod": 1,
             "uw_visibility_range": [
@@ -552,12 +598,13 @@
             ]
           },
           "VH_Pickup_01": {
+            "uw_interior_fit": "{'head_clear_m': 0.24, 'sole_above_floor_m': 0.08, 'wheel_windscreen_clear_m': 0.152, 'rear_bench': False, 'wheel_centre': [0.44, -0.704, 1.187]}",
             "uw_wheel_radius_m": 0.4,
             "uw_wheelbase_m": 3.5,
             "uw_track_width_m": 1.7
           }
         },
-        "meshes": 37,
+        "meshes": 40,
         "materials": [
           "M_VH_Pickup_01_Paint",
           "M_VH_Pickup_01_Chrome",
@@ -565,6 +612,7 @@
           "M_VH_Pickup_01_Taillight",
           "M_VH_Pickup_01_Trim",
           "M_VH_Pickup_01_Glass",
+          "M_VH_Pickup_01_Interior",
           "M_VH_Pickup_01_Tire",
           "M_VH_Pickup_01_Rim"
         ],
@@ -573,7 +621,7 @@
         "joint_names": [],
         "animations": [],
         "asset_generator": "Khronos glTF Blender I/O v5.2.41",
-        "bytes": 436604
+        "bytes": 590500
       },
       "reimport_objects": [
         "Body",
@@ -600,6 +648,9 @@
         "Frame_LOD1",
         "Frame_LOD2",
         "Hood",
+        "Interior",
+        "Interior_LOD1",
+        "Interior_LOD2",
         "SOCKET_Exit_Left",
         "SOCKET_Exit_Right",
         "SOCKET_Headlight_L",
@@ -634,6 +685,12 @@
     {
       "severity": "info",
       "code": "OPEN_BOUNDARY",
+      "object": "Body",
+      "message": "8 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
       "object": "Cabin",
       "message": "24 open boundary edges (mesh not closed)"
     },
@@ -665,9 +722,9 @@
   "summary": {
     "errors": 0,
     "warnings": 0,
-    "infos": 5
+    "infos": 6
   },
-  "seconds": 0.89,
+  "seconds": 2.15,
   "exit_code": 0,
   "result": "PASS"
 }

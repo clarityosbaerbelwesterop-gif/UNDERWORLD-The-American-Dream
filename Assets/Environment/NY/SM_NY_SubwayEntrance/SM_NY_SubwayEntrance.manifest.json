@@ -1,0 +1,209 @@
+{
+  "asset": "SM_NY_SubwayEntrance",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/NY",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/NY/SM_NY_SubwayEntrance/SM_NY_SubwayEntrance.blend",
+  "export_glb": "Assets/Environment/NY/SM_NY_SubwayEntrance/SM_NY_SubwayEntrance.glb",
+  "preview_png": "Assets/Environment/NY/SM_NY_SubwayEntrance/SM_NY_SubwayEntrance_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -1.395,
+      -3.8,
+      -2.7
+    ],
+    "max": [
+      1.395,
+      3.05,
+      2.7
+    ],
+    "size": [
+      2.79,
+      6.85,
+      5.4
+    ]
+  },
+  "triangles": {
+    "lod0": 1108,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 1108,
+      "LOD1": 554,
+      "LOD2": 276
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_NY_SubwayEntrance_Mesh",
+      "levels": [
+        {
+          "name": "SM_NY_SubwayEntrance_Mesh",
+          "level": 0,
+          "triangles": 1108
+        },
+        {
+          "name": "SM_NY_SubwayEntrance_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 554
+        },
+        {
+          "name": "SM_NY_SubwayEntrance_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 276
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_NY_SubwayEntrance_00-convcolonly",
+      "UCX_SM_NY_SubwayEntrance_01-convcolonly",
+      "UCX_SM_NY_SubwayEntrance_02-convcolonly"
+    ],
+    "micro_lips": 0
+  },
+  "materials": [
+    "M_Prop_Concrete",
+    "M_Prop_LampGlobeGreen",
+    "M_Prop_MetalDark",
+    "M_Prop_MetalGreen",
+    "M_Prop_NY_SubwayEntrance_Labels"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Concrete_D",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_skb3nolx/T_Prop_Concrete_D.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_ORM",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_20o8iuul/T_Prop_Concrete_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_N",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_j5qej48j/T_Prop_Concrete_N.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_D",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_bp_eddr6/T_Prop_MetalDark_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_ORM",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_3869cfm5/T_Prop_MetalDark_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_N",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_1h6mdzof/T_Prop_MetalDark_N.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGreen_D",
+      "material": "M_Prop_MetalGreen",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_i7x7il1z/T_Prop_MetalGreen_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGreen_ORM",
+      "material": "M_Prop_MetalGreen",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_lx2qd4w_/T_Prop_MetalGreen_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGreen_N",
+      "material": "M_Prop_MetalGreen",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ckn9v4wr/T_Prop_MetalGreen_N.jpg"
+    },
+    {
+      "image": "T_Prop_NY_SubwayEntrance_Labels_D",
+      "material": "M_Prop_NY_SubwayEntrance_Labels",
+      "size": [
+        1024,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_pbbzs0hf/T_Prop_NY_SubwayEntrance_Labels_D.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_NY_SubwayEntrance_Mesh": {
+      "texture_px": 1024,
+      "median_px_per_m": 682.7,
+      "p10_px_per_m": 512.0,
+      "p90_px_per_m": 1005.1
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_NY_SubwayEntrance_Mesh_LOD1",
+    "SM_NY_SubwayEntrance_Mesh_LOD2",
+    "SM_NY_SubwayEntrance_Mesh",
+    "UCX_SM_NY_SubwayEntrance_00-convcolonly",
+    "UCX_SM_NY_SubwayEntrance_01-convcolonly",
+    "UCX_SM_NY_SubwayEntrance_02-convcolonly",
+    "SM_NY_SubwayEntrance"
+  ],
+  "glb_bytes": 845240
+}

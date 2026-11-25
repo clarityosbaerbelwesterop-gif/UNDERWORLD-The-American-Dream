@@ -1,5 +1,9 @@
 # Development Log
 
+## 2026-11-24 · Claude Code · T-NY-01 (New York set, wave 1)
+- `props/buildings.py`: brownstone, tenement, bodega, bank_ny, subway_entrance (+ `_lintels`, `_cornice` with brackets); kit materials brownstone / brick_ny / limestone, emissive lamp_globe_green; `keep_origin` -> `uw_below_grade_m`, validator allows exactly that depth.
+- ny_overcast: soft key (0.55, 12 deg angular size), ambient 3.0, exposure 2.5 (card luma ~125). Catalogue +5 (106 entries). `Tests/tools/capture_ny_street.gd` (runtime NY block, overcast + wet night with practicals). Report `Docs/Reports/BERICHT_T-NY-01.md`.
+
 ## 2026-11-24 · Claude Code · T-DECAL-01 (decals + textured streets)
 - `Tools/uwp build-decals` (13 decals, numpy/Pillow, Decal scenes + manifest); `build_decals_calloway.gd` -> `LA_CallowayAve_Decals.tscn` (137), instanced by the level (builder updated).
 - Streets: textured overrides from the kit maps (`_tex_mat`), kit asphalt/concrete calibrated (`mean_srgb`), road + sidewalk rebuilt (gate PASS); `LevelAudit.effective_albedo`. Golden hour sun 12 -> 18 deg, ambient 2.6 -> 3.2 (street was in deep shade).

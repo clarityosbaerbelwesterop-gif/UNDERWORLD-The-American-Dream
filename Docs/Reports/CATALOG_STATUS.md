@@ -5,14 +5,14 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | Status | Anzahl |
 |---|---|
 | PLANNED | 8 |
-| WIP | 93 |
+| WIP | 98 |
 | PRODUCTION-READY | 0 |
-| **gesamt** | **101** |
+| **gesamt** | **106** |
 
 | Meilenstein | gesamt | PLANNED | WIP | PRODUCTION-READY | Generator vorhanden |
 |---|---|---|---|---|---|
 | P2 | 2 | 1 | 1 | 0 | 1/2 |
-| P3 | 30 | 1 | 29 | 0 | 29/30 |
+| P3 | 35 | 1 | 34 | 0 | 34/35 |
 | P4 | 20 | 0 | 20 | 0 | 20/20 |
 | P5 | 31 | 2 | 29 | 0 | 31/31 |
 | P6 | 18 | 4 | 14 | 0 | 14/14 |
@@ -57,6 +57,11 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | SM_LA_Streetlight | environment | WIP | blockout+ | `build-env --only SM_LA_Streetlight` | ✓ |
 | SM_LA_TrafficLight | environment | WIP | blockout+ | `build-props --only SM_LA_TrafficLight` | ✓ |
 | SM_LA_TrashCan | environment | WIP | blockout+ | `build-props --only SM_LA_TrashCan` | ✓ |
+| SM_NY_Bldg_Bank | environment | WIP | blockout+ | `build-buildings --only SM_NY_Bldg_Bank` | ✓ |
+| SM_NY_Bldg_Bodega | environment | WIP | blockout+ | `build-buildings --only SM_NY_Bldg_Bodega` | ✓ |
+| SM_NY_Bldg_Brownstone | environment | WIP | blockout+ | `build-buildings --only SM_NY_Bldg_Brownstone` | ✓ |
+| SM_NY_Bldg_Tenement | environment | WIP | blockout+ | `build-buildings --only SM_NY_Bldg_Tenement` | ✓ |
+| SM_NY_SubwayEntrance | environment | WIP | blockout+ | `build-buildings --only SM_NY_SubwayEntrance` | ✓ |
 | TR_LA_SanArdo | terrain | PLANNED | blockout+ | `build-terrain` (fehlt) | – |
 
 ## P4

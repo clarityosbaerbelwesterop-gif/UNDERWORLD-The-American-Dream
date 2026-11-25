@@ -16,7 +16,8 @@ const PRESETS := {
 	"night": [35.0, 120.0, Color(0.58, 0.68, 1.0), 0.35, 80.0],
 	# T-LOOK-02, chapter 2 (New York): cold wet night (sodium + neon carry it) and a flat grey day.
 	"ny_night": [35.0, 120.0, Color(0.55, 0.66, 1.0), 0.28, 80.0],
-	"ny_overcast": [48.0, 200.0, Color(0.86, 0.90, 0.98), 1.1, 100.0],
+	# overcast: weak key, very soft shadows (6th value = angular size of the light in degrees)
+	"ny_overcast": [55.0, 160.0, Color(0.86, 0.90, 0.98), 0.55, 100.0, 12.0],
 }
 
 ## Chapter per preset -> Grading LUT (T-LOOK-02).
@@ -43,6 +44,8 @@ static func make_sun(preset: String) -> DirectionalLight3D:
 	sun.directional_shadow_blend_splits = true
 	sun.shadow_bias = 0.03
 	sun.shadow_normal_bias = 1.0
+	if p.size() > 5:
+		sun.light_angular_distance = float(p[5])     # soft, diffuse shadows (overcast)
 	return sun
 
 static func environment(preset: String) -> Environment:

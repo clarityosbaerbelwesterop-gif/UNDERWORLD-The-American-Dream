@@ -192,6 +192,66 @@
    "gate": "uwp --profile gate PASS 2026-11-23"
   },
   {
+   "id": "SM_NY_Bldg_Brownstone",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-buildings --only SM_NY_Bldg_Brownstone",
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "description": "Brooklyn brownstone row house, 4 levels, 9-step stoop with iron railings, bracketed cornice (ch.2 streets, Jason's room)",
+   "source": "Blender/Source/Environment/NY/SM_NY_Bldg_Brownstone/SM_NY_Bldg_Brownstone.blend",
+   "asset": "Assets/Environment/NY/SM_NY_Bldg_Brownstone/SM_NY_Bldg_Brownstone.glb",
+   "gate": "uwp --profile gate PASS 2026-11-24"
+  },
+  {
+   "id": "SM_NY_Bldg_Tenement",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-buildings --only SM_NY_Bldg_Tenement",
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "description": "six-storey NY tenement, two storefronts (invented: Spin City Laundromat, Checks Cashed), two fire escapes, water tank",
+   "source": "Blender/Source/Environment/NY/SM_NY_Bldg_Tenement/SM_NY_Bldg_Tenement.blend",
+   "asset": "Assets/Environment/NY/SM_NY_Bldg_Tenement/SM_NY_Bldg_Tenement.glb",
+   "gate": "uwp --profile gate PASS 2026-11-24"
+  },
+  {
+   "id": "SM_NY_Bldg_Bodega",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-buildings --only SM_NY_Bldg_Bodega",
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "description": "corner bodega, 2 floors, glass fronts on both streets, awnings, 'Hollow Deli & Grocery' (invented)",
+   "source": "Blender/Source/Environment/NY/SM_NY_Bldg_Bodega/SM_NY_Bldg_Bodega.blend",
+   "asset": "Assets/Environment/NY/SM_NY_Bldg_Bodega/SM_NY_Bldg_Bodega.glb",
+   "gate": "uwp --profile gate PASS 2026-11-24"
+  },
+  {
+   "id": "SM_NY_Bldg_Bank",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-buildings --only SM_NY_Bldg_Bank",
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "description": "neoclassical savings bank for the heist (M9): portico, 4 columns, pediment, 'Holloway & Stern Savings Bank' (invented)",
+   "source": "Blender/Source/Environment/NY/SM_NY_Bldg_Bank/SM_NY_Bldg_Bank.blend",
+   "asset": "Assets/Environment/NY/SM_NY_Bldg_Bank/SM_NY_Bldg_Bank.glb",
+   "gate": "uwp --profile gate PASS 2026-11-24"
+  },
+  {
+   "id": "SM_NY_SubwayEntrance",
+   "type": "environment",
+   "milestone": "P3",
+   "generator": "build-buildings --only SM_NY_SubwayEntrance",
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "description": "subway stairwell 3.6 m deep, green railings + globe lamps, 'Hollow Av' (invented stop); origin at grade",
+   "source": "Blender/Source/Environment/NY/SM_NY_SubwayEntrance/SM_NY_SubwayEntrance.blend",
+   "asset": "Assets/Environment/NY/SM_NY_SubwayEntrance/SM_NY_SubwayEntrance.glb",
+   "gate": "uwp --profile gate PASS 2026-11-24"
+  },
+  {
    "id": "SM_LA_Bldg_Motel",
    "type": "environment",
    "milestone": "P3",

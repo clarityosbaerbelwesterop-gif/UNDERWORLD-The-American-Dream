@@ -221,7 +221,9 @@ def validate(ctx):
     if bb:
         stats["bbox_blender"] = [[round(x, 4) for x in bb[0]], [round(x, 4) for x in bb[1]]]
         size = [bb[1][i] - bb[0][i] for i in range(3)]
-        if top != "Weapons" and abs(bb[0][2]) > tol["ground_m"]:
+        below = max([float(o.get("uw_below_grade_m", 0.0)) for o in sc.objects if o.type == "MESH"] or [0.0])
+        at_grade = below > 0.0 and -below - tol["ground_m"] <= bb[0][2] <= tol["ground_m"]   # stairwell etc. (T-NY-01)
+        if top != "Weapons" and abs(bb[0][2]) > tol["ground_m"] and not at_grade:
             iss.error("ORIGIN_GROUND", f"lowest point z={bb[0][2]:.4f} m; origin must be on the ground (bottom) for {top}")
         if top in ("Props", "Characters", "Vehicles", "Test"):
             for i, ax in ((0, "X"), (1, "Y")):

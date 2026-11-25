@@ -324,8 +324,8 @@ grep -q "| WPN_Pistol_01 | weapon | WIP |" "$T/out/CATALOG_STATUS.md" 2>/dev/nul
 rc=$(run_uwp "$T/logs/catalog_build.log" catalog build --milestone P5 --dry-run)
 expect_rc "uwp catalog build --milestone P5 --dry-run" 0 "$rc" "$T/logs/catalog_build.log"
 grep -q "RUN\] build-weapon Config/Weapons/WPN_Pistol_01.json" "$T/logs/catalog_build.log" && grep -q "RUN\] build-weapons --only WPN_SMG_01" "$T/logs/catalog_build.log" \
-  && grep -q "SKIP\] VH_Motorcycle_01: spec" "$T/logs/catalog_build.log" \
-  && ok "build plans pistol + grammar weapons and skips vehicles without a spec" || bad "catalog build plan wrong ($T/logs/catalog_build.log)"
+  && grep -q "RUN\] build-vehicle Config/Vehicles/VH_Motorcycle_01.json" "$T/logs/catalog_build.log" \
+  && ok "build plans pistol + grammar weapons + the spec-driven motorcycle (T-VEH-03)" || bad "catalog build plan wrong ($T/logs/catalog_build.log)"
 # Negative: a sabotaged catalogue must fail with the right reasons.
 python3 - "$REPO/Config/Content/catalog.json" "$T/out/catalog_bad.json" <<'PYEOF'
 import json, sys
@@ -334,14 +334,14 @@ c["entries"] = [e for e in c["entries"] if e["id"] not in ("WPN_SMG_01", "SK_NPC
 c["entries"].append(dict(c["entries"][0]))                                                     # duplicate id
 for e in c["entries"]:
     if e["id"] == "VH_Plane_Small_01":
-        e["status"] = "WIP"; e["asset"] = "Assets/Vehicles/VH_Plane_Small_01/VH_Plane_Small_01.glb"              # claims a file that is not there
+        e["status"] = "WIP"; e["asset"] = "Assets/Vehicles/VH_Plane_Small_01/VH_Plane_Small_01_MISSING.glb"      # claims a file that is not there
     if e["id"] == "SM_LA_Hydrant":
         e["status"] = "PRODUCTION-READY"                                                        # no review record
 json.dump(c, open(sys.argv[2], "w"))
 PYEOF
 rc=$(run_uwp "$T/logs/catalog_bad.log" catalog --catalog "$T/out/catalog_bad.json" check)
 expect_rc "uwp catalog check on a sabotaged catalogue (must fail)" 1 "$rc" "$T/logs/catalog_bad.log"
-for pat in "asset WPN_SMG_01 not in catalogue" "model SK_NPC_Kings_B not in catalogue" "duplicate id SK_Jason" "VH_Plane_Small_01: asset Assets/Vehicles/VH_Plane_Small_01/VH_Plane_Small_01.glb does not exist" "SM_LA_Hydrant: PRODUCTION-READY without a review record"; do
+for pat in "asset WPN_SMG_01 not in catalogue" "model SK_NPC_Kings_B not in catalogue" "duplicate id SK_Jason" "VH_Plane_Small_01: asset Assets/Vehicles/VH_Plane_Small_01/VH_Plane_Small_01_MISSING.glb does not exist" "SM_LA_Hydrant: PRODUCTION-READY without a review record"; do
   grep -qF "$pat" "$T/logs/catalog_bad.log" && ok "catalogue error reported: $pat" || bad "catalogue error missing: $pat"
 done
 # Negative: a .glb on disk that nobody catalogued.

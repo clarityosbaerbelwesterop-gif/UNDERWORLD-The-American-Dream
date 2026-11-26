@@ -16,6 +16,10 @@
 # separate long-range tail event, so distant fights sound like distant fights.
 #
 # Missing Ogg files (fresh clone before `Tools/uwp build-audio`) only warn once - never error.
+# Headless (tests, CI, server): no AudioServer playback is ever started. Nobody can hear it, and a
+# playback still in the AudioServer list when the process quits keeps its stream alive past
+# ResourceCache::clear ("N resources still in use at exit" = a red gameplay test). Everything else
+# (event resolution, stream loading, history, stats, voice allocation by duration) runs as usual.
 # Negative control: UW_AUDIO_SABOTAGE=1 (debug builds) resolves every event to UI_Click.
 class_name AudioDirector
 extends Node
@@ -32,6 +36,8 @@ static var instance: AudioDirector
 var events: Dictionary = {}
 var bindings: Dictionary = {}
 var enabled := true
+## False under --headless (see the header): voices are allocated and timed, but never play().
+var output := true
 ## Ring buffer of the last played event ids (debug overlay / tests).
 var history: PackedStringArray = []
 var stats := {"played": 0, "culled": 0, "stolen": 0, "missing": 0}
@@ -66,11 +72,15 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	if instance == self:
 		instance = null
+	for c in get_children():
+		if c is AudioStreamPlayer or c is AudioStreamPlayer3D:
+			c.call(&"stop")
 
 func _ready() -> void:
 	if instance != self:
 		return
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	output = DisplayServer.get_name() != "headless" and OS.get_environment("UW_AUDIO_OUTPUT") != "0"
 	_sabotage = OS.is_debug_build() and OS.get_environment("UW_AUDIO_SABOTAGE") == "1"
 	if Weapon.replay_seed() != 0:
 		_rng.seed = Weapon.replay_seed() + 77
@@ -236,8 +246,7 @@ func play_at(id: String, pos: Vector3, volume_db := 0.0, pitch := 1.0) -> AudioS
 	p.stream = s
 	p.global_position = pos
 	_setup3d(p, ev, volume_db, pitch)
-	p.play()
-	p.set_meta(&"t", Time.get_ticks_msec())
+	_start(p, s, p.pitch_scale)
 	return p
 
 ## 2D one-shot (UI, stingers, ambience one-shots).
@@ -258,8 +267,7 @@ func play_2d(id: String, volume_db := 0.0, pitch := 1.0) -> AudioStreamPlayer:
 	p.bus = StringName(ev.get("bus", "SFX"))
 	p.volume_db = float(ev.get("volume_db", 0.0)) + volume_db
 	p.pitch_scale = pitch * (1.0 + _rng.randf_range(-1.0, 1.0) * float(ev.get("pitch_jitter", 0.0)))
-	p.play()
-	p.set_meta(&"t", Time.get_ticks_msec())
+	_start(p, s, p.pitch_scale)
 	return p
 
 ## A looping (or one-shot) 3D emitter owned by `node` - moves with it and dies with it.
@@ -274,7 +282,7 @@ func attach(id: String, node: Node3D, volume_db := 0.0, autoplay := true) -> Aud
 	_setup3d(p, ev, volume_db, 1.0)
 	node.add_child(p)
 	if autoplay and p.stream != null and enabled:
-		p.play()
+		_play(p)
 	_record(id)
 	return p
 
@@ -287,10 +295,26 @@ func _setup3d(p: AudioStreamPlayer3D, ev: Dictionary, volume_db: float, pitch: f
 	p.attenuation_filter_cutoff_hz = 6000.0
 	p.attenuation_filter_db = -18.0
 
+## play() unless headless (header). Works for AudioStreamPlayer and AudioStreamPlayer3D.
+func _play(p: Node) -> void:
+	if output:
+		p.call(&"play")
+
+## Starts a pooled one-shot voice and books it for the stream's duration, so voice allocation and
+## stealing behave the same with and without audio output.
+func _start(p: Node, s: AudioStream, pitch: float) -> void:
+	var now := Time.get_ticks_msec()
+	p.set_meta(&"t", now)
+	p.set_meta(&"end", now + int(1000.0 * s.get_length() / maxf(pitch, 0.05)))
+	_play(p)
+
+func _busy(p: Node) -> bool:
+	return bool(p.get(&"playing")) or Time.get_ticks_msec() < int(p.get_meta(&"end", 0))
+
 func _voice3d() -> AudioStreamPlayer3D:
 	var oldest: AudioStreamPlayer3D = _pool3d[0]
 	for p in _pool3d:
-		if not p.playing:
+		if not _busy(p):
 			return p
 		if int(p.get_meta(&"t", 0)) < int(oldest.get_meta(&"t", 0)):
 			oldest = p
@@ -301,7 +325,7 @@ func _voice3d() -> AudioStreamPlayer3D:
 func _voice2d() -> AudioStreamPlayer:
 	var oldest: AudioStreamPlayer = _pool2d[0]
 	for p in _pool2d:
-		if not p.playing:
+		if not _busy(p):
 			return p
 		if int(p.get_meta(&"t", 0)) < int(oldest.get_meta(&"t", 0)):
 			oldest = p
@@ -599,7 +623,7 @@ func _update_vehicles(delta: float) -> void:
 			p.pitch_scale = float(pw[0])
 			p.volume_db = linear_to_db(maxf(gain, 0.0001))
 			if gain > 0.001 and not p.playing and p.stream != null and enabled:
-				p.play()
+				_play(p)
 			elif gain <= 0.001 and p.playing:
 				p.stop()
 		var speed := veh.linear_velocity.length()
@@ -619,7 +643,7 @@ func _drive_loop(p, gain: float, pitch: float) -> void:
 	pl.volume_db = linear_to_db(maxf(gain, 0.0001))
 	pl.pitch_scale = pitch
 	if gain > 0.01 and not pl.playing and pl.stream != null and enabled:
-		pl.play()
+		_play(pl)
 	elif gain <= 0.01 and pl.playing:
 		pl.stop()
 
@@ -678,7 +702,7 @@ func set_music(state: String) -> void:
 	if s != null and enabled:
 		_music[next].stream = s
 		_music[next].volume_db = -40.0
-		_music[next].play()
+		_play(_music[next])
 
 func _update_music(delta: float) -> void:
 	if _combat_left > 0.0:
@@ -709,7 +733,7 @@ func start_ambience(key: String) -> void:
 	var ev: Dictionary = events.get(id, {})
 	_amb.volume_db = float(ev.get("volume_db", 0.0))
 	if _amb.stream != null and enabled:
-		_amb.play()
+		_play(_amb)
 	var iv: Array = amb.get("oneshot_interval_s", [9.0, 26.0])
 	_amb_os_left = _rng.randf_range(float(iv[0]), float(iv[1]))
 

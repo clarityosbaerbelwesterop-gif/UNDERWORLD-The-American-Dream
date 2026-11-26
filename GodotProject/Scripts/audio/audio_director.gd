@@ -336,6 +336,15 @@ func _voice2d() -> AudioStreamPlayer:
 func _later(seconds: float, cb: Callable) -> void:
 	get_tree().create_timer(seconds, false).timeout.connect(cb)
 
+## Delayed callback on a node that may be freed meanwhile. Captures only the instance id: a lambda
+## that captured the node itself logs "Lambda capture ... was freed" (an ERROR) when it fires late.
+func _later_at(seconds: float, node: Node3D, cb: Callable) -> void:
+	var nid := node.get_instance_id()
+	_later(seconds, func() -> void:
+		var n := instance_from_id(nid) as Node3D
+		if n != null and n.is_inside_tree():
+			cb.call(n))
+
 func _warn_once(key: String, msg: String) -> void:
 	if not _warned.has(key):
 		_warned[key] = true
@@ -409,9 +418,8 @@ func _on_weapon_fired(shot: Dictionary, w: Weapon) -> void:
 		var cpos := pos + Vector3(0.0, -1.2, 0.0)
 		_later(_rng.randf_range(0.35, 0.6), func() -> void: play_at(String(bindings.get("casing", "SFX_WPN_ShellCasing")), cpos))
 	if b.has("pump_after_shot") and w.ammo > 0:
-		_later(0.42, func() -> void:
-			if is_instance_valid(w):
-				play_at(String(b["pump_after_shot"]), w.global_position))
+		var pump := String(b["pump_after_shot"])
+		_later_at(0.42, w, func(n: Node3D) -> void: play_at(pump, n.global_position))
 	_combat_ping()
 	if _npc_owner(w) != null:
 		_flyby(shot)
@@ -424,9 +432,9 @@ func _on_reload_started(duration: float, w: Weapon) -> void:
 	for step in b.get("reload", []):
 		var at := float(step[0]) * duration
 		var id := String(step[1])
-		_later(maxf(at, 0.01), func() -> void:
-			if is_instance_valid(w) and int(_reload_gen.get(key, 0)) == gen:
-				play_at(id, w.global_position))
+		_later_at(maxf(at, 0.01), w, func(n: Node3D) -> void:
+			if int(_reload_gen.get(key, 0)) == gen:
+				play_at(id, n.global_position))
 
 func _flyby(shot: Dictionary) -> void:
 	var lp = _listener_pos()
@@ -456,9 +464,8 @@ func _on_receiver_died(_info: DamageInfo, r: DamageReceiver) -> void:
 	var body := r.get_parent() as Node3D
 	if body == null or body is Vehicle:
 		return
-	_later(0.45, func() -> void:
-		if is_instance_valid(body):
-			play_at(String(_char_b().get("body_fall", "SFX_FOL_BodyFall")), body.global_position))
+	_later_at(0.45, body, func(n: Node3D) -> void:
+		play_at(String(_char_b().get("body_fall", "SFX_FOL_BodyFall")), n.global_position))
 
 # --- FX ----------------------------------------------------------------------------
 

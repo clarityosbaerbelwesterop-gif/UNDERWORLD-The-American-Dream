@@ -2,6 +2,7 @@
 # Wrapper: run the UNDERWORLD asset pipeline headless in Blender.
 #   Tools/uwp export Blender/Source/Props/SM_Foo/SM_Foo.blend [--no-lod] [--no-collision] ...
 #   Tools/uwp catalog status|plan|check|build [...]                          # content catalogue, no Blender
+#   Tools/uwp build-audio [--only PATTERN] [--list] [--table-only]          # numpy/scipy/soundfile, no Blender
 #   Tools/uwp review-sheet <asset> [--ref ...] [--renders ...] [--out ...]   # system Python, no Blender
 #   Tools/uwp --help | Tools/uwp export --help
 # Exit code is the pipeline's (0 PASS, 1 validation, 2 export, 3 verify, 4 usage, 5 internal).
@@ -23,6 +24,16 @@ if [[ "${1:-}" == "build-decals" ]]; then
     [[ -n "$PYC" ]] && "$PYC" -c "import PIL, numpy" 2>/dev/null && exec "$PYC" "$HERE/underworld_pipeline/decals/build_decals.py" "$@"
   done
   echo "uwp build-decals: no python with Pillow + numpy found (set UWP_PYTHON)" >&2
+  exit 4
+fi
+# build-audio is plain Python (numpy + scipy + soundfile): procedural SFX/ambience/music -> Ogg
+# Vorbis under Assets/Audio + runtime table GodotProject/Data/Content/audio.json (T-AUD-01).
+if [[ "${1:-}" == "build-audio" ]]; then
+  shift
+  for PYC in "${UWP_PYTHON:-}" python3 "$(head -1 "$(readlink -f "${BLENDER:-/workspace/tools/blender/blender}")" 2>/dev/null | sed -n 's/^#!//p' | awk '{print $1}')"; do
+    [[ -n "$PYC" ]] && "$PYC" -c "import numpy, scipy, soundfile" 2>/dev/null && cd "$HERE" && exec "$PYC" -m underworld_pipeline.audio.build_audio "$@"
+  done
+  echo "uwp build-audio: no python with numpy + scipy + soundfile found (pip install numpy scipy soundfile; or set UWP_PYTHON)" >&2
   exit 4
 fi
 # review-sheet is plain Python/Pillow and must not boot Blender.

@@ -59,6 +59,7 @@ third-party asset data, so no external licence applies; copyright is the project
 | Eyebrows / eyelashes (when the CC0 MakeHuman cards are absent) | `characters/face_details.py` (`build_brows`), `pbr_textures.py` (`build_brows_and_lashes_material`) | Same strand-atlas path, one strand per card cell. |
 | Face/clothing fold detail, fabric weave, AO | `characters/procedural_assets.py` | Seed-driven, no bitmaps read. |
 | Animation clips | `characters/animations.py` (+ CC0 BVH from `.cache/uwp_sources/mocap`) | Procedural clips keyed on the 53-bone rig; the walk is mocap-informed (CC0 BVH source listed above). |
+| Audio library (T-AUD-01): 135 events / 323 Ogg Vorbis files – gunshots + tails, weapon handling, melee, impacts, explosions, glass, fire/steam/sparks, footsteps, foley, engines, tyres, crashes, doors, horn, sirens, helicopter, ambience beds, score + stingers, UI | `audio/` (`dsp.py`, `weapons.py`, `foley.py`, `vehicles.py`, `ambience.py`, `music.py`, `build_audio.py`) | Synthesised sample by sample in numpy/scipy (noise, filters, modal resonators, granular, pulse-train engines, Karplus-Strong, synthetic impulse responses). **No recording, sample pack or third-party sound is read**; melodies and the ringtone are original. Seeded per event → bit-reproducible with `Tools/uwp build-audio`. |
 
 **Licence status of the MakeHuman skin packs:** the `skins01/skins02` diffuse/normal/specular
 maps that the pipeline prefers are CC0 and listed in the table above. They are *not* in the repo

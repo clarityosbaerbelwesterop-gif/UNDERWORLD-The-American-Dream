@@ -44,6 +44,10 @@ PY="${PYTHON:-python3}"
 "$PREFIX/venv/bin/python" -c "import bpy,sys; sys.exit(0 if bpy.app.version_string.startswith('$BPY_VER') else 1)" 2>/dev/null \
   || "$PREFIX/venv/bin/pip" install -q "bpy==$BPY_VER" pillow numpy "gdtoolkit==4.*" \
   || die "pip install bpy==$BPY_VER"
+# T-AUD-01: Tools/uwp build-audio (procedural SFX/music -> Ogg Vorbis) needs scipy + soundfile.
+"$PREFIX/venv/bin/python" -c "import scipy, soundfile" 2>/dev/null \
+  || "$PREFIX/venv/bin/pip" install -q scipy soundfile \
+  || die "pip install scipy soundfile"
 
 cat > "$PREFIX/bin/blender" <<PYSHIM
 #!$PREFIX/venv/bin/python

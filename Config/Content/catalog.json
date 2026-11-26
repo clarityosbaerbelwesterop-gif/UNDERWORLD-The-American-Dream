@@ -1228,6 +1228,29 @@
     "FX_TireSmoke"
    ],
    "asset": "GodotProject/Scenes/FX/FX_TireSmoke.tscn"
+  },
+  {
+   "id": "AUD_Library_Core",
+   "type": "audio",
+   "milestone": "P6",
+   "generator": "build-audio",
+   "status": "WIP",
+   "quality_target": "blockout+",
+   "description": "procedural audio library (T-AUD-01): 135 events / 323 Ogg variations - gunshots (close + distance tail) and handling for every combat.json weapon, melee, impacts per surface, explosions, glass, fire/steam/sparks loops, footsteps on 7 surfaces, foley, engine RPM layers (sedan/muscle/truck/moto/prop), skid, crash, doors, horn, sirens, helicopter, LA/NY day/night street beds, rain, wind, interior, score (M01 tension/combat, menu, pass/fail stingers), UI. Rendered by Tools/uwp build-audio (Ogg not in git: no LFS on the sandbox); runtime table + AudioDirector autoload",
+   "members": [
+    "Weapons",
+    "Melee",
+    "Impacts",
+    "Explosions",
+    "Destruction",
+    "FX",
+    "Foley",
+    "Vehicles",
+    "Ambience",
+    "Music",
+    "UI"
+   ],
+   "asset": "GodotProject/Data/Content/audio.json"
   }
  ]
 }

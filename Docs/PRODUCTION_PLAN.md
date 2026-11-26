@@ -85,6 +85,7 @@ Trim-Sheet-Bibliothek, Texel-Density-Validator, Decal-Bibliothek, High→Low-Bak
 
 ### P6 – Animationen, Effekte, Audio-Bibliothek
 - **Stand 2026-11-24:** Effekt-Bibliothek fertig und an die Waffen gekoppelt (T-FX-01). Offen: Animationen (E-3), Audio-Bibliothek, Flipbook-Texturen.
+- **Stand 2026-11-26:** Audio-Bibliothek als prozedurale Erstfassung (T-AUD-01, 135 Events, `uwp build-audio`) + AudioDirector; Status WIP, kein Hörtest durch einen Menschen. Statt CC0-Aufnahmen komplett eigene Synthese (keine Fremdlizenz).
 - **Animationen:**
   - Mocap-Quelle laut E-3
   - Locomotion-Blendspace (Start, Stop, Pivot), Deckung, Nahkampf

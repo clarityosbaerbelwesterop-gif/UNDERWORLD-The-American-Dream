@@ -114,6 +114,21 @@ jobs:
           ./Tests/run_all.sh 2>&1 | tee run_all.log
           grep -q "RUN_ALL: PASS" run_all.log
 
+      - name: Failure digest (check annotations - readable via the API when log/artifact hosts are blocked)
+        if: ${{ failure() }}
+        run: |
+          {
+            grep -hE '^\[TEST\]\[FAIL\]|^\[GPTEST\]\[FAIL\]|RESULT: FAIL|^(ERROR|SCRIPT ERROR|USER ERROR):|^   at: |FAILED|exited' \
+              Tests/logs/*.log 2>/dev/null | grep -v 'compiled without fontconfig' | head -60
+            echo "--- run_all.log (tail)"
+            tail -40 run_all.log 2>/dev/null
+          } | cut -c1-300 > failure_digest.txt
+          split -l 25 failure_digest.txt digest_part_
+          for f in digest_part_*; do
+            msg="$(sed -e 's/%/%25/g' "$f" | awk 'BEGIN{ORS="%0A"} {print}')"
+            echo "::error title=gate digest ${f#digest_part_}::${msg}"
+          done
+
       - name: Linux export + boot check
         run: Tools/build/build_linux.sh
 

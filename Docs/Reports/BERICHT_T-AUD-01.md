@@ -51,11 +51,20 @@ bestehende Signale. **Kein Gameplay-Skript wurde geändert.**
 
   **Hier gelaufen: PASS.**
 - **Voll-Render** aller 323 Dateien hier: 0 fehlend, keine Datei mit Spitze > −0,3 dBFS, RMS < −50 dBFS, DC > 0,01 oder ≠ 48 kHz.
-- **`GodotProject/Tests/test_audio.gd`** prüft Tabelle, Bindings, Dateien und Laufzeit: Pistole, Nachladen, FX, Schritte, Sedan-Motor-Mix, Crash/Tür/Sirene, Mission/Musik, Voice-Stealing. Negativkontrolle: `UW_AUDIO_SABOTAGE=1`.
+- **`GodotProject/Tests/test_audio.gd`** (CI: PASS) prüft Tabelle, Bindings, Dateien und Laufzeit: Pistole, Nachladen, FX, Schritte, Sedan-Motor-Mix, Crash/Tür/Sirene, Mission/Musik, Voice-Stealing. Negativkontrolle: `UW_AUDIO_SABOTAGE=1`.
 - **Catalog:** `AUD_Library_Core` (WIP, 107 Einträge), `catalog.py check` PASS.
 
 ## Ehrlich: was NICHT erledigt bzw. nicht verifiziert ist
-1. **`test_audio.gd` und `audio_director.gd` wurden nie ausgeführt.** Auf dieser Box gibt es kein Godot-Binary. Geprüft sind nur Syntax und Stil (gdlint: nur Zeilenlänge, wie im übrigen Repo), außerdem die verwendeten APIs von Hand gegen den Code. **Der erste echte Lauf ist die CI** (`Tests/run_all.sh`). Fehler dort sind möglich.
+1. **Godot lief nur in der CI, nicht lokal.** Auf der Sandbox gibt es kein Godot-Binary, und GitHub-Release-Downloads sind blockiert. Die CI hat drei echte Fehler gefunden, die hier behoben sind:
+   - `test_ai`: „50 resources still in use at exit“. Playbacks im AudioServer hielten Streams beim Beenden fest. **Fix:** unter `--headless` startet der Director keine Playbacks mehr; Voices werden über die Stream-Dauer belegt.
+   - `test_audio`: Das Autoload kommt im `--script`-Modus erst nach `_initialize()` in den Baum. **Fix:** der Test wartet darauf.
+   - `test_mission`: „Lambda capture was freed“. Verzögerte Callbacks hatten Nodes eingefangen. **Fix:** sie fangen jetzt nur noch Instanz-IDs ein.
+
+   **Ergebnis:**
+   - **CI-Gate PASS** (Run 45877227725): `RUN_ALL: PASS` plus Linux-Export und Boot-Check.
+   - **Negativkontrolle** `UW_AUDIO_SABOTAGE=1` (Run 45878953010): `test_audio` FAIL mit 15 Fehlschlägen, wie verlangt.
+   - Logs und Artefakte sind von der Sandbox aus nicht abrufbar. Neu ist deshalb der CI-Schritt „Failure digest“: Bei Fehlschlag schreibt er die relevanten Logzeilen als Check-Annotations, die über die API lesbar sind.
+   - Weil headless nie wirklich abgespielt wird, prüfen die Tests Auflösung, Laden, Timing und Voice-Vergabe, **nicht aber das hörbare Ergebnis**.
 2. **Die Ogg-Dateien sind nicht im Git.** `*.ogg` ist LFS-pflichtig, git-lfs ist hier nicht installierbar, und der S3-Upload ist blockiert. Deshalb gilt:
    - Die Dateien sind gitignored.
    - CI rendert sie vor dem Gate.

@@ -28,12 +28,16 @@ func frames(n: int) -> void:
 
 func _run() -> void:
 	print("[GPTEST] == audio (T-AUD-01)")
+	# The autoload enters the tree after _initialize() in --script mode: wait for it first, and only
+	# create a director when the project has none (a second one would free itself as a duplicate).
+	await frames(2)
 	d = AudioDirector.instance
 	if d == null:
 		d = AudioDirector.new()
 		d.name = "Audio"
 		root.add_child(d)
-	await frames(2)
+		await frames(2)
+	print("[GPTEST] director: %s (output %s)" % [d.get_path(), str(d.output)])
 	check(AudioDirector.instance == d, "AudioDirector singleton is live")
 	_table()
 	_files()

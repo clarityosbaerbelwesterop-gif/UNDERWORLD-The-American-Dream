@@ -62,7 +62,12 @@ def build_hair(body_ob, arm, lm, obj_name, style="skin_fade_crop", seed=42):
         back_t = max(0.0, min(1.0, (co.y - head_c.y) / 0.10))
         if style == "skin_fade_crop":
             z_min = parietal_z - back_t * (face_h * 0.16)
-            front_z_min = hairline_z + 0.006 * max(0.0, (abs(co.x) - 0.042) / 0.03)
+            # The forehead is the *front* (-Y) part of the head. On the sides and the back the
+            # cap must reach further down, otherwise a single z threshold cuts a horizontal
+            # band around the head and the scalp show-through reads as a bald stripe.
+            frontness = max(0.0, min(1.0, (eye_y + 0.055 - co.y) / 0.075))
+            front_z_min = hairline_z - (1.0 - frontness) * face_h * 0.075 \
+                + 0.006 * max(0.0, (abs(co.x) - 0.042) / 0.03)
             eff_z_min = front_z_min if co.y < head_c.y - 0.015 else z_min
             if co.z < eff_z_min or co.y < eye_y + 0.004:
                 return 0.0
@@ -78,10 +83,20 @@ def build_hair(body_ob, arm, lm, obj_name, style="skin_fade_crop", seed=42):
                 return 0.0
             return min(1.0, (co.z - z_min) / 0.022)
         else:
-            z_min = brow_z - face_h * 0.02 - back_t * (face_h * 0.28)
-            if co.z < z_min or co.y < eye_y + 0.004:
+            # medium_crop: this used to be a single z threshold (brow_z - face_h * 0.02), i.e. the
+            # cap was allowed to reach *below* the brow line. Combined with the front guard
+            # (co.y < eye_y + 0.004) that produced a heavy fringe across the eyebrows on Marco and
+            # the civilian - the haircut read as a bowl cut. The front of the head gets the same
+            # treatment as skin_fade_crop: stop above the hairline, and only drop lower towards the
+            # sides/back.
+            frontness = max(0.0, min(1.0, (eye_y + 0.055 - co.y) / 0.075))
+            front_z_min = hairline_z + face_h * 0.020 + 0.006 * max(0.0, (abs(co.x) - 0.042) / 0.03)
+            side_z_min = brow_z + face_h * 0.03 - back_t * (face_h * 0.24)
+            eff_z_min = front_z_min if co.y < head_c.y - 0.015 else side_z_min
+            # Also fade the cap out laterally at brow height so it never covers an eyebrow.
+            if co.z < eff_z_min or co.y < eye_y + 0.004:
                 return 0.0
-            return min(1.0, (co.z - z_min) / 0.026)
+            return min(1.0, (co.z - eff_z_min) / 0.026)
 
     # 1. Extract smooth scalp surface
     bm = bmesh.new()
@@ -152,12 +167,14 @@ def build_hair(body_ob, arm, lm, obj_name, style="skin_fade_crop", seed=42):
         else:
             w = scalp_weight(co)
             front_boost = 1.0 + 0.28 * max(0.0, (head_c.y + 0.02 - co.y) / 0.11) * max(0.0, 1.0 - abs(co.x) / 0.075)
-            lock_u = co.x * 165.0 + co.y * 42.0
-            lock_v = co.y * 78.0 - co.x * 25.0
+            # Directional lock ridges, faded out near the vertex so the mesh stays smooth and
+            # the crown does not turn into a corduroy of hard sin() stripes.
+            lock_u = co.x * 95.0 + co.y * 26.0
+            lock_v = co.y * 46.0 - co.x * 15.0
             lock_wave = (
-                0.0014 * math.sin(lock_u + 1.4 * math.sin(lock_v * 0.6))
-                + 0.0008 * math.cos(lock_u * 2.1 - lock_v * 0.9)
-            )
+                0.00075 * math.sin(lock_u + 1.4 * math.sin(lock_v * 0.6))
+                + 0.00040 * math.cos(lock_u * 2.1 - lock_v * 0.9)
+            ) * (1.0 - 0.55 * min(1.0, abs(co.x) / 0.085))
             t_edge = max_thick * (0.45 + 0.55 * w) * front_boost + lock_wave
         v.co = co + n * t_edge
 

@@ -1,0 +1,189 @@
+{
+  "asset": "WPN_Grenade_01",
+  "status": "READY FOR REVIEW",
+  "category": "Weapons",
+  "budget_key": "Weapons",
+  "source_blend": "Blender/Source/Weapons/WPN_Grenade_01/WPN_Grenade_01.blend",
+  "export_glb": "Assets/Weapons/WPN_Grenade_01/WPN_Grenade_01.glb",
+  "preview_png": "Assets/Weapons/WPN_Grenade_01/WPN_Grenade_01_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.0395,
+      -0.035,
+      -0.0315
+    ],
+    "max": [
+      0.032,
+      0.0615,
+      0.0315
+    ],
+    "size": [
+      0.0715,
+      0.0965,
+      0.063
+    ]
+  },
+  "triangles": {
+    "lod0": 376,
+    "budget": 8000,
+    "per_lod_total": {
+      "LOD0": 320,
+      "LOD1": 160,
+      "LOD2": 80
+    }
+  },
+  "lods": [
+    {
+      "object": "Frame",
+      "levels": [
+        {
+          "name": "Frame",
+          "level": 0,
+          "triangles": 320
+        },
+        {
+          "name": "Frame_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 160
+        },
+        {
+          "name": "Frame_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 80
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_WPN_Grenade_01_00-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_Prop_OlivePaint",
+    "M_Prop_SteelBright"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_OlivePaint_D",
+      "material": "M_Prop_OlivePaint",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_3w_yapdb/T_Prop_OlivePaint_D.jpg"
+    },
+    {
+      "image": "T_Prop_OlivePaint_ORM",
+      "material": "M_Prop_OlivePaint",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_47dptgo5/T_Prop_OlivePaint_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_OlivePaint_N",
+      "material": "M_Prop_OlivePaint",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_ju2xwwxj/T_Prop_OlivePaint_N.jpg"
+    },
+    {
+      "image": "T_Prop_SteelBright_D",
+      "material": "M_Prop_SteelBright",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_u97yl7fn/T_Prop_SteelBright_D.jpg"
+    },
+    {
+      "image": "T_Prop_SteelBright_ORM",
+      "material": "M_Prop_SteelBright",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_bub30zez/T_Prop_SteelBright_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_SteelBright_N",
+      "material": "M_Prop_SteelBright",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_8unk57c1/T_Prop_SteelBright_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "Frame": {
+      "texture_px": 512,
+      "median_px_per_m": 2302.6,
+      "p10_px_per_m": 1670.7,
+      "p90_px_per_m": 2558.1
+    },
+    "Trigger": {
+      "texture_px": 512,
+      "median_px_per_m": 1803.4,
+      "p10_px_per_m": 587.1,
+      "p90_px_per_m": 2544.3
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {
+    "SOCKET_Grip": {
+      "parent": "WPN_Grenade_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.0,
+        -0.0
+      ]
+    },
+    "SOCKET_Muzzle": {
+      "parent": "WPN_Grenade_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.06,
+        -0.0
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "Frame_LOD1",
+    "Frame_LOD2",
+    "Frame",
+    "SOCKET_Grip",
+    "SOCKET_Muzzle",
+    "Trigger",
+    "UCX_WPN_Grenade_01_00-convcolonly",
+    "WPN_Grenade_01"
+  ],
+  "glb_bytes": 540844
+}

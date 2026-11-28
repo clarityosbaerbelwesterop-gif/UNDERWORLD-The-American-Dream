@@ -1,0 +1,203 @@
+{
+  "asset": "SM_Prop_Vest_Heavy",
+  "status": "READY FOR REVIEW",
+  "category": "Props",
+  "budget_key": "Props",
+  "source_blend": "Blender/Source/Props/SM_Prop_Vest_Heavy/SM_Prop_Vest_Heavy.blend",
+  "export_glb": "Assets/Props/SM_Prop_Vest_Heavy/SM_Prop_Vest_Heavy.glb",
+  "preview_png": "Assets/Props/SM_Prop_Vest_Heavy/SM_Prop_Vest_Heavy_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.2088,
+      0.0,
+      -0.17
+    ],
+    "max": [
+      0.2088,
+      0.585,
+      0.2315
+    ],
+    "size": [
+      0.4176,
+      0.585,
+      0.4015
+    ]
+  },
+  "triangles": {
+    "lod0": 858,
+    "budget": 5000,
+    "per_lod_total": {
+      "LOD0": 858,
+      "LOD1": 428,
+      "LOD2": 214
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_Prop_Vest_Heavy_Mesh",
+      "levels": [
+        {
+          "name": "SM_Prop_Vest_Heavy_Mesh",
+          "level": 0,
+          "triangles": 858
+        },
+        {
+          "name": "SM_Prop_Vest_Heavy_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 428
+        },
+        {
+          "name": "SM_Prop_Vest_Heavy_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 214
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_Prop_Vest_Heavy_00-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_Prop_Ballistic",
+    "M_Prop_Canvas",
+    "M_Prop_PlasticOlive",
+    "M_Prop_Prop_Vest_Heavy_Labels"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Ballistic_D",
+      "material": "M_Prop_Ballistic",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_7g8u4pjf/T_Prop_Ballistic_D.jpg"
+    },
+    {
+      "image": "T_Prop_Ballistic_ORM",
+      "material": "M_Prop_Ballistic",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex__ri2xcnw/T_Prop_Ballistic_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Ballistic_N",
+      "material": "M_Prop_Ballistic",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_vb968pp_/T_Prop_Ballistic_N.jpg"
+    },
+    {
+      "image": "T_Prop_Canvas_D",
+      "material": "M_Prop_Canvas",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_z73bwp2t/T_Prop_Canvas_D.jpg"
+    },
+    {
+      "image": "T_Prop_Canvas_ORM",
+      "material": "M_Prop_Canvas",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_30jo8do_/T_Prop_Canvas_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Canvas_N",
+      "material": "M_Prop_Canvas",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_sx8euof6/T_Prop_Canvas_N.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticOlive_D",
+      "material": "M_Prop_PlasticOlive",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_4sfm1hj2/T_Prop_PlasticOlive_D.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticOlive_ORM",
+      "material": "M_Prop_PlasticOlive",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_s6h229jw/T_Prop_PlasticOlive_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_PlasticOlive_N",
+      "material": "M_Prop_PlasticOlive",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_2oaexdkg/T_Prop_PlasticOlive_N.jpg"
+    },
+    {
+      "image": "T_Prop_Prop_Vest_Heavy_Labels_D",
+      "material": "M_Prop_Prop_Vest_Heavy_Labels",
+      "size": [
+        512,
+        128
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_r19fctmw/T_Prop_Prop_Vest_Heavy_Labels_D.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_Prop_Vest_Heavy_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 1727.3,
+      "p10_px_per_m": 512.0,
+      "p90_px_per_m": 2048.0
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_Prop_Vest_Heavy_Mesh_LOD1",
+    "SM_Prop_Vest_Heavy_Mesh_LOD2",
+    "SM_Prop_Vest_Heavy_Mesh",
+    "UCX_SM_Prop_Vest_Heavy_00-convcolonly",
+    "SM_Prop_Vest_Heavy"
+  ],
+  "glb_bytes": 652608
+}

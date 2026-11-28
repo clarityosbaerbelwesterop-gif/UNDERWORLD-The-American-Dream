@@ -1,0 +1,142 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-24T16:24:23+00:00",
+  "command": "export",
+  "profile": "gate",
+  "input": "Blender/Source/Environment/NY/SM_NY_Bldg_Brownstone/SM_NY_Bldg_Brownstone.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "lods": [
+      {
+        "object": "SM_NY_Bldg_Brownstone_Mesh",
+        "levels": [
+          {
+            "name": "SM_NY_Bldg_Brownstone_Mesh",
+            "level": 0,
+            "triangles": 1702
+          },
+          {
+            "name": "SM_NY_Bldg_Brownstone_Mesh_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 850
+          },
+          {
+            "name": "SM_NY_Bldg_Brownstone_Mesh_LOD2",
+            "level": 2,
+            "ratio": 0.25,
+            "triangles": 425
+          }
+        ]
+      }
+    ],
+    "collision": {
+      "mode": "authored",
+      "generated": [],
+      "existing": [
+        "UCX_SM_NY_Bldg_Brownstone_00-convcolonly",
+        "UCX_SM_NY_Bldg_Brownstone_01-convcolonly"
+      ],
+      "micro_lips": 0
+    },
+    "foot_slide": null,
+    "export": {
+      "glb": "Assets/Environment/NY/SM_NY_Bldg_Brownstone/SM_NY_Bldg_Brownstone.glb",
+      "bytes": 1937440
+    },
+    "preview": "Assets/Environment/NY/SM_NY_Bldg_Brownstone/SM_NY_Bldg_Brownstone_preview.png",
+    "manifest": "Assets/Environment/NY/SM_NY_Bldg_Brownstone/SM_NY_Bldg_Brownstone.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "SM_NY_Bldg_Brownstone_Mesh_LOD1",
+          "SM_NY_Bldg_Brownstone_Mesh_LOD2",
+          "SM_NY_Bldg_Brownstone_Mesh",
+          "UCX_SM_NY_Bldg_Brownstone_00-convcolonly",
+          "UCX_SM_NY_Bldg_Brownstone_01-convcolonly",
+          "SM_NY_Bldg_Brownstone"
+        ],
+        "node_extras": {
+          "SM_NY_Bldg_Brownstone_Mesh_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              40.0,
+              100.0
+            ]
+          },
+          "SM_NY_Bldg_Brownstone_Mesh_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              100.0,
+              300.0
+            ]
+          },
+          "SM_NY_Bldg_Brownstone_Mesh": {
+            "uw_allow_uv_overlap": 1,
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              40.0
+            ]
+          }
+        },
+        "meshes": 5,
+        "materials": [
+          "M_Prop_Brownstone",
+          "M_Prop_WindowGlass",
+          "M_Prop_Concrete",
+          "M_Prop_Wood",
+          "M_Prop_MetalDark",
+          "M_Prop_BrickNy",
+          "M_Prop_RoofGravel"
+        ],
+        "images": 21,
+        "skins": [],
+        "joint_names": [],
+        "animations": [],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 1937440
+      },
+      "reimport_objects": [
+        "SM_NY_Bldg_Brownstone",
+        "SM_NY_Bldg_Brownstone_Mesh",
+        "SM_NY_Bldg_Brownstone_Mesh_LOD1",
+        "SM_NY_Bldg_Brownstone_Mesh_LOD2",
+        "UCX_SM_NY_Bldg_Brownstone_00-convcolonly",
+        "UCX_SM_NY_Bldg_Brownstone_01-convcolonly"
+      ],
+      "reimport_actions": [],
+      "problems": []
+    }
+  },
+  "asset": "SM_NY_Bldg_Brownstone",
+  "category": "Environment/NY",
+  "budget_key": "Environment",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SM_NY_Bldg_Brownstone_Mesh",
+      "message": "1152 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "COLLISION_AUTHORED",
+      "object": null,
+      "message": "authored collision kept, nothing generated: ['UCX_SM_NY_Bldg_Brownstone_00-convcolonly', 'UCX_SM_NY_Bldg_Brownstone_01-convcolonly']"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "infos": 2
+  },
+  "seconds": 7.29,
+  "exit_code": 0,
+  "result": "PASS"
+}

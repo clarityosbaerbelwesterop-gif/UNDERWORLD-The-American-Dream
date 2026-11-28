@@ -4,6 +4,7 @@
   "max_triangles": {
     "Characters/SK_Jason": 40000,
     "Characters/SK_NPC": 25000,
+    "Characters/SK_Boss": 30000,
     "Vehicles": 60000,
     "Weapons": 8000,
     "Environment": 10000,
@@ -18,7 +19,7 @@
   "max_materials": {
     "default": 8,
     "Characters": 10,
-    "Vehicles": 12
+    "Vehicles": 14
   },
   "texel_density_px_per_m": {
     "hero_min": 256,
@@ -26,5 +27,43 @@
   },
   "reference_heights_m": {
     "Jason": 1.82
+  },
+  "lod_triangle_fraction_max": {
+    "_doc": "TD-012 (T-PIPE-05): max triangles of LOD<n> as a fraction of the category LOD0 budget (master prompt \u00a75.5: characters 40k/20k/8k).",
+    "LOD1": 0.5,
+    "LOD2": 0.2,
+    "LOD3": 0.08
+  },
+  "collision_budget": {
+    "_doc": "TD-012 (T-PIPE-05): collision proxy budgets. Convex hulls are capped by the generator (convex_max_vertices); authored or trimesh proxies are checked here.",
+    "convex_max_vertices": 64,
+    "trimesh_max_triangles": {
+      "Environment": 5000,
+      "Props": 1500,
+      "Vehicles": 0,
+      "Weapons": 0,
+      "Test": 5000
+    }
+  },
+  "gate_profile": {
+    "_doc": "uwp --profile gate = the release gate a PRODUCTION-READY asset must pass (QUALITY_GATE phase 7). Warnings become errors; these extra rules apply.",
+    "lod_required": [
+      "Characters",
+      "Vehicles",
+      "Weapons",
+      "Environment",
+      "Props"
+    ],
+    "collision_required": [
+      "Vehicles",
+      "Weapons",
+      "Environment",
+      "Props"
+    ],
+    "clipping_max_vertices": 0
+  },
+  "animation": {
+    "_doc": "T-ANIM-01 / master prompt \u00a76.3: max foot sliding per locomotion clip (from <asset>.anim_report.json, measured by the character builder). Warning in dev, error in --profile gate.",
+    "foot_slide_max_m": 0.01
   }
 }

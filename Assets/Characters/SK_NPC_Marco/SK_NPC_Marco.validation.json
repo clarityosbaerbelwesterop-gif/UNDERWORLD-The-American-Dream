@@ -1,0 +1,368 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.0.1",
+  "timestamp": "2026-11-22T21:01:53+00:00",
+  "command": "export",
+  "input": "Blender/Source/Characters/SK_NPC_Marco/SK_NPC_Marco.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "lods": [],
+    "collision": {
+      "mode": "none",
+      "generated": [],
+      "existing": []
+    },
+    "export": {
+      "glb": "Assets/Characters/SK_NPC_Marco/SK_NPC_Marco.glb",
+      "bytes": 7386112
+    },
+    "preview": {
+      "front": "Assets/Characters/SK_NPC_Marco/SK_NPC_Marco_preview_front.png",
+      "3q": "Assets/Characters/SK_NPC_Marco/SK_NPC_Marco_preview_3q.png",
+      "side": "Assets/Characters/SK_NPC_Marco/SK_NPC_Marco_preview_side.png",
+      "back": "Assets/Characters/SK_NPC_Marco/SK_NPC_Marco_preview_back.png",
+      "face": "Assets/Characters/SK_NPC_Marco/SK_NPC_Marco_preview_face.png",
+      "face_side": "Assets/Characters/SK_NPC_Marco/SK_NPC_Marco_preview_face_side.png",
+      "default": "Assets/Characters/SK_NPC_Marco/SK_NPC_Marco_preview.png",
+      "aim": "Assets/Characters/SK_NPC_Marco/SK_NPC_Marco_preview_aim.png"
+    },
+    "manifest": "Assets/Characters/SK_NPC_Marco/SK_NPC_Marco.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "Head",
+          "Neck",
+          "LeftThumbDistal",
+          "LeftThumbProximal",
+          "LeftThumbMetacarpal",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftHand",
+          "LeftLowerArm",
+          "LeftUpperArm",
+          "LeftShoulder",
+          "RightThumbDistal",
+          "RightThumbProximal",
+          "RightThumbMetacarpal",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "SOCKET_RightHand_Weapon",
+          "RightHand",
+          "RightLowerArm",
+          "RightUpperArm",
+          "RightShoulder",
+          "UpperChest",
+          "Chest",
+          "Spine",
+          "LeftToes",
+          "LeftFoot",
+          "LeftLowerLeg",
+          "LeftUpperLeg",
+          "RightToes",
+          "RightFoot",
+          "RightLowerLeg",
+          "RightUpperLeg",
+          "Hips",
+          "Root",
+          "SK_NPC_Marco_Beard",
+          "SK_NPC_Marco_Body",
+          "SK_NPC_Marco_Boots",
+          "SK_NPC_Marco_Eyebrows",
+          "SK_NPC_Marco_Eyelashes_L",
+          "SK_NPC_Marco_Eyelashes_R",
+          "SK_NPC_Marco_Eyes",
+          "SK_NPC_Marco_Hair",
+          "SK_NPC_Marco_Jacket",
+          "SK_NPC_Marco_Jeans",
+          "SK_NPC_Marco_TShirt",
+          "Armature",
+          "SK_NPC_Marco"
+        ],
+        "node_extras": {
+          "SK_NPC_Marco_Beard": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Marco_Eyebrows": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Marco_Eyelashes_L": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Marco_Eyelashes_R": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Marco_Hair": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_Marco": {
+            "uw_character_spec": "Config/Characters/SK_NPC_Marco.json"
+          }
+        },
+        "meshes": 11,
+        "materials": [
+          "M_NPC_Marco_Hair",
+          "M_NPC_Marco_Skin",
+          "M_NPC_Marco_Boots",
+          "M_NPC_Marco_BrowsLashes",
+          "M_NPC_Marco_Eyes",
+          "M_NPC_Marco_Jacket",
+          "M_NPC_Marco_Jeans",
+          "M_NPC_Marco_TShirt"
+        ],
+        "images": 19,
+        "skins": [
+          {
+            "name": "Armature",
+            "joints": 53
+          }
+        ],
+        "joint_names": [
+          "Chest",
+          "Head",
+          "Hips",
+          "LeftFoot",
+          "LeftHand",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftLowerArm",
+          "LeftLowerLeg",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftShoulder",
+          "LeftThumbDistal",
+          "LeftThumbMetacarpal",
+          "LeftThumbProximal",
+          "LeftToes",
+          "LeftUpperArm",
+          "LeftUpperLeg",
+          "Neck",
+          "RightFoot",
+          "RightHand",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "RightLowerArm",
+          "RightLowerLeg",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightShoulder",
+          "RightThumbDistal",
+          "RightThumbMetacarpal",
+          "RightThumbProximal",
+          "RightToes",
+          "RightUpperArm",
+          "RightUpperLeg",
+          "Root",
+          "Spine",
+          "UpperChest"
+        ],
+        "animations": [
+          "A_Humanoid_Aim_Pistol_Idle",
+          "A_Humanoid_Aim_Pistol_Walk_B",
+          "A_Humanoid_Aim_Pistol_Walk_F",
+          "A_Humanoid_Aim_Pistol_Walk_L",
+          "A_Humanoid_Aim_Pistol_Walk_R",
+          "A_Humanoid_Crouch_Idle",
+          "A_Humanoid_Crouch_Walk",
+          "A_Humanoid_Idle",
+          "A_Humanoid_Jump_Air",
+          "A_Humanoid_Jump_Start",
+          "A_Humanoid_Land",
+          "A_Humanoid_Reload_Pistol",
+          "A_Humanoid_Run",
+          "A_Humanoid_Shoot_Pistol",
+          "A_Humanoid_Sprint",
+          "A_Humanoid_Walk"
+        ],
+        "asset_generator": "Khronos glTF Blender I/O v5.0.21",
+        "bytes": 7386112
+      },
+      "reimport_objects": [
+        "Armature",
+        "Icosphere",
+        "SK_NPC_Marco",
+        "SK_NPC_Marco_Beard",
+        "SK_NPC_Marco_Body",
+        "SK_NPC_Marco_Boots",
+        "SK_NPC_Marco_Eyebrows",
+        "SK_NPC_Marco_Eyelashes_L",
+        "SK_NPC_Marco_Eyelashes_R",
+        "SK_NPC_Marco_Eyes",
+        "SK_NPC_Marco_Hair",
+        "SK_NPC_Marco_Jacket",
+        "SK_NPC_Marco_Jeans",
+        "SK_NPC_Marco_TShirt",
+        "SOCKET_RightHand_Weapon"
+      ],
+      "reimport_actions": [
+        "A_Humanoid_Aim_Pistol_Idle",
+        "A_Humanoid_Aim_Pistol_Walk_B",
+        "A_Humanoid_Aim_Pistol_Walk_F",
+        "A_Humanoid_Aim_Pistol_Walk_L",
+        "A_Humanoid_Aim_Pistol_Walk_R",
+        "A_Humanoid_Crouch_Idle",
+        "A_Humanoid_Crouch_Walk",
+        "A_Humanoid_Idle",
+        "A_Humanoid_Jump_Air",
+        "A_Humanoid_Jump_Start",
+        "A_Humanoid_Land",
+        "A_Humanoid_Reload_Pistol",
+        "A_Humanoid_Run",
+        "A_Humanoid_Shoot_Pistol",
+        "A_Humanoid_Sprint",
+        "A_Humanoid_Walk"
+      ],
+      "problems": []
+    }
+  },
+  "asset": "SK_NPC_Marco",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Marco_Body",
+      "message": "290 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Marco_Eyes",
+      "message": "32 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Marco_Eyebrows",
+      "message": "1536 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Marco_Eyelashes_L",
+      "message": "288 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Marco_Eyelashes_R",
+      "message": "288 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Marco_TShirt",
+      "message": "168 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Marco_Jeans",
+      "message": "89 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Marco_Jacket",
+      "message": "169 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Marco_Hair",
+      "message": "826 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_Marco_Beard",
+      "message": "288 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_NPC_Marco_Body",
+      "message": "SK_NPC_Marco_Body vs SK_NPC_Marco_TShirt: 1/564 verts (0.18%)",
+      "data": {
+        "inner": "SK_NPC_Marco_Body",
+        "outer": "SK_NPC_Marco_TShirt",
+        "tested_vertices": 564,
+        "clipped_vertices": 1,
+        "clipped_fraction": 0.0018
+      }
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_NPC_Marco_TShirt",
+      "message": "SK_NPC_Marco_TShirt vs SK_NPC_Marco_Jacket: 3/116 verts (2.59%)",
+      "data": {
+        "inner": "SK_NPC_Marco_TShirt",
+        "outer": "SK_NPC_Marco_Jacket",
+        "tested_vertices": 116,
+        "clipped_vertices": 3,
+        "clipped_fraction": 0.0259
+      }
+    },
+    {
+      "severity": "info",
+      "code": "HUMANOID_OPTIONAL",
+      "object": "Armature",
+      "message": "optional humanoid bones absent: ['LeftEye', 'RightEye', 'Jaw']"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_NONE",
+      "object": null,
+      "message": "no LOD ratios configured for Characters"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "infos": 14
+  },
+  "seconds": 95.1,
+  "exit_code": 0,
+  "result": "PASS"
+}

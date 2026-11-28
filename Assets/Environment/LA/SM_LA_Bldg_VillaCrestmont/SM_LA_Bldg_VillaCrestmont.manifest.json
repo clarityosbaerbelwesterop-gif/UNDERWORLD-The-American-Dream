@@ -1,0 +1,328 @@
+{
+  "asset": "SM_LA_Bldg_VillaCrestmont",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_Bldg_VillaCrestmont/SM_LA_Bldg_VillaCrestmont.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_Bldg_VillaCrestmont/SM_LA_Bldg_VillaCrestmont.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_Bldg_VillaCrestmont/SM_LA_Bldg_VillaCrestmont_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -9.57,
+      0.0,
+      -6.57
+    ],
+    "max": [
+      9.57,
+      9.3,
+      12.0
+    ],
+    "size": [
+      19.14,
+      9.3,
+      18.57
+    ]
+  },
+  "triangles": {
+    "lod0": 1574,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 1574,
+      "LOD1": 786,
+      "LOD2": 393
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_LA_Bldg_VillaCrestmont_Mesh",
+      "levels": [
+        {
+          "name": "SM_LA_Bldg_VillaCrestmont_Mesh",
+          "level": 0,
+          "triangles": 1574
+        },
+        {
+          "name": "SM_LA_Bldg_VillaCrestmont_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 786
+        },
+        {
+          "name": "SM_LA_Bldg_VillaCrestmont_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 393
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_LA_Bldg_VillaCrestmont_00-convcolonly"
+    ],
+    "micro_lips": 0
+  },
+  "materials": [
+    "M_Prop_Concrete",
+    "M_Prop_LA_Bldg_VillaCrestmont_Labels",
+    "M_Prop_MetalDark",
+    "M_Prop_PlasterWhite",
+    "M_Prop_RollupDoor",
+    "M_Prop_RoofTiles",
+    "M_Prop_WindowGlass",
+    "M_Prop_Wood"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Concrete_D",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_0ej9k60o/T_Prop_Concrete_D.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_ORM",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_6i5zsdff/T_Prop_Concrete_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_N",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_2dvjqglu/T_Prop_Concrete_N.jpg"
+    },
+    {
+      "image": "T_Prop_LA_Bldg_VillaCrestmont_Labels_D",
+      "material": "M_Prop_LA_Bldg_VillaCrestmont_Labels",
+      "size": [
+        512,
+        64
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_uienft6d/T_Prop_LA_Bldg_VillaCrestmont_Labels_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_D",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ckpibd4t/T_Prop_MetalDark_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_ORM",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_x__z7_nj/T_Prop_MetalDark_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_N",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_74p6queo/T_Prop_MetalDark_N.jpg"
+    },
+    {
+      "image": "T_Prop_PlasterWhite_D",
+      "material": "M_Prop_PlasterWhite",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_i210098o/T_Prop_PlasterWhite_D.jpg"
+    },
+    {
+      "image": "T_Prop_PlasterWhite_ORM",
+      "material": "M_Prop_PlasterWhite",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_59b3tmok/T_Prop_PlasterWhite_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_PlasterWhite_N",
+      "material": "M_Prop_PlasterWhite",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_0x9yu3vm/T_Prop_PlasterWhite_N.jpg"
+    },
+    {
+      "image": "T_Prop_RollupDoor_D",
+      "material": "M_Prop_RollupDoor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_xkrk7wdm/T_Prop_RollupDoor_D.jpg"
+    },
+    {
+      "image": "T_Prop_RollupDoor_ORM",
+      "material": "M_Prop_RollupDoor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_sbyt214x/T_Prop_RollupDoor_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_RollupDoor_N",
+      "material": "M_Prop_RollupDoor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_r_59h2f_/T_Prop_RollupDoor_N.jpg"
+    },
+    {
+      "image": "T_Prop_RoofTiles_D",
+      "material": "M_Prop_RoofTiles",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_7t196u_m/T_Prop_RoofTiles_D.jpg"
+    },
+    {
+      "image": "T_Prop_RoofTiles_ORM",
+      "material": "M_Prop_RoofTiles",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_hbifwwa3/T_Prop_RoofTiles_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_RoofTiles_N",
+      "material": "M_Prop_RoofTiles",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_yt6ikb_s/T_Prop_RoofTiles_N.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_D",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_vib9m_4c/T_Prop_WindowGlass_D.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_ORM",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_0cgs6n61/T_Prop_WindowGlass_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_N",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_9kx12fvx/T_Prop_WindowGlass_N.jpg"
+    },
+    {
+      "image": "T_Prop_Wood_D",
+      "material": "M_Prop_Wood",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_x6178913/T_Prop_Wood_D.jpg"
+    },
+    {
+      "image": "T_Prop_Wood_ORM",
+      "material": "M_Prop_Wood",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_3ayaw2ru/T_Prop_Wood_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Wood_N",
+      "material": "M_Prop_Wood",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_m_isn03r/T_Prop_Wood_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_LA_Bldg_VillaCrestmont_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 256.0,
+      "p10_px_per_m": 170.7,
+      "p90_px_per_m": 512.0
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_Bldg_VillaCrestmont_Mesh_LOD1",
+    "SM_LA_Bldg_VillaCrestmont_Mesh_LOD2",
+    "SM_LA_Bldg_VillaCrestmont_Mesh",
+    "UCX_SM_LA_Bldg_VillaCrestmont_00-convcolonly",
+    "SM_LA_Bldg_VillaCrestmont"
+  ],
+  "glb_bytes": 1689400
+}

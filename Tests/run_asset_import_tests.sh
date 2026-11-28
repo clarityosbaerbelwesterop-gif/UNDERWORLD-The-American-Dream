@@ -8,6 +8,8 @@
 # Also checks the vendored uw_lod_post_import.gd is identical to Bot 2's original.
 set -uo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# shellcheck source=/dev/null
+. "$REPO/Tests/lib/godot_errors.sh"
 BLENDER="${BLENDER:-/workspace/tools/blender/blender}"
 GODOT="${GODOT:-/workspace/tools/godot}"
 LOGS="$REPO/Tests/logs"; mkdir -p "$LOGS"
@@ -42,8 +44,10 @@ printf '[remap]\n\nimporter="scene"\ntype="PackedScene"\n\n[params]\n\nimport_sc
 echo "== godot --import"
 "$GODOT" --headless --path "$REPO/GodotProject" --import 2>&1 | strip > "$LOGS/asset_1_import.log"
 [ ${PIPESTATUS[0]} -eq 0 ] || fail "godot --import"
-if grep -qE '^(ERROR|SCRIPT ERROR|USER ERROR):' "$LOGS/asset_1_import.log"; then
-  grep -E -A3 '^(ERROR|SCRIPT ERROR|USER ERROR):' "$LOGS/asset_1_import.log"; fail "import logged errors"
+errs="$(godot_log_errors "$LOGS/asset_1_import.log")"
+if [ -n "$errs" ]; then
+  fail "import logged errors:
+$errs"
 fi
 grep -E '^\[UW-IMPORT\]' "$LOGS/asset_1_import.log" | sed 's#res://Tests/_generated/##'
 

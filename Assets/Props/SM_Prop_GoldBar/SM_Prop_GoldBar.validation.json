@@ -1,0 +1,127 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-23T19:31:19+00:00",
+  "command": "export",
+  "profile": "gate",
+  "input": "Blender/Source/Props/SM_Prop_GoldBar/SM_Prop_GoldBar.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "lods": [
+      {
+        "object": "SM_Prop_GoldBar_Mesh",
+        "levels": [
+          {
+            "name": "SM_Prop_GoldBar_Mesh",
+            "level": 0,
+            "triangles": 120
+          },
+          {
+            "name": "SM_Prop_GoldBar_Mesh_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 60
+          },
+          {
+            "name": "SM_Prop_GoldBar_Mesh_LOD2",
+            "level": 2,
+            "ratio": 0.25,
+            "triangles": 30
+          }
+        ]
+      }
+    ],
+    "collision": {
+      "mode": "authored",
+      "generated": [],
+      "existing": [
+        "UCX_SM_Prop_GoldBar_00-convcolonly"
+      ]
+    },
+    "foot_slide": null,
+    "export": {
+      "glb": "Assets/Props/SM_Prop_GoldBar/SM_Prop_GoldBar.glb",
+      "bytes": 69908
+    },
+    "preview": "Assets/Props/SM_Prop_GoldBar/SM_Prop_GoldBar_preview.png",
+    "manifest": "Assets/Props/SM_Prop_GoldBar/SM_Prop_GoldBar.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "SM_Prop_GoldBar_Mesh_LOD1",
+          "SM_Prop_GoldBar_Mesh_LOD2",
+          "SM_Prop_GoldBar_Mesh",
+          "UCX_SM_Prop_GoldBar_00-convcolonly",
+          "SM_Prop_GoldBar"
+        ],
+        "node_extras": {
+          "SM_Prop_GoldBar_Mesh_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              15.0,
+              40.0
+            ]
+          },
+          "SM_Prop_GoldBar_Mesh_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              40.0,
+              100.0
+            ]
+          },
+          "SM_Prop_GoldBar_Mesh": {
+            "uw_allow_uv_overlap": 1,
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              15.0
+            ]
+          }
+        },
+        "meshes": 4,
+        "materials": [
+          "M_Prop_Gold",
+          "M_Prop_Prop_GoldBar_Labels"
+        ],
+        "images": 4,
+        "skins": [],
+        "joint_names": [],
+        "animations": [],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 69908
+      },
+      "reimport_objects": [
+        "SM_Prop_GoldBar",
+        "SM_Prop_GoldBar_Mesh",
+        "SM_Prop_GoldBar_Mesh_LOD1",
+        "SM_Prop_GoldBar_Mesh_LOD2",
+        "UCX_SM_Prop_GoldBar_00-convcolonly"
+      ],
+      "reimport_actions": [],
+      "problems": []
+    }
+  },
+  "asset": "SM_Prop_GoldBar",
+  "category": "Props",
+  "budget_key": "Props",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "COLLISION_AUTHORED",
+      "object": null,
+      "message": "authored collision kept, nothing generated: ['UCX_SM_Prop_GoldBar_00-convcolonly']"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "infos": 1
+  },
+  "seconds": 0.46,
+  "exit_code": 0,
+  "result": "PASS"
+}

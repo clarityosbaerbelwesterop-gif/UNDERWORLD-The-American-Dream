@@ -1,0 +1,149 @@
+# Content-Katalog – Status (automatisch erzeugt)
+
+Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. Nicht von Hand editieren.
+
+| Status | Anzahl |
+|---|---|
+| PLANNED | 8 |
+| WIP | 98 |
+| PRODUCTION-READY | 0 |
+| **gesamt** | **106** |
+
+| Meilenstein | gesamt | PLANNED | WIP | PRODUCTION-READY | Generator vorhanden |
+|---|---|---|---|---|---|
+| P2 | 2 | 1 | 1 | 0 | 1/2 |
+| P3 | 35 | 1 | 34 | 0 | 34/35 |
+| P4 | 20 | 0 | 20 | 0 | 20/20 |
+| P5 | 31 | 2 | 29 | 0 | 31/31 |
+| P6 | 18 | 4 | 14 | 0 | 14/14 |
+
+## P2
+
+| ID | Typ | Status | Ziel | Generator | Datei |
+|---|---|---|---|---|---|
+| DC_LA_Decals | decal_set | WIP | blockout+ | `build-decals` | ✓ |
+| TS_LA_Trims | trim_sheet | PLANNED | blockout+ | `build-trims` (fehlt) | – |
+
+## P3
+
+| ID | Typ | Status | Ziel | Generator | Datei |
+|---|---|---|---|---|---|
+| SM_LA_Billboard | environment | WIP | blockout+ | `build-props --only SM_LA_Billboard` | ✓ |
+| SM_LA_Bldg_Apartment4F | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_Apartment4F` | ✓ |
+| SM_LA_Bldg_GarageM01 | environment | WIP | blockout+ | `build-env --only SM_LA_Bldg_GarageM01` | ✓ |
+| SM_LA_Bldg_GasStation | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_GasStation` | ✓ |
+| SM_LA_Bldg_Hangar | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_Hangar` | ✓ |
+| SM_LA_Bldg_LiquorStore | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_LiquorStore` | ✓ |
+| SM_LA_Bldg_Motel | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_Motel` | ✓ |
+| SM_LA_Bldg_OfficeDowntown | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_OfficeDowntown` | ✓ |
+| SM_LA_Bldg_ShopStucco | environment | WIP | blockout+ | `build-env --only SM_LA_Bldg_ShopStucco` | ✓ |
+| SM_LA_Bldg_VillaCrestmont | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_VillaCrestmont` | ✓ |
+| SM_LA_Bldg_Warehouse | environment | WIP | blockout+ | `build-buildings --only SM_LA_Bldg_Warehouse` | ✓ |
+| SM_LA_BusStop | environment | WIP | blockout+ | `build-props --only SM_LA_BusStop` | ✓ |
+| SM_LA_Bush | environment | WIP | blockout+ | `build-props --only SM_LA_Bush` | ✓ |
+| SM_LA_Dumpster | environment | WIP | blockout+ | `build-props --only SM_LA_Dumpster` | ✓ |
+| SM_LA_Fence_Chainlink | environment | WIP | blockout+ | `build-props --only SM_LA_Fence_Chainlink` | ✓ |
+| SM_LA_Hydrant | environment | WIP | blockout+ | `build-props --only SM_LA_Hydrant` | ✓ |
+| SM_LA_NewspaperBox | environment | WIP | blockout+ | `build-props --only SM_LA_NewspaperBox` | ✓ |
+| SM_LA_PalmTree | environment | WIP | blockout+ | `build-env --only SM_LA_PalmTree` | ✓ |
+| SM_LA_ParkingMeter | environment | WIP | blockout+ | `build-props --only SM_LA_ParkingMeter` | ✓ |
+| SM_LA_PhoneBooth | environment | WIP | blockout+ | `build-props --only SM_LA_PhoneBooth` | ✓ |
+| SM_LA_PowerPole | environment | WIP | blockout+ | `build-props --only SM_LA_PowerPole` | ✓ |
+| SM_LA_Road_Crosswalk | environment | WIP | blockout+ | `build-props --only SM_LA_Road_Crosswalk` | ✓ |
+| SM_LA_Road_Intersection | environment | WIP | blockout+ | `build-props --only SM_LA_Road_Intersection` | ✓ |
+| SM_LA_Road_Straight | environment | WIP | blockout+ | `build-env --only SM_LA_Road_Straight` | ✓ |
+| SM_LA_Sidewalk_Curb | environment | WIP | blockout+ | `build-env --only SM_LA_Sidewalk_Curb` | ✓ |
+| SM_LA_StreetSign | environment | WIP | blockout+ | `build-props --only SM_LA_StreetSign` | ✓ |
+| SM_LA_Streetlight | environment | WIP | blockout+ | `build-env --only SM_LA_Streetlight` | ✓ |
+| SM_LA_TrafficLight | environment | WIP | blockout+ | `build-props --only SM_LA_TrafficLight` | ✓ |
+| SM_LA_TrashCan | environment | WIP | blockout+ | `build-props --only SM_LA_TrashCan` | ✓ |
+| SM_NY_Bldg_Bank | environment | WIP | blockout+ | `build-buildings --only SM_NY_Bldg_Bank` | ✓ |
+| SM_NY_Bldg_Bodega | environment | WIP | blockout+ | `build-buildings --only SM_NY_Bldg_Bodega` | ✓ |
+| SM_NY_Bldg_Brownstone | environment | WIP | blockout+ | `build-buildings --only SM_NY_Bldg_Brownstone` | ✓ |
+| SM_NY_Bldg_Tenement | environment | WIP | blockout+ | `build-buildings --only SM_NY_Bldg_Tenement` | ✓ |
+| SM_NY_SubwayEntrance | environment | WIP | blockout+ | `build-buildings --only SM_NY_SubwayEntrance` | ✓ |
+| TR_LA_SanArdo | terrain | PLANNED | blockout+ | `build-terrain` (fehlt) | – |
+
+## P4
+
+| ID | Typ | Status | Ziel | Generator | Datei |
+|---|---|---|---|---|---|
+| SK_Boss_Cuervos_Jefe | character | WIP | authored | `build-character Config/Characters/SK_Boss_Cuervos_Jefe.json` | ✓ |
+| SK_Boss_Hermandad_Patron | character | WIP | authored | `build-character Config/Characters/SK_Boss_Hermandad_Patron.json` | ✓ |
+| SK_Jason | character | WIP | hero-authored | `build-character Config/Characters/SK_Jason.json` | ✓ |
+| SK_NPC_Cartel_A | character | WIP | authored | `build-character Config/Characters/SK_NPC_Cartel_A.json` | ✓ |
+| SK_NPC_Cartel_B | character | WIP | authored | `build-character Config/Characters/SK_NPC_Cartel_B.json` | ✓ |
+| SK_NPC_Civ_Kit | character | WIP | authored | `build-character Config/Characters/SK_NPC_Civ_Kit.json` | ✓ |
+| SK_NPC_Civilian_Female | character | WIP | authored | `build-character Config/Characters/SK_NPC_Civilian_Female.json` | ✓ |
+| SK_NPC_Cop_LA | character | WIP | authored | `build-character Config/Characters/SK_NPC_Cop_LA.json` | ✓ |
+| SK_NPC_Cuervos_Heavy | character | WIP | authored | `build-character Config/Characters/SK_NPC_Cuervos_Heavy.json` | ✓ |
+| SK_NPC_Cuervos_Soldier | character | WIP | authored | `build-character Config/Characters/SK_NPC_Cuervos_Soldier.json` | ✓ |
+| SK_NPC_Dana_Whitlock | character | WIP | authored | `build-character Config/Characters/SK_NPC_Dana_Whitlock.json` | ✓ |
+| SK_NPC_FBI_Tactical | character | WIP | authored | `build-character Config/Characters/SK_NPC_FBI_Tactical.json` | ✓ |
+| SK_NPC_Hermandad_A | character | WIP | authored | `build-character Config/Characters/SK_NPC_Hermandad_A.json` | ✓ |
+| SK_NPC_Hermandad_Heavy | character | WIP | authored | `build-character Config/Characters/SK_NPC_Hermandad_Heavy.json` | ✓ |
+| SK_NPC_Hermandad_Soldier | character | WIP | authored | `build-character Config/Characters/SK_NPC_Hermandad_Soldier.json` | ✓ |
+| SK_NPC_Kings_A | character | WIP | authored | `build-character Config/Characters/SK_NPC_Kings_A.json` | ✓ |
+| SK_NPC_Kings_B | character | WIP | authored | `build-character Config/Characters/SK_NPC_Kings_B.json` | ✓ |
+| SK_NPC_Kings_Lieutenant | character | WIP | authored | `build-character Config/Characters/SK_NPC_Kings_Lieutenant.json` | ✓ |
+| SK_NPC_Marco | character | WIP | hero-authored | `build-character Config/Characters/SK_NPC_Marco.json` | ✓ |
+| SK_NPC_Sam | character | WIP | hero-authored | `build-character Config/Characters/SK_NPC_Sam.json` | ✓ |
+
+## P5
+
+| ID | Typ | Status | Ziel | Generator | Datei |
+|---|---|---|---|---|---|
+| SM_Prop_Helmet_Tactical | armor | WIP | blockout+ | `build-props --only SM_Prop_Helmet_Tactical` | ✓ |
+| SM_Prop_Vest_Heavy | armor | WIP | blockout+ | `build-props --only SM_Prop_Vest_Heavy` | ✓ |
+| SM_Prop_Vest_Light | armor | WIP | blockout+ | `build-props --only SM_Prop_Vest_Light` | ✓ |
+| SM_Prop_Barrel | prop | WIP | blockout+ | `build-props --only SM_Prop_Barrel` | ✓ |
+| SM_Prop_CashBundle | prop | WIP | blockout+ | `build-props --only SM_Prop_CashBundle` | ✓ |
+| SM_Prop_DrugBrick | prop | WIP | blockout+ | `build-props --only SM_Prop_DrugBrick` | ✓ |
+| SM_Prop_Duffel | prop | WIP | blockout+ | `build-props --only SM_Prop_Duffel` | ✓ |
+| SM_Prop_GoldBar | prop | WIP | blockout+ | `build-props --only SM_Prop_GoldBar` | ✓ |
+| SM_Prop_PackageCrate | prop | WIP | blockout+ | `build-env --only SM_Prop_PackageCrate` | ✓ |
+| SM_Prop_Pallet | prop | WIP | blockout+ | `build-props --only SM_Prop_Pallet` | ✓ |
+| SM_Prop_Phone | prop | WIP | blockout+ | `build-props --only SM_Prop_Phone` | ✓ |
+| SM_Prop_Toolbox | prop | WIP | blockout+ | `build-props --only SM_Prop_Toolbox` | ✓ |
+| SM_Prop_Workbench | prop | WIP | blockout+ | `build-props --only SM_Prop_Workbench` | ✓ |
+| VH_Motorcycle_01 | vehicle | PLANNED | blockout+ | `build-vehicle Config/Vehicles/VH_Motorcycle_01.json` | – |
+| VH_Muscle_01 | vehicle | WIP | blockout+ | `build-vehicles --only VH_Muscle_01` | ✓ |
+| VH_Pickup_01 | vehicle | WIP | blockout+ | `build-vehicles --only VH_Pickup_01` | ✓ |
+| VH_Plane_Small_01 | vehicle | PLANNED | blockout+ | `build-vehicle Config/Vehicles/VH_Plane_Small_01.json` | – |
+| VH_Police_01 | vehicle | WIP | blockout+ | `build-vehicles --only VH_Police_01` | ✓ |
+| VH_Sedan_01 | vehicle | WIP | hero-authored | `build-vehicle Config/Vehicles/VH_Sedan_01.json` | ✓ |
+| VH_Taxi_NY_01 | vehicle | WIP | blockout+ | `build-vehicles --only VH_Taxi_NY_01` | ✓ |
+| VH_Van_01 | vehicle | WIP | blockout+ | `build-vehicles --only VH_Van_01` | ✓ |
+| WPN_Bat_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Bat_01` | ✓ |
+| WPN_Grenade_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Grenade_01` | ✓ |
+| WPN_Knife_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Knife_01` | ✓ |
+| WPN_Molotov_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Molotov_01` | ✓ |
+| WPN_Pistol_01 | weapon | WIP | hero-authored | `build-weapon Config/Weapons/WPN_Pistol_01.json` | ✓ |
+| WPN_Revolver_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Revolver_01` | ✓ |
+| WPN_Rifle_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Rifle_01` | ✓ |
+| WPN_SMG_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_SMG_01` | ✓ |
+| WPN_Shotgun_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Shotgun_01` | ✓ |
+| WPN_Sniper_01 | weapon | WIP | blockout+ | `build-weapons --only WPN_Sniper_01` | ✓ |
+
+## P6
+
+| ID | Typ | Status | Ziel | Generator | Datei |
+|---|---|---|---|---|---|
+| A_Boss_Specials | animation | PLANNED | mocap | `authored (mocap/keyframe)` | – |
+| A_Humanoid_Cover_Set | animation | PLANNED | mocap | `authored (mocap/keyframe)` | – |
+| A_Humanoid_Locomotion | animation | WIP | mocap | `build-shared-anims` | ✓ |
+| A_Humanoid_Locomotion_Mocap | animation | PLANNED | mocap | `authored (mocap/keyframe)` | – |
+| A_Humanoid_Melee_Set | animation | PLANNED | mocap | `authored (mocap/keyframe)` | – |
+| A_Humanoid_Sit_Driver | animation | WIP | mocap | `build-shared-anims` | ✓ |
+| A_Humanoid_Sit_Passenger | animation | WIP | mocap | `build-shared-anims` | ✓ |
+| FX_Blood_Set | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_Explosion | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_Fire | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_GlassShatter | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_Impact_Set | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_MuzzleFlash_Set | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_Rain | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_Smoke | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_Sparks | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_Steam_NY | fx | WIP | blockout+ | `build-fx` | ✓ |
+| FX_TireSmoke | fx | WIP | blockout+ | `build-fx` | ✓ |

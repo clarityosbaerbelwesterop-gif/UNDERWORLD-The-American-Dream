@@ -1,5 +1,8 @@
 # UNDERWORLD - headless AI tests (T-AI-01 enemies, T-AI-02 baseline civilians).
 # Layers (ForgeSkills gamedev-game-testing): 1 pure perception/accuracy math, 2 state machine +
+# T-AI-03 in-car targeting: a seated player is represented by his car (TD-015), so gunmen aim
+# at the vehicle and hits go to Vehicle.health. Negative control UW_AI_SABOTAGE=incar restores
+# the old behaviour (aim at the player's capsule) -> the ordinary in-car checks FAIL.
 # profile tables, 3 integration in res://Scenes/Test/PT_AITestRange.tscn (navmesh, LOS, hearing,
 # cover, shooting, damage, death, civilians). Run via Tests/run_gameplay_tests.sh (fixed 60 fps).
 # Arena: gunmen at (-3,0,36) (3,0,36) (0,0,37.5) facing -Z; CoverWall_A/B at z 24 (x -5 / 5),
@@ -52,6 +55,104 @@ func wait_until(cond: Callable, timeout: float) -> float:
 		await physics_frame
 	return -1.0
 
+
+# --- T-AI-03: enemies vs. the player in a car -------------------------------------
+
+## Layer 1: the TD-015 rules as pure functions (no scene needed).
+func test_vehicle_targeting_rules() -> void:
+	print("[GPTEST] == T-AI-03 targeting rules (TD-015)")
+	var fake := Node3D.new()
+	check(VehicleTargeting.resolve(fake) == fake, "a target without a vehicle resolves to itself")
+	check(VehicleTargeting.vehicle_of(fake) == null, "no vehicle for a target on foot")
+	fake.free()
+
+
+## Layer 3: real gunmen vs. a real car. The car is placed in the range, Jason is seated, and we
+## count what the gunmen actually shoot at and how the damage is booked.
+func test_incar_targeting() -> void:
+	print("[GPTEST] == T-AI-03 enemies target the car, not the hidden player")
+	await setup(["Gunman_1"], false)
+	var g := gunmen()[0] as NPCController
+	var car_scene := load("res://Scenes/Vehicles/VH_Sedan_01.tscn") as PackedScene
+	var car := car_scene.instantiate() as Vehicle
+	root.add_child(car)
+	# Put the car where the gunmen can actually see it: OPEN_SPOT is the spot the detection
+	# test uses, so line of sight is guaranteed by an existing passing test.
+	car.global_position = OPEN_SPOT + Vector3(0, 0.1, 0)
+	await frames(6)
+	# Seat Jason: the real enter path (car.enter) needs him next to an exit socket.
+	player.global_position = car.get_socket(&"SOCKET_Exit_Left").global_position
+	await frames(2)
+	check(car.enter(player), "Jason entered the car for the in-car targeting test")
+	# T-GP-04: the enter sequence is as long as the enter CLIP (1.5 s), not a constant.
+	await seconds(car.enter_duration() + 0.1)
+	check(player.vehicle == car and car.driver == player, "Jason is seated and the car knows him")
+	# Perception now resolves Jason -> the car.
+	check(VehicleTargeting.resolve(player) == car, "a seated player resolves to his vehicle")
+	var pts := g.target_points(player)
+	check(pts.size() >= 2 and pts[1].distance_to(car.global_position) < 4.0,
+		"gunman aim points are on the car (%.2f m from its centre)" % pts[1].distance_to(car.global_position))
+	check(pts[1].distance_to(player.global_position) > 0.8,
+		"aim points are NOT the player's hidden capsule (%.2f m away)" % pts[1].distance_to(player.global_position))
+	# Let him see and shoot.
+	g.rng_seed = 4242
+	g.awareness = 1.0
+	g.send_event("target_spotted")
+	var health_before := car.health
+	var player_hp_before := player.health.health
+	# Collect the shots from the weapon itself: shots_fired counts bursts, and the car is hit by
+	# the very first round, so a delta-based count reads 0.
+	var shots: Array = []
+	g.weapon.fired.connect(func(s): shots.append(s))
+	var t := 0.0
+	var target_is_car := false
+	while t < 8.0 and car.health >= health_before:
+		await frames(1)
+		t += 1.0 / HZ
+		target_is_car = target_is_car or g.target is Vehicle
+	check(target_is_car, "the gunman's target IS the vehicle (not PlayerController)")
+	check(car.health < health_before, "gunfire damaged the VEHICLE (%.0f -> %.0f HP)" % [health_before, car.health])
+	check(shots.size() > 0, "the gunman fired at the car (%d rounds)" % shots.size())
+	var at_car := shots.filter(
+		func(s):
+			var body := s.get("hit_body") as Node
+			var pos: Vector3 = s.get("hit_position", Vector3.ZERO)
+			return body == car or pos.distance_to(car.global_position) < 3.0)
+	check(at_car.size() > 0, "his rounds land ON the car (%d of %d within 3 m)" % [at_car.size(), shots.size()])
+	check(is_equal_approx(player.health.health, player_hp_before),
+		"the hidden driver took NO damage through the bodywork (%.0f HP)" % player.health.health)
+	# TD-015 R3: a hit on the driver's window DOES hurt him, by the configured fraction.
+	var split := VehicleTargeting.split_damage(car, VehicleTargeting.car_points(car)[0], 100.0)
+	check(is_equal_approx(float(split["driver"]), 100.0 * car.data.driver_window_fraction),
+		"a driver-window hit transfers %.0f%% to the driver" % (car.data.driver_window_fraction * 100.0))
+	check(split["channel"] == VehicleTargeting.CHANNEL_DRIVER, "window hits are reported as 'driver'")
+	var body_split := VehicleTargeting.split_damage(car, car.global_position + Vector3(0, 0.2, -4.0), 100.0)
+	check(is_equal_approx(float(body_split["driver"]), 0.0), "a body hit transfers nothing to the driver")
+	# A wrecked car no longer shields its driver: the window channel closes with the car.
+	car.health = 0.0
+	var dead_split := VehicleTargeting.split_damage(car, VehicleTargeting.car_points(car)[0], 100.0)
+	check(is_equal_approx(float(dead_split["driver"]), 0.0), "a wrecked car transfers nothing to the driver")
+	car.health = health_before
+	# Shooting the car pushed it (physics), so stop it the way a player would before leaving.
+	car.set_controls(0.0, 1.0, 0.0)
+	await wait_until(func(): return absf(car.forward_speed) < car.data.exit_max_speed, 4.0)
+	car.set_controls(0.0, 0.0, 0.0)
+	# R4: getting out makes him a person again.
+	var exit_free := car.is_exit_free(&"SOCKET_Exit_Left") or car.is_exit_free(&"SOCKET_Exit_Right")
+	check(exit_free, "an exit socket is free (gunman at %.1f m, car at %.1f m)" % [g.global_position.distance_to(car.global_position) if g else -1.0, car.global_position.length()])
+	check(car.request_exit(), "exit accepted")
+	await seconds(car.exit_duration() + 0.6)   # exit CLIP + the player's two-frame re-arm
+	check(player.vehicle == null, "Jason left the seat")
+	var resolved_after := VehicleTargeting.resolve(player)
+	check(resolved_after == player, "on foot the target is the player again (R4)")
+	g.awareness = 1.0
+	await frames(10)
+	await wait_until(func(): return g.target == player, 3.0)
+	check(g.target == player, "the gunman re-targets the player after he got out")
+	car.queue_free()
+	await teardown()
+
+
 # --- fixture -------------------------------------------------------------------
 var scene: Node
 var player: PlayerController
@@ -82,6 +183,20 @@ func teleport(pos: Vector3) -> void:
 	player.global_position = pos
 	player.velocity = Vector3.ZERO
 	await frames(1)
+
+## Hitbox by zone name. T-GP-04: the zones hang on BoneAttachment3D nodes, so they are NOT
+## children of the Hitboxes node any more - look them up in the set instead.
+func zone_hitbox(n: NPCController, zone_name: String) -> Hitbox:
+	for h in n.hitboxes.hitboxes:
+		if String(h.name) == zone_name:
+			return h
+	return null
+
+
+func zone_shape(n: NPCController, zone_name: String) -> Node3D:
+	var h := zone_hitbox(n, zone_name)
+	return h.get_node("Shape") as Node3D if h != null else null
+
 
 func npc(n: String) -> NPCController:
 	return ai.get_node(n) as NPCController
@@ -122,6 +237,8 @@ func _run_all() -> void:
 	await test_shared_resources_independent()
 	await test_civilians_route_and_flee()
 	await test_data_driven_table()
+	test_vehicle_targeting_rules()
+	await test_incar_targeting()
 	if failures.is_empty():
 		print("[GPTEST] RESULT: PASS")
 		quit(0)
@@ -225,12 +342,18 @@ func test_scene_contract() -> void:
 	check(path.size() >= 2 and Vector2(path[-1].x, path[-1].z).distance_to(Vector2(-5, 12)) < 0.6, "nav path around the cover walls (%d points)" % path.size())
 	var hb := g1.hitboxes.hitboxes
 	var zones := hb.map(func(h): return h.zone)
-	check(hb.size() == 5 and zones.count(Hitbox.Zone.HEAD) == 1 and zones.count(Hitbox.Zone.BODY) == 1 and zones.count(Hitbox.Zone.LIMB) == 3
-		and hb.all(func(h): return h.collision_layer == 16 and h.get_receiver() == g1.health), "NPC hitboxes head/body/4 limbs... 5 zones on layer 5 -> its DamageReceiver")
+	# T-GP-04: 7 zones (head, chest + hips, 2 arms, 2 legs), each on its own bone.
+	var counts := g1.hitboxes.zone_counts()
+	check(hb.size() == 7 and counts["head"] == 1 and counts["body"] == 2 and counts["limb"] == 4
+		and hb.all(func(h): return h.collision_layer == 16 and h.get_receiver() == g1.health),
+		"NPC hitboxes head + body/hips + 2 arms + 2 legs = %d zones on layer 5 -> its DamageReceiver" % hb.size())
+	check(g1.hitboxes.mode == "bone" and hb.all(func(h): return h.get_parent() is BoneAttachment3D),
+		"every NPC hitbox follows its bone (BoneAttachment3D, T-GP-04)")
 	check(g1.collision_layer == 4 and g1.get_node("CollisionShape3D").shape is CylinderShape3D, "NPC body on layer 3 Characters, cylinder (TD-011)")
 	check(g1.weapon != null and g1.weapon.data.id == "WPN_Pistol_01" and npc("Civilian_1").weapon == null, "gunman armed with WeaponData pistol, civilian unarmed")
 	check(gs.all(func(g): return g.get_state() == "idle"), "gunmen idle while the player is far away")
-	check(player.health != null and player.hitboxes != null and player.get_self_rids().size() == 6, "player has Health + 5 hitboxes, excluded from own shots/crosshair")
+	check(player.health != null and player.hitboxes != null and player.get_self_rids().size() == 8,
+		"player has Health + 7 bone hitboxes, excluded from own shots/crosshair (%d rids)" % player.get_self_rids().size())
 	await teardown()
 
 func test_detection_within_2s() -> void:
@@ -241,7 +364,14 @@ func test_detection_within_2s() -> void:
 	var t0 := _frames
 	var spotted := {}
 	for g in gunmen():
-		g.state_changed.connect(func(f, to, e): if e == "target_spotted" and not spotted.has(g.name): spotted[g.name] = (_frames - t0) / HZ)
+		# Multi-line instead of a one-line "if x: y" lambda body: identical in GDScript, but
+		# gdtoolkit's parser rejects the one-line form (false positive), and a test file that
+		# trips the formatter hides real parse errors in the output.
+		g.state_changed.connect(
+			func(f, to, e):
+				if e == "target_spotted" and not spotted.has(g.name):
+					spotted[g.name] = (_frames - t0) / HZ
+		)
 	await teleport(OPEN_SPOT)
 	await wait_until(func(): return spotted.size() == 3, 3.0)
 	var times := spotted.values()
@@ -311,7 +441,7 @@ func test_cover_selection_and_cycle() -> void:
 	check(c != null and c.global_position.z > 24.0, "chosen cover is on the far side of a wall from the player")
 	var hid: float = await wait_until(func(): return g.cover_phase == "hide", 3.0)
 	await frames(2)
-	var head := g.hitboxes.get_node("Hitbox_Head") as Hitbox
+	var head := zone_hitbox(g, "Hitbox_Head")
 	var head_pos := (head.get_node("Shape") as Node3D).global_position
 	var q := PhysicsRayQueryParameters3D.create(eye, head_pos, 1 | 16, player.get_self_rids())
 	q.collide_with_areas = true
@@ -411,7 +541,7 @@ func test_enemy_dies_after_hits() -> void:
 	# From 3.4 m behind (outside the view cone): first hit makes it engage.
 	await teleport(g.global_position + Vector3(0, 0, 3.4))
 	await frames(5)
-	var body := (g.hitboxes.get_node("Hitbox_Body/Shape") as Node3D).global_position
+	var body := zone_shape(g, "Hitbox_Body").global_position
 	var s := player_shoot_at(body)
 	var info: DamageInfo = s.get("damage")
 	check(info != null and info.zone == Hitbox.Zone.BODY and approx(g.health.health, 100.0 - info.amount, 0.01), "body hit on NPC: %.1f dmg via its hitbox -> DamageReceiver" % [info.amount if info else -1.0])
@@ -422,9 +552,9 @@ func test_enemy_dies_after_hits() -> void:
 	var n := 1
 	while not g.is_dead() and n < 10:
 		await frames(13)
-		body = (g.hitboxes.get_node("Hitbox_Body/Shape") as Node3D).global_position
+		body = zone_shape(g, "Hitbox_Body").global_position
 		if g.is_crouched:
-			body = (g.hitboxes.get_node("Hitbox_Head/Shape") as Node3D).global_position
+			body = zone_shape(g, "Hitbox_Head").global_position
 		s = player_shoot_at(body)
 		if s.get("damage") != null:
 			n += 1

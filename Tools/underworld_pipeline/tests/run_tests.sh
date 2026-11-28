@@ -10,6 +10,8 @@
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$HERE/../../.." && pwd)"
+# shellcheck source=/dev/null
+. "$REPO/Tests/lib/godot_errors.sh"
 UWP="$REPO/Tools/uwp"
 BLENDER="${BLENDER:-/workspace/tools/blender/blender}"
 GODOT="${GODOT:-/workspace/tools/godot}"
@@ -51,6 +53,36 @@ rc=$(run_uwp "$T/logs/hum_back.log" validate "$T/src/PT_UWP_HumanoidBack.blend" 
 expect_rc "validate PT_UWP_HumanoidBack (faces +Y, must fail FRONT_AXIS)" 1 "$rc" "$T/logs/hum_back.log"
 rc=$(run_uwp "$T/logs/strict.log" validate "$REPO/Blender/Source/Test/PT_PipelineTest_Crate.blend" --strict --report "$T/out/strict.json")
 expect_rc "validate --strict (warnings become errors)" 1 "$rc" "$T/logs/strict.log"
+# B-PT-01 (T-BUILD-02): render-mesh trimesh collision with a 4 mm paint stripe = a wall the
+# player's cylinder snags on. The exporter must refuse it; an authored flat UCX_ slab passes.
+rc=$(run_uwp "$T/logs/lip.log" export "$T/src/PT_UWP_LipFloor.blend" --category Environment --no-preview --out "$T/out/lip/PT_UWP_LipFloor.glb")
+expect_rc "export PT_UWP_LipFloor (4 mm stripe in trimesh collision, must fail)" 1 "$rc" "$T/logs/lip.log"
+grep -q "COLLISION_MICRO_LIP" "$T/logs/lip.log" && ok "COLLISION_MICRO_LIP reported for the 4 mm stripe" || bad "COLLISION_MICRO_LIP missing in $T/logs/lip.log"
+[ ! -f "$T/out/lip/PT_UWP_LipFloor.glb" ] && ok "no .glb written for the micro-lip floor" || bad "micro-lip floor was exported"
+rc=$(run_uwp "$T/logs/flat.log" export "$T/src/PT_UWP_FlatFloor.blend" --category Environment --no-preview --out "$T/out/flat/PT_UWP_FlatFloor.glb")
+expect_rc "export PT_UWP_FlatFloor (same stripe, authored flat UCX_ slab)" 0 "$rc" "$T/logs/flat.log"
+# T-PIPE-06 release gate (--profile gate = strict + LODs/collision required + TD-012 budgets).
+rc=$(run_uwp "$T/logs/gate_ok.log" export "$T/src/PT_UWP_Barrel.blend" --category Props --profile gate --no-preview --out "$T/out/gate/PT_UWP_Barrel.glb")
+expect_rc "export --profile gate PT_UWP_Barrel (LODs + convex collision)" 0 "$rc" "$T/logs/gate_ok.log"
+rc=$(run_uwp "$T/logs/gate_nolod.log" export "$T/src/PT_UWP_Barrel.blend" --category Props --profile gate --no-lod --no-preview --out "$T/out/gate_nolod/PT_UWP_Barrel.glb")
+expect_rc "export --profile gate --no-lod (release gate requires LODs)" 1 "$rc" "$T/logs/gate_nolod.log"
+grep -q "LOD_MISSING" "$T/logs/gate_nolod.log" && ok "LOD_MISSING reported by the release gate" || bad "LOD_MISSING missing in $T/logs/gate_nolod.log"
+rc=$(run_uwp "$T/logs/hull.log" export "$T/src/PT_UWP_Barrel.blend" --category Props --no-lod --no-preview --out "$T/out/hull/PT_UWP_Barrel.glb")
+python3 - "$T/out/hull/PT_UWP_Barrel.manifest.json" <<'PYH' && ok "convex hull within the 64-vertex budget (was 65)" || bad "convex hull over budget"
+import json, sys
+m = json.load(open(sys.argv[1]))
+v = [c["vertices"] for c in m["collision"]["generated"]]
+print("[TEST] hull vertices", v)
+sys.exit(0 if v and max(v) <= 64 else 1)
+PYH
+# T-PIPE-06 A-13: measured foot sliding is checked against animation.foot_slide_max_m (1 cm).
+mkdir -p "$T/out/slide"
+printf '{"clips": {"A_PT_Walk": {"foot_sliding_m": 0.0486}, "A_PT_Run": {"foot_sliding_m": 0.0}}}' > "$T/out/slide/PT_UWP_Barrel.anim_report.json"
+rc=$(run_uwp "$T/logs/slide_gate.log" export "$T/src/PT_UWP_Barrel.blend" --category Props --profile gate --no-preview --out "$T/out/slide/PT_UWP_Barrel.glb")
+expect_rc "release gate rejects 4.86 cm foot sliding (anim_report)" 1 "$rc" "$T/logs/slide_gate.log"
+grep -q "ANIM_FOOT_SLIDE: A_PT_Walk" "$T/logs/slide_gate.log" && ok "ANIM_FOOT_SLIDE names the clip" || bad "ANIM_FOOT_SLIDE missing in $T/logs/slide_gate.log"
+rc=$(run_uwp "$T/logs/parts.log" validate "$REPO/Blender/Source/Vehicles/VH_Sedan_01/VH_Sedan_01.blend" --report "$T/out/parts.json")
+grep -q "NAME_MESH_PREFIX" "$T/logs/parts.log" && bad "functional part names (Wheel_FL, Door_FL ...) flagged as naming errors" || ok "functional part names are not naming errors (runtime contract)"
 rc=$(run_uwp "$T/logs/missing.log" export "$T/src/Nope.blend" --category Props --out "$T/out/x.glb")
 expect_rc "missing input file" 4 "$rc" "$T/logs/missing.log"
 rc=$(run_uwp "$T/logs/nocat.log" validate "$T/src/PT_UWP_Barrel.blend" --report "$T/out/nocat.json")
@@ -74,6 +106,10 @@ t = m["triangles"]["per_lod_total"]
 check(t["LOD0"] > t["LOD1"] > t["LOD2"] > 0, f"barrel LOD tri totals decrease {t}")
 check(abs(m["aabb_godot"]["min"][1]) < 0.01 and abs(m["aabb_godot"]["size"][1] - 0.94) < 0.01, f"barrel Godot AABB {m['aabb_godot']}")
 check([c["name"] for c in m["collision"]["generated"]] == ["UCX_PT_UWP_Barrel-convcolonly"], "barrel convex collision generated")
+tri = json.load(open(os.path.join(T, "out", "tri", "PT_UWP_Barrel.manifest.json")))
+tri_names = [c["name"] for c in tri["collision"]["generated"]]
+check(tri_names and not any("_LOD" in n for n in tri_names),
+      "trimesh collision is built from LOD0, never a decimated LOD (B-PT-02): %s" % tri_names)
 check(m["textures"] and m["textures"][0]["size"] == [256, 256] and m["textures"][0]["packed"], "barrel texture recorded (256², packed)")
 check("SM_PT_UWP_Barrel_Body" in m.get("texel_density", {}), "barrel texel density recorded in manifest")
 check("SM_PT_UWP_Barrel_Body" in m.get("uv_overlap", {}) and m["uv_overlap"]["SM_PT_UWP_Barrel_Body"]["overlap_fraction"] < 0.05, "barrel UV overlap < 5%")
@@ -111,6 +147,70 @@ tr = J("out/tri/PT_UWP_Barrel.manifest.json")
 check(all(c["name"].endswith("-colonly") for c in tr["collision"]["generated"]) and len(tr["collision"]["generated"]) == 2, "--collision trimesh: one -colonly per mesh")
 sys.exit(1 if fails else 0)
 PY
+[ $? -eq 0 ] || FAILS=$((FAILS+1))
+
+echo "== [4b] pure-numpy unit checks (no Blender)"
+# procedural_assets.py needs numpy only (no bpy). The system python3 here has no numpy, the
+# Blender-bundled interpreter does, so prefer that one.
+NUMPY_PY="${NUMPY_PY:-}"
+if [ -z "$NUMPY_PY" ]; then
+  # A bpy-wheel `blender` shim (Tools/sandbox/bootstrap_*.sh) is a Python script: its shebang
+  # interpreter is the venv that holds bpy + numpy.
+  SHIM_PY=""
+  _bl="$(readlink -f "${BLENDER:-/workspace/tools/blender/blender}" 2>/dev/null || true)"
+  if [ -n "$_bl" ] && head -c2 "$_bl" 2>/dev/null | grep -q '#!'; then
+    SHIM_PY="$(head -1 "$_bl" | sed 's/^#!//' | awk '{print $1}')"
+  fi
+  for c in /workspace/tools/blender/*/python/bin/python3* $SHIM_PY /opt/uwtools/venv/bin/python /usr/local/venv/bin/python python3; do
+    [ -x "$c" ] || continue
+    "$c" -c "import numpy" 2>/dev/null && { NUMPY_PY="$c"; break; }
+  done
+fi
+[ -n "$NUMPY_PY" ] || { bad "no python with numpy found for unit checks"; NUMPY_PY=python3; }
+"$NUMPY_PY" - "$REPO" <<'PYUNIT'
+import os, sys, numpy as np
+repo = sys.argv[1]
+here = os.path.join(repo, "Tools", "underworld_pipeline", "characters")
+sys.path.insert(0, os.path.join(repo, "Tools", "underworld_pipeline"))
+sys.path.insert(0, here)
+import importlib.util
+spec = importlib.util.spec_from_file_location("proc", os.path.join(here, "procedural_assets.py"))
+proc = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(proc)
+
+fails = 0
+def check(cond, what):
+    global fails
+    print(("[TEST][PASS] " if cond else "[TEST][FAIL] ") + what)
+    if not cond:
+        fails += 1
+
+# Skin-space lip mask (SK_NPC_Sam landmarks, metres). Regression: np.clip(t, 0, 1) saturates at 1,
+# so a clipped parameter turned every point above the lip into a full-strength mask and the whole
+# face was painted in lip colour.
+MZ, UP, LO = 1.6552, 1.6662, 1.6477
+m = lambda x, z: float(proc.lip_mask(np.array([x]), np.array([z]), MZ, UP, LO)[0])
+check(0.95 <= m(0.008, MZ) <= 1.0, "lip_mask: full strength at the opening")
+check(m(0.008, UP + 0.002) == 0.0, "lip_mask: zero above the upper vermilion border")
+check(m(0.008, LO - 0.002) == 0.0, "lip_mask: zero below the lower vermilion border")
+check(m(0.0, 1.69) == 0.0 and m(0.0, 1.61) == 0.0, "lip_mask: zero on forehead and chin")
+# cos(pi/2) is 6e-17, not exactly 0, so "outside" needs a tolerance - a real value there
+# would be >= 0.1, not 1e-9.
+check(m(0.05, MZ) <= 1e-6 and m(0.05, 1.6600) <= 1e-6, "lip_mask: zero outside the mouth width")
+check(0.0 < m(0.008, (MZ + UP) * 0.5) < 1.0, "lip_mask: partial on the upper lip body")
+Z, X = np.meshgrid(np.linspace(1.60, 1.71, 300), np.linspace(-0.06, 0.06, 300), indexing="ij")
+grid = proc.lip_mask(X, Z, MZ, UP, LO)
+check(not np.isnan(grid).any(), "lip_mask: NaN-free over the whole face box")
+# Texture-resolution float32 regression: cos(pi/2 * 1.0) is -1e-17 in float32, and a negative base
+# to a fractional power is NaN - which silently turned ~90 % of the skin maps black.
+Zf, Xf = np.meshgrid(np.linspace(1.60, 1.71, 1024, dtype=np.float32),
+                     np.linspace(-0.06, 0.06, 1024, dtype=np.float32), indexing="ij")
+gf = proc.lip_mask(Xf, Zf, np.float32(MZ), np.float32(UP), np.float32(LO))
+check(int(np.isnan(gf).sum()) == 0, "lip_mask: NaN-free in float32 at texture resolution")
+check(0.01 < float((gf > 0.05).mean()) < 0.12, "lip_mask: float32 coverage unchanged (2-12%)")
+check(0.01 < float((grid > 0.05).mean()) < 0.12, "lip_mask: covers the lips only (2-12% of the face box)")
+sys.exit(1 if fails else 0)
+PYUNIT
 [ $? -eq 0 ] || FAILS=$((FAILS+1))
 
 echo "== [5] Blender re-import verification"
@@ -155,8 +255,9 @@ if [ $NO_GODOT -eq 0 ] && [ -x "$GODOT" ]; then
   n=$(grep -c '^\[UWP-GODOT\]' "$T/logs/godot_import1.log")
   [ "$n" -eq 4 ] && ok "LOD post-import script ran for 4 .glb files" || bad "LOD post-import script ran $n times (expected 4)"
   grep -E '^\[UWP-GODOT\]' "$T/logs/godot_import1.log"
-  if [ $rc -ne 0 ] || grep -qE '^(ERROR|SCRIPT ERROR|USER ERROR):' "$T/logs/godot_import1.log"; then
-    bad "Godot import (rc=$rc)"; grep -E -A2 '^(ERROR|SCRIPT ERROR|USER ERROR):' "$T"/logs/godot_import*.log | head -20
+  ierrs="$(godot_log_errors "$T/logs/godot_import1.log")"
+  if [ $rc -ne 0 ] || [ -n "$ierrs" ]; then
+    bad "Godot import (rc=$rc)"; echo "$ierrs" | head -20
   else ok "Godot import, no errors"; fi
   cat > "$G/expect.json" <<'JSON'
 {"assets": [
@@ -185,6 +286,115 @@ JSON
 else
   echo "== [6] Godot check skipped"
 fi
+
+echo "== [7] review-sheet (system Python / Pillow, no Blender)"
+# The fixture needs Pillow too: CI runners have no system Pillow (T-QA-01 run #2).
+PIL_PY=""
+for c in "${UWP_PYTHON:-}" python3 $SHIM_PY /opt/uwtools/venv/bin/python; do
+  [ -n "$c" ] && "$c" -c "import PIL" 2>/dev/null && { PIL_PY="$c"; break; }
+done
+[ -n "$PIL_PY" ] || { bad "no python with Pillow for the review-sheet fixture"; PIL_PY=python3; }
+T="$T" "$PIL_PY" -c "
+from PIL import Image, ImageDraw
+import os
+t = os.environ['T']
+def mk(path, color, text):
+    im = Image.new('RGB', (200, 160), color)
+    ImageDraw.Draw(im).text((10, 70), text, fill=(255, 255, 255))
+    im.save(path)
+mk(t + '/ref_sheet.png', (20, 80, 160), 'REF')
+mk(t + '/ren_a.png', (160, 40, 40), 'REN-A')
+mk(t + '/ren_b.png', (40, 140, 60), 'REN-B')
+"
+"$REPO/Tools/uwp" review-sheet PT_UWP_Sheet \
+  --ref "$T/ref_sheet.png" \
+  --renders "$T/ren_a.png" "$T/ren_b.png" \
+  --out "$T/out/review_sheet.png" \
+  --title PT_UWP_Sheet > "$T/logs/review_sheet.log" 2>&1
+rc=$?
+expect_rc "uwp review-sheet PT_UWP_Sheet" 0 "$rc" "$T/logs/review_sheet.log"
+if [ -f "$T/out/review_sheet.png" ]; then ok "review-sheet PNG written"; else bad "review-sheet PNG missing"; fi
+
+echo "== [8] content catalogue (P1, T-DATA-01; plain Python, no Blender)"
+rc=$(run_uwp "$T/logs/catalog_check.log" catalog check)
+expect_rc "uwp catalog check (repo catalogue <-> combat.json <-> Assets/)" 0 "$rc" "$T/logs/catalog_check.log"
+rc=$(run_uwp "$T/logs/catalog_status.log" catalog status --out "$T/out/CATALOG_STATUS.md")
+expect_rc "uwp catalog status" 0 "$rc" "$T/logs/catalog_status.log"
+grep -q "| WPN_Pistol_01 | weapon | WIP |" "$T/out/CATALOG_STATUS.md" 2>/dev/null && ok "status report lists the pistol as WIP" || bad "status report incomplete ($T/out/CATALOG_STATUS.md)"
+rc=$(run_uwp "$T/logs/catalog_build.log" catalog build --milestone P5 --dry-run)
+expect_rc "uwp catalog build --milestone P5 --dry-run" 0 "$rc" "$T/logs/catalog_build.log"
+grep -q "RUN\] build-weapon Config/Weapons/WPN_Pistol_01.json" "$T/logs/catalog_build.log" && grep -q "RUN\] build-weapons --only WPN_SMG_01" "$T/logs/catalog_build.log" \
+  && grep -q "SKIP\] VH_Motorcycle_01: spec" "$T/logs/catalog_build.log" \
+  && ok "build plans pistol + grammar weapons and skips vehicles without a spec" || bad "catalog build plan wrong ($T/logs/catalog_build.log)"
+# Negative: a sabotaged catalogue must fail with the right reasons.
+python3 - "$REPO/Config/Content/catalog.json" "$T/out/catalog_bad.json" <<'PYEOF'
+import json, sys
+c = json.load(open(sys.argv[1]))
+c["entries"] = [e for e in c["entries"] if e["id"] not in ("WPN_SMG_01", "SK_NPC_Kings_B")]  # combat refs dangle
+c["entries"].append(dict(c["entries"][0]))                                                     # duplicate id
+for e in c["entries"]:
+    if e["id"] == "VH_Plane_Small_01":
+        e["status"] = "WIP"; e["asset"] = "Assets/Vehicles/VH_Plane_Small_01/VH_Plane_Small_01.glb"              # claims a file that is not there
+    if e["id"] == "SM_LA_Hydrant":
+        e["status"] = "PRODUCTION-READY"                                                        # no review record
+json.dump(c, open(sys.argv[2], "w"))
+PYEOF
+rc=$(run_uwp "$T/logs/catalog_bad.log" catalog --catalog "$T/out/catalog_bad.json" check)
+expect_rc "uwp catalog check on a sabotaged catalogue (must fail)" 1 "$rc" "$T/logs/catalog_bad.log"
+for pat in "asset WPN_SMG_01 not in catalogue" "model SK_NPC_Kings_B not in catalogue" "duplicate id SK_Jason" "VH_Plane_Small_01: asset Assets/Vehicles/VH_Plane_Small_01/VH_Plane_Small_01.glb does not exist" "SM_LA_Hydrant: PRODUCTION-READY without a review record"; do
+  grep -qF "$pat" "$T/logs/catalog_bad.log" && ok "catalogue error reported: $pat" || bad "catalogue error missing: $pat"
+done
+# Negative: a .glb on disk that nobody catalogued.
+mkdir -p "$T/catrepo/Assets/Props/SM_Stray" "$T/catrepo/Config/Content" "$T/catrepo/GodotProject/Data/Content"
+: > "$T/catrepo/Assets/Props/SM_Stray/SM_Stray.glb"
+echo '{"entries": []}' > "$T/catrepo/Config/Content/catalog.json"
+echo '{"weapons": {}, "armor": {}, "factions": {}}' > "$T/catrepo/GodotProject/Data/Content/combat.json"
+rc=$(run_uwp "$T/logs/catalog_stray.log" catalog --repo "$T/catrepo" check)
+expect_rc "uwp catalog check with an uncatalogued .glb (must fail)" 1 "$rc" "$T/logs/catalog_stray.log"
+grep -qF "uncatalogued asset on disk: Assets/Props/SM_Stray/SM_Stray.glb" "$T/logs/catalog_stray.log" && ok "uncatalogued .glb reported" || bad "uncatalogued .glb not reported"
+
+echo "== [9] prop generator (P2, T-PROP-01): build -> release gate, without network"
+# Synthetic 16 px texture cache for every library set, so CI needs no Poly Haven download.
+"$PIL_PY" - "$REPO/Tools/underworld_pipeline/props/kit.py" "$T/propcache/textures" <<'PYEOF'
+import re, sys, os
+ids = sorted(set(re.findall(r'\(\s*"([a-z0-9_]+)",\s*\(', open(sys.argv[1]).read())))
+from PIL import Image
+for i in ids:
+    d = os.path.join(sys.argv[2], i); os.makedirs(d, exist_ok=True)
+    for ch, col in (("diff", (128, 120, 110)), ("nor_gl", (128, 128, 255)), ("rough", (180, 180, 180)), ("ao", (230, 230, 230))):
+        Image.new("RGB", (16, 16), col).save(os.path.join(d, f"{i}_{ch}_1k.png"))
+print(len(ids), "sets")
+PYEOF
+mkdir -p "$T/proprepo"
+UWP_CACHE="$T/propcache" "$UWP" build-props --repo "$T/proprepo" --only SM_LA_Hydrant,SM_LA_StreetSign,SM_Prop_Vest_Heavy > "$T/logs/props_build.log" 2>&1
+expect_rc "uwp build-props (hydrant, street sign with label atlas, plate carrier)" 0 $? "$T/logs/props_build.log"
+for a in Environment/LA/SM_LA_Hydrant Environment/LA/SM_LA_StreetSign Props/SM_Prop_Vest_Heavy; do
+  n="$(basename "$a")"
+  rc=$(run_uwp "$T/logs/props_gate_$n.log" export "$T/proprepo/Blender/Source/$a/$n.blend" --category "${a%/*}" --profile gate --no-preview --out "$T/out/props/$n/$n.glb")
+  expect_rc "generated $n passes the release gate (LODs, collision, POT textures)" 0 "$rc" "$T/logs/props_gate_$n.log"
+done
+UWP_CACHE="$T/propcache" "$UWP" build-buildings --repo "$T/proprepo" --only SM_LA_Bldg_LiquorStore,SM_LA_Bldg_Hangar > "$T/logs/bldg_build.log" 2>&1
+expect_rc "uwp build-buildings (liquor store: openings, bars, awning; hangar: barrel vault)" 0 $? "$T/logs/bldg_build.log"
+for n in SM_LA_Bldg_LiquorStore SM_LA_Bldg_Hangar; do
+  rc=$(run_uwp "$T/logs/bldg_gate_$n.log" export "$T/proprepo/Blender/Source/Environment/LA/$n/$n.blend" --category Environment/LA --profile gate --no-preview --out "$T/out/props/$n/$n.glb")
+  expect_rc "generated $n passes the release gate (<= 8 materials, LODs, collision)" 0 "$rc" "$T/logs/bldg_gate_$n.log"
+done
+# build-weapons writes into --repo (it reads combat.json there): build into a scratch copy instead
+mkdir -p "$T/wpnrepo/GodotProject/Data/Content" && cp "$REPO/GodotProject/Data/Content/combat.json" "$T/wpnrepo/GodotProject/Data/Content/"
+UWP_CACHE="$T/propcache" "$UWP" build-weapons --repo "$T/wpnrepo" --only WPN_Rifle_01,WPN_Revolver_01 > "$T/logs/wpn_build.log" 2>&1
+expect_rc "uwp build-weapons (rifle: 5 parts + rig; revolver: cylinder + hammer)" 0 $? "$T/logs/wpn_build.log"
+for n in WPN_Rifle_01 WPN_Revolver_01; do
+  rc=$(run_uwp "$T/logs/wpn_gate_$n.log" export "$T/wpnrepo/Blender/Source/Weapons/$n/$n.blend" --category Weapons --profile gate --no-preview --out "$T/out/wpn/$n/$n.glb")
+  expect_rc "generated $n passes the release gate (sockets, LODs, collision)" 0 "$rc" "$T/logs/wpn_gate_$n.log"
+done
+grep -q '"A_WPN_Rifle_01_Reload"' "$T/out/wpn/WPN_Rifle_01/WPN_Rifle_01.manifest.json" 2>/dev/null && grep -q 'SOCKET_Muzzle' "$T/out/wpn/WPN_Rifle_01/WPN_Rifle_01.manifest.json" \
+  && ok "rifle manifest has SOCKET_Muzzle + A_WPN_Rifle_01_Reload" || bad "rifle manifest misses socket/clip"
+grep -q "T_Prop_LA_StreetSign_Labels_D" "$T/out/props/SM_LA_StreetSign/SM_LA_StreetSign.manifest.json" 2>/dev/null \
+  && ok "street sign labels packed into one atlas texture" || bad "label atlas missing in SM_LA_StreetSign manifest"
+# Negative: no texture cache -> loud failure, never silent grey materials.
+UWP_CACHE="$T/propcache_empty" "$UWP" build-props --repo "$T/proprepo" --only SM_LA_Hydrant > "$T/logs/props_nocache.log" 2>&1
+rc=$?
+[ $rc -ne 0 ] && grep -q "CC0 texture sets missing" "$T/logs/props_nocache.log" && ok "build-props without texture cache fails loudly" || bad "build-props without cache did not fail (rc $rc)"
 
 echo "logs: $T/logs"
 if [ $FAILS -eq 0 ]; then echo "UWP TESTS: PASS"; exit 0; else echo "UWP TESTS: FAIL ($FAILS)"; exit 1; fi

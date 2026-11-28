@@ -1,0 +1,328 @@
+{
+  "asset": "SM_LA_Bldg_Apartment4F",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_Bldg_Apartment4F/SM_LA_Bldg_Apartment4F.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_Bldg_Apartment4F/SM_LA_Bldg_Apartment4F.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_Bldg_Apartment4F/SM_LA_Bldg_Apartment4F_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -8.18,
+      0.0,
+      -6.18
+    ],
+    "max": [
+      8.18,
+      16.7,
+      7.21
+    ],
+    "size": [
+      16.36,
+      16.7,
+      13.39
+    ]
+  },
+  "triangles": {
+    "lod0": 3864,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 3864,
+      "LOD1": 1932,
+      "LOD2": 966
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_LA_Bldg_Apartment4F_Mesh",
+      "levels": [
+        {
+          "name": "SM_LA_Bldg_Apartment4F_Mesh",
+          "level": 0,
+          "triangles": 3864
+        },
+        {
+          "name": "SM_LA_Bldg_Apartment4F_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 1932
+        },
+        {
+          "name": "SM_LA_Bldg_Apartment4F_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 966
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_LA_Bldg_Apartment4F_00-convcolonly"
+    ],
+    "micro_lips": 0
+  },
+  "materials": [
+    "M_Prop_Brick",
+    "M_Prop_Concrete",
+    "M_Prop_LA_Bldg_Apartment4F_Labels",
+    "M_Prop_MetalDark",
+    "M_Prop_PaintGreen",
+    "M_Prop_RoofGravel",
+    "M_Prop_WindowGlass",
+    "M_Prop_Wood"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Brick_D",
+      "material": "M_Prop_Brick",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_0d8prraa/T_Prop_Brick_D.jpg"
+    },
+    {
+      "image": "T_Prop_Brick_ORM",
+      "material": "M_Prop_Brick",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_c9cyy0pi/T_Prop_Brick_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Brick_N",
+      "material": "M_Prop_Brick",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_m6vl6mu8/T_Prop_Brick_N.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_D",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_00_s_tpf/T_Prop_Concrete_D.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_ORM",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_yti2ewdq/T_Prop_Concrete_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_N",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_1l8vmvzb/T_Prop_Concrete_N.jpg"
+    },
+    {
+      "image": "T_Prop_LA_Bldg_Apartment4F_Labels_D",
+      "material": "M_Prop_LA_Bldg_Apartment4F_Labels",
+      "size": [
+        512,
+        128
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_1mn6j465/T_Prop_LA_Bldg_Apartment4F_Labels_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_D",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_kwu9k718/T_Prop_MetalDark_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_ORM",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_71wklxmz/T_Prop_MetalDark_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_N",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_otlcj5ep/T_Prop_MetalDark_N.jpg"
+    },
+    {
+      "image": "T_Prop_PaintGreen_D",
+      "material": "M_Prop_PaintGreen",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_fw8xi_c0/T_Prop_PaintGreen_D.jpg"
+    },
+    {
+      "image": "T_Prop_PaintGreen_ORM",
+      "material": "M_Prop_PaintGreen",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_wyve40bm/T_Prop_PaintGreen_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_PaintGreen_N",
+      "material": "M_Prop_PaintGreen",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_1bo5zk7i/T_Prop_PaintGreen_N.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_D",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_s6txwsv_/T_Prop_RoofGravel_D.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_ORM",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_skczmnbl/T_Prop_RoofGravel_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_N",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_qxbjznp7/T_Prop_RoofGravel_N.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_D",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_aine5j69/T_Prop_WindowGlass_D.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_ORM",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_yy8w5jvh/T_Prop_WindowGlass_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_N",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_uoiqo0_1/T_Prop_WindowGlass_N.jpg"
+    },
+    {
+      "image": "T_Prop_Wood_D",
+      "material": "M_Prop_Wood",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ahy3e638/T_Prop_Wood_D.jpg"
+    },
+    {
+      "image": "T_Prop_Wood_ORM",
+      "material": "M_Prop_Wood",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_4s0yecdx/T_Prop_Wood_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Wood_N",
+      "material": "M_Prop_Wood",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_rbe4djrx/T_Prop_Wood_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_LA_Bldg_Apartment4F_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 256.0,
+      "p10_px_per_m": 256.0,
+      "p90_px_per_m": 512.0
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_Bldg_Apartment4F_Mesh_LOD1",
+    "SM_LA_Bldg_Apartment4F_Mesh_LOD2",
+    "SM_LA_Bldg_Apartment4F_Mesh",
+    "UCX_SM_LA_Bldg_Apartment4F_00-convcolonly",
+    "SM_LA_Bldg_Apartment4F"
+  ],
+  "glb_bytes": 2287352
+}

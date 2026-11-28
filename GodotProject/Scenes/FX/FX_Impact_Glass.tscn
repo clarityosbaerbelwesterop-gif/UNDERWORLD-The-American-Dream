@@ -1,0 +1,68 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/fx/fx_effect.gd" id="1_i1nnq"]
+
+[sub_resource type="Gradient" id="Gradient_aqk83"]
+offsets = PackedFloat32Array(0, 1, 0.4)
+colors = PackedColorArray(0.75, 0.88, 0.95, 0.9, 0.75, 0.88, 0.95, 0, 0.75, 0.88, 0.95, 0.8)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_usoay"]
+gradient = SubResource("Gradient_aqk83")
+
+[sub_resource type="Curve" id="Curve_gg8or"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_6i3t4"]
+curve = SubResource("Curve_gg8or")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_56n1b"]
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, 0, 1)
+spread = 55.0
+initial_velocity_min = 1.5
+initial_velocity_max = 4.0
+angular_velocity_min = -40.0
+angular_velocity_max = 40.0
+damping_max = 0.2
+scale_min = 0.03
+scale_max = 0.037499998
+scale_curve = SubResource("CurveTexture_6i3t4")
+color_ramp = SubResource("GradientTexture1D_usoay")
+
+[sub_resource type="Gradient" id="Gradient_y474b"]
+offsets = PackedFloat32Array(0, 1, 0.55)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ekg7u"]
+gradient = SubResource("Gradient_y474b")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rpylu"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_ekg7u")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_o5hdk"]
+material = SubResource("StandardMaterial3D_rpylu")
+
+[node name="FX_Impact_Glass" type="Node3D" unique_id=1510416282]
+script = ExtResource("1_i1nnq")
+
+[node name="Shards" type="GPUParticles3D" parent="." unique_id=940581201]
+emitting = false
+amount = 16
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+visibility_aabb = AABB(-6, -6, -6, 12, 12, 12)
+process_material = SubResource("ParticleProcessMaterial_56n1b")
+draw_pass_1 = SubResource("QuadMesh_o5hdk")

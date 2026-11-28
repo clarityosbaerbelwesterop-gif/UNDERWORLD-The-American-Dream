@@ -113,6 +113,39 @@ POLYHAVEN_TEXTURES = {
         "corrugated_iron",
         "bark_brown_02",
     ],
+    # P2/T-PROP-01 prop material library (Tools/underworld_pipeline/props/matlib.py), all CC0.
+    "props": [
+        "asphalt_02",
+        "concrete_pavement",
+        "dirty_concrete",
+        "metal_plate",
+        "rusty_metal_02",
+        "green_metal_rust",
+        "blue_metal_plate",
+        "corrugated_iron",
+        "wood_planks",
+        "worn_planks",
+        "plywood",
+        "rubber_tiles",
+        "fabric_pattern_07",
+        "denim_fabric_04",
+        "fabric_leather_02",
+        "forest_leaves_02",
+        "bark_brown_02",
+    ],
+    # P3/T-BLDG-01 building grammar (props/buildings.py), all CC0.
+    "buildings": [
+        "plastered_wall",
+        "red_brick_03",
+        "concrete_wall_008",
+        "white_plaster_02",
+        "clay_roof_tiles_02",
+        "gravel_concrete",
+        "corrugated_iron",
+        "metal_plate",
+        "concrete_pavement",
+        "wood_planks",
+    ],
 }
 
 

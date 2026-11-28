@@ -2,8 +2,9 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.2.4 LTS",
-  "timestamp": "2026-11-22T12:13:20+01:00",
+  "timestamp": "2026-11-24T11:49:20+00:00",
   "command": "export",
+  "profile": "gate",
   "input": "Blender/Source/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.blend",
   "steps": {
     "validate": {
@@ -12,19 +13,17 @@
     },
     "lods": [],
     "collision": {
-      "mode": "trimesh",
-      "generated": [
-        {
-          "name": "UCX_SM_LA_Road_Straight_Mesh-colonly",
-          "vertices": 40,
-          "triangles": 60
-        }
+      "mode": "authored",
+      "generated": [],
+      "existing": [
+        "UCX_SM_LA_Road_Straight-colonly"
       ],
-      "existing": []
+      "micro_lips": 0
     },
+    "foot_slide": null,
     "export": {
       "glb": "Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.glb",
-      "bytes": 851428
+      "bytes": 937848
     },
     "preview": "Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight_preview.png",
     "manifest": "Assets/Environment/LA/SM_LA_Road_Straight/SM_LA_Road_Straight.manifest.json",
@@ -32,7 +31,7 @@
       "glb": {
         "nodes": [
           "SM_LA_Road_Straight_Mesh",
-          "UCX_SM_LA_Road_Straight_Mesh-colonly",
+          "UCX_SM_LA_Road_Straight-colonly",
           "SM_LA_Road_Straight"
         ],
         "node_extras": {},
@@ -47,12 +46,12 @@
         "joint_names": [],
         "animations": [],
         "asset_generator": "Khronos glTF Blender I/O v5.2.41",
-        "bytes": 851428
+        "bytes": 937848
       },
       "reimport_objects": [
         "SM_LA_Road_Straight",
         "SM_LA_Road_Straight_Mesh",
-        "UCX_SM_LA_Road_Straight_Mesh-colonly"
+        "UCX_SM_LA_Road_Straight-colonly"
       ],
       "reimport_actions": [],
       "problems": []
@@ -79,14 +78,20 @@
       "code": "LOD_SKIP_SMALL",
       "object": "SM_LA_Road_Straight_Mesh",
       "message": "60 tris < lod_min_triangles 64"
+    },
+    {
+      "severity": "info",
+      "code": "COLLISION_AUTHORED",
+      "object": null,
+      "message": "authored collision kept, nothing generated: ['UCX_SM_LA_Road_Straight-colonly']"
     }
   ],
   "summary": {
     "errors": 0,
     "warnings": 0,
-    "infos": 2
+    "infos": 3
   },
-  "seconds": 0.54,
+  "seconds": 0.98,
   "exit_code": 0,
   "result": "PASS"
 }

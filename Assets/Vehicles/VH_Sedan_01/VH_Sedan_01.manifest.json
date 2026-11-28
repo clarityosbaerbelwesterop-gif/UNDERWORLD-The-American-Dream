@@ -30,12 +30,12 @@
     ]
   },
   "triangles": {
-    "lod0": 3382,
+    "lod0": 4694,
     "budget": 60000,
     "per_lod_total": {
-      "LOD0": 3142,
-      "LOD1": 1570,
-      "LOD2": 618
+      "LOD0": 4454,
+      "LOD1": 2226,
+      "LOD2": 879
     }
   },
   "lods": [
@@ -45,19 +45,19 @@
         {
           "name": "Body",
           "level": 0,
-          "triangles": 544
+          "triangles": 528
         },
         {
           "name": "Body_LOD1",
           "level": 1,
           "ratio": 0.5,
-          "triangles": 272
+          "triangles": 264
         },
         {
           "name": "Body_LOD2",
           "level": 2,
           "ratio": 0.2,
-          "triangles": 108
+          "triangles": 105
         }
       ]
     },
@@ -80,6 +80,28 @@
           "level": 2,
           "ratio": 0.2,
           "triangles": 30
+        }
+      ]
+    },
+    {
+      "object": "Interior",
+      "levels": [
+        {
+          "name": "Interior",
+          "level": 0,
+          "triangles": 1328
+        },
+        {
+          "name": "Interior_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 664
+        },
+        {
+          "name": "Interior_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 264
         }
       ]
     },
@@ -271,6 +293,7 @@
     "M_VH_Sedan_01_Chrome",
     "M_VH_Sedan_01_Glass",
     "M_VH_Sedan_01_Headlight",
+    "M_VH_Sedan_01_Interior",
     "M_VH_Sedan_01_Paint",
     "M_VH_Sedan_01_Rim",
     "M_VH_Sedan_01_Taillight",
@@ -281,11 +304,15 @@
   "uv_overlap": {
     "Body": {
       "overlap_fraction": 0.0,
-      "uv_coverage": 0.8392
+      "uv_coverage": 0.6974
     },
     "Cabin": {
       "overlap_fraction": 0.0,
       "uv_coverage": 0.5925
+    },
+    "Interior": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.295
     },
     "Hood": {
       "overlap_fraction": 0.0,
@@ -438,6 +465,9 @@
     "Door_RR_LOD2",
     "Door_RR",
     "Hood",
+    "Interior_LOD1",
+    "Interior_LOD2",
+    "Interior",
     "SOCKET_Exit_Left",
     "SOCKET_Exit_Right",
     "SOCKET_Headlight_L",
@@ -462,5 +492,5 @@
     "Wheel_RR",
     "VH_Sedan_01"
   ],
-  "glb_bytes": 423596
+  "glb_bytes": 596844
 }

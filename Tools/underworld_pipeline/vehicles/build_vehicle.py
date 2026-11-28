@@ -159,6 +159,10 @@ def _build_wheel(name, parent, center, radius, width, mat_tire, mat_rim):
     return ob
 
 
+# Greenhouse sections (y, half_w, z): windshield base -> roof front -> roof rear -> rear glass base
+GH = [(-0.82, 0.86, 0.89), (-0.34, 0.67, 1.41), (0.76, 0.66, 1.43), (1.36, 0.85, 0.92)]
+
+
 def build_sedan_from_spec(spec_path, repo_root=REPO_ROOT):
     t0 = time.time()
     spec = json.load(open(spec_path))
@@ -176,7 +180,9 @@ def build_sedan_from_spec(spec_path, repo_root=REPO_ROOT):
 
     # Automotive PBR Materials (TD-005 M_ prefix, <= 8 materials)
     m_paint = _mat(f"M_{name}_Paint", paint_rgba, roughness=0.22, metallic=0.55, coat=1.0, coat_rough=0.04)
-    m_glass = _mat(f"M_{name}_Glass", (0.04, 0.06, 0.08, 1.0), roughness=0.06, metallic=0.10, coat=1.0, coat_rough=0.02)
+    from underworld_pipeline.vehicles import interior as INT   # late: interior imports this module
+    m_glass = INT.glass_material(f"M_{name}_Glass")                 # T-VEH-02: see-through, tinted
+    m_paint.use_backface_culling = False                             # the open cabin shows the shell's inside
     m_chrome = _mat(f"M_{name}_Chrome", (0.82, 0.84, 0.86, 1.0), roughness=0.12, metallic=0.96)
     m_trim = _mat(f"M_{name}_Trim", (0.06, 0.06, 0.07, 1.0), roughness=0.62, metallic=0.05)
     m_tire = _mat(f"M_{name}_Tire", (0.045, 0.045, 0.048, 1.0), roughness=0.82, metallic=0.0)
@@ -223,8 +229,10 @@ def build_sedan_from_spec(spec_path, repo_root=REPO_ROOT):
             (wb * 0.85, y, zb),
         ]
         rings.append([bm.verts.new(p) for p in pts])
-    for r0, r1 in zip(rings, rings[1:]):
+    for k, (r0, r1) in enumerate(zip(rings, rings[1:])):
         for i in range(len(r0)):
+            if i == 3 and INT.open_cabin_faces(GH[0][0], GH[-1][0], stations[k][0], stations[k + 1][0]):
+                continue                                              # T-VEH-02: no lid over the cabin
             j = (i + 1) % len(r0)
             bm.faces.new((r0[i], r0[j], r1[j], r1[i]))
     # Cap front & rear noses
@@ -237,12 +245,7 @@ def build_sedan_from_spec(spec_path, repo_root=REPO_ROOT):
     # to sit inside the subsurf'd Body and Catmull-Clark collapsed it into a crumpled blob (see T-PIPE-04 renders).
     bm = bmesh.new()
     # Greenhouse / Cabin roof loft (windshield -> roof -> rear glass)
-    gh = [
-        (-0.82, 0.86, 0.89),
-        (-0.34, 0.67, 1.41),
-        (0.76,  0.66, 1.43),
-        (1.36,  0.85, 0.92),
-    ]
+    gh = GH
     gh_rings = []
     for y, hw, z in gh:
         pts = [(-hw, y, z), (-hw * 0.55, y, z + (0.025 if z > 1.2 else 0.0)), (hw * 0.55, y, z + (0.025 if z > 1.2 else 0.0)), (hw, y, z)]
@@ -266,6 +269,8 @@ def build_sedan_from_spec(spec_path, repo_root=REPO_ROOT):
         _add_box(bm, (sx * 0.94, -0.58, 0.95), (0.14, 0.09, 0.07), bevel=0.015, segs=2)
 
     cabin_ob = _make_obj(bm, "Cabin", root, m_paint, subsurf=0)
+    _interior, fit = INT.build_interior(name, root, (0.42, -0.10, 0.52), stations, GH, INT.fabric_material(f"M_{name}_Interior"), m_trim)
+    root["uw_interior_fit"] = str(fit)
     # Assign multi-materials to Body (0=Paint, 1=Glass, 2=Chrome, 3=Trim, 4=Headlight, 5=Taillight)
     for m in (m_glass, m_chrome, m_trim, m_head, m_tail):
         body_ob.data.materials.append(m)
@@ -330,7 +335,12 @@ def build_sedan_from_spec(spec_path, repo_root=REPO_ROOT):
     _add_box(bm_c, (0.0, 0.0, 0.66), (1.82, 4.92, 0.64), bevel=0.05, segs=1)
     _add_box(bm_c, (0.0, 0.22, 1.18), (1.42, 2.05, 0.48), bevel=0.05, segs=1)
     res = bmesh.ops.convex_hull(bm_c, input=bm_c.verts)
-    bmesh.ops.delete(bm_c, geom=list(set(res["geom_interior"]) | set(res["geom_unused"])), context="VERTS")
+    # keep ONLY the hull's faces (T-VEH-02, as in profiles.py): the beveled source boxes left
+    # interior faces behind -> NON_MANIFOLD in the release gate. Same convex shape for physics.
+    hull = set(f for f in res["geom"] if isinstance(f, bmesh.types.BMFace))
+    bmesh.ops.delete(bm_c, geom=[f for f in bm_c.faces if f not in hull], context="FACES_ONLY")
+    bmesh.ops.delete(bm_c, geom=[e for e in bm_c.edges if not e.link_faces], context="EDGES")
+    bmesh.ops.delete(bm_c, geom=[v for v in bm_c.verts if not v.link_edges], context="VERTS")
     me_c = bpy.data.meshes.new(f"UCX_{name}-convcolonly")
     bm_c.to_mesh(me_c)
     bm_c.free()

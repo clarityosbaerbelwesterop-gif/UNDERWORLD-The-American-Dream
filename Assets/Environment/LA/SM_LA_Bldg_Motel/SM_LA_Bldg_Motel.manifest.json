@@ -1,0 +1,332 @@
+{
+  "asset": "SM_LA_Bldg_Motel",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_Bldg_Motel/SM_LA_Bldg_Motel.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_Bldg_Motel/SM_LA_Bldg_Motel.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_Bldg_Motel/SM_LA_Bldg_Motel_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -19.3,
+      0.0,
+      -4.62
+    ],
+    "max": [
+      16.55,
+      9.5615,
+      8.205
+    ],
+    "size": [
+      35.85,
+      9.5615,
+      12.825
+    ]
+  },
+  "triangles": {
+    "lod0": 2158,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 2158,
+      "LOD1": 1079,
+      "LOD2": 539
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_LA_Bldg_Motel_Mesh",
+      "levels": [
+        {
+          "name": "SM_LA_Bldg_Motel_Mesh",
+          "level": 0,
+          "triangles": 2158
+        },
+        {
+          "name": "SM_LA_Bldg_Motel_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 1079
+        },
+        {
+          "name": "SM_LA_Bldg_Motel_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 539
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_LA_Bldg_Motel_00-convcolonly",
+      "UCX_SM_LA_Bldg_Motel_01-convcolonly",
+      "UCX_SM_LA_Bldg_Motel_02-convcolonly"
+    ],
+    "micro_lips": 0
+  },
+  "materials": [
+    "M_Prop_Concrete",
+    "M_Prop_LA_Bldg_Motel_Labels",
+    "M_Prop_MetalDark",
+    "M_Prop_PaintRed",
+    "M_Prop_PaintWhite",
+    "M_Prop_RoofGravel",
+    "M_Prop_StuccoCream",
+    "M_Prop_WindowGlass"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Concrete_D",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_zfzcvz9w/T_Prop_Concrete_D.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_ORM",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_5101ggpe/T_Prop_Concrete_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_N",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_vwu6iwou/T_Prop_Concrete_N.jpg"
+    },
+    {
+      "image": "T_Prop_LA_Bldg_Motel_Labels_D",
+      "material": "M_Prop_LA_Bldg_Motel_Labels",
+      "size": [
+        1024,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_9ltspn6z/T_Prop_LA_Bldg_Motel_Labels_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_D",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_sk6ctsp6/T_Prop_MetalDark_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_ORM",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_moatztsp/T_Prop_MetalDark_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_N",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_pnen11ri/T_Prop_MetalDark_N.jpg"
+    },
+    {
+      "image": "T_Prop_PaintRed_D",
+      "material": "M_Prop_PaintRed",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_4gtni72i/T_Prop_PaintRed_D.jpg"
+    },
+    {
+      "image": "T_Prop_PaintRed_ORM",
+      "material": "M_Prop_PaintRed",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_aasbj5r1/T_Prop_PaintRed_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_PaintRed_N",
+      "material": "M_Prop_PaintRed",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_k1669sth/T_Prop_PaintRed_N.jpg"
+    },
+    {
+      "image": "T_Prop_PaintWhite_D",
+      "material": "M_Prop_PaintWhite",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_85w4brkr/T_Prop_PaintWhite_D.jpg"
+    },
+    {
+      "image": "T_Prop_PaintWhite_ORM",
+      "material": "M_Prop_PaintWhite",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_jnycetfa/T_Prop_PaintWhite_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_PaintWhite_N",
+      "material": "M_Prop_PaintWhite",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ki9vfxyy/T_Prop_PaintWhite_N.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_D",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_hiy1w9ul/T_Prop_RoofGravel_D.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_ORM",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_s2m8d00b/T_Prop_RoofGravel_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_N",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ih90x4wf/T_Prop_RoofGravel_N.jpg"
+    },
+    {
+      "image": "T_Prop_StuccoCream_D",
+      "material": "M_Prop_StuccoCream",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_kz_hfimo/T_Prop_StuccoCream_D.jpg"
+    },
+    {
+      "image": "T_Prop_StuccoCream_ORM",
+      "material": "M_Prop_StuccoCream",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ez3ond9j/T_Prop_StuccoCream_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_StuccoCream_N",
+      "material": "M_Prop_StuccoCream",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_gz7n9kqd/T_Prop_StuccoCream_N.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_D",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_9w958axu/T_Prop_WindowGlass_D.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_ORM",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_rqnkglk3/T_Prop_WindowGlass_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_N",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_vxprm2x5/T_Prop_WindowGlass_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_LA_Bldg_Motel_Mesh": {
+      "texture_px": 1024,
+      "median_px_per_m": 512.0,
+      "p10_px_per_m": 341.3,
+      "p90_px_per_m": 1024.0
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_Bldg_Motel_Mesh_LOD1",
+    "SM_LA_Bldg_Motel_Mesh_LOD2",
+    "SM_LA_Bldg_Motel_Mesh",
+    "UCX_SM_LA_Bldg_Motel_00-convcolonly",
+    "UCX_SM_LA_Bldg_Motel_01-convcolonly",
+    "UCX_SM_LA_Bldg_Motel_02-convcolonly",
+    "SM_LA_Bldg_Motel"
+  ],
+  "glb_bytes": 2069028
+}

@@ -1,0 +1,676 @@
+{
+  "asset": "SK_NPC_FBI_Tactical",
+  "status": "READY FOR REVIEW",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "source_blend": "Blender/Source/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical.blend",
+  "export_glb": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical.glb",
+  "preview_png": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview.png",
+  "previews": {
+    "front": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview_front.png",
+    "3q": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview_3q.png",
+    "side": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview_side.png",
+    "back": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview_back.png",
+    "face": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview_face.png",
+    "face_side": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview_face_side.png",
+    "default": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview.png",
+    "aim": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview_aim.png"
+  },
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.9351,
+      -0.0,
+      -0.0997
+    ],
+    "max": [
+      0.9351,
+      1.8235,
+      0.2477
+    ],
+    "size": [
+      1.8702,
+      1.8235,
+      0.3474
+    ]
+  },
+  "triangles": {
+    "lod0": 21673,
+    "budget": 25000,
+    "per_lod_total": {}
+  },
+  "lods": [],
+  "collision": {
+    "mode": "none",
+    "generated": [],
+    "existing": []
+  },
+  "materials": [
+    "M_NPC_FBI_Tactical_Boots",
+    "M_NPC_FBI_Tactical_BrowsLashes",
+    "M_NPC_FBI_Tactical_Eyes",
+    "M_NPC_FBI_Tactical_Hair",
+    "M_NPC_FBI_Tactical_Jeans",
+    "M_NPC_FBI_Tactical_Skin",
+    "M_NPC_FBI_Tactical_TShirt"
+  ],
+  "textures": [
+    {
+      "image": "T_NPC_FBI_Tactical_Boots_D",
+      "material": "M_NPC_FBI_Tactical_Boots",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_1gum7qf5/T_NPC_FBI_Tactical_Boots_D.jpg"
+    },
+    {
+      "image": "T_NPC_FBI_Tactical_Boots_ORM",
+      "material": "M_NPC_FBI_Tactical_Boots",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_4lqqq6kk/T_NPC_FBI_Tactical_Boots_ORM.jpg"
+    },
+    {
+      "image": "T_NPC_FBI_Tactical_Boots_N",
+      "material": "M_NPC_FBI_Tactical_Boots",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_x3gusdwo/T_NPC_FBI_Tactical_Boots_N.png"
+    },
+    {
+      "image": "T_NPC_FBI_Tactical_BrowsLashes_D",
+      "material": "M_NPC_FBI_Tactical_BrowsLashes",
+      "size": [
+        512,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_apqhu4ni/T_NPC_FBI_Tactical_BrowsLashes_D.png"
+    },
+    {
+      "image": "T_NPC_FBI_Tactical_Eyes_D",
+      "material": "M_NPC_FBI_Tactical_Eyes",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex__kdtg9aj/T_NPC_FBI_Tactical_Eyes_D.jpg"
+    },
+    {
+      "image": "T_NPC_FBI_Tactical_Hair_D",
+      "material": "M_NPC_FBI_Tactical_Hair",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_kit72qyi/T_NPC_FBI_Tactical_Hair_D.png"
+    },
+    {
+      "image": "T_NPC_FBI_Tactical_Hair_N",
+      "material": "M_NPC_FBI_Tactical_Hair",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_um3pdlmh/T_NPC_FBI_Tactical_Hair_N.png"
+    },
+    {
+      "image": "T_NPC_FBI_Tactical_Jeans_D",
+      "material": "M_NPC_FBI_Tactical_Jeans",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_2gvw2cd2/T_NPC_FBI_Tactical_Jeans_D.jpg"
+    },
+    {
+      "image": "T_NPC_FBI_Tactical_Jeans_ORM",
+      "material": "M_NPC_FBI_Tactical_Jeans",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_fsqsmkct/T_NPC_FBI_Tactical_Jeans_ORM.jpg"
+    },
+    {
+      "image": "T_NPC_FBI_Tactical_Jeans_N",
+      "material": "M_NPC_FBI_Tactical_Jeans",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_gyi480xy/T_NPC_FBI_Tactical_Jeans_N.png"
+    },
+    {
+      "image": "T_NPC_FBI_Tactical_Skin_D",
+      "material": "M_NPC_FBI_Tactical_Skin",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_jvg6xflw/T_NPC_FBI_Tactical_Skin_D.jpg"
+    },
+    {
+      "image": "T_NPC_FBI_Tactical_Skin_ORM",
+      "material": "M_NPC_FBI_Tactical_Skin",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_7fc4o0ql/T_NPC_FBI_Tactical_Skin_ORM.jpg"
+    },
+    {
+      "image": "T_NPC_FBI_Tactical_Skin_N",
+      "material": "M_NPC_FBI_Tactical_Skin",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_svsijvk3/T_NPC_FBI_Tactical_Skin_N.png"
+    },
+    {
+      "image": "T_NPC_FBI_Tactical_TShirt_D",
+      "material": "M_NPC_FBI_Tactical_TShirt",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_znkws6gu/T_NPC_FBI_Tactical_TShirt_D.jpg"
+    },
+    {
+      "image": "T_NPC_FBI_Tactical_TShirt_ORM",
+      "material": "M_NPC_FBI_Tactical_TShirt",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_bco6jtrt/T_NPC_FBI_Tactical_TShirt_ORM.jpg"
+    },
+    {
+      "image": "T_NPC_FBI_Tactical_TShirt_N",
+      "material": "M_NPC_FBI_Tactical_TShirt",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_eti35ctd/T_NPC_FBI_Tactical_TShirt_N.png"
+    }
+  ],
+  "uv_overlap": {
+    "SK_NPC_FBI_Tactical_Body": {
+      "overlap_fraction": 0.0001,
+      "uv_coverage": 0.3726
+    },
+    "SK_NPC_FBI_Tactical_Eyes": {
+      "overlap_fraction": 0.0001,
+      "uv_coverage": 0.8704
+    },
+    "SK_NPC_FBI_Tactical_Eyebrows": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.234
+    },
+    "SK_NPC_FBI_Tactical_Eyelashes": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.1407
+    },
+    "SK_NPC_FBI_Tactical_TShirt": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.3746
+    },
+    "SK_NPC_FBI_Tactical_Jeans": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.4505
+    },
+    "SK_NPC_FBI_Tactical_Boots": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.4037
+    }
+  },
+  "texel_density": {
+    "SK_NPC_FBI_Tactical_Body": {
+      "texture_px": 1024,
+      "median_px_per_m": 606.3,
+      "p10_px_per_m": 386.9,
+      "p90_px_per_m": 1166.6
+    },
+    "SK_NPC_FBI_Tactical_Eyes": {
+      "texture_px": 512,
+      "median_px_per_m": 16877.2,
+      "p10_px_per_m": 7681.7,
+      "p90_px_per_m": 18407.4
+    },
+    "SK_NPC_FBI_Tactical_Eyebrows": {
+      "texture_px": 1024,
+      "median_px_per_m": 11294.5,
+      "p10_px_per_m": 7205.0,
+      "p90_px_per_m": 15608.9
+    },
+    "SK_NPC_FBI_Tactical_Eyelashes": {
+      "texture_px": 1024,
+      "median_px_per_m": 13758.5,
+      "p10_px_per_m": 11933.6,
+      "p90_px_per_m": 14976.6
+    },
+    "SK_NPC_FBI_Tactical_TShirt": {
+      "texture_px": 512,
+      "median_px_per_m": 362.2,
+      "p10_px_per_m": 311.4,
+      "p90_px_per_m": 403.6
+    },
+    "SK_NPC_FBI_Tactical_Jeans": {
+      "texture_px": 512,
+      "median_px_per_m": 355.7,
+      "p10_px_per_m": 317.9,
+      "p90_px_per_m": 373.0
+    },
+    "SK_NPC_FBI_Tactical_Boots": {
+      "texture_px": 512,
+      "median_px_per_m": 619.5,
+      "p10_px_per_m": 532.7,
+      "p90_px_per_m": 672.7
+    },
+    "SK_NPC_FBI_Tactical_Hair": {
+      "texture_px": 512,
+      "median_px_per_m": 687.8,
+      "p10_px_per_m": 404.6,
+      "p90_px_per_m": 1021.9
+    }
+  },
+  "clipping": [
+    {
+      "inner": "SK_NPC_FBI_Tactical_Body",
+      "outer": "SK_NPC_FBI_Tactical_TShirt",
+      "tested_vertices": 1226,
+      "clipped_vertices": 26,
+      "clipped_fraction": 0.0212
+    },
+    {
+      "inner": "SK_NPC_FBI_Tactical_Body",
+      "outer": "SK_NPC_FBI_Tactical_Jeans",
+      "tested_vertices": 0,
+      "clipped_vertices": 0,
+      "clipped_fraction": 0.0
+    },
+    {
+      "inner": "SK_NPC_FBI_Tactical_Body",
+      "outer": "SK_NPC_FBI_Tactical_Boots",
+      "tested_vertices": 0,
+      "clipped_vertices": 0,
+      "clipped_fraction": 0.0
+    }
+  ],
+  "armatures": {
+    "Armature": {
+      "bones": [
+        "Root",
+        "Hips",
+        "Spine",
+        "Chest",
+        "UpperChest",
+        "Neck",
+        "Head",
+        "LeftShoulder",
+        "LeftUpperArm",
+        "LeftLowerArm",
+        "LeftHand",
+        "LeftThumbMetacarpal",
+        "LeftThumbProximal",
+        "LeftThumbDistal",
+        "LeftIndexProximal",
+        "LeftIndexIntermediate",
+        "LeftIndexDistal",
+        "LeftMiddleProximal",
+        "LeftMiddleIntermediate",
+        "LeftMiddleDistal",
+        "LeftRingProximal",
+        "LeftRingIntermediate",
+        "LeftRingDistal",
+        "LeftLittleProximal",
+        "LeftLittleIntermediate",
+        "LeftLittleDistal",
+        "RightShoulder",
+        "RightUpperArm",
+        "RightLowerArm",
+        "RightHand",
+        "RightThumbMetacarpal",
+        "RightThumbProximal",
+        "RightThumbDistal",
+        "RightIndexProximal",
+        "RightIndexIntermediate",
+        "RightIndexDistal",
+        "RightMiddleProximal",
+        "RightMiddleIntermediate",
+        "RightMiddleDistal",
+        "RightRingProximal",
+        "RightRingIntermediate",
+        "RightRingDistal",
+        "RightLittleProximal",
+        "RightLittleIntermediate",
+        "RightLittleDistal",
+        "LeftUpperLeg",
+        "LeftLowerLeg",
+        "LeftFoot",
+        "LeftToes",
+        "RightUpperLeg",
+        "RightLowerLeg",
+        "RightFoot",
+        "RightToes"
+      ],
+      "deform_bones": 53
+    }
+  },
+  "blendshapes": [],
+  "animations": [
+    {
+      "name": "A_Humanoid_Aim_Pistol_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_B",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_F",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_L",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Aim_Pistol_Walk_R",
+      "frame_start": 0.0,
+      "frame_end": 24.0,
+      "fps": 30.0,
+      "duration_s": 0.8,
+      "frames": 24,
+      "loop": true,
+      "speed_mps": 2.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Crouch_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Crouch_Walk",
+      "frame_start": 0.0,
+      "frame_end": 36.0,
+      "fps": 30.0,
+      "duration_s": 1.2,
+      "frames": 36,
+      "loop": true,
+      "speed_mps": 1.2,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Idle",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "frames": 60,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Jump_Air",
+      "frame_start": 0.0,
+      "frame_end": 20.0,
+      "fps": 30.0,
+      "duration_s": 0.6667,
+      "frames": 20,
+      "loop": true,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Jump_Start",
+      "frame_start": 0.0,
+      "frame_end": 8.0,
+      "fps": 30.0,
+      "duration_s": 0.2667,
+      "frames": 8,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Land",
+      "frame_start": 0.0,
+      "frame_end": 9.0,
+      "fps": 30.0,
+      "duration_s": 0.3,
+      "frames": 9,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Reload_Pistol",
+      "frame_start": 0.0,
+      "frame_end": 48.0,
+      "fps": 30.0,
+      "duration_s": 1.6,
+      "frames": 48,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Run",
+      "frame_start": 0.0,
+      "frame_end": 20.0,
+      "fps": 30.0,
+      "duration_s": 0.6667,
+      "frames": 20,
+      "loop": true,
+      "speed_mps": 3.5,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Shoot_Pistol",
+      "frame_start": 0.0,
+      "frame_end": 8.0,
+      "fps": 30.0,
+      "duration_s": 0.2667,
+      "frames": 8,
+      "loop": false,
+      "speed_mps": 0.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Sprint",
+      "frame_start": 0.0,
+      "frame_end": 16.0,
+      "fps": 30.0,
+      "duration_s": 0.5333,
+      "frames": 16,
+      "loop": true,
+      "speed_mps": 6.0,
+      "slots": [
+        "OBArmature"
+      ]
+    },
+    {
+      "name": "A_Humanoid_Walk",
+      "frame_start": 0.0,
+      "frame_end": 32.0,
+      "fps": 30.0,
+      "duration_s": 1.0667,
+      "frames": 32,
+      "loop": true,
+      "speed_mps": 1.4,
+      "slots": [
+        "OBArmature"
+      ]
+    }
+  ],
+  "sockets": {
+    "SOCKET_RightHand_Weapon": {
+      "parent": "Armature",
+      "parent_bone": "RightHand",
+      "position_godot": [
+        -0.2899,
+        0.8607,
+        0.0964
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "LeftToes",
+    "LeftFoot",
+    "LeftLowerLeg",
+    "LeftUpperLeg",
+    "RightToes",
+    "RightFoot",
+    "RightLowerLeg",
+    "RightUpperLeg",
+    "LeftIndexDistal",
+    "LeftIndexIntermediate",
+    "LeftIndexProximal",
+    "LeftLittleDistal",
+    "LeftLittleIntermediate",
+    "LeftLittleProximal",
+    "LeftMiddleDistal",
+    "LeftMiddleIntermediate",
+    "LeftMiddleProximal",
+    "LeftRingDistal",
+    "LeftRingIntermediate",
+    "LeftRingProximal",
+    "LeftThumbDistal",
+    "LeftThumbProximal",
+    "LeftThumbMetacarpal",
+    "LeftHand",
+    "LeftLowerArm",
+    "LeftUpperArm",
+    "LeftShoulder",
+    "Head",
+    "Neck",
+    "RightIndexDistal",
+    "RightIndexIntermediate",
+    "RightIndexProximal",
+    "RightLittleDistal",
+    "RightLittleIntermediate",
+    "RightLittleProximal",
+    "RightMiddleDistal",
+    "RightMiddleIntermediate",
+    "RightMiddleProximal",
+    "RightRingDistal",
+    "RightRingIntermediate",
+    "RightRingProximal",
+    "RightThumbDistal",
+    "RightThumbProximal",
+    "RightThumbMetacarpal",
+    "SOCKET_RightHand_Weapon",
+    "RightHand",
+    "RightLowerArm",
+    "RightUpperArm",
+    "RightShoulder",
+    "UpperChest",
+    "Chest",
+    "Spine",
+    "Hips",
+    "Root",
+    "SK_NPC_FBI_Tactical_Body",
+    "SK_NPC_FBI_Tactical_Boots",
+    "SK_NPC_FBI_Tactical_Eyebrows",
+    "SK_NPC_FBI_Tactical_Eyelashes",
+    "SK_NPC_FBI_Tactical_Eyes",
+    "SK_NPC_FBI_Tactical_Hair",
+    "SK_NPC_FBI_Tactical_Jeans",
+    "SK_NPC_FBI_Tactical_TShirt",
+    "Armature",
+    "SK_NPC_FBI_Tactical"
+  ],
+  "glb_bytes": 5306800
+}

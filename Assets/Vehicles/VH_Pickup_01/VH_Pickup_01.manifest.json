@@ -1,0 +1,520 @@
+{
+  "asset": "VH_Pickup_01",
+  "status": "READY FOR REVIEW",
+  "category": "Vehicles",
+  "budget_key": "Vehicles",
+  "source_blend": "Blender/Source/Vehicles/VH_Pickup_01/VH_Pickup_01.blend",
+  "export_glb": "Assets/Vehicles/VH_Pickup_01/VH_Pickup_01.glb",
+  "preview_png": "Assets/Vehicles/VH_Pickup_01/VH_Pickup_01_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -1.06,
+      0.0,
+      -2.82
+    ],
+    "max": [
+      1.06,
+      1.905,
+      2.79
+    ],
+    "size": [
+      2.12,
+      1.905,
+      5.61
+    ]
+  },
+  "triangles": {
+    "lod0": 4654,
+    "budget": 60000,
+    "per_lod_total": {
+      "LOD0": 4474,
+      "LOD1": 2236,
+      "LOD2": 882
+    }
+  },
+  "lods": [
+    {
+      "object": "Body",
+      "levels": [
+        {
+          "name": "Body",
+          "level": 0,
+          "triangles": 536
+        },
+        {
+          "name": "Body_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 268
+        },
+        {
+          "name": "Body_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 106
+        }
+      ]
+    },
+    {
+      "object": "Cabin",
+      "levels": [
+        {
+          "name": "Cabin",
+          "level": 0,
+          "triangles": 150
+        },
+        {
+          "name": "Cabin_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 74
+        },
+        {
+          "name": "Cabin_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 30
+        }
+      ]
+    },
+    {
+      "object": "Interior",
+      "levels": [
+        {
+          "name": "Interior",
+          "level": 0,
+          "triangles": 1208
+        },
+        {
+          "name": "Interior_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 604
+        },
+        {
+          "name": "Interior_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 240
+        }
+      ]
+    },
+    {
+      "object": "Door_FL",
+      "levels": [
+        {
+          "name": "Door_FL",
+          "level": 0,
+          "triangles": 104
+        },
+        {
+          "name": "Door_FL_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 52
+        },
+        {
+          "name": "Door_FL_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 20
+        }
+      ]
+    },
+    {
+      "object": "Door_FR",
+      "levels": [
+        {
+          "name": "Door_FR",
+          "level": 0,
+          "triangles": 104
+        },
+        {
+          "name": "Door_FR_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 52
+        },
+        {
+          "name": "Door_FR_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 20
+        }
+      ]
+    },
+    {
+      "object": "Door_RL",
+      "levels": [
+        {
+          "name": "Door_RL",
+          "level": 0,
+          "triangles": 104
+        },
+        {
+          "name": "Door_RL_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 52
+        },
+        {
+          "name": "Door_RL_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 20
+        }
+      ]
+    },
+    {
+      "object": "Door_RR",
+      "levels": [
+        {
+          "name": "Door_RR",
+          "level": 0,
+          "triangles": 104
+        },
+        {
+          "name": "Door_RR_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 52
+        },
+        {
+          "name": "Door_RR_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 20
+        }
+      ]
+    },
+    {
+      "object": "Wheel_FL",
+      "levels": [
+        {
+          "name": "Wheel_FL",
+          "level": 0,
+          "triangles": 508
+        },
+        {
+          "name": "Wheel_FL_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 254
+        },
+        {
+          "name": "Wheel_FL_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 100
+        }
+      ]
+    },
+    {
+      "object": "Wheel_FR",
+      "levels": [
+        {
+          "name": "Wheel_FR",
+          "level": 0,
+          "triangles": 508
+        },
+        {
+          "name": "Wheel_FR_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 254
+        },
+        {
+          "name": "Wheel_FR_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 100
+        }
+      ]
+    },
+    {
+      "object": "Wheel_RL",
+      "levels": [
+        {
+          "name": "Wheel_RL",
+          "level": 0,
+          "triangles": 508
+        },
+        {
+          "name": "Wheel_RL_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 254
+        },
+        {
+          "name": "Wheel_RL_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 100
+        }
+      ]
+    },
+    {
+      "object": "Wheel_RR",
+      "levels": [
+        {
+          "name": "Wheel_RR",
+          "level": 0,
+          "triangles": 508
+        },
+        {
+          "name": "Wheel_RR_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 254
+        },
+        {
+          "name": "Wheel_RR_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 100
+        }
+      ]
+    },
+    {
+      "object": "Frame",
+      "levels": [
+        {
+          "name": "Frame",
+          "level": 0,
+          "triangles": 132
+        },
+        {
+          "name": "Frame_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 66
+        },
+        {
+          "name": "Frame_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 26
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_VH_Pickup_01-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_VH_Pickup_01_Chrome",
+    "M_VH_Pickup_01_Glass",
+    "M_VH_Pickup_01_Headlight",
+    "M_VH_Pickup_01_Interior",
+    "M_VH_Pickup_01_Paint",
+    "M_VH_Pickup_01_Rim",
+    "M_VH_Pickup_01_Taillight",
+    "M_VH_Pickup_01_Tire",
+    "M_VH_Pickup_01_Trim"
+  ],
+  "textures": [],
+  "uv_overlap": {
+    "Body": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.7816
+    },
+    "Cabin": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.676
+    },
+    "Interior": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.3468
+    },
+    "Hood": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.5024
+    },
+    "Bumper_F": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.702
+    },
+    "Bumper_R": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.702
+    },
+    "Door_FL": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.607
+    },
+    "Door_FR": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.607
+    },
+    "Door_RL": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.5174
+    },
+    "Door_RR": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.5173
+    },
+    "Wheel_FL": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.6866
+    },
+    "Wheel_FR": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.6866
+    },
+    "Wheel_RL": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.6866
+    },
+    "Wheel_RR": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.6866
+    },
+    "Frame": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.7254
+    }
+  },
+  "texel_density": {},
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {
+    "SOCKET_Seat_Driver": {
+      "parent": "VH_Pickup_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.44,
+        0.78,
+        0.3
+      ]
+    },
+    "SOCKET_Seat_Passenger": {
+      "parent": "VH_Pickup_01",
+      "parent_bone": null,
+      "position_godot": [
+        -0.44,
+        0.78,
+        0.3
+      ]
+    },
+    "SOCKET_Exit_Left": {
+      "parent": "VH_Pickup_01",
+      "parent_bone": null,
+      "position_godot": [
+        1.43,
+        0.0,
+        0.38
+      ]
+    },
+    "SOCKET_Exit_Right": {
+      "parent": "VH_Pickup_01",
+      "parent_bone": null,
+      "position_godot": [
+        -1.43,
+        0.0,
+        0.38
+      ]
+    },
+    "SOCKET_Headlight_L": {
+      "parent": "VH_Pickup_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.68,
+        0.91,
+        2.8
+      ]
+    },
+    "SOCKET_Headlight_R": {
+      "parent": "VH_Pickup_01",
+      "parent_bone": null,
+      "position_godot": [
+        -0.68,
+        0.91,
+        2.8
+      ]
+    },
+    "SOCKET_Taillight_L": {
+      "parent": "VH_Pickup_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.68,
+        1.0,
+        -2.82
+      ]
+    },
+    "SOCKET_Taillight_R": {
+      "parent": "VH_Pickup_01",
+      "parent_bone": null,
+      "position_godot": [
+        -0.68,
+        1.0,
+        -2.82
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "Body_LOD1",
+    "Body_LOD2",
+    "Body",
+    "Bumper_F",
+    "Bumper_R",
+    "Cabin_LOD1",
+    "Cabin_LOD2",
+    "Cabin",
+    "Door_FL_LOD1",
+    "Door_FL_LOD2",
+    "Door_FL",
+    "Door_FR_LOD1",
+    "Door_FR_LOD2",
+    "Door_FR",
+    "Door_RL_LOD1",
+    "Door_RL_LOD2",
+    "Door_RL",
+    "Door_RR_LOD1",
+    "Door_RR_LOD2",
+    "Door_RR",
+    "Frame_LOD1",
+    "Frame_LOD2",
+    "Frame",
+    "Hood",
+    "Interior_LOD1",
+    "Interior_LOD2",
+    "Interior",
+    "SOCKET_Exit_Left",
+    "SOCKET_Exit_Right",
+    "SOCKET_Headlight_L",
+    "SOCKET_Headlight_R",
+    "SOCKET_Seat_Driver",
+    "SOCKET_Seat_Passenger",
+    "SOCKET_Taillight_L",
+    "SOCKET_Taillight_R",
+    "UCX_VH_Pickup_01-convcolonly",
+    "Wheel_FL_LOD1",
+    "Wheel_FL_LOD2",
+    "Wheel_FL",
+    "Wheel_FR_LOD1",
+    "Wheel_FR_LOD2",
+    "Wheel_FR",
+    "Wheel_RL_LOD1",
+    "Wheel_RL_LOD2",
+    "Wheel_RL",
+    "Wheel_RR_LOD1",
+    "Wheel_RR_LOD2",
+    "Wheel_RR",
+    "VH_Pickup_01"
+  ],
+  "glb_bytes": 590500
+}

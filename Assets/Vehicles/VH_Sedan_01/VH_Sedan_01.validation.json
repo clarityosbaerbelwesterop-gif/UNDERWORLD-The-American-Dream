@@ -2,13 +2,14 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.2.4 LTS",
-  "timestamp": "2026-11-22T12:15:29+01:00",
+  "timestamp": "2026-11-24T11:09:46+00:00",
   "command": "export",
+  "profile": "gate",
   "input": "Blender/Source/Vehicles/VH_Sedan_01/VH_Sedan_01.blend",
   "steps": {
     "validate": {
       "errors": 0,
-      "warnings": 15
+      "warnings": 0
     },
     "lods": [
       {
@@ -17,19 +18,19 @@
           {
             "name": "Body",
             "level": 0,
-            "triangles": 544
+            "triangles": 528
           },
           {
             "name": "Body_LOD1",
             "level": 1,
             "ratio": 0.5,
-            "triangles": 272
+            "triangles": 264
           },
           {
             "name": "Body_LOD2",
             "level": 2,
             "ratio": 0.2,
-            "triangles": 108
+            "triangles": 105
           }
         ]
       },
@@ -52,6 +53,28 @@
             "level": 2,
             "ratio": 0.2,
             "triangles": 30
+          }
+        ]
+      },
+      {
+        "object": "Interior",
+        "levels": [
+          {
+            "name": "Interior",
+            "level": 0,
+            "triangles": 1328
+          },
+          {
+            "name": "Interior_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 664
+          },
+          {
+            "name": "Interior_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 264
           }
         ]
       },
@@ -239,9 +262,10 @@
         "UCX_VH_Sedan_01-convcolonly"
       ]
     },
+    "foot_slide": null,
     "export": {
       "glb": "Assets/Vehicles/VH_Sedan_01/VH_Sedan_01.glb",
-      "bytes": 423596
+      "bytes": 596844
     },
     "preview": "Assets/Vehicles/VH_Sedan_01/VH_Sedan_01_preview.png",
     "manifest": "Assets/Vehicles/VH_Sedan_01/VH_Sedan_01.manifest.json",
@@ -269,6 +293,9 @@
           "Door_RR_LOD2",
           "Door_RR",
           "Hood",
+          "Interior_LOD1",
+          "Interior_LOD2",
+          "Interior",
           "SOCKET_Exit_Left",
           "SOCKET_Exit_Right",
           "SOCKET_Headlight_L",
@@ -420,6 +447,27 @@
               25.0
             ]
           },
+          "Interior_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Interior_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Interior": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
           "Wheel_FL_LOD1": {
             "uw_lod": 1,
             "uw_visibility_range": [
@@ -505,12 +553,13 @@
             ]
           },
           "VH_Sedan_01": {
+            "uw_interior_fit": "{'head_clear_m': 0.05, 'sole_above_floor_m': 0.0, 'wheel_windscreen_clear_m': 0.033, 'rear_bench': True, 'wheel_centre': [0.42, -0.504, 0.927]}",
             "uw_wheel_radius_m": 0.34,
             "uw_wheelbase_m": 2.86,
             "uw_track_width_m": 1.58
           }
         },
-        "meshes": 35,
+        "meshes": 38,
         "materials": [
           "M_VH_Sedan_01_Paint",
           "M_VH_Sedan_01_Chrome",
@@ -518,6 +567,7 @@
           "M_VH_Sedan_01_Taillight",
           "M_VH_Sedan_01_Trim",
           "M_VH_Sedan_01_Glass",
+          "M_VH_Sedan_01_Interior",
           "M_VH_Sedan_01_Tire",
           "M_VH_Sedan_01_Rim"
         ],
@@ -526,7 +576,7 @@
         "joint_names": [],
         "animations": [],
         "asset_generator": "Khronos glTF Blender I/O v5.2.41",
-        "bytes": 423596
+        "bytes": 596844
       },
       "reimport_objects": [
         "Body",
@@ -550,6 +600,9 @@
         "Door_RR_LOD1",
         "Door_RR_LOD2",
         "Hood",
+        "Interior",
+        "Interior_LOD1",
+        "Interior_LOD2",
         "SOCKET_Exit_Left",
         "SOCKET_Exit_Right",
         "SOCKET_Headlight_L",
@@ -583,100 +636,16 @@
   "budget_key": "Vehicles",
   "issues": [
     {
-      "severity": "warning",
-      "code": "NAME_MESH_PREFIX",
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
       "object": "Body",
-      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
-    },
-    {
-      "severity": "warning",
-      "code": "NAME_MESH_PREFIX",
-      "object": "Cabin",
-      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
-    },
-    {
-      "severity": "warning",
-      "code": "NAME_MESH_PREFIX",
-      "object": "Hood",
-      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
-    },
-    {
-      "severity": "warning",
-      "code": "NAME_MESH_PREFIX",
-      "object": "Trunk",
-      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
-    },
-    {
-      "severity": "warning",
-      "code": "NAME_MESH_PREFIX",
-      "object": "Bumper_F",
-      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
-    },
-    {
-      "severity": "warning",
-      "code": "NAME_MESH_PREFIX",
-      "object": "Bumper_R",
-      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
-    },
-    {
-      "severity": "warning",
-      "code": "NAME_MESH_PREFIX",
-      "object": "Door_FL",
-      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
-    },
-    {
-      "severity": "warning",
-      "code": "NAME_MESH_PREFIX",
-      "object": "Door_FR",
-      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
-    },
-    {
-      "severity": "warning",
-      "code": "NAME_MESH_PREFIX",
-      "object": "Door_RL",
-      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
-    },
-    {
-      "severity": "warning",
-      "code": "NAME_MESH_PREFIX",
-      "object": "Door_RR",
-      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
-    },
-    {
-      "severity": "warning",
-      "code": "NAME_MESH_PREFIX",
-      "object": "Wheel_FL",
-      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
-    },
-    {
-      "severity": "warning",
-      "code": "NAME_MESH_PREFIX",
-      "object": "Wheel_FR",
-      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
-    },
-    {
-      "severity": "warning",
-      "code": "NAME_MESH_PREFIX",
-      "object": "Wheel_RL",
-      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
-    },
-    {
-      "severity": "warning",
-      "code": "NAME_MESH_PREFIX",
-      "object": "Wheel_RR",
-      "message": "mesh objects should start with SM_/SK_/UCX_ (TD-005); allowed for named parts like Body/Wheel_FL"
+      "message": "12 open boundary edges (mesh not closed)"
     },
     {
       "severity": "info",
       "code": "OPEN_BOUNDARY",
       "object": "Cabin",
       "message": "24 open boundary edges (mesh not closed)"
-    },
-    {
-      "severity": "warning",
-      "code": "NON_MANIFOLD",
-      "object": "UCX_VH_Sedan_01-convcolonly",
-      "message": "56 edges with >2 faces, 32 non-manifold vertices"
     },
     {
       "severity": "info",
@@ -711,10 +680,10 @@
   ],
   "summary": {
     "errors": 0,
-    "warnings": 15,
-    "infos": 6
+    "warnings": 0,
+    "infos": 7
   },
-  "seconds": 0.84,
+  "seconds": 2.21,
   "exit_code": 0,
   "result": "PASS"
 }

@@ -23,7 +23,7 @@
     }
   },
   "morphs": {
-    "chin-bones-decr-incr": 0.40,
+    "chin-bones-decr-incr": 0.4,
     "chin-height-decr-incr": 0.18,
     "chin-prominent-decr-incr": 0.28,
     "chin-width-decr-incr": 0.32,
@@ -32,23 +32,35 @@
     "cheek-bones-decr-incr": 0.35,
     "eyebrows-trans-down-up": -0.25,
     "nose-width1-decr-incr": 0.14,
-    "nose-point-width-decr-incr": 0.10,
+    "nose-point-width-decr-incr": 0.1,
     "nose-scale-vert-decr-incr": 0.08,
     "mouth-scale-horiz-decr-incr": 0.12,
-    "mouth-lowerlip-height-decr-incr": 0.20,
+    "mouth-lowerlip-height-decr-incr": 0.2,
     "neck-scale-horiz-decr-incr": 0.22,
-    "head-fat-decr-incr": -0.18
+    "head-fat-decr-incr": -0.18,
+    "l-ear-scale-decr": 0.55,
+    "r-ear-scale-decr": 0.55,
+    "l-ear-rot-backward": 0.35,
+    "r-ear-rot-backward": 0.35
   },
   "skin": {
     "texture_size": 2048,
     "base_diffuse": "skins02/skins/toigo_light_skin_male_bronze/young_lightskinned_male_diffuse_Bronze.png",
     "base_normal": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_NRM.png",
     "base_spec": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_SPEC.png",
-    "tint_rgb": [0.94, 0.85, 0.76],
+    "tint_rgb": [
+      0.94,
+      0.85,
+      0.76
+    ],
     "gamma": 1.08,
-    "sss_weight": 0.18,
+    "sss_weight": 0.12,
     "sss_scale": 0.008,
-    "hair_color_rgb": [0.036, 0.028, 0.024],
+    "hair_color_rgb": [
+      0.036,
+      0.028,
+      0.024
+    ],
     "skin_fade": {
       "enabled": true
     },
@@ -62,12 +74,21 @@
       "length_m": 0.021,
       "width_m": 0.0017
     },
-    "seed": 77
+    "seed": 77,
+    "lip_rgb": [
+      0.36,
+      0.185,
+      0.16
+    ]
   },
   "eyes": {
     "mhclo": "mh_eyes/low-poly.mhclo",
     "iris_texture": "makehuman_system_assets/eyes/materials/brown_eye.png",
-    "iris_tint": [0.60, 0.42, 0.28]
+    "iris_tint": [
+      0.6,
+      0.42,
+      0.28
+    ]
   },
   "eyebrows": {
     "mhclo": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.mhclo",
@@ -80,11 +101,15 @@
   },
   "teeth": {
     "enabled": true,
-    "decimate_ratio": 0.20
+    "decimate_ratio": 0.2
   },
   "hair": {
     "style": "skin_fade_crop",
-    "color_rgb": [0.036, 0.028, 0.024],
+    "color_rgb": [
+      0.036,
+      0.028,
+      0.024
+    ],
     "seed": 42
   },
   "beard": {
@@ -100,8 +125,12 @@
       "bake_size": 512,
       "tile": 4.0,
       "desaturate": 0.88,
-      "gamma": 0.90,
-      "tint_rgb": [0.60, 0.61, 0.62],
+      "gamma": 0.9,
+      "tint_rgb": [
+        0.6,
+        0.61,
+        0.62
+      ],
       "roughness_scale": 1.05,
       "roughness_bias": 0.14,
       "normal_strength": 0.85
@@ -114,8 +143,12 @@
       "bake_size": 512,
       "tile": 4.2,
       "desaturate": 0.18,
-      "gamma": 0.80,
-      "tint_rgb": [0.56, 0.42, 0.32],
+      "gamma": 0.8,
+      "tint_rgb": [
+        0.56,
+        0.42,
+        0.32
+      ],
       "roughness_scale": 0.85,
       "roughness_bias": 0.04,
       "normal_strength": 1.15,
@@ -130,10 +163,14 @@
       "tile": 5.0,
       "desaturate": 0.18,
       "gamma": 0.88,
-      "tint_rgb": [0.28, 0.38, 0.56],
+      "tint_rgb": [
+        0.28,
+        0.38,
+        0.56
+      ],
       "roughness_scale": 1.05,
       "roughness_bias": 0.12,
-      "normal_strength": 0.90,
+      "normal_strength": 0.9,
       "zone_mode": "denim_wash"
     },
     "boots": {
@@ -144,9 +181,13 @@
       "tile": 3.5,
       "desaturate": 0.22,
       "gamma": 0.88,
-      "tint_rgb": [0.52, 0.38, 0.27],
+      "tint_rgb": [
+        0.52,
+        0.38,
+        0.27
+      ],
       "roughness_scale": 0.92,
-      "roughness_bias": 0.10,
+      "roughness_bias": 0.1,
       "normal_strength": 1.05,
       "zone_mode": "boot_sole"
     },
@@ -156,8 +197,12 @@
       "texture_size": 512,
       "bake_high_to_low": false,
       "tile": 2.0,
-      "desaturate": 0.70,
-      "tint_rgb": [0.24, 0.25, 0.27],
+      "desaturate": 0.7,
+      "tint_rgb": [
+        0.24,
+        0.25,
+        0.27
+      ],
       "roughness_scale": 0.48,
       "roughness_bias": 0.0,
       "metallic": 0.88,

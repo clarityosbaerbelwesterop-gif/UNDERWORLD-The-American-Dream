@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://Scripts/player/player_controller.gd" id="1_ctrl"]
 [ext_resource type="Script" path="res://Scripts/player/character_visual.gd" id="2_visual"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/combat/player_weapon_controller.gd" id="6_wctrl"]
 [ext_resource type="Script" path="res://Scripts/combat/damage_receiver.gd" id="7_recv"]
 [ext_resource type="Script" path="res://Scripts/combat/humanoid_hitboxes.gd" id="8_hitboxes"]
+[ext_resource type="PackedScene" path="res://Assets/Characters/SK_Jason/SK_Jason.glb" id="9_jason"]
 
 [sub_resource type="CylinderShape3D" id="Shape_body"]
 radius = 0.35
@@ -41,6 +42,7 @@ shape = SubResource("Shape_body")
 
 [node name="Visual" type="Node3D" parent="."]
 script = ExtResource("2_visual")
+model_scene = ExtResource("9_jason")
 
 [node name="PT_Capsule" type="MeshInstance3D" parent="Visual"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -85,3 +87,4 @@ script = ExtResource("6_wctrl")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("7_recv")
+scale_npc_damage = true

@@ -1,0 +1,330 @@
+{
+  "asset": "SM_LA_Bldg_Warehouse",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_Bldg_Warehouse/SM_LA_Bldg_Warehouse.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_Bldg_Warehouse/SM_LA_Bldg_Warehouse.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_Bldg_Warehouse/SM_LA_Bldg_Warehouse_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -15.06,
+      0.0,
+      -10.06
+    ],
+    "max": [
+      15.06,
+      9.24,
+      13.3
+    ],
+    "size": [
+      30.12,
+      9.24,
+      23.36
+    ]
+  },
+  "triangles": {
+    "lod0": 1442,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 1442,
+      "LOD1": 720,
+      "LOD2": 360
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_LA_Bldg_Warehouse_Mesh",
+      "levels": [
+        {
+          "name": "SM_LA_Bldg_Warehouse_Mesh",
+          "level": 0,
+          "triangles": 1442
+        },
+        {
+          "name": "SM_LA_Bldg_Warehouse_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 720
+        },
+        {
+          "name": "SM_LA_Bldg_Warehouse_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 360
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_LA_Bldg_Warehouse_00-convcolonly",
+      "UCX_SM_LA_Bldg_Warehouse_01-convcolonly"
+    ],
+    "micro_lips": 0
+  },
+  "materials": [
+    "M_Prop_Concrete",
+    "M_Prop_Corrugated",
+    "M_Prop_LA_Bldg_Warehouse_Labels",
+    "M_Prop_MetalDark",
+    "M_Prop_PaintBlack",
+    "M_Prop_RollupDoor",
+    "M_Prop_RoofGravel",
+    "M_Prop_WindowGlass"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Concrete_D",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_6z4s1q4r/T_Prop_Concrete_D.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_ORM",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_loaldk1q/T_Prop_Concrete_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_N",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_f8ko3vzr/T_Prop_Concrete_N.jpg"
+    },
+    {
+      "image": "T_Prop_Corrugated_D",
+      "material": "M_Prop_Corrugated",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ybpb221k/T_Prop_Corrugated_D.jpg"
+    },
+    {
+      "image": "T_Prop_Corrugated_ORM",
+      "material": "M_Prop_Corrugated",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_fw16niqv/T_Prop_Corrugated_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Corrugated_N",
+      "material": "M_Prop_Corrugated",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_uohv4460/T_Prop_Corrugated_N.jpg"
+    },
+    {
+      "image": "T_Prop_LA_Bldg_Warehouse_Labels_D",
+      "material": "M_Prop_LA_Bldg_Warehouse_Labels",
+      "size": [
+        1024,
+        256
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ajba0y5b/T_Prop_LA_Bldg_Warehouse_Labels_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_D",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_28taqyep/T_Prop_MetalDark_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_ORM",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_y9unol30/T_Prop_MetalDark_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_N",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_p08seyy0/T_Prop_MetalDark_N.jpg"
+    },
+    {
+      "image": "T_Prop_PaintBlack_D",
+      "material": "M_Prop_PaintBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_o37xa_b7/T_Prop_PaintBlack_D.jpg"
+    },
+    {
+      "image": "T_Prop_PaintBlack_ORM",
+      "material": "M_Prop_PaintBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_aalucz84/T_Prop_PaintBlack_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_PaintBlack_N",
+      "material": "M_Prop_PaintBlack",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_7pasioyd/T_Prop_PaintBlack_N.jpg"
+    },
+    {
+      "image": "T_Prop_RollupDoor_D",
+      "material": "M_Prop_RollupDoor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ma36p75l/T_Prop_RollupDoor_D.jpg"
+    },
+    {
+      "image": "T_Prop_RollupDoor_ORM",
+      "material": "M_Prop_RollupDoor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_tffy9fa1/T_Prop_RollupDoor_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_RollupDoor_N",
+      "material": "M_Prop_RollupDoor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_2f2g9f3u/T_Prop_RollupDoor_N.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_D",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ra4qwgij/T_Prop_RoofGravel_D.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_ORM",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_b_7tik8d/T_Prop_RoofGravel_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_N",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_jeif0r2q/T_Prop_RoofGravel_N.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_D",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_lwq_y8dh/T_Prop_WindowGlass_D.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_ORM",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex__4fjtjhb/T_Prop_WindowGlass_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_N",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_4bqhiy1u/T_Prop_WindowGlass_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_LA_Bldg_Warehouse_Mesh": {
+      "texture_px": 1024,
+      "median_px_per_m": 1024.0,
+      "p10_px_per_m": 512.0,
+      "p90_px_per_m": 1024.0
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_Bldg_Warehouse_Mesh_LOD1",
+    "SM_LA_Bldg_Warehouse_Mesh_LOD2",
+    "SM_LA_Bldg_Warehouse_Mesh",
+    "UCX_SM_LA_Bldg_Warehouse_00-convcolonly",
+    "UCX_SM_LA_Bldg_Warehouse_01-convcolonly",
+    "SM_LA_Bldg_Warehouse"
+  ],
+  "glb_bytes": 1760860
+}

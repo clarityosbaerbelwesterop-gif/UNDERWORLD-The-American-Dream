@@ -50,6 +50,8 @@ def build_parser():
         sp.add_argument("--category", help="budget category, e.g. Props, Environment/LA (default: from path)")
         sp.add_argument("--budget-key", help="explicit max_triangles key, e.g. Characters/SK_NPC")
         sp.add_argument("--strict", action="store_true", help="treat warnings as errors")
+        sp.add_argument("--profile", choices=["dev", "gate"], default="dev",
+                        help="dev = everyday checks; gate = PRODUCTION-READY release gate (strict + LODs, collision, budgets, zero clipping)")
         sp.add_argument("--report", help="JSON report path (single asset) / summary path (*-all)")
 
     def export_opts(sp):
@@ -98,6 +100,22 @@ def build_parser():
     sp_be.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
     sp_be.add_argument("--only", default=None)
 
+    sp_bp = sub.add_parser("build-props", help="Build prop/street-furniture/armor .blend sources (props/recipes.py, P2 T-PROP-01)")
+    sp_bp.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
+    sp_bp.add_argument("--only", default=None, help="comma list of prop ids (default: all)")
+
+    sp_bb = sub.add_parser("build-buildings", help="Build LA building .blend sources from the facade grammar (props/buildings.py, T-BLDG-01)")
+    sp_bb.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
+    sp_bb.add_argument("--only", default=None, help="comma list of building ids (default: all)")
+
+    sp_bwp = sub.add_parser("build-weapons", help="Build the combat.json weapons from the weapon grammar (props/weapons.py, T-WPN-01)")
+    sp_bwp.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
+    sp_bwp.add_argument("--only", default=None, help="comma list of weapon ids (default: all)")
+
+    sp_bvs = sub.add_parser("build-vehicles", help="Build cars from body profiles (vehicles/profiles.py, T-VEH-01)")
+    sp_bvs.add_argument("--repo", default=os.path.abspath(os.path.join(HERE, "..", "..")))
+    sp_bvs.add_argument("--only", default=None, help="comma list of vehicle ids (default: all)")
+
     sp_rt = sub.add_parser("retarget", help="Retarget a CC0 BVH clip onto a character .blend")
     sp_rt.add_argument("blend")
     sp_rt.add_argument("bvh")
@@ -117,10 +135,11 @@ def _rel(cfg, path):
 def process(blend, args, cfg, do_export, out=None):
     """One asset. Returns (exit_code, report dict)."""
     t0 = time.time()
-    iss = Issues(strict=args.strict)
+    iss = Issues(strict=args.strict or getattr(args, "profile", "dev") == "gate")
     report = {"tool": "underworld_pipeline", "version": VERSION, "blender": bpy.app.version_string,
               "timestamp": datetime.datetime.now().astimezone().isoformat(timespec="seconds"),
-              "command": args.command, "input": _rel(cfg, os.path.abspath(blend)), "steps": {}}
+              "command": args.command, "profile": getattr(args, "profile", "dev"),
+        "input": _rel(cfg, os.path.abspath(blend)), "steps": {}}
     code = C.EXIT_OK
     try:
         if not os.path.isfile(blend):
@@ -169,6 +188,18 @@ def process(blend, args, cfg, do_export, out=None):
             mode = cfg.per_category("collision", cat) if args.collision == "auto" else args.collision
             col = G.generate_collision(ctx, mode)
         report["steps"]["collision"] = col
+        G.check_lod_and_collision_budgets(ctx, lods, col, args.no_lod)
+        report["steps"]["foot_slide"] = G.check_anim_report(ctx, out_dir)
+        if iss.has_errors:          # budget / release-gate errors stop the export (T-PIPE-06)
+            return C.EXIT_VALIDATION, report
+        # Walkable-collision rule (B-PT-01): only for categories people walk/drive on.
+        lip_cfg = cfg.get("collision_walkability") or {}
+        if C.Config.top(cat) in lip_cfg.get("categories", ["Environment"]):
+            lips = G.check_collision_micro_lips(ctx, float(lip_cfg.get("micro_lip_max_m", 0.02)),
+                                                float(lip_cfg.get("micro_lip_min_m", 0.0005)))
+            report["steps"]["collision"]["micro_lips"] = len(lips)
+            if iss.has_errors:
+                return C.EXIT_VALIDATION, report
 
         sc = bpy.context.scene
         exported = sorted(o.name for o in sc.objects if o.type not in ("CAMERA", "LIGHT"))
@@ -210,18 +241,28 @@ def process(blend, args, cfg, do_export, out=None):
             if os.path.isfile(concept_abs):
                 from underworld_pipeline import silhouette_check as SIL
                 sil_path = os.path.join(out_dir, name + ".silhouette_report.json")
-                silhouette_rep = SIL.compare_turnaround(concept_abs, previews_map["front"], previews_map["side"], out_report_path=sil_path)
-                report["steps"]["silhouette"] = {
-                    "report": _rel(cfg, sil_path),
-                    "mean_iou": silhouette_rep["mean_iou"],
-                    "mean_proportion_delta": silhouette_rep["mean_proportion_delta"],
-                    "pass": silhouette_rep["pass"],
-                }
-                if silhouette_rep["pass"]:
+                try:
+                    silhouette_rep = SIL.compare_turnaround(concept_abs, previews_map["front"], previews_map["side"], out_report_path=sil_path)
+                except SIL.ConceptArtUnavailable as exc:
+                    silhouette_rep = None
+                    iss.warn("CONCEPT_UNAVAILABLE",
+                             f"silhouette comparison skipped: {exc} (the reference board must be "
+                             f"restored before any PRODUCTION-READY claim)", name)
+                    report["steps"]["silhouette"] = {"skipped": str(exc)}
+                if silhouette_rep is None:
+                    pass
+                else:
+                    report["steps"]["silhouette"] = {
+                        "report": _rel(cfg, sil_path),
+                        "mean_iou": silhouette_rep["mean_iou"],
+                        "mean_proportion_delta": silhouette_rep["mean_proportion_delta"],
+                        "pass": silhouette_rep["pass"],
+                    }
+                if silhouette_rep is not None and silhouette_rep["pass"]:
                     iss.info("SILHOUETTE_MATCH",
                              f"turnaround match PASS: mean IoU={silhouette_rep['mean_iou']:.3f}, mean proportion delta={silhouette_rep['mean_proportion_delta']:.4f}",
                              name, **report["steps"]["silhouette"])
-                else:
+                elif silhouette_rep is not None:
                     iss.warn("SILHOUETTE_MATCH",
                              f"turnaround match below threshold: mean IoU={silhouette_rep['mean_iou']:.3f}, mean proportion delta={silhouette_rep['mean_proportion_delta']:.4f}",
                              name, **report["steps"]["silhouette"])
@@ -332,6 +373,22 @@ def main(argv):
     if args.command == "build-env":
         from underworld_pipeline.environment import build_la_kit as BLA
         BLA.build_all(repo_root=args.repo, only=args.only)
+        return C.EXIT_OK
+    if args.command == "build-props":
+        from underworld_pipeline.props import build_props as BP
+        BP.build_all(repo_root=args.repo, only=args.only)
+        return C.EXIT_OK
+    if args.command == "build-buildings":
+        from underworld_pipeline.props import build_props as BP
+        BP.build_buildings(repo_root=args.repo, only=args.only)
+        return C.EXIT_OK
+    if args.command == "build-weapons":
+        from underworld_pipeline.props import weapons as WG
+        WG.build_weapons(repo_root=args.repo, only=args.only)
+        return C.EXIT_OK
+    if args.command == "build-vehicles":
+        from underworld_pipeline.vehicles import profiles as VP
+        VP.build_vehicles(repo_root=args.repo, only=args.only)
         return C.EXIT_OK
     if args.command == "retarget":
         from underworld_pipeline.characters import retarget as RT

@@ -78,10 +78,12 @@ def _setup_studio_lighting(sc):
     created = []
     world = sc.world or bpy.data.worlds.new("UW_PreviewWorld")
     sc.world = world
-    bg = world.node_tree.nodes.get("Background") if world.node_tree else None
+    if world.node_tree is None:
+        world.use_nodes = True
+    bg = world.node_tree.nodes.get("Background")
     if bg:
         bg.inputs["Color"].default_value = (0.74, 0.74, 0.76, 1.0)
-        bg.inputs["Strength"].default_value = 0.85
+        bg.inputs["Strength"].default_value = 0.35
 
     bpy.ops.mesh.primitive_plane_add(size=14, location=(0, 0, -0.001))
     fl = bpy.context.active_object
@@ -93,10 +95,13 @@ def _setup_studio_lighting(sc):
     fl.data.materials.append(fmat)
     created.append(fl)
 
+    # Energies calibrated against the render_character.py studio (see Docs/TOOLCHAIN_SANDBOX.md):
+    # the previous 175/82/110 W rig + 0.85 world overexposed every preview by ~3x, so the skin
+    # looked white and the dark hair mirrored the backdrops as grey streaks.
     for name, loc, tgt, energy, size, col in (
-        ("UW_Key", (-1.8, -2.8, 2.5), (0, 0, 1.0), 175.0, 2.0, (1.0, 0.97, 0.94)),
-        ("UW_Fill", (2.3, -2.0, 1.8), (0, 0, 1.0), 82.0, 2.5, (0.90, 0.94, 1.0)),
-        ("UW_Rim", (0.5, 2.5, 2.3), (0, 0, 1.2), 110.0, 1.6, (1.0, 0.98, 0.95)),
+        ("UW_Key", (-1.8, -2.8, 2.5), (0, 0, 1.0), 88.0, 2.0, (1.0, 0.97, 0.94)),
+        ("UW_Fill", (2.3, -2.0, 1.8), (0, 0, 1.0), 34.0, 2.5, (0.90, 0.94, 1.0)),
+        ("UW_Rim", (0.5, 2.5, 2.3), (0, 0, 1.2), 55.0, 1.6, (1.0, 0.98, 0.95)),
     ):
         ld = bpy.data.lights.new(name, "AREA")
         ld.energy = energy
@@ -131,6 +136,12 @@ def render_character_previews(ctx, out_dir, name, bbox):
     r.engine = "CYCLES"
     sc.cycles.device = "CPU"
     sc.cycles.samples = 32
+    try:
+        sc.view_settings.view_transform = "Standard"
+        sc.view_settings.look = "None"
+        sc.view_settings.exposure = 0.0
+    except TypeError:
+        pass
     sc.cycles.use_denoising = True
     r.resolution_percentage = 100
     r.image_settings.file_format = "PNG"

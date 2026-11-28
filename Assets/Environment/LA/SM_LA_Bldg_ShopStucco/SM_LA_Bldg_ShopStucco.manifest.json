@@ -66,12 +66,13 @@
     "mode": "trimesh",
     "generated": [
       {
-        "name": "UCX_SM_LA_Bldg_ShopStucco_Mesh_LOD2-colonly",
-        "vertices": 54,
-        "triangles": 60
+        "name": "UCX_SM_LA_Bldg_ShopStucco_Mesh-colonly",
+        "vertices": 144,
+        "triangles": 240
       }
     ],
-    "existing": []
+    "existing": [],
+    "micro_lips": 0
   },
   "materials": [
     "M_LA_Awning",
@@ -89,7 +90,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_tl28sdcp/T_LA_Stucco_D.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_7cch2o5p/T_LA_Stucco_D.jpg"
     },
     {
       "image": "T_LA_Stucco_ORM",
@@ -99,7 +100,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_c_my8o1q/T_LA_Stucco_ORM.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_t5h3t8uf/T_LA_Stucco_ORM.jpg"
     },
     {
       "image": "T_LA_Stucco_N",
@@ -109,7 +110,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_9og4uino/T_LA_Stucco_N.png"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_fthxxln5/T_LA_Stucco_N.png"
     },
     {
       "image": "T_LA_TrimBrick_D",
@@ -119,7 +120,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_skfxfudu/T_LA_TrimBrick_D.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_wuey4gp3/T_LA_TrimBrick_D.jpg"
     },
     {
       "image": "T_LA_TrimBrick_ORM",
@@ -129,7 +130,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex__k_6ekr9/T_LA_TrimBrick_ORM.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_oi4shg3j/T_LA_TrimBrick_ORM.jpg"
     },
     {
       "image": "T_LA_TrimBrick_N",
@@ -139,7 +140,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_6mdwv2pu/T_LA_TrimBrick_N.png"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_yge8i87q/T_LA_TrimBrick_N.png"
     }
   ],
   "uv_overlap": {
@@ -166,8 +167,8 @@
     "SM_LA_Bldg_ShopStucco_Mesh_LOD1",
     "SM_LA_Bldg_ShopStucco_Mesh_LOD2",
     "SM_LA_Bldg_ShopStucco_Mesh",
-    "UCX_SM_LA_Bldg_ShopStucco_Mesh_LOD2-colonly",
+    "UCX_SM_LA_Bldg_ShopStucco_Mesh-colonly",
     "SM_LA_Bldg_ShopStucco"
   ],
-  "glb_bytes": 1199708
+  "glb_bytes": 118584
 }

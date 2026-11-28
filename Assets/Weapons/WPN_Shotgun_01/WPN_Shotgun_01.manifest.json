@@ -1,0 +1,337 @@
+{
+  "asset": "WPN_Shotgun_01",
+  "status": "READY FOR REVIEW",
+  "category": "Weapons",
+  "budget_key": "Weapons",
+  "source_blend": "Blender/Source/Weapons/WPN_Shotgun_01/WPN_Shotgun_01.blend",
+  "export_glb": "Assets/Weapons/WPN_Shotgun_01/WPN_Shotgun_01.glb",
+  "preview_png": "Assets/Weapons/WPN_Shotgun_01/WPN_Shotgun_01_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.024,
+      -0.075,
+      -0.378
+    ],
+    "max": [
+      0.024,
+      0.095,
+      0.72
+    ],
+    "size": [
+      0.048,
+      0.17,
+      1.098
+    ]
+  },
+  "triangles": {
+    "lod0": 592,
+    "budget": 8000,
+    "per_lod_total": {
+      "LOD0": 308,
+      "LOD1": 154,
+      "LOD2": 76
+    }
+  },
+  "lods": [
+    {
+      "object": "Frame",
+      "levels": [
+        {
+          "name": "Frame",
+          "level": 0,
+          "triangles": 308
+        },
+        {
+          "name": "Frame_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 154
+        },
+        {
+          "name": "Frame_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 76
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_WPN_Shotgun_01_00-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_Prop_Gunmetal",
+    "M_Prop_Polymer",
+    "M_Prop_SteelBright",
+    "M_Prop_WoodStock"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Gunmetal_D",
+      "material": "M_Prop_Gunmetal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex__bov_379/T_Prop_Gunmetal_D.jpg"
+    },
+    {
+      "image": "T_Prop_Gunmetal_ORM",
+      "material": "M_Prop_Gunmetal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_q9n_d8ed/T_Prop_Gunmetal_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Gunmetal_N",
+      "material": "M_Prop_Gunmetal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_jh2zijbn/T_Prop_Gunmetal_N.jpg"
+    },
+    {
+      "image": "T_Prop_Polymer_D",
+      "material": "M_Prop_Polymer",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_muf61224/T_Prop_Polymer_D.jpg"
+    },
+    {
+      "image": "T_Prop_Polymer_ORM",
+      "material": "M_Prop_Polymer",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_s20sesj5/T_Prop_Polymer_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Polymer_N",
+      "material": "M_Prop_Polymer",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_81k03mko/T_Prop_Polymer_N.jpg"
+    },
+    {
+      "image": "T_Prop_SteelBright_D",
+      "material": "M_Prop_SteelBright",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_m4jol06x/T_Prop_SteelBright_D.jpg"
+    },
+    {
+      "image": "T_Prop_SteelBright_ORM",
+      "material": "M_Prop_SteelBright",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_8r_xk5_6/T_Prop_SteelBright_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_SteelBright_N",
+      "material": "M_Prop_SteelBright",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_9bpl7got/T_Prop_SteelBright_N.jpg"
+    },
+    {
+      "image": "T_Prop_WoodStock_D",
+      "material": "M_Prop_WoodStock",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_y_2dgwr_/T_Prop_WoodStock_D.jpg"
+    },
+    {
+      "image": "T_Prop_WoodStock_ORM",
+      "material": "M_Prop_WoodStock",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_jijw2uq2/T_Prop_WoodStock_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_WoodStock_N",
+      "material": "M_Prop_WoodStock",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../uwp_tex_uapzux_8/T_Prop_WoodStock_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "Frame": {
+      "texture_px": 512,
+      "median_px_per_m": 1893.6,
+      "p10_px_per_m": 1230.1,
+      "p90_px_per_m": 3587.8
+    },
+    "Barrel": {
+      "texture_px": 512,
+      "median_px_per_m": 2028.2,
+      "p10_px_per_m": 1867.5,
+      "p90_px_per_m": 2048.0
+    },
+    "Magazine": {
+      "texture_px": 512,
+      "median_px_per_m": 2155.8,
+      "p10_px_per_m": 1943.9,
+      "p90_px_per_m": 2560.0
+    },
+    "Slide": {
+      "texture_px": 512,
+      "median_px_per_m": 1267.2,
+      "p10_px_per_m": 944.0,
+      "p90_px_per_m": 1441.5
+    },
+    "Trigger": {
+      "texture_px": 512,
+      "median_px_per_m": 2048.0,
+      "p10_px_per_m": 2048.0,
+      "p90_px_per_m": 2048.0
+    }
+  },
+  "clipping": [],
+  "armatures": {
+    "WeaponRig": {
+      "bones": [
+        "WpnRoot",
+        "SlideBone",
+        "MagBone",
+        "TrigBone"
+      ],
+      "deform_bones": 4
+    }
+  },
+  "blendshapes": [],
+  "animations": [
+    {
+      "name": "A_WPN_Shotgun_01_Empty",
+      "frame_start": 0.0,
+      "frame_end": 2.0,
+      "fps": 30.0,
+      "duration_s": 0.0667,
+      "frames": 2,
+      "loop": false,
+      "speed_mps": null,
+      "slots": [
+        "OBWeaponRig"
+      ]
+    },
+    {
+      "name": "A_WPN_Shotgun_01_Fire",
+      "frame_start": 0.0,
+      "frame_end": 16.0,
+      "fps": 30.0,
+      "duration_s": 0.5333,
+      "frames": 16,
+      "loop": false,
+      "speed_mps": null,
+      "slots": [
+        "OBWeaponRig"
+      ]
+    },
+    {
+      "name": "A_WPN_Shotgun_01_Reload",
+      "frame_start": 0.0,
+      "frame_end": 96.0,
+      "fps": 30.0,
+      "duration_s": 3.2,
+      "frames": 96,
+      "loop": false,
+      "speed_mps": null,
+      "slots": [
+        "OBWeaponRig"
+      ]
+    }
+  ],
+  "sockets": {
+    "SOCKET_Grip": {
+      "parent": "WPN_Shotgun_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.0,
+        -0.0
+      ]
+    },
+    "SOCKET_Muzzle": {
+      "parent": "WPN_Shotgun_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.074,
+        0.72
+      ]
+    },
+    "SOCKET_Eject": {
+      "parent": "WPN_Shotgun_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.023,
+        0.07,
+        0.1
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "Barrel",
+    "Frame_LOD1",
+    "Frame_LOD2",
+    "Frame",
+    "SOCKET_Eject",
+    "SOCKET_Grip",
+    "SOCKET_Muzzle",
+    "UCX_WPN_Shotgun_01_00-convcolonly",
+    "MagBone",
+    "SlideBone",
+    "TrigBone",
+    "WpnRoot",
+    "Magazine",
+    "Slide",
+    "Trigger",
+    "WeaponRig",
+    "WPN_Shotgun_01"
+  ],
+  "glb_bytes": 862824
+}

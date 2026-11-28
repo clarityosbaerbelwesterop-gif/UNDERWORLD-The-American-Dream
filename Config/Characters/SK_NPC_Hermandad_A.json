@@ -1,0 +1,145 @@
+{
+  "_doc": "La Hermandad del Sur street soldier (enemy_light): navy crew tee, light jeans.",
+  "asset_name": "SK_NPC_Hermandad_A",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "height_m": 1.75,
+  "boot_sole_extra_m": 0.024,
+  "npc_decimate_body": 0.62,
+  "macro": {
+    "gender": 1.0,
+    "age": 0.35,
+    "muscle": 0.6,
+    "weight": 0.45,
+    "proportions": 0.62,
+    "height_morph": 0.45,
+    "ethnicity": {
+      "caucasian": 0.5,
+      "asian": 0.25,
+      "african": 0.25
+    }
+  },
+  "morphs": {
+    "chin-bones-decr-incr": -0.1
+  },
+  "skin": {
+    "texture_size": 1024,
+    "base_diffuse": "skins02/skins/toigo_light_skin_male_bronze/young_lightskinned_male_diffuse_Bronze.png",
+    "base_normal": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_NRM.png",
+    "tint_rgb": [
+      0.88,
+      0.74,
+      0.62
+    ],
+    "hair_color_rgb": [
+      0.03,
+      0.026,
+      0.024
+    ],
+    "skin_fade": {
+      "enabled": true
+    },
+    "beard_stubble": {
+      "density": 0.2
+    },
+    "seed": 1401
+  },
+  "eyes": {
+    "mhclo": "mh_eyes/low-poly.mhclo",
+    "iris_texture": "makehuman_system_assets/eyes/materials/brown_eye.png"
+  },
+  "eyebrows": {
+    "mhclo": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.mhclo",
+    "texture": "makehuman_system_assets/eyebrows/eyebrow009/eyebrow009.png",
+    "scar_notch": false
+  },
+  "eyelashes": {
+    "mhclo": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.mhclo",
+    "texture": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.png"
+  },
+  "teeth": {
+    "enabled": false
+  },
+  "hair": {
+    "style": "skin_fade_crop",
+    "color_rgb": [
+      0.03,
+      0.025,
+      0.022
+    ],
+    "seed": 1402
+  },
+  "beard": {
+    "style": "none",
+    "seed": 1403
+  },
+  "outfit": {
+    "tshirt": {
+      "enabled": true,
+      "style": "crew_tshirt",
+      "polyhaven_id": "cotton_jersey",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 4.0,
+      "desaturate": 0.9,
+      "tint_rgb": [
+        0.08,
+        0.12,
+        0.3
+      ]
+    },
+    "jacket": {
+      "enabled": false,
+      "style": "bomber_jacket",
+      "polyhaven_id": "fabric_leather_02",
+      "texture_size": 1024,
+      "bake_size": 512,
+      "normal_size": 512,
+      "tile": 4.0,
+      "desaturate": 0.85,
+      "tint_rgb": [
+        0.12,
+        0.12,
+        0.13
+      ],
+      "zone_mode": "bomber_trim"
+    },
+    "jeans": {
+      "enabled": true,
+      "style": "straight_jeans",
+      "polyhaven_id": "denim_fabric_04",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 5.0,
+      "tint_rgb": [
+        0.34,
+        0.46,
+        0.66
+      ],
+      "zone_mode": "denim_wash"
+    },
+    "boots": {
+      "enabled": true,
+      "polyhaven_id": "fabric_leather_02",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 3.0,
+      "desaturate": 0.9,
+      "tint_rgb": [
+        0.11,
+        0.11,
+        0.12
+      ],
+      "zone_mode": "boot_sole"
+    },
+    "watch": {
+      "enabled": false
+    }
+  },
+  "animations": {
+    "clip_prefix": "A_Humanoid_",
+    "mocap_walk_bvh": "mocap/makehuman_walk1.bvh",
+    "include_p2": false,
+    "minimal_npc_set": true
+  }
+}

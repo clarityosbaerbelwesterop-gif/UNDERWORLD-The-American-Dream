@@ -1,10 +1,147 @@
 # Development Log
 
+## 2026-11-24 · Claude Code · T-NY-01 (New York set, wave 1)
+- `props/buildings.py`: brownstone, tenement, bodega, bank_ny, subway_entrance (+ `_lintels`, `_cornice` with brackets); kit materials brownstone / brick_ny / limestone, emissive lamp_globe_green; `keep_origin` -> `uw_below_grade_m`, validator allows exactly that depth.
+- ny_overcast: soft key (0.55, 12 deg angular size), ambient 3.0, exposure 2.5 (card luma ~125). Catalogue +5 (106 entries). `Tests/tools/capture_ny_street.gd` (runtime NY block, overcast + wet night with practicals). Report `Docs/Reports/BERICHT_T-NY-01.md`.
+
+## 2026-11-24 · Claude Code · T-DECAL-01 (decals + textured streets)
+- `Tools/uwp build-decals` (13 decals, numpy/Pillow, Decal scenes + manifest); `build_decals_calloway.gd` -> `LA_CallowayAve_Decals.tscn` (137), instanced by the level (builder updated).
+- Streets: textured overrides from the kit maps (`_tex_mat`), kit asphalt/concrete calibrated (`mean_srgb`), road + sidewalk rebuilt (gate PASS); `LevelAudit.effective_albedo`. Golden hour sun 12 -> 18 deg, ambient 2.6 -> 3.2 (street was in deep shade).
+- `test_decals.gd` (+ negative control), catalog: DC_LA_Decals + both sit clips WIP (93 WIP / 8 PLANNED). Report `Docs/Reports/BERICHT_T-DECAL-01.md`.
+
+## 2026-11-24 · Claude Code · T-LOOK-02 (graphics pass)
+- AgX + SSIL in ENV_LA_* (exposure golden 0.58 -> 0.76, midday 0.74 -> 0.84; cards in target), new ENV_NY_Night (volumetric fog, SSR) / ENV_NY_Overcast; SunPreset presets ny_night / ny_overcast + CHAPTER map + graded_environment().
+- `Grading` (17^3 LUT per chapter, pure grade()), `GradedWorld` on the M01 WorldEnvironment (2-line scene change; builder updated), `MaterialPass` in Vehicle._assemble + CharacterVisual.set_model, `set_wetness()`.
+- `test_look.gd`; capture tools `capture_look_presets.gd`, `capture_lookdev.gd` (UW_LOOKDEV_CAMS=calibration, UW_LOOKDEV_GRADE=0). Report `Docs/Reports/BERICHT_T-LOOK-02.md`.
+
+## 2026-11-24 · Claude Code · T-VEH-02 (interiors + see-through glass)
+- `vehicles/interior.py` (TD-031): front seats + headrests, rear bench (clamped under the rear glass; none in pickup/van), dash + instrument hood, steering wheel (torus rim, hub, 3 spokes, column) placed through the driver's grips, centre console, floor pan; `check_fit()` per car (head / soles / wheel vs windscreen).
+- Body loft without the belt-height lid over the cabin, double-sided paint, alpha glass. Sedan collision hull: hull faces only (was NON_MANIFOLD). Muscle profile: roof +4 cm, sills -6 cm, seat 6 cm back. `validate.py`: `Interior` is a functional part name. Budget vehicles 12 -> 14 materials.
+- Sit contract: soles -0.30 -> -0.22 (feet poked through the floor of the low cars), wrists 0.38 -> 0.34 (wheel rim under the windscreen), passenger palms on top of the thighs.
+- Gate 6/6 cars; tests: fleet interior + glass on every car, seated pose checks; renders `Docs/Reports/renders_veh_interior/` (Jason driving, Marco beside him, visible through the glass).
+
+## 2026-11-24 · Claude Code · T-ANIM-02 (B-011 seated poses)
+- `animations.py` `sit_pose()`: 2 looping clips in the shared library (23 clips now). Contract: root = `SOCKET_Seat_*` (H-point), pelvis +3 cm, seat back 21 deg, head top 0.83 m above the seat, driver hands at 9-and-3 (wheel 0.36 m ahead / 0.38 m up), passenger hands on the thighs; arm reach 86-87 %, no IK clamp.
+- `CharacterVisual.set_seated(slot, seat)` (tree paused, sit clip on the AnimationPlayer, visual pinned to the socket), `bone_global_position()`; Jason borrows `A_Jason_Sit_*` from `A_Humanoid_Sit_*`. `Vehicle`: driver seated while DRIVING, hidden during ENTERING/EXITING (enter/exit clips not door-aligned yet). `AllyCompanion`: Marco seated + rifle stowed.
+- Tests: pelvis on the seat (0.03 / 0.04 m), head top under the roof, hands forward, left elbow inside the door (first capture showed it through the door: pole fixed), standing again after exit. Capture `Tests/tools/capture_seated.gd`.
+- Honest: the sedan's glass is opaque and the car has no interior yet, so the occupants are not visible from outside -> T-VEH-02 (interior kit + tinted glass).
+
+## 2026-11-24 · Claude Code · T-QA-02 (CI robustness)
+- `.github/workflows/ci.yml`: the apt step stalled 20+ min twice (mirror); now `timeout-minutes: 15`, `timeout` on update/install, 3 attempts.
+
+## 2026-11-24 · Claude Code · T-LVL-02 (M01 dressed with the kit; B-007 resolved)
+- `build_level_calloway.gd`: west block = kit liquor store / office tower / stucco shop / Apartment4F (greybox only as fallback), kit traffic light + street sign, 14 street-furniture pieces out of the walking line, parked cars drawn as real P5 cars over the unchanged cover boxes (`VisualOnly` strips the car hulls at load).
+- B-007: roof gunman = post at the roof edge; autopilot requires a clear shot line from gun height. M01 by input: seeds 1/2/3/4/5 PASS (190-200 s; seed 2: 47 shots instead of 82).
+
+## 2026-11-24 · Claude Code · T-FX-01 (P6: effect library)
+- `Tools/uwp build-fx` -> 14 `Scenes/FX/FX_*.tscn` (GPU particles, procedural textures, light flashes), `FXEffect` (spawn, self-free, impact choice by surface). `weapon.gd`: muzzle flash per shot, surface impact per hit. TD-030 PROPOSED.
+- `test_fx.gd` (scene contract, lifetimes, catalogue, real shots: wall -> concrete, car -> metal, NPC -> blood; negative `UW_FX_SABOTAGE=1`). Capture tool: `--fixed-fps` + warm-up (60 ms flashes on a CPU renderer). Found: PROCESS_MODE_DISABLED removes hitboxes from physics.
+
+## 2026-11-24 · Claude Code · T-CHAR-01 part 2 (13 figures)
+- MakeHuman/MPFB2 CC0 sources reachable after the owner-approved environment change (files2.makehumancommunity.org, github.com); slow server (25 KB/s per connection) -> parallel ranged download, zip-verified.
+- 13 figures built with `uwp build-character` + exported (dev 13/13; bosses needed a `Characters/SK_Boss` budget (30k) and Sam-level muscle against jacket clipping). Bosses: concealed heavy vest, no helmet (combat.json `armor_concealed`; test). Blue-jeans calibration (light denim set). Line-ups per faction in engine.
+
+## 2026-11-24 · Claude Code · T-VEH-01 (P5: vehicle body profiles + 5 cars)
+- `Tools/uwp build-vehicles` (`vehicles/profiles.py`): police cruiser, NY taxi, muscle coupe, crew-cab pickup, delivery van (3.3–3.7k tris), clean hull-only UCX (gate PASS 5/5; the sedan's hull still fails the gate), invented liveries. TD-029 PROPOSED.
+- `test_vehicle_fleet.gd`: each car assembles in vehicle.gd, parks (±2 mm), drives (7.7 m/s after 2 s); negative `UW_VEH_SABOTAGE=radius`. vehicle.gd: rear doors optional. Motorcycle + plane stay PLANNED (P7 mechanics).
+
+## 2026-11-24 · Claude Code · T-CHAR-01 part 1 (NPC visuals)
+- **Bug fixed:** every NPC in M01 rendered as its PT capsule over the real model. CharacterVisual hid only its own PT_ children, while NPC scenes keep PT_Capsule/PT_FrontMarker as siblings. Test + negative control `UW_ANIM_SABOTAGE=capsule`.
+- `CombatDB.apply()` attaches the archetype's armor props to the skeleton (vest on Chest, helmet on Head, pickup collision stripped); test. `Tests/tools/capture_archetypes.gd` renders the tier line-up per faction. 13 faction/boss character specs in `Config/Characters/` (built in part 2).
+
+## 2026-11-23 · Claude Code · T-WPN-01 (P5: weapon grammar + 9 weapons)
+- `Tools/uwp build-weapons` (`props/weapons.py`; kit gains multi-part assets): revolver, SMG, pump shotgun, carbine, bolt-action sniper, knife, bat, grenade, molotov. Parts Frame/Slide/Magazine/Barrel/Trigger/Hammer, sockets Grip/Muzzle/Eject, rigid rig with Fire/Reload/Empty. Reload length read from combat.json. 152–932 tris. TD-028 PROPOSED.
+- `combat.json` `scene` links + `CombatDB.weapon()` loads them; `test_combat_db.gd` checks muzzle in front, Magazine node, 15 clips, Reload clip == reload_time (with a self-check that +0.5 s fails). uwp test [9] builds rifle + revolver through the gate. Capture: weapons in side profile, objects lifted onto the ground.
+
+## 2026-11-23 · Claude Code · T-BLDG-01 (P3: building grammar + 8 LA buildings)
+- `Tools/uwp build-buildings` (`props/buildings.py`, kit `wall()` with real openings): apartment 4F (fire escape, water tank), motel (gallery, 16 rooms, pole sign), gas station (kiosk, canopy, pumps, price sign), warehouse M01 (dock, 3 roll-up doors), hangar (barrel vault), office tower (8 floors, curtain-glass ribbons, penthouse), Crestmont villa (hip roof, balcony, garage), liquor store (security bars, awning, mural). 492–3,864 tris, ≤ 8 materials each. TD-027 PROPOSED.
+- Verified: `uwp --profile gate` 8/8 PASS; Godot import 0 errors/warnings; catalogue import test; uwp tool test builds liquor store + hangar from a synthetic cache through the gate; Forward Plus captures `Docs/Reports/renders_buildings/`.
+
+## 2026-11-23 · Claude Code · T-PROP-01 (P2/P3/P5: prop generator + 27 assets)
+- `Tools/uwp build-props` (`Tools/underworld_pipeline/props/`): primitives (bevelled box, cylinder, lathe, swept tube with parallel-transport frames, arc shells, labels), CC0 material library (17 Poly Haven sets), world-space UV0 + lightmap UV1, label atlas per asset, authored UCX collision. TD-026 PROPOSED.
+- 27 assets built and exported with `uwp --profile gate` (all PASS): road intersection + crosswalk tiles, traffic light, hydrant, trash can, bus stop, chain-link fence, dumpster, payphone, newspaper box, parking meter, street sign, billboard, bush, power pole; cash bundle, phone, gold bar, contraband brick, duffel, barrel, pallet, toolbox, workbench; light vest, plate carrier, tactical helmet. Catalogue: 44 WIP / 57 PLANNED.
+- Verified: Godot import 0 errors/warnings; `test_assets.gd` catalogue check (collision, LOD ranges, textured surfaces) PASS, negative `UW_ASSET_SABOTAGE=nocollision` → FAIL; uwp tool test [9] (synthetic texture cache → build → gate; no cache → loud failure); Forward Plus captures `Docs/Reports/renders_props/`.
+
+## 2026-11-23 · Claude Code · T-DATA-01 (P1: combat database + content catalogue)
+- `Docs/PRODUCTION_PLAN.md`: 10 content-first milestones P1–P10 to the finished game, studio tool → our equivalent mapping, owner decisions E-3/E-4/E-5/E-8.
+- `GodotProject/Data/Content/combat.json` + `CombatDB`: 10 weapons (pistol, revolver, SMG, shotgun, rifle, sniper, knife, bat, grenade, molotov) with armor penetration; armor (light/heavy vest, helmet); 8 archetypes incl. boss with 2 phases; 7 factions with rosters. Armor in `DamageReceiver` (zone, absorb, penetration, depletion, reset). TD-025 PROPOSED.
+- `Config/Content/catalog.json` (101 entries: 17 WIP, 84 PLANNED) + `Tools/uwp catalog check|status|plan|build` (plain Python). Verified: `test_combat_db.gd` 33 PASS (TTK pistol body hits: civilian 3, light 4, medium 6, heavy 11, boss 31), negative `UW_COMBAT_SABOTAGE=1` → 8 FAIL; uwp catalogue tests 13 PASS incl. sabotaged catalogue and stray .glb.
+
+## 2026-11-23 · Claude Code · T-PIPE-06 / T-PIPE-05 (pipeline audit, release gate)
+- Audit `Docs/Reports/AUDIT_T-PIPE-06_Pipeline.md` (15 findings). New **release gate** `uwp export --profile gate`: strict + LODs (>= lod_min_triangles) + collision required + TD-012 LOD/collision budgets + zero clothing clipping. Run over all 17 sources: 8 pass technically (kit, crate, pistol), all 7 characters + sedan fail (clipping 1-4 verts hidden by the dev rule, teeth UV 32.5 %, Cop origin, no character LODs, non-manifold sedan hull).
+- Fixes: convex hull really <= 64 verts (was 65); functional part names (Wheel_FL, Door_FL, Slide ...) no longer naming errors. TD-012 values in `Config/asset_budgets.json`. TD-021 hybrid pipeline PROPOSED; playthrough TD renumbered TD-021 -> TD-023 (master prompt reserves TD-021).
+
+## 2026-11-23 · Claude Code · T-QA-01 (CI)
+- `.github/workflows/ci.yml`: every PR + push to main runs `Tools/sandbox/bootstrap_cloud.sh` (Blender 5.2.4 bpy, Godot 4.7.2, templates; cached), `Tests/run_all.sh`, `Tools/build/build_linux.sh` and Forward Plus review shots on Mesa lavapipe; logs + shots as artifact. LFS objects come from the Actions cache keyed by the pointer list (B-005 bandwidth). Manual `workflow_dispatch` input `sabotage` (validated `UW_<AREA>_SABOTAGE=<v>`) = negative control.
+- `Tests/run_all.sh` now fails if the run modified tracked files (the smoke export rewrote `Assets/Test/PT_PipelineTest_Crate.*` on every run with a newer Blender). Crate re-exported with Blender 5.2.4 (byte-identical on re-run).
+
+## 2026-11-23 · Claude Code · T-BUILD-02 (M01 acceptance, input-only)
+- **New gate:** `Tests/test_playthrough.gd` + `Tests/tools/m01_autopilot.gd` play M01 through the shipping entry scene with input actions only (TD-023 PROPOSED, deterministic seed 2, QA cheat invulnerable stated). Result: MISSION COMPLETED in 221.9 s game time, 23 hits.
+- **20 blockers found and fixed** (pipeline: COLLISION_MICRO_LIP rule, trimesh from LOD0; level: kerb lines, garage rotated 180°, wave spawns per layout §5, 6 cover anchors, rooftop spawn; mission: interact input, package load, outro, revive, restart placement, carried-item collision, stale area overlap, enemy reset; AI: wave briefing, NPC step-up, ambush pressure; HUD: subtitles never cleared, duplicated HUD widgets). Details + tests: `Docs/Reports/BERICHT_T-BUILD-02.md`.
+- **Balance** measured, not changed: TD-022 PROPOSED difficulty layer (value 1.0), B-007/B-008 OPEN.
+- Forward Plus video (Movie Maker, lavapipe): `Docs/Reports/renders_fwdplus_m01/`.
+
+## 2026-11-23 · Claude Code · T-ENV-01 (cloud toolchain)
+- **Toolchain:** `Tools/sandbox/bootstrap_cloud.sh` installs the exact studio versions without apt: Blender **5.2.4 LTS** as `bpy` wheel + CLI shim, Godot **4.7.2** official (SHA512), Linux/Windows export templates; links `/workspace/tools/*` so all repo defaults work.
+- **Forward Plus without GPU:** Mesa lavapipe (Vulkan on CPU) runs the shipping renderer under Xvfb; `Tools/godot_phase8_capture.sh --renderer auto|fwdplus|compat` (+ `--movie` for Godot Movie Maker). Exported release binary recorded 240 frames of M01 in Forward Plus (15 % real time).
+- **Fix:** `run_tests.sh` numpy-interpreter lookup now accepts a bpy-wheel shim's venv (was FAIL "no python with numpy found").
+- **Gate:** `RUN_ALL: PASS` 749 checks; `build_linux.sh` exit 0; `UW_BUILD_SABOTAGE=1` exit 6.
+
+## 2026-11-23 · Bot 1 · Review of PR #17 (Auftrag 02) + fixes
+- **Verified** merge `d3809d0` on a fresh worktree (`git worktree add`, `git lfs pull`, `Tests/run_all.sh`): `RUN_ALL: PASS`, 738 checks (smoke 12, uwp 58, import 71, AI 102, HUD 40, level 23, mission 105, player 171, vehicle 88, weapon 68) – matches the report. Test diff 1c619b2..d3809d0: no test removed or loosened; hitbox count 5 → 7 follows the new bone zones; vehicle enter/exit waits use the clip-driven `enter_duration()/exit_duration()` (fallback = old data times). `Config/`, `Tests/*.sh`, `QUALITY_GATE.md` unchanged. LFS: 114/114 pointer files, `git lfs fsck --pointers` OK.
+- **Defect – build boots the wrong scene:** `run/main_scene` was `Scenes/Main.tscn` (pipeline smoke scene with the PT crate) and no code outside the tests called `MissionManager.start()`. Fix: `Scenes/Game_M01.tscn` + `Scripts/game/game_boot.gd` (TD-020), `Tests/test_boot.gd` 7 checks, `UW_BOOT_SABOTAGE=1` → 2 FAIL; `build_linux.sh` requires the `UNDERWORLD: GameBoot` banner (exit 8).
+- **Defect – Marco through the roof:** Phase 8 capture showed the standing Marco pose poking through the sedan roof (no sit clip). Fix: pose hidden while seated, shown on unboard (`ally_companion.gd`), `test_mission.gd` +4 checks.
+- **Defect – flaky `test_level`:** navmesh path 0 points in 1 of 3 fresh runs (async navigation map sync). Fix: bounded wait (≤ 240 physics frames) until the map iterated with the region; 6/6 green afterwards. No check loosened.
+- **Hardening:** all `UW_*_SABOTAGE` switches only in debug builds (`OS.is_debug_build()`).
+- **Linux export:** official 4.7.2 Linux templates (only `linux_release/debug.x86_64`, range-extracted from the .tpz) → `build_linux.sh` exit 0, 71 MB + 95 MB PCK, smoke clean; `UW_BUILD_SABOTAGE=1` → exit 6. Release binary under Xvfb + llvmpipe boots into M01 with HUD/objective/subtitles (screenshot in `Docs/Reports/renders_review_pr17/`).
+- **Phase 8:** `GodotProject/Tests/tools/capture_m01_review.gd` via `Tools/godot_phase8_capture.sh` → 7 shots + build shot in `Docs/Reports/renders_review_pr17/`. Honest verdict: functional blockout, far from the gate.
+- **Sabotage sweep (fresh worktree, after fixes):** JASON 3, ANIM 9, VEHICLE 1/2 = 9/22, MISSION 1/2/3 = 5/2/2, AI incar 4, HUD 3, LEVEL 1, BOOT 2 FAIL – every mode exit 1.
+- TD-015 ACCEPTED; TD-016…019 ACCEPTED; TD-020 new. Master prompt for the next Claude Code phase: `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md` (separate PR).
+
+## 2026-11-22 · Claude Code (Auftrag 02)
+- **T-BUILD-01** `export_presets.cfg` + `Tools/build/build_linux.sh` → `Builds/linux/Underworld.x86_64` (79 MB) + `.pck` (189 MB), 657 Dateien, `Tests/`/`Scripts/import/` ausgeschlossen (PCK-Verzeichnis geparst). Export exit 0, Smoke `--headless --quit-after 300` ohne ERROR; `UW_BUILD_SABOTAGE=1` → exit 6. Templates aus dem 4.7.2-Quellbaum gebaut (`vulkan=no opengl3=no` → Boot-Nachweis, keine Darstellung). `Docs/BUILD.md`, TD-019.
+- **T-LVL-01a, zweiter Durchgang** `Tests/tools/capture_level_plan.gd` (Planansicht aus echten AABBs) zeigte: alle gemalten Straßen-/Bordstein-Kopien lagen bei (0,0,0) – im Generator ist das Level in `_initialize()` noch nicht im Baum, `global_transform` liest Identity. Fix: Transform aus der Kette zusammensetzen. `test_level.gd` 20 → 23 Checks (118 Kopien, 0 im Ursprung, erste Straße bei -24/0/-79). Besagte Kopien waren zuvor *komplett unsichtbar* – der Luminanztest blieb grün, weil er nur Material prüft.
+- **T-LVL-01a** Buergerroute kreuzte die Fahrbahn und blockierte den Sedan bei z≈37 (M01-Fahrt 26 s → Abbruch). Route bleibt auf dem äußeren Gehweg. Level neu erzeugt: 1652 Nodes, Navmesh 428 Polygone.
+- Messung: 9 Sabotage-Modi einzeln → alle Exit 1 (bzw. 6 beim Build), echte FAILs 1–22. `RUN_ALL: PASS`, 738 Checks.
+
 Append-only, newest on top. `YYYY-MM-DD HH:MM (Europe/Berlin) · Bot N · Task ID · what was done · how it was verified`.
+
+## 2026-11-23 · Bot 1 · T-MIS-01 review + fixes (PR #15, #16)
+- **Verified PR #14** (`c63198a`, self-merged by the external Claude Code agent, +13.6k/-0.6k lines, 200 files) on a fresh worktree of `origin/main` with `git lfs pull`: `RUN_ALL: PASS`, 588 checks (smoke 12, uwp tool 58 = 48 + 10 `lip_mask`, import 71, AI 80, **mission 74 new**, player 137, vehicle 88, weapon 68). No test removed; the only gate change is `Tests/lib/godot_errors.sh`, which filters exactly one toolchain line (`compiled without fontconfig`) – acceptable. `QUALITY_GATE.md`, `.gitattributes`, `Config/asset_budgets.json` unchanged; `uw_lod_post_import.gd` mirror identical. Player/vehicle sabotage still FAIL (3 / 9 / 22 checks).
+- **Code review:** the 4 mission bug fixes are real (persistent groups, Vehicle target = `driver != null`, left-behind vs. player/vehicle + `_package_ever_held`, test uses `request_exit()`); level has 132 `instance=ExtResource` instead of copies; `lip_mask()` clamps before the fractional power, Pillow encoding replaces `save_render`, NaN guard in `pack_np_image()`.
+- **Defect 1 – LFS:** 106 binaries (120 MiB at the tree; ~256 MiB uncompressed over the 5 commits) were raw blobs. PR #15 (`6f149e5`): `git add --renormalize`, LFS objects pushed, fresh clone pulls all 114 LFS files, RUN_ALL PASS. Old blobs stay in history (no rewrite).
+- **Defect 2 – fake negative control:** `UW_MISSION_SABOTAGE=1` only failed a self-referential check (`set flag false; check flag`) and *skipped* the left-behind test. PR #16: sabotage now corrupts the mission data before the real checks (objective 2 checkpoint removed, stray distance 1e9) → 5 real checks FAIL, exit 1; normal run 75 checks PASS (+1: death test pins checkpoint 2).
+- **Still open:** Marco ally, wave sequencing, real drive loop, HUD test, Phase 8 mission capture; level is a greybox (llvmpipe capture: near-white ground, roads not readable); all new characters far below the quality gate.
+- Next prompt for Claude Code: `Docs/Prompts/CLAUDE_CODE_PROMPT_02.md`.
+
+## 2026-11-22 · Arena agent (T-MIS-01 + character pass)
+- **M01 playable end-to-end.** `Tests/test_mission.gd` → `RESULT: PASS` (exit 0). Four silent bugs fixed, none of which any test reported: (1) `add_to_group("mission_enemies")` is not persistent, so `PackedScene.pack()` dropped the five enemy groups — now `add_to_group(..., true)`; (2) objective "Get in the car." targets a `Vehicle`, `_area_occupied` cast it to `Area3D` and always returned false — a Vehicle counts as occupied when `driver != null`; (3) "Package left behind" was dead code (the crate is a child of its carrier, so the distance was always ~0) — now measured against the player/vehicle and gated by `_package_ever_held`; (4) the test itself called `exit_vehicle()` (never existed) and entered the car synchronously although `enter()` is animated. Negative control: `UW_MISSION_SABOTAGE=1` → `FAIL (1)`, exit 1.
+- **The level never saw its own sub-scenes.** `build_level_calloway.gd` owned every node of instanced sub-scenes, so `PackedScene` saved full copies of `Player.tscn`/`PT_NPC_*.tscn` instead of instances — NPCs in the level were still PT capsules although the scenes had long had character models. Ownership stops at sub-scene roots now (898 nodes, 132 `instance=ExtResource`). `PT_NPC_Gunman`/`PT_NPC_Civilian` carry the real `SK_NPC_*` model via `CharacterVisual`; that node got `clip_prefix` + `resolve_clip()` (NPCs resolve the shared `A_Humanoid_*` library) plus a generic speed/aim/crouch/dead driver fed by `NPCController`.
+- **Black blotches on every character (found by the visual check, invisible in the reports).** The new lip mask used `cos(pi/2 · v) ** 0.55`; in float32 `cos(pi/2)` is ≈ −1e-17 and a negative base to a fractional power is NaN. At 1024² that poisoned 2 837 832 of 3 145 728 skin-diffuse values, propagated into roughness/ORM/beard, and Cycles renders a NaN base colour as pure black. Fix: every term is clamped at 0 before the power; `lip_mask()` is now a side-effect-free function with 10 unit checks (incl. a float32 regression at texture resolution); `pack_np_image()` reports and neutralises NaN instead of shipping a broken map. Found in the same hunt: `image.save_render()` through scene settings could write a corrupted packed blob (70 087 B / mean 0.048 vs. 89 033 B / mean 0.569 on disk) — maps are now encoded with Pillow and only loaded+packed by Blender.
+- **Character fixes.** Brows sat up to 1.5 cm above the brow ridge (thick black arches on the forehead); `medium_crop` hair reached below the brow line (bowl-cut fringe) on Marco and the civilian; `lip_rgb` sat at the spec top level while `pbr_textures` reads `skin["lip_rgb"]`, so every character silently used the default lip colour; the vermilion is now two lobed half-ellipses and the beard cuts out with the same mask (the pale rectangle around the mouth is gone); skin roughness 0.64 → 0.70 base and 0.36–0.78 → 0.42–0.84 on the photo path. `SK_NPC_Cartel_A/B`, `Civilian_Female`, `Cop_LA` and `Marco` were built and exported for the first time (Marco needed `npc_decimate_body` 0.55 for the 25k budget).
+- **Toolchain.** One shared filter (`Tests/lib/godot_errors.sh`) for the `fontconfig=no` ERROR this sandbox Godot logs on every headless start; all four runners use it and still fail on any other ERROR (verified against a synthetic log). `render_character.py` anchored the face view on the brow line and framed 0.19 m — it now sits on the measured eye line and frames the whole head. `Tools/sandbox/make_placeholder_assets.py` + `.cache/placeholder_assets.json` deleted. Procedural asset provenance documented in `Docs/ASSET_LICENSES.md`.
+- Verified: `Tests/run_all.sh` → RUN_ALL: PASS (also on a fresh worktree), `./Tools/uwp export-all` → PASS (17 assets), `Tests/test_mission.gd` → PASS (sabotage → FAIL(1)), `uwp` tool tests → PASS incl. the new `lip_mask` block, `gdparse` clean over all `GodotProject/**/*.gd`. Not claimed: production-ready — the concept-art turnaround is still an LFS pointer in this sandbox, so the silhouette check stays `WARN CONCEPT_UNAVAILABLE`.
+
+## 2026-11-22 · Bot 1 (handoff to Claude Code)
+- **2026-11-22 13:30 · T-DOC-00 (Bot 1)** Handoff to Claude Code: `Docs/CLAUDE_CODE_HANDOFF.md`, root `CLAUDE.md`, `Docs/SKILLS_AND_TOOLS.md` (vendor verdicts copied from the box), TASK_BOARD reconciled (T-PIPE-02, T-GP-01, T-GP-01c, T-GP-01c-J, T-GP-02, T-GP-03 → COMPLETED; pistol pass = T-ART-05, PR #11 mislabelled T-ART-03). PR #12 (Jason swap) reviewed + merged `b2acced` after fresh-worktree RUN_ALL PASS (player 137). Verified: `Tests/run_all.sh` RUN_ALL: PASS on this branch.
+
+## 2026-11-22 · Bot 3 (T-GP-01c-J Jason swap)
+- **2026-11-22 13:10 · T-GP-01c-J** Branch `bot3/t-gp-01c-jason` from main 038de21. Player visual = SK_Jason v2 (`Player.tscn`), `CLIP_NAMES.jump_loop` = `A_Jason_Jump_Air`, weapon auto-attached to `SOCKET_RightHand_Weapon`, tree rebuilt on model swap, `validate_clips()`. Verified: `test_player_controller.gd` (+ SK_Jason block, all PASS), sabotage `UW_JASON_SABOTAGE=1` → 3 FAIL exit 1, `test_weapon.gd` adjusted; `Tests/run_all.sh` RUN_ALL: PASS (asset import 61, ai 80, player 137, weapon 68).
+
+## 2026-11-22 · Bot 1 (PR #9 review)
+- **2026-11-22 13:03 · T-GP-03** TD-014 (VehicleBody3D + runtime assembly from VH_*.glb) **ACCEPTED**. Verified on a fresh worktree at `5a1df6b`: `Tests/run_all.sh` → RUN_ALL: PASS (pipeline tools 46, asset import 61, ai 80, player 112, vehicle 88, weapon 68).
+
+## 2026-11-22 · Bot 3 (T-GP-03 vehicle physics)
+- **2026-11-22 13:05 · T-GP-03** Merged `origin/main` (038de21: #6, #7, #8) into `bot3/t-gp-03` (clean). Vehicle physics on the real `VH_Sedan_01.glb`: `Vehicle` (VehicleBody3D, TD-014 PROPOSED) assembles wheels/UCX collision/doors/sockets from the asset at runtime; `VehicleData` .tres (`[DEFAULT]` tuning); enter/exit with seat + exit sockets via `enter_vehicle` (F / Y); chase camera; door hinge hooks; crash damage; engine pitch; new driving actions in `setup_input_map.gd`; `PT_VehicleTestRange`. Found + fixed two engine issues: Godot 4.7.2 static suspension sag is 4.0/k (calibrated), VehicleWheel3D visual drawn too low (wheel meshes posed from the ground contact instead), and restoring the player's collision in the exit frame launched the car (kinematic sweep from the seat) → restored 2 physics frames later. Verified: `Tests/test_vehicle.gd` 88/88 PASS, deterministic ×2; sabotage modes fail (9 / 22 FAIL, exit 1); `Tests/run_all.sh` RUN_ALL: PASS (asset import 61, ai 80, player 112, vehicle 88, weapon 68). REQ_VEH_Sedan_01 CONFIRMED (4 non-blocking CRs).
+
+## 2026-11-22 · Bot 1 (T-QA-02 Quality Gate)
+- **2026-11-22 12:56 · T-QA-02** Installed the owner's AAA Quality Gate as a binding rule, adapted to Godot 4.7.2 (Phase 8 = in-engine capture, not Unreal). Added `Docs/QUALITY_GATE.md`, review template, first honest Bot 1 reviews (all REJECT), `Tools/uwp review-sheet`, `Tools/godot_phase8_capture.sh`. Updated HANDOFF_PROTOCOL, TASK_BOARD, ASSET_REGISTRY (`PRODUCTION-READY` only after a gate pass). Proven on this box: xvfb + `LIBGL_ALWAYS_SOFTWARE=1` / llvmpipe + `--rendering-driver opengl3 --rendering-method gl_compatibility` writes a real lit 3D PNG (Godot 4.7.2); Forward Plus/Vulkan cannot be captured here (no lavapipe ICD). Vendor review of additional skill repos is in `/workspace/tools/skills-vendor/README.md` (not this repo). Verified: `Tests/run_all.sh` → RUN_ALL: PASS (after this commit's tests).
+
 
 ## 2026-11-22 · Bot 1 (T-PIPE-04 recovery)
 - **2026-11-22 12:55 · T-PIPE-04** Recovered the cloud agent's unpushed post-PR-#7 work from its transcript (42 edits: 6 NPC specs, shared anim library builder, weapon/vehicle/LA-kit generators, `uwp build-*` CLI, 3 LA environment presets, M01 block + look-dev scenes, 4 pipeline docs, budgets, .gitignore). Re-ran all generators here (Blender 5.2.4 headless, CC0 caches re-downloaded), fixed the sedan cabin and Sam's hair, added registry rows + Poly Haven license rows. Verified: all `uwp export` PASS; Godot import 0 errors; verify script 33/33; SK_Jason rebuilt with the modified character builder still `uwp validate` PASS (rebuild discarded, committed v2 unchanged); `Tests/run_all.sh` → RUN_ALL: PASS; `verify_sk_jason.sh` PASS.
 - **2026-11-22 12:40 · T-AI-01 merge** PR #6 merged after main (with #7) was merged into it (doc-log conflicts only, both kept). Verified: `Tests/run_all.sh` → RUN_ALL: PASS (asset import 40, ai 80, player 112, weapon 68).
+
 
 ## 2026-11-22 · Bot 1 (merge gate PR #7)
 - **2026-11-22 12:15 · T-PIPE-03 merge** main merged into PR #7 (DEVELOPMENT_LOG conflict only, both kept); v1 `build_sk_jason.py` retired (exit 2 + pointer to v2 builder); `skins01` license verified CC0 and recorded. Verified: `Tests/run_all.sh` → RUN_ALL: PASS (asset import 40, player 112, weapon 68); `verify_sk_jason.sh` → PASS. PR #5 closed as superseded by #7.

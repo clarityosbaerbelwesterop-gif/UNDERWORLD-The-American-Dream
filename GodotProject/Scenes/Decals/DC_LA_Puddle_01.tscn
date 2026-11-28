@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Puddle_01/DC_LA_Puddle_01_albedo.png" id="1"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Puddle_01/DC_LA_Puddle_01_orm.png" id="2"]
+
+[node name="DC_LA_Puddle_01" type="Decal"]
+size = Vector3(2.6, 0.12, 1.8)
+texture_albedo = ExtResource("1")
+texture_orm = ExtResource("2")
+albedo_mix = 1.0
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"

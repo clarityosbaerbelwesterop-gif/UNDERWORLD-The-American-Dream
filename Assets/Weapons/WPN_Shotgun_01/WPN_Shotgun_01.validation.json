@@ -1,0 +1,204 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-23T19:53:03+00:00",
+  "command": "export",
+  "profile": "gate",
+  "input": "Blender/Source/Weapons/WPN_Shotgun_01/WPN_Shotgun_01.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "lods": [
+      {
+        "object": "Frame",
+        "levels": [
+          {
+            "name": "Frame",
+            "level": 0,
+            "triangles": 308
+          },
+          {
+            "name": "Frame_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 154
+          },
+          {
+            "name": "Frame_LOD2",
+            "level": 2,
+            "ratio": 0.25,
+            "triangles": 76
+          }
+        ]
+      }
+    ],
+    "collision": {
+      "mode": "authored",
+      "generated": [],
+      "existing": [
+        "UCX_WPN_Shotgun_01_00-convcolonly"
+      ]
+    },
+    "foot_slide": null,
+    "export": {
+      "glb": "Assets/Weapons/WPN_Shotgun_01/WPN_Shotgun_01.glb",
+      "bytes": 862824
+    },
+    "preview": "Assets/Weapons/WPN_Shotgun_01/WPN_Shotgun_01_preview.png",
+    "manifest": "Assets/Weapons/WPN_Shotgun_01/WPN_Shotgun_01.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "Barrel",
+          "Frame_LOD1",
+          "Frame_LOD2",
+          "Frame",
+          "SOCKET_Eject",
+          "SOCKET_Grip",
+          "SOCKET_Muzzle",
+          "UCX_WPN_Shotgun_01_00-convcolonly",
+          "MagBone",
+          "SlideBone",
+          "TrigBone",
+          "WpnRoot",
+          "Magazine",
+          "Slide",
+          "Trigger",
+          "WeaponRig",
+          "WPN_Shotgun_01"
+        ],
+        "node_extras": {
+          "Barrel": {
+            "uw_allow_uv_overlap": 1
+          },
+          "Frame_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              10.0,
+              30.0
+            ]
+          },
+          "Frame_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              30.0,
+              80.0
+            ]
+          },
+          "Frame": {
+            "uw_allow_uv_overlap": 1,
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              10.0
+            ]
+          },
+          "Magazine": {
+            "uw_allow_uv_overlap": 1
+          },
+          "Slide": {
+            "uw_allow_uv_overlap": 1
+          },
+          "Trigger": {
+            "uw_allow_uv_overlap": 1
+          }
+        },
+        "meshes": 8,
+        "materials": [
+          "M_Prop_Gunmetal",
+          "M_Prop_WoodStock",
+          "M_Prop_Polymer",
+          "M_Prop_SteelBright"
+        ],
+        "images": 12,
+        "skins": [
+          {
+            "name": "WeaponRig",
+            "joints": 4
+          }
+        ],
+        "joint_names": [
+          "MagBone",
+          "SlideBone",
+          "TrigBone",
+          "WpnRoot"
+        ],
+        "animations": [
+          "A_WPN_Shotgun_01_Empty",
+          "A_WPN_Shotgun_01_Fire",
+          "A_WPN_Shotgun_01_Reload"
+        ],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 862824
+      },
+      "reimport_objects": [
+        "Barrel",
+        "Frame",
+        "Frame_LOD1",
+        "Frame_LOD2",
+        "Icosphere",
+        "Magazine",
+        "SOCKET_Eject",
+        "SOCKET_Grip",
+        "SOCKET_Muzzle",
+        "Slide",
+        "Trigger",
+        "UCX_WPN_Shotgun_01_00-convcolonly",
+        "WPN_Shotgun_01",
+        "WeaponRig"
+      ],
+      "reimport_actions": [
+        "A_WPN_Shotgun_01_Empty",
+        "A_WPN_Shotgun_01_Fire",
+        "A_WPN_Shotgun_01_Reload"
+      ],
+      "problems": []
+    }
+  },
+  "asset": "WPN_Shotgun_01",
+  "category": "Weapons",
+  "budget_key": "Weapons",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SMALL",
+      "object": "Barrel",
+      "message": "60 tris < lod_min_triangles 64"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SKINNED",
+      "object": "Magazine",
+      "message": "skinned mesh: no baked LODs (Godot generates mesh LODs on import)"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SKINNED",
+      "object": "Slide",
+      "message": "skinned mesh: no baked LODs (Godot generates mesh LODs on import)"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SKINNED",
+      "object": "Trigger",
+      "message": "skinned mesh: no baked LODs (Godot generates mesh LODs on import)"
+    },
+    {
+      "severity": "info",
+      "code": "COLLISION_AUTHORED",
+      "object": null,
+      "message": "authored collision kept, nothing generated: ['UCX_WPN_Shotgun_01_00-convcolonly']"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "infos": 5
+  },
+  "seconds": 0.62,
+  "exit_code": 0,
+  "result": "PASS"
+}

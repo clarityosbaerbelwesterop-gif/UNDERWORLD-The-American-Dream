@@ -1,0 +1,142 @@
+{
+  "_doc": "Special Agent Dana Whitlock (FBI lead, chapter-2 antagonist): early 40s, auburn crop, charcoal suit jacket over white shirt.",
+  "asset_name": "SK_NPC_Dana_Whitlock",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "height_m": 1.72,
+  "boot_sole_extra_m": 0.02,
+  "npc_decimate_body": 0.62,
+  "macro": {
+    "gender": 0.0,
+    "age": 0.6,
+    "muscle": 0.55,
+    "weight": 0.42,
+    "proportions": 0.7,
+    "height_morph": 0.6,
+    "ethnicity": {
+      "caucasian": 0.8,
+      "asian": 0.1,
+      "african": 0.1
+    }
+  },
+  "morphs": {},
+  "skin": {
+    "texture_size": 1024,
+    "base_diffuse": "makehuman_system_assets/skins/young_caucasian_female/young_lightskinned_female_diffuse.png",
+    "base_normal": "skins02/skins/mindfront_aksel_skin/Aksel_Skin_NRM.png",
+    "tint_rgb": [
+      0.95,
+      0.86,
+      0.8
+    ],
+    "hair_color_rgb": [
+      0.28,
+      0.1,
+      0.05
+    ],
+    "beard_stubble": {
+      "density": 0.0
+    },
+    "seed": 2201
+  },
+  "eyes": {
+    "mhclo": "mh_eyes/low-poly.mhclo",
+    "iris_texture": "makehuman_system_assets/eyes/materials/green_eye.png"
+  },
+  "eyebrows": {
+    "mhclo": "makehuman_system_assets/eyebrows/eyebrow004/eyebrow004.mhclo",
+    "texture": "makehuman_system_assets/eyebrows/eyebrow004/eyebrow004.png",
+    "scar_notch": false
+  },
+  "eyelashes": {
+    "mhclo": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.mhclo",
+    "texture": "makehuman_system_assets/eyelashes/eyelashes01/eyelashes01.png"
+  },
+  "teeth": {
+    "enabled": false
+  },
+  "hair": {
+    "style": "medium_crop",
+    "color_rgb": [
+      0.28,
+      0.1,
+      0.05
+    ],
+    "seed": 2202
+  },
+  "beard": {
+    "style": "none",
+    "seed": 2203
+  },
+  "outfit": {
+    "tshirt": {
+      "enabled": true,
+      "style": "under_jacket_tshirt",
+      "polyhaven_id": "cotton_jersey",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 4.0,
+      "desaturate": 0.25,
+      "tint_rgb": [
+        0.9,
+        0.9,
+        0.92
+      ]
+    },
+    "jacket": {
+      "enabled": true,
+      "style": "suit_jacket",
+      "polyhaven_id": "knitted_fleece",
+      "texture_size": 1024,
+      "bake_size": 512,
+      "normal_size": 512,
+      "tile": 5.0,
+      "desaturate": 0.85,
+      "gamma": 0.85,
+      "roughness_scale": 1.05,
+      "roughness_bias": 0.12,
+      "tint_rgb": [
+        0.14,
+        0.14,
+        0.16
+      ]
+    },
+    "jeans": {
+      "enabled": true,
+      "style": "straight_jeans",
+      "polyhaven_id": "denim_fabric_04",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 5.0,
+      "tint_rgb": [
+        0.12,
+        0.12,
+        0.14
+      ],
+      "zone_mode": "denim_wash"
+    },
+    "boots": {
+      "enabled": true,
+      "polyhaven_id": "cotton_jersey",
+      "texture_size": 512,
+      "bake_high_to_low": false,
+      "tile": 3.0,
+      "desaturate": 0.9,
+      "tint_rgb": [
+        0.78,
+        0.78,
+        0.8
+      ],
+      "zone_mode": "boot_sole"
+    },
+    "watch": {
+      "enabled": false
+    }
+  },
+  "animations": {
+    "clip_prefix": "A_Humanoid_",
+    "mocap_walk_bvh": "mocap/makehuman_walk1.bvh",
+    "include_p2": false,
+    "minimal_npc_set": true
+  }
+}

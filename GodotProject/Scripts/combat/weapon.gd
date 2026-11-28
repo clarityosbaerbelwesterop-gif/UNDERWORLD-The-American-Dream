@@ -39,13 +39,27 @@ var model: Node3D
 var muzzle: Node3D
 var _rng := RandomNumberGenerator.new()
 var _impacts: Node3D
+## Last spawned effects (P6) - for tests and tools; the effects free themselves.
+var last_fx: FXEffect
+var last_muzzle_fx: FXEffect
 var _flash: Node3D
 var _flash_left := 0.0
 var _pattern_index := 0
 
+## Deterministic replays (T-BUILD-02): UW_RNG_SEED=<n> seeds every weapon/NPC RNG that has no
+## explicit seed, from the seed and the node path, so an input-driven playthrough is exactly
+## reproducible. Debug builds only (TD-020); a release export always randomizes.
+static func replay_seed() -> int:
+	if not OS.is_debug_build():
+		return 0
+	var v := OS.get_environment("UW_RNG_SEED").strip_edges()
+	return int(v) if v.is_valid_int() else 0
+
 func _ready() -> void:
 	if spread_seed != 0:
 		_rng.seed = spread_seed
+	elif Weapon.replay_seed() != 0:
+		_rng.seed = Weapon.replay_seed() + hash(str(get_path()))
 	else:
 		_rng.randomize()
 	_impacts = Node3D.new()
@@ -185,6 +199,7 @@ func trigger(just_pressed: bool, held: bool, aim_origin: Vector3, aim_dir: Vecto
 	return _fire(aim_origin, aim_dir.normalized(), stance, shooter, exclude)
 
 func _fire(origin: Vector3, aim_dir: Vector3, stance: Dictionary, shooter: Node, exclude: Array[RID]) -> Dictionary:
+	last_fx = null
 	ammo -= 1
 	shots_fired += 1
 	cooldown = data.get_fire_interval()
@@ -212,15 +227,24 @@ func _fire(origin: Vector3, aim_dir: Vector3, stance: Dictionary, shooter: Node,
 	bloom = minf(bloom + data.bloom_per_shot, data.bloom_max)
 	bloom_delay_left = data.bloom_recovery_delay
 	var shot := {"origin": origin, "direction": dir, "end": end, "spread_deg": spread, "kick_deg": kick,
-		"hit": not hit.is_empty(), "collider": hit.get("collider"), "damage": null}
+		"hit": not hit.is_empty(), "collider": hit.get("collider"), "damage": null,
+		# T-AI-03: callers need to know WHAT and WHERE it hit (vehicle damage is separate).
+		"hit_body": hit.get("collider"), "hit_position": end, "hit_normal": hit.get("normal")}
 	if not hit.is_empty():
 		var info := _resolve_hit(hit, origin, dir, shooter)
 		shot["damage"] = info
 		impact.emit(hit.position, hit.normal, hit.collider)
 		_spawn_impact(hit.position, hit.normal)
+		# P6 (T-FX-01): surface-dependent impact effect (blood / metal sparks / concrete dust ...);
+		# emitters point along +Z = the surface normal.
+		var n := hit.normal as Vector3
+		var up := Vector3.UP if absf(n.y) < 0.99 else Vector3.FORWARD
+		last_fx = FXEffect.spawn(FXEffect.impact_id_for(hit.collider), self, Transform3D(Basis.looking_at(-n, up), hit.position + n * 0.02))
 	if _flash != null:
 		_flash.visible = true
 		_flash_left = 0.05
+	if muzzle != null and muzzle.is_inside_tree():
+		last_muzzle_fx = FXEffect.spawn("FX_MuzzleFlash", self, muzzle.global_transform)
 	ammo_changed.emit(ammo, reserve)
 	AIPerception.emit_noise(get_tree(), origin, data.noise_radius, shooter, "gunshot")
 	fired.emit(shot)
@@ -256,6 +280,7 @@ func _resolve_hit(hit: Dictionary, origin: Vector3, dir: Vector3, shooter: Node)
 	info.direction = dir
 	info.source = shooter
 	info.weapon_id = data.id
+	info.armor_penetration = data.armor_penetration
 	recv.apply_damage(info)
 	hit_confirmed.emit(info)
 	return info

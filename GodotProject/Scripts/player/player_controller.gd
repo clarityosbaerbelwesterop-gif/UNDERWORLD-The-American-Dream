@@ -16,6 +16,7 @@ class_name PlayerController
 extends CharacterBody3D
 
 signal jumped
+signal interacted
 signal landed(impact_speed: float)
 signal aim_changed(aiming: bool)
 signal crouch_changed(crouching: bool)
@@ -83,6 +84,8 @@ var visual: CharacterVisual
 var _shape: CylinderShape3D
 var _collision: CollisionShape3D
 
+## T-GP-04: true from death on - keeps the visual updating for the Death clip.
+var dying := false
 var is_aiming := false
 var is_crouching := false
 var is_sprinting := false
@@ -101,6 +104,10 @@ var combat_face_time := 0.0
 var health: DamageReceiver
 var hitboxes: HumanoidHitboxes
 var _self_rids: Array[RID] = []
+
+## Vehicle the player sits in (T-GP-03), null on foot.
+var vehicle: Node3D = null
+var _saved_collision := Vector2i(2, 13)
 
 var _coyote := 0.0
 var _jump_buffer := 0.0
@@ -131,7 +138,20 @@ func _ready() -> void:
 		health.died.connect(_on_died)
 	if camera_rig != null:
 		camera_rig.attach(self)
+	# T-GP-04: the hitboxes follow the ANIMATED bones instead of fixed rest offsets.
+	# CharacterVisual builds its model in _ready (children first), so the skeleton exists here.
+	if hitboxes != null and visual != null:
+		rebuild_hitboxes()
 	_was_on_floor = is_on_floor()
+
+## Re-creates the hitbox set for the current model: bone-bound when the model has the standard
+## skeleton, rest offsets otherwise. Called on start and whenever the visual model changes.
+func rebuild_hitboxes() -> void:
+	if hitboxes == null:
+		return
+	var sk := visual.find_skeleton() if visual != null else null
+	hitboxes.build(health, sk)
+	_self_rids.clear()
 
 func get_gravity_accel() -> float:
 	return float(ProjectSettings.get_setting("physics/3d/default_gravity", 9.8)) * gravity_scale
@@ -149,6 +169,12 @@ func get_facing_direction() -> Vector3:
 
 func _physics_process(delta: float) -> void:
 	_jumped_this_frame = false
+	if input_enabled and Input.is_action_just_pressed("enter_vehicle") and try_enter_vehicle():
+		return
+	# B-M01-01 (T-BUILD-02): the `interact` action (E / gamepad Y) was mapped but never read,
+	# so a player could not pick up the M01 package - only tests calling the API could.
+	if input_enabled and Input.is_action_just_pressed("interact") and not _sabotage_interact():
+		try_interact()
 	var wants_aim := input_enabled and Input.is_action_pressed("aim")
 	_set_aiming(wants_aim)
 	if input_enabled and Input.is_action_just_pressed("crouch"):
@@ -372,6 +398,101 @@ func get_visibility_points() -> Array:
 func is_dead() -> bool:
 	return health != null and health.is_dead
 
+## Checkpoint restart (B-M01-04, T-BUILD-02): undo everything _on_died() switched off. Before
+## this, MissionManager reset the health but input stayed disabled - after the first death a
+## player could never move again (the API tests only checked the health value).
+func revive() -> void:
+	dying = false
+	velocity = Vector3.ZERO
+	input_enabled = true
+	if visual != null:
+		visual.set_dead(false)
+
 func _on_died(_info: DamageInfo) -> void:
 	input_enabled = false
+	# T-GP-04: the Death clip is the last thing the body does. The visual keeps updating for
+	# the length of the clip (see character_visual.update_generic), so `dying` stays true.
+	if visual != null:
+		visual.set_dead(true)
+	dying = true
 	died.emit()
+
+# --- vehicles (T-GP-03) -------------------------------------------------------
+
+## Enters the nearest vehicle (group "vehicles") whose exit socket is within its
+## enter distance. Returns true if a vehicle took the player.
+## Routes an interact press to whoever handles interactions (MissionManager joins the
+## "interaction_handlers" group). True if something was used.
+func try_interact() -> bool:
+	if vehicle != null or is_dead():
+		return false
+	for h in get_tree().get_nodes_in_group(&"interaction_handlers"):
+		if h.has_method("try_interact") and h.try_interact(self):
+			interacted.emit()
+			return true
+	return false
+
+## Negative control for Tests/test_playthrough.gd (UW_PLAYTHROUGH_SABOTAGE=1): the interact
+## input is ignored again, exactly the shipped bug. Debug builds only (TD-020).
+static func _sabotage_interact() -> bool:
+	return OS.is_debug_build() and OS.get_environment("UW_PLAYTHROUGH_SABOTAGE").strip_edges() == "1"
+
+func try_enter_vehicle() -> bool:
+	if vehicle != null or is_dead():
+		return false
+	var best: Node3D = null
+	var bd := INF
+	for v in get_tree().get_nodes_in_group("vehicles"):
+		if v.has_method("get_enter_distance"):
+			var d: float = v.get_enter_distance(self)
+			if d < bd:
+				bd = d
+				best = v
+	return best != null and best.enter(self)
+
+## Called by Vehicle.enter(): player is hidden, collision/hitboxes/input off and the
+## vehicle keeps it on the seat socket.
+func set_in_vehicle(v: Node3D) -> void:
+	vehicle = v
+	input_enabled = false
+	velocity = Vector3.ZERO
+	_set_aiming(false)
+	if is_crouching:
+		_set_crouching(false)
+	set_physics_process(false)
+	# Body leaves the physics world while seated (layer/mask 0, restored on exit).
+	_saved_collision = Vector2i(collision_layer, collision_mask)
+	collision_layer = 0
+	collision_mask = 0
+	if visual != null:
+		visual.visible = false
+	if hitboxes != null:
+		hitboxes.set_enabled(false)
+
+## Called by Vehicle when the exit sequence ends: stand at `at` (exit socket), facing the
+## car's heading, camera behind the player looking the same way.
+func leave_vehicle(_v: Node3D, at: Transform3D) -> void:
+	vehicle = null
+	global_transform = Transform3D(Basis.IDENTITY, at.origin)
+	facing_yaw = at.basis.get_euler().y
+	velocity = Vector3.ZERO
+	if visual != null:
+		visual.visible = true
+		visual.rotation.y = facing_yaw
+	if camera_rig != null:
+		camera_rig.set_yaw(facing_yaw + PI)
+		camera_rig.camera.current = true
+	# GodotPhysics applies a kinematic body's new transform at the NEXT physics step and
+	# sweeps it there from the old one (the seat, inside the car) - restoring collision in
+	# this frame would hit the car with that sweep velocity and launch it. So collision,
+	# movement and input come back two physics frames later, at the exit socket.
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	if vehicle != null:
+		return  # got back in meanwhile
+	collision_layer = _saved_collision.x
+	collision_mask = _saved_collision.y
+	if hitboxes != null:
+		hitboxes.set_enabled(true)
+	set_physics_process(true)
+	input_enabled = not is_dead()

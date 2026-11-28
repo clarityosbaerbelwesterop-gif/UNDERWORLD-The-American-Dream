@@ -302,8 +302,31 @@ class MakeHumanBase:
                 print(f"[CHAR][WARN] unknown morph target '{key}' (skipped)")
         return applied
 
+    def _mpfb_expression_paths(self):
+        """Map the 36 CC0 expression units bundled with MPFB2 (targets/expression/units/*)."""
+        base = os.path.join(self.mpfb_data, "targets", "expression", "units")
+        if not os.path.isdir(base):
+            return {}
+        eth = sorted(os.listdir(base))
+        folder = os.path.join(base, "caucasian" if "caucasian" in eth else (eth[0] if eth else ""))
+        out = {}
+        if os.path.isdir(folder):
+            for fn in sorted(os.listdir(folder)):
+                if fn.endswith(".target.gz"):
+                    out[fn[:-10]] = os.path.join(folder, fn)
+                elif fn.endswith(".target"):
+                    out[fn[:-7]] = os.path.join(folder, fn)
+        return out
+
     def load_blendshape_targets(self, shape_names=None):
-        """Load CC0 ARKit faceunits01 + Microsoft visemes01 into self.shape_deltas_mh."""
+        """Load CC0 facial expression morphs into self.shape_deltas_mh.
+
+        Priority 1: MPFB2's bundled expression units (already CC0 and on disk):
+          eye-*-closure (blink), eyebrows-*-inner-up/down, mouth-open (jawOpen),
+          mouth-*-retraction (smile/frown), nose-*-elevation, mouth-pursing (visemes).
+        Priority 2: the MakeHuman `faceunits01.zip` / `visemes01.zip` packs when present,
+          which use ARKit names. Missing targets are simply skipped, never faked.
+        """
         fu_dir = os.path.join(self.cache_dir, "faceunits01", "targets", "faceunits")
         vi_dir = os.path.join(self.cache_dir, "visemes01", "targets", "visemes")
 
@@ -334,9 +357,30 @@ class MakeHumanBase:
             "viseme_FF": os.path.join(vi_dir, "f_v_18.target"),
             "viseme_SS": os.path.join(vi_dir, "s_z_15.target"),
         }
-        names = shape_names or list(default_map.keys())
-        for nm in names:
+        units = self._mpfb_expression_paths()
+        mpfb_map = {
+            "eyeBlinkLeft": "eye-left-closure",
+            "eyeBlinkRight": "eye-right-closure",
+            "browDownLeft": "eyebrows-left-down",
+            "browDownRight": "eyebrows-right-down",
+            "browInnerUp": "eyebrows-left-inner-up",
+            "jawOpen": "mouth-open",
+            "mouthSmileLeft": "mouth-corner-puller",
+            "mouthSmileRight": "mouth-corner-puller",
+            "mouthFrownLeft": "mouth-depression",
+            "mouthFrownRight": "mouth-depression",
+            "noseSneerLeft": "nose-left-elevation",
+            "noseSneerRight": "nose-right-elevation",
+            "viseme_O": "mouth-pursing",
+            "viseme_U": "mouth-protusion",
+            "viseme_aa": "mouth-part-later",
+        }
+        want = shape_names or sorted(set(default_map) | set(mpfb_map))
+        for nm in want:
             p = default_map.get(nm)
+            if not (p and os.path.isfile(p)):
+                src = units.get(mpfb_map.get(nm, ""))
+                p = src
             if p and os.path.isfile(p):
                 idxs, deltas = read_target(p)
                 if len(idxs):

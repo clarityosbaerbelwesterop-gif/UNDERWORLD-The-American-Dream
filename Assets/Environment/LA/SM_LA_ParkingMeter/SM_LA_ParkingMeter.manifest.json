@@ -1,0 +1,235 @@
+{
+  "asset": "SM_LA_ParkingMeter",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_ParkingMeter/SM_LA_ParkingMeter.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_ParkingMeter/SM_LA_ParkingMeter.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_ParkingMeter/SM_LA_ParkingMeter_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.09,
+      0.0,
+      -0.06
+    ],
+    "max": [
+      0.09,
+      1.414,
+      0.0635
+    ],
+    "size": [
+      0.18,
+      1.414,
+      0.1235
+    ]
+  },
+  "triangles": {
+    "lod0": 154,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 154,
+      "LOD1": 76,
+      "LOD2": 38
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_LA_ParkingMeter_Mesh",
+      "levels": [
+        {
+          "name": "SM_LA_ParkingMeter_Mesh",
+          "level": 0,
+          "triangles": 154
+        },
+        {
+          "name": "SM_LA_ParkingMeter_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 76
+        },
+        {
+          "name": "SM_LA_ParkingMeter_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 38
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_LA_ParkingMeter_00-convcolonly"
+    ],
+    "micro_lips": 0
+  },
+  "materials": [
+    "M_Prop_Chrome",
+    "M_Prop_Glass",
+    "M_Prop_LA_ParkingMeter_Labels",
+    "M_Prop_MetalDark",
+    "M_Prop_MetalGalv"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Chrome_D",
+      "material": "M_Prop_Chrome",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_t8boj85s/T_Prop_Chrome_D.jpg"
+    },
+    {
+      "image": "T_Prop_Chrome_ORM",
+      "material": "M_Prop_Chrome",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_0zryex81/T_Prop_Chrome_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Chrome_N",
+      "material": "M_Prop_Chrome",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_gjapro1x/T_Prop_Chrome_N.jpg"
+    },
+    {
+      "image": "T_Prop_Glass_D",
+      "material": "M_Prop_Glass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_zeh1nvvc/T_Prop_Glass_D.jpg"
+    },
+    {
+      "image": "T_Prop_Glass_ORM",
+      "material": "M_Prop_Glass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_orq1vf7a/T_Prop_Glass_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Glass_N",
+      "material": "M_Prop_Glass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_qea9oht7/T_Prop_Glass_N.jpg"
+    },
+    {
+      "image": "T_Prop_LA_ParkingMeter_Labels_D",
+      "material": "M_Prop_LA_ParkingMeter_Labels",
+      "size": [
+        512,
+        128
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_q00fo3ew/T_Prop_LA_ParkingMeter_Labels_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_D",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_olcnhc3y/T_Prop_MetalDark_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_ORM",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ptx5k5me/T_Prop_MetalDark_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_N",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_7mtrott1/T_Prop_MetalDark_N.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGalv_D",
+      "material": "M_Prop_MetalGalv",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_wi_a0bha/T_Prop_MetalGalv_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGalv_ORM",
+      "material": "M_Prop_MetalGalv",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_eh3h60vs/T_Prop_MetalGalv_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalGalv_N",
+      "material": "M_Prop_MetalGalv",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_srqs57ft/T_Prop_MetalGalv_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_LA_ParkingMeter_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 473.3,
+      "p10_px_per_m": 430.5,
+      "p90_px_per_m": 512.0
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_ParkingMeter_Mesh_LOD1",
+    "SM_LA_ParkingMeter_Mesh_LOD2",
+    "SM_LA_ParkingMeter_Mesh",
+    "UCX_SM_LA_ParkingMeter_00-convcolonly",
+    "SM_LA_ParkingMeter"
+  ],
+  "glb_bytes": 588228
+}

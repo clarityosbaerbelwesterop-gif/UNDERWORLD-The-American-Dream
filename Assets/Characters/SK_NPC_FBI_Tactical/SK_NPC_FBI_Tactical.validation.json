@@ -1,0 +1,374 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-24T05:54:23+00:00",
+  "command": "export",
+  "profile": "dev",
+  "input": "Blender/Source/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 1
+    },
+    "lods": [],
+    "collision": {
+      "mode": "none",
+      "generated": [],
+      "existing": []
+    },
+    "foot_slide": {
+      "report": "/tmp/claude-0/wt_props/Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical.anim_report.json",
+      "limit_m": 0.01,
+      "over_budget": {
+        "A_Humanoid_Walk": 0.034,
+        "A_Humanoid_Sprint": 0.02,
+        "A_Humanoid_Crouch_Walk": 0.0362,
+        "A_Humanoid_Aim_Pistol_Walk_F": 0.0452,
+        "A_Humanoid_Aim_Pistol_Walk_B": 0.0405,
+        "A_Humanoid_Aim_Pistol_Walk_L": 0.0489,
+        "A_Humanoid_Aim_Pistol_Walk_R": 0.0489
+      }
+    },
+    "export": {
+      "glb": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical.glb",
+      "bytes": 5306800
+    },
+    "preview": {
+      "front": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview_front.png",
+      "3q": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview_3q.png",
+      "side": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview_side.png",
+      "back": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview_back.png",
+      "face": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview_face.png",
+      "face_side": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview_face_side.png",
+      "default": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview.png",
+      "aim": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical_preview_aim.png"
+    },
+    "manifest": "Assets/Characters/SK_NPC_FBI_Tactical/SK_NPC_FBI_Tactical.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "LeftToes",
+          "LeftFoot",
+          "LeftLowerLeg",
+          "LeftUpperLeg",
+          "RightToes",
+          "RightFoot",
+          "RightLowerLeg",
+          "RightUpperLeg",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftThumbDistal",
+          "LeftThumbProximal",
+          "LeftThumbMetacarpal",
+          "LeftHand",
+          "LeftLowerArm",
+          "LeftUpperArm",
+          "LeftShoulder",
+          "Head",
+          "Neck",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightThumbDistal",
+          "RightThumbProximal",
+          "RightThumbMetacarpal",
+          "SOCKET_RightHand_Weapon",
+          "RightHand",
+          "RightLowerArm",
+          "RightUpperArm",
+          "RightShoulder",
+          "UpperChest",
+          "Chest",
+          "Spine",
+          "Hips",
+          "Root",
+          "SK_NPC_FBI_Tactical_Body",
+          "SK_NPC_FBI_Tactical_Boots",
+          "SK_NPC_FBI_Tactical_Eyebrows",
+          "SK_NPC_FBI_Tactical_Eyelashes",
+          "SK_NPC_FBI_Tactical_Eyes",
+          "SK_NPC_FBI_Tactical_Hair",
+          "SK_NPC_FBI_Tactical_Jeans",
+          "SK_NPC_FBI_Tactical_TShirt",
+          "Armature",
+          "SK_NPC_FBI_Tactical"
+        ],
+        "node_extras": {
+          "SK_NPC_FBI_Tactical_Hair": {
+            "uw_allow_uv_overlap": true
+          },
+          "SK_NPC_FBI_Tactical": {
+            "uw_character_spec": "Config/Characters/SK_NPC_FBI_Tactical.json"
+          }
+        },
+        "meshes": 8,
+        "materials": [
+          "M_NPC_FBI_Tactical_Skin",
+          "M_NPC_FBI_Tactical_Boots",
+          "M_NPC_FBI_Tactical_BrowsLashes",
+          "M_NPC_FBI_Tactical_Eyes",
+          "M_NPC_FBI_Tactical_Hair",
+          "M_NPC_FBI_Tactical_Jeans",
+          "M_NPC_FBI_Tactical_TShirt"
+        ],
+        "images": 16,
+        "skins": [
+          {
+            "name": "Armature",
+            "joints": 53
+          }
+        ],
+        "joint_names": [
+          "Chest",
+          "Head",
+          "Hips",
+          "LeftFoot",
+          "LeftHand",
+          "LeftIndexDistal",
+          "LeftIndexIntermediate",
+          "LeftIndexProximal",
+          "LeftLittleDistal",
+          "LeftLittleIntermediate",
+          "LeftLittleProximal",
+          "LeftLowerArm",
+          "LeftLowerLeg",
+          "LeftMiddleDistal",
+          "LeftMiddleIntermediate",
+          "LeftMiddleProximal",
+          "LeftRingDistal",
+          "LeftRingIntermediate",
+          "LeftRingProximal",
+          "LeftShoulder",
+          "LeftThumbDistal",
+          "LeftThumbMetacarpal",
+          "LeftThumbProximal",
+          "LeftToes",
+          "LeftUpperArm",
+          "LeftUpperLeg",
+          "Neck",
+          "RightFoot",
+          "RightHand",
+          "RightIndexDistal",
+          "RightIndexIntermediate",
+          "RightIndexProximal",
+          "RightLittleDistal",
+          "RightLittleIntermediate",
+          "RightLittleProximal",
+          "RightLowerArm",
+          "RightLowerLeg",
+          "RightMiddleDistal",
+          "RightMiddleIntermediate",
+          "RightMiddleProximal",
+          "RightRingDistal",
+          "RightRingIntermediate",
+          "RightRingProximal",
+          "RightShoulder",
+          "RightThumbDistal",
+          "RightThumbMetacarpal",
+          "RightThumbProximal",
+          "RightToes",
+          "RightUpperArm",
+          "RightUpperLeg",
+          "Root",
+          "Spine",
+          "UpperChest"
+        ],
+        "animations": [
+          "A_Humanoid_Aim_Pistol_Idle",
+          "A_Humanoid_Aim_Pistol_Walk_B",
+          "A_Humanoid_Aim_Pistol_Walk_F",
+          "A_Humanoid_Aim_Pistol_Walk_L",
+          "A_Humanoid_Aim_Pistol_Walk_R",
+          "A_Humanoid_Crouch_Idle",
+          "A_Humanoid_Crouch_Walk",
+          "A_Humanoid_Idle",
+          "A_Humanoid_Jump_Air",
+          "A_Humanoid_Jump_Start",
+          "A_Humanoid_Land",
+          "A_Humanoid_Reload_Pistol",
+          "A_Humanoid_Run",
+          "A_Humanoid_Shoot_Pistol",
+          "A_Humanoid_Sprint",
+          "A_Humanoid_Walk"
+        ],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 5306800
+      },
+      "reimport_objects": [
+        "Armature",
+        "Icosphere",
+        "SK_NPC_FBI_Tactical",
+        "SK_NPC_FBI_Tactical_Body",
+        "SK_NPC_FBI_Tactical_Boots",
+        "SK_NPC_FBI_Tactical_Eyebrows",
+        "SK_NPC_FBI_Tactical_Eyelashes",
+        "SK_NPC_FBI_Tactical_Eyes",
+        "SK_NPC_FBI_Tactical_Hair",
+        "SK_NPC_FBI_Tactical_Jeans",
+        "SK_NPC_FBI_Tactical_TShirt",
+        "SOCKET_RightHand_Weapon"
+      ],
+      "reimport_actions": [
+        "A_Humanoid_Aim_Pistol_Idle",
+        "A_Humanoid_Aim_Pistol_Walk_B",
+        "A_Humanoid_Aim_Pistol_Walk_F",
+        "A_Humanoid_Aim_Pistol_Walk_L",
+        "A_Humanoid_Aim_Pistol_Walk_R",
+        "A_Humanoid_Crouch_Idle",
+        "A_Humanoid_Crouch_Walk",
+        "A_Humanoid_Idle",
+        "A_Humanoid_Jump_Air",
+        "A_Humanoid_Jump_Start",
+        "A_Humanoid_Land",
+        "A_Humanoid_Reload_Pistol",
+        "A_Humanoid_Run",
+        "A_Humanoid_Shoot_Pistol",
+        "A_Humanoid_Sprint",
+        "A_Humanoid_Walk"
+      ],
+      "problems": []
+    }
+  },
+  "asset": "SK_NPC_FBI_Tactical",
+  "category": "Characters",
+  "budget_key": "Characters/SK_NPC",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_FBI_Tactical_Body",
+      "message": "178 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_FBI_Tactical_Eyes",
+      "message": "32 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_FBI_Tactical_Eyebrows",
+      "message": "52 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_FBI_Tactical_Eyelashes",
+      "message": "124 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_FBI_Tactical_TShirt",
+      "message": "137 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_FBI_Tactical_Jeans",
+      "message": "92 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "SK_NPC_FBI_Tactical_Hair",
+      "message": "136 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "MESH_CLIPPING",
+      "object": "SK_NPC_FBI_Tactical_Body",
+      "message": "SK_NPC_FBI_Tactical_Body vs SK_NPC_FBI_Tactical_TShirt: 26/1226 verts (2.12%)",
+      "data": {
+        "inner": "SK_NPC_FBI_Tactical_Body",
+        "outer": "SK_NPC_FBI_Tactical_TShirt",
+        "tested_vertices": 1226,
+        "clipped_vertices": 26,
+        "clipped_fraction": 0.0212
+      }
+    },
+    {
+      "severity": "warning",
+      "code": "ORIGIN_CENTRE",
+      "object": null,
+      "message": "bbox centre Y=-0.074 m; origin should be centred for Characters"
+    },
+    {
+      "severity": "info",
+      "code": "HUMANOID_OPTIONAL",
+      "object": "Armature",
+      "message": "optional humanoid bones absent: ['LeftEye', 'RightEye', 'Jaw']"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_NONE",
+      "object": null,
+      "message": "no LOD ratios configured for Characters"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Aim_Pistol_Walk_L",
+      "message": "A_Humanoid_Aim_Pistol_Walk_L: foot sliding 4.89 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Aim_Pistol_Walk_R",
+      "message": "A_Humanoid_Aim_Pistol_Walk_R: foot sliding 4.89 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Aim_Pistol_Walk_F",
+      "message": "A_Humanoid_Aim_Pistol_Walk_F: foot sliding 4.52 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Aim_Pistol_Walk_B",
+      "message": "A_Humanoid_Aim_Pistol_Walk_B: foot sliding 4.05 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Crouch_Walk",
+      "message": "A_Humanoid_Crouch_Walk: foot sliding 3.62 cm > 1.0 cm"
+    },
+    {
+      "severity": "warning",
+      "code": "ANIM_FOOT_SLIDE",
+      "object": "A_Humanoid_Walk",
+      "message": "A_Humanoid_Walk: foot sliding 3.40 cm > 1.0 cm"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 7,
+    "infos": 10
+  },
+  "seconds": 27.64,
+  "exit_code": 0,
+  "result": "PASS"
+}

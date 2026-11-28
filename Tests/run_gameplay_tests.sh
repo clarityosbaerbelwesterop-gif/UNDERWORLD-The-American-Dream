@@ -7,6 +7,8 @@
 set -uo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# shellcheck source=/dev/null
+. "$REPO/Tests/lib/godot_errors.sh"
 GODOT="${GODOT:-/workspace/tools/godot}"
 LOGS="$REPO/Tests/logs"
 mkdir -p "$LOGS"
@@ -20,10 +22,9 @@ echo "== Godot headless import"
 "$GODOT" --headless --path "$REPO/GodotProject" --import 2>&1 | strip > "$LOGS/gameplay_0_import.log"
 rc=${PIPESTATUS[0]}
 [ $rc -eq 0 ] || fail "Godot import exited $rc (log: $LOGS/gameplay_0_import.log)"
-if grep -qE '^(ERROR|SCRIPT ERROR|USER ERROR):' "$LOGS/gameplay_0_import.log"; then
-  grep -E -A3 '^(ERROR|SCRIPT ERROR|USER ERROR):' "$LOGS/gameplay_0_import.log"
-  fail "Godot import logged errors"
-fi
+errs="$(godot_log_errors "$LOGS/gameplay_0_import.log")"
+[ -z "$errs" ] || fail "Godot import logged errors:
+$errs"
 
 shopt -s nullglob
 tests=("$REPO"/GodotProject/Tests/test_*.gd)

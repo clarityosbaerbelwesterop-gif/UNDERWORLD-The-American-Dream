@@ -66,12 +66,13 @@
     "mode": "trimesh",
     "generated": [
       {
-        "name": "UCX_SM_LA_Bldg_GarageM01_Mesh_LOD2-colonly",
-        "vertices": 49,
-        "triangles": 42
+        "name": "UCX_SM_LA_Bldg_GarageM01_Mesh-colonly",
+        "vertices": 112,
+        "triangles": 168
       }
     ],
-    "existing": []
+    "existing": [],
+    "micro_lips": 0
   },
   "materials": [
     "M_LA_GarageFloor",
@@ -88,7 +89,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_c9ecxe22/T_LA_GarageFloor_D.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_1s1my_r_/T_LA_GarageFloor_D.jpg"
     },
     {
       "image": "T_LA_GarageFloor_ORM",
@@ -98,7 +99,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_ivx9iayg/T_LA_GarageFloor_ORM.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_xni5kcts/T_LA_GarageFloor_ORM.jpg"
     },
     {
       "image": "T_LA_GarageFloor_N",
@@ -108,7 +109,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_884vak6c/T_LA_GarageFloor_N.png"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_gida1d_4/T_LA_GarageFloor_N.png"
     },
     {
       "image": "T_LA_GarageWall_D",
@@ -118,7 +119,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_fjcsib2b/T_LA_GarageWall_D.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_11y316v1/T_LA_GarageWall_D.jpg"
     },
     {
       "image": "T_LA_GarageWall_ORM",
@@ -128,7 +129,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_0z38yyzc/T_LA_GarageWall_ORM.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_sl17khmf/T_LA_GarageWall_ORM.jpg"
     },
     {
       "image": "T_LA_GarageWall_N",
@@ -138,7 +139,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_xw13rvt5/T_LA_GarageWall_N.png"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_ax8pd4gi/T_LA_GarageWall_N.png"
     },
     {
       "image": "T_LA_RollupDoor_D",
@@ -148,7 +149,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_65bk93b0/T_LA_RollupDoor_D.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_up0nl2qt/T_LA_RollupDoor_D.jpg"
     },
     {
       "image": "T_LA_RollupDoor_ORM",
@@ -158,7 +159,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_y5jihl3b/T_LA_RollupDoor_ORM.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_ha2_o5ah/T_LA_RollupDoor_ORM.jpg"
     },
     {
       "image": "T_LA_RollupDoor_N",
@@ -168,7 +169,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_lh4cjjla/T_LA_RollupDoor_N.png"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_81mebf16/T_LA_RollupDoor_N.png"
     }
   ],
   "uv_overlap": {
@@ -206,8 +207,8 @@
     "SM_LA_Bldg_GarageM01_Mesh_LOD2",
     "SM_LA_Bldg_GarageM01_Mesh",
     "SOCKET_PackageBench",
-    "UCX_SM_LA_Bldg_GarageM01_Mesh_LOD2-colonly",
+    "UCX_SM_LA_Bldg_GarageM01_Mesh-colonly",
     "SM_LA_Bldg_GarageM01"
   ],
-  "glb_bytes": 1865428
+  "glb_bytes": 104996
 }

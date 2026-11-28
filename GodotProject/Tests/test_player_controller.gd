@@ -10,6 +10,8 @@ extends SceneTree
 const TEST_RANGE := "res://Scenes/Test/PT_PlayerTestRange.tscn"
 const PLAYER := "res://Scenes/Player/Player.tscn"
 const MAIN := "res://Scenes/Main.tscn"
+const JASON := "res://Assets/Characters/SK_Jason/SK_Jason.glb"
+const JASON_MANIFEST := "res://Assets/Characters/SK_Jason/SK_Jason.manifest.json"
 const HZ := 60.0
 const REQUIRED_ACTIONS := ["move_forward", "move_back", "move_left", "move_right", "look_left",
 	"look_right", "look_up", "look_down", "sprint", "walk", "crouch", "jump", "aim", "fire",
@@ -91,6 +93,10 @@ func _run_all() -> void:
 	await test_step_and_ledge()
 	await test_no_penetration_main_scene()
 	await test_animation_tree_contract()
+	await test_jason_model()
+	await test_animation_clips_tgp04()
+	await test_aim_layer_tgp04()
+	await test_bone_hitboxes_tgp04()
 	_done = true
 	if failures.is_empty():
 		print("[GPTEST] RESULT: PASS")
@@ -589,12 +595,352 @@ func test_animation_tree_contract() -> void:
 	check(bool(tree.get("parameters/jump/active")), "jump_start OneShot fired on jump")
 	await seconds(1.2)
 	check(p.is_on_floor() and float(tree.get("parameters/air/blend_amount")) < 0.05, "air blend back to 0 after landing")
-	# A model with only idle reports the missing slots instead of failing
-	# (the WARNING "model is missing clips" printed here is expected).
+	# T-ANIM-02: a model with only idle borrows every other slot from the shared humanoid
+	# library by suffix (A_Jason_Run <- A_Humanoid_Run) - nothing is missing, every slot plays.
 	p.visual.animation_tree.queue_free()
 	p.visual.animation_tree = null
 	p.visual.missing_clips.clear()
 	p.visual.set_model(_dummy_model(["A_Jason_Idle"]))
 	await frames(2)
-	check(p.visual.missing_clips.size() == CharacterVisual.CLIP_NAMES.size() - 1, "missing clips reported (%d)" % p.visual.missing_clips.size())
+	var unresolved := 0
+	for slot in CharacterVisual.CLIP_NAMES:
+		if not p.visual.animation_player.has_animation(p.visual.resolve_clip(slot, p.visual.animation_player)):
+			unresolved += 1
+	check(p.visual.missing_clips.is_empty() and unresolved == 0, "idle-only model: every slot borrowed from the shared library (missing %d, unresolved %d)" % [p.visual.missing_clips.size(), unresolved])
+	# Without the library the missing slots are REPORTED instead of failing
+	# (the WARNING "model is missing clips" printed here is expected).
+	OS.set_environment("UW_ANIM_SABOTAGE", "noshared")
+	p.visual.animation_tree.queue_free()
+	p.visual.animation_tree = null
+	p.visual.missing_clips.clear()
+	p.visual.set_model(_dummy_model(["A_Jason_Idle"]))
+	await frames(2)
+	OS.unset_environment("UW_ANIM_SABOTAGE")
+	check(p.visual.missing_clips.size() == CharacterVisual.CLIP_NAMES.size() - 1, "no library: missing clips reported (%d)" % p.visual.missing_clips.size())
 	await despawn(scene)
+
+
+# --- T-GP-04: clips, upper-body aim layer, bone hitboxes ---------------------------
+# UW_ANIM_SABOTAGE=1 (a) does not create the aim layer, (b) attaches the hitboxes to the Hips
+# bone instead of head/chest/limbs, (c) maps one-shot clips to idle -> checks FAIL.
+
+func test_animation_clips_tgp04() -> void:
+	print("[GPTEST] == T-GP-04 clips: shoot / reload / death / car enter-exit")
+	var scene := spawn(TEST_RANGE)
+	var p := scene.get_node("Player") as PlayerController
+	await frames(5)
+	var v := p.visual
+	var wctrl := p.get_node("WeaponController") as PlayerWeaponController
+	var w := wctrl.weapon
+	# --- Shoot: one clip per shot, driven by the weapon's own fire rate.
+	var clips: Array[String] = []
+	v.one_shot_played.connect(func(c): clips.append(c))
+	# The pistol is semi-auto (300 rpm limit + one shot per pull), so three pulls = three clips.
+	for i in 3:
+		await tap("fire")
+		await seconds(0.25)
+	check(clips.count("A_Jason_Shoot_Pistol") == 3 and v.shots_played == 3,
+		"every shot plays A_Jason_Shoot_Pistol (%d shots, clips %s)" % [v.shots_played, clips])
+	check(v.one_shot_name == "A_Jason_Shoot_Pistol" and v.clip_length("shoot") > 0.2,
+		"shoot clip length %.2f s comes from the model" % v.clip_length("shoot"))
+	# --- Reload: clip length == weapon reload time (1.6 s), so they cannot drift.
+	clips.clear()
+	w.ammo = 1
+	w.reserve = 50
+	await tap("reload")
+	await frames(2)
+	check(v.reloads_played == 1 and clips.has("A_Jason_Reload_Pistol"),
+		"reload plays A_Jason_Reload_Pistol (clips %s)" % [clips])
+	check(approx(v.clip_length("reload"), w.data.reload_time, 0.02),
+		"reload clip %.2f s == WeaponData.reload_time %.2f s" % [v.clip_length("reload"), w.data.reload_time])
+	# --- Carry: the two-handed clips replace the locomotion blend while the package is held.
+	check(approx(float(v.animation_tree.get("parameters/carry/blend_amount")), 0.0, 0.01), "not carrying: carry blend 0")
+	v.carrying = true
+	await seconds(0.6)
+	check(float(v.animation_tree.get("parameters/carry/blend_amount")) > 0.9,
+		"carrying: carry blend %.2f (Carry_Idle/Carry_Walk)" % float(v.animation_tree.get("parameters/carry/blend_amount")))
+	check(v.clip_length("carry_idle") > 0.0 and v.clip_length("carry_walk") > 0.0,
+		"carry clips exist (%.2f / %.2f s)" % [v.clip_length("carry_idle"), v.clip_length("carry_walk")])
+	v.carrying = false
+	await frames(10)
+	# --- Death: the clip plays and the pose freezes afterwards.
+	check(v.clip_length("death") > 1.0, "death clip exists on the model (%.2f s)" % v.clip_length("death"))
+	clips.clear()
+	p.health.invulnerable = false
+	p.health.apply_damage(_lethal())
+	await frames(4)
+	check(clips.has("A_Jason_Death"), "death plays A_Jason_Death (%s)" % [clips])
+	await seconds(v.clip_length("death") + 0.3)
+	check(p.dying and not v.animation_tree.active, "after the death clip the pose freezes (tree off)")
+	p.health.reset()
+	p.dying = false
+	v.dead = false
+	v._death_stopped = false
+	v.animation_tree.active = true
+	# --- Car enter / exit: the vehicle takes its timing from the clip, not from a constant.
+	var car := (load("res://Scenes/Vehicles/VH_Sedan_01.tscn") as PackedScene).instantiate() as Vehicle
+	scene.add_child(car)
+	car.global_position = p.global_position + Vector3(3, 0, 0)
+	await frames(4)
+	p.global_position = car.get_socket(&"SOCKET_Exit_Left").global_position
+	await frames(2)
+	check(car.enter(p), "player enters the sedan")
+	check(approx(car.enter_duration(), v.clip_length("car_enter"), 0.01),
+		"enter duration == A_Jason_Car_Enter_L length (%.2f s)" % car.enter_duration())
+	check(not approx(car.enter_duration(), car.data.enter_time, 0.05),
+		"the constant in VehicleData (%.2f s) is NOT what drives the sequence" % car.data.enter_time)
+	await seconds(car.enter_duration() + 0.1)
+	check(car.state == Vehicle.State.DRIVING, "DRIVING only after the whole clip (%.2f s)" % car.enter_duration())
+	check(approx(car.exit_duration(), v.clip_length("car_exit"), 0.01),
+		"exit duration == A_Jason_Car_Exit_L length (%.2f s)" % car.exit_duration())
+	check(car.request_exit(), "exit request accepted")
+	await seconds(car.exit_duration() + 0.3)
+	check(car.driver == null, "exit sequence over after the exit clip (%.2f s)" % car.exit_duration())
+	await despawn(scene)
+
+
+func test_aim_layer_tgp04() -> void:
+	print("[GPTEST] == T-GP-04 upper-body aim layer (spine twist, legs keep their clip)")
+	var scene := spawn(TEST_RANGE)
+	var p := scene.get_node("Player") as PlayerController
+	await frames(5)
+	var v := p.visual
+	var sk := v.find_skeleton()
+	check(v.aim_modifier != null and v.aim_modifier.get_parent() == sk,
+		"AimSpineModifier exists as a child of the Skeleton3D (SkeletonModifier3D contract)")
+	if v.aim_modifier == null:
+		await despawn(scene)
+		return
+	# Legs must never be part of the chain: that IS the "mask from the spine up".
+	check(not v.aim_modifier.chain_bones().has("LeftUpperLeg") and not v.aim_modifier.chain_bones().has("Hips"),
+		"aim chain = %s (legs/hips keep the locomotion clip)" % [v.aim_modifier.chain_bones()])
+	# Godot RESTORES the animated bone poses after SkeletonModifiers run, so the modifier's effect
+	# is only visible on the skin - i.e. on the BoneAttachment3D nodes (which is exactly what the
+	# hitboxes use). Measure there, never on get_bone_pose_rotation().
+	var chest_ba := _bone_attachment(sk, "Chest")
+	var leg_ba := _bone_attachment(sk, "LeftUpperLeg")
+	check(chest_ba != null and leg_ba != null, "bone attachments for measuring exist")
+	if chest_ba == null or leg_ba == null:
+		await despawn(scene)
+		return
+	# 1) Pitch from the camera: aim up, the chest must tilt; the leg must not care.
+	Input.action_press("aim")
+	await seconds(0.8)
+	p.camera_rig.apply_look(Vector2(0, 0.4))   # look up
+	var aim_pitch := v.aim_modifier.aim_pitch
+	check(rad_to_deg(aim_pitch) > 5.0, "aim pitch %.1f deg reaches the layer from the camera" % rad_to_deg(aim_pitch))
+	check(v.aim_modifier.weight > 0.9, "layer weight ramps to %.2f while aiming" % v.aim_modifier.weight)
+	var chest_with := chest_ba.global_transform.basis
+	var leg_with := leg_ba.global_transform.basis
+	v.aim_modifier.weight = 0.0
+	await frames(2)
+	var chest_without := chest_ba.global_transform.basis
+	var leg_without := leg_ba.global_transform.basis
+	v.aim_modifier.weight = 1.0
+	await frames(2)
+	var chest_deg := rad_to_deg(chest_with.get_rotation_quaternion().angle_to(chest_without.get_rotation_quaternion()))
+	var leg_deg := rad_to_deg(leg_with.get_rotation_quaternion().angle_to(leg_without.get_rotation_quaternion()))
+	check(chest_deg > 4.0, "the layer bends the chest by %.1f deg (same animation, weight 0 vs 1)" % chest_deg)
+	check(leg_deg < 1.0, "the legs are NOT touched by the layer (%.2f deg)" % leg_deg)
+	# 2) Yaw offset. For the player the body turns to the camera within ~0.1 s, so a yaw offset is
+	#    transient (it is what NPCs and hip-fire see). The plumbing from the camera is proven above;
+	#    here the pose source is frozen so the layer's own rotation math can be measured exactly.
+	Input.action_release("aim")
+	p.set_physics_process(false)
+	await frames(2)
+	var yaw_before := chest_ba.global_transform.basis
+	v.aim_modifier.weight = 1.0
+	v.aim_modifier.aim_pitch = 0.0
+	v.aim_modifier.aim_yaw = deg_to_rad(35.0)
+	await frames(2)
+	var yaw_after := chest_ba.global_transform.basis
+	var yaw_deg := rad_to_deg(yaw_before.get_rotation_quaternion().angle_to(yaw_after.get_rotation_quaternion()))
+	check(yaw_deg > 5.0, "aim yaw offset twists the upper body (%.1f deg of %.1f deg requested)" % [yaw_deg, 35.0 * AimSpineModifier.CHAIN["Chest"]])
+	p.set_physics_process(true)
+	check(rad_to_deg(leg_ba.global_transform.basis.get_rotation_quaternion().angle_to(leg_without.get_rotation_quaternion())) < 45.0,
+		"legs keep animating while the upper body aims")
+	await despawn(scene)
+
+
+func _lethal() -> DamageInfo:
+	var d := DamageInfo.new()
+	d.amount = 1000.0
+	d.weapon_id = &"test"
+	return d
+
+
+func _zone(hb: HumanoidHitboxes, zone_name: String) -> Hitbox:
+	for h in hb.hitboxes:
+		if String(h.name) == zone_name:
+			return h
+	return null
+
+
+## BoneAttachment3D on `bone` (created for measuring; the hitboxes own their own ones).
+func _bone_attachment(sk: Skeleton3D, bone: String) -> BoneAttachment3D:
+	for c in sk.get_children():
+		if c is BoneAttachment3D and (c as BoneAttachment3D).bone_name == bone and String(c.name).begins_with("M_"):
+			return c as BoneAttachment3D
+	var ba := BoneAttachment3D.new()
+	ba.name = "M_" + bone
+	sk.add_child(ba)
+	ba.bone_name = bone
+	return ba
+
+
+func test_bone_hitboxes_tgp04() -> void:
+	print("[GPTEST] == T-GP-04 hitboxes on BoneAttachment3D (follow the animated bone)")
+	var scene := spawn(TEST_RANGE)
+	var p := scene.get_node("Player") as PlayerController
+	await frames(5)
+	var hb := p.hitboxes
+	var sk := p.visual.find_skeleton()
+	check(hb.mode == "bone" and hb.hitboxes.size() == 7, "hitbox set rebuilt in BONE mode with %d zones (mode %s)" % [hb.hitboxes.size(), hb.mode])
+	var head := _zone(hb, "Hitbox_Head")
+	var chest := _zone(hb, "Hitbox_Body")
+	check(head != null and head.get_parent() is BoneAttachment3D and (head.get_parent() as BoneAttachment3D).bone_name == "Head",
+		"Hitbox_Head hangs on a BoneAttachment3D(Head)")
+	check(chest != null and (chest.get_parent() as BoneAttachment3D).bone_name == "Chest", "Hitbox_Body hangs on a BoneAttachment3D(Chest)")
+	check(hb.attachments.size() == 7 and hb.attachments.all(func(a): return a.get_child_count() == 1 and (a.get_child(0) as Node).get_parent() == a),
+		"every zone is attached to its own bone (%s)" % [hb.attachments.map(func(a): return a.bone_name)])
+	# The hitbox must FOLLOW the bone: animate, then compare the offsets.
+	var head_pos_a := (head.get_node("Shape") as Node3D).global_position
+	var bone_a := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head"))
+	Input.action_press("move_forward")
+	await seconds(0.6)
+	Input.action_release("move_forward")
+	await frames(2)
+	var head_pos_b := (head.get_node("Shape") as Node3D).global_position
+	var bone_b := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head"))
+	var moved_bone := head_pos_b.distance_to(head_pos_a)
+	check(moved_bone > 0.05, "the head hitbox MOVED with the animation (%.3f m)" % moved_bone)
+	check(head_pos_b.distance_to(bone_b.origin + bone_b.basis * Vector3(0, 0.08, 0)) < 0.05,
+		"head hitbox stays %.2f m from the Head bone (offset %.4f m)" % [0.08, head_pos_b.distance_to(bone_b.origin + bone_b.basis * Vector3(0, 0.08, 0))])
+	# Headshot damage goes through the bone-bound hitbox to the real receiver.
+	var w := (p.get_node("WeaponController") as PlayerWeaponController).weapon
+	var before := p.health.health
+	var mult := w.data.zone_multiplier(Hitbox.Zone.HEAD)
+	var d := DamageInfo.new()
+	d.amount = 10.0 * mult
+	d.zone = Hitbox.Zone.HEAD
+	d.headshot = true
+	head.get_receiver().apply_damage(d)
+	check(mult > 1.0 and approx(p.health.health, before - 10.0 * mult, 0.01),
+		"headshot via the bone hitbox: %.1f dmg (x%.2f multiplier)" % [10.0 * mult, mult])
+	check(head.get_receiver() == p.health, "bone hitbox forwards to the player's DamageReceiver")
+	await despawn(scene)
+
+# --- T-GP-01c-Jason: SK_Jason v2 is the player visual ------------------------------
+# UW_JASON_SABOTAGE=1 maps jump_loop back to the old "A_Jason_Jump_Loop" -> suite must FAIL.
+
+func _bone_pos(sk: Skeleton3D, bone: String) -> Vector3:
+	var i := sk.find_bone(bone)
+	return sk.global_transform * sk.get_bone_global_pose(i).origin if i >= 0 else Vector3(INF, INF, INF)
+
+func _bone_rot(sk: Skeleton3D, bone: String) -> Quaternion:
+	var i := sk.find_bone(bone)
+	return sk.get_bone_pose_rotation(i) if i >= 0 else Quaternion()
+
+func test_jason_model() -> void:
+	print("[GPTEST] == SK_Jason v2 player visual (model, clips, scale, AnimationTree states)")
+	var scene := spawn(TEST_RANGE)
+	var p := scene.get_node("Player") as PlayerController
+	var v := p.visual
+	if OS.get_environment("UW_JASON_SABOTAGE") == "1":
+		print("[GPTEST] SABOTAGE: jump_loop -> A_Jason_Jump_Loop")
+		v.clip_names["jump_loop"] = "A_Jason_Jump_Loop"
+		v.set_model(load(JASON))
+	await frames(5)
+	# Model + contract.
+	check(v.model_scene != null and v.model_scene.resource_path == JASON, "Player.tscn Visual.model_scene = SK_Jason.glb")
+	check(v.model != null and v.animation_player != null and v.animation_tree != null and v.animation_tree.active, "SK_Jason instanced, AnimationTree built + active")
+	check(not (p.get_node("Visual/PT_Capsule") as Node3D).visible and not (p.get_node("Visual/PT_FrontMarker") as Node3D).visible, "PT capsule + front marker hidden")
+	var sk := v.model.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D if v.model != null else null
+	check(sk != null and sk.get_bone_count() == 53, "Skeleton3D with 53 bones")
+	var errs := v.validate_clips()
+	check(errs.is_empty() and v.missing_clips.is_empty(), "all %d mapped clips exist in the imported glb %s" % [v.clip_names.size(), errs])
+	check(v.clip_names["jump_loop"] == "A_Jason_Jump_Air", "jump_loop slot -> A_Jason_Jump_Air")
+	var ap := v.animation_player
+	var loops_ok := true
+	for slot in ["idle", "walk", "run", "sprint", "crouch_idle", "crouch_walk", "jump_loop", "aim_idle", "aim_walk_fwd"]:
+		loops_ok = loops_ok and ap.has_animation(v.clip_names[slot]) and ap.get_animation(v.clip_names[slot]).loop_mode == Animation.LOOP_LINEAR
+	for slot in ["jump_start", "land"]:
+		loops_ok = loops_ok and ap.has_animation(v.clip_names[slot]) and ap.get_animation(v.clip_names[slot]).loop_mode == Animation.LOOP_NONE
+	check(loops_ok, "loop modes from the manifest: locomotion/air loop, jump_start/land play once")
+	var m = JSON.parse_string(FileAccess.get_file_as_string(JASON_MANIFEST))
+	var speeds := {}
+	for a in m.get("animations", []):
+		speeds[a["name"]] = float(a.get("speed_mps", 0.0))
+	var sp_ok := true
+	for slot in CharacterVisual.CLIP_SPEEDS:
+		sp_ok = sp_ok and approx(speeds.get(v.clip_names[slot], -1.0), CharacterVisual.CLIP_SPEEDS[slot], 0.01)
+	sp_ok = sp_ok and approx(speeds.get("A_Jason_Walk", -1), p.walk_speed, 0.01) and approx(speeds.get("A_Jason_Run", -1), p.run_speed, 0.01) \
+		and approx(speeds.get("A_Jason_Sprint", -1), p.sprint_speed, 0.01) and approx(speeds.get("A_Jason_Aim_Pistol_Walk_F", -1), p.aim_move_speed, 0.01)
+	check(sp_ok, "clip speeds (manifest speed_mps) = CLIP_SPEEDS = controller speeds")
+	# Scale / height / feet.
+	var aabb: Dictionary = m.get("aabb_godot", {})
+	var h: float = aabb.get("size", [0, 0, 0])[1]
+	check(approx(h, p.stand_height, 0.06) and approx(float(aabb.get("min", [0, 1, 0])[1]), 0.0, 0.005), "model height %.3f m vs collision 1.8 m, feet at y = 0 (manifest AABB)" % h)
+	check(v.model.scale.is_equal_approx(Vector3.ONE) and v.model.position.is_equal_approx(Vector3.ZERO), "model unscaled at the Visual origin (1 u = 1 m)")
+	var col := p.get_node("CollisionShape3D") as CollisionShape3D
+	check(col.shape is CylinderShape3D and approx((col.shape as CylinderShape3D).radius, 0.35, 0.001) and approx((col.shape as CylinderShape3D).height, 1.8, 0.001), "collision stays the TD-011 cylinder r 0.35 h 1.8")
+	await seconds(1.0)
+	var feet := minf(_bone_pos(sk, "LeftToes").y, _bone_pos(sk, "RightToes").y) - p.global_position.y
+	var ankle := minf(_bone_pos(sk, "LeftFoot").y, _bone_pos(sk, "RightFoot").y) - p.global_position.y
+	var head := _bone_pos(sk, "Head").y - p.global_position.y
+	check(feet > -0.03 and feet < 0.08 and ankle > 0.0 and ankle < 0.15, "idle pose: toes %.3f m / ankles %.3f m above the floor" % [feet, ankle])
+	check(head > 1.45 and head < 1.8, "idle pose: head bone at %.2f m" % head)
+	# Weapon on the hand socket.
+	var wctrl := p.get_node("WeaponController") as PlayerWeaponController
+	var w := wctrl.weapon
+	var sock := w.get_parent() as Node3D
+	var ba := sock.get_parent() as BoneAttachment3D
+	check(sock.name == "SOCKET_RightHand_Weapon" and ba != null and ba.bone_name == "RightHand", "weapon attached to SOCKET_RightHand_Weapon (BoneAttachment3D RightHand)")
+	check(w.global_position.distance_to(_bone_pos(sk, "RightHand")) < 0.2, "weapon within 0.2 m of the right hand (%.3f m)" % w.global_position.distance_to(_bone_pos(sk, "RightHand")))
+	# AnimationTree states driven by the controller, and the skeleton really moves.
+	var tree := v.animation_tree
+	var leg_idle := _bone_rot(sk, "LeftUpperLeg")
+	check(approx(float(tree.get("parameters/loco/blend_position")), 0.0, 0.05) and float(tree.get("parameters/aim/blend_amount")) < 0.05 and float(tree.get("parameters/air/blend_amount")) < 0.05, "idle: loco 0, aim 0, air 0")
+	Input.action_press("move_forward")
+	Input.action_press("walk")
+	await seconds(1.0)
+	check(approx(float(tree.get("parameters/loco/blend_position")), p.walk_speed, 0.1), "walk: loco blend %.2f (1.4)" % float(tree.get("parameters/loco/blend_position")))
+	Input.action_release("walk")
+	await seconds(1.0)
+	var bp_run := float(tree.get("parameters/loco/blend_position"))
+	var hips := _bone_pos(sk, "Hips") - p.global_position
+	var leg_run := _bone_rot(sk, "LeftUpperLeg")
+	check(approx(bp_run, p.run_speed, 0.1), "run: loco blend %.2f (3.5)" % bp_run)
+	check(leg_idle.angle_to(leg_run) > deg_to_rad(5.0), "skeleton pose changes idle -> run: LeftUpperLeg %.1f deg (tree drives SK_Jason)" % rad_to_deg(leg_idle.angle_to(leg_run)))
+	check(Vector2(hips.x, hips.z).length() < 0.3, "in-place clips: hips stay over the body (%.2f m)" % Vector2(hips.x, hips.z).length())
+	Input.action_press("sprint")
+	await seconds(1.0)
+	check(approx(float(tree.get("parameters/loco/blend_position")), p.sprint_speed, 0.15), "sprint: loco blend %.2f (6.0)" % float(tree.get("parameters/loco/blend_position")))
+	Input.action_release("sprint")
+	Input.action_release("move_forward")
+	await seconds(1.0)
+	await tap("jump")
+	var jumped := bool(tree.get("parameters/jump/active"))
+	await seconds(0.3)
+	check(jumped and float(tree.get("parameters/air/blend_amount")) > 0.5, "jump: jump_start OneShot + air blend (Jump_Air) %.2f" % float(tree.get("parameters/air/blend_amount")))
+	var landed_fire := false
+	for i in 90:
+		await frames(1)
+		landed_fire = landed_fire or bool(tree.get("parameters/land/active"))
+	check(landed_fire and p.is_on_floor(), "land OneShot fires on landing")
+	Input.action_press("aim")
+	await seconds(0.8)
+	check(float(tree.get("parameters/aim/blend_amount")) > 0.95, "aim: aim blend %.2f" % float(tree.get("parameters/aim/blend_amount")))
+	Input.action_release("aim")
+	await seconds(0.5)
+	# Negative control: a wrong clip name must be detected.
+	var v2 := CharacterVisual.new()
+	v2.clip_names["jump_loop"] = "A_Jason_Jump_Loop"
+	scene.add_child(v2)
+	v2.set_model(load(JASON))
+	await frames(2)
+	var neg := v2.validate_clips()
+	check(neg.size() == 2 and v2.missing_clips.has("jump_loop"), "NEGATIVE: A_Jason_Jump_Loop is reported (missing + _Loop suffix) %s" % neg)
+	v2.queue_free()
+	await despawn(scene)
+

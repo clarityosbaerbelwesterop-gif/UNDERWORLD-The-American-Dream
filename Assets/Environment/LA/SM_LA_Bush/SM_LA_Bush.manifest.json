@@ -1,0 +1,162 @@
+{
+  "asset": "SM_LA_Bush",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/LA",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/LA/SM_LA_Bush/SM_LA_Bush.blend",
+  "export_glb": "Assets/Environment/LA/SM_LA_Bush/SM_LA_Bush.glb",
+  "preview_png": "Assets/Environment/LA/SM_LA_Bush/SM_LA_Bush_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.895,
+      0.0,
+      -0.9357
+    ],
+    "max": [
+      0.9494,
+      1.6,
+      0.9357
+    ],
+    "size": [
+      1.8444,
+      1.6,
+      1.8714
+    ]
+  },
+  "triangles": {
+    "lod0": 1172,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 1172,
+      "LOD1": 586,
+      "LOD2": 292
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_LA_Bush_Mesh",
+      "levels": [
+        {
+          "name": "SM_LA_Bush_Mesh",
+          "level": 0,
+          "triangles": 1172
+        },
+        {
+          "name": "SM_LA_Bush_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 586
+        },
+        {
+          "name": "SM_LA_Bush_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 292
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_LA_Bush_00-convcolonly"
+    ],
+    "micro_lips": 0
+  },
+  "materials": [
+    "M_Prop_Foliage",
+    "M_Prop_WoodCreosote"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_Foliage_D",
+      "material": "M_Prop_Foliage",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_xix4511a/T_Prop_Foliage_D.jpg"
+    },
+    {
+      "image": "T_Prop_Foliage_ORM",
+      "material": "M_Prop_Foliage",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_qgenv5st/T_Prop_Foliage_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Foliage_N",
+      "material": "M_Prop_Foliage",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_xcbw_svp/T_Prop_Foliage_N.jpg"
+    },
+    {
+      "image": "T_Prop_WoodCreosote_D",
+      "material": "M_Prop_WoodCreosote",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_k39aqnxd/T_Prop_WoodCreosote_D.jpg"
+    },
+    {
+      "image": "T_Prop_WoodCreosote_ORM",
+      "material": "M_Prop_WoodCreosote",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_zz56ecmk/T_Prop_WoodCreosote_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_WoodCreosote_N",
+      "material": "M_Prop_WoodCreosote",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ucg3q7x8/T_Prop_WoodCreosote_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_LA_Bush_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 448.4,
+      "p10_px_per_m": 430.7,
+      "p90_px_per_m": 502.3
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_LA_Bush_Mesh_LOD1",
+    "SM_LA_Bush_Mesh_LOD2",
+    "SM_LA_Bush_Mesh",
+    "UCX_SM_LA_Bush_00-convcolonly",
+    "SM_LA_Bush"
+  ],
+  "glb_bytes": 1240036
+}

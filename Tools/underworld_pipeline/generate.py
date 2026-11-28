@@ -94,9 +94,15 @@ def _hull_object(name, points, root, max_verts, issues):
     bm.free()
     ob = bpy.data.objects.new(name, me)
     bpy.context.scene.collection.objects.link(ob)
-    if len(me.vertices) > max_verts:
+    # Decimate is approximate (64 asked -> 65 came out, T-PIPE-06): shrink the ratio until the
+    # hull really is within the convex_max_vertices budget.
+    ratio = max_verts / max(len(me.vertices), 1)
+    for _attempt in range(8):
+        if len(me.vertices) <= max_verts:
+            break
         m = ob.modifiers.new("UW_Decimate", "DECIMATE")
-        m.ratio = max(0.02, max_verts / len(me.vertices))
+        m.ratio = max(0.02, ratio)
+        ratio *= 0.92
         dg = bpy.context.evaluated_depsgraph_get()
         dec = bpy.data.meshes.new_from_object(ob.evaluated_get(dg), depsgraph=dg)
         ob.modifiers.clear()
@@ -109,6 +115,8 @@ def _hull_object(name, points, root, max_verts, issues):
         bmesh.ops.delete(bm, geom=list(set(res["geom_interior"]) | set(res["geom_unused"])), context="VERTS")
         bm.to_mesh(me)
         bm.free()
+    if len(me.vertices) > max_verts:
+        issues.warn("COLLISION_BUDGET", f"convex hull still {len(me.vertices)} verts > {max_verts} after decimation", name)
     _parent_world(ob, root)
     return ob
 
@@ -145,11 +153,13 @@ def generate_collision(ctx, mode):
     if not srcs:
         ctx.issues.warn("COLLISION_NO_SOURCE", "no visible meshes to build collision from")
         return {"mode": mode, "generated": [], "existing": existing}
-    # use the lowest LOD of each mesh when available (fewer points)
+    # Hull-type proxies (box/convex) may use the lowest LOD (fewer points, same hull).
+    # A TRIMESH proxy must come from LOD0: decimation closes openings - the M01 garage's
+    # LOD2-derived collision sealed the roll-up door shut (B-PT-02, T-BUILD-02).
     low = []
     for ob in srcs:
         lods = sorted((c for c in ob.children if S.lod_level(c.name) > 0), key=lambda c: S.lod_level(c.name))
-        low.append(lods[-1] if lods else ob)
+        low.append(lods[-1] if (lods and mode != "trimesh") else ob)
     with S.rest_pose(sc):
         pts = _world_points(low)
     made = []
@@ -185,3 +195,106 @@ def generate_collision(ctx, mode):
         out.append({"name": ob.name, "vertices": len(ob.data.vertices), "triangles": _tris(ob.data)})
         print(f"[UWP] collision {ob.name}: {len(ob.data.vertices)} verts")
     return {"mode": mode, "generated": out, "existing": existing}
+
+
+def check_collision_micro_lips(ctx, max_lip_m=0.02, min_lip_m=0.0005):
+    """T-BUILD-02 bug B-PT-01: a near-vertical collision face lower than the character
+    controller's step threshold (2 cm, PlayerController.step_min_height) is a "micro-lip": the
+    cylinder (TD-011) snags on it and stops dead. The road kit's 4 mm paint stripes inside the
+    trimesh collision did exactly that. Walkable collision must be coplanar or a real step.
+    Returns a list of {object, height_m, at} findings; each one is reported as an error."""
+    import bmesh
+    findings = []
+    sc = bpy.context.scene
+    for ob in sc.objects:
+        if not S.is_collision(ob):
+            continue
+        bm = bmesh.new()
+        bm.from_mesh(ob.data)
+        bm.transform(ob.matrix_world)
+        bm.normal_update()
+        for f in bm.faces:
+            if f.calc_area() < 1e-8 or abs(f.normal.z) > 0.2:
+                continue                      # floor/ceiling-like faces are fine
+            zs = [v.co.z for v in f.verts]
+            h = max(zs) - min(zs)
+            if min_lip_m < h < max_lip_m:
+                c = f.calc_center_median()
+                findings.append({"object": ob.name, "height_m": round(h, 4),
+                                 "at": [round(c.x, 3), round(c.y, 3), round(c.z, 3)]})
+        bm.free()
+    for fd in findings[:8]:
+        ctx.issues.error("COLLISION_MICRO_LIP",
+                         f"{fd['height_m'] * 1000:.1f} mm vertical collision face at {fd['at']} snags the player "
+                         f"(walkable collision must be coplanar or >= {max_lip_m * 100:.0f} cm; author a flat UCX_ proxy)",
+                         fd["object"])
+    if len(findings) > 8:
+        ctx.issues.error("COLLISION_MICRO_LIP", f"... {len(findings) - 8} more micro-lip faces", findings[8]["object"])
+    return findings
+
+
+def check_lod_and_collision_budgets(ctx, lods, col, lod_skipped):
+    """T-PIPE-05/06: TD-012 budgets after generation. LOD<n> above its fraction of the LOD0 budget
+    and trimesh/authored collision above its triangle budget are reported (warning in the dev
+    profile = error in --strict / --profile gate). The gate profile also REQUIRES LODs and
+    collision for the categories in gate_profile (an asset without them cannot be production-ready)."""
+    from . import config as C
+    cfg = ctx.cfg
+    top = C.Config.top(ctx.category)
+    gate = getattr(ctx.opts, "profile", "dev") == "gate"
+    gp = cfg.get("gate_profile") or {}
+    budget = cfg.max_triangles(ctx.budget_key) if ctx.budget_key else None
+    frac = cfg.get("lod_triangle_fraction_max") or {}
+    n_levels = 0
+    for entry in lods or []:
+        for lv in entry.get("levels", []):
+            if lv["level"] == 0:
+                continue
+            n_levels += 1
+            f = frac.get("LOD%d" % lv["level"])
+            if budget and f and lv["triangles"] > budget * float(f):
+                ctx.issues.warn("LOD_BUDGET", f"{lv['name']}: {lv['triangles']} tris > {f:.0%} of the {budget} budget",
+                                lv["name"])
+    # LODs are pointless below lod_min_triangles (a 60-tri road slab): only required above it.
+    lod_min = int(cfg.get("lod_min_triangles") or 64)
+    sc0 = bpy.context.scene
+    lod0_tris = sum(_tris(o.data) for o in sc0.objects if o.type == "MESH" and not S.is_collision(o)
+                    and S.lod_level(o.name) == 0)
+    if gate and top in gp.get("lod_required", []) and n_levels == 0 and lod0_tris >= lod_min:
+        ctx.issues.error("LOD_MISSING", "release gate: LOD1+ required for %s (TD-012; skipped=%s)" % (top, lod_skipped),
+                         ctx.asset_name)
+    cb = cfg.get("collision_budget") or {}
+    tri_max = (cb.get("trimesh_max_triangles") or {}).get(top)
+    sc = bpy.context.scene
+    col_objs = [o for o in sc.objects if S.is_collision(o)]
+    for o in col_objs:
+        hint = S.split_hint(o.name)[1]
+        t = _tris(o.data)
+        if hint in ("-convcolonly", "-convcol"):
+            if len(o.data.vertices) > int(cb.get("convex_max_vertices", 64)):
+                ctx.issues.warn("COLLISION_BUDGET", f"convex proxy {len(o.data.vertices)} verts > {cb.get('convex_max_vertices', 64)}", o.name)
+        elif tri_max is not None and t > int(tri_max):
+            ctx.issues.warn("COLLISION_BUDGET", f"trimesh proxy {t} tris > {tri_max} for {top}", o.name)
+    if gate and top in gp.get("collision_required", []) and not col_objs:
+        ctx.issues.error("COLLISION_MISSING", "release gate: collision proxy required for %s" % top, ctx.asset_name)
+
+
+def check_anim_report(ctx, out_dir):
+    """T-PIPE-06 A-13: the character builder MEASURES foot sliding per locomotion clip and writes
+    it to <asset>.anim_report.json - but nothing compared it with a budget (Jason: 4.86 cm vs the
+    1 cm of master prompt §6.3). Warning in dev, error in --profile gate / --strict."""
+    import json as _json
+    import os as _os
+    path = _os.path.join(out_dir, ctx.asset_name + ".anim_report.json")
+    if not _os.path.isfile(path):
+        return None
+    rep = _json.load(open(path))
+    limit = float((ctx.cfg.get("animation") or {}).get("foot_slide_max_m", 0.01))
+    worst = {}
+    for clip, info in (rep.get("clips") or {}).items():
+        sl = info.get("foot_sliding_m")
+        if sl is not None and float(sl) > limit:
+            worst[clip] = float(sl)
+    for clip, sl in sorted(worst.items(), key=lambda kv: -kv[1])[:6]:
+        ctx.issues.warn("ANIM_FOOT_SLIDE", f"{clip}: foot sliding {sl * 100:.2f} cm > {limit * 100:.1f} cm", clip)
+    return {"report": path, "limit_m": limit, "over_budget": worst}

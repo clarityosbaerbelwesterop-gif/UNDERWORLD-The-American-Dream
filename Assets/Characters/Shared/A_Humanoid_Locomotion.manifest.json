@@ -206,6 +206,26 @@
       "speed_mps": 0.0
     },
     {
+      "name": "A_Humanoid_Sit_Driver",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "frames": 60,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "loop": true,
+      "speed_mps": 0.0
+    },
+    {
+      "name": "A_Humanoid_Sit_Passenger",
+      "frame_start": 0.0,
+      "frame_end": 60.0,
+      "frames": 60,
+      "fps": 30.0,
+      "duration_s": 2.0,
+      "loop": true,
+      "speed_mps": 0.0
+    },
+    {
       "name": "A_Humanoid_Sprint",
       "frame_start": 0.0,
       "frame_end": 16.0,
@@ -226,5 +246,5 @@
       "speed_mps": 1.4
     }
   ],
-  "glb_bytes": 885120
+  "glb_bytes": 962632
 }

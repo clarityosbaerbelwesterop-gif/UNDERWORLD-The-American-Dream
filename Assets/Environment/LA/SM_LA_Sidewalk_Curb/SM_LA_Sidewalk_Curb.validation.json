@@ -2,8 +2,9 @@
   "tool": "underworld_pipeline",
   "version": "1.0.0",
   "blender": "5.2.4 LTS",
-  "timestamp": "2026-11-22T12:13:21+01:00",
+  "timestamp": "2026-11-24T11:49:24+00:00",
   "command": "export",
+  "profile": "gate",
   "input": "Blender/Source/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.blend",
   "steps": {
     "validate": {
@@ -20,11 +21,13 @@
           "triangles": 44
         }
       ],
-      "existing": []
+      "existing": [],
+      "micro_lips": 0
     },
+    "foot_slide": null,
     "export": {
       "glb": "Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.glb",
-      "bytes": 770508
+      "bytes": 874584
     },
     "preview": "Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb_preview.png",
     "manifest": "Assets/Environment/LA/SM_LA_Sidewalk_Curb/SM_LA_Sidewalk_Curb.manifest.json",
@@ -45,7 +48,7 @@
         "joint_names": [],
         "animations": [],
         "asset_generator": "Khronos glTF Blender I/O v5.2.41",
-        "bytes": 770508
+        "bytes": 874584
       },
       "reimport_objects": [
         "SM_LA_Sidewalk_Curb",
@@ -84,7 +87,7 @@
     "warnings": 0,
     "infos": 2
   },
-  "seconds": 0.51,
+  "seconds": 0.96,
   "exit_code": 0,
   "result": "PASS"
 }

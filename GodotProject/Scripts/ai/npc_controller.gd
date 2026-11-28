@@ -34,6 +34,8 @@ var agent: NavigationAgent3D
 var pose: Node3D
 var hitboxes: HumanoidHitboxes
 var route: NPCRoute
+## Real SK_NPC model + clip driver (T-GP-01); null while the PT capsule stands in.
+var visual: CharacterVisual
 
 var target: Node3D
 var awareness := 0.0
@@ -53,6 +55,7 @@ var last_aim_error := 0.0
 var _rng := RandomNumberGenerator.new()
 var _self_rids: Array[RID] = []
 var _events: Array[String] = []
+var _person: Node3D = null   # remembered player (T-AI-03: target may be his car instead)
 var _moving := false
 var _move_target := Vector3.ZERO
 var _move_speed := 0.0
@@ -73,6 +76,8 @@ func _ready() -> void:
 	assert(profile != null, "%s: NPCController needs an AIProfile" % name)
 	if rng_seed != 0:
 		_rng.seed = rng_seed
+	elif Weapon.replay_seed() != 0:
+		_rng.seed = Weapon.replay_seed() + hash(str(get_path()))   # deterministic replay
 	else:
 		_rng.randomize()
 	collision_layer = 1 << 2               # 3 Characters
@@ -86,6 +91,7 @@ func _ready() -> void:
 	agent = get_node("NavigationAgent3D") as NavigationAgent3D
 	pose = get_node("Pose") as Node3D
 	hitboxes = pose.get_node_or_null("Hitboxes") as HumanoidHitboxes
+	visual = pose.get_node_or_null("Visual/CharacterVisual") as CharacterVisual
 	weapon = _find_weapon(pose)
 	if weapon != null and profile.weapon != null:
 		weapon.data = profile.weapon
@@ -95,7 +101,9 @@ func _ready() -> void:
 	route = get_node_or_null(route_path) as NPCRoute
 	_route_idx = route_start_index
 	_self_rids.append(get_rid())
-	if hitboxes != null:
+	# T-GP-04: hitboxes are bone-bound for models with the standard skeleton.
+	if hitboxes != null and visual != null:
+		hitboxes.build(health, visual.find_skeleton())
 		_self_rids.append_array(hitboxes.get_rids())
 	add_to_group(AIPerception.HEARING_GROUP)
 	add_to_group("npc")
@@ -113,6 +121,31 @@ func _find_weapon(n: Node) -> Weapon:
 	return null
 
 # --- public helpers -----------------------------------------------------------
+
+## Checkpoint restart (T-MIS-01): bring a dead NPC back exactly as it was spawned.
+## Used by MissionManager when it rewinds to a checkpoint - the enemies of the failed attempt
+## must be alive again and must not carry over their old awareness/cover state.
+func revive() -> void:
+	if not is_dead():
+		return
+	health.reset()
+	collision_layer = 1 << 2               # 3 Characters
+	if hitboxes != null:
+		hitboxes.set_enabled(true)
+	pose.rotation_degrees.x = 0.0
+	add_to_group(AIPerception.HEARING_GROUP)
+	awareness = 0.0
+	target_visible = false
+	visible_time = 0.0
+	unseen_time = 0.0
+	has_last_known = false
+	last_known_pos = Vector3.ZERO
+	shots_fired = 0
+	_bad_covers.clear()
+	_release_cover()
+	fsm.state = profile.initial_state
+	fsm.time_in_state = 0.0
+	_enter_state(fsm.state, "dead", "revive")
 
 func get_state() -> String:
 	return fsm.state
@@ -133,7 +166,32 @@ func has_los(from: Vector3, to: Vector3) -> bool:
 	var q := PhysicsRayQueryParameters3D.create(from, to, LOS_MASK, _self_rids)
 	return get_world_3d().direct_space_state.intersect_ray(q).is_empty()
 
+
+func player_node() -> Node3D:
+	if _person == null or not is_instance_valid(_person):
+		_person = get_tree().get_first_node_in_group("player") as Node3D
+	return _person
+
+
+## Line of sight to a *target node*. Same as has_los(), except that a ray which stops on the
+## target itself counts as "seen" - which is the only sane definition for a car: its own
+## bodywork would otherwise occlude the point the AI aims at, and every gunman would be blind
+## to a parked vehicle (T-AI-03).
+func has_los_to(from: Vector3, to: Vector3, target: Node) -> bool:
+	var q := PhysicsRayQueryParameters3D.create(from, to, LOS_MASK, _self_rids)
+	var hit := get_world_3d().direct_space_state.intersect_ray(q)
+	if hit.is_empty():
+		return true
+	var collider := hit.get("collider") as Node
+	if collider == null or target == null:
+		return false
+	return collider == target or target.is_ancestor_of(collider) or collider.is_ancestor_of(target)
+
+## Points the AI perceives/shoots at. A seated player is replaced by his car (T-AI-03), so
+## gunmen aim at bodywork and glass - never at the hidden body through the roof.
 func target_points(t: Node3D) -> Array:
+	if t is Vehicle:
+		return VehicleTargeting.car_points(t as Vehicle)
 	if t.has_method("get_visibility_points"):
 		return t.get_visibility_points()
 	return [t.global_position + Vector3(0, 1.65, 0), t.global_position + Vector3(0, 1.15, 0)]
@@ -216,14 +274,35 @@ func _physics_process(delta: float) -> void:
 	if is_dead():
 		_apply_motion(delta, Vector3.ZERO)
 		return
-	if target == null:
-		target = get_tree().get_first_node_in_group("player") as Node3D
+	# T-AI-03 / TD-015 R1+R4: a seated player is represented by his CAR, and that is re-checked
+	# every frame - so getting in/out changes the target class immediately. The player is kept
+	# as the remembered person: a gunman who loses his target must fall back to the human, not
+	# stare at an empty seat.
+	var person := player_node()
+	if person == null:
+		target = null
+	else:
+		_person = person
+		target = VehicleTargeting.resolve(person)
 	_update_perception(delta)
 	fsm.tick(delta)
 	_process_events()
 	_tick_state(delta)
 	_process_events()
 	_apply_motion(delta, _desired_velocity())
+	_update_visual()
+
+## Drive the locomotion clip of the SK_NPC model from the actual planar speed and the FSM
+## state (dead -> freeze, aiming states -> aim clips, otherwise idle/walk/run).
+func _update_visual() -> void:
+	if visual == null:
+		return
+	var speed := Vector2(velocity.x, velocity.z).length()
+	visual.set_speed(speed)
+	visual.set_aiming(fsm.state == "engage" or fsm.state == "take_cover" or fsm.state == "in_cover")
+	visual.set_crouching(false)
+	visual.set_dead(is_dead())
+	visual.update_generic(get_physics_process_delta_time())
 
 func _process_events() -> void:
 	var guard := 0
@@ -246,7 +325,7 @@ func _update_perception(delta: float) -> void:
 			or dist <= profile.near_awareness_radius
 		if noticeable:
 			for p in pts:
-				if has_los(eye, p):
+				if has_los_to(eye, p, target):
 					target_visible = true
 					break
 	if target_visible:
@@ -453,6 +532,11 @@ func _start_phase(ph: String) -> void:
 		_burst_left = _rng.randi_range(profile.burst_min, profile.burst_max)
 		_shot_timer = 0.0
 
+## Aim error (deg) for one shot. Overridden by AllyCompanion to add the ally penalty.
+func aim_error_deg_for(distance: float, target_speed: float) -> float:
+	return AIPerception.aim_error_deg(profile, distance, target_speed, visible_time)
+
+
 ## Bursts at the target with AI aim error on top of the weapon's hip spread.
 func _combat_fire(delta: float) -> void:
 	if weapon == null or weapon.data == null or target == null:
@@ -468,15 +552,23 @@ func _combat_fire(delta: float) -> void:
 		return
 	var eye := get_eye_pos()
 	var pts := target_points(target)
-	var aim_pt: Vector3 = pts[1] if has_los(eye, pts[1]) else pts[0]
+	var aim_pt: Vector3 = pts[1] if has_los_to(eye, pts[1], target) else pts[0]
 	var dir := (aim_pt - eye).normalized()
 	var tv := Vector3.ZERO
 	if target is CharacterBody3D:
 		tv = (target as CharacterBody3D).velocity
-	var err := AIPerception.aim_error_deg(profile, eye.distance_to(aim_pt), Vector2(tv.x, tv.z).length(), visible_time)
+	var err := aim_error_deg_for(eye.distance_to(aim_pt), Vector2(tv.x, tv.z).length())
 	var shot := weapon.trigger(true, true, eye, AIPerception.apply_cone(dir, err, _rng), {}, self, _self_rids)
 	if shot.is_empty():
 		return
+	# TD-015 R2: a hit on the car is car damage, not player damage. The weapon itself is
+	# unaware of vehicles (it reports what its ray hit); the mission layer decides.
+	var car_hit := shot.get("hit_body") as Node
+	if car_hit is Vehicle:
+		var hit_pos: Vector3 = shot.get("hit_position", aim_pt)
+		(car_hit as Vehicle).apply_hit_damage(weapon.data.damage_at(eye.distance_to(aim_pt)),
+			hit_pos, self)
+		shot["ai_target_is_vehicle"] = true
 	shots_fired += 1
 	last_aim_error = err
 	shot["ai_aim_error_deg"] = err
@@ -531,6 +623,38 @@ func _set_crouch(on: bool) -> void:
 	if pose != null and not is_dead():
 		pose.position.y = -profile.crouch_drop if on else 0.0
 
+## B-AI-06 (T-BUILD-02): NPCs had no step logic, so every 16 cm kerb was a wall - the whole
+## ambush wave piled up at the east kerb (x = 28.6) and the navmesh (agent_max_climb 0.25 m)
+## kept routing them into it. Same rule as the player's step-up: a riser up to STEP_HEIGHT with
+## a walkable top and head room lifts the body onto the tread.
+const STEP_HEIGHT := 0.3
+
+func _step_up(hv: Vector3, delta: float) -> void:
+	var speed := hv.length()
+	if speed < 0.05 or OS.is_debug_build() and OS.get_environment("UW_AI_SABOTAGE").strip_edges() == "nostep":
+		return
+	var dir := hv / speed
+	var xf := global_transform
+	var probe := dir * (speed * delta + 0.04)
+	var col := KinematicCollision3D.new()
+	if not test_move(xf, probe, col):
+		return
+	if col.get_normal().angle_to(Vector3.UP) <= floor_max_angle:
+		return
+	var contact := col.get_position() + dir * 0.06
+	var q := PhysicsRayQueryParameters3D.create(Vector3(contact.x, xf.origin.y + STEP_HEIGHT + 0.05, contact.z),
+		Vector3(contact.x, xf.origin.y - 0.05, contact.z), 1, [get_rid()])
+	var hit := get_world_3d().direct_space_state.intersect_ray(q)
+	if hit.is_empty() or (hit.normal as Vector3).angle_to(Vector3.UP) > floor_max_angle:
+		return
+	var rise: float = hit.position.y - xf.origin.y
+	if rise <= 0.02 or rise > STEP_HEIGHT:
+		return
+	var lift := Vector3(0.0, rise + 0.02, 0.0)
+	if test_move(xf, lift) or test_move(xf.translated(lift), probe):
+		return
+	global_position += lift
+
 func _move_to(p: Vector3, speed: float) -> void:
 	_move_target = p
 	_move_speed = speed
@@ -568,6 +692,8 @@ func _apply_motion(delta: float, want: Vector3) -> void:
 	else:
 		vy -= ProjectSettings.get_setting("physics/3d/default_gravity", 9.8) * delta
 	velocity = Vector3(h.x, vy, h.z)
+	if is_on_floor():
+		_step_up(h, delta)
 	move_and_slide()
 	if is_dead():
 		return

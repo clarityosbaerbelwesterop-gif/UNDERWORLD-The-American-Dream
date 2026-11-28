@@ -1,0 +1,1824 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Scenes/Decals/DC_LA_Manhole_01.tscn" id="1_mmy7c"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Manhole_01/DC_LA_Manhole_01_albedo.png" id="2_wlstg"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Manhole_01/DC_LA_Manhole_01_normal.png" id="3_pwgjm"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Manhole_01/DC_LA_Manhole_01_orm.png" id="4_1j46i"]
+[ext_resource type="PackedScene" path="res://Scenes/Decals/DC_LA_Drain_01.tscn" id="5_cxg5a"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Drain_01/DC_LA_Drain_01_albedo.png" id="6_aix2w"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Drain_01/DC_LA_Drain_01_normal.png" id="7_pttcm"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Drain_01/DC_LA_Drain_01_orm.png" id="8_cielo"]
+[ext_resource type="PackedScene" path="res://Scenes/Decals/DC_LA_OilStain_01.tscn" id="9_vhsl8"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_OilStain_01/DC_LA_OilStain_01_albedo.png" id="10_on0xl"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_OilStain_01/DC_LA_OilStain_01_orm.png" id="11_dfx08"]
+[ext_resource type="PackedScene" path="res://Scenes/Decals/DC_LA_Crack_01.tscn" id="12_71qan"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Crack_01/DC_LA_Crack_01_albedo.png" id="13_wn8j6"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Crack_01/DC_LA_Crack_01_normal.png" id="14_tiauh"]
+[ext_resource type="PackedScene" path="res://Scenes/Decals/DC_LA_Crack_02.tscn" id="15_7s3p7"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Crack_02/DC_LA_Crack_02_albedo.png" id="16_o7nyv"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Crack_02/DC_LA_Crack_02_normal.png" id="17_11pxo"]
+[ext_resource type="PackedScene" path="res://Scenes/Decals/DC_LA_OilStain_02.tscn" id="18_l512t"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_OilStain_02/DC_LA_OilStain_02_albedo.png" id="19_tjlr3"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_OilStain_02/DC_LA_OilStain_02_orm.png" id="20_lxjr0"]
+[ext_resource type="PackedScene" path="res://Scenes/Decals/DC_LA_TireMarks_01.tscn" id="21_ish2j"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_TireMarks_01/DC_LA_TireMarks_01_albedo.png" id="22_7ubw3"]
+[ext_resource type="PackedScene" path="res://Scenes/Decals/DC_LA_Trash_01.tscn" id="23_ug7wp"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Trash_01/DC_LA_Trash_01_albedo.png" id="24_ta1bw"]
+[ext_resource type="PackedScene" path="res://Scenes/Decals/DC_LA_Grime_01.tscn" id="25_gaatb"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Grime_01/DC_LA_Grime_01_albedo.png" id="26_cgcy0"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Grime_01/DC_LA_Grime_01_orm.png" id="27_cxi6a"]
+[ext_resource type="PackedScene" path="res://Scenes/Decals/DC_LA_Graffiti_01.tscn" id="28_1nmdo"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Graffiti_01/DC_LA_Graffiti_01_albedo.png" id="29_8qk5t"]
+[ext_resource type="PackedScene" path="res://Scenes/Decals/DC_LA_Graffiti_02.tscn" id="30_0xry6"]
+[ext_resource type="Texture2D" path="res://Assets/Decals/DC_LA_Graffiti_02/DC_LA_Graffiti_02_albedo.png" id="31_jbiv6"]
+
+[node name="LA_CallowayAve_Decals" type="Node3D" unique_id=613177746]
+
+[node name="DC_LA_Manhole_01_000" type="Decal" parent="." unique_id=1283519092 instance=ExtResource("1_mmy7c")]
+transform = Transform3D(0.9969557, 0, -0.07797027, 0, 1, 0, 0.07797027, 0, 0.9969557, -21.6, 0.05999996, -68)
+size = Vector3(0.9, 0.12, 0.9)
+texture_albedo = ExtResource("2_wlstg")
+texture_normal = ExtResource("3_pwgjm")
+texture_orm = ExtResource("4_1j46i")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_000" type="Decal" parent="." unique_id=979211929 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -28.75, 0.05999996, -59)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Manhole_01_001" type="Decal" parent="." unique_id=346696958 instance=ExtResource("1_mmy7c")]
+transform = Transform3D(0.97425646, 0, -0.22544256, 0, 1, 0, 0.22544256, 0, 0.97425646, -21.6, 0.05999996, -44)
+size = Vector3(0.9, 0.12, 0.9)
+texture_albedo = ExtResource("2_wlstg")
+texture_normal = ExtResource("3_pwgjm")
+texture_orm = ExtResource("4_1j46i")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_001" type="Decal" parent="." unique_id=730658465 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -28.75, 0.05999996, -35)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_002" type="Decal" parent="." unique_id=943571284 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -19.25, 0.05999996, -35)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Manhole_01_002" type="Decal" parent="." unique_id=1942029682 instance=ExtResource("1_mmy7c")]
+transform = Transform3D(-0.008883403, 0, 0.99996054, 0, 1, 0, -0.99996054, 0, -0.008883403, -21.6, 0.05999996, -20)
+size = Vector3(0.9, 0.12, 0.9)
+texture_albedo = ExtResource("2_wlstg")
+texture_normal = ExtResource("3_pwgjm")
+texture_orm = ExtResource("4_1j46i")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_003" type="Decal" parent="." unique_id=280445371 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -28.75, 0.05999996, -11)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_004" type="Decal" parent="." unique_id=1318794584 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -19.25, 0.05999996, -11)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Manhole_01_003" type="Decal" parent="." unique_id=305582569 instance=ExtResource("1_mmy7c")]
+transform = Transform3D(0.21204999, 0, -0.9772588, 0, 1, 0, 0.9772588, 0, 0.21204999, -21.6, 0.05999996, 4)
+size = Vector3(0.9, 0.12, 0.9)
+texture_albedo = ExtResource("2_wlstg")
+texture_normal = ExtResource("3_pwgjm")
+texture_orm = ExtResource("4_1j46i")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_005" type="Decal" parent="." unique_id=459703132 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -28.75, 0.05999996, 13)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_006" type="Decal" parent="." unique_id=334543507 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -19.25, 0.05999996, 13)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Manhole_01_004" type="Decal" parent="." unique_id=150693628 instance=ExtResource("1_mmy7c")]
+transform = Transform3D(-0.9902887, 0, -0.1390265, 0, 1, 0, 0.1390265, 0, -0.9902887, -21.6, 0.05999996, 28)
+size = Vector3(0.9, 0.12, 0.9)
+texture_albedo = ExtResource("2_wlstg")
+texture_normal = ExtResource("3_pwgjm")
+texture_orm = ExtResource("4_1j46i")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_007" type="Decal" parent="." unique_id=1185345650 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -28.75, 0.05999996, 37)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_008" type="Decal" parent="." unique_id=504523436 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -19.25, 0.05999996, 37)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Manhole_01_005" type="Decal" parent="." unique_id=1111738298 instance=ExtResource("1_mmy7c")]
+transform = Transform3D(-0.99041367, 0, -0.13813302, 0, 1, 0, 0.13813302, 0, -0.99041367, -21.6, 0.05999996, 52)
+size = Vector3(0.9, 0.12, 0.9)
+texture_albedo = ExtResource("2_wlstg")
+texture_normal = ExtResource("3_pwgjm")
+texture_orm = ExtResource("4_1j46i")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_009" type="Decal" parent="." unique_id=1602180977 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -28.75, 0.05999996, 61)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_01_000" type="Decal" parent="." unique_id=608839396 instance=ExtResource("9_vhsl8")]
+transform = Transform3D(-0.5949073, 0, -0.8037943, 0, 1, 0, 0.8037943, 0, -0.5949073, -24.420889, 0.05999996, 65.022415)
+size = Vector3(1.6, 0.12, 1.6)
+texture_albedo = ExtResource("10_on0xl")
+texture_orm = ExtResource("11_dfx08")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_000" type="Decal" parent="." unique_id=736184257 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.9987509, 0, -0.049965397, 0, 1, 0, 0.049965397, 0, -0.9987509, -21.118717, 0.05999996, -6.4570465)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_01_001" type="Decal" parent="." unique_id=771507881 instance=ExtResource("9_vhsl8")]
+transform = Transform3D(0.9767911, 0, -0.21419425, 0, 1, 0, 0.21419425, 0, 0.9767911, -20.06226, 0.05999996, -61.525246)
+size = Vector3(1.6, 0.12, 1.6)
+texture_albedo = ExtResource("10_on0xl")
+texture_orm = ExtResource("11_dfx08")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_02_000" type="Decal" parent="." unique_id=2071883266 instance=ExtResource("15_7s3p7")]
+transform = Transform3D(0.9380214, 0, -0.34657732, 0, 1, 0, 0.34657732, 0, 0.9380214, -25.604424, 0.05999996, -57.46897)
+size = Vector3(3, 0.12, 1)
+texture_albedo = ExtResource("16_o7nyv")
+texture_normal = ExtResource("17_11pxo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_01_002" type="Decal" parent="." unique_id=2087216311 instance=ExtResource("9_vhsl8")]
+transform = Transform3D(0.9657839, 0, 0.2593481, 0, 1, 0, -0.2593481, 0, 0.9657839, -20.68636, 0.05999996, -30.614086)
+size = Vector3(1.6, 0.12, 1.6)
+texture_albedo = ExtResource("10_on0xl")
+texture_orm = ExtResource("11_dfx08")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_02_001" type="Decal" parent="." unique_id=1824618519 instance=ExtResource("15_7s3p7")]
+transform = Transform3D(0.9359392, 0, 0.35216168, 0, 1, 0, -0.35216168, 0, 0.9359392, -21.581379, 0.05999996, -9.062485)
+size = Vector3(3, 0.12, 1)
+texture_albedo = ExtResource("16_o7nyv")
+texture_normal = ExtResource("17_11pxo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_01_003" type="Decal" parent="." unique_id=1583776425 instance=ExtResource("9_vhsl8")]
+transform = Transform3D(-0.75848156, 0, 0.6516945, 0, 1, 0, -0.6516945, 0, -0.75848156, -25.960312, 0.05999996, 6.829933)
+size = Vector3(1.6, 0.12, 1.6)
+texture_albedo = ExtResource("10_on0xl")
+texture_orm = ExtResource("11_dfx08")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_02_002" type="Decal" parent="." unique_id=105931815 instance=ExtResource("15_7s3p7")]
+transform = Transform3D(0.1765168, 0, 0.98429763, 0, 1, 0, -0.98429763, 0, 0.1765168, -22.764511, 0.05999996, 73.67316)
+size = Vector3(3, 0.12, 1)
+texture_albedo = ExtResource("16_o7nyv")
+texture_normal = ExtResource("17_11pxo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_02_003" type="Decal" parent="." unique_id=589244296 instance=ExtResource("15_7s3p7")]
+transform = Transform3D(0.77588433, 0, 0.63087523, 0, 1, 0, -0.63087523, 0, 0.77588433, -24.170574, 0.05999996, 17.595276)
+size = Vector3(3, 0.12, 1)
+texture_albedo = ExtResource("16_o7nyv")
+texture_normal = ExtResource("17_11pxo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_02_000" type="Decal" parent="." unique_id=1562468741 instance=ExtResource("18_l512t")]
+transform = Transform3D(0.9709134, 0, 0.23943079, 0, 1, 0, -0.23943079, 0, 0.9709134, -23.703285, 0.05999996, 23.431267)
+size = Vector3(2.6, 0.12, 1.3)
+texture_albedo = ExtResource("19_tjlr3")
+texture_orm = ExtResource("20_lxjr0")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_02_004" type="Decal" parent="." unique_id=899281065 instance=ExtResource("15_7s3p7")]
+transform = Transform3D(0.32614282, 0, 0.9453205, 0, 1, 0, -0.9453205, 0, 0.32614282, -26.988995, 0.05999996, -22.746685)
+size = Vector3(3, 0.12, 1)
+texture_albedo = ExtResource("16_o7nyv")
+texture_normal = ExtResource("17_11pxo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_02_001" type="Decal" parent="." unique_id=1885581019 instance=ExtResource("18_l512t")]
+transform = Transform3D(-0.3864898, 0, 0.92229366, 0, 1, 0, -0.92229366, 0, -0.3864898, -25.13313, 0.05999996, 13.27227)
+size = Vector3(2.6, 0.12, 1.3)
+texture_albedo = ExtResource("19_tjlr3")
+texture_orm = ExtResource("20_lxjr0")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_02_002" type="Decal" parent="." unique_id=962948839 instance=ExtResource("18_l512t")]
+transform = Transform3D(-0.48095965, 0, 0.8767427, 0, 1, 0, -0.8767427, 0, -0.48095965, -21.111546, 0.05999996, -54.148582)
+size = Vector3(2.6, 0.12, 1.3)
+texture_albedo = ExtResource("19_tjlr3")
+texture_orm = ExtResource("20_lxjr0")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_02_005" type="Decal" parent="." unique_id=2118716113 instance=ExtResource("15_7s3p7")]
+transform = Transform3D(-0.38813433, 0, 0.9216028, 0, 1, 0, -0.9216028, 0, -0.38813433, -27.914133, 0.05999996, -15.997414)
+size = Vector3(3, 0.12, 1)
+texture_albedo = ExtResource("16_o7nyv")
+texture_normal = ExtResource("17_11pxo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_02_003" type="Decal" parent="." unique_id=1989341227 instance=ExtResource("18_l512t")]
+transform = Transform3D(-0.45043406, 0, 0.8928097, 0, 1, 0, -0.8928097, 0, -0.45043406, -27.161457, 0.05999996, 70.95302)
+size = Vector3(2.6, 0.12, 1.3)
+texture_albedo = ExtResource("19_tjlr3")
+texture_orm = ExtResource("20_lxjr0")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_01_004" type="Decal" parent="." unique_id=2024936167 instance=ExtResource("9_vhsl8")]
+transform = Transform3D(-0.69746006, 0, -0.71662366, 0, 1, 0, 0.71662366, 0, -0.69746006, -21.8898, 0.05999996, 1.0377808)
+size = Vector3(1.6, 0.12, 1.6)
+texture_albedo = ExtResource("10_on0xl")
+texture_orm = ExtResource("11_dfx08")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_001" type="Decal" parent="." unique_id=2094810338 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.9307939, 0, 0.36554438, 0, 1, 0, -0.36554438, 0, 0.9307939, -22.847837, 0.05999996, -35.276398)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_01_005" type="Decal" parent="." unique_id=952089416 instance=ExtResource("9_vhsl8")]
+transform = Transform3D(-0.6682505, 0, 0.74393636, 0, 1, 0, -0.74393636, 0, -0.6682505, -25.977493, 0.05999996, 28.198608)
+size = Vector3(1.6, 0.12, 1.6)
+texture_albedo = ExtResource("10_on0xl")
+texture_orm = ExtResource("11_dfx08")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_02_004" type="Decal" parent="." unique_id=436557775 instance=ExtResource("18_l512t")]
+transform = Transform3D(0.6002525, 0, 0.7998105, 0, 1, 0, -0.7998105, 0, 0.6002525, -26.01569, 0.05999996, 42.064117)
+size = Vector3(2.6, 0.12, 1.3)
+texture_albedo = ExtResource("19_tjlr3")
+texture_orm = ExtResource("20_lxjr0")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_TireMarks_01_000" type="Decal" parent="." unique_id=2011392032 instance=ExtResource("21_ish2j")]
+transform = Transform3D(-0.17241478, 0, 0.98502445, 0, 1, 0, -0.98502445, 0, -0.17241478, -25.356522, 0.05999996, -66)
+size = Vector3(6, 0.12, 2)
+texture_albedo = ExtResource("22_7ubw3")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_002" type="Decal" parent="." unique_id=796913399 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.12143717, 0, 0.9925991, 0, 1, 0, -0.9925991, 0, -0.12143717, -30.504047, 0.17999984, -5.328331)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_003" type="Decal" parent="." unique_id=1393440453 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.34773254, 0, -0.93759376, 0, 1, 0, 0.93759376, 0, -0.34773254, -31.88704, 0.17999984, 67.993774)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_000" type="Decal" parent="." unique_id=917079386 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(0.85712945, 0, -0.5151011, 0, 1, 0, 0.5151011, 0, 0.85712945, -30.685326, 0.17999984, 44.240158)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_004" type="Decal" parent="." unique_id=1638976264 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.47640473, 0, -0.8792261, 0, 1, 0, 0.8792261, 0, -0.47640473, -31.232475, 0.17999984, 41.68627)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_001" type="Decal" parent="." unique_id=1618322430 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(0.7263591, 0, -0.6873154, 0, 1, 0, 0.6873154, 0, 0.7263591, -31.666862, 0.17999984, -16.28852)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_005" type="Decal" parent="." unique_id=593592910 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.7935813, 0, 0.60846424, 0, 1, 0, -0.60846424, 0, 0.7935813, -32.26437, 0.17999984, -20.912743)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_006" type="Decal" parent="." unique_id=1505547762 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.9391969, 0, -0.34337905, 0, 1, 0, 0.34337905, 0, -0.9391969, -32.087265, 0.17999984, -53.058792)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_007" type="Decal" parent="." unique_id=1616068715 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.97187686, 0, -0.23548952, 0, 1, 0, 0.23548952, 0, 0.97187686, -30.789465, 0.17999984, -26.34494)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_008" type="Decal" parent="." unique_id=1716962530 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.3412817, 0, 0.9399611, 0, 1, 0, -0.9399611, 0, 0.3412817, -30.173763, 0.17999984, -51.08555)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_002" type="Decal" parent="." unique_id=1426681318 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(0.92075986, 0, 0.3901299, 0, 1, 0, -0.3901299, 0, 0.92075986, -29.637754, 0.17999984, 9.49192)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_003" type="Decal" parent="." unique_id=1799175322 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(-0.2690936, 0, 0.963114, 0, 1, 0, -0.963114, 0, -0.2690936, -32.15062, 0.17999984, -10.688335)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_009" type="Decal" parent="." unique_id=917025897 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.82227796, 0, -0.5690861, 0, 1, 0, 0.5690861, 0, -0.82227796, -31.106747, 0.17999984, 5.1039658)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_010" type="Decal" parent="." unique_id=2066682945 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.21180514, 0, 0.9773119, 0, 1, 0, -0.9773119, 0, -0.21180514, -15.759518, 0.17999984, -26.001049)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_011" type="Decal" parent="." unique_id=26676707 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.06148417, 0, -0.998108, 0, 1, 0, 0.998108, 0, 0.06148417, -16.14584, 0.17999984, 25.81298)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_012" type="Decal" parent="." unique_id=1312583265 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.5271328, 0, -0.8497829, 0, 1, 0, 0.8497829, 0, 0.5271328, -15.667033, 0.17999984, -13.3038025)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_013" type="Decal" parent="." unique_id=515654077 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.5117989, 0, 0.8591053, 0, 1, 0, -0.8591053, 0, 0.5117989, -17.0019, 0.17999984, 22.909447)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_004" type="Decal" parent="." unique_id=2080899204 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(0.978347, 0, 0.20697132, 0, 1, 0, -0.20697132, 0, 0.978347, -15.41981, 0.17999984, -56.784775)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_014" type="Decal" parent="." unique_id=2064546803 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.797279, 0, -0.60361093, 0, 1, 0, 0.60361093, 0, 0.797279, -16.47552, 0.17999984, 61.910202)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_005" type="Decal" parent="." unique_id=902925160 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(-0.9998438, 0, 0.0176763, 0, 1, 0, -0.0176763, 0, -0.9998438, -16.450756, 0.17999984, -6.8442993)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_015" type="Decal" parent="." unique_id=1983114019 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.52809775, 0, 0.8491836, 0, 1, 0, -0.8491836, 0, 0.52809775, -16.042522, 0.17999984, -45.532257)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_016" type="Decal" parent="." unique_id=1630596054 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.9892565, 0, 0.14619023, 0, 1, 0, -0.14619023, 0, 0.9892565, -16.203564, 0.17999984, 10.2938)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_017" type="Decal" parent="." unique_id=1971306599 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.6746768, 0, -0.73811334, 0, 1, 0, 0.73811334, 0, 0.6746768, -15.62584, 0.17999984, -70.00525)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_006" type="Decal" parent="." unique_id=1379358117 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(-0.40277007, 0, -0.9153012, 0, 1, 0, 0.9153012, 0, -0.40277007, -15.616681, 0.17999984, -19.07748)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_018" type="Decal" parent="." unique_id=1287098158 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.9327623, 0, 0.360492, 0, 1, 0, -0.360492, 0, -0.9327623, -17.740992, 0.17999984, 29.936874)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_019" type="Decal" parent="." unique_id=1993671051 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.98885244, 0, 0.14889888, 0, 1, 0, -0.14889888, 0, 0.98885244, -15.4577265, 0.17999984, 44.91469)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_020" type="Decal" parent="." unique_id=731324755 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.99118114, 0, 0.13251379, 0, 1, 0, -0.13251379, 0, 0.99118114, -16.228022, 0.17999984, -62.486538)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Grime_01_000" type="Decal" parent="." unique_id=1100269738 instance=ExtResource("25_gaatb")]
+transform = Transform3D(4.371139e-08, 1, 0, 0, 0, -1, -1, 4.371139e-08, 0, -34.01, 3.1, -64.93521)
+size = Vector3(4, 0.3, 3)
+texture_albedo = ExtResource("26_cgcy0")
+texture_orm = ExtResource("27_cxi6a")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "wall"
+
+[node name="DC_LA_Graffiti_01_000" type="Decal" parent="." unique_id=657363135 instance=ExtResource("28_1nmdo")]
+transform = Transform3D(4.371139e-08, 1, 0, 0, 0, -1, -1, 4.371139e-08, 0, -34.01, 1.8860075, -58.26319)
+size = Vector3(3.2, 0.3, 1.3)
+texture_albedo = ExtResource("29_8qk5t")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "wall"
+
+[node name="DC_LA_Graffiti_02_000" type="Decal" parent="." unique_id=1581426961 instance=ExtResource("30_0xry6")]
+transform = Transform3D(4.371139e-08, 1, 0, 0, 0, -1, -1, 4.371139e-08, 0, -33.1, 1.637771, -41.37641)
+size = Vector3(2.4, 0.3, 1)
+texture_albedo = ExtResource("31_jbiv6")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "wall"
+
+[node name="DC_LA_Grime_01_001" type="Decal" parent="." unique_id=1158077022 instance=ExtResource("25_gaatb")]
+transform = Transform3D(4.371139e-08, 1, 0, 0, 0, -1, -1, 4.371139e-08, 0, -33.1, 3.1, -36.00785)
+size = Vector3(4, 0.3, 3)
+texture_albedo = ExtResource("26_cgcy0")
+texture_orm = ExtResource("27_cxi6a")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "wall"
+
+[node name="DC_LA_Graffiti_01_001" type="Decal" parent="." unique_id=1839178240 instance=ExtResource("28_1nmdo")]
+transform = Transform3D(4.371139e-08, 1, 0, 0, 0, -1, -1, 4.371139e-08, 0, -33.1, 1.7470537, -30.711523)
+size = Vector3(3.2, 0.3, 1.3)
+texture_albedo = ExtResource("29_8qk5t")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "wall"
+
+[node name="DC_LA_Grime_01_002" type="Decal" parent="." unique_id=1421968640 instance=ExtResource("25_gaatb")]
+transform = Transform3D(4.371139e-08, 1, 0, 0, 0, -1, -1, 4.371139e-08, 0, -34.13, 3.1, 24.12902)
+size = Vector3(4, 0.3, 3)
+texture_albedo = ExtResource("26_cgcy0")
+texture_orm = ExtResource("27_cxi6a")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "wall"
+
+[node name="DC_LA_Grime_01_003" type="Decal" parent="." unique_id=1045524194 instance=ExtResource("25_gaatb")]
+transform = Transform3D(4.371139e-08, 1, 0, 0, 0, -1, -1, 4.371139e-08, 0, -35.16, 3.1, 46.38128)
+size = Vector3(4, 0.3, 3)
+texture_albedo = ExtResource("26_cgcy0")
+texture_orm = ExtResource("27_cxi6a")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "wall"
+
+[node name="DC_LA_Graffiti_02_001" type="Decal" parent="." unique_id=222659434 instance=ExtResource("30_0xry6")]
+transform = Transform3D(4.371139e-08, 1, 0, 0, 0, -1, -1, 4.371139e-08, 0, -35.16, 1.5400102, 52.02206)
+size = Vector3(2.4, 0.3, 1)
+texture_albedo = ExtResource("31_jbiv6")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "wall"
+
+[node name="DC_LA_Manhole_01_006" type="Decal" parent="." unique_id=664109415 instance=ExtResource("1_mmy7c")]
+transform = Transform3D(0.15479489, 0, -0.9879466, 0, 1, 0, 0.9879466, 0, 0.15479489, 26.4, 0.05999996, -68)
+size = Vector3(0.9, 0.12, 0.9)
+texture_albedo = ExtResource("2_wlstg")
+texture_normal = ExtResource("3_pwgjm")
+texture_orm = ExtResource("4_1j46i")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_010" type="Decal" parent="." unique_id=358313709 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 19.25, 0.05999996, -59)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_011" type="Decal" parent="." unique_id=715107193 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28.75, 0.05999996, -59)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Manhole_01_007" type="Decal" parent="." unique_id=565209983 instance=ExtResource("1_mmy7c")]
+transform = Transform3D(0.033498414, 0, 0.99943876, 0, 1, 0, -0.99943876, 0, 0.033498414, 26.4, 0.05999996, -44)
+size = Vector3(0.9, 0.12, 0.9)
+texture_albedo = ExtResource("2_wlstg")
+texture_normal = ExtResource("3_pwgjm")
+texture_orm = ExtResource("4_1j46i")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_012" type="Decal" parent="." unique_id=286775381 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 19.25, 0.05999996, -35)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_013" type="Decal" parent="." unique_id=307479345 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28.75, 0.05999996, -35)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Manhole_01_008" type="Decal" parent="." unique_id=1579667212 instance=ExtResource("1_mmy7c")]
+transform = Transform3D(-0.45705974, 0, -0.889436, 0, 1, 0, 0.889436, 0, -0.45705974, 26.4, 0.05999996, -20)
+size = Vector3(0.9, 0.12, 0.9)
+texture_albedo = ExtResource("2_wlstg")
+texture_normal = ExtResource("3_pwgjm")
+texture_orm = ExtResource("4_1j46i")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_014" type="Decal" parent="." unique_id=714309539 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 19.25, 0.05999996, -11)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_015" type="Decal" parent="." unique_id=1818005755 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28.75, 0.05999996, -11)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Manhole_01_009" type="Decal" parent="." unique_id=1836400445 instance=ExtResource("1_mmy7c")]
+transform = Transform3D(-0.7960577, 0, 0.6052208, 0, 1, 0, -0.6052208, 0, -0.7960577, 26.4, 0.05999996, 4)
+size = Vector3(0.9, 0.12, 0.9)
+texture_albedo = ExtResource("2_wlstg")
+texture_normal = ExtResource("3_pwgjm")
+texture_orm = ExtResource("4_1j46i")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_016" type="Decal" parent="." unique_id=639066927 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 19.25, 0.05999996, 13)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_017" type="Decal" parent="." unique_id=566216680 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28.75, 0.05999996, 13)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Manhole_01_010" type="Decal" parent="." unique_id=1367930816 instance=ExtResource("1_mmy7c")]
+transform = Transform3D(-0.19577222, 0, -0.9806494, 0, 1, 0, 0.9806494, 0, -0.19577222, 26.4, 0.05999996, 28)
+size = Vector3(0.9, 0.12, 0.9)
+texture_albedo = ExtResource("2_wlstg")
+texture_normal = ExtResource("3_pwgjm")
+texture_orm = ExtResource("4_1j46i")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_018" type="Decal" parent="." unique_id=13687644 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 19.25, 0.05999996, 37)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_019" type="Decal" parent="." unique_id=14056065 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28.75, 0.05999996, 37)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Manhole_01_011" type="Decal" parent="." unique_id=468181215 instance=ExtResource("1_mmy7c")]
+transform = Transform3D(-0.2027967, 0, -0.97922087, 0, 1, 0, 0.97922087, 0, -0.2027967, 26.4, 0.05999996, 52)
+size = Vector3(0.9, 0.12, 0.9)
+texture_albedo = ExtResource("2_wlstg")
+texture_normal = ExtResource("3_pwgjm")
+texture_orm = ExtResource("4_1j46i")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_020" type="Decal" parent="." unique_id=462183068 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 19.25, 0.05999996, 61)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Drain_01_021" type="Decal" parent="." unique_id=335799476 instance=ExtResource("5_cxg5a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 28.75, 0.05999996, 61)
+size = Vector3(0.9, 0.12, 0.36)
+texture_albedo = ExtResource("6_aix2w")
+texture_normal = ExtResource("7_pttcm")
+texture_orm = ExtResource("8_cielo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_021" type="Decal" parent="." unique_id=573297752 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.6345507, 0, -0.77288127, 0, 1, 0, 0.77288127, 0, -0.6345507, 21.883791, 0.05999996, -26.168201)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_02_005" type="Decal" parent="." unique_id=175836300 instance=ExtResource("18_l512t")]
+transform = Transform3D(-0.39897037, 0, -0.9169638, 0, 1, 0, 0.9169638, 0, -0.39897037, 22.700094, 0.05999996, 6.7665634)
+size = Vector3(2.6, 0.12, 1.3)
+texture_albedo = ExtResource("19_tjlr3")
+texture_orm = ExtResource("20_lxjr0")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_02_006" type="Decal" parent="." unique_id=1394077622 instance=ExtResource("15_7s3p7")]
+transform = Transform3D(0.99826115, 0, 0.05894591, 0, 1, 0, -0.05894591, 0, 0.99826115, 26.206474, 0.05999996, 30.887535)
+size = Vector3(3, 0.12, 1)
+texture_albedo = ExtResource("16_o7nyv")
+texture_normal = ExtResource("17_11pxo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_02_007" type="Decal" parent="." unique_id=657223948 instance=ExtResource("15_7s3p7")]
+transform = Transform3D(0.5735998, 0, 0.81913567, 0, 1, 0, -0.81913567, 0, 0.5735998, 22.041607, 0.05999996, -33.43975)
+size = Vector3(3, 0.12, 1)
+texture_albedo = ExtResource("16_o7nyv")
+texture_normal = ExtResource("17_11pxo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_02_008" type="Decal" parent="." unique_id=1518762253 instance=ExtResource("15_7s3p7")]
+transform = Transform3D(0.99627995, 0, 0.086175464, 0, 1, 0, -0.086175464, 0, 0.99627995, 25.449327, 0.05999996, -10.933052)
+size = Vector3(3, 0.12, 1)
+texture_albedo = ExtResource("16_o7nyv")
+texture_normal = ExtResource("17_11pxo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_01_006" type="Decal" parent="." unique_id=667125675 instance=ExtResource("9_vhsl8")]
+transform = Transform3D(0.9999594, 0, 0.009010527, 0, 1, 0, -0.009010527, 0, 0.9999594, 20.46167, 0.05999996, -50.33979)
+size = Vector3(1.6, 0.12, 1.6)
+texture_albedo = ExtResource("10_on0xl")
+texture_orm = ExtResource("11_dfx08")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_01_007" type="Decal" parent="." unique_id=1553322671 instance=ExtResource("9_vhsl8")]
+transform = Transform3D(0.8936541, 0, 0.44875643, 0, 1, 0, -0.44875643, 0, 0.8936541, 23.180027, 0.05999996, -45.895565)
+size = Vector3(1.6, 0.12, 1.6)
+texture_albedo = ExtResource("10_on0xl")
+texture_orm = ExtResource("11_dfx08")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_022" type="Decal" parent="." unique_id=1157017402 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.011249794, 0, -0.9999367, 0, 1, 0, 0.9999367, 0, 0.011249794, 27.49059, 0.05999996, 43.2119)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_02_009" type="Decal" parent="." unique_id=996541485 instance=ExtResource("15_7s3p7")]
+transform = Transform3D(0.23190628, 0, -0.97273815, 0, 1, 0, 0.97273815, 0, 0.23190628, 24.646254, 0.05999996, 14.610367)
+size = Vector3(3, 0.12, 1)
+texture_albedo = ExtResource("16_o7nyv")
+texture_normal = ExtResource("17_11pxo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_02_010" type="Decal" parent="." unique_id=989565494 instance=ExtResource("15_7s3p7")]
+transform = Transform3D(-0.6622028, 0, -0.7493247, 0, 1, 0, 0.7493247, 0, -0.6622028, 20.680832, 0.05999996, -19.197975)
+size = Vector3(3, 0.12, 1)
+texture_albedo = ExtResource("16_o7nyv")
+texture_normal = ExtResource("17_11pxo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_01_008" type="Decal" parent="." unique_id=1513509018 instance=ExtResource("9_vhsl8")]
+transform = Transform3D(-0.6631605, 0, -0.7484772, 0, 1, 0, 0.7484772, 0, -0.6631605, 26.287312, 0.05999996, 55.671906)
+size = Vector3(1.6, 0.12, 1.6)
+texture_albedo = ExtResource("10_on0xl")
+texture_orm = ExtResource("11_dfx08")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_023" type="Decal" parent="." unique_id=923811041 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.13003662, 0, -0.9915092, 0, 1, 0, 0.9915092, 0, 0.13003662, 24.452105, 0.05999996, -7.116905)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_01_009" type="Decal" parent="." unique_id=1065160509 instance=ExtResource("9_vhsl8")]
+transform = Transform3D(-0.87104666, 0, -0.49120024, 0, 1, 0, 0.49120024, 0, -0.87104666, 24.955606, 0.05999996, 62.728195)
+size = Vector3(1.6, 0.12, 1.6)
+texture_albedo = ExtResource("10_on0xl")
+texture_orm = ExtResource("11_dfx08")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_024" type="Decal" parent="." unique_id=126879497 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.84379536, 0, 0.5366651, 0, 1, 0, -0.5366651, 0, -0.84379536, 19.978796, 0.05999996, 22.578262)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_01_010" type="Decal" parent="." unique_id=1645403467 instance=ExtResource("9_vhsl8")]
+transform = Transform3D(0.7784258, 0, -0.62773657, 0, 1, 0, 0.62773657, 0, 0.7784258, 21.237234, 0.05999996, 0.5819855)
+size = Vector3(1.6, 0.12, 1.6)
+texture_albedo = ExtResource("10_on0xl")
+texture_orm = ExtResource("11_dfx08")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_OilStain_02_006" type="Decal" parent="." unique_id=1481785454 instance=ExtResource("18_l512t")]
+transform = Transform3D(-0.6594809, 0, -0.75172126, 0, 1, 0, 0.75172126, 0, -0.6594809, 26.418669, 0.05999996, 71.41914)
+size = Vector3(2.6, 0.12, 1.3)
+texture_albedo = ExtResource("19_tjlr3")
+texture_orm = ExtResource("20_lxjr0")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_025" type="Decal" parent="." unique_id=409814600 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.9731856, 0, 0.23002139, 0, 1, 0, -0.23002139, 0, 0.9731856, 27.483112, 0.05999996, -73.31614)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_02_011" type="Decal" parent="." unique_id=479193444 instance=ExtResource("15_7s3p7")]
+transform = Transform3D(0.9664828, 0, 0.25673136, 0, 1, 0, -0.25673136, 0, 0.9664828, 25.65298, 0.05999996, -35.03896)
+size = Vector3(3, 0.12, 1)
+texture_albedo = ExtResource("16_o7nyv")
+texture_normal = ExtResource("17_11pxo")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_026" type="Decal" parent="." unique_id=2045592451 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.06390268, 0, -0.99795616, 0, 1, 0, 0.99795616, 0, 0.06390268, 16.444324, 0.17999984, 31.034904)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_007" type="Decal" parent="." unique_id=965698106 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(-0.8144848, 0, 0.58018494, 0, 1, 0, -0.58018494, 0, -0.8144848, 18.389746, 0.17999984, 6.307907)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_008" type="Decal" parent="." unique_id=1364770755 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(-0.995304, 0, -0.09679834, 0, 1, 0, 0.09679834, 0, -0.995304, 18.036373, 0.17999984, -3.794258)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_009" type="Decal" parent="." unique_id=1880673731 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(0.9862364, 0, 0.16534136, 0, 1, 0, -0.16534136, 0, 0.9862364, 17.98499, 0.17999984, 42.930763)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_027" type="Decal" parent="." unique_id=311874019 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.8127039, 0, 0.5826769, 0, 1, 0, -0.5826769, 0, 0.8127039, 16.569176, 0.17999984, 24.049484)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_028" type="Decal" parent="." unique_id=1005608616 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.27515867, 0, 0.96139884, 0, 1, 0, -0.96139884, 0, -0.27515867, 16.467793, 0.17999984, 71.33653)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_010" type="Decal" parent="." unique_id=391546698 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(-0.58070683, 0, 0.8141128, 0, 1, 0, -0.8141128, 0, -0.58070683, 15.974771, 0.17999984, 27.951088)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_029" type="Decal" parent="." unique_id=1832991097 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.12978953, 0, 0.99154156, 0, 1, 0, -0.99154156, 0, 0.12978953, 16.285978, 0.17999984, -57.547806)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_011" type="Decal" parent="." unique_id=1377302583 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(0.072970875, 0, 0.99733406, 0, 1, 0, -0.99733406, 0, 0.072970875, 17.78481, 0.17999984, 34.341408)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_030" type="Decal" parent="." unique_id=175096952 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.51445085, 0, -0.85751987, 0, 1, 0, 0.85751987, 0, 0.51445085, 17.04853, 0.17999984, -49.611176)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_031" type="Decal" parent="." unique_id=1962386629 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.94422996, 0, 0.32928672, 0, 1, 0, -0.32928672, 0, -0.94422996, 15.965078, 0.17999984, -72.40985)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_032" type="Decal" parent="." unique_id=2011778406 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.28719616, 0, -0.9578718, 0, 1, 0, 0.9578718, 0, -0.28719616, 16.447273, 0.17999984, -9.170685)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_033" type="Decal" parent="." unique_id=1059408310 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.872575, 0, -0.48848024, 0, 1, 0, 0.48848024, 0, 0.872575, 15.951209, 0.17999984, 51.427162)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_012" type="Decal" parent="." unique_id=382886695 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(-0.5504921, 0, 0.83484036, 0, 1, 0, -0.83484036, 0, -0.5504921, 16.675533, 0.17999984, -23.532936)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_013" type="Decal" parent="." unique_id=924192779 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(0.8010749, 0, 0.5985641, 0, 1, 0, -0.5985641, 0, 0.8010749, 31.398806, 0.17999984, 69.95993)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_034" type="Decal" parent="." unique_id=907795075 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.7415819, 0, 0.6708624, 0, 1, 0, -0.6708624, 0, -0.7415819, 32.138145, 0.17999984, 33.670395)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_035" type="Decal" parent="." unique_id=497284536 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.6702317, 0, -0.7421519, 0, 1, 0, 0.7421519, 0, 0.6702317, 31.983347, 0.17999984, 67.34035)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_014" type="Decal" parent="." unique_id=1245937040 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(0.9477119, 0, 0.31912717, 0, 1, 0, -0.31912717, 0, 0.9477119, 31.324986, 0.17999984, -27.998516)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_036" type="Decal" parent="." unique_id=479185139 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.4126706, 0, -0.9108803, 0, 1, 0, 0.9108803, 0, -0.4126706, 29.785744, 0.17999984, 2.026329)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_037" type="Decal" parent="." unique_id=645784558 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.55443114, 0, 0.83222955, 0, 1, 0, -0.83222955, 0, -0.55443114, 32.208786, 0.17999984, -2.9059296)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_015" type="Decal" parent="." unique_id=74555844 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(-0.9322101, 0, 0.36191753, 0, 1, 0, -0.36191753, 0, -0.9322101, 30.528694, 0.17999984, 43.313286)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_016" type="Decal" parent="." unique_id=147039832 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(-0.8623229, 0, 0.50635874, 0, 1, 0, -0.50635874, 0, -0.8623229, 31.73661, 0.17999984, 73.39838)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_017" type="Decal" parent="." unique_id=717220885 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(0.9053955, 0, 0.42456913, 0, 1, 0, -0.42456913, 0, 0.9053955, 30.082115, 0.17999984, -43.624767)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Trash_01_018" type="Decal" parent="." unique_id=1652867235 instance=ExtResource("23_ug7wp")]
+transform = Transform3D(0.9998653, 0, 0.016412063, 0, 1, 0, -0.016412063, 0, 0.9998653, 30.601385, 0.17999984, -8.537041)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("24_ta1bw")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_038" type="Decal" parent="." unique_id=2077442158 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.6807589, 0, 0.7325076, 0, 1, 0, -0.7325076, 0, 0.6807589, 29.718363, 0.17999984, 29.469177)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_039" type="Decal" parent="." unique_id=1882361640 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.8565721, 0, -0.51602733, 0, 1, 0, 0.51602733, 0, 0.8565721, 32.577785, 0.17999984, 25.818764)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_040" type="Decal" parent="." unique_id=1421716119 instance=ExtResource("12_71qan")]
+transform = Transform3D(-0.33189443, 0, 0.9433165, 0, 1, 0, -0.9433165, 0, -0.33189443, 30.085243, 0.17999984, 21.988472)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Crack_01_041" type="Decal" parent="." unique_id=1726853467 instance=ExtResource("12_71qan")]
+transform = Transform3D(0.6340497, 0, -0.7732923, 0, 1, 0, 0.7732923, 0, 0.6340497, 31.700432, 0.17999984, 16.68666)
+size = Vector3(2, 0.12, 2)
+texture_albedo = ExtResource("13_wn8j6")
+texture_normal = ExtResource("14_tiauh")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "ground"
+
+[node name="DC_LA_Grime_01_004" type="Decal" parent="." unique_id=427691748 instance=ExtResource("25_gaatb")]
+transform = Transform3D(4.371139e-08, -1, 0, 0, 0, -1, 1, 4.371139e-08, 0, 33.98, 3.1, -46.504967)
+size = Vector3(4, 0.3, 3)
+texture_albedo = ExtResource("26_cgcy0")
+texture_orm = ExtResource("27_cxi6a")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "wall"
+
+[node name="DC_LA_Graffiti_01_002" type="Decal" parent="." unique_id=26648875 instance=ExtResource("28_1nmdo")]
+transform = Transform3D(-4.371139e-08, -1, 0, 0, 0, -1, 1, -4.371139e-08, 0, 42.679996, 1.4251406, 7.3193574)
+size = Vector3(3.2, 0.3, 1.3)
+texture_albedo = ExtResource("29_8qk5t")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "wall"
+
+[node name="DC_LA_Graffiti_01_003" type="Decal" parent="." unique_id=275870387 instance=ExtResource("28_1nmdo")]
+transform = Transform3D(-4.371139e-08, -1, 0, 0, 0, -1, 1, -4.371139e-08, 0, 32.98, 1.544374, 11.678623)
+size = Vector3(3.2, 0.3, 1.3)
+texture_albedo = ExtResource("29_8qk5t")
+normal_fade = 0.3
+upper_fade = 0.15
+lower_fade = 0.15
+distance_fade_enabled = true
+distance_fade_begin = 60.0
+distance_fade_length = 15.0
+metadata/uw_kind = "wall"

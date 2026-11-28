@@ -66,12 +66,13 @@
     "mode": "trimesh",
     "generated": [
       {
-        "name": "UCX_SM_LA_PalmTree_Mesh_LOD2-colonly",
-        "vertices": 159,
-        "triangles": 154
+        "name": "UCX_SM_LA_PalmTree_Mesh-colonly",
+        "vertices": 438,
+        "triangles": 616
       }
     ],
-    "existing": []
+    "existing": [],
+    "micro_lips": 0
   },
   "materials": [
     "M_LA_PalmBark",
@@ -86,7 +87,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_3t0_or1q/T_LA_PalmBark_D.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_cg5ckpg7/T_LA_PalmBark_D.jpg"
     },
     {
       "image": "T_LA_PalmBark_ORM",
@@ -96,7 +97,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_f9akp40t/T_LA_PalmBark_ORM.jpg"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_mkh31enk/T_LA_PalmBark_ORM.jpg"
     },
     {
       "image": "T_LA_PalmBark_N",
@@ -106,7 +107,7 @@
         512
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_jwbufkr3/T_LA_PalmBark_N.png"
+      "filepath": "//../../../../../../../../tmp/uwp_tex_2qjo6mrr/T_LA_PalmBark_N.png"
     }
   ],
   "uv_overlap": {
@@ -133,8 +134,8 @@
     "SM_LA_PalmTree_Mesh_LOD1",
     "SM_LA_PalmTree_Mesh_LOD2",
     "SM_LA_PalmTree_Mesh",
-    "UCX_SM_LA_PalmTree_Mesh_LOD2-colonly",
+    "UCX_SM_LA_PalmTree_Mesh-colonly",
     "SM_LA_PalmTree"
   ],
-  "glb_bytes": 956336
+  "glb_bytes": 94576
 }

@@ -1,0 +1,730 @@
+{
+  "tool": "underworld_pipeline",
+  "version": "1.0.0",
+  "blender": "5.2.4 LTS",
+  "timestamp": "2026-11-24T11:09:51+00:00",
+  "command": "export",
+  "profile": "gate",
+  "input": "Blender/Source/Vehicles/VH_Taxi_NY_01/VH_Taxi_NY_01.blend",
+  "steps": {
+    "validate": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "lods": [
+      {
+        "object": "Body",
+        "levels": [
+          {
+            "name": "Body",
+            "level": 0,
+            "triangles": 528
+          },
+          {
+            "name": "Body_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 264
+          },
+          {
+            "name": "Body_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 105
+          }
+        ]
+      },
+      {
+        "object": "Cabin",
+        "levels": [
+          {
+            "name": "Cabin",
+            "level": 0,
+            "triangles": 150
+          },
+          {
+            "name": "Cabin_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 74
+          },
+          {
+            "name": "Cabin_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 30
+          }
+        ]
+      },
+      {
+        "object": "Interior",
+        "levels": [
+          {
+            "name": "Interior",
+            "level": 0,
+            "triangles": 1328
+          },
+          {
+            "name": "Interior_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 664
+          },
+          {
+            "name": "Interior_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 264
+          }
+        ]
+      },
+      {
+        "object": "Door_FL",
+        "levels": [
+          {
+            "name": "Door_FL",
+            "level": 0,
+            "triangles": 106
+          },
+          {
+            "name": "Door_FL_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 52
+          },
+          {
+            "name": "Door_FL_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 20
+          }
+        ]
+      },
+      {
+        "object": "Door_FR",
+        "levels": [
+          {
+            "name": "Door_FR",
+            "level": 0,
+            "triangles": 106
+          },
+          {
+            "name": "Door_FR_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 52
+          },
+          {
+            "name": "Door_FR_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 20
+          }
+        ]
+      },
+      {
+        "object": "Door_RL",
+        "levels": [
+          {
+            "name": "Door_RL",
+            "level": 0,
+            "triangles": 106
+          },
+          {
+            "name": "Door_RL_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 52
+          },
+          {
+            "name": "Door_RL_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 20
+          }
+        ]
+      },
+      {
+        "object": "Door_RR",
+        "levels": [
+          {
+            "name": "Door_RR",
+            "level": 0,
+            "triangles": 106
+          },
+          {
+            "name": "Door_RR_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 52
+          },
+          {
+            "name": "Door_RR_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 20
+          }
+        ]
+      },
+      {
+        "object": "Wheel_FL",
+        "levels": [
+          {
+            "name": "Wheel_FL",
+            "level": 0,
+            "triangles": 508
+          },
+          {
+            "name": "Wheel_FL_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 254
+          },
+          {
+            "name": "Wheel_FL_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 100
+          }
+        ]
+      },
+      {
+        "object": "Wheel_FR",
+        "levels": [
+          {
+            "name": "Wheel_FR",
+            "level": 0,
+            "triangles": 508
+          },
+          {
+            "name": "Wheel_FR_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 254
+          },
+          {
+            "name": "Wheel_FR_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 100
+          }
+        ]
+      },
+      {
+        "object": "Wheel_RL",
+        "levels": [
+          {
+            "name": "Wheel_RL",
+            "level": 0,
+            "triangles": 508
+          },
+          {
+            "name": "Wheel_RL_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 254
+          },
+          {
+            "name": "Wheel_RL_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 100
+          }
+        ]
+      },
+      {
+        "object": "Wheel_RR",
+        "levels": [
+          {
+            "name": "Wheel_RR",
+            "level": 0,
+            "triangles": 508
+          },
+          {
+            "name": "Wheel_RR_LOD1",
+            "level": 1,
+            "ratio": 0.5,
+            "triangles": 254
+          },
+          {
+            "name": "Wheel_RR_LOD2",
+            "level": 2,
+            "ratio": 0.2,
+            "triangles": 100
+          }
+        ]
+      }
+    ],
+    "collision": {
+      "mode": "authored",
+      "generated": [],
+      "existing": [
+        "UCX_VH_Taxi_NY_01-convcolonly"
+      ]
+    },
+    "foot_slide": null,
+    "export": {
+      "glb": "Assets/Vehicles/VH_Taxi_NY_01/VH_Taxi_NY_01.glb",
+      "bytes": 648008
+    },
+    "preview": "Assets/Vehicles/VH_Taxi_NY_01/VH_Taxi_NY_01_preview.png",
+    "manifest": "Assets/Vehicles/VH_Taxi_NY_01/VH_Taxi_NY_01.manifest.json",
+    "verify": {
+      "glb": {
+        "nodes": [
+          "Body_LOD1",
+          "Body_LOD2",
+          "Body",
+          "Bumper_F",
+          "Bumper_R",
+          "Cabin_LOD1",
+          "Cabin_LOD2",
+          "Cabin",
+          "Door_FL_LOD1",
+          "Door_FL_LOD2",
+          "Door_FL",
+          "Door_FR_LOD1",
+          "Door_FR_LOD2",
+          "Door_FR",
+          "Door_RL_LOD1",
+          "Door_RL_LOD2",
+          "Door_RL",
+          "Door_RR_LOD1",
+          "Door_RR_LOD2",
+          "Door_RR",
+          "Frame",
+          "Hood",
+          "Interior_LOD1",
+          "Interior_LOD2",
+          "Interior",
+          "SOCKET_Exit_Left",
+          "SOCKET_Exit_Right",
+          "SOCKET_Headlight_L",
+          "SOCKET_Headlight_R",
+          "SOCKET_Seat_Driver",
+          "SOCKET_Seat_Passenger",
+          "SOCKET_Taillight_L",
+          "SOCKET_Taillight_R",
+          "Trunk",
+          "UCX_VH_Taxi_NY_01-convcolonly",
+          "Wheel_FL_LOD1",
+          "Wheel_FL_LOD2",
+          "Wheel_FL",
+          "Wheel_FR_LOD1",
+          "Wheel_FR_LOD2",
+          "Wheel_FR",
+          "Wheel_RL_LOD1",
+          "Wheel_RL_LOD2",
+          "Wheel_RL",
+          "Wheel_RR_LOD1",
+          "Wheel_RR_LOD2",
+          "Wheel_RR",
+          "VH_Taxi_NY_01"
+        ],
+        "node_extras": {
+          "Body_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Body_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Body": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Cabin_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Cabin_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Cabin": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Door_FL_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Door_FL_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Door_FL": {
+            "uw_allow_uv_overlap": 1,
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Door_FR_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Door_FR_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Door_FR": {
+            "uw_allow_uv_overlap": 1,
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Door_RL_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Door_RL_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Door_RL": {
+            "uw_allow_uv_overlap": 1,
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Door_RR_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Door_RR_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Door_RR": {
+            "uw_allow_uv_overlap": 1,
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Frame": {
+            "uw_allow_uv_overlap": 1
+          },
+          "Interior_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Interior_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Interior": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Wheel_FL_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Wheel_FL_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Wheel_FL": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Wheel_FR_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Wheel_FR_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Wheel_FR": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Wheel_RL_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Wheel_RL_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Wheel_RL": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "Wheel_RR_LOD1": {
+            "uw_lod": 1,
+            "uw_visibility_range": [
+              25.0,
+              60.0
+            ]
+          },
+          "Wheel_RR_LOD2": {
+            "uw_lod": 2,
+            "uw_visibility_range": [
+              60.0,
+              200.0
+            ]
+          },
+          "Wheel_RR": {
+            "uw_lod": 0,
+            "uw_visibility_range": [
+              0.0,
+              25.0
+            ]
+          },
+          "VH_Taxi_NY_01": {
+            "uw_interior_fit": "{'head_clear_m': 0.05, 'sole_above_floor_m': 0.0, 'wheel_windscreen_clear_m': 0.033, 'rear_bench': True, 'wheel_centre': [0.42, -0.504, 0.927]}",
+            "uw_wheel_radius_m": 0.34,
+            "uw_wheelbase_m": 2.86,
+            "uw_track_width_m": 1.58
+          }
+        },
+        "meshes": 39,
+        "materials": [
+          "M_VH_Taxi_NY_01_Paint",
+          "M_VH_Taxi_NY_01_Chrome",
+          "M_VH_Taxi_NY_01_Headlight",
+          "M_VH_Taxi_NY_01_Taillight",
+          "M_VH_Taxi_NY_01_Trim",
+          "M_VH_Taxi_NY_01_Glass",
+          "M_VH_Taxi_NY_01_Livery",
+          "M_VH_Taxi_NY_01_RoofSign",
+          "M_VH_Taxi_NY_01_Interior",
+          "M_VH_Taxi_NY_01_Tire",
+          "M_VH_Taxi_NY_01_Rim"
+        ],
+        "images": 2,
+        "skins": [],
+        "joint_names": [],
+        "animations": [],
+        "asset_generator": "Khronos glTF Blender I/O v5.2.41",
+        "bytes": 648008
+      },
+      "reimport_objects": [
+        "Body",
+        "Body_LOD1",
+        "Body_LOD2",
+        "Bumper_F",
+        "Bumper_R",
+        "Cabin",
+        "Cabin_LOD1",
+        "Cabin_LOD2",
+        "Door_FL",
+        "Door_FL_LOD1",
+        "Door_FL_LOD2",
+        "Door_FR",
+        "Door_FR_LOD1",
+        "Door_FR_LOD2",
+        "Door_RL",
+        "Door_RL_LOD1",
+        "Door_RL_LOD2",
+        "Door_RR",
+        "Door_RR_LOD1",
+        "Door_RR_LOD2",
+        "Frame",
+        "Hood",
+        "Interior",
+        "Interior_LOD1",
+        "Interior_LOD2",
+        "SOCKET_Exit_Left",
+        "SOCKET_Exit_Right",
+        "SOCKET_Headlight_L",
+        "SOCKET_Headlight_R",
+        "SOCKET_Seat_Driver",
+        "SOCKET_Seat_Passenger",
+        "SOCKET_Taillight_L",
+        "SOCKET_Taillight_R",
+        "Trunk",
+        "UCX_VH_Taxi_NY_01-convcolonly",
+        "VH_Taxi_NY_01",
+        "Wheel_FL",
+        "Wheel_FL_LOD1",
+        "Wheel_FL_LOD2",
+        "Wheel_FR",
+        "Wheel_FR_LOD1",
+        "Wheel_FR_LOD2",
+        "Wheel_RL",
+        "Wheel_RL_LOD1",
+        "Wheel_RL_LOD2",
+        "Wheel_RR",
+        "Wheel_RR_LOD1",
+        "Wheel_RR_LOD2"
+      ],
+      "reimport_actions": [],
+      "problems": []
+    }
+  },
+  "asset": "VH_Taxi_NY_01",
+  "category": "Vehicles",
+  "budget_key": "Vehicles",
+  "issues": [
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "Body",
+      "message": "12 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "Cabin",
+      "message": "24 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "Door_FL",
+      "message": "4 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "Door_FR",
+      "message": "4 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "Door_RL",
+      "message": "4 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "OPEN_BOUNDARY",
+      "object": "Door_RR",
+      "message": "4 open boundary edges (mesh not closed)"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SMALL",
+      "object": "Hood",
+      "message": "60 tris < lod_min_triangles 64"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SMALL",
+      "object": "Trunk",
+      "message": "60 tris < lod_min_triangles 64"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SMALL",
+      "object": "Bumper_F",
+      "message": "60 tris < lod_min_triangles 64"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SMALL",
+      "object": "Bumper_R",
+      "message": "60 tris < lod_min_triangles 64"
+    },
+    {
+      "severity": "info",
+      "code": "LOD_SKIP_SMALL",
+      "object": "Frame",
+      "message": "44 tris < lod_min_triangles 64"
+    },
+    {
+      "severity": "info",
+      "code": "COLLISION_AUTHORED",
+      "object": null,
+      "message": "authored collision kept, nothing generated: ['UCX_VH_Taxi_NY_01-convcolonly']"
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 0,
+    "infos": 12
+  },
+  "seconds": 2.33,
+  "exit_code": 0,
+  "result": "PASS"
+}

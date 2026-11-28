@@ -1,0 +1,319 @@
+{
+  "asset": "SM_NY_Bldg_Brownstone",
+  "status": "READY FOR REVIEW",
+  "category": "Environment/NY",
+  "budget_key": "Environment",
+  "source_blend": "Blender/Source/Environment/NY/SM_NY_Bldg_Brownstone/SM_NY_Bldg_Brownstone.blend",
+  "export_glb": "Assets/Environment/NY/SM_NY_Bldg_Brownstone/SM_NY_Bldg_Brownstone.glb",
+  "preview_png": "Assets/Environment/NY/SM_NY_Bldg_Brownstone/SM_NY_Bldg_Brownstone_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -3.4,
+      0.0,
+      -6.59
+    ],
+    "max": [
+      3.4,
+      11.54,
+      10.0
+    ],
+    "size": [
+      6.8,
+      11.54,
+      16.59
+    ]
+  },
+  "triangles": {
+    "lod0": 1702,
+    "budget": 10000,
+    "per_lod_total": {
+      "LOD0": 1702,
+      "LOD1": 850,
+      "LOD2": 425
+    }
+  },
+  "lods": [
+    {
+      "object": "SM_NY_Bldg_Brownstone_Mesh",
+      "levels": [
+        {
+          "name": "SM_NY_Bldg_Brownstone_Mesh",
+          "level": 0,
+          "triangles": 1702
+        },
+        {
+          "name": "SM_NY_Bldg_Brownstone_Mesh_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 850
+        },
+        {
+          "name": "SM_NY_Bldg_Brownstone_Mesh_LOD2",
+          "level": 2,
+          "ratio": 0.25,
+          "triangles": 425
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_SM_NY_Bldg_Brownstone_00-convcolonly",
+      "UCX_SM_NY_Bldg_Brownstone_01-convcolonly"
+    ],
+    "micro_lips": 0
+  },
+  "materials": [
+    "M_Prop_BrickNy",
+    "M_Prop_Brownstone",
+    "M_Prop_Concrete",
+    "M_Prop_MetalDark",
+    "M_Prop_RoofGravel",
+    "M_Prop_WindowGlass",
+    "M_Prop_Wood"
+  ],
+  "textures": [
+    {
+      "image": "T_Prop_BrickNy_D",
+      "material": "M_Prop_BrickNy",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_xnlr0ww6/T_Prop_BrickNy_D.jpg"
+    },
+    {
+      "image": "T_Prop_BrickNy_ORM",
+      "material": "M_Prop_BrickNy",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ppg6mb8g/T_Prop_BrickNy_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_BrickNy_N",
+      "material": "M_Prop_BrickNy",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_l3t122hf/T_Prop_BrickNy_N.jpg"
+    },
+    {
+      "image": "T_Prop_Brownstone_D",
+      "material": "M_Prop_Brownstone",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_yb3gb5fq/T_Prop_Brownstone_D.jpg"
+    },
+    {
+      "image": "T_Prop_Brownstone_ORM",
+      "material": "M_Prop_Brownstone",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_v1n2roje/T_Prop_Brownstone_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Brownstone_N",
+      "material": "M_Prop_Brownstone",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_e8w_vxb5/T_Prop_Brownstone_N.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_D",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_i4670w0a/T_Prop_Concrete_D.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_ORM",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_66wsrzd6/T_Prop_Concrete_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Concrete_N",
+      "material": "M_Prop_Concrete",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_v4qzdpg8/T_Prop_Concrete_N.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_D",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_brv69c0x/T_Prop_MetalDark_D.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_ORM",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ixygys51/T_Prop_MetalDark_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_MetalDark_N",
+      "material": "M_Prop_MetalDark",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_rijeh3xv/T_Prop_MetalDark_N.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_D",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ctxmju8g/T_Prop_RoofGravel_D.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_ORM",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_o9_tad1g/T_Prop_RoofGravel_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_RoofGravel_N",
+      "material": "M_Prop_RoofGravel",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_3vew0h80/T_Prop_RoofGravel_N.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_D",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_cyymgocd/T_Prop_WindowGlass_D.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_ORM",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_gccl30q9/T_Prop_WindowGlass_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_WindowGlass_N",
+      "material": "M_Prop_WindowGlass",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_3z6y2kfd/T_Prop_WindowGlass_N.jpg"
+    },
+    {
+      "image": "T_Prop_Wood_D",
+      "material": "M_Prop_Wood",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_pojz5gnx/T_Prop_Wood_D.jpg"
+    },
+    {
+      "image": "T_Prop_Wood_ORM",
+      "material": "M_Prop_Wood",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_qgy973sp/T_Prop_Wood_ORM.jpg"
+    },
+    {
+      "image": "T_Prop_Wood_N",
+      "material": "M_Prop_Wood",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "filepath": "//../../../../../../../uwp_tex_ox6700vp/T_Prop_Wood_N.jpg"
+    }
+  ],
+  "uv_overlap": {},
+  "texel_density": {
+    "SM_NY_Bldg_Brownstone_Mesh": {
+      "texture_px": 512,
+      "median_px_per_m": 256.0,
+      "p10_px_per_m": 204.8,
+      "p90_px_per_m": 512.0
+    }
+  },
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {},
+  "silhouette": null,
+  "nodes": [
+    "SM_NY_Bldg_Brownstone_Mesh_LOD1",
+    "SM_NY_Bldg_Brownstone_Mesh_LOD2",
+    "SM_NY_Bldg_Brownstone_Mesh",
+    "UCX_SM_NY_Bldg_Brownstone_00-convcolonly",
+    "UCX_SM_NY_Bldg_Brownstone_01-convcolonly",
+    "SM_NY_Bldg_Brownstone"
+  ],
+  "glb_bytes": 1937440
+}

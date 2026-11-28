@@ -1,22 +1,23 @@
 {
   "asset": "SK_Jason",
   "status": "v2 production pipeline (T-PIPE-03, spec SK_Jason.json)",
-  "height_m": 1.8335,
+  "height_m": 1.8331,
   "triangles": {
     "SK_Jason_Body": 16318,
     "SK_Jason_Eyes": 688,
-    "SK_Jason_Eyebrows": 192,
-    "SK_Jason_Eyelashes": 368,
-    "SK_Jason_Teeth": 1424,
-    "SK_Jason_Hair": 1660,
-    "SK_Jason_Beard": 1156,
-    "SK_Jason_TShirt": 3542,
-    "SK_Jason_Jacket": 4663,
+    "SK_Jason_Eyebrows": 4200,
+    "SK_Jason_Eyelashes_L": 192,
+    "SK_Jason_Eyelashes_R": 192,
+    "SK_Jason_Teeth": 200,
+    "SK_Jason_Hair": 1916,
+    "SK_Jason_Beard": 1148,
+    "SK_Jason_TShirt": 3543,
+    "SK_Jason_Jacket": 4665,
     "SK_Jason_Jeans": 2934,
     "SK_Jason_Boots": 2400,
     "SK_Jason_Watch": 444
   },
-  "triangles_total": 35789,
+  "triangles_total": 38840,
   "materials": [
     "M_Jason_Boots",
     "M_Jason_BrowsLashes",
@@ -89,8 +90,6 @@
     "browDownLeft",
     "browDownRight",
     "browInnerUp",
-    "cheekSquintLeft",
-    "cheekSquintRight",
     "eyeBlinkLeft",
     "eyeBlinkRight",
     "jawOpen",
@@ -100,14 +99,11 @@
     "mouthSmileRight",
     "noseSneerLeft",
     "noseSneerRight",
-    "viseme_E",
-    "viseme_FF",
     "viseme_O",
-    "viseme_PP",
-    "viseme_SS",
+    "viseme_U",
     "viseme_aa"
   ],
-  "blendshape_count": 20,
+  "blendshape_count": 15,
   "rest_pose": "T-pose (baked from MakeHuman CC0 hm08 A-pose)",
   "front": "Blender -Y = Godot +Z",
   "root_motion": "none (in place); Root bone has no keys",
@@ -291,5 +287,5 @@
     ]
   },
   "max_foot_sliding_m": 0.0486,
-  "build_seconds": 19.9
+  "build_seconds": 23.7
 }

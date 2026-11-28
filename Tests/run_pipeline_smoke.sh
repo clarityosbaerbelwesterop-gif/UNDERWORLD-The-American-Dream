@@ -5,6 +5,8 @@
 set -uo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# shellcheck source=/dev/null
+. "$REPO/Tests/lib/godot_errors.sh"
 BLENDER="${BLENDER:-/workspace/tools/blender/blender}"
 GODOT="${GODOT:-/workspace/tools/godot}"
 LOGS="$REPO/Tests/logs"
@@ -30,10 +32,9 @@ echo "== [2/3] Godot headless import"
 "$GODOT" --headless --path "$REPO/GodotProject" --import 2>&1 | strip > "$LOGS/2_godot_import.log"
 rc=${PIPESTATUS[0]}
 [ $rc -eq 0 ] || fail "Godot import exited $rc (log: $LOGS/2_godot_import.log)"
-if grep -qE '^(ERROR|SCRIPT ERROR|USER ERROR):' "$LOGS/2_godot_import.log"; then
-  grep -E -A3 '^(ERROR|SCRIPT ERROR|USER ERROR):' "$LOGS/2_godot_import.log"
-  fail "Godot import logged errors"
-fi
+errs="$(godot_log_errors "$LOGS/2_godot_import.log")"
+[ -z "$errs" ] || fail "Godot import logged errors:
+$errs"
 [ -f "$REPO/Assets/Test/PT_PipelineTest_Crate.glb.import" ] || fail "no .import file generated for test asset"
 echo "import OK"
 

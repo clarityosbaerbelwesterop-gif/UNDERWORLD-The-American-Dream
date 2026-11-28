@@ -1,0 +1,9 @@
+{
+  "_doc": "Original four-seat high-wing light aircraft (T-VEH-03) for M1 Arrival / M5 Wings. Fictional marking, no real type.",
+  "asset_name": "VH_Plane_Small_01",
+  "kind": "aircraft",
+  "category": "Vehicles",
+  "budget_key": "Vehicles",
+  "paint_rgba": [0.92, 0.92, 0.90, 1.0],
+  "stripe_rgba": [0.55, 0.08, 0.06, 1.0]
+}

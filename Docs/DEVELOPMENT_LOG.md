@@ -1,5 +1,14 @@
 # Development Log
 
+## 2026-11-28 · Bot 3 · T-SAVE-01 (checkpoint save/load) – READY FOR REVIEW
+- `SaveGame` (`Scripts/game/save_game.gd`): JSON slot in `user://saves/`, UW_SAVE v1 + SHA-256 checksum, atomic write; rejects missing/corrupt/foreign files. TD-035 PROPOSED.
+- `MissionManager`: `save_slot`, writes every checkpoint, deletes on pass, `resume_from_save()`; checkpoints carry the package state + dead gunmen (restart keeps both). Fixes soft lock B-M01-09 (death after pickup -> crate back on the bench, unusable).
+- `GameBoot`: slot `autosave`, continue on boot, `--new-game` discards. `run_gameplay_tests.sh`: per-test `UW_SAVE_DIR`.
+- `Tests/test_save.gd` 59 checks incl. a second Godot process; `UW_SAVE_SABOTAGE=1/2/3` -> 25/9/2 FAIL.
+
+## 2026-11-28 · Bot 3 · T-SAVE-01 (claimed)
+- Claimed T-SAVE-01 (master prompt §8 #13, P1): checkpoint save/load. Highest open gameplay/systems item with no claude/* or arena/* branch or PR (#42 = vehicles, #43 = audio). Work on `bot3/dev`.
+
 ## 2026-11-26 · Claude Code · T-AUD-01 (audio library + AudioDirector)
 - `Tools/underworld_pipeline/audio/` + `Tools/uwp build-audio`: everything synthesised in numpy/scipy (no samples). 135 events, 323 variations, ~11 MB Ogg Vorbis 48 kHz -> `Assets/Audio/`, runtime table `GodotProject/Data/Content/audio.json` (derived from the registry only, so CI re-renders never touch it). Decoded-peak check per file (Vorbis overshoot on fire crackle was +3.7 dB), DC removal, seamless loops (crossfade + seam check in the test).
 - `Scripts/audio/audio_director.gd` (autoload `Audio`): hooks existing signals via `node_added` (no gameplay script edited): weapon fire + distance tail + casing + timed reload steps, dry fire, FX scene -> sound (loops attached to the effect), ricochet, NPC flyby, body fall, footsteps by stride + surface group, jump/land, vehicle engine 3-layer RPM crossfade + skid + road roll + crash/doors/start/stop + siren API, mission UI + stingers, explore/combat score, ambience bed + random one-shots. Buses created at runtime, music side-chain ducked by Weapons, hard limiter, 40+16 voice pools with stealing.
@@ -13,6 +22,10 @@
   - Delayed lambdas captured nodes → "Lambda capture was freed". They now capture instance ids.
 - New CI step "Failure digest": on failure, the key log lines become check annotations, because log and artifact hosts are unreachable from the sandbox.
 - Report `Docs/Reports/BERICHT_T-AUD-01.md`.
+
+## 2026-11-24 · Claude Code · T-VEH-03 (light aircraft + motorcycle)
+- `vehicles/motorcycle.py` + `Config/Vehicles/VH_Motorcycle_01.json` (kind motorcycle): Body, Fork (origin on the steering head), Wheel_F/R, rider sockets; validator knows Fork, Wheel_F/R. Gate PASS; first capture showed the forks with the emissive headlight slot -> slot order fixed. Catalogue: all P5 vehicles WIP.
+- `vehicles/aircraft.py` + `Config/Vehicles/VH_Plane_Small_01.json` (kind aircraft, fictional marking UW-HOLLOW); `build_vehicle.build_sedan_from_spec` dispatches; validator: `Propeller`, `Wheel_NG/ML/MR` are functional names, aircraft FRONT_AXIS = SOCKET_Prop at -Y (span > length is correct). Gate PASS, catalogue WIP (P5). Render `Docs/Reports/renders_veh03/`. Not done: flight model (P7), control-surface animation.
 
 ## 2026-11-24 · Claude Code · T-NY-01 (New York set, wave 1)
 - `props/buildings.py`: brownstone, tenement, bodega, bank_ny, subway_entrance (+ `_lintels`, `_cornice` with brackets); kit materials brownstone / brick_ny / limestone, emissive lamp_globe_green; `keep_origin` -> `uw_below_grade_m`, validator allows exactly that depth.

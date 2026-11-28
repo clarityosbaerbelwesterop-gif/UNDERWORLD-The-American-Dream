@@ -1,0 +1,298 @@
+{
+  "asset": "VH_Plane_Small_01",
+  "status": "READY FOR REVIEW",
+  "category": "Vehicles",
+  "budget_key": "Vehicles",
+  "source_blend": "Blender/Source/Vehicles/VH_Plane_Small_01/VH_Plane_Small_01.blend",
+  "export_glb": "Assets/Vehicles/VH_Plane_Small_01/VH_Plane_Small_01.glb",
+  "preview_png": "Assets/Vehicles/VH_Plane_Small_01/VH_Plane_Small_01_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -5.65,
+      0.0,
+      -4.75
+    ],
+    "max": [
+      5.65,
+      2.85,
+      3.94
+    ],
+    "size": [
+      11.3,
+      2.85,
+      8.69
+    ]
+  },
+  "triangles": {
+    "lod0": 3350,
+    "budget": 60000,
+    "per_lod_total": {
+      "LOD0": 3350,
+      "LOD1": 1674,
+      "LOD2": 662
+    }
+  },
+  "lods": [
+    {
+      "object": "Body",
+      "levels": [
+        {
+          "name": "Body",
+          "level": 0,
+          "triangles": 550
+        },
+        {
+          "name": "Body_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 274
+        },
+        {
+          "name": "Body_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 110
+        }
+      ]
+    },
+    {
+      "object": "Interior",
+      "levels": [
+        {
+          "name": "Interior",
+          "level": 0,
+          "triangles": 1128
+        },
+        {
+          "name": "Interior_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 564
+        },
+        {
+          "name": "Interior_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 224
+        }
+      ]
+    },
+    {
+      "object": "Propeller",
+      "levels": [
+        {
+          "name": "Propeller",
+          "level": 0,
+          "triangles": 148
+        },
+        {
+          "name": "Propeller_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 74
+        },
+        {
+          "name": "Propeller_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 28
+        }
+      ]
+    },
+    {
+      "object": "Wheel_NG",
+      "levels": [
+        {
+          "name": "Wheel_NG",
+          "level": 0,
+          "triangles": 508
+        },
+        {
+          "name": "Wheel_NG_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 254
+        },
+        {
+          "name": "Wheel_NG_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 100
+        }
+      ]
+    },
+    {
+      "object": "Wheel_ML",
+      "levels": [
+        {
+          "name": "Wheel_ML",
+          "level": 0,
+          "triangles": 508
+        },
+        {
+          "name": "Wheel_ML_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 254
+        },
+        {
+          "name": "Wheel_ML_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 100
+        }
+      ]
+    },
+    {
+      "object": "Wheel_MR",
+      "levels": [
+        {
+          "name": "Wheel_MR",
+          "level": 0,
+          "triangles": 508
+        },
+        {
+          "name": "Wheel_MR_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 254
+        },
+        {
+          "name": "Wheel_MR_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 100
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_VH_Plane_Small_01_00-convcolonly",
+      "UCX_VH_Plane_Small_01_01-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_VH_Plane_Small_01_Glass",
+    "M_VH_Plane_Small_01_Interior",
+    "M_VH_Plane_Small_01_Paint",
+    "M_VH_Plane_Small_01_Prop",
+    "M_VH_Plane_Small_01_Rim",
+    "M_VH_Plane_Small_01_Stripe",
+    "M_VH_Plane_Small_01_Tire",
+    "M_VH_Plane_Small_01_Trim"
+  ],
+  "textures": [],
+  "uv_overlap": {
+    "Interior": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.2325
+    },
+    "Propeller": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.5421
+    },
+    "Wheel_NG": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.7093
+    },
+    "Wheel_ML": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.696
+    },
+    "Wheel_MR": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.696
+    }
+  },
+  "texel_density": {},
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {
+    "SOCKET_Seat_Driver": {
+      "parent": "VH_Plane_Small_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.28,
+        0.98,
+        0.55
+      ]
+    },
+    "SOCKET_Seat_Passenger": {
+      "parent": "VH_Plane_Small_01",
+      "parent_bone": null,
+      "position_godot": [
+        -0.28,
+        0.98,
+        0.55
+      ]
+    },
+    "SOCKET_Exit_Left": {
+      "parent": "VH_Plane_Small_01",
+      "parent_bone": null,
+      "position_godot": [
+        1.35,
+        0.0,
+        0.55
+      ]
+    },
+    "SOCKET_Exit_Right": {
+      "parent": "VH_Plane_Small_01",
+      "parent_bone": null,
+      "position_godot": [
+        -1.35,
+        0.0,
+        0.55
+      ]
+    },
+    "SOCKET_Prop": {
+      "parent": "VH_Plane_Small_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        1.12,
+        3.62
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "Body_LOD1",
+    "Body_LOD2",
+    "Body",
+    "Interior_LOD1",
+    "Interior_LOD2",
+    "Interior",
+    "Propeller_LOD1",
+    "Propeller_LOD2",
+    "Propeller",
+    "SOCKET_Exit_Left",
+    "SOCKET_Exit_Right",
+    "SOCKET_Prop",
+    "SOCKET_Seat_Driver",
+    "SOCKET_Seat_Passenger",
+    "UCX_VH_Plane_Small_01_00-convcolonly",
+    "UCX_VH_Plane_Small_01_01-convcolonly",
+    "Wheel_ML_LOD1",
+    "Wheel_ML_LOD2",
+    "Wheel_ML",
+    "Wheel_MR_LOD1",
+    "Wheel_MR_LOD2",
+    "Wheel_MR",
+    "Wheel_NG_LOD1",
+    "Wheel_NG_LOD2",
+    "Wheel_NG",
+    "VH_Plane_Small_01"
+  ],
+  "glb_bytes": 467476
+}

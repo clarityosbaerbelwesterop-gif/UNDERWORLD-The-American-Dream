@@ -39,11 +39,7 @@ Assets/**/*.import
 #   $GODOT --headless --path GodotProject --script res://Tests/tools/capture_level_plan.gd
 Docs/Reports/plan_calloway_ave.png
 
-# Procedural audio library (T-AUD-01). Regenerable and deterministic:
-#   Tools/uwp build-audio        (~45 s, numpy + scipy + soundfile; CI renders it before the gate)
-# Not committed because git-lfs is not installable on the sandbox box and *.ogg is LFS-tracked
-# (.gitattributes). The runtime table GodotProject/Data/Content/audio.json IS committed.
-# To commit the binaries from an LFS-capable box: delete these two lines, `Tools/uwp build-audio`,
-# `git add Assets/Audio` (sha256 per file in Assets/Audio/audio.manifest.json).
-Assets/Audio/**/*.ogg
-Assets/Audio/audio.manifest.json
+# Procedural audio library (T-AUD-01): the 323 Ogg files + audio.manifest.json ARE committed
+# (Git LFS, ~10 MB) since Bot 1's review of #43 - an export without them ships silent.
+# Regenerate with `Tools/uwp build-audio`; note that re-encoding changes the bytes (Vorbis stream
+# serial) even though the samples are identical, so only commit a re-render when sounds changed.

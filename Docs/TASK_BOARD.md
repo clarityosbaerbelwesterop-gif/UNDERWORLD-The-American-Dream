@@ -68,6 +68,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-LOOK-02 | P1 | Claude Code | Graphics pass: AgX + SSIL on all presets (recalibrated), LA/NY chapter grade LUTs (code-generated), ENV_NY_Night/Overcast, MaterialPass (paint clear coat, skin SSS, eyes, hair, cloth sheen), set_wetness() for rain; M01 graded at runtime (GradedWorld) | T-LOOK-01 | READY FOR REVIEW (test_look PASS, negative control FAIL x4) |
 | T-DECAL-01 | P1 | Claude Code | P2 decal set (13 generated decals, `uwp build-decals`) + M01 decal layer (137, ray-placed, own scene) + textured sun-bleached streets instead of flat greys + golden hour 18 deg | T-LOOK-02 | READY FOR REVIEW (test_decals, test_level PASS) |
 | T-NY-01 | P1 | Claude Code | Chapter-2 NY set wave 1: brownstone (stoop), tenement (2 fire escapes, stores), corner bodega, neoclassical bank (heist), subway entrance (below grade, validator `uw_below_grade_m`); NY materials; soft ny_overcast; NY look-dev street capture | T-BLDG-01, T-LOOK-02 | READY FOR REVIEW (5/5 gate PASS) |
+| T-SAVE-01 | P1 | Bot 3 | Checkpoint save/load (mission state, player, car, package) to `user://`; continue after quit (master prompt §8 #13) | T-MIS-01 | IN PROGRESS (branch `bot3/dev`) |
 
 > **Next work order:** `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md` (§8 = ordered task list to release).
 

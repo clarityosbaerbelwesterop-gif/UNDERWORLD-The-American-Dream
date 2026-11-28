@@ -87,12 +87,15 @@ jobs:
           sudo mkdir -p /workspace && sudo chown -R "$USER" /workspace
           Tools/sandbox/bootstrap_cloud.sh --templates --prefix "$UWP_PREFIX"
 
-      - name: Audio library (T-AUD-01, Tools/uwp build-audio - deterministic, not in git)
-        # *.ogg is LFS-tracked but the generating sandbox has no git-lfs, so the library is rendered
-        # here (~1 min) before the gate; test_audio.gd then requires every file (UW_AUDIO_REQUIRE_FILES).
+      - name: Audio library (T-AUD-01 - committed via LFS; render only what is missing)
+        # The Ogg files are in Git LFS (restored from the LFS cache above). Only if one is missing
+        # or still a pointer is the library rendered (~1 min); test_audio.gd then requires every
+        # file (UW_AUDIO_REQUIRE_FILES).
         run: |
           set -o pipefail
-          Tools/uwp build-audio | tail -1   # python: the toolchain venv (bootstrap_cloud.sh adds scipy + soundfile)
+          missing=$(python3 -c "import json,os; d=json.load(open('GodotProject/Data/Content/audio.json')); fs=[f.replace('res://','GodotProject/') for e in d['events'].values() for f in e['files']]; print(sum(1 for f in fs if not (os.path.isfile(f) and open(f,'rb').read(4)==b'OggS')))")
+          echo "Ogg files missing or LFS pointers: $missing"
+          if [ "$missing" != "0" ]; then Tools/uwp build-audio | tail -1; fi
           echo "UW_AUDIO_REQUIRE_FILES=1" >> "$GITHUB_ENV"
 
       - name: Sabotage switch (manual negative control only)

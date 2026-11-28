@@ -33,3 +33,5 @@ Binaries: `/workspace/tools/blender/blender`, `/workspace/tools/godot` (override
 - Never run third-party installers / MCP servers / plugins without review (`Docs/SKILLS_AND_TOOLS.md`).
 - `Tools/underworld_pipeline/godot/uw_lod_post_import.gd` ≡ `GodotProject/Scripts/import/uw_lod_post_import.gd` (byte-identical).
 - No GPU on the original box: say what is unverified visually.
+- **Installed skills (2026-11-28):** reviewed markdown skills (Blender Skills 94×, OpenGame handbooks) live outside the repo at `/workspace/tools/skills-installed/` – start with its `README.md` (role map + binding rules). Verdicts, pinned commits, security notes: `Docs/SKILLS_AND_TOOLS.md` (§2026-11-28); phase→skill map: `Docs/QUALITY_GATE.md` §10. Never run their MCP servers/installers/`npx`; do not vendor them into this repo.
+

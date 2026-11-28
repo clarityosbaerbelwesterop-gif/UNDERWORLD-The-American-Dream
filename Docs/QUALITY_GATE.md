@@ -145,3 +145,22 @@ Never say “AAA quality” merely because the asset has been generated.
 Prove quality with actual renders, reference comparisons, technical validation and an in-engine test. Reject, improve and repeat whenever necessary.
 
 The goal is not to generate assets quickly. The goal is to produce assets that genuinely deserve to be part of UNDERWORLD – THE AMERICAN DREAM.
+
+## 10. Gate phases → skills (added 2026-11-28)
+
+Skills are **reading material and checklists**, installed read-only at `/workspace/tools/skills-installed/` (index: `README.md` there; vetting: `Docs/SKILLS_AND_TOOLS.md`). They never override this gate, TD-004/005/010/012 or `Config/asset_budgets.json`. Run any bpy snippet headless (`blender -b --python`), never through an MCP server.
+
+| Phase | Blender Skills (`blender-skills/<skill>`) | OpenGame (`opengame/…`) | Owner |
+|---|---|---|---|
+| 0 Reference board | `blender-director`, `references/reference-image-match.md`, `reference-analysis-template.md` | `opengamehq/opengame-quality-bar` ("the bar is a named frame from a shipped game") | Bot 2 (Bot 1 approves) |
+| 1 Blockout | `blender-modeler`, `hard-surface` / `vehicle-artist` / `prop-artist` / `environment-artist` / `character-artist` | – | Bot 2 |
+| 2 Modelling | `sculpting`, `retopology`, `procedural-modeling`, `geometry-nodes`, `hair-groom` (cards), `cloth-sim` | `opengame-characters`, `opengame-weapons` (principles) | Bot 2 |
+| 3 Materials | `uv-workflow`, `texture-workflow`, `materials`, `lookdev` | `opengame-look` | Bot 2 |
+| 4 Lighting + renders | `lighting`, `camera-cinematography`, `rendering`, `compositing` | `opengame-lighting` | Bot 2 |
+| 5 Independent review | `qa-review`, `references/validation-checklist.md`, `visual-match-checklist.md` | `opengame-quality-bar` (19 cheap tells, fresh reviewer), `openmotion-game/references/review-rubric.md`, `opengame-scene-audit` | Bot 1 (art), Bot 3 (tech) |
+| 6 Refinement | skill of the failed category | `opengame-quality-bar` (blunt scoring) | Bot 2 |
+| 7 Game-ready | `asset-optimization`, `lod-pipeline`, `collision-proxy`, `export-pipeline`, `godot-export`, `rigging`, `animation` (TD-005 names) + `Tools/uwp validate/export` | – | Bot 2 (+ Bot 3 check) |
+| 8 Godot integration | `godot-export` checklist, `vfx-fx` | `opengame-game-feel`, `opengame-world-physics`, `opengame-performance`, `opengame-verification`, `opengame-stability`, `openmotion-game/references/game-3c-modules.md`, `game-gates.md` | Bot 3 (Bot 1 reviews) |
+
+Optional smoke helper: `Tools/skills_smoke/smoke_blender_skills.py <asset.glb> <outdir>` runs the skills' validation, LOD, collision, export and UV procedures on an existing GLB without modifying it (`blender -b --factory-startup --python-exit-code 1 --python Tools/skills_smoke/smoke_blender_skills.py -- <glb> <outdir>`).
+

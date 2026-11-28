@@ -1,11 +1,20 @@
 # Development Log
 
+## 2026-11-28 · Bot 1 · T-ART-05 review (PR #11 → Bot 1 conflict PR), owner decisions
+- Independent art review `Docs/Reviews/2026-11-28_WPN_Pistol_01_v1_Bot1.md`: **REJECT (art gate not passed)**, registry stays WIP; merged as WIP because all technical gates are green. v1 is a clear step up from v0 (silhouette, proportions, serrations, stipple).
+- Owner decisions (TD-036): optional `Barrel` bone as an additive weapon-rig contract change (weapon tests must stay green); export textures at 1024² (REQ default), keep 2048² sources in the .blend.
+- For Bot 3 (P7): gameplay still uses `PT_Pistol.tscn`; `test_weapon.gd` expects `Magazine` as a direct child while the real glb has it under `WeaponRig` - needs a recursive node lookup before the swap.
+
+## 2026-11-28 · Bot 2 · T-ART-05 (WPN_Pistol_01 v1 quality pass, PR #11)
+- `weapons/pistol_hs.py`: grip rebuilt as superellipse loft from profiles measured on board tile R3 (20° rake, palm swell, beavertail; v0/WIP grip was 7 cm deep and broke in the boolean), slide 27 mm, serrations as real LP geometry, closed guard narrowed, mag well/magazine re-raked, LP barrel 28 segments. `baker.py`: grip unwrapped as one angle-based sheet (fixes stipple seam patches on the straps). `hs_materials.py`: subtler wear, darker polymer. `build_weapon.py`: segment easing on the unchanged clip keys. `render_review.py`: rig for black guns, top camera roll fixed, 15 views, `--clay`.
+- Full 2048² bake (2 m 43 s) → 5,814 tris, GLB 5.38 MB; `uwp --profile gate` PASS; Godot import clean; `capture_pistol.gd` Phase 8 shots (compat only); `Tests/run_all.sh` RUN_ALL: PASS. Before/after + ref-compare sheets, self-scorecard `Docs/Reviews/2026-11-28_WPN_Pistol_01_v1.md` (3 in Animation + Engine integration). Registry stays WIP.
+
 ## 2026-11-28 · Bot 1 · review + merge of #42 / #43 / #44, T-QA-03
 - Fresh-worktree gates (`git lfs pull`, `UWP_PYTHON=/workspace/tools/audio-venv/bin/python`, `UW_AUDIO_REQUIRE_FILES=1`): main 69d3197 1228 → #43 1269 → #42 (#45) 1273 → #44 (#46) 1332 → audio in LFS (#47) 1332. Sabotage re-run: audio 15 FAIL, save 25/9/2 FAIL.
 - #43 Ogg files committed to LFS (#47); ci.yml left unchanged (push token has no `workflow` scope) - CI still re-renders before the gate (harmless).
 - Re-encoding the audio changes the Ogg bytes (Vorbis serial) although samples are identical: only commit a re-render when sounds change.
 - T-QA-03: `Tests/check_toolchain.sh` preflight (Pillow in Blender's Python, audio Python); root cause of the "flaky" build-props exit 5. Negative control `UW_TOOLCHAIN_SABOTAGE=1`.
-- #11 (pistol WIP, `bot2/dev`) left open: main has no redone pistol.
+- #11 (pistol, `bot2/dev`): not superseded on main; Bot 2 then delivered v1 -> reviewed and merged as WIP (entry above).
 
 ## 2026-11-28 · Bot 3 · T-SAVE-01 (checkpoint save/load) – READY FOR REVIEW
 - `SaveGame` (`Scripts/game/save_game.gd`): JSON slot in `user://saves/`, UW_SAVE v1 + SHA-256 checksum, atomic write; rejects missing/corrupt/foreign files. TD-035 PROPOSED.

@@ -1,24 +1,35 @@
-"""Spec-driven hard-surface weapon generator + Cycles high-to-low normal/AO PBR baker (T-ART-05).
+"""Spec-driven hard-surface weapon generator with a real high-to-low Cycles CPU bake (T-ART-03 quality pass).
 
-Contract: Docs/Handoffs/REQ_WPN_Pistol_01.md
-  - Origin at grip (fits SK_Jason SOCKET_RightHand_Weapon with zero rotation!)
+Contract: Docs/Handoffs/REQ_WPN_Pistol_01.md (unchanged by the quality pass)
+  - Origin at grip (fits SK_Jason SOCKET_RightHand_Weapon with zero rotation)
   - Barrel points Blender -Y -> Godot +Z; Up = Blender +Z -> Godot +Y
-  - Separate named nodes: Frame, Slide, Magazine, Barrel, Trigger
-  - Sockets: SOCKET_Muzzle (+Z out), SOCKET_Eject (+X out), SOCKET_Grip (origin)
+  - Separate named nodes: Frame, Slide, Magazine, Barrel, Trigger (rigid-skinned to a 4-bone WeaponRig)
+  - Sockets: SOCKET_Muzzle (+Z out), SOCKET_Eject, SOCKET_Grip (origin)
   - 3 actions: A_WPN_Pistol_01_Fire (0.10 s), A_WPN_Pistol_01_Reload (1.60 s), A_WPN_Pistol_01_Empty
-  - Budget <= 8,000 tris LOD0; single PBR material with Cycles baked Normal/AO + CC0 Poly Haven metal
+  - Budget <= 8,000 tris LOD0; ONE glTF PBR material M_<Name> (D / N / ORM), hero tier 2048^2
+
+Pipeline (see Docs/PIPELINE_WEAPONS.md):
+  1. parts from 2D profiles (weapons/pistol_hs.py, helpers weapons/hardsurface.py), built twice:
+     high-poly bake source (round bevels, serrations, pins, engraving, stipple + micro bump in the shader)
+     and game low-poly (same silhouette, chamfers, triangulated, hard edges = UV seams)
+  2. one shared UV atlas for all parts (smart project + average scale + pack)
+  3. Cycles CPU selected-to-active bakes: base colour, roughness, metallic, AO, tangent normal
+     (curvature/edge-wear is evaluated in the HP shaders, weapons/hs_materials.py)
+  4. pack D/N/ORM into the .blend, glTF-ready Principled material, delete HP sources
+  5. sockets, rig, actions (contract above)
+Spec keys: asset_name, texture_size, bake_samples_ao, finishes{slide,barrel,frame:{base,rough}}, stipple_zone.
+Env UWP_WEAPON_FAST=1 -> 512 px / 8 AO samples (iteration only, never commit).
 """
 import argparse
 import json
-import math
 import os
 import sys
+import tempfile
 import time
 
-import bmesh
 import bpy
 import numpy as np
-from mathutils import Euler, Matrix, Vector
+from mathutils import Matrix, Vector
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TOOLS_DIR = os.path.abspath(os.path.join(HERE, "..", ".."))
@@ -27,192 +38,102 @@ if TOOLS_DIR not in sys.path:
     sys.path.insert(0, TOOLS_DIR)
 
 from underworld_pipeline.characters import pbr_textures as PBR  # noqa: E402
+from underworld_pipeline.weapons import baker as BK  # noqa: E402
+from underworld_pipeline.weapons import hardsurface as H  # noqa: E402
+from underworld_pipeline.weapons import hs_materials as HM  # noqa: E402
+from underworld_pipeline.weapons import pistol_hs as P  # noqa: E402
+
+NODES = ("Frame", "Slide", "Barrel", "Trigger", "Magazine")
 
 
-def _add_beveled_box(bm, center, size, rot=(0, 0, 0), bevel=0.0012, segs=2):
-    m = Matrix.Translation(center) @ Euler(rot).to_matrix().to_4x4() @ Matrix.Diagonal((size[0], size[1], size[2], 1.0))
-    ret = bmesh.ops.create_cube(bm, size=1.0, matrix=m)
-    edges = list({e for v in ret["verts"] for e in v.link_edges})
-    if bevel > 0:
-        bmesh.ops.bevel(bm, geom=edges, offset=bevel, segments=segs, affect="EDGES", clamp_overlap=True)
-    for f in bm.faces:
-        f.smooth = True
+def _pack(name, rgb, non_color, fmt, quality=92):
+    """Write a numpy RGB image (Blender bottom-up order) without any view transform, reload and pack it."""
+    h, w = rgb.shape[:2]
+    im = bpy.data.images.new(name + "_tmp", w, h, alpha=False)
+    im.colorspace_settings.name = "Non-Color" if non_color else "sRGB"
+    rgba = np.concatenate([np.clip(rgb, 0, 1), np.ones((h, w, 1), np.float32)], axis=2).astype(np.float32)
+    im.pixels.foreach_set(rgba.ravel())
+    ext = ".jpg" if fmt == "JPEG" else ".png"
+    with tempfile.TemporaryDirectory(prefix="uwp_wtex_") as td:
+        path = os.path.join(td, name + ext)
+        im.filepath_raw = path
+        im.file_format = fmt
+        if fmt == "JPEG":
+            im.save(filepath=path, quality=quality)
+        else:
+            im.save(filepath=path)
+        bpy.data.images.remove(im)
+        out = bpy.data.images.load(path, check_existing=False)
+        out.name = name
+        out.colorspace_settings.name = "Non-Color" if non_color else "sRGB"
+        out.pack()
+    return out
 
 
-def _add_cyl(bm, center, radius, depth, rot=(0, 0, 0), segs=20):
-    m = Matrix.Translation(center) @ Euler(rot).to_matrix().to_4x4()
-    ret = bmesh.ops.create_cone(bm, cap_ends=True, cap_tris=True, segments=segs, radius1=radius, radius2=radius, depth=depth, matrix=m)
-    for f in bm.faces:
-        f.smooth = True
-
-
-def _finish_part(bm, name, parent, mat):
-    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
-    me = bpy.data.meshes.new(name)
-    bm.to_mesh(me)
-    bm.free()
-    me.update()
-    ob = bpy.data.objects.new(name, me)
-    bpy.context.scene.collection.objects.link(ob)
-    ob.parent = parent
-    ob.data.materials.append(mat)
-    # Clean non-overlapping smart UV
-    bpy.ops.object.select_all(action="DESELECT")
-    ob.select_set(True)
-    bpy.context.view_layer.objects.active = ob
-    bpy.ops.object.mode_set(mode="EDIT")
-    bpy.ops.mesh.select_all(action="SELECT")
-    bpy.ops.uv.smart_project(angle_limit=math.radians(55), island_margin=0.02, correct_aspect=True, scale_to_bounds=True)
-    bpy.ops.object.mode_set(mode="OBJECT")
-    return ob
-
-
-def _bake_weapon_ao(objs, size=512):
-    """Bake real Cycles AO per weapon part to give crisp crevice darkening around rails/sights/trigger."""
-    sc = bpy.context.scene
-    sc.render.engine = "CYCLES"
-    sc.cycles.device = "CPU"
-    sc.cycles.samples = 16
-    sc.cycles.use_denoising = False
-    ao_img = bpy.data.images.new("UW_WpnAO_Tmp", size, size, alpha=False, float_buffer=False)
-    ao_img.colorspace_settings.name = "Non-Color"
-    bmat = bpy.data.materials.new("UW_WpnAOMat_Tmp")
-    nt = bmat.node_tree
-    tn = nt.nodes.new("ShaderNodeTexImage")
-    tn.image = ao_img
-    tn.select = True
-    nt.nodes.active = tn
-
-    # Bake AO on Slide (hero visible surface) to derive realistic metallic crevice contrast
-    ob = objs[0]
-    saved = [s.material for s in ob.material_slots]
-    ob.data.materials.clear()
-    ob.data.materials.append(bmat)
-    bpy.ops.object.select_all(action="DESELECT")
-    ob.select_set(True)
-    bpy.context.view_layer.objects.active = ob
-    sc.render.bake.use_selected_to_active = False
-    sc.render.bake.margin = 6
-    bpy.ops.object.bake(type="AO")
-    ao_arr = np.array(ao_img.pixels[:], dtype=np.float32).reshape((size, size, 4))[:, :, 0]
-    ob.data.materials.clear()
-    for m in saved:
-        ob.data.materials.append(m)
-    bpy.data.materials.remove(bmat)
-    bpy.data.images.remove(ao_img)
-    return ao_arr
+def _build_set(hp, M):
+    objs = {}
+    for nm, parts in P.build(hp, M).items():
+        ob = H.join(parts, nm + ("_HP" if hp else ""))
+        H.finish(ob, hp)
+        objs[nm] = ob
+    return objs
 
 
 def build_pistol_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None):
     t0 = time.time()
     spec = json.load(open(spec_path))
     name = spec["asset_name"]
-    cache_dir = cache_dir or os.path.join(repo_root, ".cache", "uwp_sources")
+    fast = os.environ.get("UWP_WEAPON_FAST") == "1"
+    tex_sz = 512 if fast else int(spec.get("texture_size", 2048))
+    ao_samples = 8 if fast else int(spec.get("bake_samples_ao", 64))
 
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     sc.unit_settings.system = "METRIC"
     sc.unit_settings.scale_length = 1.0
     sc.render.fps, sc.render.fps_base = 30, 1.0
+    sc.view_settings.view_transform = "Standard"
 
     root = bpy.data.objects.new(name, None)
     sc.collection.objects.link(root)
 
-    # Build 1024x1024 gunmetal PBR material from CC0 Poly Haven metal_plate!
-    tex_sz = int(spec.get("texture_size", 1024))
-    maps = PBR.find_polyhaven_maps(cache_dir, spec.get("polyhaven_id", "metal_plate"))
-    if "diff" in maps:
-        diff = PBR.tile_array(PBR.load_image_np(maps["diff"], None, False)[:, :, :3], 2.0, 2.0, tex_sz)
-        nrm = PBR.tile_array(PBR.load_image_np(maps["nor"], None, True)[:, :, :3], 2.0, 2.0, tex_sz)
-        rough = PBR.tile_array(PBR.load_image_np(maps["rough"], None, True)[:, :, 0:1], 2.0, 2.0, tex_sz)[:, :, 0]
-        ao = PBR.tile_array(PBR.load_image_np(maps["ao"], None, True)[:, :, 0:1], 2.0, 2.0, tex_sz)[:, :, 0]
-    else:
-        diff = np.full((tex_sz, tex_sz, 3), 0.25, dtype=np.float32)
-        nrm = np.full((tex_sz, tex_sz, 3), [0.5, 0.5, 1.0], dtype=np.float32)
-        rough = np.full((tex_sz, tex_sz), 0.38, dtype=np.float32)
-        ao = np.ones((tex_sz, tex_sz), dtype=np.float32)
+    # 1. high-poly bake source + game low-poly from the same profiles
+    M = HM.library(spec)
+    hps = _build_set(True, M)
+    lps = _build_set(False, M)
+    tris = {nm: sum(len(p.vertices) - 2 for p in ob.data.polygons) for nm, ob in lps.items()}
+    print(f"[WEAPON] LP tris {tris} total {sum(tris.values())}; HP tris "
+          f"{sum(sum(len(p.vertices) - 2 for p in o.data.polygons) for o in hps.values())}", flush=True)
 
-    tint = np.array(spec.get("tint_rgb", [0.18, 0.19, 0.21]), dtype=np.float32)
-    diff = np.clip(diff * tint[None, None, :] * 1.4, 0.0, 1.0)
-    rough = np.clip(rough * 0.72 + 0.08, 0.18, 0.65)
-    met = np.full((tex_sz, tex_sz), 0.82, dtype=np.float32)
-    orm = np.stack([ao, rough, met], axis=2)
+    # 2. shared atlas
+    BK.unwrap([lps[n] for n in NODES], H.LP_SHARP_DEG + 1, margin=float(spec.get("uv_margin", 0.004)),
+              sheet_material=HM.GRIP_SHEET)   # grip = one seamless sheet (no stipple seams on the straps)
 
-    img_d = PBR.pack_np_image(f"T_{name}_D", diff, non_color=False, file_format="JPEG", jpeg_quality=92)
-    img_n = PBR.pack_np_image(f"T_{name}_N", nrm, non_color=True, file_format="PNG")
-    img_orm = PBR.pack_np_image(f"T_{name}_ORM", orm, non_color=True, file_format="JPEG", jpeg_quality=90)
-    mat = PBR.make_pbr_material(f"M_{name}", img_d, img_n, img_orm, normal_strength=0.75)
+    # 3. bake
+    maps, times = BK.bake_all({n: (hps[n], lps[n]) for n in NODES}, tex_sz, samples_ao=ao_samples)
+    D, N, ORM, cover = BK.post(maps)
+    print(f"[WEAPON] bake {tex_sz}px coverage {cover:.2%} times {times}", flush=True)
 
-    # Coordinate frame (REQ_WPN_Pistol_01.md):
-    #   Origin (0,0,0) = grip wrap center (sits on SOCKET_RightHand_Weapon)
-    #   Barrel points Blender -Y (= Godot +Z), Top = Blender +Z (= Godot +Y)
-    #   Dims: ~0.19 m long (y in [-0.155, +0.035]), ~0.13 m high (z in [-0.068, +0.062]), ~0.030 m wide
-
-    # 1. Frame (polymer lower receiver, ergonomic angled grip, beavertail, picatinny dust cover, trigger guard)
-    bm_f = bmesh.new()
-    # Ergonomic angled pistol grip (tilted ~18 deg back)
-    _add_beveled_box(bm_f, (0.0, 0.004, -0.022), (0.029, 0.044, 0.094), rot=(math.radians(-16), 0, 0), bevel=0.0035, segs=2)
-    # Grip side stipple panels
-    for sx in (-1.0, 1.0):
-        _add_beveled_box(bm_f, (sx * 0.0148, 0.005, -0.022), (0.0025, 0.032, 0.072), rot=(math.radians(-16), 0, 0), bevel=0.0008, segs=1)
-    # Lower dust cover / Picatinny rail chassis extending toward muzzle (-Y)
-    _add_beveled_box(bm_f, (0.0, -0.078, 0.020), (0.026, 0.148, 0.017), bevel=0.0018, segs=2)
-    # Picatinny under-barrel rail slots
-    for k in range(3):
-        _add_beveled_box(bm_f, (0.0, -0.112 - k * 0.012, 0.010), (0.022, 0.006, 0.004), bevel=0.0006, segs=1)
-    # Beavertail tang at rear of frame
-    _add_beveled_box(bm_f, (0.0, 0.024, 0.024), (0.022, 0.024, 0.012), rot=(math.radians(8), 0, 0), bevel=0.002, segs=2)
-    # Trigger guard (front vertical + bottom horizontal bars)
-    _add_beveled_box(bm_f, (0.0, -0.042, -0.014), (0.013, 0.050, 0.005), bevel=0.001, segs=1)
-    _add_beveled_box(bm_f, (0.0, -0.066, 0.002), (0.013, 0.005, 0.032), rot=(math.radians(8), 0, 0), bevel=0.001, segs=1)
-    # Slide stop lever & mag release button
-    _add_beveled_box(bm_f, (0.0148, -0.032, 0.026), (0.003, 0.024, 0.005), bevel=0.0006, segs=1)
-    _add_beveled_box(bm_f, (0.0150, -0.012, 0.005), (0.0035, 0.008, 0.007), bevel=0.0008, segs=1)
-    frame_ob = _finish_part(bm_f, "Frame", root, mat)
-
-    # 2. Slide (separate animated node: beveled top, rear & front cocking serrations, ejection port, 3-dot iron sights!)
-    bm_s = bmesh.new()
-    _add_beveled_box(bm_s, (0.0, -0.064, 0.041), (0.027, 0.184, 0.026), bevel=0.0028, segs=2)
-    # Rear & front tactical cocking serrations (subtle raised ribs along slide flanks)
-    for sx in (-1.0, 1.0):
-        for k in range(6):
-            _add_beveled_box(bm_s, (sx * 0.0136, 0.012 - k * 0.0055, 0.041), (0.0012, 0.0022, 0.018), rot=(math.radians(-10), 0, 0), bevel=0.0003, segs=1)
-        for k in range(4):
-            _add_beveled_box(bm_s, (sx * 0.0136, -0.118 - k * 0.0055, 0.041), (0.0012, 0.0022, 0.016), rot=(math.radians(-10), 0, 0), bevel=0.0003, segs=1)
-    # Rear U-notch iron sight + Front blade post sight
-    for sx in (-0.0055, 0.0055):
-        _add_beveled_box(bm_s, (sx, 0.020, 0.0565), (0.0045, 0.009, 0.0065), bevel=0.0007, segs=1)
-    _add_beveled_box(bm_s, (0.0, -0.146, 0.0568), (0.0032, 0.010, 0.0068), bevel=0.0006, segs=1)
-    slide_ob = _finish_part(bm_s, "Slide", root, mat)
-
-    # 3. Barrel (internal cylindrical barrel peeking cleanly from front muzzle + chamber hood)
-    bm_b = bmesh.new()
-    _add_cyl(bm_b, (0.0, -0.095, 0.041), 0.0068, 0.130, rot=(math.radians(90), 0, 0), segs=20)
-    _add_beveled_box(bm_b, (0.0, -0.046, 0.044), (0.016, 0.032, 0.014), bevel=0.0012, segs=1)
-    barrel_ob = _finish_part(bm_b, "Barrel", root, mat)
-
-    # 4. Magazine (separate animated/detachable node per REQ_WPN_Pistol_01.md!)
-    bm_m = bmesh.new()
-    _add_beveled_box(bm_m, (0.0, 0.005, -0.025), (0.021, 0.032, 0.088), rot=(math.radians(-16), 0, 0), bevel=0.0015, segs=1)
-    # Extended tactical polymer baseplate protruding neatly at bottom of grip
-    _add_beveled_box(bm_m, (0.0, 0.017, -0.070), (0.028, 0.044, 0.011), rot=(math.radians(-16), 0, 0), bevel=0.0020, segs=2)
-    mag_ob = _finish_part(bm_m, "Magazine", root, mat)
-
-    # 5. Trigger (curved blade inside trigger guard)
-    bm_t = bmesh.new()
-    _add_beveled_box(bm_t, (0.0, -0.040, 0.004), (0.005, 0.006, 0.022), rot=(math.radians(22), 0, 0), bevel=0.0008, segs=1)
-    trig_ob = _finish_part(bm_t, "Trigger", root, mat)
-
-    # Bake real Cycles AO onto Slide and blend into ORM for sharp recessed detail!
-    ao_baked = _bake_weapon_ao([slide_ob], size=512)
-    ao_up = ao_baked[np.ix_(np.linspace(0, 511, tex_sz).astype(np.int32), np.linspace(0, 511, tex_sz).astype(np.int32))]
-    orm[:, :, 0] = np.clip(orm[:, :, 0] * (0.55 + 0.45 * ao_up), 0.2, 1.0)
-    img_orm_baked = PBR.pack_np_image(f"T_{name}_ORM", orm, non_color=True, file_format="JPEG", jpeg_quality=90)
-    # Swap ORM texture node cleanly
-    for n in mat.node_tree.nodes:
-        if n.type == "TEX_IMAGE" and n.image == img_orm:
-            n.image = img_orm_baked
-    bpy.data.images.remove(img_orm)
+    # 4. game material
+    img_d = _pack(f"T_{name}_D", D, False, "JPEG", 94)
+    img_n = _pack(f"T_{name}_N", N, True, "PNG")
+    img_orm = _pack(f"T_{name}_ORM", ORM, True, "JPEG", 94)
+    mat = PBR.make_pbr_material(f"M_{name}", img_d, img_n, img_orm, normal_strength=1.0)
+    for nm in NODES:
+        lp = lps[nm]
+        lp.data.materials.clear()
+        lp.data.materials.append(mat)
+        lp.data.uv_layers[0].name = "UVMap"
+    for ob in hps.values():
+        me = ob.data
+        bpy.data.objects.remove(ob)
+        bpy.data.meshes.remove(me)
+    for m in list(bpy.data.materials):
+        if m is not mat:
+            bpy.data.materials.remove(m)
+    for nm in NODES:
+        lps[nm].parent = root
+    frame_ob, slide_ob, barrel_ob, trig_ob, mag_ob = (lps[n] for n in NODES)
 
     # 6. Required Sockets (REQ_WPN_Pistol_01.md: SOCKET_Muzzle, SOCKET_Eject, SOCKET_Grip)
     for sname, sloc, srot in (
@@ -256,7 +177,17 @@ def build_pistol_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None):
         ob.modifiers.new("Armature", "ARMATURE").object = arm
         ob.vertex_groups.new(name=bname).add([v.index for v in ob.data.vertices], 1.0, "REPLACE")
 
-    def make_rig_action(act_name, bone_keys, frame_end, loop=False):
+    def _fcurves(act):
+        if hasattr(act, "fcurves") and len(getattr(act, "fcurves", [])):
+            return list(act.fcurves)
+        out = []   # Blender 5 layered actions
+        for layer in getattr(act, "layers", []):
+            for strip in layer.strips:
+                for cb in strip.channelbags:
+                    out += list(cb.fcurves)
+        return out
+
+    def make_rig_action(act_name, bone_keys, frame_end, loop=False, ease_map=None):
         act = bpy.data.actions.new(act_name)
         act.use_fake_user = True
         arm.animation_data_create()
@@ -268,6 +199,13 @@ def build_pistol_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None):
                 pb.location = R3.inverted() @ Vector(world_delta)
                 pb.keyframe_insert("location", frame=fr, group=bname)
             pb.location = (0, 0, 0)
+        # timing feel (key frames unchanged = contract): segment easing keyed by the segment's start frame
+        for fc in _fcurves(act):
+            bname = fc.data_path.split('"')[1]
+            for kp in fc.keyframe_points:
+                interp, ease = (ease_map or {}).get((bname, int(round(kp.co.x))), ("LINEAR", "AUTO"))
+                kp.interpolation = interp
+                kp.easing = ease
         act.use_frame_range = True
         act.frame_start, act.frame_end = 0, frame_end
         act.use_cyclic = loop
@@ -277,13 +215,17 @@ def build_pistol_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None):
     make_rig_action(f"A_{name}_Fire", {
         "SlideBone": [(0, (0, 0, 0)), (1, (0, 0.038, 0)), (3, (0, 0, 0))],
         "TrigBone": [(0, (0, 0, 0)), (1, (0, 0.005, 0)), (3, (0, 0, 0))],
-    }, 3, loop=False)
+    }, 3, loop=False, ease_map={("SlideBone", 0): ("LINEAR", "AUTO"), ("SlideBone", 1): ("QUAD", "EASE_IN"),
+                                 ("TrigBone", 1): ("QUAD", "EASE_OUT")})   # blowback snaps back, spring returns
 
     mag_drop = (0.0, 0.036, -0.125)
     make_rig_action(f"A_{name}_Reload", {
         "MagBone": [(0, (0, 0, 0)), (9, (0, 0, 0)), (15, mag_drop), (26, mag_drop), (32, (0, 0, 0)), (48, (0, 0, 0))],
         "SlideBone": [(0, (0, 0, 0)), (36, (0, 0, 0)), (40, (0, 0.038, 0)), (44, (0, 0, 0)), (48, (0, 0, 0))],
-    }, 48, loop=False)
+    }, 48, loop=False, ease_map={("MagBone", 9): ("QUAD", "EASE_IN"),       # released mag falls (gravity)
+                                  ("MagBone", 26): ("CUBIC", "EASE_OUT"),    # new mag pushed in, decelerates as it seats
+                                  ("SlideBone", 36): ("SINE", "EASE_IN_OUT"),  # hand racks the slide
+                                  ("SlideBone", 40): ("QUAD", "EASE_IN")})     # spring snaps it forward
 
     make_rig_action(f"A_{name}_Empty", {
         "SlideBone": [(0, (0, 0.038, 0)), (2, (0, 0.038, 0))],
@@ -296,8 +238,8 @@ def build_pistol_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None):
     blend_path = os.path.join(repo_root, "Blender", "Source", "Weapons", name, f"{name}.blend")
     os.makedirs(os.path.dirname(blend_path), exist_ok=True)
     bpy.ops.wm.save_as_mainfile(filepath=blend_path, compress=True)
-    tris = sum(len(o.data.loop_triangles) if (o.data.calc_loop_triangles() or True) else 0 for o in (frame_ob, slide_ob, barrel_ob, mag_ob, trig_ob))
-    print(f"[WEAPON] built {name}: {tris} tris, 5 nodes, 3 sockets, 3 anims ({time.time() - t0:.1f}s) -> {blend_path}")
+    print(f"[WEAPON] built {name}: {sum(tris.values())} tris, 5 nodes, 3 sockets, 3 anims, {tex_sz}px maps "
+          f"({time.time() - t0:.1f}s) -> {blend_path}")
 
 
 if __name__ == "__main__":

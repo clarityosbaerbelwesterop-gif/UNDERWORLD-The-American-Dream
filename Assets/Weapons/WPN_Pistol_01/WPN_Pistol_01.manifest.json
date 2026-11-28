@@ -8,34 +8,34 @@
   "preview_png": "Assets/Weapons/WPN_Pistol_01/WPN_Pistol_01_preview.png",
   "previews": null,
   "tool": "underworld_pipeline 1.0.0",
-  "blender_version": "5.0.1",
+  "blender_version": "5.2.4 LTS",
   "units": "metres (1 BU = 1 m = 1 Godot unit)",
   "up_axis": "Blender +Z -> glTF/Godot +Y",
   "front": "Blender -Y -> Godot +Z",
   "aabb_godot": {
     "min": [
-      -0.016,
-      -0.0808,
-      -0.0391
+      -0.0156,
+      -0.0723,
+      -0.0408
     ],
     "max": [
-      0.0168,
-      0.0602,
-      0.16
+      0.0156,
+      0.0589,
+      0.158
     ],
     "size": [
-      0.0328,
-      0.141,
-      0.1991
+      0.0312,
+      0.1312,
+      0.1988
     ]
   },
   "triangles": {
-    "lod0": 1920,
+    "lod0": 5814,
     "budget": 8000,
     "per_lod_total": {
-      "LOD0": 700,
-      "LOD1": 350,
-      "LOD2": 174
+      "LOD0": 2926,
+      "LOD1": 1462,
+      "LOD2": 730
     }
   },
   "lods": [
@@ -45,19 +45,19 @@
         {
           "name": "Frame",
           "level": 0,
-          "triangles": 576
+          "triangles": 2502
         },
         {
           "name": "Frame_LOD1",
           "level": 1,
           "ratio": 0.5,
-          "triangles": 288
+          "triangles": 1250
         },
         {
           "name": "Frame_LOD2",
           "level": 2,
           "ratio": 0.25,
-          "triangles": 144
+          "triangles": 624
         }
       ]
     },
@@ -67,19 +67,19 @@
         {
           "name": "Barrel",
           "level": 0,
-          "triangles": 124
+          "triangles": 424
         },
         {
           "name": "Barrel_LOD1",
           "level": 1,
           "ratio": 0.5,
-          "triangles": 62
+          "triangles": 212
         },
         {
           "name": "Barrel_LOD2",
           "level": 2,
           "ratio": 0.25,
-          "triangles": 30
+          "triangles": 106
         }
       ]
     }
@@ -103,85 +103,85 @@
       "image": "T_WPN_Pistol_01_D",
       "material": "M_WPN_Pistol_01",
       "size": [
-        1024,
-        1024
+        2048,
+        2048
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_acii596m/T_WPN_Pistol_01_D.jpg"
+      "filepath": "//../../../../../../tmp/uwp_wtex__wihif41/T_WPN_Pistol_01_D.jpg"
     },
     {
-      "image": "T_WPN_Pistol_01_ORM.001",
+      "image": "T_WPN_Pistol_01_ORM",
       "material": "M_WPN_Pistol_01",
       "size": [
-        1024,
-        1024
+        2048,
+        2048
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_clu7lehv/T_WPN_Pistol_01_ORM.jpg"
+      "filepath": "//../../../../../../tmp/uwp_wtex_4kznxd8x/T_WPN_Pistol_01_ORM.jpg"
     },
     {
       "image": "T_WPN_Pistol_01_N",
       "material": "M_WPN_Pistol_01",
       "size": [
-        1024,
-        1024
+        2048,
+        2048
       ],
       "packed": true,
-      "filepath": "//../../../../../../../tmp/uwp_tex_bo916nms/T_WPN_Pistol_01_N.png"
+      "filepath": "//../../../../../../tmp/uwp_wtex_db707d9w/T_WPN_Pistol_01_N.png"
     }
   ],
   "uv_overlap": {
     "Frame": {
       "overlap_fraction": 0.0,
-      "uv_coverage": 0.3879
+      "uv_coverage": 0.1754
     },
     "Slide": {
-      "overlap_fraction": 0.0,
-      "uv_coverage": 0.4214
+      "overlap_fraction": 0.0001,
+      "uv_coverage": 0.1264
     },
     "Barrel": {
       "overlap_fraction": 0.0,
-      "uv_coverage": 0.7357
-    },
-    "Magazine": {
-      "overlap_fraction": 0.0,
-      "uv_coverage": 0.7179
+      "uv_coverage": 0.05
     },
     "Trigger": {
       "overlap_fraction": 0.0,
-      "uv_coverage": 0.7269
+      "uv_coverage": 0.0029
+    },
+    "Magazine": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.0597
     }
   },
   "texel_density": {
     "Frame": {
-      "texture_px": 1024,
-      "median_px_per_m": 2932.6,
-      "p10_px_per_m": 2561.4,
-      "p90_px_per_m": 3072.3
+      "texture_px": 2048,
+      "median_px_per_m": 5011.9,
+      "p10_px_per_m": 1757.5,
+      "p90_px_per_m": 7023.3
     },
     "Slide": {
-      "texture_px": 1024,
-      "median_px_per_m": 3822.9,
-      "p10_px_per_m": 3537.2,
-      "p90_px_per_m": 4546.1
+      "texture_px": 2048,
+      "median_px_per_m": 5012.1,
+      "p10_px_per_m": 4949.8,
+      "p90_px_per_m": 5036.8
     },
     "Barrel": {
-      "texture_px": 1024,
-      "median_px_per_m": 10583.4,
-      "p10_px_per_m": 8954.9,
-      "p90_px_per_m": 10649.2
-    },
-    "Magazine": {
-      "texture_px": 1024,
-      "median_px_per_m": 7681.6,
-      "p10_px_per_m": 6459.4,
-      "p90_px_per_m": 7681.6
+      "texture_px": 2048,
+      "median_px_per_m": 5011.9,
+      "p10_px_per_m": 4980.5,
+      "p90_px_per_m": 5053.7
     },
     "Trigger": {
-      "texture_px": 1024,
-      "median_px_per_m": 38156.1,
-      "p10_px_per_m": 38156.1,
-      "p90_px_per_m": 45375.5
+      "texture_px": 2048,
+      "median_px_per_m": 5012.0,
+      "p10_px_per_m": 4981.5,
+      "p90_px_per_m": 5039.0
+    },
+    "Magazine": {
+      "texture_px": 2048,
+      "median_px_per_m": 5012.0,
+      "p10_px_per_m": 4868.3,
+      "p90_px_per_m": 5162.1
     }
   },
   "clipping": [],
@@ -279,8 +279,8 @@
     "SOCKET_Grip",
     "SOCKET_Muzzle",
     "UCX_WPN_Pistol_01-convcolonly",
-    "SlideBone",
     "MagBone",
+    "SlideBone",
     "TrigBone",
     "WpnRoot",
     "Magazine",
@@ -289,5 +289,5 @@
     "WeaponRig",
     "WPN_Pistol_01"
   ],
-  "glb_bytes": 425324
+  "glb_bytes": 5378632
 }

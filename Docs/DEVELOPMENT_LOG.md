@@ -1,5 +1,9 @@
 # Development Log
 
+## 2026-11-28 · Bot 2 · T-ART-05 (WPN_Pistol_01 v1 quality pass, PR #11)
+- `weapons/pistol_hs.py`: grip rebuilt as superellipse loft from profiles measured on board tile R3 (20° rake, palm swell, beavertail; v0/WIP grip was 7 cm deep and broke in the boolean), slide 27 mm, serrations as real LP geometry, closed guard narrowed, mag well/magazine re-raked, LP barrel 28 segments. `baker.py`: grip unwrapped as one angle-based sheet (fixes stipple seam patches on the straps). `hs_materials.py`: subtler wear, darker polymer. `build_weapon.py`: segment easing on the unchanged clip keys. `render_review.py`: rig for black guns, top camera roll fixed, 15 views, `--clay`.
+- Full 2048² bake (2 m 43 s) → 5,814 tris, GLB 5.38 MB; `uwp --profile gate` PASS; Godot import clean; `capture_pistol.gd` Phase 8 shots (compat only); `Tests/run_all.sh` RUN_ALL: PASS. Before/after + ref-compare sheets, self-scorecard `Docs/Reviews/2026-11-28_WPN_Pistol_01_v1.md` (3 in Animation + Engine integration). Registry stays WIP.
+
 ## 2026-11-24 · Claude Code · T-NY-01 (New York set, wave 1)
 - `props/buildings.py`: brownstone, tenement, bodega, bank_ny, subway_entrance (+ `_lintels`, `_cornice` with brackets); kit materials brownstone / brick_ny / limestone, emissive lamp_globe_green; `keep_origin` -> `uw_below_grade_m`, validator allows exactly that depth.
 - ny_overcast: soft key (0.55, 12 deg angular size), ambient 3.0, exposure 2.5 (card luma ~125). Catalogue +5 (106 entries). `Tests/tools/capture_ny_street.gd` (runtime NY block, overcast + wet night with practicals). Report `Docs/Reports/BERICHT_T-NY-01.md`.

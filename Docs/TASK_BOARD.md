@@ -26,7 +26,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-PIPE-04 | P0 | Lead TD → Bot 1 (recovered) | Whole-game asset pipeline v0: NPC/weapon/vehicle/env generators, shared anim library, LA look-dev presets, M01 block greybox | T-PIPE-03 | COMPLETED |
 | T-ART-03 | P1 | Bot 2 / Lead TD | LA street environment kit | T-PIPE-01, T-DES-02 | IN PROGRESS |
 | T-ART-04 | P1 | Bot 2 / Lead TD | Drivable car model | T-PIPE-01 | IN PROGRESS |
-| T-ART-05 | P1 | Bot 2 | Pistol model (quality pass = PR #11 on `bot2/dev`, first titled "T-ART-03" by mistake) – **claimed by Bot 2 2026-11-28** | T-PIPE-01 | IN PROGRESS |
+| T-ART-05 | P1 | Bot 2 | Pistol model (quality pass = PR #11 on `bot2/dev`, first titled "T-ART-03" by mistake) – **claimed by Bot 2 2026-11-28** | T-PIPE-01 | READY FOR REVIEW (v1, PR #11) |
 | T-ART-06 | P1 | Bot 2 / Lead TD | 3 NPC models on shared rig | T-ART-01 | IN PROGRESS |
 | T-GP-01 | P0 | Bot 3 | Third-person controller + camera | T-PIPE-00 | COMPLETED |
 | T-GP-01b | P2 | Bot 3 | Vault-lite (low obstacles) | T-GP-01, T-ART-02 | BACKLOG |
@@ -163,7 +163,8 @@ Placeholder rule: Bot 3 may start gameplay with Godot primitives (capsule, box c
 - **Acceptance:** Godot import keeps wheel nodes; manifest lists wheel radius, wheelbase, track width; ≤ 60k tris.
 
 ### T-ART-05 – Pistol "WPN_Pistol_01"
-- **Agent:** Bot 2 / Lead TD · **Deps:** T-PIPE-01 · **Status:** IN PROGRESS (v0 merged via T-PIPE-04: 1,920 tris, Slide/Magazine/Trigger, SOCKET_Muzzle +Z 0.165 m, Eject, Grip, clips Fire/Reload 1.6 s/Empty; weapon tests green with the real glb; needs proper gun-metal material instead of Poly Haven `metal_plate` tread pattern, closed trigger guard, barrel flush with slide)
+- **Status 2026-11-28 (Bot 2):** READY FOR REVIEW – v1 on `bot2/dev` / PR #11: raked loft grip measured on the board, real serrations, closed guard, flush barrel, black-nitride + stippled polymer, 2048² HP→LP bake, 5,814 tris, `uwp --profile gate` PASS, `Tests/run_all.sh` PASS. Self-score 4 in 8 categories, **3** in Animation quality (rigid rig, no barrel tilt) and Engine integration (gameplay still on PT stand-in). Scorecard `Docs/Reviews/2026-11-28_WPN_Pistol_01_v1.md`; asset stays WIP until Bot 1 + Bot 3 review.
+- **Agent:** Bot 2 / Lead TD · **Deps:** T-PIPE-01 · **Status (history):** IN PROGRESS (v0 merged via T-PIPE-04: 1,920 tris, Slide/Magazine/Trigger, SOCKET_Muzzle +Z 0.165 m, Eject, Grip, clips Fire/Reload 1.6 s/Empty; weapon tests green with the real glb; needs proper gun-metal material instead of Poly Haven `metal_plate` tread pattern, closed trigger guard, barrel flush with slide)
 - **ID note (Bot 1, 2026-11-22 handoff):** the pistol quality pass is **T-ART-05**. Draft PR #11 (`bot2/dev` `cd87981`) and its WIP note `Docs/Handoffs/2026-11-22_T-ART-03_WPN_Pistol_01_WIP.md` (on that branch) say "T-ART-03" by mistake; T-ART-03 stays the LA kit. PR #11 is untested WIP (reference board, HP/LP generator 2,526 / 22,647 tris; no after-renders, bake, export, tests or scorecard) – do not merge as is. See `Docs/CLAUDE_CODE_HANDOFF.md` §8.
 - **Description:** original semi-auto pistol, origin at grip. Separate `Slide` and `Magazine` nodes; sockets `SOCKET_Muzzle`, `SOCKET_Eject`, `SOCKET_Grip`.
 - **Acceptance:** ≤ 8k tris; sockets present after Godot import; scale fits Jason's hand (registry note).

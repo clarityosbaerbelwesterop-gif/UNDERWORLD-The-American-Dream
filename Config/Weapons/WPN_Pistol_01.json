@@ -1,5 +1,5 @@
 {
-  "_doc": "Weapon spec for WPN_Pistol_01 (original, unbranded polymer-frame striker 9mm pistol, REQ-GP02-PISTOL). T-ART-03 quality pass: hard-surface HP->LP Cycles bake, black-nitride steel slide/barrel, stippled polymer frame. Colours linear RGB.",
+  "_doc": "Weapon spec for WPN_Pistol_01 (original, unbranded polymer-frame striker 9mm pistol, REQ-GP02-PISTOL). T-ART-05 quality pass: hard-surface HP->LP Cycles bake, black-nitride steel slide/barrel, stippled polymer frame. Colours linear RGB.",
   "asset_name": "WPN_Pistol_01",
   "category": "Weapons",
   "budget_key": "Weapons",
@@ -10,7 +10,7 @@
   "finishes": {
     "slide": {"base": [0.030, 0.031, 0.034], "rough": 0.34},
     "barrel": {"base": [0.055, 0.056, 0.060], "rough": 0.26},
-    "frame": {"base": [0.024, 0.024, 0.026], "rough": 0.58}
+    "frame": {"base": [0.018, 0.018, 0.020], "rough": 0.62}
   },
   "stipple_zone": [-0.0605, -0.0035, -0.0390]
 }

@@ -106,7 +106,8 @@ def build_pistol_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None):
           f"{sum(sum(len(p.vertices) - 2 for p in o.data.polygons) for o in hps.values())}", flush=True)
 
     # 2. shared atlas
-    BK.unwrap([lps[n] for n in NODES], H.LP_SHARP_DEG + 1, margin=float(spec.get("uv_margin", 0.004)))
+    BK.unwrap([lps[n] for n in NODES], H.LP_SHARP_DEG + 1, margin=float(spec.get("uv_margin", 0.004)),
+              sheet_material=HM.GRIP_SHEET)   # grip = one seamless sheet (no stipple seams on the straps)
 
     # 3. bake
     maps, times = BK.bake_all({n: (hps[n], lps[n]) for n in NODES}, tex_sz, samples_ao=ao_samples)
@@ -176,7 +177,17 @@ def build_pistol_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None):
         ob.modifiers.new("Armature", "ARMATURE").object = arm
         ob.vertex_groups.new(name=bname).add([v.index for v in ob.data.vertices], 1.0, "REPLACE")
 
-    def make_rig_action(act_name, bone_keys, frame_end, loop=False):
+    def _fcurves(act):
+        if hasattr(act, "fcurves") and len(getattr(act, "fcurves", [])):
+            return list(act.fcurves)
+        out = []   # Blender 5 layered actions
+        for layer in getattr(act, "layers", []):
+            for strip in layer.strips:
+                for cb in strip.channelbags:
+                    out += list(cb.fcurves)
+        return out
+
+    def make_rig_action(act_name, bone_keys, frame_end, loop=False, ease_map=None):
         act = bpy.data.actions.new(act_name)
         act.use_fake_user = True
         arm.animation_data_create()
@@ -188,6 +199,13 @@ def build_pistol_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None):
                 pb.location = R3.inverted() @ Vector(world_delta)
                 pb.keyframe_insert("location", frame=fr, group=bname)
             pb.location = (0, 0, 0)
+        # timing feel (key frames unchanged = contract): segment easing keyed by the segment's start frame
+        for fc in _fcurves(act):
+            bname = fc.data_path.split('"')[1]
+            for kp in fc.keyframe_points:
+                interp, ease = (ease_map or {}).get((bname, int(round(kp.co.x))), ("LINEAR", "AUTO"))
+                kp.interpolation = interp
+                kp.easing = ease
         act.use_frame_range = True
         act.frame_start, act.frame_end = 0, frame_end
         act.use_cyclic = loop
@@ -197,13 +215,17 @@ def build_pistol_from_spec(spec_path, repo_root=REPO_ROOT, cache_dir=None):
     make_rig_action(f"A_{name}_Fire", {
         "SlideBone": [(0, (0, 0, 0)), (1, (0, 0.038, 0)), (3, (0, 0, 0))],
         "TrigBone": [(0, (0, 0, 0)), (1, (0, 0.005, 0)), (3, (0, 0, 0))],
-    }, 3, loop=False)
+    }, 3, loop=False, ease_map={("SlideBone", 0): ("LINEAR", "AUTO"), ("SlideBone", 1): ("QUAD", "EASE_IN"),
+                                 ("TrigBone", 1): ("QUAD", "EASE_OUT")})   # blowback snaps back, spring returns
 
     mag_drop = (0.0, 0.036, -0.125)
     make_rig_action(f"A_{name}_Reload", {
         "MagBone": [(0, (0, 0, 0)), (9, (0, 0, 0)), (15, mag_drop), (26, mag_drop), (32, (0, 0, 0)), (48, (0, 0, 0))],
         "SlideBone": [(0, (0, 0, 0)), (36, (0, 0, 0)), (40, (0, 0.038, 0)), (44, (0, 0, 0)), (48, (0, 0, 0))],
-    }, 48, loop=False)
+    }, 48, loop=False, ease_map={("MagBone", 9): ("QUAD", "EASE_IN"),       # released mag falls (gravity)
+                                  ("MagBone", 26): ("CUBIC", "EASE_OUT"),    # new mag pushed in, decelerates as it seats
+                                  ("SlideBone", 36): ("SINE", "EASE_IN_OUT"),  # hand racks the slide
+                                  ("SlideBone", 40): ("QUAD", "EASE_IN")})     # spring snaps it forward
 
     make_rig_action(f"A_{name}_Empty", {
         "SlideBone": [(0, (0, 0.038, 0)), (2, (0, 0.038, 0))],

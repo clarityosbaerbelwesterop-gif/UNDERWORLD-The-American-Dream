@@ -123,6 +123,32 @@ def sweep(name, centre, thick, half_w):
     return obj_from_bm(name, bm)
 
 
+def loft(name, rings):
+    """Closed tube through equal-length 3D rings (bottom -> top), both ends capped (grip shells)."""
+    bm = bmesh.new()
+    vr = [[bm.verts.new(p) for p in r] for r in rings]
+    n = len(rings[0])
+    for a, b in zip(vr, vr[1:]):
+        for i in range(n):
+            bm.faces.new((a[i], a[(i + 1) % n], b[(i + 1) % n], b[i]))
+    bm.faces.new(vr[0][::-1])
+    bm.faces.new(vr[-1])
+    return obj_from_bm(name, bm)
+
+
+def superellipse(cx, cy, rx, ry, n, seg, ry_back=None):
+    """Points of a superellipse |x/rx|^n + |y/ry|^n = 1 (counter-clockwise); ry_back = different +y half-axis."""
+    pts = []
+    for i in range(seg):
+        t = 2 * math.pi * i / seg
+        c, s = math.cos(t), math.sin(t)
+        x = rx * math.copysign(abs(c) ** (2.0 / n), c)
+        ryy = ry_back if (ry_back is not None and s > 0) else ry
+        y = ryy * math.copysign(abs(s) ** (2.0 / n), s)
+        pts.append((cx + x, cy + y))
+    return pts
+
+
 def apply_mods(ob):
     dg = bpy.context.evaluated_depsgraph_get()
     me = bpy.data.meshes.new_from_object(ob.evaluated_get(dg), depsgraph=dg)
@@ -139,12 +165,15 @@ def apply_loc(ob):
     return ob
 
 
-def boolean(target, cutters, op="DIFFERENCE"):
-    """Exact boolean with each cutter in turn (cutters are deleted)."""
+def boolean(target, cutters, op="DIFFERENCE", transfer_materials=False):
+    """Exact boolean with each cutter in turn (cutters are deleted). transfer_materials keeps the cutter's own
+    materials on its faces (used to tag the grip faces through the frame union)."""
     for c in cutters:
         apply_loc(c)
         m = target.modifiers.new("Bool", "BOOLEAN")
         m.object, m.operation, m.solver = c, op, "EXACT"
+        if transfer_materials:
+            m.material_mode = "TRANSFER"
         apply_mods(target)
         bpy.data.objects.remove(c)
     return target

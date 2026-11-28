@@ -10,6 +10,8 @@ with a stippled grip zone (object-space mask, see stipple_zone).
 """
 import bpy
 
+GRIP_SHEET = "UW_GripSheet"
+
 
 def _n(nt, typ, **kw):
     n = nt.nodes.new(typ)
@@ -170,16 +172,16 @@ def library(spec):
         return tuple(f.get(k, {}).get(key, dflt)) if isinstance(dflt, tuple) else f.get(k, {}).get(key, dflt)
     stip = spec.get("stipple_zone", [-0.0605, -0.0035, -0.0390])
     steel = g("slide", "base", (0.030, 0.031, 0.034))
-    return {
+    lib = {
         # black nitride / blued slide: satin, faint micro texture, edges worn to bare steel
-        "steel": make("HP_SlideSteel", steel, g("slide", "rough", 0.34), 1.0, wear_col=(0.36, 0.36, 0.37), wear_rough=0.20,
-                      wear_metal=1.0, wear_gain=34.0, micro={"scale": 5000.0, "strength": 0.04}),
+        "steel": make("HP_SlideSteel", steel, g("slide", "rough", 0.34), 1.0, wear_col=(0.13, 0.13, 0.135), wear_rough=0.26,
+                      wear_metal=1.0, wear_gain=22.0, micro={"scale": 5000.0, "strength": 0.04}),
         "barrel": make("HP_Barrel", g("barrel", "base", (0.055, 0.056, 0.060)), g("barrel", "rough", 0.26), 1.0,
-                       wear_col=(0.50, 0.50, 0.51), wear_rough=0.16, wear_gain=30.0),
+                       wear_col=(0.30, 0.30, 0.31), wear_rough=0.18, wear_gain=22.0),
         "bore": make("HP_Bore", (0.015, 0.015, 0.016), 0.45, 1.0, grain=0.0),
-        "magsteel": make("HP_MagSteel", (0.040, 0.040, 0.043), 0.40, 1.0, wear_col=(0.35, 0.35, 0.36), wear_rough=0.22),
+        "magsteel": make("HP_MagSteel", (0.040, 0.040, 0.043), 0.40, 1.0, wear_col=(0.22, 0.22, 0.23), wear_rough=0.24, wear_gain=22.0),
         # glass-filled polymer frame: matte, very fine noise; grip zone gets raised stipple pyramids
-        "polymer": make("HP_Polymer", g("frame", "base", (0.024, 0.024, 0.026)), g("frame", "rough", 0.58), 0.0,
+        "polymer": make("HP_Polymer", g("frame", "base", (0.018, 0.018, 0.020)), g("frame", "rough", 0.62), 0.0,
                         wear_col=(0.050, 0.050, 0.052), wear_rough=0.42, wear_metal=0.0, wear_gain=22.0,
                         micro={"scale": 9000.0, "strength": 0.06},
                         stipple={"scale": 1350.0, "strength": 0.85, "zone": stip, "rough": 0.80,
@@ -189,3 +191,7 @@ def library(spec):
                               micro={"scale": 9000.0, "strength": 0.06}),
         "white": make("HP_SightDot", (0.78, 0.78, 0.74), 0.5, 0.0, grain=0.02),
     }
+    # game-mesh tag only (never baked from): faces of the grip loft, see baker.unwrap(sheet_material=...)
+    lib["grip_lp"] = lib["polymer"].copy()
+    lib["grip_lp"].name = GRIP_SHEET
+    return lib

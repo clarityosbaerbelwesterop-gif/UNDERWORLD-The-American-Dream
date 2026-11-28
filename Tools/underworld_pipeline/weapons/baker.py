@@ -8,13 +8,41 @@ tangent-space NORMAL bake. post() packs glTF maps: D (sRGB), N (OpenGL/Blender t
 import math
 import time
 
+import bmesh
 import bpy
 import numpy as np
 
 from . import hs_materials as HM
 
 
-def unwrap(lps, angle_deg, margin):
+def _sheet_seams(ob, mat_name):
+    """Faces using mat_name (the organic grip) become one angle-based sheet: seams only on the region border and
+    one cut down the front-strap centre line (x ~ 0, front half). Returns True if the object has such faces."""
+    idx = [i for i, m in enumerate(ob.data.materials) if m and m.name.startswith(mat_name)]
+    if not idx:
+        return False
+    bm = bmesh.new()
+    bm.from_mesh(ob.data)
+    region = {f for f in bm.faces if f.material_index in idx}
+    ys = [v.co.y for f in region for v in f.verts]
+    ymid = (min(ys) + max(ys)) / 2
+    for f in bm.faces:
+        f.select = f in region
+    for e in bm.edges:
+        lf = [f in region for f in e.link_faces]
+        if any(lf):
+            border = not all(lf)
+            front_cut = all(abs(v.co.x) < 2e-4 for v in e.verts) and all(v.co.y < ymid for v in e.verts)
+            e.seam = border or front_cut
+            if not border:
+                e.smooth = True          # organic sheet: smooth shading inside (no hard edge without a UV split)
+    print(f"[WEAPON] uv sheet {ob.name}: {len(region)} grip faces, {sum(e.seam for e in bm.edges)} seams", flush=True)
+    bm.to_mesh(ob.data)
+    bm.free()
+    return True
+
+
+def unwrap(lps, angle_deg, margin, sheet_material=None):
     bpy.ops.object.select_all(action="DESELECT")
     for ob in lps:
         ob.select_set(True)
@@ -23,6 +51,23 @@ def unwrap(lps, angle_deg, margin):
     bpy.ops.mesh.select_all(action="SELECT")
     bpy.ops.uv.smart_project(angle_limit=math.radians(angle_deg), island_margin=0.0, area_weight=0.0,
                              correct_aspect=True, scale_to_bounds=False)
+    if sheet_material:
+        for ob in lps:
+            bpy.ops.object.mode_set(mode="OBJECT")
+            if not _sheet_seams(ob, sheet_material):
+                continue
+            bpy.ops.object.select_all(action="DESELECT")
+            ob.select_set(True)
+            bpy.context.view_layer.objects.active = ob
+            bpy.ops.object.mode_set(mode="EDIT")
+            bpy.ops.uv.unwrap(method="ANGLE_BASED", margin=0.0, correct_aspect=True)
+            bpy.ops.object.mode_set(mode="OBJECT")
+        bpy.ops.object.mode_set(mode="OBJECT")
+        for ob in lps:
+            ob.select_set(True)
+        bpy.context.view_layer.objects.active = lps[0]
+        bpy.ops.object.mode_set(mode="EDIT")
+        bpy.ops.mesh.select_all(action="SELECT")
     bpy.ops.uv.select_all(action="SELECT")
     bpy.ops.uv.average_islands_scale()
     bpy.ops.uv.pack_islands(rotate=True, margin=margin)

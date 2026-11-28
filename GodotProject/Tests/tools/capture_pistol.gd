@@ -77,7 +77,7 @@ func _run() -> void:
 	cam.make_current()
 	var g := gun.global_position
 	print("[PISTOL] grip world pos ", g, " muzzle ", (_find(gun, "SOCKET_Muzzle") as Node3D).global_position)
-	await _shot(cam, Vector3(0.55, 1.75, -2.4), Vector3(0.1, 1.35, 2.0), 50.0, out.path_join("pistol_gameplay_ots.png"))
+	await _shot(cam, Vector3(1.05, 1.72, -1.5), Vector3(-0.15, 1.38, 0.9), 50.0, out.path_join("pistol_gameplay_ots.png"))
 	await _shot(cam, g + Vector3(0.55, 0.12, 0.35), g, 35.0, out.path_join("pistol_in_hand_close.png"))
 	await _shot(cam, Vector3(2.0, 1.04, -0.55), Vector3(2.0, 1.0, 0.0), 30.0, out.path_join("pistol_solo_left.png"))
 	await _shot(cam, Vector3(2.35, 1.2, -0.4), Vector3(2.0, 1.0, 0.0), 30.0, out.path_join("pistol_solo_q3.png"))

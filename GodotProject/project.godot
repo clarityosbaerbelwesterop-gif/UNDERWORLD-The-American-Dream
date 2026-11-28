@@ -10,6 +10,11 @@ config/description="Original open-world third-person crime game. Milestone 1: LA
 run/main_scene="res://Scenes/Game_M01.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
+[autoload]
+
+; T-AUD-01 - data-driven audio (res://Data/Content/audio.json, built by Tools/uwp build-audio).
+Audio="*res://Scripts/audio/audio_director.gd"
+
 [display]
 
 window/size/viewport_width=1920

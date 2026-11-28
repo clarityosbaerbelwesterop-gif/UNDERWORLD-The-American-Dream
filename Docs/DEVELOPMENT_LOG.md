@@ -1,5 +1,19 @@
 # Development Log
 
+## 2026-11-26 · Claude Code · T-AUD-01 (audio library + AudioDirector)
+- `Tools/underworld_pipeline/audio/` + `Tools/uwp build-audio`: everything synthesised in numpy/scipy (no samples). 135 events, 323 variations, ~11 MB Ogg Vorbis 48 kHz -> `Assets/Audio/`, runtime table `GodotProject/Data/Content/audio.json` (derived from the registry only, so CI re-renders never touch it). Decoded-peak check per file (Vorbis overshoot on fire crackle was +3.7 dB), DC removal, seamless loops (crossfade + seam check in the test).
+- `Scripts/audio/audio_director.gd` (autoload `Audio`): hooks existing signals via `node_added` (no gameplay script edited): weapon fire + distance tail + casing + timed reload steps, dry fire, FX scene -> sound (loops attached to the effect), ricochet, NPC flyby, body fall, footsteps by stride + surface group, jump/land, vehicle engine 3-layer RPM crossfade + skid + road roll + crash/doors/start/stop + siren API, mission UI + stingers, explore/combat score, ambience bed + random one-shots. Buses created at runtime, music side-chain ducked by Weapons, hard limiter, 40+16 voice pools with stealing.
+- Ogg files are **not committed**: `*.ogg` is LFS-tracked and git-lfs is not installable here (LFS upload hosts unreachable) -> `.gitignore` + CI step renders them before the gate (`UW_AUDIO_REQUIRE_FILES=1`); `bootstrap_cloud.sh` installs scipy + soundfile. Catalogue +1 (`AUD_Library_Core`, 107 entries).
+- Tests:
+  - `tests/test_audio_pipeline.py` (run_tests.sh [10]) PASS.
+  - `GodotProject/Tests/test_audio.gd` PASS in CI (run 45877227725, `RUN_ALL: PASS` + export/boot). The sabotage run (`UW_AUDIO_SABOTAGE=1`, run 45878953010) fails 15 checks, as it must.
+- CI found three bugs, all fixed:
+  - AudioServer playbacks alive at quit → "resources still in use at exit". Headless now never calls `play()`; voices are booked by duration.
+  - The test created a director before the autoload had entered the tree.
+  - Delayed lambdas captured nodes → "Lambda capture was freed". They now capture instance ids.
+- New CI step "Failure digest": on failure, the key log lines become check annotations, because log and artifact hosts are unreachable from the sandbox.
+- Report `Docs/Reports/BERICHT_T-AUD-01.md`.
+
 ## 2026-11-24 · Claude Code · T-NY-01 (New York set, wave 1)
 - `props/buildings.py`: brownstone, tenement, bodega, bank_ny, subway_entrance (+ `_lintels`, `_cornice` with brackets); kit materials brownstone / brick_ny / limestone, emissive lamp_globe_green; `keep_origin` -> `uw_below_grade_m`, validator allows exactly that depth.
 - ny_overcast: soft key (0.55, 12 deg angular size), ambient 3.0, exposure 2.5 (card luma ~125). Catalogue +5 (106 entries). `Tests/tools/capture_ny_street.gd` (runtime NY block, overcast + wet night with practicals). Report `Docs/Reports/BERICHT_T-NY-01.md`.

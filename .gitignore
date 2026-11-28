@@ -38,3 +38,12 @@ Assets/**/*.import
 # installable on the sandbox box, so the PNG is not committed:
 #   $GODOT --headless --path GodotProject --script res://Tests/tools/capture_level_plan.gd
 Docs/Reports/plan_calloway_ave.png
+
+# Procedural audio library (T-AUD-01). Regenerable and deterministic:
+#   Tools/uwp build-audio        (~45 s, numpy + scipy + soundfile; CI renders it before the gate)
+# Not committed because git-lfs is not installable on the sandbox box and *.ogg is LFS-tracked
+# (.gitattributes). The runtime table GodotProject/Data/Content/audio.json IS committed.
+# To commit the binaries from an LFS-capable box: delete these two lines, `Tools/uwp build-audio`,
+# `git add Assets/Audio` (sha256 per file in Assets/Audio/audio.manifest.json).
+Assets/Audio/**/*.ogg
+Assets/Audio/audio.manifest.json

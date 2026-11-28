@@ -5,9 +5,9 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | Status | Anzahl |
 |---|---|
 | PLANNED | 8 |
-| WIP | 98 |
+| WIP | 99 |
 | PRODUCTION-READY | 0 |
-| **gesamt** | **106** |
+| **gesamt** | **107** |
 
 | Meilenstein | gesamt | PLANNED | WIP | PRODUCTION-READY | Generator vorhanden |
 |---|---|---|---|---|---|
@@ -15,7 +15,7 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | P3 | 35 | 1 | 34 | 0 | 34/35 |
 | P4 | 20 | 0 | 20 | 0 | 20/20 |
 | P5 | 31 | 2 | 29 | 0 | 31/31 |
-| P6 | 18 | 4 | 14 | 0 | 14/14 |
+| P6 | 19 | 4 | 15 | 0 | 15/15 |
 
 ## P2
 
@@ -136,6 +136,7 @@ Quelle: `Config/Content/catalog.json` · Werkzeug: `Tools/uwp catalog status`. N
 | A_Humanoid_Melee_Set | animation | PLANNED | mocap | `authored (mocap/keyframe)` | – |
 | A_Humanoid_Sit_Driver | animation | WIP | mocap | `build-shared-anims` | ✓ |
 | A_Humanoid_Sit_Passenger | animation | WIP | mocap | `build-shared-anims` | ✓ |
+| AUD_Library_Core | audio | WIP | blockout+ | `build-audio` | ✓ |
 | FX_Blood_Set | fx | WIP | blockout+ | `build-fx` | ✓ |
 | FX_Explosion | fx | WIP | blockout+ | `build-fx` | ✓ |
 | FX_Fire | fx | WIP | blockout+ | `build-fx` | ✓ |

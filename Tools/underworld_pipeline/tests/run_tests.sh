@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # T-PIPE-01 end-to-end test for Tools/underworld_pipeline (owner Bot 2).
 #   Tools/underworld_pipeline/tests/run_tests.sh [--no-godot]
+# (... 8. catalogue, 9. prop/building/weapon generators, 10. audio library T-AUD-01)
 # 1. builds test assets procedurally (bpy)        5. Blender re-import check (verify_glb.py)
 # 2. runs the exporter (good assets -> exit 0)     6. Godot headless import in a throw-away project
 # 3. runs it on a broken asset (-> exit 1 + codes)    (+ LOD post-import script) and node/anim checks
@@ -395,6 +396,22 @@ grep -q "T_Prop_LA_StreetSign_Labels_D" "$T/out/props/SM_LA_StreetSign/SM_LA_Str
 UWP_CACHE="$T/propcache_empty" "$UWP" build-props --repo "$T/proprepo" --only SM_LA_Hydrant > "$T/logs/props_nocache.log" 2>&1
 rc=$?
 [ $rc -ne 0 ] && grep -q "CC0 texture sets missing" "$T/logs/props_nocache.log" && ok "build-props without texture cache fails loudly" || bad "build-props without cache did not fail (rc $rc)"
+
+echo "== [10] audio library (T-AUD-01; plain Python: numpy + scipy + soundfile, no Blender)"
+rc=$(run_uwp "$T/logs/audio_list.log" build-audio --list)
+expect_rc "uwp build-audio --list" 0 "$rc" "$T/logs/audio_list.log"
+APY=""
+for PYC in "${UWP_PYTHON:-}" python3 "$(head -1 "$(readlink -f "$BLENDER")" 2>/dev/null | sed -n 's/^#!//p' | awk '{print $1}')"; do
+  [ -n "$PYC" ] && "$PYC" -c "import numpy, scipy, soundfile" 2>/dev/null && { APY="$PYC"; break; }
+done
+if [ -z "$APY" ]; then
+  bad "no python with numpy + scipy + soundfile for the audio tests (Tools/sandbox/bootstrap_cloud.sh installs them)"
+else
+  "$APY" "$HERE/test_audio_pipeline.py" --scratch "$T/audio" > "$T/logs/audio_pipeline.log" 2>&1
+  rc=$?
+  grep -E '^\[TEST\]\[FAIL\]' "$T/logs/audio_pipeline.log" || true
+  expect_rc "audio pipeline (registry, bindings, table up to date, Ogg levels, loop seams, determinism)" 0 "$rc" "$T/logs/audio_pipeline.log"
+fi
 
 echo "logs: $T/logs"
 if [ $FAILS -eq 0 ]; then echo "UWP TESTS: PASS"; exit 0; else echo "UWP TESTS: FAIL ($FAILS)"; exit 1; fi

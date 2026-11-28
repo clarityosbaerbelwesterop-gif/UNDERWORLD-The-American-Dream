@@ -87,6 +87,14 @@ jobs:
           sudo mkdir -p /workspace && sudo chown -R "$USER" /workspace
           Tools/sandbox/bootstrap_cloud.sh --templates --prefix "$UWP_PREFIX"
 
+      - name: Audio library (T-AUD-01, Tools/uwp build-audio - deterministic, not in git)
+        # *.ogg is LFS-tracked but the generating sandbox has no git-lfs, so the library is rendered
+        # here (~1 min) before the gate; test_audio.gd then requires every file (UW_AUDIO_REQUIRE_FILES).
+        run: |
+          set -o pipefail
+          Tools/uwp build-audio | tail -1   # python: the toolchain venv (bootstrap_cloud.sh adds scipy + soundfile)
+          echo "UW_AUDIO_REQUIRE_FILES=1" >> "$GITHUB_ENV"
+
       - name: Sabotage switch (manual negative control only)
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.sabotage != '' }}
         env:
@@ -105,6 +113,21 @@ jobs:
           set -o pipefail
           ./Tests/run_all.sh 2>&1 | tee run_all.log
           grep -q "RUN_ALL: PASS" run_all.log
+
+      - name: Failure digest (check annotations - readable via the API when log/artifact hosts are blocked)
+        if: ${{ failure() }}
+        run: |
+          {
+            grep -hE '^\[TEST\]\[FAIL\]|^\[GPTEST\]\[FAIL\]|RESULT: FAIL|^(ERROR|SCRIPT ERROR|USER ERROR):|^   at: |FAILED|exited' \
+              Tests/logs/*.log 2>/dev/null | grep -v 'compiled without fontconfig' | head -60
+            echo "--- run_all.log (tail)"
+            tail -40 run_all.log 2>/dev/null
+          } | cut -c1-300 > failure_digest.txt
+          split -l 25 failure_digest.txt digest_part_
+          for f in digest_part_*; do
+            msg="$(sed -e 's/%/%25/g' "$f" | awk 'BEGIN{ORS="%0A"} {print}')"
+            echo "::error title=gate digest ${f#digest_part_}::${msg}"
+          done
 
       - name: Linux export + boot check
         run: Tools/build/build_linux.sh

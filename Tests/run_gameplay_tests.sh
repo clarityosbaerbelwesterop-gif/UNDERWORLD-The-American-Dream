@@ -33,8 +33,12 @@ for t in "${tests[@]}"; do
   name="$(basename "$t" .gd)"
   log="$LOGS/gameplay_${name}.log"
   echo "== $name"
-  timeout 600 "$GODOT" --headless --fixed-fps 60 --path "$REPO/GodotProject" --script "res://Tests/$name.gd" 2>&1 | strip > "$log"
+  # T-SAVE-01: every test gets its own empty save dir, so a checkpoint written by one test (or by
+  # a real play session in user://) can never change how GameBoot starts in another.
+  save_dir="$(mktemp -d)"
+  UW_SAVE_DIR="$save_dir" timeout 600 "$GODOT" --headless --fixed-fps 60 --path "$REPO/GodotProject" --script "res://Tests/$name.gd" 2>&1 | strip > "$log"
   rc=${PIPESTATUS[0]}
+  rm -rf "$save_dir"
   grep -E '^\[GPTEST\]' "$log" | grep -vE '^\[GPTEST\]\[PASS\]' || true
   echo "   $(grep -c '^\[GPTEST\]\[PASS\]' "$log") checks passed"
   [ $rc -eq 0 ] || fail "$name exited $rc (log: $log)"

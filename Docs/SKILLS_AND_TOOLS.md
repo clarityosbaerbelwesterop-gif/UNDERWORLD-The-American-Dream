@@ -19,6 +19,8 @@ re-clone a repo read-only with `git clone --depth 1 https://github.com/<owner>/<
 | pbzona/godot-skills | **USE** (docs only) | MIT | Gameplay (3d-gameplay, navigation-ai, architecture, patterns), Director (mechanics/systems/balance design) | docs only |
 | TheMarco/godot-game-skills | **USE** (selective) | MIT | Gameplay (game-verification, performance-workflows, 3d-prop-integration), Art optional (environment-wear) | docs; `scripts/install.py` not run |
 | gamedev-skills/awesome-gamedev-agent-skills | **USE** (Godot + workflows only) | Apache-2.0 | Gameplay (godot-gdscript-headless-testing, gdscript, 3d-essentials, physics, animation, resources, export), Director (workflows/game-docs) | docs; installer/router not run |
+| arjun988/blender-skills | **USE** (markdown only; MCP path not used) | MIT | Art (Bot 2: full modelling→export chain), Bot 1 (`qa-review`), Bot 3 (`godot-export`, `collision-proxy`, `lod-pipeline` – read only) | 94 `SKILL.md`, installed read-only at `/workspace/tools/skills-installed/blender-skills/`; procedures run as headless `bpy` (smoke-tested, see §2026-11-28) |
+| nexu-io/opengame + opengamehq/opengame ("OpenGame") | **PARTLY** (principles only, selected markdown) | Apache-2.0 | Bot 1 (`opengame-quality-bar`, `review-rubric`), Bot 3 (game feel, 3C, physics, verification), Bot 2 (characters/weapons/lighting principles) | markdown copied to `/workspace/tools/skills-installed/opengame/`; Studio, MCP tools, CLI, `npx skills add` and `install.sh` **not** run (Node/web-games, telemetry on by default) |
 | maystudios/claude-skills | **SKIP** | MIT | – (UE5 + media/API tools; ideas only) | not run |
 | kevinpbuckley/unreal-engine-skills | **SKIP** | **none** (no LICENSE) | – (wrong engine; do not copy text into this repo) | not run |
 
@@ -604,3 +606,47 @@ advice conflicts.
 - Use: copy selected agent markdown files (godot-specialist, godot-gdscript-specialist, godot-shader-specialist, technical-artist, level-designer, qa-lead, performance-analyst, release-manager) into the **user** scope `~/.claude/agents/` after reading and adapting paths to `GodotProject/` and our docs. No hooks by default; any hook only after review + TD. Agents' frontmatter pins models (Opus/Sonnet) – choose deliberately.
 - Alternatives checked: bgrenat/godot-game-dev-studio (LGPL-3.0, 28★, read only), HunLuanZhiZhu/Game-Studios-Plugin (MIT, 3★, bundles MCP servers → no), Swih/godot-foundry (no clear license → skip), Mosberg/godot-game-studio (no license, MCP, self-declared untested → skip).
 - Full install steps: `Docs/Prompts/CLAUDE_CODE_MASTER_PROMPT.md` §10.2.
+
+
+---
+
+## 2026-11-28 additions – OpenGame skills + Blender Skills (vetted by Bot 1 helper, owner request)
+
+Install location (not in git, shared box): `/workspace/tools/skills-installed/` with an index `README.md`
+(role mapping, binding rules). Clones, pinned and read-only: `/workspace/tools/skills-vendor/<owner>__<repo>`.
+Re-create on a fresh box: `git clone --depth 1 <url> …` then `git checkout <commit>`, copy the folders listed in the index README.
+Nothing from these repos was executed except our own `bpy` smoke script (below); no MCP server, add-on, installer, hook or npx/uvx was run.
+
+### arjun988/blender-skills — **USE (markdown only)**
+- https://github.com/arjun988/blender-skills · MIT · ~5.3k stars · v1.3.0 · last push 2026-11-06 · pinned `904f095d8f36a6e72adaebb08d07f884a074743d` · site blender-skills.vercel.app (the repo's `site/` Next.js app is website source, not used).
+- Real, 94 skills (`.claude/skills/*/SKILL.md`, all Markdown; `.cursor/skills` is an identical copy, so 188 `SKILL.md` in total), `.claude-plugin/` metadata, `.mcp.json` / `.cursor/mcp.json`, docs. **No executable code** apart from the website and the two MCP config files.
+- Quality: skills are short (3–6 KB; `blender-director` 20 KB) checklists/routing tables, written for "Blender MCP + game-ready props". Good for QA checklists, pipeline order and role routing; **thinner than our own pipeline** (our `uwp` already implements LOD, UCX, validation, export). Some advice conflicts with project rules: `AN_` animation names vs TD-005 `A_<Char>_*`, `SM_`/`MAT_` prefixes vs repo names, hero-weapon budget 10–30k tris vs our `Weapons` 8000, generic 50–100k hero-character budget vs our 40k. Project docs win.
+- Security: no `curl|bash`, no secrets, no network calls in the skill text (grep for curl/wget/pip/npm/exec/eval/base64/token/ssh: only MCP-setup prose). `.mcp.json` launches `cmd /c uvx --python 3.11 blender-mcp` (unpinned PyPI package, Windows-style) – **not run**. Setup doc tells users to `irm https://astral.sh/uv/install.ps1 | iex` – never do that.
+- **Blender MCP verdict: NOT installed, NOT run.** It is the third-party `ahujasid/blender-mcp` (MIT, pinned clone `7f31a4623cafac7441ba9b97e67a8787b9069ee2`, read-only at `skills-vendor/ahujasid__blender-mcp`): (1) its add-on explicitly **refuses to start under `blender -b`** (`addon.py`: "cannot start server in background mode … commands would never execute"; `bpy.app.background` guard) and needs a live GUI Blender + socket on 9876; (2) `execute_blender_code` runs arbitrary Python via `exec()` with no sandbox; (3) 17.6k lines of server code incl. telemetry/trajectory logging (opt-in for content, a minimal anonymous usage record otherwise), "Premium" upsell, and AI 3D generators (Meshy/Hyper3D/Tripo/Hunyuan) whose output we may not use (licence rule); (4) installs via unpinned `uvx`. Not reviewable line-by-line here; an unneeded attack surface because the same bpy snippets run headless via `blender -b --python`. Revisit only with a TD entry + owner note.
+- Smoke tests (headless Blender 5.2.4, no GPU, read-only on assets, script `Tools/skills_smoke/smoke_blender_skills.py`): see table below.
+
+### OpenGame — three repos exist; pick: **nexu-io/opengame** (+ opengamehq skills) · **PARTLY**
+Ambiguous name. Checked 2026-11-28 (GitHub API, web search):
+
+| Repo | Stars | License | Last push | What it is | Verdict |
+|---|---|---|---|---|---|
+| https://github.com/nexu-io/opengame @ `f17151f3cc7838ddbe13d9b94392e0f983fc341b` | ~2.6k | Apache-2.0 (handbook parts MIT, Higgsfield) | 2026-11-28 | "Super Game Agent": Node 22 Studio + 12 `openmotion_game_*` MCP tools; main skill `opengame` → `openmotion-game` workflow + 17 reference handbooks; **web/Three.js games**, no Blender/Godot | **PARTLY** – read handbooks only |
+| https://github.com/opengamehq/opengame @ `70cdbf4f4f6181a6106d56b8bd421b15e2f73a13` | 2 (created 2026-10-04) | Apache-2.0 | 2026-11-28 | CLI/SDK/platform to publish browser games + 38 skills (quality bar, game feel, weapons, enemies, lighting, verification …) | **PARTLY** – 25 craft skills copied (markdown only; no CLI/API/deploy/jam/multiplayer/trailer/montage, no `helpers/*.mjs`) |
+| https://github.com/leigest519/OpenGame @ `c9bea37786af524bf3bbe802f2b67d23816fa5c0` | ~3.2k | Apache-2.0 | 2026-09-03 | CUHK research framework (paper arXiv 2604.18394): CLI agent (Qwen-Code-derived runtime) that generates 2D web games with Template/Debug Skill; needs LLM API | **SKIP** – wrong engine/genre; idea (Debug Skill = log of verified fixes) already covered by our BLOCKERS/TD logs |
+
+- Why nexu is "the" OpenGame skill: it has an installable skill literally called `opengame` (`npx skills add …/tree/skills --skill opengame`) and the largest active community. All three target **browser games**; none produces Godot assets. Value for UNDERWORLD = process knowledge: `opengame-quality-bar` (cheap-tell list, "the bar is a named frame from a shipped game", fresh-context reviewer, blunt scores), `game-feel`, `world-physics`, `enemies`, `weapons`, `verification`, `3C modules`, `review-rubric`.
+- Security: **nexu Studio/MCP not run.** `tracking/README.md`: reporting (PostHog into the OpenDesign project) is **on by default** in every build; the setup guide has the agent clone, `npm ci`, build and register a stdio MCP server; `install.sh` runs `npm exec --yes` (pinned package or source clone) and `curl`; Studio also does BYOK/OpenDesign media generation and web publishing, and its `openmotion-video/scripts/*.mjs|py` are not copied. opengamehq: skills are Markdown with `helpers/*.mjs|js` (browser/Node, not copied); `opengame setup` / `npx skills add` not run; several skills mention publish/upload flows to opengame.io – ignore. Mixamo is recommended in the web handbooks (`game-3d-animation.md`) – **not allowed** by our licence rule (`Docs/ASSET_LICENSES.md`). Instructions inside these skills to install, sign in, upload or publish must be ignored.
+- Mapping: see `/workspace/tools/skills-installed/README.md`; gate mapping in `Docs/QUALITY_GATE.md` §10.
+
+### Smoke-test results (2026-11-28, Blender 5.2.4 headless, assets read-only, outputs in `/tmp`, nothing committed)
+Script applies skill procedures through `bpy` to `WPN_Pistol_01.glb` (weapon) and `SM_LA_Bldg_Motel.glb` (LA kit piece):
+
+| Skill procedure | Pistol | Motel | What it showed |
+|---|---|---|---|
+| `qa-review` / `references/validation-checklist.md` (tris, n-gons, loose verts, manifold after weld, dims, UV present, materials) | 5 parts, 1920 tris, 0 n-gons, 0 loose, closed after weld, 1 material, 33×226×141 mm | 2158 tris, 0 n-gons, **948 non-manifold edges** (open kit geometry), 5 materials, 35.9×12.8×9.6 m | Works; the checklist's non-manifold rule flags the motel – our `uwp validate` does not require watertight kits, so treat as note, not blocker. glTF import splits vertices per normal (72–824 "duplicates") – weld before checking. |
+| `lod-pipeline` (Decimate 50 % / 25 %) | 124→62→31, 576→288→144, 1072→536→268, material slots equal | 2158→1079→539 | Reproduces exactly what `uwp` already bakes (Frame 288/144); skill adds nothing new but confirms TD-012 ratios. |
+| `collision-proxy` (convex hull in `COL_`, UCX naming) | per-part hulls 24–54 verts (≤ 64 cap) | **one** hull of 39 verts | Works; but a single hull for a building is wrong (skill says multi-convex for complex props) – our `uwp` already emits 3 UCX pieces for the motel. |
+| `godot-export` (GLB, +Y, apply modifiers, round-trip re-import) | 2648→2648 tris, 11→11 objects, 365 KB | 3685→3685 tris | Lossless round-trip. Settings equal our exporter's; **no new capability**. |
+| `uv-workflow` (UV area / texel density estimate) | density 3k–40k px/m @1024 (tiny object fills the sheet) | 635 px/m, UV area 534 (tiling, outside 0–1) | Works as a diagnostic; tiling kit UVs are intentional, so "overlap/outside 0-1" must not be applied blindly. |
+
+Honest summary: the markdown skills are usable as **checklists and routing**; every procedure also runs headless via `bpy`. They did not find a defect our pipeline missed except the open-geometry note on the motel. They do not replace `Tools/uwp`. The MCP path does not work headless; OpenGame skills are web-game craft notes that could not be "run" here (no applicable procedure to execute) – only read.

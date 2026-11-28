@@ -10,6 +10,8 @@
 # Fail states (M01): player death, package destroyed / left > 60 m behind, mission car destroyed.
 # On fail the manager restores the last checkpoint: player transform + health, car transform +
 # health, package state, and rewinds to the checkpoint objective.
+# T-SAVE-01 (TD-035): with `save_slot` set every checkpoint is also written to disk (SaveGame) and
+# resume_from_save() continues from it after the game was quit; a passed mission deletes it.
 #
 # Contract: Docs/Missions/M01_DeadDrop.md. Areas are Area3D nodes named exactly as in the design.
 # Tests: GodotProject/Tests/test_mission.gd. Headless stepping: debug_complete_current().
@@ -22,6 +24,8 @@ signal objective_completed(index: int, objective: ObjectiveData)
 signal mission_completed(mission: MissionData, cash: int)
 signal mission_failed(reason: String)
 signal checkpoint_saved(index: int)
+## T-SAVE-01: the checkpoint was written to disk (SaveGame slot `save_slot`).
+signal checkpoint_persisted(index: int, path: String)
 signal subtitle(speaker: String, text: String)
 signal objective_text_changed(text: String)
 
@@ -37,6 +41,9 @@ const VEHICLE_GROUP := &"vehicles"
 @export var package_stray_distance := 60.0
 ## Seconds the player may stay dead before the fail screen counts as a restart (0 = instant).
 @export var fail_delay := 1.2
+## T-SAVE-01: SaveGame slot the checkpoints are written to ("" = keep them in memory only).
+## GameBoot sets "autosave"; tests that load the level directly leave it empty.
+@export var save_slot := ""
 
 var state: State = State.IDLE
 var current_index := -1
@@ -74,6 +81,10 @@ var _subtitle_left := 0.0
 var _fail_timer := 0.0
 var _saved := {}
 var _rng := RandomNumberGenerator.new()
+## UW_SAVE_SABOTAGE (debug builds only, TD-020): 1 = checkpoints are never written to disk,
+## 2 = restoring a checkpoint ignores the saved package state (the pre-T-SAVE-01 behaviour:
+## the crate goes back to the bench although the checkpoint was taken with it in Jason's hands).
+var save_sabotage := 0
 
 func _ready() -> void:
 	add_to_group(&"mission_manager")
@@ -91,6 +102,7 @@ func start() -> bool:
 		return false
 	# Test-only negative controls: never active in a release export (OS.is_debug_build() == false).
 	sabotage = int(OS.get_environment("UW_MISSION_SABOTAGE")) if OS.is_debug_build() and OS.get_environment("UW_MISSION_SABOTAGE") != "" else 0
+	save_sabotage = SaveGame.sabotage()
 	_resolve_cast()
 	ally = _resolve_ally()
 	_prepare_waves()
@@ -162,6 +174,96 @@ func restart_from_checkpoint() -> void:
 	_auto_left = 0.0
 	_advance()
 
+# --- save / load (T-SAVE-01) ----------------------------------------------------
+
+## The current checkpoint as a JSON-compatible Dictionary (what SaveGame writes).
+func export_checkpoint() -> Dictionary:
+	var d := {
+		"mission_id": mission.id if mission != null else "",
+		"checkpoint_index": checkpoint_index,
+		"elapsed": elapsed,
+		"saved_unix": int(Time.get_unix_time_from_system()),
+	}
+	if _saved.has("player_pos"):
+		d["player"] = {"pos": SaveGame.vec3_to_json(_saved["player_pos"]),
+			"health": float(_saved.get("player_health", 0.0))}
+	if _saved.has("car_pos"):
+		d["car"] = {"pos": SaveGame.vec3_to_json(_saved["car_pos"]),
+			"basis": SaveGame.basis_to_json(_saved["car_basis"]),
+			"health": float(_saved.get("car_health", 0.0))}
+	if _saved.has("pkg_state"):
+		d["package"] = {"state": CarriedItem.State.keys()[int(_saved["pkg_state"])],
+			"pos": SaveGame.vec3_to_json(_saved.get("pkg_pos", Vector3.ZERO))}
+	d["dead_enemies"] = Array(_saved.get("dead_enemies", PackedStringArray()))
+	return d
+
+## Why `data` cannot be resumed ("" = it can). Checked before anything in the level is touched.
+func validate_save(data: Dictionary) -> String:
+	if mission == null or mission.objectives.is_empty():
+		return "no MissionData"
+	if String(data.get("mission_id", "")) != mission.id:
+		return "save is for mission '%s', not '%s'" % [str(data.get("mission_id", "")), mission.id]
+	var idx := int(data.get("checkpoint_index", -2))
+	if idx < -1 or idx >= mission.objectives.size():
+		return "checkpoint index %d out of range" % idx
+	if idx >= 0 and not mission.objectives[idx].checkpoint:
+		return "objective %d is not a checkpoint" % idx
+	if not data.has("player"):
+		return "no player state"
+	var pkg = data.get("package", {})
+	if typeof(pkg) == TYPE_DICTIONARY and pkg.has("state") and not CarriedItem.State.keys().has(pkg["state"]):
+		return "unknown package state '%s'" % str(pkg["state"])
+	return ""
+
+## Continue the mission from a checkpoint loaded from disk (after quitting the game). Same end
+## state as restart_from_checkpoint() after a fail: objective after the checkpoint, player and
+## car where they were, package where it was, gunmen killed before the checkpoint stay dead.
+func resume_from_save(data: Dictionary) -> bool:
+	var why := validate_save(data)
+	if why != "":
+		push_warning("MissionManager: save rejected (%s) - starting a new mission" % why)
+		return false
+	sabotage = int(OS.get_environment("UW_MISSION_SABOTAGE")) if OS.is_debug_build() and OS.get_environment("UW_MISSION_SABOTAGE") != "" else 0
+	save_sabotage = SaveGame.sabotage()
+	_resolve_cast()
+	ally = _resolve_ally()
+	_prepare_waves()
+	_snapshot_initial()   # fills any state the file does not carry with the level defaults
+	_import_checkpoint(data)
+	elapsed = float(data.get("elapsed", 0.0))
+	current_index = -1
+	checkpoint_index = int(data["checkpoint_index"])
+	seat_ally()
+	mission_started.emit(mission)
+	restart_from_checkpoint()
+	return true
+
+func _import_checkpoint(data: Dictionary) -> void:
+	var p: Dictionary = data.get("player", {})
+	_saved["player_pos"] = SaveGame.vec3_from_json(p.get("pos"), _saved.get("player_pos", Vector3.ZERO))
+	_saved["player_health"] = float(p.get("health", _saved.get("player_health", 0.0)))
+	var c = data.get("car", null)
+	if typeof(c) == TYPE_DICTIONARY:
+		_saved["car_pos"] = SaveGame.vec3_from_json(c.get("pos"), _saved.get("car_pos", Vector3.ZERO))
+		_saved["car_basis"] = SaveGame.basis_from_json(c.get("basis"), _saved.get("car_basis", Basis.IDENTITY))
+		_saved["car_health"] = float(c.get("health", _saved.get("car_health", 0.0)))
+	var k = data.get("package", null)
+	if typeof(k) == TYPE_DICTIONARY and k.has("state"):
+		_saved["pkg_state"] = CarriedItem.State.keys().find(String(k["state"]))
+		_saved["pkg_pos"] = SaveGame.vec3_from_json(k.get("pos"), _saved.get("pkg_pos", Vector3.ZERO))
+		_saved["pkg_vehicle"] = mission_car if _saved["pkg_state"] == CarriedItem.State.LOADED else null
+		_saved["pkg_parent"] = player if _saved["pkg_state"] == CarriedItem.State.CARRIED else null
+	_saved["dead_enemies"] = PackedStringArray(data.get("dead_enemies", []))
+
+func _persist_checkpoint() -> void:
+	if save_slot == "" or save_sabotage == 1:
+		return
+	var err := SaveGame.write(save_slot, export_checkpoint())
+	if err != OK:
+		push_warning("MissionManager: could not write checkpoint to %s (%s)" % [SaveGame.path(save_slot), error_string(err)])
+		return
+	checkpoint_persisted.emit(checkpoint_index, SaveGame.path(save_slot))
+
 # --- per-frame ----------------------------------------------------------------
 
 func _physics_process(delta: float) -> void:
@@ -227,6 +329,7 @@ func _complete_current(_announce := true) -> void:
 		checkpoint_index = current_index
 		_save_checkpoint()
 		checkpoint_saved.emit(current_index)
+		_persist_checkpoint()
 	_advance()
 
 func _finish_current(_announce := true) -> void:
@@ -234,6 +337,9 @@ func _finish_current(_announce := true) -> void:
 
 func _finish_mission() -> void:
 	state = State.COMPLETED
+	# A passed mission has nothing to continue: the next boot starts it fresh (T-SAVE-01).
+	if save_slot != "":
+		SaveGame.delete(save_slot)
 	if mission != null:
 		mission_completed.emit(mission, mission.reward_cash)
 
@@ -550,6 +656,14 @@ func _snapshot_initial() -> void:
 		_saved["pkg_pos"] = package.global_position
 		_saved["pkg_parent"] = package.carrier
 		_saved["pkg_vehicle"] = package.vehicle
+	# T-SAVE-01: gunmen already dead at the checkpoint stay dead on a restart (the M01 checkpoint
+	# after the pickup is taken with the garage cleared). Paths are relative to the level.
+	var dead := PackedStringArray()
+	for n in get_tree().get_nodes_in_group(&"mission_enemy"):
+		var e := n as MissionEnemy
+		if e != null and is_instance_valid(e) and e.is_dead() and level != null and level.is_ancestor_of(e):
+			dead.append(String(level.get_path_to(e)))
+	_saved["dead_enemies"] = dead
 
 func _save_checkpoint() -> void:
 	_snapshot_initial()
@@ -574,8 +688,7 @@ func _restore_checkpoint() -> void:
 			mission_car.linear_velocity = Vector3.ZERO
 			mission_car.angular_velocity = Vector3.ZERO
 		mission_car.health = _saved.get("car_health", mission_car.health)
-	if package != null:
-		package.reset_item()
+	_restore_package()
 	_revive_enemies()
 	# Waves go back to their pre-ambush state; Marco back into the car.
 	_prepare_waves()
@@ -584,13 +697,58 @@ func _restore_checkpoint() -> void:
 	package = _find_package()
 	_wire_package()
 
+## T-SAVE-01 / B-M01-09: put the package back into the state the checkpoint saw. Before this the crate
+## always went back onto the bench with its Interactable already used - after dying with the
+## package in his hands Jason could neither pick it up again nor deliver it (soft lock, B-M01-09).
+func _restore_package() -> void:
+	if package == null:
+		package = _find_package()
+	if package == null:
+		return
+	package.reset_item()
+	var interact := package.get_node_or_null("Interact") as Interactable
+	var st := int(_saved.get("pkg_state", CarriedItem.State.ON_GROUND))
+	if save_sabotage == 2:
+		return    # negative control: the old "always back on the bench" restore
+	match st:
+		CarriedItem.State.CARRIED:
+			if player != null:
+				package.pick_up(player)
+			if interact != null:
+				interact.used = true
+		CarriedItem.State.LOADED:
+			if mission_car != null:
+				package.load_into(mission_car)
+			if interact != null:
+				interact.used = true
+		_:
+			if interact != null:
+				interact.reset()
+
 func _revive_enemies() -> void:
+	var dead: PackedStringArray = _saved.get("dead_enemies", PackedStringArray())
+	var seen := {}
 	for idx in spawn_groups.keys():
 		for n in spawn_groups[idx]:
-			_reset_enemy(n)
+			_restore_enemy(n, dead, seen)
 	for key in wave_groups.keys():
 		for n in wave_groups[key]:
-			_reset_enemy(n)
+			_restore_enemy(n, dead, seen)
+
+func _restore_enemy(n: Node, dead: PackedStringArray, seen: Dictionary) -> void:
+	if not is_instance_valid(n) or seen.has(n):
+		return
+	seen[n] = true
+	if level != null and level.is_ancestor_of(n) and dead.has(String(level.get_path_to(n))):
+		var e := n as MissionEnemy
+		if e != null and not e.is_dead() and e.health != null:
+			# Loaded from disk into a fresh level: this gunman died before the checkpoint.
+			e.deactivate()
+			var info := DamageInfo.new()
+			info.amount = 1.0e6
+			e.health.apply_damage(info)
+		return
+	_reset_enemy(n)
 
 func _reset_enemy(n: Node) -> void:
 	if not is_instance_valid(n):

@@ -1,5 +1,14 @@
 # Development Log
 
+## 2026-11-28 · Bot 3 · T-SAVE-01 (checkpoint save/load) – READY FOR REVIEW
+- `SaveGame` (`Scripts/game/save_game.gd`): JSON slot in `user://saves/`, UW_SAVE v1 + SHA-256 checksum, atomic write; rejects missing/corrupt/foreign files. TD-035 PROPOSED.
+- `MissionManager`: `save_slot`, writes every checkpoint, deletes on pass, `resume_from_save()`; checkpoints carry the package state + dead gunmen (restart keeps both). Fixes soft lock B-M01-09 (death after pickup -> crate back on the bench, unusable).
+- `GameBoot`: slot `autosave`, continue on boot, `--new-game` discards. `run_gameplay_tests.sh`: per-test `UW_SAVE_DIR`.
+- `Tests/test_save.gd` 59 checks incl. a second Godot process; `UW_SAVE_SABOTAGE=1/2/3` -> 25/9/2 FAIL.
+
+## 2026-11-28 · Bot 3 · T-SAVE-01 (claimed)
+- Claimed T-SAVE-01 (master prompt §8 #13, P1): checkpoint save/load. Highest open gameplay/systems item with no claude/* or arena/* branch or PR (#42 = vehicles, #43 = audio). Work on `bot3/dev`.
+
 ## 2026-11-26 · Claude Code · T-AUD-01 (audio library + AudioDirector)
 - `Tools/underworld_pipeline/audio/` + `Tools/uwp build-audio`: everything synthesised in numpy/scipy (no samples). 135 events, 323 variations, ~11 MB Ogg Vorbis 48 kHz -> `Assets/Audio/`, runtime table `GodotProject/Data/Content/audio.json` (derived from the registry only, so CI re-renders never touch it). Decoded-peak check per file (Vorbis overshoot on fire crackle was +3.7 dB), DC removal, seamless loops (crossfade + seam check in the test).
 - `Scripts/audio/audio_director.gd` (autoload `Audio`): hooks existing signals via `node_added` (no gameplay script edited): weapon fire + distance tail + casing + timed reload steps, dry fire, FX scene -> sound (loops attached to the effect), ricochet, NPC flyby, body fall, footsteps by stride + surface group, jump/land, vehicle engine 3-layer RPM crossfade + skid + road roll + crash/doors/start/stop + siren API, mission UI + stingers, explore/combat score, ambience bed + random one-shots. Buses created at runtime, music side-chain ducked by Weapons, hard limiter, 40+16 voice pools with stealing.

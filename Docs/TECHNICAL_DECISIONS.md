@@ -289,3 +289,10 @@ view drawn from the scene's real AABBs.
 - **Streets** use the kit's PBR maps (asphalt 2.5× finer tiling) instead of flat override colours. Kit scans can be calibrated to a target mean (`_ph_mat(mean_srgb=...)`). `LevelAudit` compares effective albedo (colour × texture mean).
 - **Golden hour** for M01: sun at 18°, ambient 3.2 (the 12° sun put the whole street canyon in deep shade). The TD-024 card targets still hold.
 - **Addendum T-NY-01 (TD-027):** assets that reach below grade (stairwells) keep their origin at grade; the prop kit writes `uw_below_grade_m` and the validator accepts exactly that depth. Without it `ORIGIN_GROUND` stays an error.
+
+## TD-035 – Checkpoint saves: one JSON slot, checksummed, written by the mission (Bot 3, 2026-11-28, T-SAVE-01) – PROPOSED
+- **What is saved:** the checkpoint snapshot MissionManager already keeps for fail restarts (mission id, checkpoint index, player position, car transform + health, package state + position, paths of the gunmen dead at the checkpoint, elapsed time). No scene serialisation: the level is rebuilt from its .tscn and the snapshot is applied on top, through the same code path as a fail restart.
+- **Where / when:** `user://saves/<slot>.json`; `GameBoot` uses slot `autosave`. Written at every checkpoint objective, deleted on MISSION PASSED. Tests load the level without a slot (memory only) or use `UW_SAVE_DIR` (debug builds only, TD-020).
+- **Format:** `{"format":"UW_SAVE","version":1,"checksum":sha256(payload),"payload":"<json>"}`. The payload stays a string so the checksum covers exactly the written bytes. Wrong format/version, broken JSON or a checksum mismatch -> the save is ignored and M01 starts fresh (never a half-loaded state). `resume_from_save()` validates mission id, index (must be a checkpoint objective) and package state before touching the level.
+- **Atomic:** write `<slot>.json.tmp`, then rename over the old file.
+- **Later (M7):** slots + menu replace the single autosave; a version bump needs a migration step in `SaveGame.read()`.

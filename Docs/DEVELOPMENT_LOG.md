@@ -1,5 +1,11 @@
 # Development Log
 
+## 2026-11-28 · Bot 3 · T-SAVE-01 (checkpoint save/load) – READY FOR REVIEW
+- `SaveGame` (`Scripts/game/save_game.gd`): JSON slot in `user://saves/`, UW_SAVE v1 + SHA-256 checksum, atomic write; rejects missing/corrupt/foreign files. TD-035 PROPOSED.
+- `MissionManager`: `save_slot`, writes every checkpoint, deletes on pass, `resume_from_save()`; checkpoints carry the package state + dead gunmen (restart keeps both). Fixes soft lock B-M01-09 (death after pickup -> crate back on the bench, unusable).
+- `GameBoot`: slot `autosave`, continue on boot, `--new-game` discards. `run_gameplay_tests.sh`: per-test `UW_SAVE_DIR`.
+- `Tests/test_save.gd` 59 checks incl. a second Godot process; `UW_SAVE_SABOTAGE=1/2/3` -> 25/9/2 FAIL.
+
 ## 2026-11-28 · Bot 3 · T-SAVE-01 (claimed)
 - Claimed T-SAVE-01 (master prompt §8 #13, P1): checkpoint save/load. Highest open gameplay/systems item with no claude/* or arena/* branch or PR (#42 = vehicles, #43 = audio). Work on `bot3/dev`.
 

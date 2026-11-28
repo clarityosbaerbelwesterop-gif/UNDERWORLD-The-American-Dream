@@ -26,7 +26,7 @@ Highest priority first inside each section. Priority: P0 = blocks others, P1 = s
 | T-PIPE-04 | P0 | Lead TD → Bot 1 (recovered) | Whole-game asset pipeline v0: NPC/weapon/vehicle/env generators, shared anim library, LA look-dev presets, M01 block greybox | T-PIPE-03 | COMPLETED |
 | T-ART-03 | P1 | Bot 2 / Lead TD | LA street environment kit | T-PIPE-01, T-DES-02 | IN PROGRESS |
 | T-ART-04 | P1 | Bot 2 / Lead TD | Drivable car model | T-PIPE-01 | IN PROGRESS |
-| T-ART-05 | P1 | Bot 2 / Lead TD | Pistol model (quality pass WIP = draft PR #11, titled "T-ART-03" by mistake) | T-PIPE-01 | IN PROGRESS |
+| T-ART-05 | P1 | Bot 2 | Pistol model (quality pass = PR #11 on `bot2/dev`, first titled "T-ART-03" by mistake) – **claimed by Bot 2 2026-11-28** | T-PIPE-01 | IN PROGRESS |
 | T-ART-06 | P1 | Bot 2 / Lead TD | 3 NPC models on shared rig | T-ART-01 | IN PROGRESS |
 | T-GP-01 | P0 | Bot 3 | Third-person controller + camera | T-PIPE-00 | COMPLETED |
 | T-GP-01b | P2 | Bot 3 | Vault-lite (low obstacles) | T-GP-01, T-ART-02 | BACKLOG |

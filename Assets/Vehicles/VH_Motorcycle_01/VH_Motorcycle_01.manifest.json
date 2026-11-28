@@ -1,0 +1,234 @@
+{
+  "asset": "VH_Motorcycle_01",
+  "status": "READY FOR REVIEW",
+  "category": "Vehicles",
+  "budget_key": "Vehicles",
+  "source_blend": "Blender/Source/Vehicles/VH_Motorcycle_01/VH_Motorcycle_01.blend",
+  "export_glb": "Assets/Vehicles/VH_Motorcycle_01/VH_Motorcycle_01.glb",
+  "preview_png": "Assets/Vehicles/VH_Motorcycle_01/VH_Motorcycle_01_preview.png",
+  "previews": null,
+  "tool": "underworld_pipeline 1.0.0",
+  "blender_version": "5.2.4 LTS",
+  "units": "metres (1 BU = 1 m = 1 Godot unit)",
+  "up_axis": "Blender +Z -> glTF/Godot +Y",
+  "front": "Blender -Y -> Godot +Z",
+  "aabb_godot": {
+    "min": [
+      -0.3943,
+      0.0,
+      -1.02
+    ],
+    "max": [
+      0.3943,
+      1.1576,
+      1.04
+    ],
+    "size": [
+      0.7886,
+      1.1576,
+      2.06
+    ]
+  },
+  "triangles": {
+    "lod0": 2832,
+    "budget": 60000,
+    "per_lod_total": {
+      "LOD0": 2832,
+      "LOD1": 1416,
+      "LOD2": 562
+    }
+  },
+  "lods": [
+    {
+      "object": "Body",
+      "levels": [
+        {
+          "name": "Body",
+          "level": 0,
+          "triangles": 1360
+        },
+        {
+          "name": "Body_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 680
+        },
+        {
+          "name": "Body_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 272
+        }
+      ]
+    },
+    {
+      "object": "Fork",
+      "levels": [
+        {
+          "name": "Fork",
+          "level": 0,
+          "triangles": 456
+        },
+        {
+          "name": "Fork_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 228
+        },
+        {
+          "name": "Fork_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 90
+        }
+      ]
+    },
+    {
+      "object": "Wheel_F",
+      "levels": [
+        {
+          "name": "Wheel_F",
+          "level": 0,
+          "triangles": 508
+        },
+        {
+          "name": "Wheel_F_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 254
+        },
+        {
+          "name": "Wheel_F_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 100
+        }
+      ]
+    },
+    {
+      "object": "Wheel_R",
+      "levels": [
+        {
+          "name": "Wheel_R",
+          "level": 0,
+          "triangles": 508
+        },
+        {
+          "name": "Wheel_R_LOD1",
+          "level": 1,
+          "ratio": 0.5,
+          "triangles": 254
+        },
+        {
+          "name": "Wheel_R_LOD2",
+          "level": 2,
+          "ratio": 0.2,
+          "triangles": 100
+        }
+      ]
+    }
+  ],
+  "collision": {
+    "mode": "authored",
+    "generated": [],
+    "existing": [
+      "UCX_VH_Motorcycle_01-convcolonly"
+    ]
+  },
+  "materials": [
+    "M_VH_Motorcycle_01_Chrome",
+    "M_VH_Motorcycle_01_Engine",
+    "M_VH_Motorcycle_01_Frame",
+    "M_VH_Motorcycle_01_Headlight",
+    "M_VH_Motorcycle_01_Paint",
+    "M_VH_Motorcycle_01_Rim",
+    "M_VH_Motorcycle_01_Seat",
+    "M_VH_Motorcycle_01_Tire"
+  ],
+  "textures": [],
+  "uv_overlap": {
+    "Wheel_F": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.6548
+    },
+    "Wheel_R": {
+      "overlap_fraction": 0.0,
+      "uv_coverage": 0.6797
+    }
+  },
+  "texel_density": {},
+  "clipping": [],
+  "armatures": {},
+  "blendshapes": [],
+  "animations": [],
+  "sockets": {
+    "SOCKET_Seat_Driver": {
+      "parent": "VH_Motorcycle_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.98,
+        -0.32
+      ]
+    },
+    "SOCKET_Seat_Passenger": {
+      "parent": "VH_Motorcycle_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        1.0,
+        -0.62
+      ]
+    },
+    "SOCKET_Exit_Left": {
+      "parent": "VH_Motorcycle_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.75,
+        0.0,
+        -0.2
+      ]
+    },
+    "SOCKET_Exit_Right": {
+      "parent": "VH_Motorcycle_01",
+      "parent_bone": null,
+      "position_godot": [
+        -0.75,
+        0.0,
+        -0.2
+      ]
+    },
+    "SOCKET_Headlight_L": {
+      "parent": "VH_Motorcycle_01",
+      "parent_bone": null,
+      "position_godot": [
+        0.0,
+        0.92,
+        0.7
+      ]
+    }
+  },
+  "silhouette": null,
+  "nodes": [
+    "Body_LOD1",
+    "Body_LOD2",
+    "Body",
+    "Fork_LOD1",
+    "Fork_LOD2",
+    "Fork",
+    "SOCKET_Exit_Left",
+    "SOCKET_Exit_Right",
+    "SOCKET_Headlight_L",
+    "SOCKET_Seat_Driver",
+    "SOCKET_Seat_Passenger",
+    "UCX_VH_Motorcycle_01-convcolonly",
+    "Wheel_F_LOD1",
+    "Wheel_F_LOD2",
+    "Wheel_F",
+    "Wheel_R_LOD1",
+    "Wheel_R_LOD2",
+    "Wheel_R",
+    "VH_Motorcycle_01"
+  ],
+  "glb_bytes": 349992
+}

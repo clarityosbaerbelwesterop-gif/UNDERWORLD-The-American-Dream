@@ -1,5 +1,12 @@
 # Development Log
 
+## 2026-11-28 · Bot 1 · review + merge of #42 / #43 / #44, T-QA-03
+- Fresh-worktree gates (`git lfs pull`, `UWP_PYTHON=/workspace/tools/audio-venv/bin/python`, `UW_AUDIO_REQUIRE_FILES=1`): main 69d3197 1228 → #43 1269 → #42 (#45) 1273 → #44 (#46) 1332 → audio in LFS (#47) 1332. Sabotage re-run: audio 15 FAIL, save 25/9/2 FAIL.
+- #43 Ogg files committed to LFS (#47); ci.yml left unchanged (push token has no `workflow` scope) - CI still re-renders before the gate (harmless).
+- Re-encoding the audio changes the Ogg bytes (Vorbis serial) although samples are identical: only commit a re-render when sounds change.
+- T-QA-03: `Tests/check_toolchain.sh` preflight (Pillow in Blender's Python, audio Python); root cause of the "flaky" build-props exit 5. Negative control `UW_TOOLCHAIN_SABOTAGE=1`.
+- #11 (pistol WIP, `bot2/dev`) left open: main has no redone pistol.
+
 ## 2026-11-28 · Bot 3 · T-SAVE-01 (checkpoint save/load) – READY FOR REVIEW
 - `SaveGame` (`Scripts/game/save_game.gd`): JSON slot in `user://saves/`, UW_SAVE v1 + SHA-256 checksum, atomic write; rejects missing/corrupt/foreign files. TD-035 PROPOSED.
 - `MissionManager`: `save_slot`, writes every checkpoint, deletes on pass, `resume_from_save()`; checkpoints carry the package state + dead gunmen (restart keeps both). Fixes soft lock B-M01-09 (death after pickup -> crate back on the bench, unusable).

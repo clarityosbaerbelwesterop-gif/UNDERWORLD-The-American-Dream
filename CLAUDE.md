@@ -11,7 +11,7 @@ Owner: Bärbel Westerop (ClarityCompassAI) – report **in German**, honestly, n
 ## Key commands
 ```bash
 git pull && git lfs pull
-./Tests/run_all.sh                         # merge gate: must print RUN_ALL: PASS (fresh worktree), 749 checks at 29ce6e7
+./Tests/run_all.sh                         # merge gate: must print RUN_ALL: PASS (fresh worktree), 1332 checks at 74583a8; starts with Tests/check_toolchain.sh
 Tools/build/build_linux.sh                 # Linux export (templates 4.7.2), boots Scenes/Game_M01.tscn (TD-020)
 Tools/uwp validate|export <file.blend>     # asset pipeline (Blender headless); Tools/uwp --help
 Tools/uwp build-character|build-weapon|build-vehicle <spec.json> ; Tools/uwp build-env ; build-shared-anims
@@ -29,7 +29,7 @@ Binaries: `/workspace/tools/blender/blender`, `/workspace/tools/godot` (override
 - **Do not self-merge.** Open a PR and stop; Bot 1 reviews and merges. Exception only if the work order contains an explicit merge line *and* every gate is green.
 - **Quality gate:** no asset is PRODUCTION-READY/"AAA" without reference board, Cycles renders, independent 0–5 review (≥ 4 in all categories), `uwp` validation and a Godot Phase 8 capture. All current hero assets are REJECT/WIP.
 - TD-004 axes (Blender −Y = Godot +Z, 1 u = 1 m), TD-005 naming (no `_Loop` action names), TD-010 physics layers + input map only via `Scripts/tools/setup_input_map.gd`, budgets `Config/asset_budgets.json`.
-- Third-party assets: CC0 / CC-BY only, logged in `Docs/ASSET_LICENSES.md`. LFS budget ~1 GB (≈73 MB used).
+- Third-party assets: CC0 / CC-BY only, logged in `Docs/ASSET_LICENSES.md`. LFS budget ~1 GB (≈0.49 GB used across all refs, 2026-11-28).
 - Never run third-party installers / MCP servers / plugins without review (`Docs/SKILLS_AND_TOOLS.md`).
 - `Tools/underworld_pipeline/godot/uw_lod_post_import.gd` ≡ `GodotProject/Scripts/import/uw_lod_post_import.gd` (byte-identical).
 - No GPU on the original box: say what is unverified visually.
